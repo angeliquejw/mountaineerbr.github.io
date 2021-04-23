@@ -1,6 +1,5 @@
 # mountaineerbr.github.io
 
-__Please visit my blog__
+__Rock'n'roll__
 
-https://mountaineerbr.github.io/
 
