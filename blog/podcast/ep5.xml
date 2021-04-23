@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+    xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0"
+    xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+>
+  <channel>
+
+    <item>
+      
+      <!-- # MANDATORY INFORMATION TO FILL IN -->
+      <!-- # EPISODE TITLE -->
+      <title>Rodando Um Nó Completo do Bitcoin com Tor</title>
+      
+      <!-- # EPISODE SHORT DESCRIPTION -->
+      <description>Notas gerais e dicas de montagem de um nó de retransmissão
+      completo que também se conecta à rede Tor. Outros assuntos incluem
+      algumas observações sobre navegadores de internet para o desktop
+      e para o celular, como o Firefox, Chrome e Opera.
+      </description>
+      
+      <!-- # [PUBDATE] MUST BE YYY-MM-DD -->
+      <pubDate>2021-03-22</pubDate>
+     <!-- # RFC 5322 FMT: Tue, 14 Mar 2017 12:00:00 GMT -->
+      <!-- # *OBS: [PUBDATE] WILL BE CONVERTED RFC 5322 FORMAT -->
+      
+      <!-- # ADD THE AUDIO FILE PATH -->
+      <enclosure url="https://mountaineerbr.github.io/blog/podcast/ep5.m4a"
+                 type="audio/mpeg"
+		 length="100" />
+      <!-- # MIME TYPES: MP3:audio/mpeg, AAC:audio/aac  -->
+      <!-- # *OBS: [LENGTH] WILL BE UPDATED BY THE PODCAST SYSTEM SCRIPT -->
+
+      <!-- # [LINK] IS USED WHEN AN EPISODE HAS A CORRESPONDING WEBPAGE -->
+      <link>https://mountaineerbr.github.io/blog/30/</link>
+
+      <!-- # EPISODE LANGUAGE (RFC 3066) -->
+      <dc:language>pt</dc:language>
+      <!-- # EPISODE CREATOR -->
+      <dc:creator>mountaineerbr</dc:creator>
+      <!-- # EPISODE CONTRIBUTOR -->
+      <!-- <dc:contributor></dc:contributor> -->
+
+
+      <!-- # EPISODE NUMBER (SEQUENTIAL) -->
+      <itunes:episode>5</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+
+
+      <!-- # AUTOMATICALLY UPDATED BY THE PODCAST SYSTEM SCRIPT -->
+      <!-- # [GLOBAL IDENTIFIER (BY UUIDGEN) -->
+      <guid isPermaLink="false">uuid</guid>
+
+      <!-- # EPISODE DURATION IN SECONDS -->
+      <itunes:duration>100</itunes:duration>
+      
+
+      <!-- # STATIC INFORMATION -->
+      <!-- # MINIMUM SIZE OF 1400 X 1400 PIXELS AND A MAXIMUM SIZE OF 3000 X 3000 PIXELS -->
+      <itunes:image href="https://mountaineerbr.github.io/blog/podcast/ep5.png" />
+
+
+      <!-- # OPTIONAL -->
+      <!-- # CONCISE TITLE SPECIFIC TO APPLE PODCASTS -->
+      <!-- # <itunes:title></itunes:title> -->
+
+    </item>
+
+
+  </channel>
+</rss>
+
+<!-- # https://help.apple.com/itc/podcasts_connect/#/itcb54353390 -->
+<!-- # https://www.dublincore.org/specifications/dublin-core/usageguide/elements/ -->
+<!-- # https://www.feedforall.com/dublin-core.htm -->
+
+
