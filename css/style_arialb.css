@@ -1,0 +1,30 @@
+/* style.css - style for jsn pages */
+
+/* Try to stick to the "standard 16" color names:
+   aqua, black, blue, fuchsia, gray, green, lime, maroon,
+   navy, olive, purple, red, silver, teal, white, and yellow */
+
+
+/* use my arial black copy */
+@font-face
+{
+	font-family: ArialB;
+	font-weight: normal;
+	font-style: normal;
+	src: url(ariblk.ttf);
+}
+
+
+/* set elements and classes to use Arial Black */
+h1, h2, h3, nav, dt,
+.arialbfont, .arialb, .homedesc, .hometitle, .ta
+{
+	font-family: ArialB, "Arial Black", Gadget, sans-serif;
+	/* font-weight: normal; */
+	/* font-style: normal; */
+}
+/* "Archivo Black"; */
+/* font weight: normal bold bolder lighter 100 200 300 400 500 600 700 800 900 initial inherit */
+/* font style: normal italic oblique initial inherit */
+
+

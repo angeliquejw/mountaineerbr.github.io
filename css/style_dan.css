@@ -1,0 +1,209 @@
+/* style.css - style for Dan's pages */
+
+/* Try to stick to the "standard 16" color names:
+   aqua, black, blue, fuchsia, gray, green, lime, maroon,
+   navy, olive, purple, red, silver, teal, white, and yellow */
+
+
+BODY {
+	background-color: white;
+	color: black;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	border-left: 0;
+	border-right: 0;
+	border-top: 0;
+	border-bottom: 0;
+}
+
+H1, H2, H3, H4 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: navy;
+}
+
+H1 {
+	text-align: center;
+}
+
+H1.pagebar {
+  color: #EDC9FA;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	border-top: 0;
+	border-bottom: 0;
+}  
+
+H2 {
+	text-align: center;
+}
+
+H3 {
+	text-align: left;
+  margin-left: 6%;
+}
+
+H3.sidebar {
+  color: #113F5D;
+	text-align: center;
+}  
+
+H4.sidebar {
+  color: #113F5D;
+	text-align: center;
+}  
+
+H4 {
+	text-align: left;
+  margin-left: 8%;
+}
+
+H3.centered, H4.centered {
+  text-align: center;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+INPUT {
+  font-size: medium;
+  font-family: Courier, "MS Courier New", Prestige, "Everson Mono", monospace;
+}
+
+.pagebar {
+  background-color: #5F0181;
+  color: #EDC9FA;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.menubar {
+  background-color: #017499;
+  color: #EAF4F6;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.sidebar {
+  background-color: #B9CCD7;
+  color: #113F5D;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.headbar {
+  background-color: #004A64;
+  color: #006C92;
+}
+
+.headbar2 {
+  background-color: #B1001A;
+  color: #F1941B;
+}
+
+.headbar3 {
+  background-color: #04614A;
+  color: #278256;
+}
+
+table.logo1 {
+  background-image: url(https://dan.tobias.name/gfx/pg1-head-right.gif);
+}
+
+table.headbar {
+  background-color: #004A64;
+  background-image: url(https://dan.tobias.name/gfx/header-bg.gif);
+}
+
+table.headbar2 {
+  background-color: #B1001A;
+  background-image: url(https://dan.tobias.name/gfx/header2-bg.gif);
+}
+
+table.headbar3 {
+  background-color: #04614A;
+  background-image: url(https://dan.tobias.name/gfx/header3-bg.gif);
+}
+
+p.sidebar {
+	font-size: 0.9em;
+}
+
+p.menubar {
+	font-size: 0.75em;
+}
+
+p.fineprint {
+	font-size: 0.8em;
+}
+
+HR { color: silver; 
+     margin-left: 10%;
+     margin-right: 10%;
+}
+
+A.pagebar:link, A.menubar:link {
+  color: white;
+}
+
+A.pagebar:visited, A.menubar:visited {
+  color: silver;
+}
+
+A.pagebar:hover, A.menubar:hover {
+	color: yellow;
+}
+
+A.pagebar:active, a.menubar:active {
+	background-color: yellow;
+	color: red;
+}
+
+A:link {
+	color: blue; }
+A:visited {
+	color: purple;}
+A:hover {
+	color: fuchsia;}
+A:active {
+	background-color: yellow;
+	color: red; }
+
+.notebox {
+  margin-left: 2em;
+  margin-right: 2em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  background-color: #C1FFB6;
+}
+
+.boxtext, .menubar, .fineprint {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.sidebar {
+ margin-left: 0em;
+ margin-right: 0em;
+}
+
+.bodytext {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.fronttext {
+  margin-left: 3em;
+  margin-right: 3em;
+}
+
+.response {
+  color: red;
+}

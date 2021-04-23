@@ -1,0 +1,171 @@
+body {
+  text-align: justify;
+  font-family: Courier New,Courier;
+  color: #00FF00;
+  background-color: black;
+  max-width:60em;
+  padding:0.1%;
+  margin:auto;
+  font-size: 1.1em;
+}
+
+footer { text-align: center; }
+
+/*    BOX POSTAGENS   */
+.postagem {
+   margin-top: 1%;
+   margin-bottom: 2%;
+   padding: 1%;
+}
+
+
+hr {
+    border: solid 3px #06ff00;
+    box-shadow: 1px 2px 1px 1px black;
+}
+
+/* CURSO EM PROMOÇÃO */
+.blinking{
+
+    animation:blinkingText 0.7s infinite;
+    margin-top: 1%;
+}
+
+@keyframes blinkingText{
+    0%{     color: #ff00b4;}
+    49%{    color: transparent;}
+    60%{    color: transparent; text-shadow: 1px 1px 1px #00fff0;}
+    99%{    color: transparent; text-shadow: 1px 1px 1px #3ee77b; }
+    100%{   color: #9000ff; text-shadow: 1px 1px 1px #ffff00;}
+}
+
+
+/* BOX MENU */
+div.menu {
+  background-color: #00FF00;
+  padding: 1%;
+  overflow: auto;
+}
+
+div.menu a {
+  display: inline-block;
+  color: black;
+  text-align: center;
+  padding: 7px;
+  text-decoration: underline;
+}
+
+div.menu a:visited{ color: black; }
+div.menu a:hover{ color: black;}
+
+h1 { color: #06ff00;}
+
+li {
+    padding-bottom: 1%;
+}
+
+h2.tag {
+    color: green;
+}
+
+h3 { color: #06ff00; }
+
+.frase {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 4%;
+}
+
+.area-do-aluno{
+   margin-left: 2%;
+   margin-right: 2%;
+   margin-bottom: 2%;
+   padding: 1%;
+   border: solid 1px green;
+   box-shadow: 4px 5px 1px #06ff00;
+}
+
+.anuncio-cursos {
+    margin-top: 4%;
+    margin-buttom: 2%;
+}
+
+/* CURSOS PAGAMENTO */
+.comprarcurso {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 4%;
+    margin-bottom: 2%;
+    width: 80%;
+    padding: 1%;
+    border: solid 1px green;
+    box-shadow: 4px 5px 1px #06ff00;
+}
+
+/* CURSOS LEGENDA */
+.cursos {
+    margin-top: 4%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 4%;
+    padding-right: 2%;
+    padding-left: 2%;
+    padding-bottom: 2%;
+    border: solid 1px green;
+    box-shadow: 4px 5px 1px #06ff00;
+}
+
+/* LOJINHA */
+.anuncio-loja {
+    margin-top: 4%;
+    margin-buttom: 2%;
+}
+
+.loja {
+    margin-top: 4%;
+    margin-bottom: 4%;
+    margin-left: 4%;
+    margin-right: 4%;
+    padding-right: 2%;
+    padding-left: 2%;
+    padding-bottom: 2%;
+    border: solid 1px black;
+    box-shadow: 4px 5px 1px #06ff00;
+}
+
+.img_loja {
+    float: left;
+    margin: 2%;
+}
+
+/* Dispositivos móveis */
+@media screen and (max-device-width: 480px) {
+    body {
+	    font-size: 190%;
+    }
+    .btnmenu{font-size: 170%;}
+    .comprarcurso{font-size: 170%;}
+}
+
+/******** LINKS GLOBAIS *********/
+a:link{ color: #4eda3b; text-decoration: none;}
+a:visited{ color: #4eda3b; }
+a:hover{ color: #06ff00;}
+.btnmenu { color: #06ff00;}
+
+/************ CURSO AO VIVO **************/
+.box_valor {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 3%;
+    padding: 1%;
+    text-align: center;
+    background-color: #191919;
+    box-shadow: 1px 1px 10px 3px #06ff00;
+
+}
+
+.video {
+  max-width: 100%;
+  height: auto;
+}

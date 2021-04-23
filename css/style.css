@@ -1,0 +1,711 @@
+/* style.css - style for jsn pages */
+/*
+ * +-+-+-+-+-+-+-+-+-+-+-+-+-+
+ * |m|o|u|n|t|a|i|n|e|e|r|b|r|
+ * +-+-+-+-+-+-+-+-+-+-+-+-+-+
+ */
+
+
+/* Try to stick to the "standard 16" color names:
+   aqua, black, blue, fuchsia, gray, green, lime, maroon,
+   navy, olive, purple, red, silver, teal, white, and yellow */
+
+/* RESOURCES */
+
+/* w3 recommended generic fonts */
+/* font-family: sans-serif; */
+/* font-family: "Lucida Console", Monaco, monospace; */
+/* font-family: "Trebuchet MS", Helvetica, sans-serif; */
+/* font-family: "Arial Black", Gadget, sans-serif; */
+/* font-family: Georgia, serif; */
+/* font-family: "Times New Roman", Times, serif; */
+/* font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; */
+
+/*
+ * Google Fonts
+ * Don’t just copy the @font-face out of Google Fonts URLs 
+ * https://css-tricks.com/dont-just-copy-the-font-face-out-of-google-fonts-urls/
+ */
+/* @import url("https://fonts.googleapis.com/css?family=Archivo Black"); */
+
+/* Microformats styles */
+@import "style_microfmt.css";
+
+/* Fonts Arial Black Style */
+@import "style_arialb.css";
+/* use my arial black copy */
+/*
+@font-face
+{
+	font-family: ArialB;
+	font-weight: 400;
+	font-style: normal;
+	src: url(ariblk.ttf);
+}
+*/
+
+
+
+/* ROOT VARIABLES */
+
+:root
+{
+	/* Body maximum width */
+	--body-width: 60em;
+
+
+	/* Colors */
+	--stallman-red: #f44;  /* #ff4444 */
+	--stallman-blue: #1F00FF;
+	--stallman-purple: #9900DD;
+	--stallman-lightpurple: #9932CC;
+
+	--purple: #6F2493;
+	--blue: #1e90ff;
+	--white: #ffffff;
+}
+
+
+
+/* SELECTORS */
+
+
+/* ALL ELEMENTS */
+/*
+ * * {
+ * 	box-sizing: border-box;
+ * }
+*/
+
+
+/* ELEMENTS */
+
+body
+{
+	background-color: gold ; /* wheat; */ /* PapayaWhip */
+	max-width: var(--body-width);
+	margin: 0 auto 0 auto;
+	/* text-align: center; */
+	/* font-size: 1.0em; */
+	padding: auto 0.8em auto 0.8em;
+}
+
+h2
+{
+	margin-bottom: 1em;
+}
+
+p, dt
+{
+	margin-right: 0.4em;
+	margin-left: 0.4em;
+}
+
+dl
+{
+	padding: 1em;
+}
+
+nav
+{
+	display: inline-block;
+	background-color: orange;
+	/* font-style: italic; */
+	text-transform: uppercase;
+	/* font-variant: small-caps; */
+	/* font-size: small; */
+	color: var(--stallman-blue);
+}
+
+dd
+{
+	padding-bottom: 0.6em;
+}
+
+blockquote
+{
+	/* background: #f9f9f9; */
+	margin-top: 2em;
+	margin-bottom: 2em;
+	font-style: italic;
+
+}
+/*
+blockquote:before {
+	content: open-quote;
+	font-size: 2em;
+}
+*/
+blockquote footer
+{
+	font-size: small;
+	font-style: normal;
+}
+
+q
+{
+	font-style: italic;
+	font-size: 106%;
+}
+
+
+/* IDS */
+#portalpt
+{
+	font-style: italic;
+}
+
+
+/* for the Quotes sections */
+#quotes dl dt
+{
+	margin-top: 0.8em;
+}
+
+#quotes dt
+{
+	font-family: initial;
+}
+
+
+
+/* CLASSES */
+
+.clearfix {
+  overflow: auto;
+}
+/* https://www.w3schools.com/howto/howto_css_clearfix.asp */
+
+/* The Clearfix: Force an Element To Self-Clear its Children */
+.group:after
+{
+	clear: both;
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/*
+ * or use:
+ * <a style="clear: both;" />
+ * https://css-tricks.com/snippets/css/clear-fix/
+ */
+
+/* .group:before, .group:after {
+  content: "";
+  display: table;
+}
+.group:after {
+  clear: both;
+} */
+
+
+.col-container
+{
+	display: table;
+	/* display: flex; */
+	/* flex: 1; */
+
+	/* Set full-width to expand the whole page */
+	max-width: 100%;
+	padding-top: 0em;
+	margin: 1em;
+	margin-top: 0em;
+
+	-webkit-hyphens: auto;
+	-ms-hyphens: auto;
+	hyphens: auto;
+}
+
+/* for the fool column */
+.c0
+{
+	background-color: crimson;
+	/* firebrick; */
+}
+
+.c1
+{
+	background-color: pink;
+}
+
+.c3
+{
+	background-color: lemonchiffon;
+}
+
+
+.c4
+{
+	/* background-color: lightsteelblue; */
+	background-color: powderblue;
+}
+
+/* arredonda -- from Theo Donde */
+.colborder
+{
+	/* border: 2px solid red; */
+	border-radius: 1em;
+	/* border-radius: 3.1em 1.25em; */
+}
+
+.t
+{
+	/* text-decoration: overline dotted blue; */
+	background-color: white;
+	text-align: center;
+	/* font-size: x-large; */
+}
+
+.ta
+{
+	color: white;
+	/* color: black; */
+}
+
+.tt
+{
+	margin: 1em;
+	text-decoration: none;
+	background-color: inherit;
+	text-align: left;
+	/* font-size: large; */
+}
+
+.lnk
+{
+	/* display: table; */
+	margin: auto;
+	max-width: 80%;
+}
+
+table.lnk th
+{
+	padding: .5em 0 .5em 0;
+}
+
+.postlist
+{
+	margin: 1em 0em 2em 0em;
+}
+.postlist li
+{
+	padding: 0.4em 0.8em 0.4em 0em;
+}
+/* check explanation selector: https://stackoverflow.com/questions/632100/apply-css-style-to-child-elements */
+
+/* fixed table column width */
+/* table { table-layout: fixed; width: 100%; } */
+
+.alert
+{
+	border: 0.31em outset red;
+	background-color: lightblue;
+	text-align: center;
+}
+
+@-webkit-keyframes pulse
+{
+	  0% {color: red;}
+	 25% {color: tomato;}
+	 50% {color: orange;}
+	 75% {color: yellow;}
+	100% {color: moccasin;}
+}
+.pulse
+{
+	font-size: 1.2em;
+	color: red;
+	-webkit-animation: pulse 0.5s infinite alternate;
+}
+
+/* anchors - mind the fixed header */
+.anchor::before
+{
+	content: " ";
+	display: block;
+	position: relative;
+	height: 5em;
+	margin-top: -5em;
+}
+/* Hash Tag Links That Don't Headbutt The Browser Window  */
+/* https://css-tricks.com/hash-tag-links-padding/ */
+
+.center
+{
+	display: block;
+	margin: auto auto auto auto;
+	width: 80%;
+}
+
+.homefeed
+{
+	float:right;
+	margin:0em 2em 0 auto;
+	/* margin:2em 2em 0 auto; */
+}
+
+.hometitle
+{
+	display: block;
+	color: darkgreen;
+	font-size: 2.6em;
+	text-align: center;
+	margin: auto;
+	text-shadow: -0.15em 0 greenyellow,
+		-0.15em -0.15em yellow,
+		0 -0.15em gold;
+
+}
+/* modified from <https://lukesmith.xyz> */
+
+/* quotes.html */
+.hometitle2
+{
+	display: block;
+	color: black;
+	font-size: 2.8em;
+	text-align: center;
+	margin: auto;
+	letter-spacing: .2em;
+	text-shadow: -.075em .075em 0 #56E15B,
+		.075em .075em 0 #F37D6D,
+		.075em -.075em 0 #79E7E4,
+		-.075em -.075em 0 #EEEB67;
+}
+/* links.html */
+.hometitle3
+{
+	display: block;
+	color: #FF0000;
+	font-size: 3em;
+	text-align: center;
+	margin: auto;
+	letter-spacing: .1em;
+	text-shadow: 0 .075em .075em navajowhite,
+		-.09em .175em 0 #FF7F00, 
+		-.15em .34em 0 #FFFF00,
+		-.2em .42em #00FF00,
+		-.22em .49em 0 #0000FF,
+		-.26em .56em 0 #4B0082,
+		-.3em .64em 0 #9400D3;
+}
+/* 25 Creative CSS3 Text Shadow Effects You Can't Miss */
+/* https://www.codesdope.com/blog/article/25-creative-css3-text-shadow-effects-you-cant-miss/ */
+
+.homedesc
+{
+	color: darkgreen;
+	font-size: 1.2em;
+	text-align: center;
+}
+/* for links.html and quotes.html */
+.homedesc_lnk
+{
+	color: floralwhite;
+}
+
+
+/* Need hover for accessibility */
+:link { color: #1F00FF; }
+:visited { color: #6F2493; }
+
+a:link:hover {
+	color: #9932CC;
+}
+a:link:hover, a:visited:hover
+{
+	font-style: italic;
+	text-shadow: 2px 2px 9px #f44;
+} 
+/* https://stallman.org/common/stallman.css */
+
+/* português */
+/*
+section[lang="pt"],
+div[lang="pt"],
+p[lang="pt"]
+{
+	border: 1px inset floralwhite;
+	padding: 0.2em;
+
+}
+*/
+
+.nobr {
+	white-space: nowrap;
+}
+
+
+
+/* BUTTONS */
+
+/* https://www.w3schools.com/tags/tag_button.asp */
+/* usage: <a href="https://www.uol.com.br"><button type="button" class="button button1">Green</button></a> -*/
+.button {
+	border: none;
+	color: white;
+	padding: 0.6em 1.2em;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 0.8em;
+	transition-duration: 0.16s;
+	cursor: pointer;
+	font-family: ArialB, "Arial Black", Gadget, sans-serif;
+	font-size: small;
+	/* font-style: italic; */
+	font-variant: small-caps;
+}
+
+.button1 {
+	background-color: white; 
+	color: black; 
+	border: 2px solid #4CAF50;
+}
+.button1:hover {
+	background-color: #4CAF50;
+	color: white;
+}
+
+.button2 {
+	background-color: white; 
+	color: black; 
+	border: 2px solid #008CBA;
+}
+.button2:hover {
+	background-color: #008CBA;
+	color: white;
+}
+
+/* for the `dedicated page` at blog index.html */
+.button3 {
+	color: white; 
+	border: 2px solid floralwhite;
+	padding: 0;
+}
+.button3:hover {
+	background-color: #006db9;
+	color: white;
+}
+
+/* navigation sticky/fixed floating button */
+.fixedbutton
+{
+	position: -webkit-sticky;
+	position: sticky;
+	/* position: fixed; */
+	float: right;
+	top: 1em;
+	right: 1em;
+}
+
+
+
+/* NAVIGATION BAR */
+
+/* Main */
+/* https://www.w3schools.com/css/css_navbar_horizontal.asp */
+.navbar
+{
+	border-top: 1px solid navy;
+	border-bottom: 1px solid navy;
+	background-color: gold;
+	width: 100%;
+}
+
+.navbar a:link,
+.navbar a:visited
+{
+	color: var(--stallman-blue);
+	text-decoration: none;
+
+}
+.navbar a:hover
+{
+	background-color: var(--stallman-blue);
+	color: floralwhite;
+	text-shadow: 2px 2px 9px floralwhite,
+		1px 1px 6px azure;
+	text-decoration: none;
+}
+
+.navbar ul
+{
+	font-family: ArialB, "Arial Black", Gadget, sans-serif;
+	font-size: small;
+	font-variant: small-caps;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	width: 100%;
+}
+
+.navbar li
+{
+	float: left;
+	/* border-right: 1px solid var(--stallman-blue); */
+	/* border-top: 1px solid var(--stallman-blue); */
+	/* border-bottom: 1px solid var(--stallman-blue); */
+	/* background-color: gold; */
+}
+.navbar li:last-child
+{
+	border-right: none;
+}
+
+.navbar li a
+{
+	display: block;
+	color: floralwhite;
+	text-align: center;
+	padding: .4em .5em;
+	text-decoration: none;
+}
+
+.navbar li a:hover
+{
+	background-color: var(--stallman-blue);
+	transition-duration: 0.16s;
+}
+
+/*
+li a:hover:not(.active) {
+	background-color: #111;
+}
+
+.active {
+	background-color: #4CAF50;
+}
+*/
+
+/* fixed navigation bar (screen top) */
+.fixednavbarXXX
+{
+	position: fixed;
+	top: 0;
+	width: 100%;
+	max-width: var(--body-width);
+}
+
+
+/* For a single navigation button */
+.navbutton {
+	/* overflow: hidden; */
+	padding: .2em .6em;
+	background-color: gold;
+	color: var(--stallman-blue);
+	border: 2px solid;
+	/* float: left; */
+
+}
+
+.navbutton a:link,
+.navbutton a:visited
+{
+	color: var(--stallman-blue);
+	text-decoration: none;
+
+}
+.navbutton a:hover
+{
+	background-color: var(--stallman-blue);
+	color: floralwhite;
+	text-shadow: 2px 2px 9px floralwhite;
+	text-decoration: none;
+}
+
+
+
+/* If the browser window is smaller than 600px, make the columns stack on top of each other */
+@media only screen and (max-width: 600px)
+{
+	/* change bg a little */
+	body
+	{
+		padding: 0 0 0 0;
+	}
+
+	p, dt
+	{
+		margin-right: 0.2em;
+		margin-left: 0.2em;
+	}
+
+	blockquote
+	{
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
+
+	/* revert to Responsive Equal Height mode */
+	/* and stack them vertically instead of horizontally */
+	.col-container
+	{
+		/* Set full-width to expand the whole page */
+		width: 100%;
+		margin: 0em; 
+		padding: 0em;
+	}
+	/* .col-container > div > * */
+
+	.colborder
+	{
+		border-radius: 0;
+	}
+	/* border-bottom-left-radius: 0; */
+	/* border-bottom-right-radius: 0; */
+
+	.homefeed
+	{
+		/* margin-top: 4em; */
+	}
+
+	.postlist li
+	{
+		padding-right: 0.6em;
+	}
+
+	/* microformat adjustment */
+	li a.p-name
+	{
+		font-size: 1.06em;
+	}
+
+	/* w3css style adjustment */
+	.w3-container, .w3-panel
+	{
+		padding: 0;
+	}
+}
+
+/* design refs */
+/* https://www.w3schools.com/howto/howto_css_equal_height.asp */
+/* https://css-tricks.com/all-about-floats/ */
+/* https://slackjeff.com.br/ */
+/* responsive image size: img { max-width: 100%; } */
+
+
+/* print styles */
+@media print
+{
+	*
+	{
+		background-color: transparent;
+		color: black;
+		/* text-decoration: none; */
+	}
+
+}
+
+/* https://www.sitepoint.com/css-printer-friendly-pages/ */
+/*
+apply in addition to screen styles:
+<link rel="stylesheet" href="main.css" />
+<link rel="stylesheet" media="print" href="print.css" />
+or separate screen and print media:
+<link rel="stylesheet" media="screen" href="main.css" />
+<link rel="stylesheet" media="print" href="print.css" />
+*/
+

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+  <!--
+    Hey!
+    This web page is actually a data file that is meant to be
+     read by RSS reader programs.
+    See https://mountaineerbr.github.io/blog to get to the human-
+     readable page.
+  -->
+  <channel>
+    <lastBuildDate>Fri, 02 Apr 2021 00:00:00 -0300</lastBuildDate>
+    <title>Biology Blogger (Podcast)</title>
+    <description>Podcast stream. Current as of Fri, 23 Apr 2021 09:53:41 -0300.</description>
+    <language>en</language>
+    <link>https://mountaineerbr.github.io/blog/</link>
+    <copyright>
+      Copyright ©2021 JSN.
+      Verbatim copying and distribution of this entire article is
+      permitted in any medium, provided this notice is preserved.
+    </copyright>
+    <itunes:image href="https://mountaineerbr.github.io/gfx/sherlockb_big.png"/>
+    <itunes:category text="Science">
+      <itunes:category text="Natural Sciences"/>
+    </itunes:category>
+    <itunes:author>jamilbio20@gmail.com (JSN)</itunes:author>
+    <itunes:owner>
+      <itunes:email>jamilbio20@gmail.com</itunes:email>
+      <itunes:name>mountaineerbr</itunes:name>
+    </itunes:owner>
+    <itunes:type>episodic</itunes:type>
+    <itunes:explicit>false</itunes:explicit>
+    <googleplay:owner>jamilbio20@gmail.com</googleplay:owner>
+    <googleplay:author>mountaineerbr</googleplay:author>
+    <googleplay:image href="https://mountaineerbr.github.io/gfx/sherlockb_big.png"/>
+    <dc:creator>mountaineerbr</dc:creator>
+    <generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
+    <item>
+      <title>Mais Configurações do Tor para o Nó do Bitcoin e SSH</title>
+      <description>Comentando sobre mais algumas configurações que fiz depois
+    de gravar o último podcast sobre bitcoind.
+    Pretendemos dominar as configurações necessárias para poder retransmitir
+    dados para as redes clearnet e onion do Bitcoin.
+    Também falo sobre uma experiência curta colhendo soja em uma empresa
+    privada, montando um servidorzinho em casa, usar acesso SSH em casa e mais.
+    ERRATA: conexões 'outbound' são iniciadas pelo seu nó com os demais,
+    enquanto conexão 'inbound' é iniciada de outro nó para o seu.
+    </description>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 -0300</pubDate>
+      <enclosure url="https://mountaineerbr.github.io/blog/podcast/ep6.m4a" type="audio/mpeg" length="4418"/>
+      <link>https://mountaineerbr.github.io/blog/33/</link>
+      <dc:language>pt</dc:language>
+      <dc:creator>mountaineerbr</dc:creator>
+      <!-- <dc:contributor></dc:contributor> -->
+      <itunes:episode>6</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <guid isPermaLink="false">fa4ead78-68d0-5a2e-a379-63d6fbc3d969</guid>
+      <itunes:duration>1:13:38</itunes:duration>
+      <itunes:image href="https://mountaineerbr.github.io/blog/podcast/ep6.png"/>
+    </item>
+    <item>
+      <title>Rodando Um Nó Completo do Bitcoin com Tor</title>
+      <description>Notas gerais e dicas de montagem de um nó de retransmissão
+      completo que também se conecta à rede Tor. Outros assuntos incluem
+      algumas observações sobre navegadores de internet para o desktop
+      e para o celular, como o Firefox, Chrome e Opera.
+      </description>
+      <pubDate>Mon, 22 Mar 2021 00:00:00 -0300</pubDate>
+      <enclosure url="https://mountaineerbr.github.io/blog/podcast/ep5.m4a" type="audio/mpeg" length="190080"/>
+      <link>https://mountaineerbr.github.io/blog/30/</link>
+      <dc:language>pt</dc:language>
+      <dc:creator>mountaineerbr</dc:creator>
+      <!-- <dc:contributor></dc:contributor> -->
+      <itunes:episode>5</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <guid isPermaLink="false">26e4414c-4e84-51ae-863a-2db6f60f3d3f</guid>
+      <itunes:duration>52:48</itunes:duration>
+      <itunes:image href="https://mountaineerbr.github.io/blog/podcast/ep5.png"/>
+    </item>
+    <item>
+      <title>Banido dos Fórums do FreeBSD por Ambientalistas</title>
+      <description>Tópicos vão desde comentários sobre o Bitcoin até
+      o banimento dos fórums do FreeBSD por ditos Ambientalistas.</description>
+      <pubDate>Fri, 26 Feb 2021 00:00:00 -0300</pubDate>
+      <enclosure url="https://mountaineerbr.github.io/blog/podcast/ep4.m4a" type="audio/mpeg" length="169020"/>
+      <link>https://mountaineerbr.github.io/blog/25/</link>
+      <dc:language>pt</dc:language>
+      <dc:creator>mountaineerbr</dc:creator>
+      <!-- <dc:contributor></dc:contributor> -->
+      <itunes:episode>4</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <guid isPermaLink="false">e91a580a-8d25-5e5e-b606-eccd075976ce</guid>
+      <itunes:duration>46:57</itunes:duration>
+      <itunes:image href="https://mountaineerbr.github.io/blog/podcast/ep4.png"/>
+    </item>
+    <item>
+      <title>Auto Análise, Pagamentos PIX, Bitmex e Carteiras</title>
+      <description>O autoconhecimento é uma tarefa difícil porém necessária. Será que o novo sistema de pagamento de contas, o PIX brasileiro, é seguro com relação a nossa privacidade?</description>
+      <pubDate>Sun, 22 Nov 2020 00:00:00 -0300</pubDate>
+      <enclosure url="https://mountaineerbr.github.io/blog/podcast/ep3.mp3" type="audio/mpeg" length="160980"/>
+      <link>https://mountaineerbr.github.io/blog/17/</link>
+      <itunes:episode>3</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <!-- EPISODE LANGUAGE (RFC 3066) -->
+      <dc:language>pt</dc:language>
+      <dc:creator>mountaineerbr</dc:creator>
+      <!-- <dc:contributor></dc:contributor> -->
+      <guid isPermaLink="false">a650ee92-7a0f-5105-85c8-c116279c00ed</guid>
+      <itunes:duration>44:43</itunes:duration>
+      <itunes:image href="https://mountaineerbr.github.io/blog/podcast/ep3.png"/>
+    </item>
+    <item>
+      <title>Updates do Arch Linux, Criptografia de Chaves e Arquivos</title>
+      <description>Neste episódio, falamos de estratégias de updates para o Arch Linux e também sobre métodos de gerenciamento de chaves privadas de criptomoedas, usando o GNU GPG e mais.</description>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 -0300</pubDate>
+      <enclosure url="https://mountaineerbr.github.io/blog/podcast/ep2.mp3" type="audio/mpeg" length="195780"/>
+      <link>https://mountaineerbr.github.io/blog/14/</link>
+      <itunes:episode>2</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <!-- EPISODE LANGUAGE (RFC 3066) -->
+      <dc:language>pt</dc:language>
+      <dc:creator>mountaineerbr</dc:creator>
+      <!-- <dc:contributor></dc:contributor> -->
+      <guid isPermaLink="false">69b82665-6ce5-53ed-8924-2c555ab754c7</guid>
+      <itunes:duration>54:23</itunes:duration>
+      <itunes:image href="https://mountaineerbr.github.io/blog/podcast/ep2.png"/>
+    </item>
+    <item>
+      <title>Première: Meio Ambiente, Exp. MOSAiC, Boy Plunger, BitMEX</title>
+      <description>Estréia do nosso primeiro episódio de podcast. Tratamos de vários temas interessantes de meio ambiente e mercado financeiro com um comentário da história do Jesse Livermore.</description>
+      <pubDate>Sun, 18 Oct 2020 00:00:00 -0300</pubDate>
+      <enclosure url="https://mountaineerbr.github.io/blog/podcast/ep1.mp3" type="audio/mpeg" length="4044"/>
+      <link>https://mountaineerbr.github.io/blog/14/</link>
+      <itunes:episode>1</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <!-- EPISODE LANGUAGE (RFC 3066) -->
+      <dc:language>pt</dc:language>
+      <dc:creator>mountaineerbr</dc:creator>
+      <!-- <dc:contributor></dc:contributor> -->
+      <guid isPermaLink="false">9fea8fad-3f3b-5f18-8c01-b34c2ffd22db</guid>
+      <itunes:duration>1:07:24</itunes:duration>
+      <itunes:image href="https://mountaineerbr.github.io/blog/podcast/ep1.png"/>
+    </item>
+  </channel>
+</rss>

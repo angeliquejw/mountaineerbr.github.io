@@ -1,0 +1,198 @@
+/* style.css - style for jsn pages */
+
+/* MICRO FORMATS STYLES */
+/* http://microformats.org/wiki/microformats/ */
+/* http://microformats.org/wiki/microformats2/ */
+
+/* H-ENTRY */
+/* http://microformats.org/wiki/h-entry */
+
+time
+{
+
+}
+
+/* blog entry */
+.h-entry
+{
+
+}
+
+/* entry summary */
+.p-summary
+{
+
+}
+
+/* full/formatted name of the person or organization */
+.p-name
+{
+	font-style: bold;
+}
+
+/* post titles within a list */
+li a.p-name
+{
+	font-size: 1.2em;
+}
+
+/* entry title */
+.p-name:hover,
+.p-name:link:hover
+{
+	/* border-radius: 1em; */
+	/* background-color: antiquewhite; */
+	color: maroon;
+}
+
+/* entry time/date */
+.dt-published
+{
+	font-family: "Lucida Console", "Courier New", monospace;
+	/* font-family: Consolas,"courier new", monospace; */
+	/* font-family: ArialB, "Arial Black", Gadget, sans-serif; */
+	font-weight: bold;
+	font-size: .8em;
+
+	background: antiquewhite;
+	color: firebrick;
+	padding: 2px;
+
+
+}
+.dt-published:hover
+{
+	/* background-color: black; */
+	color: maroon;
+}
+
+/* entry author, optional  */
+.p-author
+{
+
+}
+
+/* entry categories/tags */
+.p-category
+{
+
+}
+
+
+/* H-CARD */
+/* http://microformats.org/wiki/h-entry */
+
+address
+{
+	font-style: normal;
+}
+
+/* h-card */
+.h-card
+{
+
+}
+
+/* photo of the person or organization */
+.u-photo
+{
+
+}
+
+/* logo representing the person or organization (e.g. a face icon) */
+.u-logo
+{
+
+}
+
+/* e-mail address */
+.u-email
+{
+	font-style: italic;
+}
+
+/* telephone number */
+.p-tel
+{
+
+}
+
+
+/* postal code, e.g. US ZIP */
+.p-postal-code
+{
+
+}
+
+/* street number + name */
+.p-street-address
+{
+
+}
+
+/* postal address,  */
+.p-adr
+{
+
+}
+
+/* city/town/village */
+.p-locality
+{
+
+}
+
+/* state/county/province */
+.p-region
+{
+
+}
+
+/* country name */
+.p-country-name
+{
+	font-weight: bold;
+}
+
+/* e.g. Mrs., Mr. or Dr. */
+.p-honorific-prefix
+{
+	font-style: italic;
+}
+
+/* e.g. Ph.D, Esq. */
+.p-honorific-suffix
+{
+	font-style: italic;
+}
+
+/* nickname/alias/handle */
+.p-nickname
+{
+
+}
+
+/* given (often first) name */
+.p-given-name
+{
+
+}
+
+/* other (e.g. middle) name */
+.p-additional-name
+{
+
+}
+
+/* family (often last) name */
+.p-family-name
+{
+
+}
+
+/* additional notes */
+.p-note
+{
+
+}
+

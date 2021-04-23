@@ -1,0 +1,74 @@
+/* 
+ * modified from:
+ * https://web.archive.org/web/20090225051456/http://www.oreillynet.com/pub/a/network/2005/07/01/rss.html
+ */
+
+* {
+display: block;
+}
+
+:root {
+margin: 50px;
+}
+
+channel
+{
+	max-width: 40em;
+	margin: auto;
+}
+
+channel > title {
+font-size: x-large;
+text-align: center;
+}
+
+channel > title:after {
+display: block;
+padding: 50px;
+content: "This is an RSS feed, designed to be read in an RSS application.";
+background-color: grey;
+color: white;
+}
+
+item {
+margin: 25px 0 20px 0;
+}
+
+item > title {
+font-size: medium;
+margin-bottom: 8px;
+}
+
+item > link,
+item > author
+{
+font-size: small;
+margin-top: 3px;
+margin-bottom: 3px;
+}
+
+item > description {
+font-size: small;
+margin-top: 3px;
+margin-bottom: 3px;
+font-style: italic;
+}
+
+item > pubDate {
+font-size: small;
+margin-bottom: 6px;
+}
+
+channel > link,
+channel > copyright, 
+channel > lastBuildDate, 
+channel > generator, 
+channel > docs,
+language,
+lastBuildDate,
+ttl,
+guid,
+category {
+display: none;
+}
+

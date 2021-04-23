@@ -1,0 +1,452 @@
+/* style.css - style for jsn pages */
+/*
+ * +-+-+-+-+-+-+-+-+-+-+-+-+-+
+ * |m|o|u|n|t|a|i|n|e|e|r|b|r|
+ * +-+-+-+-+-+-+-+-+-+-+-+-+-+
+ */
+
+/* Try to stick to the "standard 16" color names:
+   aqua, black, blue, fuchsia, gray, green, lime, maroon,
+   navy, olive, purple, red, silver, teal, white, and yellow */
+
+
+/* @import "../../css/style.css"; */
+
+/*
+ * Google Fonts
+ * Don’t just copy the @font-face out of Google Fonts URLs 
+ * https://css-tricks.com/dont-just-copy-the-font-face-out-of-google-fonts-urls/
+ */
+/* @import url("https://fonts.googleapis.com/css?family=Playfair Display"); */
+@import url("https://fonts.googleapis.com/css?family=Kreon");
+
+/* W3.CSS framework */
+/* changelog: https://www.w3schools.com/w3css/w3css_downloads.asp */
+/* @import url("https://www.w3schools.com/w3css/4/w3.css"); */
+@import "w3.css";
+
+/* Microformats styles */
+@import "../../css/style_microfmt.css";
+
+/* Fonts Arial Black Style */
+@import "../../css/style_arialb.css";
+
+
+
+/* ROOT VARIABLES */
+
+:root
+{
+	/* Body maximum width */
+	--body-width: 60em;
+
+
+	/* Colors */
+	--stallman-red: #f44;  /* #ff4444 */
+	--stallman-blue: #1F00FF;
+	--stallman-purple: #9900DD;
+	--stallman-lightpurple: #9932CC;
+
+	--purple: #6F2493;
+	--blue: #1e90ff;
+	--white: #ffffff;
+}
+
+body
+{
+	background-color: CornflowerBlue; /* powderblue; */
+	max-width: 60em;
+	margin: 0 auto 0 auto;
+	padding: 0rem 0.8rem 0rem 0.8em;
+}
+
+nav, footer
+{
+	font-size: small;
+	text-transform: uppercase;
+}
+
+/*
+nav
+{
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	font-size: small;
+	font-style: italic;
+	background-color: orange;
+}
+nav table
+{
+	margin-top: 0em;
+	margin-left: 1em;
+}
+*/
+
+article
+{
+	padding: 2rem 0 2rem 0;
+}
+
+article nav
+{
+	margin: 1rem 0 0 0;
+	color: gray;
+}
+
+img
+{
+	margin: 2em;
+}
+
+figure
+{
+	display: table;
+	margin: 2rem auto 0.5rem auto;
+}
+
+figure img
+{
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+	margin: auto;
+}
+/* maximum of 80% of image size */
+
+figcaption
+{
+	display: table-caption;
+	caption-side: bottom;
+	max-width: 100%;
+}
+/*
+you should probably also add some top and bottom margin for figure
+and also some left margin. html5 drafts suggest a left margin of 40px
+https://www.mikedoesweb.com/2013/properly-aligning-and-wrapping-image-captions/
+http://jkorpela.fi/www/captions.html
+*/
+
+/* TABLES */
+
+/* post 35 */
+.tablep35 { margin: auto; }
+.tablep35 td { text-align: right; }
+.tablep35 td:first-child { text-align: left; }
+
+
+blockquote
+{
+	display: block;
+	background: ivory;
+	padding: 1rem 1rem 1rem 2rem;
+	margin: 2rem 2.7rem 2rem 2.7rem;
+	font-style: italic;
+	/* font-family: "Playfair Display"; */
+	font-family: "Kreon";
+	font-size: 1.2em;
+	word-wrap: normal;
+	overflow: visible;
+}
+/*
+blockquote:before {
+	content: open-quote;
+	font-size: 2em;
+}
+*/
+blockquote footer
+{
+	font-size: small;
+	font-style: normal;
+}
+
+q
+{
+	font-style: italic;
+}
+
+
+/* separators for post text sections */
+hr
+{
+	margin: 2em auto 2em auto;
+	width: 30%;
+	border-top: 1px solid black;  /*or border-color: black; */
+}
+
+pre, code, kbd, samp
+{
+	/* font-family: monospace, monospace; */
+	font-family: Consolas,"courier new", monospace;
+}
+/* alse set <var>? */
+
+pre
+{
+	display: block;
+	word-wrap: normal;
+	overflow: auto;
+	margin: 2rem 2.7rem 2rem 2.7rem;
+	/* padding: 1rem 1rem 0rem 1rem; */
+}
+
+code
+{
+	/* background-color: #f1f1f1; */
+	background: floralwhite;
+	color: firebrick;
+	padding: 2px;
+	font-size: 104%;
+}
+
+pre > code
+{
+	/* color: silver; */
+	/* color: lime; */
+	display: block;
+	color: silver;
+	background: black;
+	word-wrap: normal;
+	overflow: auto;
+	font-weight: bold;
+	padding: 1rem 1rem 1rem 2rem;
+}
+/* https://websemantics.uk/articles/displaying-code-in-web-pages/ */
+
+/* português */
+section[lang="pt"],
+div[lang="pt"],
+p[lang="pt"]
+{
+	border: 1px inset floralwhite;
+	padding: 1em;
+	/* margin: 0.2em; */
+
+}
+
+
+/* Need hover for accessibility */
+:link { color: #1F00FF; }
+:visited { color: #9900DD; }
+
+a:link:hover {
+	color: #9932CC;
+}
+a:link:hover, a:visited:hover
+{
+	font-style: italic;
+	text-shadow: 2px 2px 9px #f44;
+} 
+/* from: https://stallman.org/common/stallman.css */
+
+
+.navbar a:link,
+.navbar a:visited
+{
+	color: var(--stallman-blue);
+	text-decoration: none;
+
+}
+.navbar a:hover
+{
+	background-color: var(--stallman-blue);
+	color: floralwhite;
+	text-shadow: 2px 2px 9px floralwhite,
+		1px 1px 6px azure;
+	text-decoration: none;
+}
+
+.alert
+{
+	border: 0.31em outset red;
+	background-color: lightblue;
+	text-align: center;
+}
+
+.postfeed
+{
+	float:right;
+	margin: 0.12em 2em 0 0;
+	padding: 0em;
+}
+
+
+/* responsive blog index */
+.responsive0
+{
+	margin: 0rem 0rem 1rem 0rem;
+}
+
+
+/* responsive images */
+/* If you want the image to scale both up and down on responsiveness */
+.responsive
+{
+	width: 100%;
+	height: auto;
+}
+
+
+/* If you want an image to scale down if it has to, but never scale up to be larger than its original size */
+.responsive1
+{
+	max-width: 100%;
+	height: auto;
+}
+
+/* If you want to restrict a responsive image to a maximum size */
+.responsive2
+{
+	width: 100%;
+	max-width: 400px;
+	height: auto;
+}
+
+/* center alignment, from w3 */
+.center
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: auto;
+	height: auto;
+}
+
+
+/* separators for post text sections */
+.sep
+{
+	width: 100%;
+}
+.navsep
+{
+	margin: 0 auto 0 auto;
+	width: 100%;
+}
+
+
+/* post #7 */
+.leftimg
+{
+	float: left;
+	clear: both;
+	margin: 1em;
+}
+/* clear rule: https://www.hostpapa.com/knowledgebase/align-float-images-website/ */
+
+
+
+/* BUTTONS */
+.button {
+	border: none;
+	color: white;
+	padding: 0.6em 1.2em;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 0.8em;
+	transition-duration: 0.16s;
+	cursor: pointer;
+	font-family: ArialB, "Arial Black", Gadget, sans-serif;
+	font-size: small;
+	/* font-style: italic; */
+	font-variant: small-caps;
+}
+
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}
+.button1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.button2 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+.button2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+
+
+/* MICROFORMATS */
+.p-summary
+{
+	font-style: italic;
+}
+
+.p-author
+{
+	font-style: italic;
+}
+
+.postlist
+{
+	margin: 1em 0em 2em 0em;
+}
+.postlist li
+{
+	padding: 0.4em 0.8em 0.4em 0em;
+}
+
+
+/* slideshow from w3.css */
+.mySlides
+{
+	display: none;
+	margin: 0 auto 0 auto;
+}
+
+
+@media only screen and (max-width: 600px)
+{
+	body
+	{
+		padding-right: 0.4em;
+		padding-left: 0.4em;
+	}
+
+	blockquote
+	{
+		margin-left: 1em;
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
+
+
+	.postlist li
+	{
+		padding-right: 0.6em;
+	}
+
+	/* microformat adjustment */
+	li a.p-name
+	{
+		font-size: 1.06em;
+	}
+
+	/* w3css style adjustment */
+	.w3-container, .w3-panel
+	{
+		padding: 0;
+	}
+}
+
+/* print styles */
+@media print
+{
+	*
+	{
+		background-color: transparent;
+		color: black;
+		/* text-decoration: none; */
+	}
+
+}
+
