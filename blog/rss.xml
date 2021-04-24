@@ -11,9 +11,9 @@
 
 	-->
   <channel>
-    <lastBuildDate>Fri, 23 Apr 2021 00:00:00 -0300</lastBuildDate>
+    <lastBuildDate>Mon, 13 Sep 2021 00:00:00 -0300</lastBuildDate>
     <title>Biology Blogger</title>
-    <description>Current as of Fri, 23 Apr 2021 11:50:03 -0300.</description>
+    <description>Current as of Fri, 23 Apr 2021 09:53:41 -0300.</description>
     <link>https://mountaineerbr.github.io/blog/</link>
     <language>en</language>
     <category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
@@ -31,16 +31,6 @@
 		</copyright>
     <!-- # IMPORTANT: keep [generator] as [item] elements will be appended after it -->
     <generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
-    <item>
-      <title xml:lang="en">#38 - Going Away</title>
-      <pubDate>Fri, 23 Apr 2021 00:00:00 -0300</pubDate>
-      <description>Season Finale</description>
-      <link>https://mountaineerbr.github.io/blog/38/</link>
-      <dc:language>en</dc:language>
-      <category>the end/pause/focus/fim/pausa/foco/estudos/studying</category>
-      <author>jamilbio20@gmail.com (JSN)</author>
-      <guid isPermaLink="false">5b57e97d-7994-5e9e-b715-4dff14037efd</guid>
-    </item>
     <item>
       <title xml:lang="en">#37 - Firefox on Mobile (Android)</title>
       <pubDate>Mon, 13 Sep 2021 00:00:00 -0300</pubDate>
