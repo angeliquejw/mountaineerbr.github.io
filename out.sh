@@ -9,7 +9,11 @@ text='<body>
 <h2>Out-0f-business for the foreseeable future.</h2>
 
 
-<!-- <p>Podcast and Blog RSS feeds remain available.</p> -->
+<p>Podcast and Blog RSS feeds remain available.</p>
+
+<p>The blog HTML can be
+<a title="For the sake of convenience, all posts concatenated into one document" href="https://mountaineerbr.github.io/blog/cat.html">found here</a>
+(without images or styles, sorry about that).</p>
 
 <p>Thanks to all visitors!</p>
 
@@ -19,7 +23,11 @@ text='<body>
 
 <h2>Indisponível por tempo indeterminado.</h2>
 
-<!-- <p>Os feeds do Podcast e Blog permanecem disponíveis.</p> -->
+<p>Os feeds do Podcast e Blog permanecem disponíveis.</p>
+
+<p>O Blog em HTML pode ser
+<a title="Pelo benefício da comodidade, todos os posts reunidos em um único documento" href="https://mountaineerbr.github.io/blog/cat.html">encontrado aqui</a>
+(sem images e estilos, foi mal).</p>
 
 <p>Obrigado a todos os visitantes!</p>
 
