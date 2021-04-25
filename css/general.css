@@ -1,0 +1,1033 @@
+/*
+ * Copyright 2000-2020 Henri Sivonen
+ * 2000-03-28 initial version
+ * 2009-04-10 overhaul
+ * 2020-01-12 upgrade fonts
+ */
+
+/* See https://hsivonen.fi/fonts/r/Libertinus_OFL.txt for the Libertinus license. */
+/* See https://hsivonen.fi/fonts/r/Libertinus_FONTLOG.linuxlibertine.txt for the FONTLOG of Linux Libertine. */
+/* See https://hsivonen.fi/fonts/r/Libertinus_FONTLOG.txt for the FONTLOG of Libertinus. */
+/* You can obtain Libertinus Serif for your own use from https://github.com/alif-type/libertinus */
+@font-face {
+	font-family: "Libertinus Serif";
+	font-weight: normal;
+	font-style: normal;
+	src: url("../fonts/u/LibertinusSerif-Regular.woff2") format("woff2"), url("../fonts/u/LibertinusSerif-Regular.woff") format("woff");
+}
+@font-face {
+	font-family: "Libertinus Serif";
+	font-weight: bold;
+	font-style: normal;
+	src: url("../fonts/u/LibertinusSerif-Semibold.woff2") format("woff2"), url("../fonts/u/LibertinusSerif-Semibold.woff") format("woff");
+}
+@font-face {
+	font-family: "Libertinus Serif";
+	font-weight: normal;
+	font-style: italic;
+	src: url("../fonts/u/LibertinusSerif-Italic.woff2") format("woff2"), url("../fonts/u/LibertinusSerif-Italic.woff") format("woff");
+}
+@font-face {
+	font-family: "Libertinus Serif";
+	font-weight: bold;
+	font-style: italic;
+	src: url("../fonts/u/LibertinusSerif-SemiboldItalic.woff2") format("woff2"), url("../fonts/u/LibertinusSerif-SemiboldItalic.woff") format("woff");
+}
+
+/* See https://hsivonen.fi/fonts/r/AlegreyaSans_OFL.txt for the Alegreya Sans license. */
+/* You can obtain Alegreya Sans for your own use from https://github.com/huertatipografica/Alegreya-Sans */
+@font-face {
+	font-family: "Alegreya Sans";
+	font-weight: normal;
+	font-style: normal;
+	src: url("../fonts/u/AlegreyaSans-Regular.woff2") format("woff2"), url("../fonts/u/AlegreyaSans-Regular.woff") format("woff");
+}
+@font-face {
+	font-family: "Alegreya Sans";
+	font-weight: bold;
+	font-style: normal;
+	src: url("../fonts/u/AlegreyaSans-Bold.woff2") format("woff2"), url("../fonts/u/AlegreyaSans-Bold.woff") format("woff");
+}
+@font-face {
+	font-family: "Alegreya Sans";
+	font-weight: normal;
+	font-style: italic;
+	src: url("../fonts/u/AlegreyaSans-Italic.woff2") format("woff2"), url("../fonts/u/AlegreyaSans-Italic.woff") format("woff");
+}
+@font-face {
+	font-family: "Alegreya Sans";
+	font-weight: bold;
+	font-style: italic;
+	src: url("../fonts/u/AlegreyaSans-BoldItalic.woff2") format("woff2"), url("../fonts/u/AlegreyaSans-BoldItalic.woff") format("woff");
+}
+
+/* See https://hsivonen.fi/fonts/r/Liberation_LICENSE.txt for the Liberation license. */
+/* You can obtain Liberation for your own use from https://github.com/liberationfonts/liberation-fonts */
+@font-face {
+	font-family: "Liberation Mono";
+	font-weight: normal;
+	font-style: normal;
+	src: url("../fonts/u/LiberationMono-Regular.woff2") format("woff2"), url("../fonts/u/LiberationMono-Regular.woff") format("woff");
+}
+@font-face {
+	font-family: "Liberation Mono";
+	font-weight: bold;
+	font-style: normal;
+	src: url("../fonts/u/LiberationMono-Bold.woff2") format("woff2", url("../fonts/u/LiberationMono-Regular.woff") format("woff"));
+}
+@font-face {
+	font-family: "Liberation Mono";
+	font-weight: normal;
+	font-style: italic;
+	src: url("../fonts/u/LiberationMono-Italic.woff2") format("woff2"), url("../fonts/u/LiberationMono-Italic.woff") format("woff");
+}
+@font-face {
+	font-family: "Liberation Mono";
+	font-weight: bold;
+	font-style: italic;
+	src: url("../fonts/u/LiberationMono-BoldItalic.woff2") format("woff2"), url("../fonts/u/LiberationMono-BoldItalic.woff") format("woff");
+}
+
+/* See https://hsivonen.fi/fonts/hr/Libertine_OFL.txt for the Linux Libertine license. */
+/* You can obtain Linux Libertine for your own use from https://sourceforge.net/projects/linuxlibertine/ */
+@font-face {
+	font-family: "Linux Libertine";
+	font-weight: normal;
+	font-style: normal;
+	src: url("../fonts/hr/LinLibertine_Rah.woff2") format("woff2"), url("../fonts/hr/LinLibertine_Rah.woff") format("woff");
+}
+
+/* See https://hsivonen.fi/fonts/r/SourceHanSerif_LICENSE.txt for the Source Han Serif license. */
+/* You can obtain Source Han Serif for your own use from https://github.com/adobe-fonts/source-han-serif */
+@font-face {
+	font-family: 'SourceHanSerifJP';
+	font-style: normal;
+	font-weight: 400;
+	src: url("../fonts/u/SourceHanSerifJP-Regular.woff2") format("woff2"), url("../fonts/u/SourceHanSerifJP-Regular.woff") format("woff");
+}
+@font-face {
+	font-family: 'SourceHanSerifKR';
+	font-style: normal;
+	font-weight: 400;
+	src: url("../fonts/u/SourceHanSerifKR-Regular.woff2") format("woff2"), url("../fonts/u/SourceHanSerifKR-Regular.woff") format("woff");
+}
+@font-face {
+	font-family: 'SourceHanSerifTW';
+	font-style: normal;
+	font-weight: 400;
+	src: url("../fonts/u/SourceHanSerifTW-Regular.woff2") format("woff2"), url("../fonts/u/SourceHanSerifTW-Regular.woff") format("woff");
+}
+@font-face {
+	font-family: 'SourceHanSerifCN';
+	font-style: normal;
+	font-weight: 400;
+	src: url("../fonts/u/SourceHanSerifCN-Regular.woff2") format("woff2"), url("../fonts/u/SourceHanSerifCN-Regular.woff") format("woff");
+}
+
+/* See https://hsivonen.fi/fonts/r/Noto_LICENSE_OFL.txt for the Noto license. */
+/* You can obtain Noto for your own use from https://www.google.com/get/noto/ */
+@font-face {
+	font-family: 'Noto Serif Ethiopic';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Noto Serif Ethiopic'), url("../fonts/u/NotoSerifEthiopic-Regular.woff2") format("woff2"), url("../fonts/u/NotoSerifEthiopic-Regular.woff") format("woff");
+}
+@font-face {
+	font-family: 'Noto Serif Bengali';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Noto Serif Bengali'), url("../fonts/u/NotoSerifBengali-Regular.woff2") format("woff2"), url("../fonts/u/NotoSerifBengali-Regular.woff") format("woff");
+}
+@font-face {
+	font-family: 'Noto Serif Devanagari';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Noto Serif Devanagari'), url("../fonts/u/NotoSerifDevanagari-Regular.woff2") format("woff2"), url("../fonts/u/NotoSerifDevanagari-Regular.woff") format("woff");
+}
+@font-face {
+	font-family: 'Noto Serif Tamil';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Noto Serif Tamil'), url("../fonts/u/NotoSerifTamil-Regular.woff2") format("woff2"), url("../fonts/u/NotoSerifTamil-Regular.woff") format("woff");
+}
+@font-face {
+	font-family: 'Noto Sans Yi';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Noto Sans Yi'), url("../fonts/u/NotoSansYi-Regular.woff2") format("woff2"), url("../fonts/u/NotoSansYi-Regular.woff") format("woff");
+}
+
+
+* {
+	background: none;
+	border: none;
+	font: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	font-style: inherit;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	color: inherit;
+}
+
+abbr {
+	text-decoration: none;
+	text-underline-style: none;
+	border: none;
+}
+
+:lang(ja) {
+	font-family: SourceHanSerifJP, "Libertinus Serif", serif;
+}
+:lang(ko) {
+	font-family: SourceHanSerifKR, "Libertinus Serif", serif;
+}
+/* CN has both Simplified and Traditional glyphs, so map bare zh to it. */
+:lang(zh), :lang(zh-hans), :lang(zh-cn) {
+	font-family: SourceHanSerifCN, "Libertinus Serif", serif;
+}
+/* Must be declared after the previous rule for these to override the zh match. */
+:lang(zh-hant), :lang(zh-tw) {
+	font-family: SourceHanSerifTW, "Libertinus Serif", serif;
+}
+:lang(am) {
+	font-family: "Noto Serif Ethiopic", "Libertinus Serif", serif;
+}
+:lang(bn) {
+	font-family: "Noto Serif Bengali", "Libertinus Serif", serif;
+}
+:lang(hi) {
+	font-family: "Noto Serif Devanagari", "Libertinus Serif", serif;
+}
+:lang(ta) {
+	font-family: "Noto Serif Tamil", "Libertinus Serif", serif;
+}
+:lang(ii) {
+	font-family: "Noto Sans Yi", "Libertinus Serif", serif;
+}
+
+html {
+	font-family: "Libertinus Serif", serif;
+	background-color: #c0ca86;
+	color: #2d3319;
+	padding: 2em;
+  -webkit-font-feature-settings: 'liga' 1, 'dlig' 1, 'kern' 1;
+  -moz-font-feature-settings: 'liga' 1, 'dlig' 1, 'kern' 1;
+  -ms-font-feature-settings: 'liga' 1, 'dlig' 1, 'kern' 1;
+  -o-font-feature-settings: 'liga' 1, 'dlig' 1, 'kern' 1;
+  font-feature-settings: 'liga' 1, 'dlig' 1, 'kern' 1;
+}
+
+body {
+	margin: 0 auto 0 auto;
+	background-color: #dae1b1;
+	color: #24251c;
+	max-width: 50em;
+	border: 0.6em double #949d65;
+	border-radius: 1.5em;
+	padding: 0 1.5em 1.5em;
+}
+/*
+p.note b, p.note strong {
+	font-variant: small-caps;
+	font-family: "Libertinus Serif", serif;
+}
+*/
+p {
+  line-height: 1.25;
+}
+h1, h2, h3, h4, h5, h6, dt, .courseid, .affiliation, .authors, .date, caption, .caption, figcaption, label {
+	font-family: "Alegreya Sans", sans-serif;
+}
+h1, h2, h3, h4, h5, h6, dt {
+	page-break-after: avoid;
+  break-inside: avoid-column;
+  break-after: avoid-column;
+}
+dd {
+  page-break-before: avoid;
+  break-before: avoid-column;
+}
+code, tt, pre, samp, kbd {
+	font-family: "Liberation Mono", monospace;
+	font-size: 0.80em;
+}
+h1 code, h2 code, h3 code, h4 code, h5 code, h6 code, dt code, th code,
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt, dt tt, th tt {
+	font-size: 0.78em;
+}
+pre code, pre tt {
+	font-size: 1em;
+}
+
+pre, dl {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+dt {
+  page-break-after: avoid;
+}
+dd, li {
+  page-break-before: avoid;
+  page-break-inside: avoid;
+  margin-left: 1.5em;
+}
+em, i, var, cite {
+  font-style: italic;
+}
+b, strong {
+	font-weight: bold;
+}
+
+div.alternatelangnotice p {
+	text-align: right;
+	margin: 0;
+}
+div.alternatelangnotice {
+	margin-top: 0.5em;
+	margin-bottom: -1.5em;
+}
+.latex-space {
+  letter-spacing: 0.35em;
+}
+.tex {
+  letter-spacing: -0.125em;
+}
+.latex-l {
+  letter-spacing: -0.35em;
+}
+.tex-e {
+  text-transform: uppercase;
+  vertical-align: -0.25em;
+  line-height: 0; /* thanks to Boris Zbarsky */
+}
+.latex-a {
+  text-transform: uppercase;
+  font-size: 0.72em;
+  vertical-align: 0.24em;
+}
+.bibtex-ib {
+  font-variant: small-caps;
+}
+.wiki {
+  -webkit-font-feature-settings: "ss05" 1;
+  -moz-font-feature-settings: "ss05" 1;
+  -ms-font-feature-settings: "ss05" 1;
+  -o-font-feature-settings: "ss05" 1;
+  font-feature-settings: "ss05" 1;
+}
+h1, h2, h3 {
+	font-weight: bold;
+}
+h3, h4 {
+	font-size: 1.15em;
+	margin-bottom: 0.2em;
+	margin-top: 1.0em;
+}
+h2 {
+	font-size: 1.5em;
+	margin-bottom: 0.3em;
+	margin-top: 1.15em;
+}
+h1 {
+	font-size: 2em;
+	margin-bottom: 0.3em;
+	margin-top: 1.15em;
+}
+dt {
+	margin-bottom: 0.25em;
+	margin-top: 0.75em;
+}
+p {
+  text-indent: 1.5em;
+  text-align: justify;
+  prince-hyphenate: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  -o-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p, hgroup + p, table +p, pre + p, ul + p, ol + p, dl + p, div + p, blockquote + p, header + p, p:first-child, p.note, p.log, header.authordate p, blockquote.email p {
+  text-indent: 0;
+}
+td p, th p, dd p, li p, .footer p, footer p, blockquote.email p {
+	margin-bottom: 0.5em;
+	text-indent: 0;
+}
+blockquote {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	margin-left: 1.5em;
+}
+header.authordate {
+    margin-bottom: 1em;
+}
+.nutshell-shadow-right {
+  margin-right: -40px;
+}
+div.nutshell, div.patents, div#web20sidebar, .note {
+	background-color: #FFFFCC;
+}
+div.nutshell, div#web20sidebar, .note, .footer, footer {
+	padding-right: 0.5em;
+	padding-left: 0.5em;
+	padding: 0.75em;
+	border-radius: 0.75em;
+	margin: 0.5em -0.75em;
+}
+div.footer, footer {
+	margin-bottom: -1em;
+}
+div#web20sidebar {
+	padding-top: 0.5;
+	float: right;
+	width: 25%;
+	margin-left: 1.5em;
+	margin-top: 0.5em;
+}
+div#web20sidebar h2 {
+	margin-top: 0;
+}
+div#web20sidebar h3 img {
+	vertical-align: baseline;
+}
+h2.delicious-banner {
+	display: none;
+}
+#web20sidebar ul, #web20sidebar li {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+#web20sidebar h2 {
+	margin-top: 0;
+}
+
+#web20sidebar h3 {
+	margin-bottom: 0.5em;
+}
+
+div.flickr_badge_image {
+	display: inline;
+}
+
+#web20sidebar img {
+	float: none;
+	padding: 0;
+	margin: 0;
+}
+
+#flickr_badge_wrapper {
+	margin-top: 0.5em;
+}
+.frontpage dt, .tasklist dt {
+	font-size: 1.15em;
+	font-weight: bold;
+}
+.footer, footer {
+  break-inside: avoid-column;
+	background-color: #e1e1e1;
+	color: #4d4d4d;
+	margin-bottom: 0.75em;
+	margin-top: 0.75em;
+	display: block;
+}
+img {
+	border: none;
+	vertical-align: top;
+	float: right;
+	clear: right;
+	background-color: transparent;
+	margin-left: 0.8em;
+}
+hr {
+	text-align: center;
+	font-size: 2em;
+	height: 1em;
+	font-family: "Linux Libertine";
+}
+hr::before {
+	content: '\E007';
+	text-align: center;
+}
+sup, sub {
+	font-size: 75%;
+}
+/* Order thanks to http://accessibleinter.net/portfolio/writing/revised_method_link_pseudoclasses */
+/* Vendor prefixes suck. http://hsivonen.iki.fi/vendor-prefixes/ */
+:link:focus {
+	outline: 0.2em solid #164796;
+	-moz-outline-radius: 0.5em;
+	-webkit-outline-radius: 0.5em;
+	-o-outline-radius: 0.5em;
+	-ms-outline-radius: 0.5em;
+	outline-radius: 0.5em;
+	-webkit-transition-property: background-color, outline-width;
+	-webkit-transition-duration: 0.15s;
+	-webkit-transition-timing-function: ease-in-out;
+	-moz-transition-property: background-color, outline-width;
+	-moz-transition-duration: 0.15s;
+	-moz-transition-timing-function: ease-in-out;
+	-o-transition-property: background-color, outline-width;
+	-o-transition-duration: 0.15s;
+	-o-transition-timing-function: ease-in-out;
+	-ms-transition-property: background-color, outline-width;
+	-ms-transition-duration: 0.15s;
+	-ms-transition-timing-function: ease-in-out;
+	transition-property: background-color, outline-width;
+	transition-duration: 0.15s;
+	transition-timing-function: ease-in-out;
+}
+:visited:focus {
+	outline: 0.2em solid #831596;
+	-moz-outline-radius: 0.5em;
+	-webkit-outline-radius: 0.5em;
+	-o-outline-radius: 0.5em;
+	-ms-outline-radius: 0.5em;
+	outline-radius: 0.5em;
+	-webkit-transition-property: background-color, outline-width;
+	-webkit-transition-duration: 0.15s;
+	-webkit-transition-timing-function: ease-in-out;
+	-moz-transition-property: background-color, outline-width;
+	-moz-transition-duration: 0.15s;
+	-moz-transition-timing-function: ease-in-out;
+	-o-transition-property: background-color, outline-width;
+	-o-transition-duration: 0.15s;
+	-o-transition-timing-function: ease-in-out;
+	-ms-transition-property: background-color, outline-width;
+	-ms-transition-duration: 0.15s;
+	-ms-transition-timing-function: ease-in-out;
+	transition-property: background-color, outline-width;
+	transition-duration: 0.15s;
+	transition-timing-function: ease-in-out;
+}
+:link {
+	color: #164796;
+	outline-width: 0;
+	outline-offset: 0.1em;
+	border-radius: 0.5em;
+	-webkit-transition-property: background-color, outline-width;
+	-webkit-transition-duration: 0.15s;
+	-webkit-transition-timing-function: ease-in-out;
+	-moz-transition-property: background-color, outline-width;
+	-moz-transition-duration: 0.15s;
+	-moz-transition-timing-function: ease-in-out;
+	-o-transition-property: background-color, outline-width;
+	-o-transition-duration: 0.15s;
+	-o-transition-timing-function: ease-in-out;
+	-ms-transition-property: background-color, outline-width;
+	-ms-transition-duration: 0.15s;
+	-ms-transition-timing-function: ease-in-out;
+	transition-property: background-color, outline-width;
+	transition-duration: 0.15s;
+	transition-timing-function: ease-in-out;
+}
+:visited {
+	color: #831596;
+}
+:link:hover, :visited:hover {
+	background-color: #FFFFCC;
+	border-radius: 0.5em;
+	-webkit-transition-property: background-color, outline-width;
+	-webkit-transition-duration: 0.15s;
+	-webkit-transition-timing-function: ease-in-out;
+	-moz-transition-property: background-color, outline-width;
+	-moz-transition-duration: 0.15s;
+	-moz-transition-timing-function: ease-in-out;
+	-o-transition-property: background-color, outline-width;
+	-o-transition-duration: 0.15s;
+	-o-transition-timing-function: ease-in-out;
+	-ms-transition-property: background-color, outline-width;
+	-ms-transition-duration: 0.15s;
+	-ms-transition-timing-function: ease-in-out;
+	transition-property: background-color, outline-width;
+	transition-duration: 0.15s;
+	transition-timing-function: ease-in-out;
+}
+:link:active {
+	color: #687996;
+	outline-color: #687996;
+}
+:visited:active {
+	color: #8f6796;
+	outline-color: #8f6796;
+}
+.mode-col {
+	width: 4.2em;
+}
+p.imgpara {
+	clear: right;
+}
+.tmacknowledgement {
+	font-size: 70%;
+}
+
+.XHTML {
+	background-color: #00FF00;
+}
+
+.XML-XHTML, .supported, .standards, .match {
+	background-color: #55e12e;
+}
+
+.XHTML-NS, .with-add-on, .almost {
+	background-color: #5eb546;
+}
+
+.HTML {
+        background-color: #55BB55;
+}
+
+.Soup {
+        background-color: #e1e1e1;
+}
+
+.Text, .notsupported, .quirks, .nomatch {
+        background-color: #e12e2e;
+}
+
+.Text-NS {
+	background-color: #e15c5c;
+}
+
+.Ill-formed {
+	background-color: #f71414;
+}
+
+.supported a, .notsupported a, .XHTML a, .XML-XHTML a, .XHTML-NS a, .HTML a, .Soup a, .Text a, .Text-NS a, .Ill-formed a, .quirks a {
+	color: #24251c;
+}
+table {
+	margin-top: 0.5em;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0.5em;
+	padding: 0;
+/*	background-color: #FFFFDD; */
+	border-spacing: 0.2;
+	border-collapse: separate;
+/*	border-color: #949d65;
+	border-style: solid;
+	border-width: 0.2em; */
+}
+table.page-wide, table.dataTable {
+	table-layout: fixed;
+	width: 100%;
+}
+
+td, th {
+	border-radius: 0.25em;
+}
+td, th, table.dataTable thead th, table.dataTable thead td, table.dataTable tbody th, table.dataTable tbody td, table.dataTable tfoot th, table.dataTable tfoot td {
+	padding-top: 0.25em;
+	padding-left: 0.25em;
+	padding-right: 0.25em;
+	padding-bottom: 0.15em;
+/*	border-color: #dae1b1;
+	border-style: dotted;
+	border-width: 0.2em; */
+}
+
+th {
+	font-weight: bold;
+	background-color: #FFFFCC;
+}
+td {
+	background-color: #FFFFDD;
+}
+table.unicodebreakdown th {
+	text-align: right;
+	vertical-align: bottom;
+}
+table.unicodebreakdown td {
+	text-align: right;
+}
+table.unicodebreakdown thead th + th, table#counts thead th + th {
+	min-width: 1.5em;
+	vertical-align: center;
+	text-align: center;
+	writing-mode: vertical-rl;
+	text-orientation: sideways;
+}
+
+table.dataTable thead th, table.dataTable thead td, table.dataTable tbody th, table.dataTable tbody td, table.dataTable tfoot th, table.dataTable tfoot td {
+	border-radius: 0;
+	text-align: right;
+}
+
+table.dataTable thead th {
+	padding-right: 10px;
+}
+table.dataTable thead th#charcountname {
+	padding-right: 20px;
+}
+table#counts th#charcountname {
+	width: auto;
+	min-width: 4em;
+}
+table#counts th.charcountdelta {
+	width: 2em;
+}
+table#counts th.charcount {
+	width: 2.5em;
+}
+table#counts th#charcountscript {
+	width: 2.5em;
+}
+img.center, .figure img, figure img {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	padding: 0;
+	float: none;
+	clear: none;
+}
+img.large {
+	margin-left: 2.2em;
+	display: block;
+}
+img.large {
+        padding: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+        float: none;
+        clear: none;
+}
+img.badge {
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 0.3em;
+	padding: 0;
+	border: none;
+	float: none;
+	clear: none;
+	background-color: inherit;
+	vertical-align: bottom;
+}
+figure > * {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.clearing {
+	clear: both;
+}
+ul.toc, .toc ul, .toc li, ul.menu, ul.menu ul {
+  list-style-type: none;
+}
+ul.menu {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+ul.menu hr {
+	text-align: left;
+	font-size: 1em;
+	height: 1em;
+}
+.icon {
+  float: none;
+  padding: 0;
+  margin: 0;
+  vertical-align: baseline;
+}
+.center {
+	text-align: center;
+}
+figure {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  display: block;
+}
+figcaption {
+  display: block;
+}
+
+@media all and (max-width: 55em) {
+  html {
+    padding: 1em;
+  }
+}
+
+@media all and (max-width: 22em) {
+  html {
+    padding: 0.5em;
+  }
+  body {
+  	border: 0.2em solid #949d65;
+  	border-radius: 0.75em;
+	  padding: 0 0.75em 0.75em;
+  }
+  div#web20sidebar {
+	  float: none;
+	  width: auto;
+  }
+  div.nutshell, div#web20sidebar, .note, .footer, footer {
+	  padding: 0.4em;
+	  border-radius: 0.4em;
+	  margin: 0.2em -0.4em;
+  }
+
+}
+
+@media all and (max-width: 16em) {
+  html {
+    padding: 0;
+  }
+  body {
+  	border: 0.3em solid #949d65;
+  	border-radius: 0;
+	  padding: 0 0.3em 0.3em;
+  }
+  p {
+    text-align: left;
+  }
+  div.nutshell, div#web20sidebar, .note, .footer, footer {
+	  padding: 0.1em;
+	  border-radius: 0;
+	  margin: 0.1em -0.1em;
+  }
+}
+
+
+@media -o-paged {
+  html {
+    height: 100%;
+  }
+  body {
+    height: 90%;
+  	max-width: none;
+    column-width: 30em;
+    column-gap: 1.5em;
+    column-fill: auto;
+		padding: 1.5em;
+  	overflow: -o-paged-x;
+	}
+  div#web20sidebar {
+	  float: none;
+	  width: auto;
+  }
+}
+
+label {
+	font-weight: bold;
+}
+
+input {
+	font-weight: normal;
+	background-color: white;
+}
+
+.dataTables_filter {
+	margin-top: 2em;
+	margin-bottom: 0.75em;
+}
+
+.licensebadge {
+	float: right;
+	margin-left: 1.5em;
+	margin-bottom: 1em;
+}
+
+@media print {
+    body {
+        border: none;
+        padding: none;
+    }
+}
+
+/*
+@media print {
+html {
+  font-size: 11pt;
+  color: black;
+}
+body {
+  padding: 0;
+}
+}
+h1 {
+  string-set: title content();
+  font-size: 2.0667em;
+  font-weight: bold;
+  margin-top: 1em;
+  prince-bookmark-level: none;
+}
+dl.references {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+dl.references dd {
+  margin-bottom: 0.5em;
+}
+dl.references .urlwrap {
+  display: block;
+  prince-hyphenate: none;
+}
+code {
+  font-family: Courier, Courier New, monospace;
+  prince-linebreak-magic: auto;
+  prince-hyphenate: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -o-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+ul {
+  margin-left: 1.5em;
+  padding-left: 0;
+  margin-bottom: 0.5em;
+}
+li {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+.url {
+  prince-linebreak-magic: auto;
+  prince-hyphenate: none;
+}
+@media print {
+a[href], :link {
+    color: black;
+    text-decoration: none;
+}
+a[href^="#"]::after {
+  content: " (page " target-counter(attr(href), page) ")";
+  font-style: normal;
+}
+a[href^="#ref-"]::after {
+  display: none;
+}
+}
+h2 {
+  font-weight: bold;
+  font-size: 2.0667em;
+  margin-bottom: 1.55em;
+  padding-top: 3em;
+  prince-bookmark-level: 1;
+}
+h3 {
+  font-weight: bold;
+  font-size: 1.4333em;
+  margin-top: 1.35em;
+  margin-bottom: 0.65em;
+  prince-bookmark-level: 2;
+}
+h4 {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 0.55em;
+  margin-top: 1.35em;
+  prince-bookmark-level: 3;
+}
+h5::after {
+  content: ". ";
+}
+h5 {
+  display: run-in;
+  font-weight: bold;
+  margin-top: 1.0em;
+  prince-bookmark-level: 4;
+}
+h5 + p {
+  margin-top: 1.0em;
+}
+
+h3 + h4 {
+  margin-top: 0.88em;
+}
+@page {
+  size: A4;
+  margin: 4.15cm 2.7cm 4.5cm 2.7cm;
+  counter-increment: page;
+  font-family: Palatino, Palladio, serif;
+  font-size: 11pt;
+}
+@page:left {
+  margin-right: 3.9cm;
+@top-right {
+  content: string(title, first);
+  vertical-align: bottom;
+  padding-bottom: 18pt;
+  text-transform: uppercase;
+  font-style: italic;
+  text-align: right;
+}
+@top-left {
+  content: counter(page);
+  vertical-align: bottom;
+  padding-bottom: 18pt;
+  text-align: left;
+}
+}
+@page:right {
+  margin-left: 3.9cm;
+@top-left {
+  content: string(header, first);
+  vertical-align: bottom;
+  padding-bottom: 18pt;
+  text-transform: uppercase;
+  font-style: italic;
+  text-align: left;
+}
+@top-right {
+  content: counter(page);
+  vertical-align: bottom;
+  padding-bottom: 18pt;
+  text-align: right;
+}
+}
+
+
+ul.compact {
+	margin: 0;
+	border: none;
+	padding-left: 1em;
+	padding-right: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+ul.compact li {
+	display: list-item;
+	list-style-type: none;
+	list-style-position: inside;
+	padding: 0;
+	border: none;
+	margin: 0;
+}
+img {
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-right: 0;
+	margin-left: 0.8em;
+	padding: 0;
+}
+dd + dt {
+	margin-top: 0.4em;
+}
+
+
+.frontpage dt, .tasklist dt {
+	font-size: 1.2em;
+}
+
+div#web20sidebar {
+	float: right;
+	width: 25%;
+	margin-left: 1.5em;
+}
+
+ul.toc {
+	width: 30%;
+	float: right;
+	margin: 1.5em 0 1em 1em;
+	padding: 0.5em;
+	border: 3px dotted #DDDDCC;
+	background-color: #FFFFCC;
+}
+
+
+
+
+*/

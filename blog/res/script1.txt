@@ -1,0 +1,85 @@
+#!/bin/bash
+# concatenate posts in a single html document
+##this is an old version of the script##
+
+#script base
+ROOT="$HOME/www/mountaineerbr.github.io/blog"
+
+#html filenames
+#cat.html is a clone of index.html with modifications
+TARGET="$ROOT/cat.html"
+BAK="$ROOT/cat.bak$( date +%s ).html"
+
+#get article and
+#change base directory of sources
+artf()
+{
+	local a c
+	
+	#get post directory number
+	a="${1%/}"
+	a="${a##*/}\/"
+	c='src=\"'
+
+	sed -n '/<article>/,/<\/article>/p' "$1/index.html" |
+		sed -Ee "/<img/ s/${c}/&${a}/" \
+		     -e "/<source/ s/${c}/&${a}/"
+		     #probably useless
+		     #-e "/<video/ s/${c}/&${a}/"
+		     #-e "/<audio/ s/${c}/&${a}/"
+
+	ret="${PIPESTATUS[*]}"
+	[[ "$ret" = *[1-9]* ]] && return 1
+	return 0
+}
+
+
+#start
+
+#test target files exist
+#changing to $ROOT is required for next steps!
+if ! cd "$ROOT"
+then
+	echo "blog root directory does not exist -- $ROOT" >&2
+	exit 1
+elif [[ ! -f "$TARGET" ]]
+then
+	echo "file missing -- $TARGET" >&2
+	exit 1
+fi
+
+#get a list of post directories
+while read
+do
+	DIRS+=( "$REPLY" )
+done <<<"$( printf '%s\n' [0-9]*/ | sort -nr )"
+
+#check directory arrau is not empty
+(( ${#DIRS[@]} )) || exit 1
+
+#get all articles
+for dir in "${DIRS[@]}" 
+do
+	#add article and blank lines
+	ARTS+="$( artf "$dir" )
+
+<br><br>
+" || exit 1
+done
+
+#get top and bottom of cat.html
+TOP="$( sed -n "1,/<\/header>/ p" "$TARGET" )" || exit
+BOTTOM="$( sed -n "/<footer>/,$ p" "$TARGET" )" || exit
+
+#backup
+mv -v "$TARGET" "$BAK"
+
+#make new cat.html
+{
+	echo "$TOP"
+	echo
+	echo "$ARTS"
+	echo
+	echo "$BOTTOM"
+} > "$TARGET"
+

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0"
+    xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+>
+  <!--
+  
+    Hey!
+    This web page is actually a data file that is meant to be
+     read by RSS reader programs.
+    See https://mountaineerbr.github.io/blog to get to the human-
+     readable page.
+  
+  -->
+
+  <channel>
+    <lastBuildDate>2021-02-11</lastBuildDate>
+    <title>Biology Blogger (Podcast)</title>
+    <description>The Biology Blogger podcast stream is about biology, science and UNIX. Mostly in Portuguese. Hope you enjoy!</description>
+    <language>en</language>
+    <link>https://mountaineerbr.github.io/blog/</link>
+    <copyright>
+      Copyright ©2021 JSN.
+      Verbatim copying and distribution of this entire article is
+      permitted in any medium, provided this notice is preserved.
+    </copyright>
+
+    <!-- # MINIMUM SIZE OF 1400 X 1400 PIXELS AND A MAXIMUM SIZE OF 3000 X 3000 PIXELS -->
+    <itunes:image href="https://mountaineerbr.github.io/gfx/sherlockb_big.png" />
+    <itunes:category text="Science">
+    	<itunes:category text="Natural Sciences" />
+    </itunes:category>
+    <itunes:author>jamilbio20@gmail.com (JSN)</itunes:author>
+    <!-- # [OWNER] TAG IS FOR ADMINISTRATIVE COMMUNICATION AND ISN'T DISPLAYED -->
+    <itunes:owner>
+	<itunes:email>jamilbio20@gmail.com</itunes:email>
+	<itunes:name>mountaineerbr</itunes:name>
+    </itunes:owner>
+    <itunes:type>episodic</itunes:type>
+    <itunes:explicit>false</itunes:explicit>
+
+    <!-- # <itunes:complete> --> <!-- # If you will never publish another episode to your show, use this tag -->
+    <!-- # <itunes:title> --> <!-- # The show title specific for Apple Podcasts -->
+
+    <googleplay:owner>jamilbio20@gmail.com</googleplay:owner>
+    <googleplay:author>mountaineerbr</googleplay:author>
+    <googleplay:image href="https://mountaineerbr.github.io/gfx/sherlockb_big.png" />
+    
+    <!-- # The primary individual responsible for the content of the resource -->
+    <dc:creator>mountaineerbr</dc:creator>
+    <!-- # The individual(s) or companies responsible for contributing content to the resource -->
+    <!-- # <dc:contributor></dc:contributor> -->
+    <!-- # The individual or company responsible for providing the content -->
+    <!-- # <dc:publisher> -->
+
+    <!-- # IMPORTANT: keep [generator] as [item] elements will be appended after it -->
+    <generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
+
+
+  </channel>
+</rss>
+
+<!-- # https://help.apple.com/itc/podcasts_connect/#/itcb54353390 -->
+<!-- # https://www.dublincore.org/specifications/dublin-core/usageguide/elements/ -->
+<!-- # https://www.feedforall.com/dublin-core.htm -->
+

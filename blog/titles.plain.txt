@@ -1,6 +1,7 @@
 
- 13/sep/2021 #37 - Firefox on Mobile (Android)
- 12/sep/2021 #36 - Firefox on NVIDIA Graphics Card
+ 23/apr/2021 #38 - Going Away
+ 23/apr/2021 #37 - Firefox on Mobile (Android)
+ 12/apr/2021 #36 - Firefox on NVIDIA Graphics Card
  07/apr/2021 #35 - Removing Google Analytics
  04/apr/2021 #34 - Bitcoin Graph Watch
  02/apr/2021 #33 - Podcast #6 - More Tor Configs for Bitcoin Node and SSH

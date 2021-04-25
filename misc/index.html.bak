@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Biologist Blogger -- Personal Web Page</title>
+<meta name="resource-type" content="document">
+<meta name="description" content="Biology, science and UNIX web log">
+<meta name="keywords" content="business, serviços, blog, shell, hacks, tips, dicas, environment, meio-ambiente, education, educação, didática, didatics, analysis, análise, knowledge, conhecimento, research, pesquisa, lista de links, link lists, philosophy, filosofia, mythbuster, caçador de mitos, ciência, tecnologia, biologia, biologist, biólogo">
+<link rel="canonical" href="https://mountaineerbr.github.io/">
+<meta name="distribution" content="global">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<!--<link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com">-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) -->
+<!-- uBlock easily blocks this -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-177031288-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-177031288-1');
+</script>
+<!-- Google Analytics -->
+
+
+</head>
+
+<body id="homebody">
+<header>
+	<div id="hometitle">
+		<h1><strong>
+			Biologist Blogger
+			<br>
+			<span lang="pt">
+			Biólogo Blogueiro
+			</span>
+		</strong></h1>
+	</div>
+
+	<div id="homedesc">
+		<h3>
+			You reached my website. Welcome!
+			<br>
+			<i><span lang="pt">
+			Você conseguiu alcançar meu site. Bem-vindo!
+			</span></i>
+		</h3>
+	</div>
+	
+	<p><i>
+		<!-- <a href="./">Home</a> | -->
+		<a href="blog/">Blog</a> |
+		<a href="https://github.com/mountaineerbr">Repository</a> |
+		<a hreflang="pt" href="https://www.youtube.com/c/xgnubio">Vlog</a>
+	</i></p>
+	<hr>
+
+</header>
+
+<div class="row">
+	<!-- NOTICE BOARD -->
+	<div id="board" class="column left">
+		<h2><b>News</b></h2>
+		<h3>Website under construction</h3>
+		<p>
+		Bookmark this page and come back later!
+		</p>
+
+		<br>
+		<h2 lang="pt"><b>Notícias</b></h2>
+		<h3 lang="pt">Em construção..</h3>
+		<p lang="pt">
+		Adicione esta página aos favoritos e volte uma outra hora!
+		</p>
+
+		<img src="gfx/under_construction.gif" alt="construction worker animation">
+	</div>
+	<!-- NOTICE BOARD END -->
+
+
+	<!-- BLOG RECENT POSTS-->
+	<div id="blog" class="column right">
+		<h2><b>Blog latest posts</b></h2>
+		
+		<ul>
+			<li><a href="blog/4/">Podcast <span lang="pt">Idéia</span></a></li>
+			<li><a href="blog/3/">Blog design</a></li>
+			<li><a href="blog/2/">English &amp; <span lang="pt">Português</span></a></li>
+			<li><a href="blog/1/">Sync an html blog!</a></li>
+		
+		</ul>
+		
+		
+		</div>
+	<!-- BLOG END -->
+
+</div>
+
+<footer>
+	<hr>
+	<p><i>
+		<a href="about/">About/<span lang="pt">Sobre</span></a> |
+		<a href="contact/">Contact</a> |
+		<a href="donate/">Donation</a> |
+		<a href="guestbook/">Guestbook/<span lang="pt">Livro de visitas</span></a>
+	</i></p>
+
+	<!-- simple counter, hidden -->
+	<div style="text-align:right;visibility:hidden;">
+		<p>
+		<small>Visitors</small>
+		<a href='https://www.counters-free.net/'>www.counters-free.net</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=7e75c9c151343dda5acb6fde46110f00395f931c'></script>
+		<script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/739654/t/3"></script>
+		</p>
+	</div>
+	<!-- simple counter -->
+
+
+	<div class="row">
+		<div class="column left" style="text-align: left;">
+			<!-- mukokkuseki logo -->
+			<!--<p title="mukokuseki, without nationality, sem nacionalidade" lang="ja" style="font-size: 120%;" >無国籍</p>-->
+		</div>
+
+		<div class="column right" style="text-align: right;">
+			<!-- seibutsugakku logo -->
+			<p><img src="gfx/seibutsugaku.gif" title="Seibutsugaku, biology, biologia" alt="biology written in japanese (seibutsugaku)"></p>
+		</div>
+	</div>
+
+</footer>
+</body>
+</html>
+

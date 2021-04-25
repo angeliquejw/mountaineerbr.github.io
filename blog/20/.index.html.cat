@@ -1,0 +1,206 @@
+<article class="h-entry">
+
+<header>
+	<h1 class="p-name" id="20">#20 - Generating Graphs of Covid19 Positivity Rate</h1>
+	<time class="dt-published" datetime="2020-12-24">24/dec/2020</time>
+<nav><a href="20/">[stand-alone]</a></nav>
+	
+	<br>
+</header>
+
+
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+<!-- <div lang="pt" class="p-summary"><p></p></div><br> -->
+
+
+<!-- MAIN TEXT  -->
+
+<p>
+I have been making some charts with data from
+Johns Hopkins University CSSE and
+Reuters News Agency to check how the number of 
+new cases, recovered and deaths are developing.
+</p>
+
+<p>
+I update the charts almost everyday.
+You can check them at
+<a href="https://github.com/mountaineerbr/coronaPlot">my github repo of covid19 graphs</a>.
+Unfortunately, I only discussed my opinion about them
+in one unrelated forum, needed to get those references to
+put them in my blog sometime.
+</p>
+
+<p>
+I have been very curious about another type of graphs, that of positivity.
+As the amount of test number per day have been variable since the pandemics
+start, I thought it would be helpful if we could analyse the data
+taking out such a parameter from the equation (in this case, graphs).
+</p>
+
+<p>
+For one thing, we should not be keen to analyse the absolute numbers,
+as there are so many diverging opinions, such as either numbers are
+over or underestimated.. So they are not much good.
+Let's check proportions!
+By the way, that is a tip from
+<a href="https://mobile.twitter.com/officialmcafee">John McAfee</a>,
+who is currently in jail in Spain #freemcafee).
+</p>
+
+<h2>Experimental charts for Covid19 test <em>positivity</em></h2>
+
+<p>
+How many percentage points of test results are positive to Covid19?
+I could not find positivity charts around with long time series,
+so I decided to make some charts with Brazilian data.
+Below is my try for charting data from Paraná State reports.
+</p>
+
+<br>
+<figure>
+	<img src="20/results_pr.png" alt="graph made with gnuplot" width="800" height="600">
+	<figcaption>
+		Fig 1.
+		Positivity graph from data of the state of Paraná.
+		Y-axis for positivity percentage of total tests analysed,
+		X-axis relative date.
+		That is one state with the lowest positivity rate
+		amongst all I could see with this analysis.
+		Data ranges between 03/feb/2020 and 06/dec/2020.
+	</figcaption>
+</figure>
+<br>
+<figure>
+	<img src="20/results_pr_long.png" alt="wider graph, same as fig. 1" width="3200" height="800">
+	<figcaption>
+		Fig 2. 
+		Same as fig. 1, but we see absolute dates in X-axis.
+		I am <em>not</em> sure how to configure <code>gnuplot</code>
+		to show fewer x-ticks and make them more readable, so
+		that is why it is so wide..
+	</figcaption>
+</figure>
+
+<p><strong>
+To see charts with data from all states, check
+<a href="https://github.com/mountaineerbr/coronaPlot/tree/master/SUSOPENDATA_2020-12-24">my corona virus repo</a>.
+</strong></p>
+
+<p>
+Analysing positivity rate is independent on test capacity,
+meaning it does not matter if there is more testing now
+than at the pandemics start. Everything can be levelled.
+</p>
+
+<p>
+I got the data from <a href="https://opendatasus.saude.gov.br/dataset/casos-nacionais">SUS OpenData</a>
+That is not the cleanest data.
+I extract values for Positive cases and Negative cases with some <code>awk</code>ing.
+</p>
+
+<p>
+After download the csv files, you can check the header line which contains
+the column keys:
+</p>
+
+<pre><code>% head -1 dados-pr.csv | tr \; \\n | nl
+     1	id
+     2	dataNotificacao
+     3	dataInicioSintomas
+     4	dataNascimento
+     5	sintomas
+     6	profissionalSaude
+     7	cbo
+     8	condicoes
+     9	estadoTeste
+    10	dataTeste
+    11	tipoTeste
+    12	resultadoTeste
+    13	paisOrigem
+    14	sexo
+    15	estado
+    16	estadoIBGE
+    17	municipio
+    18	municipioIBGE
+    19	origem
+    20	cnes
+    21	estadoNotificacao
+    22	estadoNotificacaoIBGE
+    23	municipioNotificacao
+    24	municipioNotificacaoIBGE
+    25	excluido
+    26	validado
+    27	idade
+    28	dataEncerramento
+    29	evolucaoCaso
+    30	classificacaoFinal</code></pre>
+
+
+<p>
+The following shell function was used
+to calculate positivity.
+The shell will loop through all csv files given and
+group results by date.
+</p>
+
+<p>
+Some <code>awk</code> conditionals will test
+values from columns $12 and $30, and will decide if that
+will be counted as a positive case, a negative case or be ignored.
+There is no guarantee this analysis is sufficient.
+</p>
+
+<p>You can check the script with some functions to process the data
+at my <a href="https://github.com/mountaineerbr/scripts/blob/master/corona_notifyBR.sh">sub repo</a>
+for covid test positivity studies.
+</p>
+
+<p>
+The last step is to generate graphs with <code>gnuplot</code>.
+I am having some difficulty with the x-ticks dates because
+<code>gnuplot</code> only accepts numbers by defaults..
+May as it be, bear in mind the data  start from about February
+and ends on 24<sup>th</sup> December.
+</p>
+
+
+<h2>Interpretation</h2>
+
+<p>
+Well, I have been avoiding interpreting Sars-2-Covid data too hastily,
+as I am learning a lot in this pandemics from a scientific perspective
+myself..
+</p>
+
+<p>
+But the whole point of making these graphs was to try and see if
+we could get a reading in which gross number of covid tests
+applied would not be a variable in time analysis.</p>
+
+<p>My experimentation is very rudimentary. I did not try to improve
+the filtering of the OpenSUS data very much after the initial effort.
+However,
+it is well-known
+from various news outlets that
+the number of tests taken per day by patients has increased,
+generally, but we also know it fluctuates over time,
+i.e test production capacity has increased since the very beginning
+of the pandemics, logistics has had occasional setbacks to deal with,
+and also
+it seem reasonable that less covid tests were applied when positive cases
+generally decreased, and vice-versa..
+</p>
+
+<p>
+With more diligent work onw can smooth out the variable number
+of covid tests done per day from chart data and surprising results are
+to be obtained.
+All available points from historical data sets ought to be used
+for the results of such an analysis be clear and meaningful
+from a long term and wholistic perspective.
+</p>
+
+
+
+</article>

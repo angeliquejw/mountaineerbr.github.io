@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-stylesheet title="CSS_formatting" type="text/css" href="./rss_moved.css"?>
+<!-- feed has moved example -->
+<!-- from https://interglacial.com/~sburke/stuff/pretty_rss.html -->
+<rss version="2.0" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">
+<channel><link>http://interglacial.com/rss/#dead</link>
+<title>FEED MOVED</title>
+<description>This feed has moved!</description>
+<language>en-US</language>
+<sy:updateFrequency>1</sy:updateFrequency>
+<sy:updatePeriod>weekly</sy:updatePeriod>
+<sy:updateBase>1970-01-06T12:00+00:00</sy:updateBase>
+<docs>http://interglacial.com/d/about_rss/1week#_yes_this_means_YOU</docs>
+<ttl>10080</ttl>
+<webMaster>sburke@cpan.org</webMaster>
+<item>
+ <title>This feed has moved</title>
+
+ <link>http://www.boasas.com/boasas_rss.xml</link>
+ <description>Update your feedreader: this feed has now moved to
+  http://www.boasas.com/boasas_rss.xml
+
+</description></item></channel></rss>

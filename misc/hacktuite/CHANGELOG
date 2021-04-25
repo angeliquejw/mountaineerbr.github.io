@@ -1,0 +1,34 @@
+######################################################################
+# Version 0.6
+######################################################################
+- Improved page view for mobile.
+- Added color on the post date.
+
+######################################################################
+# Version 0.5 
+######################################################################
+- Support Video on post
+
+######################################################################
+# Version 0.4
+######################################################################
+-Support text editor. 
+ Now when writing the post, instead of the default input the user can
+ use their favorite text editor.
+- Remove set -e on 'setup'
+- Insert margin post on HEAD
+- ADD option to send to server or just keep files locally.
+
+######################################################################
+# Version 0.3
+######################################################################
+- Add favicon index.html
+
+######################################################################
+# Version 0.2
+######################################################################
+- Reconfigured some variables.
+- Add menu 3 options: Post, add follower in your list and quit.
+- Now Support Followers
+- Support now Image on posts
+- ADD Setup for configure new account

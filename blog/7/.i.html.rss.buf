@@ -1,0 +1,29 @@
+<article lang="pt">
+<header>
+<h1 class="p-name" id="7">#7 - CSS é Legal!</h1>
+<time class="dt-published" datetime="2020-09-09">09/sep/2020</time><br></header>
+<div lang="en" class="p-summary">
+<p>Today I am with a hangover from last night. That was not much fun, just spent money I should rather have saved..</p>
+<p>After waking up, I was watching some videos os CSS frameworks and got a comment from <a href="https://www.youtube.com/channel/UCUVG-VpNrYFgU3bQxFkTdeg">Theo Dondé</a>. He visited my webpage and said it was <strong>simple</strong>. Also, he told me to use Google&#39;s Materialize CSS framework. After some reading, I opted for the W3.CSS, which is simpler, lighter, faster and W3 seems to be a much better organisation than Google, plus W3 documentation is excellent and I really want to have the least to do with Google..</p>
+<p>It was a good surprise to actually be able to use CSS frameworks!</p>
+</div>
+<br>
+<figure><img src="https://mountaineerbr.github.io/blog/gfx/rebordosa.jpg" title="Rê Bordosa, the hangover woman!" alt="Brazilian cartoon, the hangover woman" width="400" height="209">
+<figcaption>Fig 1. Me sinto como a Rê Bordosa hoje.. <span lang="en">I feel like her today..</span> <small>(credit: angeli)</small></figcaption>
+</figure>
+<br>
+<p>Ontem de noite e hoje não foi um dia muito agradável.. Dei um escorregão, sai para me divertir, gastei um bom dinheiro que poderia ter economizado! Hoje, amanheci com a <em>rebordosa</em>.</p>
+<p>Passei o dia vendo uns vídeos sobre <em>frameworks</em>, ou estruturas pré-definidas para formatação dá página com CSS.. fiz um comentário no canal do <a href="https://www.youtube.com/channel/UCUVG-VpNrYFgU3bQxFkTdeg">Theo Dondé</a>, ele foi legal comigo, falou que que meu site estava legal mas era <strong>simples</strong>. Ele deu uma dica, para eu usar o <a href="https://materializecss.com/">framework Materialize</a> desenvolvido pelo &quot;Goo&quot;-gle, daí achei, porra o cara tá achando que eu dou conta de usar um framework de CSS? Fiquei lisonjeado... Sem querer, comecei a procurar sobre esse assunto e achei o <a href="https://getbootstrap.com/">Bootstrap</a>, que parece ser o mais popular, o tal do Materialize e o <a href="https://www.w3schools.com/w3css/">W3.CSS</a>. Curti o W3.CSS pois ele é mais simples, não usa muito jquery e nem javascript, e parece ser um sucessor do Materialize. Fiquei surpreso e feliz de ter realmente conseguido usar o frameworks de CSS para refazer <a href="../">a página de apresentação do Blog</a>. Os estilos de CSS da <a href="../../">homepage mesmo</a> estou fazendo na unha para ir aprendendo..</p>
+<br>
+<h2>Os <i>Frameworks</i></h2>
+<dl>
+<dt><img class="leftimg" src="https://mountaineerbr.github.io/gfx/bootstrap-icon-small.png" alt="[Bootstrap logo]" width="64" height="64"> Bootstrap</dt>
+<dd>Dá para fazer muitas coisas, pode ser comparativamente menos organizado ou restritivo do que o Materialize, então depende muito do bom-senso do <em>web designer</em> para que o layout do site fique legal. Os estilos são do tipo <em>flat</em> e <em>almost flat</em>, este último fica muito bom com layout de sites minimalistas!<br>
+<br></dd>
+<dt><img class="leftimg" src="https://mountaineerbr.github.io/gfx/materialize-icon-small.png" alt="[Materialize logo]" width="64" height="64"> Materialize</dt>
+<dd>Ele é mais restritivo, normativo que o Bootstrap, então uma vez que tu consiga montar o site com ele, o site deve estar bonito e alinhado. A paleta de cores do Materialize é de objetos do nosso dia a dia, como um amarelo da placa de trânsito. Outra característica dele é o uso de bastante sombras.<br>
+<br></dd>
+<dt><img class="leftimg" src="https://mountaineerbr.github.io/gfx/w3css-icon-small.png" alt="[W3.CSS logo]" width="64" height="84"> W3.CSS</dt>
+<dd>Baseia-se nas cores do Materialize e também no estilo de <em>material design</em>, também do Google. É mais simples, tem menos funções, mas é mais leve e muito rápido (pelo menos a versão 4 é!) e não requer jquery e nem javascript.. Mas também dá para adicionar javascript, por exemplo, , se quiser, para uma <a href="https://www.w3schools.com/w3css/w3css_slideshow.asp">apresentação de slides</a>.</dd>
+</dl>
+</article>

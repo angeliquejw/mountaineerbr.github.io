@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<!-- -->
+<!--    THIS IS A TEMPLATE DOCUMENT USED BY THE BLOG POSTING -->
+<!--    SYSTEM.  A SCRIPT WILL COMPILE THIS INTO -->
+<!--    FINISHED PAGES FOR PUBLICATION.  TEXT FROM [ARTICLE], -->
+<!--    [HEADER] AND [HEAD] SECTIONS WILL BE INJECT IN FURTHER TEMPLATES, -->
+<!--    USE LOWERCASE TAGS. -->
+<!-- -->
+<!--    NOTE THE [HEADER] SECTION MUST CONTAIN ONE [H1] -->
+<!--    AND ONE [P] ONLY. -->
+<!-- -->
+<!--    THE [HEAD] SECTION HOLDS VERY SPECIFIC META TAGS, -->
+<!--    SUCH AS [KEYWORDS] AND CSS STYLE SHEET REFERENCES, -->
+<!--    WHICH MUST BE ADDRESSED AT THE END OF EACH POST -->
+<!--    (SEE END OF PAGE). -->
+<!-- -->
+<!--    SEE ALSO H-ENTRY and H-FEED MICROFORMATS AT -->
+<!--    <https://developer.mozilla.org/en-US/docs/Web/HTML/microformats> -->
+<!-- -->
+<!-- #  TO REMOVE A COMMENTARY WITHIN [ARTICLE], ADD # TO THE START OF IT -->
+
+
+<article class="h-entry">
+
+<header>
+	<h1 class="p-name" id="30">#30 - Podcast #5 - Running a Bitcoin Full Node with Tor</h1>
+	<time class="dt-published" datetime="2021-03-21">21/mar/2021</time>
+	
+	<br>
+</header>
+
+
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+<div lang="pt" class="p-summary"><p>
+Notas gerais e dicas de montagem de um <em>nó de retransmissão completo</em>
+que também se conecta à <em>rede Tor</em>. Outros assuntos incluem
+algumas observações sobre navegadores de internet para o <span lang="en"><em>desktop</em></span>
+e para o <em>celular</em>, como o Firefox, Chrome e Opera.
+</p></div><br>
+
+
+<!-- MAIN TEXT  -->
+<h2>Main topic - Bitcoin Full-relay Node</h2>
+<p>During my <em>hodling</em>, I did various transfers from bitcoin
+exchanges to private wallets, some of which are <em>legacy</em> type.</p>
+
+<p>That is not a bad idea to have some bitcoins (satoshis, that is)
+in legacy wallets because some services, for example some
+bitcoin exchanges, still do not work with <em>segwit</em> addresses..</p>
+
+<p>However, as <em>on-chain</em> transactions are getting expensive
+(Electrum suggests 8-30 sat/vB or more) to be added to a block quickly, I imagine
+that will be a heavy fee for <em>hodlers</em> to pay in the future,
+specially when the network is congested.. So I decided to <em>sweep</em>
+legacy wallets to segwit wallets, as advised by Andreas Antonopoulos.</p>
+
+<p>In order to broadcast cheap transactions (1-4 sat/virtualByte) to
+the bitcoin network, I needed to use my full node. I already had
+all the block and txindex synchronised but I had only tentatively
+set the defaults <code>8333 port</code> for outbound connections,
+which characterises a <em>full-relay node</em>.
+</p>
+
+<p>Not only that. To prevent one's IP from publicity in the bitcoin
+network, there is the <strong>Tor</strong> hidden service which can
+be activated. The Tor layer prevents most identification problems
+associated with broadcasting one own transactions and and IP+ports
+of a full-relay node with
+a technology named <em>security by obscurity</em>.</p>
+
+<p>Andreas Antonopoulos said those are not much of a problem because
+one cannot be sure a transaction was originated from a certain node
+or whether that node relayed them from another node or from
+the onion network,
+although there are means someone can use to identify users even under Tor
+(such as <a title="Bitcoin over Tor isn't a Good Idea" href="https://www.researchgate.net/publication/305053676_Bitcoin_over_Tor_isn't_a_Good_Idea">fingerprinting techniques</a>).</p>
+
+<p>I sincerely reckon my little node is not worth the trouble from
+these hackers..
+I am setting up a slow-update <em>Manjaro Linux</em> system which
+does not come with open ports by defaults (sometimes, I run my node from
+an <em>Arch Linux</em> machine, too). A <em>Linux system</em> is
+much more secure than running a node in <em>Windows</em>
+which contain much exploitable code and is probably infested
+with virus and other malicious software..</p>
+
+
+<p><a title="Setting up a Tor hidden service" href="https://en.bitcoin.it/wiki/Setting_up_a_Tor_hidden_service">Setting a <em>Tor hidden service</em></a>
+is a little hurdle for someone who never set up it before but after all that
+is not too hard with <em>Bitcoin version 0.21</em>, specially.</p>
+
+<p>I added the following to <code>/etc/tor/torrc</code>:
+
+  <code>ControlPort 9051</code>,
+  <code>CookieAuthentication 1</code>,
+  <code>CookieAuthFileGroupReadable 1</code> and
+  <code>DataDirectoryGroupReadable 1</code>. Check
+  <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/tor.md">this help page.</a>
+</p>
+
+
+<p><em>Bitcoin version 0.21</em> 
+<q><a title="0.21.0 Release Notes - Compatibility & P2P and network changes" href="https://bitcoincore.org/en/releases/0.21.0/">release adds support for Tor version 3 hidden services</a>,
+and gossiping
+them over the network to other peers using BIP155.
+Version 2 hidden services are still fully supported by Bitcoin Core,
+but the Tor network will start deprecating them in the coming months</q>.
+</p>
+
+<p>That is important to note because even if you set everything up
+correctly, <a title="Bitcoin Core 0.21.0 no incoming peers over Tor" href="https://bitcointalk.org/index.php?topic=5309923.0">
+there may be very few onion peers because they may not be
+using <em>Tor 3 services</em> yet</a>. Also, <a title="Bitcoin full nodes with IPv4 and IPv6 - Why most peers are on IPv4?" href="https://bitcointalk.org/index.php?topic=1347811">IPv6 peers are much more
+rare than IPv4 peers</a>, which is the large majority of peers.</p>
+
+<p>I will leave some generic config which works for me
+(<code>bitcoin.conf</code> and <code>/etc/tor/torrc</code>) at
+<a href="https://github.com/mountaineerbr/dotfiles/blob/master/.bitcoin/bitcoin.conf">my github repo</a>.
+In these files, there are general commentary and references for some config options,
+as well as setting up a hardware client in the router..
+</p>
+
+<p>A combination of settings may set the node
+to work dual-stack in <em>clearnet</em> (IPv4 and IPv6)
+<strong>and</strong> <em>onion</em> networks,
+which is a very important network synchronisation role which few nodes partake..
+</p>
+
+<p>The following steps are required:</p>
+<ol>
+	<li>Install <code>bitcoind</code> (so-called <em>bitcoin core)</em>
+	and fully sync the blockchain, transaction index etc..</li>
+	<li>Configure router to redirect traffic from <code>port 8333</code>
+	to your machine. This requires setting one's machine MAC address
+	in the router <em>client list</em> and then forwarding of <code>port
+	8333</code> to the client.</li>
+	<li>Setting <em>bitcoin.conf</em> and <em>.torrc</em> configs.</li>
+	<li>Running <code>tor</code> daemon with the right configs</li>
+	<li><code>bitcoind</code> fully synched and properly configured</li>
+	<li>Be sure your router has got active firewall or/and
+	install a operating system firewall such as
+	<code><a href="https://wiki.archlinux.org/index.php/Uncomplicated_Firewall">ufw</a></code>.
+	In some cases, installing a firewall in Linux may not be required, <em>DYOR</em>.</li>
+</ol>
+
+<p>Running a node does cost money: hardware, electricity and internet bandwidth.
+However a full node can run on cheap computers, such as
+<a href="https://blog.keys.casa/build-your-own-casa-node/">Casa nodes</a> with Raspberry Pi 4,
+bandwidth may be problem.</p>
+
+<p><code>bitcoind</code> option <code>maxconnections</code> controls
+the maximum number of inbound+outbound connections. <em>10 slots</em> of
+are reserved for <em>inbound connections</em> and <em>further connections</em>
+are <em>outbound slots</em> in a <em>maximum of 125 connections</em> by defaults.
+</p>
+
+<p>
+Nominally, my contracted speeds are <em>120 Mbit/s download</em>
+and <em>10 Mbit/s upload</em>, 
+However, my connection seems slow and unstable these past few days..
+I use to check connection speed with <a href="https://github.com/sivel/speedtest-cli"><code>speedtest</code></a>.
+</p>
+
+<p>Indeed, I just phoned up my internet provider and internet of home area
+is under general maintenance.
+That may explain why I was having horrible internet connection
+these days and that may not be related to running <code>bitcoind</code>.
+It does seem my home internet has got a slowdown,
+so I am checking that with the provider..</p>
+
+<p>However, a note is relevant. If one has got slow internet connection,
+he may choose to set <code>maxconnections</code> and/or
+<code>maxuploadtarget</code> to reasonable values.
+</p>
+
+
+<p>Someone may check IP addresses of network peers (<code>bitcoin-cli getpeerinfo</code>) against
+updated geolocation tables to have an idea where other connecting peer nodes
+are.</p>
+<p>Free IP Geolocation APIs</p>
+<ul>
+	<li>MaxMind's Linux <code><a href="https://dev.maxmind.com/geoip/legacy/downloadable/">geoip</a></code> package.</li>
+	<li><a href="https://mailfud.org/geoip-legacy/">Free updated GeoIP legacy databases</a>,
+	may be used with <code>geoiplookup</code> but may be limited..</li>
+	<li>Free <a href="https://ip-api.com/">IP Geolocation API</a></li>
+	<li>Another free <a href="https://freegeoip.app/">IP Geolocation API</a></li>
+</ul>
+
+<h2>Secondary topics</h2>
+<ul>
+	<li>Notices/news about this podcast season duration (about 6-8 episodes).</li>
+	<li><a href="https://www.youtube.com/watch?v=cSpyBMhBmFE">Answer to a youtube video critique</a> which said
+	my channel should be more like <a href="https://www.youtube.com/channel/UCSTlOTcyUmzvhQi6F8lFi5w">Atila Mariano's</a>..</li>
+	<li>Comments on web browsers for desktops and mobile: Firefox, Chrome or Opera?
+	Firefox is a great choice for desktop however both Firefox and Chrome
+	suck on my Android and only Opera seems usable to me..</li>
+</ul>
+
+
+<h2>More references</h2>
+<ul>
+	<li><a href="https://jochen-hoenicke.de/queue/#BTC%20(default%20mempool),24h,fee">Johoe's Bitcoin Mempool Statistics</a></li>
+	<li>AA's <a href="https://www.youtube.com/watch?v=uo58zmyXqFY">Bitcoin Q&amp;A: Full Node and Home Network Security</a></li>
+	<li>AA's <a href="https://www.youtube.com/watch?v=AXUfwvhr3lg">Running Your Own Bitcoin Node, Ethereum Node, Lightning Network Node</a></li>
+
+	<!-- <li><a href=""></a></li> -->
+</ul>
+
+<hr>
+<p><strong>PS:</strong> internet connection problems arose at my house
+in the last week or so and therefore the podcast episode was uploaded
+earlier on YouTube than on my blog github repo.. I only
+was able to upload the podcast episode #5 (~77MB) using
+a university access point I have got access.</p>
+
+<p><strong>PPS:</strong> the original recording of this episode (m4a)
+got truncated (<q>Input buffer exhausted before END element found</q>).
+Maybe I forgot to press the END button or the recorder and just pressed
+PAUSE and closed the app..
+I was able to check that
+with <code>ffprobe</code> which comes bundled with <code>ffmpeg</code>.
+So I recoded the stream to a new m4a audio file,
+which should play correctly on all devices now..
+Sorry if your podcast has got the original copy instead of the
+recoded file!
+</p>
+
+</article>
+
+
+<!-- META TAGS -->
+<!-- OBS: [TITLE] TAG WILL BE A CLONE FROM [H1] -->
+<head>
+<meta name="description" content="Running a bitcoin full-relay node
+with Tor networking. Also, which web browser
+do I prefer for desktop and mobile systems: Firefox, Chrome or Opera?
+These are the subjects for the fifth episode of the podcast.">
+<meta name="keywords" content="bitcoind, bitcoin daemon, networking, options, webbrowsers, navegadores">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+
+</head>
+

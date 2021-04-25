@@ -1,0 +1,406 @@
+<article class="h-entry">
+
+<header>
+	<h1 class="p-name" id="14">#14 - Podcast Première and Episode #2 - <span title="Sir Attenborough, World Hunger, MOSAiC Expedition, Boy Plunger, Wallet and File Cryptography on Linux">Various Subjects</span></h1>
+	<time class="dt-published" datetime="2020-10-12">12/oct/2020</time>
+<nav><a href="14/">[stand-alone]</a></nav>
+	
+	<br>
+</header>
+
+
+<!-- SUMMARY IN DIFFERENT LANGUAGE -->
+<div lang="pt" class="p-summary">
+<p>
+Notas sobre alguns assuntos que discorreremos no primeiro podcast
+que pretendemos estreiar no final do mês (ou um pouco antes).
+O podcast será em português, apesar que a maioria das notas de pauta
+estão em inglês (alguns links de notícias em português).
+O podcast também será postado no meu canal do youtube.
+Assuntos não abordados neste podcast serão reservados para os
+próximos episódios.
+</p>
+</div><br>
+
+
+<!-- MAIN TEXT  -->
+<p>
+Notes about some subjects I am planning on talking about in
+the podcast premiere. The podcast will be in Portuguese
+however most notes are in English below.
+This podcast will also be posted at my youtube channel
+and is expect to go on air by the end of the month.
+Subjects not met in this episode will be saved for the next ones.
+</p>
+
+<p>
+See the podcast <a href="../">index here</a> (currently at the blog portal).
+</p>
+
+<h2 id="ep1"><a hreflang="pt" href="podcast/ep1low.mp3">Podcast première</a></h2>
+
+<dl>
+
+	<dt>General notices</dt>
+	<dd>
+	About youtube and podcast content frequency.
+	</dd>
+
+	<dt><a href="https://www.bbc.co.uk/sounds/play/p08tmn3g">BBC's podcast 'What Planet Are We On' with David Attenborough</a></dt>
+	<dd>
+	The interviewer tried to start the conversation with hope but
+	I am not sure Sir Attenborough managed to to inspire her very much.
+	Also noteworthy how other people on the beginning of the podcasts
+	already forecast grievance only.
+	</dd>
+
+	<dt><a href="https://www.bbc.com/news/science-environment-54435638">Prince William and Sir David Attenborough join forces on 'Earthshot' prize</a></dt>
+	<dd>
+	Grants worth £50m until 2030, which is about R$360.7m total.
+	<blockquote>
+	The best and most innovative ideas to help:
+
+	<ul>
+		<li>Protect and restore nature</li>
+		<li>Clean our air</li>
+		<li>Revive our oceans</li>
+		<li>Build a waste-free world</li>
+		<li>•Fix our climate</li>
+	</ul>
+	</blockquote>
+
+	</dd>
+
+	<dt><a href="https://www.bbc.com/news/science-environment-54268038">Attenborough: 'Curb excess capitalism' to save nature</a></dt>
+	<dd>
+	Sir Attenborough says he is not an economist, which is fine <abbr title="In My Humble Opinion">IMHO</abbr>,
+	however nothing stands in the way of his learning some of that.
+	When he says we need to curb capitalism, what does that really
+	mean? That does not mean anything. Beware of vague expressions.
+	</dd>
+
+
+	<dt><a href="https://www.dailymail.co.uk/news/article-6900011/Netflix-Walruses-fell-deaths-chased-polar-bears-NOT-climate-change.html">Netflix is accused of 'eco-tragedy porn' in Attenborough documentary (2019)</a></dt>
+	<dd>
+	Usage of drones instead of narrow-angle lenses to film walruses
+	made them afraid and led them to falling off a cliff. Note that
+	the polar bear which was at the scene is only partly to blame
+	for the tragedy. If no drones were around, probably walruses
+	would not just fall off the cliff.
+	</dd>
+	
+	<dt><a href="https://news.un.org/en/story/2020/10/1075012">UN World Food Programme wins 2020 Nobel Peace Prize, as hunger mounts</a></dt>
+	<dd>
+	Hunger is really worrying. Perhaps total world production of food
+	is enough for all human beings, however there is a big problem
+	with distributions systems. There are not enough distribution.
+	We need  more roads to take food (and fuel and technology) to
+	those who live in very difficult places to access and cheap
+	fuel.
+	</dd>
+	
+
+	<dt><a href="https://www.bbc.com/news/world-54476569">Nobel Peace Prize: UN World Food Programme wins for efforts to combat hunger</a></dt>
+	<dd></dd>
+
+
+	<dt><a lang="pt" hreflang="pt" href="https://noticias.uol.com.br/colunas/jamil-chade/2020/10/10/fome-no-mundo-e-america-latina.htm">Número de famintos vai quase dobrar este ano, preveem ganhadores do Nobel</a></dt>
+	<dd>
+	</dd>
+
+	<dt><a href="https://www.actionagainsthunger.org/story/world-food-program-awarded-2020-nobel-peace-prize">World Food Program Awarded 2020 Nobel Peace Prize</a></dt>
+	<dd></dd>
+	
+	
+	<dt><a title="Topic: MOSAiC news" href="https://forum.arctic-sea-ice.net/index.php/topic,2906.1200.html">Mosaic expedition logs from Polarstern</a></dt>
+	<dd>
+	Comments on the almost year-long transpolar-turned-peripolar
+	expedition of Mosaic on the German ice breaker Polarstern.
+	A copy of the forum thread in
+	<a title="Topic: MOSAiC news" href="https://raw.githubusercontent.com/mountaineerbr/extra/master/mosaic_polarstern_forum.arctic-sea-ice.net.txt">plain formatted txt can be found here</a>.
+	The Mosaic expedition tried to follow the steps of the
+	<a href="https://en.wikipedia.org/wiki/Nansen%27s_Fram_expedition">Nansen's Fram expedition</a>
+	(1893–1896), which aimed to reaching the geographical North Pole.
+
+	<br>
+	<a title="Scientists on Arctic mission make unplanned detour to pole" href="https://money.yahoo.com/scientists-arctic-mission-unplanned-detour-111041410.html">This article</a>
+	says Mosaic Polarstern reached geographical North Pole, however
+	the forum logs say closest approach to North Pole was 166.3 km,
+	information from post on February 26th from <em>young ice</em>.
+	After the originally planned floe was abandoned during the covid
+	pandemics, in search for a new floe they crossed the North Pole
+	on August 19th, but that was a detour and not in the original
+	plans of the expedition.
+	<br>
+	A lot of public money was spent in this expedition, however
+	the scientific groups released little data and there was not a
+	centralised data or information supplier other than the
+	<a href="https://follow.mosaic-expedition.org/">kindergarten-like portal</a>
+	(entering deprecation as soon as
+	the expedition was over last month).
+	Most available info is spread across blog and social media posts.
+	Official scientific papers with data from Mosaic expedition are
+	planned to be released by 2023! IMHO, data should have been
+	streamed live from the ship and everyone should be able to get
+	that and do their won research, why not?!
+	</dd>
+	
+
+	<dt lang="pt"><a hreflang="pt" href="https://www.youtube.com/watch?v=sYEzPdYCWr0">BR do Mar e o desenvolvimento do agro</a></dt>
+	<dd>
+	Brazilian legislation makes it hard for cabotage type of navigation.
+	Cabotage navigation would allow transporting a lot more resources
+	along the very extensive coast of Brazil. Railroad development
+	has been stagnant for decades in Brazil. Cabotage is not the
+	silver bullet for the transport problems but would greatly help
+	and reduce road transport.
+	</dd>
+
+	<dt><a href="https://www.oantagonista.com/brasil/governo-lanca-banco-nacional-de-genomas/">Governo lança "banco nacional de genomas"</a></dt>
+	<dd></dd>
+
+	<dt><a lang="pt" hreflang="pt" href="https://www.oantagonista.com/brasil/governo-pretende-investir-r-600-mi-para-criar-banco-nacional-de-genomas/"> Governo pretende investir R$ 600 mi para criar 'banco nacional de genomas'</a></dt>
+	<dd>
+	The Brazilian govt says Brazil is lagging 8 years behind in
+	genomic research. Thus, now they want to sequence 100 thousand
+	Brazilian genomes (who must have some sort of rare disease)
+	in the <strong>next four years</strong> with
+	<a lang="pt" hreflang="pt" href="https://www.oantagonista.com/brasil/governo-pretende-investir-r-600-mi-para-criar-banco-nacional-de-genomas/">spending of R$600mi</a>
+	(US$~107mi) and be the leading country in that field of research.
+	Does that make sense?
+	Some ethical and financial problems arise. For example,
+	the project first aim is to generate a said 'reference' genome
+	of the Brazilian people. Perhaps they could generate a reference
+	genome for peoples from Iceland, Norway and Japan, but hardly
+	Brazil due to its great population miscegenation. There are lots
+	of gene sequences or genome assemblies from people with rare
+	diseases available
+	<a href="https://www.ncbi.nlm.nih.gov/datasets/genomes/?txid=9605&term=Homo&utm_source=nuccore&utm_medium=referral&utm_campaign=:assemb">in publicly accessible data banks</a>
+	and I reckon a research group could obtain more whole genomes
+	from specific public-restricted banks.
+	If Brazil groups cannot advance in genomics with data already
+	available, they will hardly advance with 100 thousand more
+	genomes because data is not automatic information!
+	</dd>
+	
+
+
+
+	<dt><a href="https://www.tradermentality.com/2017/06/jesse-livermore-method.html">Jesse Livermore’s $100 Million</a></dt>
+	<dd>
+	Jesse Livermore book, that is not very longa nd should be fun
+	and productive to read.
+	</dd>
+
+	<dt><a href="http://www.gutenberg.org/files/60979/60979-h/60979-h.htm">Reminscences of a Stock Operator, Edwin Lefèvre</a></dt>
+	<dd>
+	An account of the early life of Jesse Livermore, the Boy Plunger,
+	as a stock operator. In this book, Livermore character wears the
+	pseudonym Livingstone.
+	</dd>
+
+	<dt><a href="http://www.r-5.org/files/books/trading/speculation/Jesse_Livermore-How_To_Trade_In_Stocks_%281940_original%29-EN.pdf">How to trade in stocks, Jesse Livermore</a></dt>
+	<dd>
+	</dd>
+	<dt><a title="MANAGING EXCHANGE RISK IN THE COMING BITCOIN WAR" href="https://www.youtube.com/watch?v=LKUqqnZ9OtI">Ugly Old Goat - BitMEX targetted by the regulators (CFTC etc)</a>,
+	also check his <a href="https://homeytel.medium.com/">medium blog</a>.
+	</dt>
+	<dd>
+	Ugly talks about the risk US regulatory entities present
+	for Bitfinex and thus blocking US citizens (and many more)
+	from dealing with them, see also
+	<a href="https://www.reddit.com/r/BitcoinMarkets/comments/7jc7xw/americans_trading_on_bitfinexbitmex/e073zo2/">Americans Trading on BitMEX/Bitfinex</a>.
+	The problem with the BitMEX case is the US govt has not got
+	jurisdiction power over BitMEX however the US govt wants
+	everybody under their dirty thumbs.
+	Tip from Ugly: <em>evading</em> taxes is illegal, however
+	avoiding them is legal.
+	<span lang="pt">
+		Dica do Ugly: <em>sonegação</em> de impostos é
+		ilegal, porém evitá-los (<em>elisão</em> fiscal) é legal.
+	</span>
+	</dd>
+
+	<dt><abbr title="Brazilian Reais">BRL</abbr> Bitcoin has broken highs from 2017</dt>
+	<dd>
+	On the <em>17<sup>th</sup> of December 2017</em>, bitcoin
+	reached <strong>BRL 65,952</strong> (almost 66K Brazilian Reais).
+	On the <em>17<sup>th</sup> of August 2020</em>, a new all time high
+	reached <strong>BRL 68,695</strong>.
+	</dd>
+
+	</dl>
+
+
+
+
+<br>
+<h2 id="ep2"><a hreflang="pt" href="podcast/ep2.mp3">Episode #2 - Arch Linux updates and privy key management</a></h2>
+
+	<dl>
+
+
+	<dt><a href="https://archive.archlinux.org/">Arch Linux update notes on sync'ing with Arch Linux Archive (ALA)</a></dt>
+	<dd>
+	I sync Arch Linux with the monthly repo (snapshot of the 1<sup>st</sup> of a month)
+	from <abbr title="Arch Linux Archive">ALA</abbr>.
+	However, sometimes even the monthly repo snapshot (which is used
+	to generate the official Arch Linux install iso image) is not 100%
+	stable for my specific hardware and thus I need to try and
+	sync again some days later..
+	For example, what I do when there is news such as
+	<q>nvidia 455.28 is incompatible with linux = 5.9</q> recently?
+	I do not agree a rolling release distribution requires the user
+	to update constantly as a rule.
+	</dd>
+
+
+	<dt>
+	Working with bitcoin private keys
+	</dt>
+	<dd>
+	How to set up a computer with a safe digital environment
+	and how to try and leave no records.
+	<ul>
+		<li>
+		use a dedicated computer with a free operating system, such as Linux distributions or BSD clones; <strong>there is no need to keep it up-to-date</strong>, one may use a snapshot of os and download a full copy of the official repos (usually below 50GB), for eg.
+		<code>
+			wget -r -np -e robots=off "http://manjaro.c3sl.ufpr.br/stable/"
+		</code>
+		</li>
+
+		<li>avoid connecting to the internet while working with privy keys</li>
+		
+		<li>
+		<a title="How to encrypt the home folder in Ubuntu 18.04, 20.04 or 20.10" href="https://www.linuxuprising.com/2018/04/how-to-encrypt-home-folder-in-ubuntu.html">(i) use an encrypted disk, (ii) an encrypted user account</a>
+		or at the very minimum
+		(iii) do encrypt files holding the privy keys with eg.
+		<code>gpg -c --personal-cipher-preferences CAMELLIA192 [FILE..]</code>
+		. List cypher algos with <code>gpg --version</code>.
+		<em>Do</em> make a backup of original files as some
+		<code>gpg</code> versions may overwrite them!
+		</li>
+		
+		<li>
+		remove automatic unencrypted backups made by text editors
+		</li>
+
+		<li>
+		avoid automatic backups by text editors (also swap and undoes),
+		for example,
+		add a modeline to files opened by vi(m): 
+		<code># vim:nobackup noundofile</code>
+		(maybe leave <code>noswapfile</code> out)
+		</li>
+		
+		<li>overwrite and remove temporary or old files with <code>shred -n1 -uv [FILE..]</code></li>
+		
+		<li>make backups of your encrypted files</li>
+		
+		<li>
+		tip from
+		<a title="Domingão do Dovão - Outubro de 2020" hreflang="pt" href="https://www.youtube.com/watch?v=T0qD8fxg85o">bitconheiros</a>,
+		user may use Tails operating system, but personally
+		I reckon that is not necessary if you pay attention
+		to my tips above
+		</li>
+
+	</ul>
+	</dd>
+
+
+	<dt>US Govt wants everyone under its thumb</dt>
+	<dd>
+	More comments on the same track of
+	<a hreflang="pt" href="podcast/ep1low.mp3">last podcast episode</a>
+	<strong>Ugly Old Goat's</strong> (Greatest Of All Times) explanation about
+	<a href="https://www.coindesk.com/bitmex-cftc-enforcement">BitMEX 'Attempted to Evade' US Regulations, CFTC Charges</a>
+	and
+	<a href="https://cointelegraph.com/news/cftc-charges-bitmex-with-illegally-operating-derivatives-exchange">CFTC charges BitMex with illegally operating derivatives exchange</a>.
+	See also
+	<a href="https://news.bitcoin.com/ripple-ceo-threatens-to-relocate-company-overseas-due-to-unfavorable-us-regulation/">Ripple CEO Threatens to Relocate Company Overseas Due to Unfavorable US Regulation</a>
+	and an older news (2000)
+	<a href="https://www.theguardian.com/technology/2000/jun/07/microsoft.business1">Microsoft ordered to split into two companies</a>.
+	Perhaps I will comment on some wide-range implications.
+	</dd>
+
+	<dt>Bitcoin price in Brazil</dt>
+	<dd>Bitcoin price in BRL is at new All Time Highs.
+	On <em>25<sup>th</sup> Sep 2020</em> it broke to
+	<strong>75,216 <abbr title="Brazilian Reais">BRL</abbr></strong>,
+	going above <em>17<sup>th</sup> Dec 2017</em>
+	<strong>66,066 BRL/BTC</strong> price.
+	</dd>
+
+
+</dl>
+
+
+<br>
+<figure>
+	<img src="gfx/btcprediction2020.png" alt="btc chart with time-dependent markings" width="894" height="540">
+	<figcaption>
+		Fig 1. 
+		<q>
+		The number of days from the previous bottom to the
+		halving is equal to the number of days from the halving
+		to the next top...
+		</q>
+
+		<small>
+		(credit: <a href="https://twitter.com/zargoi/status/1319942676024856576">@zorgoi</a> and @Pladizow)
+		</small>
+	</figcaption>
+</figure>
+
+
+<h2>Saved for next episodes (?)</h2>
+<dl>
+
+	<dt><a hreflang="pt" href="https://www.youtube.com/watch?v=X0tRKpaInZg">Vacinação compulsória (Fhoer)</a></dt>
+	<dd></dd>
+	<dt><a hreflang="pt" href="https://www.oantagonista.com/brasil/quem-decide-nao-tomar-vacinas-nao-deveria-poder-frequentar-espacos-publicos/">"Quem decide não tomar vacinas não deveria poder frequentar espaços públicos"</a></dt>
+	<dd>
+	Compulsory vaccination: is reinforcement of a covid vaccine feasible?
+	While OMS says SARS-CoV2 vaccine will be widely available only in 2022,
+	is that fair that whoever is not able to get vaccinated
+	until then should stay at home, isolated?
+	There are many bad points about compulsory vaccination:
+	<ul>
+		<li>SARS-CoV2 vaccines are still under testing, nobody know if they are effective</li>
+		<li>As for all vaccines however small there is a chance of collateral effects; that is a risk a person must decide to take or not</li>
+		<li>Universality passes through the self first; in Japan, use of masks is to protect one self, the extended benefit of protecting others is only secondary and not as powerful as self protection</li>
+		<li>The person may not even get into contact with the virus in her lifetime</li>
+		<li>If a person is not able to get a vaccine, should he be discriminated?</li>
+	</ul>
+
+	I reckon that when a person is diagnosed with covid or any other
+	contagious disease, he should stay at home but we cannot
+	make people stay at home or discriminate them when they are
+	not infected.
+	The fears they are trying to mitigate with mandatory vaccination
+	cannot be universal rule itself: imagine now that we must get
+	a shot of vaccine for every possible disease because we must
+	protect "others"?
+	</dd>
+
+</dl>
+
+<h2>Update on 03-nov-2020</h2>
+<p>
+If youtube analytics is saying the truth to me,
+most listeners of the podcast drop before the 40min mark.
+That does not mean I should dumb down the content or shorten it
+for the sake of what most users do. However
+that was already a plan to make 40min podcasts so that
+is the goal next time. Maybe I will aim at 35min so I am sure
+to never run out of content!
+</p>
+
+<p>
+I plan on recording another podcast episode only just before
+New Year's day or Christmas. Let's see.
+</p>
+
+
+</article>

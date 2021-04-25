@@ -1,0 +1,210 @@
+<article class="h-entry">
+
+<header>
+	<h1 class="p-name" id="36">#36 - Firefox on NVIDIA Graphics Card</h1>
+	<time class="dt-published" datetime="2021-04-12">12/apr/2021</time>
+<nav><a href="36/">[stand-alone]</a></nav>
+	
+	<br>
+</header>
+
+
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+<!-- <div lang="pt" class="p-summary"><p></p></div><br> -->
+
+
+<!-- MAIN TEXT  -->
+<p>
+Using the NVIDIA driver in Linux is quite difficult and it is not
+so straightforward because it varies depending on what application
+needs it. Mining Monero was not too difficult but 
+the XMR miner used CUDA and that is another story.
+</p>
+
+<p>Configuring Firefox to use NVIDIA may be overwhelming
+option-wise because there are so many unstable outcomes
+when setting these experimental or unstable options.</p>
+
+<h2>NVDIA-related Drivers</h2>
+<p>Below is a listing of my NVIDIA-related packages on Arch.
+Packages with * are probably <em>required</em> for this to work,
+other packages are currently installed but may not be strictly necessary..
+</p>
+
+
+<ul>
+	<li><code>nvidia</code>*</li>
+	<li><code>nvidia-settings</code></li>
+	<li><code>nvidia-utils</code>*</li>
+	<li><code>mesa</code>*</li>
+	<li><code>mesa-demos</code>*</li>
+	<li><code>opencl-nvidia</code></li>
+	<li><code>xorg-xrandr</code></li>
+	<li><code>acpi</code>*</li>
+	<li><code>acpi_call</code>*</li>
+	<li><code>acpid</code>*</li>
+	<li><code>bbswitch</code>*</li>
+	<li><code>bumblebee</code>*</li>
+	<li><code>primus</code></li>
+	<li><code>primus_vk</code></li>
+
+</ul>
+
+<p>Most packages can be easily installed from the official repos,
+however others may be further configured to use.</p>
+
+<p>For example, <a title="Arch Wiki on Bumblebee config" href="https://wiki.archlinux.org/index.php/Bumblebee"><code>bumblebee</code> manual</a> (beware this is not compatible with
+<a href="https://wiki.archlinux.org/index.php/NVIDIA_Optimus#Available_methods">other methods for using NVIDIA</a>),
+requires the user
+to be in the <em>blumblebee</em> group with
+<code># gpasswd -a user bumblebee</code>
+and enabling/starting the service
+<code># systemctl enable bumblebeed.service</code>.
+</p>
+
+<p><code>bbswitch</code> will work well with <code>bulblebee</code>
+in switching the card ON and OFF when required, instead of leaving it ON.</p>
+
+<p>That is possible to check if the card state with some commands.
+Make sure to <code>reboot</code> after installing and configuring these
+driver packages so far.</p>
+
+<pre><code>% nvidia-smi
+[DETAILED CARD STATS] [..PAGED..]
+
+% cat /proc/acpi/bbswitch
+0000:01:00.0 ON
+
+% watch -d -t -n1 'cat /proc/acpi/bbswitch'
+0000:01:00.0 ON  [..PAGED..]
+
+# tee /proc/acpi/bbswitch &lt;&lt;&lt;OFF
+OFF
+
+# tee /proc/acpi/bbswitch &lt;&lt;&lt;ON
+ON</code></pre>
+
+
+
+<h2>Firefox Configuration</h2>
+
+<p>With those set, there are two important configurations to be done
+in Firefox Stable's <a href="about:config"><code>about:config</code></a>.
+The following was taken from Arch Wiki's
+<a href="https://wiki.archlinux.org/index.php/Firefox/Tweaks">Firefox#Tweaks</a>
+and <a href="https://wiki.archlinux.org/index.php/Talk:Firefox/Tweaks">Firefox#Talk</a>.
+</p>
+
+<p>In <code>about:config</code>, you may want to set one configuration
+at a time and test:</p>
+
+<ul>
+	<li>Enable OpenGL compositor: <code>layers.acceleration.force-enabled = true</code>*</li>
+	<li>Enable WebRender compositor: <code>gfx.webrender.all = true</code></li>
+</ul>
+
+<p>My current Firefox can run stably and smoothly (under XFCE and Picom)
+with only <code>layers.acceleration.force-enabled</code> set,
+as force enabling the webrender makes my Firefox very buggy and unstable..</p>
+
+<p>Alternative (or additionally, you will need testing)
+to messing with <code>about:config</code> options, Mozilla Firefox
+can read various environment variables as options.</p>
+
+
+<p>Below these variables are presented with verbose commentary.
+You can find more code commentary in my
+<a href="https://github.com/mountaineerbr/scripts/blob/master/firefox.sh">shell script launcher</a>.
+</p>
+
+<pre><code>#This content should be clarified
+#To enable WebRender on Firefox Stable:
+export MOZ_ACCELERATED=1 	#same as:`layers.acceleration.force-enabled = true'
+#export MOZ_WEBRENDER=1 	#same as: `gfx.webrender.all = true'
+#https://wiki.archlinux.org/index.php/Talk:Firefox/Tweaks
+
+#Enable OpenGL in `pvkrun' and `primusrun'
+#export LD_PRELOAD=/usr/lib/libGL.so
+#export ENABLE_PRIMUS_LAYER=1
+#https://github.com/felixdoerre/primus_vk
+#https://bugs.archlinux.org/task/65250
+#https://bbs.archlinux.org/viewtopic.php?id=252257
+#`layers.offmainthreadcomposition.enabled' became on by defaults.
+#https://www.reddit.com/r/firefox/comments/4j0tzz/what_happened_to/
+
+#Do *not* set if using NVIDIA `primusrun'
+export MOZ_OMTC_ENABLED=1
+export MOZ_USE_OMTC=1
+#https://gist.github.com/yuttie/de097d004499adb984bd</code></pre>
+
+
+<p>Remember to <code>export</code> your <em>environment variables</em>!</p>
+
+<p>As I said, you may need to try various combinations of options
+until Firefox is running smoothly, without artifacts, visible button icons
+and legible menu entries..</p>
+
+
+
+<h2>Performance test: <code>optirun</code>, <code>primusrun</code> and <code>pvkrun</code></h2>
+
+<p>That is probably a good idea to test which package will
+run faster. Check performance running either
+<code>glxgears -info</code>,
+<code>glxspheres64</code> or
+<code>glxspheres32</code> (the latter for 32 bit systems)
+from package <code>mesa-demos</code>.
+</p>
+
+<ul>
+	<li><code>optirun [demo]</code></li>
+	<li><code>optirun -b primus [demo]</code></li>
+	<li><code>primusrun [demo]</code></li>
+	<li><code>pvkrun [demo]</code></li>
+</ul>
+
+<p>I prefer to run <code>glxspheres64</code> because it
+prints the frame rate and buffer size.
+<code>primusrun</code> and <code>pvkrun</code> used to
+work a little better than <code>optirun</code> in the past for me,
+but as those are not working now I am using <code>optirun</code>..</p>
+
+
+<h2>Checking results</h2>
+
+<p>
+Current configuration can be checked at <a href="about:support"><code>about:support</code></a>.
+</p>
+
+<p>Follow instructions from
+<a href="https://wiki.archlinux.org/index.php/Firefox/Tweaks">Firefox#Tweaks</a>
+to check if options are enabled.
+You can also type <code>CTR+F</code> and search for <em>`Intel'</em>
+to check whether Intel integrated graphics
+or <em>`Nvidia'</em> driver is being used as renderer.
+</p>
+
+<p>Alternatively, some information can be retrieved from
+<a title="WebGL MAX parameters support" href="https://alteredqualia.com/tmp/webgl-maxparams-test/">test this website</a>.
+</p>
+
+
+<p>It is a little time consuming until you get yoru configuration
+working properly and maybe your system cannot support all features,
+but they will eventually come the official way and
+your driver may finally be white-listed
+for performance improvements by defaults.</p>
+
+<p>As for now, I find it best to
+<a href="https://github.com/mountaineerbr/scripts/blob/master/firefox.sh">launch Firefox with a shell script</a>.
+My Firefox launcher in XFCE dock and keyboard shortcut
+in <code>.xbindkeysrc</code> also points to the script.</p>
+
+
+<figure>
+	<img src="gfx/Linus-Torvalds-Fuck-You-Nvidia.webp" alt="Linus Torwalds meme, Fuck You NVIDIA" width="600" height="339">
+	<figcaption>Fig 1. At moments like these we like to remember
+	<a href="https://www.theverge.com/2012/6/17/3092829/linus-torvalds-fuck-you-nvidia">Mr Torwalds wishes to NVIDIA..</a></figcaption>
+</figure>
+
+</article>

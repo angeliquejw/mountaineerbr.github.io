@@ -1,0 +1,328 @@
+/* (c) John Bokma, 2019-2020 */
+
+html {
+    box-sizing: border-box;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    background-color: $background-color;
+    font-family: $font-stack;
+}
+
+ul,
+ol {
+    margin: 14px 0;
+    padding: 0 0 0 28px;
+}
+
+#tl-page {
+    margin: 14px auto;
+    width: 480px;
+    background-color: $page-background-color;
+    color: $text-color;
+    border-radius: $border-radius;
+    @media screen and (max-width: 479px) {
+        width: 320px;
+    }
+}
+
+#tl-main-header {
+    padding: 10px 10px 0;
+}
+
+.tl-title {
+    color: $heading-color;
+
+    h1 {
+        margin: 0;
+        padding-top: 6px;
+        font-style: oblique;
+        display: inline-block;
+        font-size: 40px;
+    }
+
+    div {
+        display: inline-block;
+        font-size: 14px;
+    }
+
+    span {
+        font-size: 12px;
+        color: $label-color;
+        float: right;
+    }
+}
+
+.tl-navigation {
+    list-style: none;
+    margin: 0 0 12px;
+    padding: 0;
+
+    li {
+        display: inline;
+        padding-left: 6px;
+    }
+}
+
+main {
+    padding: 0 10px;
+}
+
+.tl-date {
+    display: block;
+    clear: both;
+    text-align: right;
+    border-bottom: $border;
+    color: $date-color;
+
+    a {
+        color: inherit;
+    }
+}
+
+.tl-topbar {
+    height: 21px;
+    border-bottom: $border;
+}
+
+article {
+    h2,
+    h3,
+    h4 {
+        color: $heading-color;
+    }
+
+    h2,
+    h3 {
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    h2 {
+        font-size: 18px;
+        line-height: 27px;
+    }
+
+    h3 {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    h4 {
+        font-size: 14px;
+        font-weight: bold;
+        font-style: oblique;
+    }
+}
+
+.tl-self {
+    color: $self-color;
+}
+
+a {
+    text-decoration: none;
+    color: $link-color;
+}
+
+p {
+    margin: 14px 0;
+}
+
+pre {
+    margin: 14px 0;
+    padding: 5px;
+    background-color: $pre-background-color;
+    border-radius: $border-radius;
+    overflow: auto;
+}
+
+blockquote {
+    margin: 0;
+    padding: 0 5px;
+    background-color: $blockquote-background-color;
+    border-radius: $border-radius;
+}
+
+code {
+    white-space: nowrap;
+    font-family: $code-font-stack;
+}
+
+pre > code {
+    white-space: pre;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+section,
+.tl-archive {
+    margin: 10px 10px 6px;
+    border-top: $border;
+}
+
+$arrow-space: 30px;
+
+.tl-next-prev {
+    border-top: $border;
+    padding: 6px 0;
+
+    .tl-right-arrow {
+        width: $arrow-space;
+        text-align: right;
+        display: inline-block;
+    }
+
+    .next {
+        vertical-align: middle;
+        width: 460px - $arrow-space;
+        text-align: right;
+        display: inline-block;
+        @media screen and (max-width: 479px) {
+            width: 300px - $arrow-space;
+        }
+    }
+
+    .prev {
+        vertical-align: middle;
+        width: 460px - $arrow-space;
+        display: inline-block;
+        @media screen and (max-width: 479px) {
+            width: 300px - $arrow-space;
+        }
+    }
+
+    .tl-left-arrow {
+        width: $arrow-space;
+        display: inline-block;
+    }
+}
+
+.tl-month-navigation {
+    margin: 10px 0;
+    padding: 10px 0 0;
+    border-top: $border;
+    list-style: none;
+    display: grid;
+    grid-template-areas: '. . .' '. . .' '. . .' '. . .';
+}
+
+.tl-month-year {
+    a {
+        float: right;
+    }
+}
+
+.tl-days {
+    margin: 0;
+    padding: 0;
+
+    dt {
+        float: left;
+        padding-top: 7px;
+    }
+
+    dd {
+        padding-top: 7px;
+        margin: 0 0 0 36px;
+    }
+}
+
+.tl-month {
+    width: 274px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border: 0;
+    border-collapse: collapse;
+
+    caption {
+        padding: 10px 0;
+        text-align: right;
+        font-size: 16px;
+        color: $heading-color;
+    }
+
+    tbody {
+        th {
+            border-right: $border;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: right;
+        }
+    }
+}
+
+.tl-year {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    h2 {
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    div {
+        padding-top: 6px;
+    }
+
+    div:last-child {
+        text-align: right;
+    }
+}
+
+.tl-archive {
+    h2 {
+        font-size: 20px;
+        color: $heading-color;
+    }
+
+    dl {
+        margin: 0;
+        padding: 0;
+
+        dt {
+            float: left;
+        }
+
+        dd {
+            margin: 0 0 0 36px;
+
+            ul {
+                display: inline;
+                margin: 0;
+                padding: 0;
+
+                li {
+                    display: inline;
+                }
+            }
+        }
+    }
+}
+
+footer {
+    margin: 0 10px;
+    border-top: $border;
+    padding: 6px 0;
+    font-size: 12px;
+}

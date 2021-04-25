@@ -1,0 +1,39 @@
+
+/* Time-stamp: "2005-09-23 19:47:47 ADT" sburke
+ by sburke@cpan.org - I hereby release this CSS code into the public domain.
+*/
+/* feed has moved example */
+/* from https://interglacial.com/~sburke/stuff/pretty_rss.html */
+
+* { display: block; margin-bottom: 1em; }
+
+docs {  color: #fcc; }
+
+language, lastBuildDate, link, image, guid, ttl, skipHours, skipDays,
+updateFrequency, updatePeriod, docs, webMaster,
+updateBase { display: none }
+
+channel > description { display: none; }
+channel > title { font-style: italic; }
+
+channel > title:before,
+channel > title:after  {
+  content: "\00a0\2605\2020\2605\00a0";
+  color: red;
+  font-style: normal;
+}
+
+item title { display: none; }
+
+:root {
+  text-align: center;
+  border: 1em #f00 dashed;
+  margin: 0em;
+  padding: 1em;
+  display: block;
+  background-color: #ff0;
+  color: #000;
+  font-size: 140%;
+}
+
+/* End */

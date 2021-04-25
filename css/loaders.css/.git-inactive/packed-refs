@@ -1,0 +1,16 @@
+# pack-refs with: peeled fully-peeled sorted 
+1832f7e5d1c8f3d237e283bd20e803a7cb7cac83 refs/remotes/origin/54-remove-nth-child-zero
+a4b800f28315f81872ddbe9e29247f2ffd37cfc9 refs/remotes/origin/74-wrong-animation-name
+e18c65d464302e5d7c9aa2480bd22ec901ba5f6c refs/remotes/origin/P55-readme-related-links
+dee8aabed3adbfb121b931a42e3ebc233fafdd68 refs/remotes/origin/master
+8fd227addf8e897871a8a2595f7ab55aa679f6da refs/remotes/origin/update-copyright
+8ee5cf77490a67fd4b20fdb6da5c4d84cb4d2f54 refs/tags/0.0.1
+^92ed9a4186c1da447c7a7274d55015b142f8db11
+c08a4190c1cdf4b8d75b6c951655c2f55d8a6363 refs/tags/0.0.2
+^6806b7f935392f00fd01bd846d6a918c215f0b38
+14da02bd6b8895f82ac54d94d0a95d3a7247e9ca refs/tags/0.1.0
+^3d86ae9f2404e5e949c434558eb5eb36bcc0eae5
+ecc105cfacd7a0ee3f5a129dfe1d8d3d1b375f56 refs/tags/0.1.1
+^dde97c9e33ebd42a5d3adc797bcd973d9dcfa38a
+d6eca4fb0ace2986fa67f344c02f85c29c023d66 refs/tags/0.1.2
+^940bd92550c3b783d65a6983d0aaf21ed68722c4

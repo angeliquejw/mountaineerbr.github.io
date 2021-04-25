@@ -82,7 +82,7 @@
 
 body
 {
-	background-color: gold ; /* wheat; */ /* PapayaWhip */
+	background-color: wheat;  /* PapayaWhip */
 	max-width: var(--body-width);
 	margin: 0 auto 0 auto;
 	/* text-align: center; */

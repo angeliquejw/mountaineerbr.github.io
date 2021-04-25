@@ -1,0 +1,143 @@
+
+# vi:ft=html
+
+
+alternative to google analytics:
+https://metrica.yandex.com/about?
+
+#general
+
+#cool script for a slick menu
+http://www.dynamicdrive.com/dynamicindex1/switchmenu.htm
+http://www.dynamicdrive.com/dynamicindex1/
+
+#cool effects
+https://freefrontend.com/css-text-effects/
+
+#https://www.cmswire.com/cms/web-cms/how-they-hack-your-website-overview-of-common-techniques-002339.php
+#https://search.google.com/search-console/
+
+#mime types
+http://w3schools.sinsixx.com/media/media_mimeref.asp.htm
+
+
+#It's easy to prevent search engines from deep linking to a specific page.
+#Simply include the following meta-tag code in the HEAD part of the page:
+<META NAME="robots" CONTENT="noindex">
+#Well-behaved search engines will exclude any such page from their databases.
+https://www.nngroup.com/articles/deep-linking-is-good-linking/
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="alternate" type="application/rss+xml" title="RMS RSS" href="rss/rss.xml">  /* Add a RSS feed? */
+<title>Biologist Blogger</title>
+<meta name="description" content="Biology, science and UNIX web log">
+<meta name="keywords" content="blog, shell, hacks, tips, environment, education, mythbuster, climate-change">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rev="made" href="mailto:jamilbio20@gmail.com">
+
+<!-- other tags -->
+<meta content="Henri Sivonen" name="author">
+<link rel="shortcut icon" type="image/png" href="images/favicon.jpg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://mountaineerbr.github.io/"> <!-- AVOIDS DUPLICATE PAGES! -->
+<LINK REL="STYLESHEET ALTERNATE" HREF="big.css" TITLE="Big Text">
+<link disabled rel="alternate stylesheet" href="css/pooh">
+<link rel="author license" href="/about">
+<meta http-equiv="cache-control" content="no-cache" />
+<meta name="referrer" content="no-referrer">
+<meta name="google-site-verification" content="oud96VzdxkLPteO6D0RYmp91F2y6-hD3V5PpBpYo8xM" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- other tags -->
+
+<!-- dan's tags -->
+<META NAME="resource-type" CONTENT="document">
+<META NAME="description" CONTENT="Daniel R. Tobias's personal home page.  Stuff about me, and some really neat links.">
+<META NAME="keywords" CONTENT="Daniel Tobias,Home Page,webmaster,computers,libertarianism,politics,controversies,Web Tips,structuralist">
+<META NAME="distribution" CONTENT="global">
+<META name="geo.position" content="26.32959;-80.09276">
+<META name="geo.region" content="US-FL">
+<META name="geo.placename" content="Boca Raton, FL">
+<meta name="DC.title" content="dan.tobias.name -- Dan's Personal Page">
+<LINK rev="Made" href="mailto:webmaster@dan.tobias.name">
+<LINK rel="Top" href="./">
+<LINK rel="Up" href="https://www.dan.info/">
+<LINK rel="Stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://www.google.com/cse/style/look/default.css" type="text/css">
+<LINK rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<meta name="readability-verification" content="Ejz8CxUvr8QvyXEyfb2V9VzXfF526FXvJeM8fxub">
+<!-- dan's tags -->
+
+<!-- d'o antagonista -->
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no">
+
+<!--
+POSH - Plain Old Semantic HTML
+
+contet type for plain text files:
+<meta http-equiv="content-type" content="text/plain; charset=UTF-8">
+-->
+
+<!--
+Bad code. Don't copy!
+<meta http-equiv="content-language" content="de" />
+This use of the content-language value for an http-equiv attribute is deprecated by the HTML specification, and should no longer be used. Instead, you should always use a lang attribute on the html tag to declare the default language of the text in the page.
+https://www.w3.org/International/questions/qa-http-and-lang
+-->
+
+wix.com sitemap example:
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <sitemap>
+        <loc>https://ecologiaufms.wixsite.com/econexao/pages-sitemap.xml</loc>
+        <lastmod>2020-11-25</lastmod>
+    </sitemap>
+</sitemapindex>
+
+
+
+
+
+
+
+<style>
+	.alert {
+	  border: 5px outset red;
+	  background-color: lightblue;
+	  text-align: center;
+	}
+</style>
+
+</head>
+
+<body>
+
+
+	<!-- the following tracker uses matomo [[dot]] org,
+	 which seems very suspect, i'm not using this anymore -->
+	<!-- simple counter, hidden -->
+	<!-- <div style="float:left;visibility:hidden;">
+		<p>
+		<small>Visitors</small>
+		<br>
+		<a href='https://www.counters-free.net/'>www.counters-free.net</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=7e75c9c151343dda5acb6fde46110f00395f931c'></script>
+		<script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/739654/t/3"></script>
+		</p>
+	</div> -->
+	<!-- simple counter end -->
+
+
+
+	<!-- links webbrowser will print this, nonetheless -->
+	<div style="visibility:hidden;">
+		<h2>Curriculum</h2>
+		<ul>
+			<li><a href=""></a></li>
+			<!--<li><a hreflang="pt" href="http://lattes.cnpq.br/3615371704156919">Plataforma Lattes</a></li>-->
+		</ul>
+	</div>
+
+</body>
+

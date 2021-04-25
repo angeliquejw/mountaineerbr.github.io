@@ -39,56 +39,192 @@ Tools</title>
 </style>
 </head>
 <body>
+<header>
+<div class="w3-bar w3-amber">
+<nav class="navbar"><a class="w3-bar-item w3-left" href=
+"../../">Home</a> <a class="w3-bar-item w3-left" href="../">Post
+index</a> <!-- navitem -->
+<a class="w3-bar-item w3-right" href="../6/">Next</a> <a class=
+"w3-bar-item w3-right" href="../4/">Previous</a></nav>
+</div>
+</header>
+<!-- FEED -->
+<a href="../rss.xml"><img class="postfeed" src="../gfx/pic_rss.gif"
+alt="RSS Logo" width="36" height="14"></a>
+<main class="h-feed" style="clear:both;">
+<p>by <span class="p-author">Mountaineerbr</span></p>
+<!-- article -->
 
+<article class="h-entry">
+<header>
+<h1 class="p-name" id="5">#5 - Using Poor Man's Web Master
+Tools</h1>
+<time class="dt-published" datetime="2020-09-04">04/sep/2020</time>
+<br>
+</header>
 
-<h1>Away</h1>
+<div lang="pt" class="p-summary">
+<p>Falando um pouco da descoberta das ferramentes em shell do site
+<a href="http://users.telenet.be/mydotcom/howto/www/tools.htm">Poor
+Man's Web Master Tools</a> e como isso me aliviou e me motivou a
+tentar escrever uns scripts para gerenciar a área do blog..</p>
 
-<h2>Out-0f-business for the foreseeable future.</h2>
+<p><em>IMPORTANTE: parece que o site do PMWMT está fora do ar??
+Espero que não tenha parado de vez (<span lang="en">dead
+link</span>?).. Se o link não voltar, ainda bem que há <a hreflang=
+"en" href=
+"https://web.archive.org/web/2015*/http://users.telenet.be/mydotcom/howto/www/tools.htm">
+uma cópia na Wayback machine</a>.</em>
+</p>
+</div>
 
+<br>
 
-<p>Podcast and Blog RSS feeds remain available.</p>
+<p>Searching for personal website tips or something, I found some
+really interesting stuff. For example, <a href=
+"https://www.cmswire.com/cms/web-cms/how-they-hack-your-website-overview-of-common-techniques-002339.php">
+this website</a> talks about website cracking and hackery in
+general, which I found very amusing..</p>
 
-<p>The blog HTML can be
-<a title="For the sake of convenience, all posts concatenated into one document" href="https://mountaineerbr.github.io/blog/cat.html">found here</a>
-(without images or styles, sorry about that).</p>
+<p>Anyways, it seems that indeed a webmaster needs to deal with
+some data base and layout management. He could avoid them by using
+<a href="https://jekyllrb.com/">Jekyll</a> or <a href=
+"https://wordpress.com/">WordPress</a>, or if he knows some
+programming, he can try and manage his website all by himself.
+Reading <cite>Jekyll</cite> documentation, it seems to deal with
+three types of web pages:</p>
 
-<p>Thanks to all visitors!</p>
+<ul>
+<li>normal pages, usually not correlated to each other;</li>
 
+<li>blog posts and a blog home page;</li>
+
+<li>somewhat related pages, which they call
+<i>collections</i>.</li>
+</ul>
+
+<p>I reckon that for unrelated and individual pages, it is a plus
+if we can craft them manually. There are so many structural HTML
+tags which can be used that I doubt <cite>Jekyll</cite> can apply
+half of them from a <i>marked down</i> text.. That seems
+incompatible: either use a mark up or a mark down language.
+<br>
+Such intricate structures can one make with <i>HTML</i> tagging,
+although much is condemned to null or discreet rendering by web
+browsers at this present time..</p>
+
+<p>About the second bullet point, the blog portal and individual
+post management can be a hassle. It is easy if you just write in a
+single page, which gets ever longer. However, if you want to point
+to individual posts only, then you should also have got individual
+pages for them.
+<br>
+<cite>Jekyll</cite> (and other static webpage generators) uses a
+lot of databases, and that is not the easiest to familiarise with
+its defaults structures, although I am sure you can customise
+almost everything..</p>
+
+<p>At this point, I was almost overwhelmed and giving up on trying
+to create my own tools for the job of managing a post database..
+Most surprisingly, I found the <a href=
+"http://users.telenet.be/mydotcom/howto/www/tools.htm">Poor Man's
+Web Master Tools</a> (PMWMT) and <q>some silly scripts for
+maintaining a static website</q>. Do note the referred scripts are
+<strong>shell scripts</strong>. I was most delighted! IMPORTANT: It
+seems the website for PMWMT is down, hopefully that is temporary..
+If the link does not come online again, we still have got
+<a hreflang="en" href=
+"https://web.archive.org/web/2015*/http://users.telenet.be/mydotcom/howto/www/tools.htm">
+a copy from Wayback machine</a>.</p>
+
+<p>Much refreshed and elated, I got to work on my previous shell
+script, which dealt only badly with concatenating all blog post
+into <a href="../cat.html">a single page</a>.
+<br>
+Some <em>template</em> files were created. One holds most of
+<em>HEAD</em> and <em>HEADER</em> contents while the other most of
+the <em>BODY</em> and <em>FOOTER</em> contents.
+<br>
+Now, article text is written in HTML but are written in individual
+files and only contains some metatags in a <em>HEAD</em> section
+and a <em>ARTICLE</em> section, which are then merged with the
+templates to generate a complete individual page for the post.
+<br>
+Finally, a function that merges all article sections of individual
+posts into a long page with all posts. There is a hard corner which
+is to fix all locally relative resource dirpaths in src tags, for
+example for images or gifs. Here, I had to think long and hard and
+created another directory at the root of the blog directory called
+res/ for resources, as it cannot be called gfx for graphics because
+I will be linking txt plain text, as well. When all resources moved
+there, I was able to use <i>sed</i> to remove '../' references in
+these fields..</p>
+
+<p>The third bullet of the list above seems irrelevant as a worry
+now. Either we can specially craft individual webpages or use the
+same blog system for an eventual <em>collection</em> of related
+pages..</p>
+
+<p>There are still some improvements or features to implement for
+my own use, that is a way to automatically update the website
+portal blog post section and the blog portal with latest post
+titles.. That should not be too hard to do with some <strong>shell
+scripting</strong> and <strong>sed</strong>..
+<br>
+You can check a script snapshot <a href="../res/script4.html">in
+this link</a>. I will be improving that over time, but I provide it
+here just so as a reference of what can be done for the reader.</p>
+
+<p>Although I am not currently using <cite>PMWMT</cite>'s code (I
+am writing my own), reading those scripts are a blow of fresh air..
+When I next write a script for generating a sitemap.xml file, I may
+use some of <cite>PMWMT</cite> code, though..</p>
+
+<p>There may be a vague resemblance of functionality with <a href=
+"https://github.com/LukeSmithxyz/lb">Luke Smith's lb and sup</a>, a
+<q>blog script and site updater</q> he wrote for his own blog.
+However, he does not seem to care about adding metatags to blog
+posts, such as keywords.. Other blogs could use their post
+categories as keyword metatags..</p>
+
+<p>Just for the record, there are two more scripts o deal with
+website or blogging. The first one is <a href=
+"https://www.romanzolotarev.com/ssg.html">Roman Zolotarev's
+ss5</a>, which is <q>a static site generator written in shell</q>.
+There is also <a href=
+"https://github.com/slackjeff/hacktuite">Slackjeff's hacktuite</a>,
+a shell script that makes a static microblog.</p>
+
+<figure><img src="../gfx/logo_ssc.jpg" alt="Company Logo" width=
+"120" height="120">
+<figcaption style="min-width:40%;">Fig 1. Logo from the Silly
+Software company, provider of PMWMT and other interesting
+software.</figcaption>
+</figure>
 
 <hr>
-<h1>Saímos</h1>
 
-<h2>Indisponível por tempo indeterminado.</h2>
+<p>PS: package <code>tree</code> can also make a directory (and
+file) listing in HTML with option <code>-H</code>. One can use flag
+<code>-P</code> to search for filetypes and flag <code>-I</code> to
+ignore some files. It must be run at the root directory of the
+website. Example:</p>
 
-<p>Os feeds do Podcast e Blog permanecem disponíveis.</p>
-
-<p>O Blog em HTML pode ser
-<a title="Pelo benefício da comodidade, todos os posts reunidos em um único documento" href="https://mountaineerbr.github.io/blog/cat.html">encontrado aqui</a>
-(sem images e estilos, foi mal).</p>
-
-<p>Obrigado a todos os visitantes!</p>
-
+<pre><code>$ tree -H "https://mountaineerbr.github.io" \
+        -P '*.htm|*.html|*.php|*.asp|*.aspx|*.jsp' \
+        -L 6 -F -o "tree.html" -v --noreport --charset utf-8 \
+        -I '[a-z].html|index.html|fool.html|bak|css|gfx|js|res|misc|google*|PMWMT'</code></pre>
+</article>
+</main>
 
 <footer>
- 
-
+<hr class="sep">
+<!-- Google Analytics -->
 <!--
-- - - -	Copyright ©2021.
- - - -	Verbatim copying and distribution of this entire article is
-- - - -	permitted in any medium, provided this notice is preserved.
+- - - - Copyright ©2021 JSN.
+ - - -  Verbatim copying and distribution of this entire article is
+- - - - permitted in any medium, provided this notice is preserved.
 -->
-
-<!--
-- - - -	Legal Mumbo Jumbo
-- - - -	You are free to copy or repost any or part of these
-- - - -	blogs, as long as the proper attribution is given.
-- - - -	A heads-up is always appreciated.
-- - - -	The opinions expressed are mine and my own and they
-- - - -	do not represent my employer or company opinions.
--->
-
-
 </footer>
-
 </body>
 </html>

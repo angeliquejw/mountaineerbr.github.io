@@ -1,0 +1,166 @@
+<article class="h-entry">
+<header>
+	<h1 class="p-name" id="6">#6 - More Web Master Resources</h1>
+	<time class="dt-published" datetime="2020-09-07">07/sep/2020</time>
+<nav><a href="6/">[stand-alone]</a></nav>
+
+	<br>
+</header>
+
+
+<!-- <div lang="pt" class="p-summary"></div><br> -->
+
+
+<p>
+I reckon having a website for link collection is a good reason
+for having a website. I started a new column on the website home page,
+called <q>The Fool Environmentalist</q> which is supposed to be a
+list with links and very short comments about some important
+point. Google News always sends me good and bad articles that
+I should be collecting for personal reference.. Internet news
+are easy to read but very hard to keep track and
+organise them. Google does not help, sometimes even Firefox
+isn't!
+</p>
+
+<p>
+<em>The Guardian</em> has been very disappointing for the last decade.
+Too many news about how humanity is headed to total environmental
+disaster.. Generically, not only <em>The Guardian</em> here,
+what they completely mess up is the sense of cause and effect.
+Human beings are living on Earth because
+the Environment has allowed all conditions for our development
+and survival at this precisa moment,
+so we are actually an effect of natural forces. To think that we
+are the cause and source of natural order is very naive.
+We may as well be, however it seems more overwhelming that
+what little humans can do is due to workings of a much greater order.
+</p>
+
+<p>
+And here order means simply <em>physical</em> laws. Indeed, order
+can emerge from chaos and they are really not different things.
+We may talk more about <em>complex systems</em> in due time.
+</p>
+
+<hr>
+<p>
+I <a href="res/script4.html">did a rewrite</a> of a shell script
+to deal with updating the website blog section. I found a very
+useful sed command which allowed me to write simple template html
+pages to merge with the actual post content
+(from
+<a href="https://stackoverflow.com/questions/46423572/append-a-file-in-the-middle-of-another-file-in-bash">Stack Overflow</a>).
+</p>
+
+
+<pre><code>$ sed '2 r file2.txt' file1.txt</code></pre>
+
+
+
+<p>
+The first sed command adds text from <code>file2.txt</code> into <code>file1.txt</code>
+after a specific line (in that case, line #2).
+The following commands are more interesting as they add text from
+<code>file2.txt</code> after a matched pattern. <code>file2.txt</code> can be <code>/dev/stdin</code>!
+Also, if you want to modify the target file,
+you can use flag <code>-i</code>:
+</p>
+
+
+<pre><code>$ sed '/^PATTERN/ r file2.txt' file1.txt
+
+$ sed -i '/^PATTERN/ r /dev/stdin' file1.txt</code></pre>
+
+
+<hr>
+<p>
+I was working on the HTML and CSS code of the website for the past days.
+Yesterday, I got some code snippets from 
+<a href="https://www.w3schools.com/">W3</a>
+and made the home page responsive.
+<a href="https://www.w3schools.com/howto/howto_css_equal_height.asp">
+It is using Flexbox</a>, which, by the way, is not compatible with
+IE 10 and earlier..
+I installed various web browsers available in the Arch Linux official
+repos:
+</p>
+
+<ul>
+	<li><code>aur/tor-browser</code></li>
+	<li><code>aur/google-chrome</code></li>
+	<li><code>community/otter-browser</code></li>
+	<li><code>community/opera</code></li>
+	<li><code>community/netsurf</code></li>
+	<li><code>community/elinks</code></li>
+	<li><code>extra/w3m</code></li>
+	<li><code>extra/lynx</code></li>
+	<li><code>extra/konqueror</code></li>
+	<li><code>extra/firefox</code></li>
+	<li><code>extra/epiphany</code></li>
+	<li><code>extra/chromium</code></li>
+	<li><code>core/links</code></li>
+</ul>
+
+<p>
+It is a good idea to check your website with all of these browsers.
+I personally like to using W3M, however I am not that familiar with
+all shortcuts yet. On the other hang, Links and ELinks are
+easy to use to even have got GUI versions! They are useful for
+navigating to many websites, though not all.
+</p>
+
+<p>
+Specially useful is the Netsurf browser, which uses a simple engine
+and is akin in rendering to a version of IE 10 or thereabouts..
+</p>
+
+<p>
+You can test your website with a different browser (cross-browser testing)
+at
+<a href="https://www.browserling.com/">Browserling</a>, too.
+</p>
+
+<img class="leftimg" src="gfx/vcss-blue.gif" alt="[Valid CSS logo]" width="88" height="31">
+<p>
+That is also good idea to check the code with an
+<a href="https://validator.w3.org/">HTML validator</a>
+and a
+<a href="https://jigsaw.w3.org/css-validator/">CSS validator</a>.
+They give you a code snippet to generate a validator logo at your
+website, however if you tested your HTTP version of the website,
+the code generated will make web browsers throw
+<a title="How to fix nonsecure image errors" href="https://www.sslshopper.com/article-stop-the-page-contains-secure-and-nonsecure-items-warning.html">
+supposed errors of unsafe images</a> when accessing it with HTTPS.
+In Linux, I found a very good HTML linter called <code>tidy</code>
+available in the extra repo in Arch Linux. There is a good CSS linter,
+albeit harder to use and requires some manual configuration is
+<a href="https://stylelint.io/"><code>Stylelint</code></a>,
+available in the community repo. 
+Check the <code>stylelint-config-standard package</code>, too.
+Otherwise install via npm, check package instructions.
+</p>
+
+<hr>
+<p>
+Lastly, you can check website performance with
+<a href="https://gtmetrix.com/">GTmetrix</a>,
+a tip from
+<a href="https://www.youtube.com/watch?v=YHU9tx7hpqw&t=974s">Chris Titus Tech</a>.
+It seems one of the most important optimisations you can do is
+improve image sizes, if your webpage is too large. My 
+home page has approximately 200KB with images as of today..
+</p>
+
+<hr>
+<p>
+PS: these webbrowser add-ons are almost essential webmaster tools,
+check
+<a href="https://addons.mozilla.org/en-US/firefox/addon/web-developer/">Web Developer</a>
+which adds a toolbar button with various web developer tools and
+<a href="https://addons.mozilla.org/en-US/firefox/addon/http-header-live/">HTTP Header Live</a>
+which displays the HTTP headers.
+
+</p>
+
+</article>

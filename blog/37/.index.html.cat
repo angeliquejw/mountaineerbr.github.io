@@ -1,0 +1,100 @@
+<article class="h-entry">
+
+<header>
+	<h1 class="p-name" id="37">#37 - Firefox on Mobile (Android)</h1>
+	<time class="dt-published" datetime="2021-04-23">23/apr/2021</time>
+<nav><a href="37/">[stand-alone]</a></nav>
+	
+	<br>
+</header>
+
+
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+<!-- <div lang="pt" class="p-summary"><p></p></div><br> -->
+
+
+<!-- MAIN TEXT  -->
+<p>Firefox for mobiles worked fine on my mobile phone, an Android 8.1.
+However, as time passed by, new Firefox (FF) updates made it behave
+in an unstable manner.</p>
+
+<p>New features were welcome, such as that which allowed to send
+URLs from my Desktop Firefox to my Mobile Firefox through my Firefox account.
+For a period of time, sending a tab would not take 10 or 20 seconds before
+hitting my mobile Firefox or vice-versa. But this feature soon degraded
+and now it takes hours or even a whole day..</p>
+
+<p>But that is fine really. There is another workflow for sharing URLs
+which I used for a long time, just fire up my e-mail console and
+send myself an e-mail with the URL.</p>
+
+<p>However, Firefox for mobile became really weird as updates went on
+in the last 3 years.
+One of the first things that really turned me off was that
+FF would not load a webpage and would show a completely <strong>empty
+page</strong> instead. Or, it would load the page all right and
+suddenly the rendering would brake and the page would go blank.</p>
+
+<p>Some versions ago, FF updates (from Android Google Play Store)
+made FF to freeze some tabs and sometimes even crash, requiring
+a restart and closing the affecting tab to prevent freezing
+as soon as possible.</p>
+
+<p>Now, pages going blank are more rare (but still happens sometimes)
+but tab freezing and crashing have become rather common and, as I said,
+sending tabs to other devices take hours so I rarely use it.</p>
+
+<p>FF and Chrome dropped their HTML inspecting tools. Chrome
+and Opera can at least still <code>view-source:</code> of an URL.
+As a small web developer, it is great to check out other
+people HTML code.</p>
+
+<p>This is why I am trying new mobile browser and all of them suck!</p>
+
+<p>There is Opera, which I found to be really fast, sleek and with somewhat
+an older design that I am used to. Opera 62 did not turn to the
+<em>Tabbing Madhouses</em> of Firefox 87 and Chrome 89, yet.
+I don&rsquo;t like the multiple tabs view of neither FF nor Chrome, because
+those 3D layouts confuse me. Currently, I use some old glasses and
+I haven&rsquo;t got the sharpest vision.</p>
+
+<p>Opera multiple tab view is 2D, scrolls horizontally and
+pretty much straight forwards. Chrome multiple tabs view is 3D
+and scrolls vertically, whereas FF has got an alternative 2D layout
+but has double columns and scrolls vertically, too.
+FF and Chrome layouts get really confusing because sometimes there are
+30 or more open tabs and I am never sure where all the tabs are..</p>
+
+<p>Chrome has gone one step further and enabled a <em>Open Tab in Group</em>
+function, which predated the <em>Open in New Tab</em>, which I use
+<strong><em>a lot</em></strong>. Fortunately, there is a way to disable this new
+functionality and just open links in new tabs..</p>
+
+<p>Recently, with all three browsers open, doing some research using
+Android multitasking feature which splits the screen in two,
+I could not find my tab with important text I was studying.. That really
+blew away my focusing, which in a mobile operating system is
+much limited, and I had to quit research a couple of times,
+lost in the middle of a train of thought. Later I discovered that
+Android multitasking and window overview may not show Firefox window!</p>
+
+<p>I am not sure if that is FF mobile dev team who is screwing the code up
+or Android code is kind of meant to fuck with other web browser
+competitors..</p>
+
+<p>I cannot use Opera only because of my FF and Chrome key rings,
+but I am trying to use it more often (it is already my defaults browser
+on Android). Also, multitasking on Android requires using more than
+one web browser, even though Chrome can open tabs in new Windows,
+FF and Opera generally cannot.</p>
+
+<p>Sometimes I think of just giving up and using Chrome on
+Android. Sometimes that is the only web browser that will work..</p>
+
+<p>Opera is not a <em>saint</em> and it collects plenty telemetry,
+so it is not better than FF in that respect, at least.</p>
+
+<p>Another mobile web browser I will be checking out is Vivaldi.</p>
+
+
+</article>

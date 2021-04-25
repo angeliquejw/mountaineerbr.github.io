@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rss version='2.0'
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+>
+	<!--
+
+	  Hey!
+	  This web page is actually a data file that is meant to be
+	   read by RSS reader programmes.
+	  See https://mountaineerbr.github.io/blog to get to the human-
+	   readable page.
+
+	-->
+
+	<channel>
+		<lastBuildDate>2021-02-11</lastBuildDate>
+		<title>Biology Blogger (Alternative feed)</title>
+		<description>The Biology Blogger writes about biology, science and UNIX.</description>
+		<link>https://mountaineerbr.github.io/blog/</link>
+		<category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
+		<webMaster>jamilbio20@gmail.com (JSN)</webMaster>
+		<language>en</language>
+		<atom:link href="https://mountaineerbr.github.io/blog/rss_alt.xml" rel="self" type="application/rss+xml"/>
+		<image>
+			<title>Biology Blogger (Alternative feed)</title>
+			<url>https://mountaineerbr.github.io/gfx/sherlockb_big.png</url>
+			<link>https://mountaineerbr.github.io/blog/</link>
+		</image>
+		<copyright>
+			Copyright ©2021 JSN.
+			Verbatim copying and distribution of this entire article is
+			permitted in any medium, provided this notice is preserved.
+		</copyright>
+		<generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
+
+		<!-- additemsfull -->
+
+
+	</channel>
+
+
+</rss>
+

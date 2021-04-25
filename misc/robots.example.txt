@@ -1,0 +1,32 @@
+# This file tells robots what not to index in the site
+
+# Group 1
+User-agent: *
+Disallow:
+
+# Group 2
+# Example 2: Block Googlebot and Adsbot
+#User-agent: Googlebot
+#User-agent: AdsBot-Google
+#Disallow: /*.xls$
+#Disallow: /
+
+
+#all robots read the sitemap file
+#this should be a full url
+#Sitemap: url/sitemap.xml
+#Sitemap: url/sitemap2.xml
+
+#refs
+#http://www.robotstxt.org/
+#https://technicalseo.com/tools/docs/robots-txt/
+#https://yoast.com/ultimate-guide-robots-txt/
+#https://developers.google.com/search/reference/robots_txt
+#create robots.txt: https://support.google.com/webmasters/answer/6062596?hl=en
+#test robots.txt: https://support.google.com/webmasters/answer/6062598?hl=en&ref_topic=6061961
+
+
+#robots.org webcache:
+#https://webcache.googleusercontent.com/search?q=cache:L7kkghDaRMUJ:https://www.robotstxt.org/orig.html+&cd=1&hl=en&ct=clnk&gl=br&client=firefox-b-d
+
+

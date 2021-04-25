@@ -1,0 +1,445 @@
+<article class="h-entry">
+
+<header>
+	<h1 class="p-name" id="18">#18 - Removing Important Files with `rm -r *'</h1>
+	<time class="dt-published" datetime="2020-11-24">24/nov/2020</time>
+<nav><a href="18/">[stand-alone]</a></nav>
+	
+	<br>
+</header>
+
+
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+<div lang="pt" class="p-summary"><p>É fácil demais usar o comando
+<code>`rm -r *`</code> e destruir todos os seus arquivos importantes.
+Aqui relato mais um episódio de desventuras com esse comando!</p></div><br>
+
+
+<!-- MAIN TEXT  -->
+<p>
+This is not the first time I removed a lot of important files
+with the command <code>`rm -r *`</code>.
+</p>
+
+<p>
+Alone, the rm command does not remove recursively
+by defaults and may even throw some errors because of not using
+the <code>-f</code> flag and mixing directories with regular files.
+However, do notice that <em>apparently</em> innocent
+shell star glob <code>*</code>.
+I am not sure if that was z-shell option <code>RM_STAR_WAIT</code>
+or the rm command itself,
+but a warning dialog was thrown asking if I <q>wished to remove
+25 files?</q>, to which I hit <em>Enter</em>, even though I knew 25 files
+was not the right sum of number of files..
+If I had only noticed I was at the wrong directory..
+</p>
+
+<p>
+<strong>A glob</strong> is a filename generator within the shell and it
+will be substituted by all file names matching it.
+The glob is not recursive by defaults, either, but in combination
+with the <code>-r</code> flag of the rm command 
+that can cause havoc and a lot of time lost at the very least.
+</p>
+
+<hr>
+<p>
+To put the story into context, I updated Arch Linux after almost two months
+without sync'ing. As I synchonise that once a month and last month
+<a href="https://www.archlinux.org/news/nvidia-45528-is-incompatible-with-linux-59/">there was news</a>
+the just-released Linux 5.9 was not yet compatible
+with nvidia driver 455.38, I postponed the sync'ing to the following month,
+which is precisely <em>this</em> month.
+</p>
+
+<p>
+With the release of nvidia 455.45 last week,
+today, I decided to do a first sync with the majority of
+new packages from a fast Arch Linux mirror in my country.
+I planned to sync again later with
+<a href="https://archive.archlinux.org/repos/month/">Arch Linux Archive's monthly repo</a>
+(copy of the 1<sup>st</sup> of each month), and use that for the following
+month or so again, and so on.
+</p>
+
+<p>
+While in a Linux TTY with Tmux and <code>pacman -Syu</code> running,
+I decided to go back in Tmux buffer and copy some warning messages.
+I messed the keypresses and pasted a lot of text
+while pacman was running <strong>post-install hooks</strong>..
+</p>
+
+<p>
+That is important to mention I did play with the <code>/boot</code> directory
+(which is in a different partition from <code>/</code>)
+in my main SSD drive last week while my laptop hardware was at
+the computer shop for repairing the display hinge mechanism..
+</p>
+
+<p>
+I cannot be sure what exactly went wrong 
+with the pacman sync this time but following a reboot systemD printed
+warnings it could not find a kernel module for <em>vfat</em> and
+thus would not mount <code>/boot</code>, which is a separate partition.
+</p>
+
+<p>
+I thought about following
+<a href="https://wiki.archlinux.org/index.php/installation_guide">Arch Linux Install Guide</a>
+and remaking the <code>/boot</code> partition completely, plus
+I had a backup of its contents of before and after the
+pacman update, so I thought I would give it a try.
+</p>
+
+<p>
+At about the time I had chrooted into my SSD drive with
+Arch Linux live media, an unrelated repair man who needed finish
+a job with the house gate from yesterday arrived.
+I lost a little of concentration at that point.
+</p>
+
+<p>
+Plus, mum came to me asking some questions just before I was
+to remove old <code>/boot</code> files..
+I at <code>/boot</code> using vifm before I quit it,
+and then instead of being at <code>/boot</code>,
+$PWD was still at <code>/</code>.
+I am used to automatically changing to the last directory vifm was
+because of a vifm configuration which did not work when I was
+chrooted!
+I did not notice that. I then run <code>`rm -r`</code> with
+the star glob and pressed <em>Enter</em> <em>twice</em>.
+</p>
+
+<p>
+I only noticed the catastroph when <code>rm</code> was issuing warnings
+it could not remove <code>/proc/<em>something</em></code>,
+to which I immediately responded with <em>Ctrl+C</em>.
+Interestingly, <code>rm</code> did not remove <code>/bin</code> and other
+non-system directories from <code>/</code>, however it did
+remove <code>/home</code> before other directories! Yay! =.[
+</p>
+
+<p>
+Luckily, I have got backups. However the newest
+backup seems to be 3 months old.
+I pushed/forgot to make my last 2 monthly backups, usually
+made before Arch Linux updates.
+I have got most of my files and system configs backed up.
+My scripts, dotfiles and website are up-to-date
+with GitHub because I sync with that so often..
+
+I did not move much crypto recently and I have got paper
+backups
+of that, so that is really fortunate.
+
+There are only about 4 files I really lost,
+some of which are
+my updated curriculum vitae from last week,
+and other documents I may rewrite.
+Other than those, I think I will lose mostly <em>time</em>.
+</p>
+
+
+<h2>Won't I <em>ever</em> learn?</h2>
+<p>
+Obviously I cannot blame nobody except myself for such
+noob and silly mistakes.. This is not the first time,
+and that is the second time this year already!
+</p>
+
+<p>
+I reckon I am distracted and indisciplined and can improve on
+these with some effort which I am willing to make.
+Habits..
+</p>
+
+<p>
+This is not the first time I mess up with
+<code>rm</code>.
+This is the second occasion I did a mistake
+just after someone draws my attention,
+but also on at least two other occasions 
+there was nobody to distract me.
+</p>
+
+<p>
+I'm writing this from a backup laptop with Manjaro
+which has got a complete local copy of official repositories and
+has not been updated over 10 months! 10 months of no headaches!
+</p>
+
+<figure>
+	<img src="18/archLinuxInstall.png" width="800" height="600" alt="Downloading packages for Arch Linux installation in a live media.">
+	<figcaption>
+		Fig 1. 
+		The Ethernet port is bad so download of packages is extremely slow (~80 Kbps). Downloading only essential packages with <code>pacstrap</code>. At that point, I had no idea why downloads were so slow..
+
+	</figcaption>
+</figure>
+
+
+<hr>
+<p>
+I don't like Arch Linux moderators
+as they are sort of a piece of shit.
+However, not all of them are naughty (I suspect the younger ones
+are more cruel), and I don't partake guilt in 
+those terrible Arch Forums anymore.
+Independent as can be from them!
+</p>
+
+<p>
+I have been thinking about installing OpenBSD 
+when Arch Linux became unbearable, but
+hopping distros right now would demand
+a lot of time there is use for better things
+ at this  moment in my life.
+So, unfortunately, I am just reinstalling Arch again.
+</p>
+
+<p>
+I <em>did cheat</em> a little.
+GPT table and partitions were reused.
+I formatted all partitions again
+with GParted from a Xubuntu 18.04 live media.
+</p>
+
+<h2>Partition scheme</h2>
+<ol>
+	<li>sda1 - <code>/efi</code> Bootloader</li>
+	<li>sda2 - Linux swap</li>
+	<li>sda3 - <code>/</code> System root</li>
+	<li>sda4 - <code>/home</code> User directory</li>
+</ol>
+
+
+<h2>Back with the formatted computer</h2>
+<p>
+This will become a chronology!
+Back to using my main laptop (driver).
+Arch Linux reinstall was not too hard. I had to chroot twice
+to properly install networking tools. Download of packages was slow
+as heck. I discovered that the laptop ethernet port is bad.
+Pacman downlaod speed
+was ~80 Kbps.
+I tried changing mirror servers before
+discovering the ethernet port was to blame..
+</p>
+
+<p>
+Once internet was set up properly, configuring Arch went well and quickly.
+I should remark it was necessary to configure the following
+with some special care:
+</p>
+
+<ul>
+	<li>choosing fast mirror servers (may use either <code>ping</code> or
+		<code><a href="https://wiki.archlinux.org/index.php/reflector">reflector</a></code>)</li>
+	<li>add EFI entry to motherboard NVRAM to boot new system</li>
+	<li>configure <code>GRUB</code> such as:<code>GRUB_SAVEDEFAULT=true ;GRUB_DEFAULT=saved ;GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 sysrq_always_enabled=true"</code>;
+	Linux has now <a href="https://www.phoronix.com/scan.php?page=news_item&px=Linux-5.9-Drops-Soft-Scrollback">dropped support for the scrollback buffer</a> since 5.9</li>
+	<li>add users to correct groups (sys, log, games, bumblebee, rfkill, wheel, adm)</li>
+	<li><code>networkmanager</code> with systemd</li>
+	<li><code>bumblebee</code> with systemd</li>
+	<li><code>tlp</code> with systemd</li>
+	<li><code>timedatectl set-ntp true</code> for time sync</li>
+	<li><code>localectl set-x11-keymap br abnt2</code></li>
+	<li>install <code>yay</code></li>
+	<li>enable bitmap fonts <code>cd /etc/fonts/conf.d ;ln -s ../conf.avail/70-yes-bitmaps.conf</code></li>
+	<li>install xos-terminus and run update font cache <code>fc-cache</code></li>
+</ul>
+
+
+<h2 id="basesys">Basic system</h2>
+<p>
+I am making a list with packages to have installed.
+The list contains some package groups such as
+<code><b>base</b></code>,
+<code><b>base-devel</b></code>,
+<code><b>xfce4</b></code>,
+<code><b>xfce4-goodies</b></code>,
+<code><b>xorg</b></code> and
+<code><b>xorg-apps</b></code>
+(beware of <code>xorg-drivers</code>, only install what is/<a href="https://www.reddit.com/r/archlinux/comments/5nwmql/dont_have_xf86videointelmesa_installed_should_i/">if really needed</a>).
+</p>
+
+<p>
+Other packages are required by my current hardware (Intel+NVIDIA).
+</p>
+
+<p>
+Most packages enable me with basic functionality
+for dealing with a lot of file types.
+
+For example, for <b>viewing PDF files</b>, I have got
+<code><b>xreader</b></code>,
+<code><b>xpdf</b></code>,
+<code><b>gv</b></code>,
+<code><b>pdfgrep</b></code> and
+<code><b>fbgs</b></code> (from <code>fbida</code> package collection),
+
+whereas
+<a title="Arch wiki on various pdf viewers and tools for multiple purposes" href="https://wiki.archlinux.org/index.php/PDF,_PS_and_DjVu#PostScript_tools">other PDF tools</a>
+I have also got
+
+<code><b>pdfarranger</b></code>,
+<code><b>pdfmixtool</b></code>,
+<code><b>pdftricks</b></code>,
+<code><b>pdfmod</b></code>,
+<code><b>poppler</b></code>,
+<code><b>pstotext</b></code> and
+<code><b>gs</b></code>.
+</p>
+
+<p>
+If a package is required
+by another package, it is <em>probably not</em> in the list, unless 
+it means something to me..
+</p>
+
+<div style="text-align:center;padding:2em;">
+<a href="18/archInstallPkgSuggestion.txt"
+onmouseover="this.style.backgroundColor='#006db9'" onmouseout="this.style.backgroundColor='red'"
+class="button button1"
+style="background:yellow;
+	padding:0.2em;
+	font-size:1.4em;
+	border: 4px solid #4CAF50;
+">Complete Package List</a>
+<!--
+	how to center a button in css
+	https://www.javatpoint.com/how-to-center-a-button-in-css
+
+	(in)famous onmouseover / onmouseout event handler 
+	https://stackoverflow.com/questions/1834537/how-to-use-css-hover-inside-html-tag
+-->
+</div>
+
+<p>This package list will be updated often.</p>
+
+<hr>
+<figure>
+	<img src="18/issue_eg.png" width="715" height="199" alt="Preview of a custom /etc/issue .">
+	<figcaption>
+		Fig 2. 
+		Custom <code>/etc/issue</code> template.
+		See for example
+		Arch forum's <a href="https://bbs.archlinux.org/viewtopic.php?id=50845">Artwork and Screenshots</a> thread
+		,
+		<a href="https://gist.github.com/andrevmatos/c50d8be1482fc57751964c348584a11e#file-issue">Andrevmatos' repo</a>,
+		Arch Wiki <a href="https://wiki.archlinux.org/index.php/Color_output_in_console">Color_output_in_console</a>
+		and
+		<a href="https://wiki.archlinux.org/index.php/ASCII_art">ASCII art</a> articles.
+		Run code with <code>echo -e</code> to colour output preview.
+
+	</figcaption>
+</figure>
+
+<p>
+I can confirm losing some more <em>important</em> files from
+within the last 3 months without a backup.. Hopefully I will be able to 
+restore the missing information and files but that will take
+all day long tomorrow.
+</p>
+
+
+<hr>
+<h3>One day later..</h3>
+
+<p>
+About 21 hours after accidentaly removing all my important files,
+I have got a round-working Arch Linux system and
+restored most of my files. 
+Nothing <em>really important</em> was lost.
+</p>
+
+<p>
+That was a breeze to reinstall Arch Linux.
+I will need updating my backup script because
+<code>pacman</code> lists did not contain all
+packages from my older system..
+</p>
+
+
+<h2>Other times I misused `rm`</h2>
+
+<ul>
+	<li>In 2019 I used <code>rm</code> when cleaning up some old backups and removed a unique backup copy of documents and photos from about 2005. I had more backups of that in two other old HDDs, however I lent both HDDs to my cousin to use with her laptop and both of them wore out, one after the other! I was not able to recover files from them. Lessons: three backups may not be enough. Do not lend media that holds important stuff to you.</li>
+	<li>Just a few months back, I run <code>rm</code> at my user directory and lost all personal files. There was a recent backup but I had to rewrite some important documents that needed to be up-to-date. Lesson: always be sure about your glob.</li>
+</ul>
+
+<p>
+In recollection, twice I was using <code>vifm</code>
+(a <a href="https://vifm.info/">command line file manager</a>)
+with a hack to automatically changing
+to its last directory on exit.
+I am modifying that hack for something safer and that
+will not let me get used to changing directories
+automatically when exiting <code>vifm</code>.
+</p>
+
+<pre><code># ~/.bashrc
+
+#vifm
+#record working directory leaving Vifm
+vf()
+{
+	command vifm --choose-dir - "$@" &gt;~/.config/vifm/vifmcd.txt
+}
+vfcd()
+{
+	cd "$( &lt;~/.config/vifm/vifmcd.txt )"
+}
+#https://wiki.vifm.info/index.php?title=How_to_set_shell_working_directory_after_leaving_Vifm</code></pre>
+
+
+<br>
+<p>
+<strong>
+UNIX users ought to think before running a command.
+</strong>
+</p>
+
+
+<blockquote>
+God is in the details.
+<br>
+<a title="Ted Nelson's Computers for Cynics 3 - The Database Mess" href="https://www.youtube.com/watch?v=bhzD2FKEEds">--Ted Nelson</a>
+</blockquote>
+
+
+<hr>
+<h3>Fifty-one days later (2021 jan)..</h3>
+<p>
+I did it again.. I was testing a script at a dedicated temp directory.
+I opened many terminal windows at once and was doing too many tests quickly.
+I opened another terminal window and forgot it was not at the temp directory.
+</p>
+
+<p>
+I run <code>rm *.txt~*archInstall*</code> and removed 7 files from <code>$HOME</code>
+(I was messing with <a href="https://github.com/mountaineerbr/scripts/blob/master/archPkgCrossCheck.sh">this script</a>)..
+Fortunately, it only removed some of the <em>.txt</em> files, which I was able to
+recover all except one and maybe another one may be outdated a little
+from my last backup in December.
+</p>
+
+<p>
+I have been trying to follow a tip from <a href="https://aurelio.net/">Aurelio Jargas</a>
+that is to try and always use a glob that <em>more than</em> just <code>*</code>..
+</p>
+
+
+<br>
+<figure>
+	<img src="gfx/homer.gif" alt="Duh! Slaping forehead" width="480" height="366">
+	<figcaption>
+		Fig 3.
+		I am feeling like Homer Simpson tonight (again).
+	</figcaption>
+</figure>
+
+
+</article>

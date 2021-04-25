@@ -1,0 +1,77 @@
+/* https://interglacial.com/~sburke/stuff/pretty_rss.html */
+
+/* Time-stamp: "2005-05-02 20:54:36 ADT" sburke
+ by sburke@cpan.org - I hereby release this CSS code into the public domain.
+*/
+
+* {
+  display: block;
+  border-top:  2px groove #000060;
+  border-left: 2px groove #000060;
+  padding: 2px 2px 2px 15px;
+}
+
+link:before            { content: "\00a0\00a0 URL:\00a0\00a0\00a0\00a0 " }
+webMaster:before       { content: "\00a0\00a0 Feed admin: " }
+lastBuildDate:before   { content: "\00a0\00a0 Last feed update: " }
+updateFrequency:before { content: "\00a0\00a0 Update Frequency: " }
+updateFrequency:after  { content: " times" }
+updatePeriod:before    { content: "\00a0\00a0 Update Period: " }
+updateBase:before      { content: "\00a0\00a0 Update Base: " }
+language:before        { content: "\00a0\00a0 Language: " }
+docs:before            { content: "\00a0\00a0 Read me: " }
+description:before     { content: "\21D2  "} 
+
+docs {  color: #fcc; }
+
+image, guid, ttl, skipHours, skipDays, updateBase { display: none }
+
+channel description { font-size: 150%; }
+item    description { font-size: 110%; }
+
+:root:before {
+ content: "\2022\00a0\00a0\00a0 Don't panic.  This data file is meant to be read in an RSS reader.\00a0\00a0  See http://interglacial.com/rss/about.html  \00a0\00a0\00a0\2022";
+}
+
+:root {
+  border: none;
+  padding: 0;
+  padding-top: .7em;
+  margin: 2px;
+  font-size: 11pt;
+  display: block;
+  background-color: black;
+  color: white;
+}
+
+channel {
+  border:  0;
+  padding: 0;
+  margin-top: .9em;
+}
+
+channel > title {
+  font-size:  230%;
+  font-style: italic;
+}
+
+item {
+  padding: 0;
+  border: 0;
+  border-left: 9px solid #80d0d0;
+  margin: 25px 0 20px 0;
+}
+
+item > * { border: 0; }
+
+item > title {
+  font-size: 150%;
+}
+
+item > link {
+  font-size: 80%;
+  margin-top:  6px;
+  margin-bottom: 6px;
+}
+
+/* End */

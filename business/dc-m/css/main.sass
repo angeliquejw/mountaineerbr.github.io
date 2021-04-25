@@ -1,0 +1,387 @@
+// Normalize
+@import normalize
+
+// Navigation Effects
+@import nav_effect
+@import components
+
+// Colors
+@import colors
+
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Bitter|Roboto:900,300)
+
+// Fonts variables
+$Roboto: 'Roboto', sans-serif
+$Bitter: 'Bitter', serif
+
+// Images
+$Portada: ('../images/portada-1.jpg')
+$Contacto: ('../images/c2-a.jpg')
+$Won: ('../images/won.png')
+
+// *
+// 	margin: 0
+// 	padding: 0
+// 	box-sizing: border-box
+
+body
+	background: $White
+	font-family: $Roboto
+
+h1, h2, h3, h4, h5, h6
+	color: $Navy
+	text-align: center
+
+hr
+	width: 60%
+
+// Utilities
+.Shadows
+	text-shadow: rgba(0,0,0,0.6) 2px 2px 5px
+
+.area-title
+	font-size: 2.2em !important
+
+.font-bold
+	font-weight: 900
+
+.ul-services
+	list-style: none
+	padding-left: 0
+
+#map
+	width: 100%
+	height: 350px
+	z-index: -1 !important
+
+.menu-opacity
+	background-color: rgba(255,255,255,0.3)
+
+.Wrapper
+	width: 80%
+	max-width: 1000px
+	margin: auto
+
+.Wrapper-full
+	width: 100%
+
+// Styles
+.Header
+	background: url($Portada)
+	background-position: center
+	background-size: cover
+	-webkit-background-size: cover
+	-moz-background-size: cover
+	-o-background-size: cover
+	text-align: center
+	padding-top: 20em
+	padding-bottom: 20em
+
+.Header-title
+	color: $White
+	font-weight: 900
+	font-size: 3.25em
+
+.Header-description
+	color: $White
+	max-width: 85%
+	text-align: center
+	display: inline-block
+	font-size: 1.5em
+
+.btn-menu
+	display: none
+
+.btn-menuLabel
+	&:hover
+		color: $Blue
+
+.btn-menuLabel
+	display: none
+	cursor: pointer
+	color: $Navy
+
+// Services section
+
+.Services
+	margin-bottom: 4rem
+
+.Service-items
+	width: 100%
+	text-align: center
+
+.Service-item
+	margin: auto
+	display: inline-block
+	// width: 240px
+	width: 100%
+
+.Service-description
+	display: inline-block
+	color: $Darkgray
+	font-size: 1.8em
+	font-family: $Bitter
+	padding-top: 0.6em
+
+.Service-descriptionText
+	margin: auto
+	width: 90%
+	line-height: 1.5em
+
+.Service-descriptionText, .Us-description, .Us-descriptionP1
+	color: $Gray
+	text-align: justify
+
+.Service-image
+	width: 100%
+	max-height: 240px
+
+// Counter section
+
+.Wrapper-counter
+	background: url($Won)
+	background-position: center
+	background-size: cover
+	-webkit-background-size: cover
+	-moz-background-size: cover
+	-o-background-size: cover
+	padding-top: 1em
+	padding-bottom: 3em
+	width: 100%
+	display: flex
+	flex-flow: row wrap
+	justify-content: center
+	align-items: center
+
+.Counter_item
+	flex-grow: 1
+
+.Counter_h3
+	color: $White
+	font-size: 7em
+	text-align: center
+	margin-bottom: 0
+
+.Counter_paragraph
+	text-align: center
+	font-size: 2em
+	font-family: $Bitter
+	color: $Silver
+	margin-top: 0
+	padding-bottom: 2.3em
+
+.fa-hand-peace-o, .fa-thumbs-up
+	color: $Blue
+
+// Clientes
+
+.Clients
+	background: $Silver
+	padding-top: 0.15em
+	padding-bottom: 1.5em
+
+.Clients-itemWrapp
+	width: 100%
+	max-width: 1000px
+	margin: auto
+	text-align: center
+	display: flex
+	flex-wrap: wrap
+
+.Clients-item
+	flex-grow: 1
+	display: block
+	flex-direction: row
+	text-align: center
+
+.Clients-image, .Clients-testimonial
+	width: 90%
+	margin: auto
+	text-align: center
+
+.Clients-testimonial
+	color: $Darkgray
+
+.fa-quote-left
+	font-size: 1.4em
+
+.Clients-testimonialName
+	font-family: $Bitter !important
+	color: $Darkgray !important
+	font-size: 1.1em
+
+// About section
+
+.Us-about
+	width: 100%
+	text-align: center
+	display: inline-block
+	margin-bottom: 3em
+
+.Us-aboutFirm, .Us-aboutValor
+	display: inline-block
+	width: 45%
+
+.Us-aboutFirm
+	margin-right: 5%
+
+.Us-h4
+	color: $Darkgray !important
+	font-family: $Bitter !important
+	font-size: 1.2em
+
+.Us-descriptionP1
+	color: $Darkgray
+
+// Contact section
+
+.Contact
+	background: url($Contacto)
+	background-position: center
+	background-size: cover
+	-webkit-background-size: cover
+	-moz-background-size: cover
+	-o-background-size: cover
+	text-align: center
+	padding-top: 0.5em
+	padding-bottom: 2.5em
+
+.Contact-description
+	margin-top: 2em
+	margin-bottom: 2em
+
+.fa-user, .fa-map-marker
+	color: $Blue
+
+.Contact-member
+	text-align: center
+
+.Contact-memberH3, .Contact-title
+	color: $White !important
+
+.Contact-memberH3
+	font-size: 1.4em
+
+// Footer section Copyrigth
+
+.Footer
+	background: $Silver
+	text-align: center
+	padding-bottom: 0.75em
+
+.Footer-brand
+	font-size: 0.85em
+	margin-top: 0
+	padding-top: 1.7em
+	margin-bottom: 0.2em
+
+.Footer-rights
+	margin-top: 0
+	font-size: 0.65em
+
+// Media Queries
+@media (max-width: 320px) // Apple iPhone 4, 5
+// Clients section
+.Clients-item
+	width: 98%
+	flex-direction: row
+	align-items: center !important
+
+.Clients-image
+	width: auto
+	padding-top: 2em
+	padding-bottom: 1.5em
+
+@media (max-width: 360px) // Google Nexus 5 OK
+	.Wrapper-client
+		margin: 5%
+
+	.Clients-item
+		margin: auto !important
+
+@media (max-width: 375px) // Apple iPhone 6
+	.Clients-item
+		margin: -5%
+
+	.Contact
+		padding-bottom: 1.2em
+
+@media (max-width: 412px) // Google Nexus 6
+	.Contact
+		padding-bottom: 1.2em
+
+	.Service-descriptionText
+		width: 100%
+
+@media (max-width: 600px) // Google Nexus 7
+	.Contact
+		padding-bottom: 1.3em
+
+@media (max-width: 768px) // Apple iPad Mini
+	.Header
+		padding-top: 10em
+		padding-bottom: 10em
+
+	.Header-title
+		font-size: 2.4em
+
+	.Header-description
+		font-size: 1.25em
+
+	.Service-item, .Us-aboutFirm, .Us-aboutValor
+		width: 100%
+
+	.Won
+		font-size: 3em
+
+	.Satisfied-clientsDescription, .Won-casesDescription
+		font-size: 1.4em
+
+	.Contact
+		padding-bottom: 1.8em
+
+	#btn-menu:checked ~ .menu
+		transform: translateX(0%)
+
+	.btn-menuLabel
+		position: fixed
+		display: block
+		top: 0
+		right: 0
+		text-align: right
+		font-size: 2em
+		padding: 6px 9px 6px 0
+		width: 100%
+		background-color: $White
+
+	.menu
+		position: fixed !important
+		top: 2.8em
+		left: 0
+		width: 70%
+		height: 100%
+		transform: translateX(-100%)
+		transition: all 0.3s
+		background-color: rgba(255,255,255,0.9) !important
+
+	.menu__list
+		flex-direction: column !important
+
+	.menu-opacity
+		background: $White
+
+@media (max-width: 1229px)
+	.Service-item
+		width: 90%
+
+@media (min-width: 1000px)
+	.Clients-item
+		width: 33.3% !important
+
+	.Clients-testimonial
+		width: 100% !important
+
+@media (min-width: 768px) // Apple iPad Mini
+	.Clients-testimonial
+		width: 400px

@@ -1,0 +1,10 @@
+Prefer to use the programme `thumb'
+
+---
+Resize the image if it is larger than the specified dimensions.
+This will automatically preserve the aspect ratio of the image too.
+
+for i in books[0-9].jpg ;do convert $i -resize 200x150\> ${i%.*}Thumb.jpg ;done
+
+https://guides.wp-bullet.com/batch-resize-images-using-linux-command-line-and-imagemagick/
+

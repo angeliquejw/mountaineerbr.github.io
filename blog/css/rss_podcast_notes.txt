@@ -1,0 +1,97 @@
+
+luke's notrelated
+https://notrelated.xyz/rss
+
+linux link tech show (has a stylesheet and nice tags)
+http://www.thelinuxlink.net/tllts/tllts.rss
+
+
+
+Podcast RSS Feed Template
+https://jackbarber.co.uk/blog/2017-02-14-podcast-rss-feed-template
+
+
+XML Template for a Podcast RSS Feed
+http://matthewdickens.me/post/xml-template-for-a-podcast-rss-feed
+
+
+gPodder Podcast Feed Best Practice
+https://github.com/gpodder/podcast-feed-best-practice/blob/master/podcast-feed-best-practice.md
+
+RSS feed guidelines for Google Podcasts
+https://support.google.com/podcast-publishers/answer/9889544
+
+
+---
+If you host your own RSS feed
+
+If you don’t use a third-party podcast hosting solution and you directly edit or maintain the original RSS feed, follow the steps below. This will ensure that your existing subscribers (even those outside of Apple Podcasts) are seamlessly migrated and are not affected by this process:
+
+    Set the web server where your feed is hosted to return an HTTP 301 redirect response when it receives a request for the old feed. 
+    Use the <itunes:new-feed-url> tag in your new feed to point to the new URL. This response updates Apple Podcasts with the new feed URL and your subscribers continue to receive new episodes automatically.
+    Important: Don’t set the <itunes:new-feed-url> tag to the Mirror URL listed in Podcasts Connect.
+
+Contact your web server's support teams for further assistance.
+
+To ensure subscribers receive your most recent episodes from the new feed URL, maintain the <itunes:new-feed-url> tag and 301 redirect response for at least four weeks.
+
+WARNING: Make sure the original episode GUIDs are maintained and don’t change. Failing to comply with these guidelines may result in duplicate episodes being shown to listeners, misrepresentation of data in Podcast Analytics, and may ultimately affect your show's status on Apple Podcasts.
+---
+https://itunespartner.apple.com/podcasts/articles/change-the-rss-feed-url-3079
+
+For Apple Podcasts
+Start from here:
+https://itunespartner.apple.com/podcasts/articles/validate-your-podcast-3064
+https://help.apple.com/itc/podcasts_connect/#/itcb54353390
+
+Date and time must conform to RFC 2822 
+
+ <?xml version="1.0" encoding="UTF-8"?><rss version="2.0"    xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+   <itunes:category text="Kids &amp; Family" />
+
+
+https://help.apple.com/itc/podcasts_connect/#/itcb54353390
+Show tags
+Required tags
+<title>
+<description>
+<itunes:image>
+<language>
+<itunes:category>
+<itunes:explicit>
+
+Recommended tags
+<itunes:author>
+<link>
+<itunes:owner>
+
+Situational tags
+<itunes:title>
+<itunes:type>
+<copyright>
+<itunes:new-feed-url>
+<itunes:block>
+<itunes:complete>
+
+Episode tags
+Required tags
+<title>
+<enclosure>
+
+Recommended tags
+<guid>
+<pubDate>
+<description>
+<itunes:duration>
+<link>
+<itunes:image>
+<itunes:explicit>
+
+Situational tags
+<itunes:title>
+<itunes:episode>
+<itunes:season>
+<itunes:episodeType>
+<itunes:block>
+
+

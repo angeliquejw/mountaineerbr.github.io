@@ -1,0 +1,39 @@
+/*
+Error: Invalid @import: expected end of line, was ";".
+        on line 21 of style.css
+
+16: /* font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; *\/
+17: 
+18: /* @import url("https://fonts.googleapis.com/css?family=Archivo Black"); *\/
+19: 
+20: /* Fonts Arial Black Style *\/
+21: @import "style_arialb.css";
+22: /* use my arial black copy *\/
+23: /*
+24: @font-face
+25: {
+26: 	font-family: ArialB;
+
+Backtrace:
+style.css:21
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:1030:in `parse_import_directive'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:834:in `parse_directive'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:654:in `parse_line'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:539:in `build_tree'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:558:in `block in append_children'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:557:in `each'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:557:in `append_children'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:417:in `_to_tree'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/engine.rb:290:in `render'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:396:in `run'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/sass_scss.rb:63:in `process_result'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/base.rb:50:in `parse'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/lib/sass/exec/base.rb:18:in `parse!'
+/usr/lib/ruby/gems/2.7.0/gems/sass-3.7.4/bin/sass:13:in `<top (required)>'
+/usr/bin/sass:23:in `load'
+/usr/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid @import: expected end of line, was \";\".\A         on line 21 of style.css\A \A 16: /* font-family: \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif; */\A 17: \A 18: /* @import url(\"https://fonts.googleapis.com/css?family=Archivo Black\"); */\A 19: \A 20: /* Fonts Arial Black Style */\A 21: @import \"style_arialb.css\";\A 22: /* use my arial black copy */\A 23: /*\A 24: @font-face\A 25: {\A 26: 	font-family: ArialB;"; }
