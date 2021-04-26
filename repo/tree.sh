@@ -75,13 +75,16 @@ treef()
 	#notes
 	notes='To download all files from a directory, try:
 	<code>wget -r --no-parent --reject "index.html*" [URL]
-	</code><hr>
+	</code><br>
+	<p>GitHub limits file size to 100MB.</p><hr>
 	'
 	
 	#add package unicode to any .TGZ filenames (U+1F4E6)
 	#and change to class .tar
 	if [[ "$(<"$out")" = *.TGZ* ]]
-	then sed -i 's|\.TGZ<|.TGZ(📦)<| ;/\.TGZ">/ s|class="[^"]*"|class="tar"|' "$out"
+	then
+		sed -i 's|\.TGZ<|.TGZ(📦)<| ;/\.TGZ">/ s|class="[^"]*"|class="tar"|' "$out"
+
 	fi
 
 
