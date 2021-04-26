@@ -39,7 +39,11 @@ treef()
 		-C \
 		--charset utf-8 \
 		-I 'index.html|README.md' \
-		| sed 's/<h1/<h2/g' >"$out"	#change [H1] to [H2]
+		| sed -e 's/<h1/<h2/g ;s/<\/h1/<\/h2/g' \
+			-e 's|<a class="NORM" href=".">|<a class="NORM" href="..">..</a><br>\n&|' \
+			>"$out"
+		#change [H1] to [H2]
+		#add go up dir
 
 # 		UNUSED OPTIONS:
 #		--noreport \
