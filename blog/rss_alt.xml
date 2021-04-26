@@ -16,7 +16,7 @@
 	<channel>
 		<lastBuildDate>Mon, 13 Sep 2021 00:00:00 -0300</lastBuildDate>
 		<title>Biology Blogger (Alternative feed)</title>
-		<description>Current as of Mon, 26 Apr 2021 01:12:43 -0300.</description>
+		<description>Current as of Mon, 26 Apr 2021 01:56:05 -0300.</description>
 		<link>https://mountaineerbr.github.io/blog/</link>
 		<category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
 		<webMaster>jamilbio20@gmail.com (JSN)</webMaster>
@@ -51,9 +51,7 @@
 <p>I am really proud of my little blog system. I cannot just remove it from the public domain reach. The same feeling is not so strong about my YouTube Channel.</p>
 <p>In fact, with very little remorse I was able to remove that on Friday. Google (at least YouTube branch) cannot use my data and my subscribers data as they wish anymore. There were 258 subscribers to my YouTube channel and more than 130, many which I am proud to have recorded, some turned out to be lessons of didatics or lack of.. I made a copy of all of the videos with good <code><a href="https://wiki.archlinux.org/index.php/Youtube-dl">youtube-dl</a></code> and for my surprise, there was no more than 26GB of content. I know some YouTubers claim to have much more data for content but they must mean raw content shot locally, without edition and directly from the camera, not downloaded with:</p>
 <pre><code>url=https://www.youtube.com/channel/UCbjGrylVSBjPx02LRH7HCAA
-youtube-dl -f best -ciw -o &quot;%(title)s.%(ext)s&quot; --add-metadata -v &quot;$url&quot; |&amp; tee log.txt
-#
-</code></pre>
+youtube-dl -f best -ciw -o &quot;%(title)s.%(ext)s&quot; --add-metadata -v &quot;$url&quot; |&amp; tee log.txt</code></pre>
 <p>Unfortunatelly, I cannot host these videos on GitHub. Many videos are heavy and long, like 40min or even longer. I wish I could host them here, though. Luckily, the <a href="../podcast">podcast system</a> solves this problem, albeit less content..</p>
 <hr>
 <p>GitHub repos were made private, following a <a title="DT for the closer subscribers" href="https://www.youtube.com/c/DistroTube/videos">suggestion from DistroTube</a> some time ago.. That is a relief for me. But know what, I will make <a href="../../repo">my own version of a repo</a> and share <em>static copies</em> of my public c files (dotfiles) and some other interesting stuff (mostly neutral things) that need sharing to complement my blog posts here and keep those dedicated GitHub repos for <em>private use</em>.</p>
