@@ -32,7 +32,7 @@ treef()
 		-L 1 \
 		-F \
 		-h \
-		-T "$title Directory Tree" \
+		-T "$title - Directory Tree" \
 		--dirsfirst \
 		-C \
 		--charset utf-8 \
