@@ -17,8 +17,10 @@ treef()
 	out="${3:-index.html}"
 	title="${basePATH##*/}"
 
+	#
 	basePATH="${basePATH%/}"
 	baseHREF="${baseHREF%/}"
+	[[ "$title" = . ]] && title="${PWD##*/}"
 	title="${title:u}"
 
 	[[ -d "$basePATH" ]] || exit
