@@ -7,57 +7,57 @@
 
     <item>
       
-      <!-- # MANDATORY INFORMATION TO FILL IN -->
-      <!-- # EPISODE TITLE -->
+      <!-- # MANDATORY INFORMATION TO FILL IN                             -->
+      <!-- # EPISODE TITLE                                                -->
       <title>title</title>
       
-      <!-- # EPISODE SHORT DESCRIPTION -->
+      <!-- # EPISODE SHORT DESCRIPTION                                    -->
       <description>desc</description>
       
-      <!-- # [PUBDATE] MUST BE YYY-MM-DD -->
+      <!-- # [PUBDATE] MUST BE YYY-MM-DD                                  -->
       <pubDate>2021-02-26</pubDate>
-      <!-- # RFC 5322 FMT: Tue, 14 Mar 2017 12:00:00 GMT -->
-      <!-- # *OBS: [PUBDATE] WILL BE CONVERTED RFC 5322 FORMAT -->
+      <!-- # RFC 5322 FMT: Tue, 14 Mar 2017 12:00:00 GMT                  -->
+      <!-- # *OBS: [PUBDATE] WILL BE CONVERTED RFC 5322 FORMAT            -->
       
       <!-- # ADD THE AUDIO FILE PATH -->
       <enclosure url="https://mountaineerbr.github.io/blog/podcast/ep7.m4a"
                  type="audio/mpeg"
 		 length="100" />
       <!-- # MIME TYPES: MP3:audio/mpeg, AAC:audio/aac  -->
-      <!-- # *OBS: [LENGTH] WILL BE UPDATED BY THE PODCAST SYSTEM SCRIPT -->
+      <!-- # *OBS: [LENGTH] WILL BE UPDATED BY THE PODCAST SYSTEM SCRIPT  -->
 
-      <!-- # [LINK] IS USED WHEN AN EPISODE HAS A CORRESPONDING WEBPAGE -->
+      <!-- # [LINK] IS USED WHEN AN EPISODE HAS A CORRESPONDING WEBPAGE   -->
       <link>https://mountaineerbr.github.io/blog/</link>
 
-      <!-- # EPISODE LANGUAGE (RFC 3066) -->
+      <!-- # EPISODE LANGUAGE (RFC 3066)                                  -->
       <dc:language>pt</dc:language>
-      <!-- # EPISODE CREATOR -->
+      <!-- # EPISODE CREATOR                                              -->
       <dc:creator>mountaineerbr</dc:creator>
-      <!-- # EPISODE CONTRIBUTOR -->
+      <!-- # EPISODE CONTRIBUTOR                                          -->
       <!-- <dc:contributor></dc:contributor> -->
 
 
-      <!-- # EPISODE NUMBER (SEQUENTIAL) -->
+      <!-- # EPISODE NUMBER (SEQUENTIAL)                                  -->
       <itunes:episode>1</itunes:episode>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
 
 
-      <!-- # AUTOMATICALLY UPDATED BY THE PODCAST SYSTEM SCRIPT -->
-      <!-- # [GLOBAL IDENTIFIER (BY UUIDGEN) -->
+      <!-- # AUTOMATICALLY UPDATED BY THE PODCAST SYSTEM SCRIPT           -->
+      <!-- # [GLOBAL IDENTIFIER (BY UUIDGEN)                              -->
       <guid isPermaLink="false">uuid</guid>
 
-      <!-- # EPISODE DURATION IN SECONDS -->
+      <!-- # EPISODE DURATION IN SECONDS                                  -->
       <itunes:duration>100</itunes:duration>
       
 
-      <!-- # STATIC INFORMATION -->
-      <!-- # MINIMUM SIZE OF 1400 X 1400 PIXELS AND A MAXIMUM SIZE OF 3000 X 3000 PIXELS -->
+      <!-- # STATIC INFORMATION                                           -->
+      <!-- # MIN SIZE OF 1400 X 1400 PX AND A MAX SIZE OF 3000 X 3000 PX  -->
       <itunes:image href="https://mountaineerbr.github.io/blog/podcast/ep4.png" />
 
 
-      <!-- # OPTIONAL -->
-      <!-- # CONCISE TITLE SPECIFIC TO APPLE PODCASTS -->
+      <!-- # OPTIONAL                                                     -->
+      <!-- # CONCISE TITLE SPECIFIC TO APPLE PODCASTS                     -->
       <!-- # <itunes:title></itunes:title> -->
 
     </item>
@@ -66,8 +66,8 @@
   </channel>
 </rss>
 
-<!-- # https://help.apple.com/itc/podcasts_connect/#/itcb54353390 -->
+<!-- # https://help.apple.com/itc/podcasts_connect/#/itcb54353390         -->
 <!-- # https://www.dublincore.org/specifications/dublin-core/usageguide/elements/ -->
-<!-- # https://www.feedforall.com/dublin-core.htm -->
+<!-- # https://www.feedforall.com/dublin-core.htm                         -->
 
 

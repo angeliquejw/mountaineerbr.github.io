@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.14.18  apr/2021  by mountaineerbr
+# v0.14.19  apr/2021  by mountaineerbr
 
 #padrões
 
@@ -303,7 +303,7 @@ updatef() {
 
 	#download script
 	#url=https://raw.githubusercontent.com/mountaineerbr/scripts/master/anta.sh
-	url=https://github.com/mountaineerbr/mountaineerbr.github.io/blob/master/repo/scripts/anta.sh
+	url=https://raw.githubusercontent.com/mountaineerbr/mountaineerbr.github.io/master/repo/scripts/anta.sh
 	${YOURAPP[0]} "${AGENTS[0]}" "$url" >"$TMPFILE"
 
 	#check diff

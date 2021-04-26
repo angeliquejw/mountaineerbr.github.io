@@ -6,10 +6,12 @@
 # <https://www.pell.portland.or.us/~orc/Code/discount/>
 # <https://daringfireball.net/projects/markdown/basics>
 
+#script name
+SN="${0##*/}"
 
 treef()
 {
-	local baseHREF basePATH out title mdarray txtarray notes xtrastyles inject meta
+	local baseHREF basePATH out title mdarray txtarray notes xtrastyles inject meta ext
 	typeset -a mdarray txtarray
 	
 	baseHREF="$1"
@@ -76,15 +78,20 @@ treef()
 	notes='To download all files from a directory, try:
 	<code>wget -r --no-parent --reject "index.html*" [URL]
 	</code><br>
-	<p>GitHub limits file size to 100MB.</p><hr>
+	That is a shame GitHub limits file size to 100MB.<hr>
 	'
 	
 	#add package unicode to any .TGZ filenames (U+1F4E6)
 	#and change to class .tar
-	if [[ "$(<"$out")" = *.TGZ* ]]
+	ext='tar.bz2\|tar.gz\|bz2\|rar\|gz\|tar\|tbz2\|tgz\|zip\|Z\|7z\|deb\|zstd'
+	extt='tar.bz2|tar.gz|bz2|rar|gz|tar|tbz2|tgz|zip|Z|7z|deb|zstd'
+	#ext='tar|tgz'
+	if [[ "$(<"$out")" =~ \.($extt) ]]
 	then
-		sed -i 's|\.TGZ<|.TGZ(📦)<| ;/\.TGZ">/ s|class="[^"]*"|class="tar"|' "$out"
 
+		sed -i -E -e "s|\.($ext)<|.\1(📦)<|I" \
+			-e "/\.($ext)\">/ s|class=\"[^\"]*\"|class=\"tar\"|I" \
+			"$out"
 	fi
 
 
@@ -109,25 +116,6 @@ pbase=$HOME/www/mountaineerbr.github.io
 hbase=.  #relative paths
 #hbase=https://mountaineerbr.github.io
 
-
-#DIRECTORY: REPOS
-pbaserepos="$pbase/repo"
-cd "$pbaserepos"
-
-#make tar for repos
-if read -q '?Update repo TGZ files? y/N '
-then
-	for repo in */
-	do
-		repo="${repo%/}"
-		tarfile="${repo:u}".TGZ
-		tar czvf "$tarfile" "$repo"
-		fsize=( $(du "$tarfile" ) )
-		(( ${fsize[1]} > 94500 )) && print "WARNING: file exceeds 94MB -- $tarfile" >&2
-		(( ${fsize[1]} > 100500 )) && rm -v "$tarfile"  #max of 100MB in GitHub
-	done
-	unset tarfile repo fsize
-fi
 
 #make index pages with `tree'
 for dir in . **/(D)

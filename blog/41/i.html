@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!--    <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com">   -->
+
+<!--    THIS IS A TEMPLATE DOCUMENT USED BY THE BLOG POSTING SYSTEM.      -->
+<!--    A SCRIPT WILL COMPILE THIS INTO FINISHED PAGES FOR PUBLICATION.   -->
+<!--    TEXT FROM [ARTICLE], [HEADER] AND [HEAD] SECTIONS WILL BE INJECT  -->
+<!--    IN FURTHER TEMPLATES, USE LOWERCASE TAGS.                         -->
+
+<!--    NOTE THE [HEADER] SECTION MUST CONTAIN ONE [H1] AND ONE [P] ONLY. -->
+
+<!--    THE [HEAD] SECTION HOLDS VERY SPECIFIC META TAGS, SUCH AS         -->
+<!--    [KEYWORDS] AND CSS STYLE SHEET REFERENCES, WHICH MUST BE          -->
+<!--    ADDRESSED AT THE END OF EACH POST (SEE END OF PAGE).              -->
+
+<!--    SEE ALSO H-ENTRY and H-FEED MICROFORMATS AT                       -->
+<!--    <https://developer.mozilla.org/en-US/docs/Web/HTML/microformats>  -->
+
+<!-- #  TO REMOVE A COMMENTARY WITHIN [ARTICLE], ADD # TO THE START OF IT -->
+
+<!-- ******************************************************************** -->
+<!--     CREATE NEW ENTRY WITH ``BLOG.SH -A'' TO SOME FIELDS AUTO-UPDATED -->
+<!-- ******************************************************************** -->
+
+<article class="h-entry">
+
+<header>
+	<h1 class="p-name" id="41">#41 - Overview on My Blogging Systems</h1>
+	<time class="dt-published" datetime="2021-09-13">13/sep/2021</time>
+	
+	<br>
+</header>
+
+
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+<!-- <div lang="pt" class="p-summary"><p></p></div><br> -->
+
+
+<!-- MAIN TEXT  -->
+<p>As mentioned in previous posts, it was so much fun to develop
+shell scripts which generate static webpages for the website.
+</p>
+
+<p>I don't programme in C but use many C blobs (programmes)
+in my scripts.</p>
+
+<p>After almost one year developing my own tools, I don't regret
+not learning Jekyll or WordPress. I am sure these scripts will work
+for a long time, but I will get into details.</p>
+
+<p>I started writing specific scripts that would accomplish one task.
+Some tasks depend on each other so I wrote some scripts which
+run them in the rigt order in each section or directory of the website.</p>
+
+<p>As such, that is enough for me to run a single script at 
+the website root and all sections of the website will be updated!</p>
+
+
+<p>The good thing about these scripts is I tried to keep each
+performing a single function. As such, I can reuse these scripts
+for creating independent sections in future websites.
+</p>
+
+<p>
+However, these scripts depend on specific directory hierarchies and
+templates, even though I made my best to avoid minor or accidental changes
+to the templates breaking the processing and setting the major variables
+correctly should make the processing work with different file structures.
+</p>
+
+<p>I don't expect anyone to actually use these scripts for his own blog,
+but i am sure there are some good ideas and chuncks anyone can find useful
+for his own set of poor man webmaster tools.</p>
+
+<p>Just a note, the scripts could be much, much more simple
+had I chosen not to strictly follow standards and validation tests
+as a means to learning HTML, CSS and management.</p>
+
+<p>Surprisingly, to running all the scripts take less than 20 seconds,
+or less than 40 seconds when regenerating all buffers and pages..
+What may take some time is pushing large data to git (for example, audio)
+and now the new script which archives some of repos for distribution,
+but that should not be run everytime..</p>
+
+
+<h2>System overview</h2>
+
+<h3>The Blog System</h3>
+<p>This was the first system to be created.
+It checks all blog entries with globs for <code>/blog/[0-9]+/</code>
+but with <code>zsh</code> <em>extended globbing</em>, which really
+makes life easier.</p>
+
+<p>There is a template file copy called <code>i.html</code> inside the entry directory
+which holds the author original text of the blog entry in HTML.
+It would be OK to use markdown however markdown is very limited
+in comparison of what structure and formatting HTML allows.</p>
+
+<p>
+The script will read many HTML tags, such as
+[DESCRIPTION], [KEYWORDS], [DATE] and [TITLE] and
+generate title lists for the blog homepage
+and of the latest 10 posts for the website homepage,
+and generate a webpage with all post concatenated. For this last task,
+the script leaves some buffer files behind for speed improvement
+in the following runs. As long as the original <code>i.html</code>
+and buffer modification dates are the same, the old buffer is reused.
+</p>
+
+<p>That was a very important decision to start using <code>tidy</code>,
+the granddaddy of HTML tools for procssing HTML.
+We can expect <code>tidy</code> having a definite output once you configure
+it to your needs. That allows us to work realiably on obtaining and
+modifying data from specific fields with <code>sed</code> and
+other tools.</p>
+
+
+<p>
+Recently, an option was added which generates a new post from
+a template directory and automates most required tasks, such as setting
+the number and date of the post. Before, I had to manually copy the template
+directory, which really only holds the template <code>i.html</code> file,
+and set all properties manually.</p>
+	
+
+
+<h3>Sitemap System</h3>
+<p>Soon after the website was holding a little of interesting and
+original content, I set up search engines craws to my website
+in order to try and figure among their search results.
+</p>
+
+<p>
+The biggest ones to sign up for (even though they should reach your
+website in due course of time automatically) were
+Bing and Google. Both of these websites offer a console for checking
+data from search egines and that is all and the only data
+I know is currently collected from their users and shared with me
+about my website.
+</p>
+
+<p>With this need I developed scripts to generate theree types of
+sitemaps, two for <a href="../../sitemap.txt">crawling</a>
+<a href="../../sitemap.xml">engines</a> and
+<a href="../../sitemap.html">one for humans</a>.</p>
+
+
+<h3>Blog RSS Feed System</h3>
+<p>As page development progressed, my attention was caught by RSS feeds.
+<a href="">Luke Smith</a> was one of the first I remember reccomending
+setting up your own RSS feeds.</p>
+
+<p>RSS feed networks work in a very 
+peculiar way in which one peer can relay audio content and data to other peers.
+Essentially, you are covered as copies of your podcast are broadcast
+and reach the end point, the listener. Having a copy of your
+content delivered to your listeners without depending too much on
+thrid-party services is really satisfying.</p>
+
+<p>Plus, working with XML files, which are HTML files with a very strict
+syntax, turned out to be very useful. Mostly, we can work with XML
+with <code>tidy</code> and <code>xmlstarlet</code>.
+<code>xmlstarlet</code> is problably the only decent XML editor
+available <abbr title="As Far As I Know">AFAIK</abbr>.
+Otherwise, editing XML with <code>sed</code> is not hard
+in a shell script, either.</p>
+
+<p>In the end, I use <code>xmlstarlet</code> to edit
+a basic and valid <dfn>RSS</dfn> feed
+(remember, RSS stands for <em>Really Simple Syndication</em>)
+with entries description taken from [DESCRIPTION] tags of blog posts
+and some more metadata such as date.</p>
+
+<p>There is also an alternative RSS feed with full content of
+blog entries, which some people may prefer.
+However, for adding full-HTML content in XML [DESCRIPTION] tags,
+<code>sed</code> seems a better choice as it does not
+care about <span style="color:green;">&lt;![CDATA[]]&gt;</span> constructs
+nor does it try to parse HTML.</p>
+
+
+
+<h3>Podcast Tumblelog and RSS Feed Systems</h3>
+<p>The real professional way of streaming podcast is through
+<em>RSS networks</em>. As XMl was not a monster to me anymore,
+I decided to write my own audiocast RSS system.</p>
+
+<p>The main thing with podcast RSS is you need have
+at least the initial broadcast.
+<a href="">Spotify</a>,
+<a href="https://blubrry.com/">Blubrry</a>
+and other services may eventually limit podcast storage and charge
+for premium services.
+</p>
+
+<p>I could write the podcast topics in a blog entrya nd link
+back to it. As podcast distribution should require including
+only a (short) episode description
+beyond lots of <strong>metadata</strong>,
+I decided to have my podcast entries manually written
+as XML files.</p>
+
+<p>There are two types of template files.
+Each audio file will need
+have associate an XML file with its title, description and metadata.
+That is created copying from an entry XML template.
+In the next step, the script will find all XML files of episodes,
+fill in all other required metadata, such as audio duration, size,
+timestamps in diferent formats and will inject episode entries
+into the final XML feed (from another XML template) in the correct order,
+which already contains all static information about my channel.
+</p>
+
+<p>The automation of XML podcast entries was hard and time-consuming,
+but after struggling with it for some days, it started to work
+as expected and stabilise.</p>
+
+<p>Even though I tried to automate fillinig in most of the metatags,
+it remains a pain in the arse to fill in the required fields
+of an XML template.. Still, it is so powerful what can be done
+with the XML file after filling in that metadata that that
+the manual work is worth it.</p>
+
+<p>Once my RSS broadcast system was set, I set accounts
+in many (about 14) podcast directories for making it available to
+their users.</p>
+
+<p>Creating a decent <a href="../podcast/">homepage for the podcast episodes</a> was possible
+using <a href="https://github.com/john-bokma/tumblelog">John Bokma's tumblelog</a> engine
+almost as an extra because extracting data from the podcast XML files
+to use with <code>tumblelog.py</code> was a breeze.</p>
+
+
+<h3>Homepage System</h3>
+<p>Eventually, I decided my homepage (landing page) was crowded
+and cloned content of some sections into separate pages,
+such as <a href="../../links.html">links</a> and
+<a href="../../quotes.html">quotes</a>.</p>
+
+<p>The homepage system grabs the latest links and quotes and inject them
+into the homepage. If the visitor wishes the complete list of links and quotes,
+she can visit dedicated pages with full content and nice CSS styles.</p>
+
+<p>Here, <code>tidy</code> is essential to work with 
+well-formatted HTML for further processing and injections.</p>
+
+
+<h3>Repository System</h3>
+<p>Just yesterday, I had this idea of hosting my repos inside
+my website. Perhaps that is not the best idea as there is
+GitHub infrastructure exactly for that, but I decided to
+have a go.</p>
+
+<p>It turns out there one feature of GitHub I cannot implement,
+that is to clone an entire repo (directory/folder).
+One way to offer similar functionality is to offer archives of
+some of my repos. That is however <strong>a shame</strong>
+that GitHub does not host files over 100GB and thus I can only
+serve archives of repos under 100GB.</p>
+
+<p>This is the script which takes the longest time and is dependent
+on the compression method. But this should not be run
+every time, anyways, so not a problem speed-wise.</p>
+
+
+<h2>Some links</h2>
+
+<ul>
+	<li><a href="http://users.telenet.be/mydotcom/howto/www/tools.htm">PMWMT</a> -- Poor Man's
+Web Master Tools.</li>
+	<li><a href="https://pedantic.software/git/blogit">blogit</a> -- A small static blog generator.</li>
+	<li><a href="https://github.com/slackjeff/hacktuite">hacktuite</a> -- The TRUE Decentralized Static Microblog, write in Shell Bash.</li>
+	<li>John Bokma's <a href="https://github.com/john-bokma/tumblelog">tumblelog</a>.</li>
+	<li><a href="https://github.com/6uhrmittag/bashblog">bashblog</a> -- Static blog generator. Super simple.</li>
+</ul>
+
+
+</article>
+
+
+<!-- META TAGS -->
+<!-- OBS: [TITLE] TAG WILL BE A CLONE FROM [H1]                           -->
+<head>
+<meta name="description" content="Details about my shell scripts that generate static webpages for this website. Some grew rather complex..">
+<meta name="keywords" content="shell script, scripting, programmes, hobby, webmaster, tools, ferramentas, desenvolvedor da web, bash, zsh, html">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+
+</head>
+

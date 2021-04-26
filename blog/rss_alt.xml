@@ -16,7 +16,7 @@
 	<channel>
 		<lastBuildDate>Mon, 13 Sep 2021 00:00:00 -0300</lastBuildDate>
 		<title>Biology Blogger (Alternative feed)</title>
-		<description>Current as of Mon, 26 Apr 2021 10:57:52 -0300.</description>
+		<description>Current as of Mon, 26 Apr 2021 18:02:47 -0300.</description>
 		<link>https://mountaineerbr.github.io/blog/</link>
 		<category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
 		<webMaster>jamilbio20@gmail.com (JSN)</webMaster>
@@ -36,6 +36,130 @@
 
 		<!-- additemsfull -->
 	<item>
+		<title xml:lang="en">#41 - Overview on My Blogging Systems</title>
+		<pubDate>Mon, 13 Sep 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/41/</link>
+		<dc:language>en</dc:language>
+		<category>shell script/scripting/programmes/hobby/webmaster/tools/ferramentas/desenvolvedor da web/bash/zsh/html</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">13194b6d-04c9-5e4a-ac12-99d9c3355b56</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="41">#41 - Overview on My Blogging Systems</h1>
+<time class="dt-published" datetime="2021-09-13">13/sep/2021</time><br></header>
+<p>As mentioned in previous posts, it was so much fun to develop shell scripts which generate static webpages for the website.</p>
+<p>I don&#39;t programme in C but use many C blobs (programmes) in my scripts.</p>
+<p>After almost one year developing my own tools, I don&#39;t regret not learning Jekyll or WordPress. I am sure these scripts will work for a long time, but I will get into details.</p>
+<p>I started writing specific scripts that would accomplish one task. Some tasks depend on each other so I wrote some scripts which run them in the rigt order in each section or directory of the website.</p>
+<p>As such, that is enough for me to run a single script at the website root and all sections of the website will be updated!</p>
+<p>The good thing about these scripts is I tried to keep each performing a single function. As such, I can reuse these scripts for creating independent sections in future websites.</p>
+<p>However, these scripts depend on specific directory hierarchies and templates, even though I made my best to avoid minor or accidental changes to the templates breaking the processing and setting the major variables correctly should make the processing work with different file structures.</p>
+<p>I don&#39;t expect anyone to actually use these scripts for his own blog, but i am sure there are some good ideas and chuncks anyone can find useful for his own set of poor man webmaster tools.</p>
+<p>Just a note, the scripts could be much, much more simple had I chosen not to strictly follow standards and validation tests as a means to learning HTML, CSS and management.</p>
+<p>Surprisingly, to running all the scripts take less than 20 seconds, or less than 40 seconds when regenerating all buffers and pages.. What may take some time is pushing large data to git (for example, audio) and now the new script which archives some of repos for distribution, but that should not be run everytime..</p>
+<h2>System overview</h2>
+<h3>The Blog System</h3>
+<p>This was the first system to be created. It checks all blog entries with globs for <code>/blog/[0-9]+/</code> but with <code>zsh</code> <em>extended globbing</em>, which really makes life easier.</p>
+<p>There is a template file copy called <code>i.html</code> inside the entry directory which holds the author original text of the blog entry in HTML. It would be OK to use markdown however markdown is very limited in comparison of what structure and formatting HTML allows.</p>
+<p>The script will read many HTML tags, such as [DESCRIPTION], [KEYWORDS], [DATE] and [TITLE] and generate title lists for the blog homepage and of the latest 10 posts for the website homepage, and generate a webpage with all post concatenated. For this last task, the script leaves some buffer files behind for speed improvement in the following runs. As long as the original <code>i.html</code> and buffer modification dates are the same, the old buffer is reused.</p>
+<p>That was a very important decision to start using <code>tidy</code>, the granddaddy of HTML tools for procssing HTML. We can expect <code>tidy</code> having a definite output once you configure it to your needs. That allows us to work realiably on obtaining and modifying data from specific fields with <code>sed</code> and other tools.</p>
+<p>Recently, an option was added which generates a new post from a template directory and automates most required tasks, such as setting the number and date of the post. Before, I had to manually copy the template directory, which really only holds the template <code>i.html</code> file, and set all properties manually.</p>
+<h3>Sitemap System</h3>
+<p>Soon after the website was holding a little of interesting and original content, I set up search engines craws to my website in order to try and figure among their search results.</p>
+<p>The biggest ones to sign up for (even though they should reach your website in due course of time automatically) were Bing and Google. Both of these websites offer a console for checking data from search egines and that is all and the only data I know is currently collected from their users and shared with me about my website.</p>
+<p>With this need I developed scripts to generate theree types of sitemaps, two for <a href="../../sitemap.txt">crawling</a> <a href="../../sitemap.xml">engines</a> and <a href="https://mountaineerbr.github.io/sitemap.html">one for humans</a>.</p>
+<h3>Blog RSS Feed System</h3>
+<p>As page development progressed, my attention was caught by RSS feeds. <a href="">Luke Smith</a> was one of the first I remember reccomending setting up your own RSS feeds.</p>
+<p>RSS feed networks work in a very peculiar way in which one peer can relay audio content and data to other peers. Essentially, you are covered as copies of your podcast are broadcast and reach the end point, the listener. Having a copy of your content delivered to your listeners without depending too much on thrid-party services is really satisfying.</p>
+<p>Plus, working with XML files, which are HTML files with a very strict syntax, turned out to be very useful. Mostly, we can work with XML with <code>tidy</code> and <code>xmlstarlet</code>. <code>xmlstarlet</code> is problably the only decent XML editor available <abbr title="As Far As I Know">AFAIK</abbr>. Otherwise, editing XML with <code>sed</code> is not hard in a shell script, either.</p>
+<p>In the end, I use <code>xmlstarlet</code> to edit a basic and valid <dfn>RSS</dfn> feed (remember, RSS stands for <em>Really Simple Syndication</em>) with entries description taken from [DESCRIPTION] tags of blog posts and some more metadata such as date.</p>
+<p>There is also an alternative RSS feed with full content of blog entries, which some people may prefer. However, for adding full-HTML content in XML [DESCRIPTION] tags, <code>sed</code> seems a better choice as it does not care about <span style="color:green;">&lt;![CDATA[]]&gt;</span> constructs nor does it try to parse HTML.</p>
+<h3>Podcast Tumblelog and RSS Feed Systems</h3>
+<p>The real professional way of streaming podcast is through <em>RSS networks</em>. As XMl was not a monster to me anymore, I decided to write my own audiocast RSS system.</p>
+<p>The main thing with podcast RSS is you need have at least the initial broadcast. <a href="">Spotify</a>, <a href="https://blubrry.com/">Blubrry</a> and other services may eventually limit podcast storage and charge for premium services.</p>
+<p>I could write the podcast topics in a blog entrya nd link back to it. As podcast distribution should require including only a (short) episode description beyond lots of <strong>metadata</strong>, I decided to have my podcast entries manually written as XML files.</p>
+<p>There are two types of template files. Each audio file will need have associate an XML file with its title, description and metadata. That is created copying from an entry XML template. In the next step, the script will find all XML files of episodes, fill in all other required metadata, such as audio duration, size, timestamps in diferent formats and will inject episode entries into the final XML feed (from another XML template) in the correct order, which already contains all static information about my channel.</p>
+<p>The automation of XML podcast entries was hard and time-consuming, but after struggling with it for some days, it started to work as expected and stabilise.</p>
+<p>Even though I tried to automate fillinig in most of the metatags, it remains a pain in the arse to fill in the required fields of an XML template.. Still, it is so powerful what can be done with the XML file after filling in that metadata that that the manual work is worth it.</p>
+<p>Once my RSS broadcast system was set, I set accounts in many (about 14) podcast directories for making it available to their users.</p>
+<p>Creating a decent <a href="../podcast/">homepage for the podcast episodes</a> was possible using <a href="https://github.com/john-bokma/tumblelog">John Bokma&#39;s tumblelog</a> engine almost as an extra because extracting data from the podcast XML files to use with <code>tumblelog.py</code> was a breeze.</p>
+<h3>Homepage System</h3>
+<p>Eventually, I decided my homepage (landing page) was crowded and cloned content of some sections into separate pages, such as <a href="../../links.html">links</a> and <a href="https://mountaineerbr.github.io/quotes.html">quotes</a>.</p>
+<p>The homepage system grabs the latest links and quotes and inject them into the homepage. If the visitor wishes the complete list of links and quotes, she can visit dedicated pages with full content and nice CSS styles.</p>
+<p>Here, <code>tidy</code> is essential to work with well-formatted HTML for further processing and injections.</p>
+<h3>Repository System</h3>
+<p>Just yesterday, I had this idea of hosting my repos inside my website. Perhaps that is not the best idea as there is GitHub infrastructure exactly for that, but I decided to have a go.</p>
+<p>It turns out there one feature of GitHub I cannot implement, that is to clone an entire repo (directory/folder). One way to offer similar functionality is to offer archives of some of my repos. That is however <strong>a shame</strong> that GitHub does not host files over 100GB and thus I can only serve archives of repos under 100GB.</p>
+<p>This is the script which takes the longest time and is dependent on the compression method. But this should not be run every time, anyways, so not a problem speed-wise.</p>
+<h2>Some links</h2>
+<ul>
+<li><a href="http://users.telenet.be/mydotcom/howto/www/tools.htm">PMWMT</a> -- Poor Man&#39;s Web Master Tools.</li>
+<li><a href="https://pedantic.software/git/blogit">blogit</a> -- A small static blog generator.</li>
+<li><a href="https://github.com/slackjeff/hacktuite">hacktuite</a> -- The TRUE Decentralized Static Microblog, write in Shell Bash.</li>
+<li>John Bokma&#39;s <a href="https://github.com/john-bokma/tumblelog">tumblelog</a>.</li>
+<li><a href="https://github.com/6uhrmittag/bashblog">bashblog</a> -- Static blog generator. Super simple.</li>
+</ul>
+</article> ]]></description>
+	</item>
+	<item>
+		<title xml:lang="en">#40 - Ksh2020 Flamewars</title>
+		<pubDate>Mon, 13 Sep 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/40/</link>
+		<dc:language>en</dc:language>
+		<category>ksh93u+/ksh93v-/ksh93u+m/history/issues/development/lore</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">bff13a7d-05c8-5164-8723-151e070b4faf</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="40">#40 - Ksh2020 Flamewars</h1>
+<time class="dt-published" datetime="2021-09-13">13/sep/2021</time><br></header>
+<p>I don&#39;t think any clone of <code>ksh</code> can beat the original in term of speed because Korn&#39;s C code cannot be beat.</p>
+<p>Feature-wise, <code>mksh</code> wants to be compatible with <code>bash</code> and <code>oksh</code> is a little more true to <code>ksh</code> however it has gone a different path and has got less features than <code>ksh</code>. But I haven&#39;t read nor used near enough about these yet to have any due criticism..</p>
+<p><code>ksh</code> code is also dependent on other software from <a href="https://github.com/att/ast/">Advanced Software Technology</a> suite, developed by Mr Korn and a few others through many decades of work.</p>
+<p>When Siteshwar and Kurtis Rader started to work on <code>ksh</code> code in 2017 thereabouts, they <a title="Squeezing Water from Stone - KornShell in 2019" href="https://www.youtube.com/watch?v=9J20eGwGCwU">could not understand it very well</a> and chose to remove large chunks of the code and rewrite whatever was left in such a C idiomatics and using compilers that made the shell terribly slow compared to original stable <code>ksh93u+</code> and ultimately led to the AST code reversion.</p>
+<p>In retrospective, if Siteshwar and kdrader1961 wanted to change so much of the code, they should have <strong>forked</strong> <em><code>ksh</code> repo</em> in the first place</p>
+<p>I am happy some stepped up and manage to get AST (and <code>ksh93</code>) official repo back on the correct track.</p>
+<p><code>ksh</code> seems like a suitable default shell for scripting. Feature-wise, that is comparable to <code>bash+zsh</code> in some sense. Even though Mr Korn, Mr Glenn and others stopped developing AST tools, I reckon these tools can be useful for quite some time yet almost unrivalled..</p>
+<p>For example, instead of using GNU or <code>busybox</code> default utilities such as <code>grep</code>, one can use AST <code>grep</code>, <code>wc</code> and so on..</p>
+<p>AST repo was easy to compile in my machine and <code>ksh93</code> had many features enabled by defaults. I wonder why Siteshwar decided to change the compiler if this works so well in my current machine and, as I have read, in so many legacy hardware architectures, too.</p>
+<p>I will be using <code>ksh</code> for scripting more often. There are some specific cases <code>ksh</code> beats <code>zsh</code> and <code>bash</code> by a lot, in other cases just by little. Still, it does not let the user expectations down as it seems to always be faster than these other big shells.</p>
+<p>In fact, I rewrote a <code>bash</code> <a href="https://mountaineerbr.github.io/repo/scripts/bitcoin.tx.sh">bitcoin parser script</a> in <code>ksh</code>. Unfortunately, in this case, as the script is so big, convoluted and makes heavy use of external tools (mainly <code>bitcoin-cli</code> and <code>jq</code>), it cannot be get much faster.. Still I got a 10-15% speed increase and sometimes more than that depending on the functions used. However, if you are going to use that script parser, prefer the <code>bash</code> version as the <code>ksh</code> code is experimental and not fully tested to match <code>bash</code> output..</p>
+<p>Below are some references I spent almost a full day reading. They are related to <code>ksh</code> more recent developments and some other references from a live event I made recently on YouTube..</p>
+<dl>
+<dt lang="pt">Entrevista David Korn</dt>
+<dd><a href="https://news.slashdot.org/story/01/02/06/2030205/david-korn-tells-all">https://news.slashdot.org/story/01/02/06/2030205/david-korn-tells-all</a></dd>
+<dt lang="pt">Demissão do David Korn , Glenn e outros da AT&amp;T</dt>
+<dd><a href="https://www.mail-archive.com/ast-developers@lists.research.att.com/msg01462.html">https://www.mail-archive.com/ast-developers@lists.research.att.com/msg01462.html</a></dd>
+<dt lang="pt">Repo Oficial da AT&amp;T (att/ast)</dt>
+<dd><a href="https://github.com/att/ast">https://github.com/att/ast</a></dd>
+<dt>KornShell 2020 - Impossible Happens!</dt>
+<dd><a href="http://situ.im/posts/kornshell-2020-impossible-happens">http://situ.im/posts/kornshell-2020-impossible-happens</a></dd>
+<dt lang="pt">Anúncio da Restauração do Repo do Ksh93u+ (att/ast)</dt>
+<dd><a href="https://github.com/att/ast/issues/1466">https://github.com/att/ast/issues/1466</a></dd>
+<dt>Issue #1466 - Rewinding [ast/ksh93] repo and encouraging community</dt>
+<dd><a href="https://github.com/att/ast/issues/1466">https://github.com/att/ast/issues/1466</a></dd>
+<dt>Issue #1446</dt>
+<dd><a href="https://github.com/att/ast/pull/1446">https://github.com/att/ast/pull/1446</a></dd>
+<dt>Issue # 1449</dt>
+<dd><a href="https://github.com/att/ast/issues/1449">https://github.com/att/ast/issues/1449</a></dd>
+<dt>Issue # 1464</dt>
+<dd><a href="https://github.com/att/ast/issues/1464">https://github.com/att/ast/issues/1464</a></dd>
+<dt lang="pt">Site do Korn Shell oficial</dt>
+<dd><a href="http://kornshell.com/">http://kornshell.com/</a></dd>
+<dt lang="pt">Repo do Ksh93u+m</dt>
+<dd><a href="https://github.com/ksh93/ksh">https://github.com/ksh93/ksh</a></dd>
+<dt lang="pt">Sobre os <span lang="en">double floats</span> (notação matemática interna do Ksh/Zsh)</dt>
+<dd><a href="https://unix.stackexchange.com/questions/422122/why-does-0-1-expand-to-0-10000000000000001-in-zsh">https://unix.stackexchange.com/questions/422122/why-does-0-1-expand-to-0-10000000000000001-in-zsh</a></dd>
+<dt>echo(1) and printf(1)</dt>
+<dd><a href="https://www.in-ulm.de/~mascheck/various/echo+printf/">https://www.in-ulm.de/~mascheck/various/echo+printf/</a></dd>
+<dt>Biology for Cynics</dt>
+<dd><a href="https://mountaineerbr.github.io/blog/16/">https://mountaineerbr.github.io/blog/16/</a></dd>
+<dt>Computer for Cynics (Ted Nelson)</dt>
+<dd><a href="https://www.youtube.com/user/TheTedNelson/videos">https://www.youtube.com/user/TheTedNelson/videos</a></dd>
+</dl>
+</article> ]]></description>
+	</item>
+	<item>
 		<title xml:lang="en">#39 - Not Quite Done Yet</title>
 		<pubDate>Mon, 13 Sep 2021 00:00:00 -0300</pubDate>
 		<link>https://mountaineerbr.github.io/blog/39/</link>
@@ -47,12 +171,12 @@
 <header>
 <h1 class="p-name" id="39">#39 - Not Quite Done Yet</h1>
 <time class="dt-published" datetime="2021-09-13">13/sep/2021</time><br></header>
-<p class="alert">Unfinished. Update soon.</p>
 <p>I am really proud of my little blog system. I cannot just remove it from the public domain reach. The same feeling is not so strong about my YouTube Channel.</p>
 <p>In fact, with very little remorse I was able to remove that on Friday. Google (at least YouTube branch) cannot use my data and my subscribers data as they wish anymore. There were 258 subscribers to my YouTube channel and more than 130, many which I am proud to have recorded, some turned out to be lessons of didatics or lack of.. I made a copy of all of the videos with good <code><a href="https://wiki.archlinux.org/index.php/Youtube-dl">youtube-dl</a></code> and for my surprise, there was no more than 26GB of content. I know some YouTubers claim to have much more data for content but they must mean raw content shot locally, without edition and directly from the camera, not downloaded with:</p>
 <pre><code>url=https://www.youtube.com/channel/UCbjGrylVSBjPx02LRH7HCAA
-youtube-dl -f best -ciw -o &quot;%(title)s.%(ext)s&quot; --add-metadata -v &quot;$url&quot; |&amp; tee log.txt</code></pre>
-<p>Unfortunatelly, I cannot host these videos on GitHub. Many videos are heavy and long, like 40min or even longer. I wish I could host them here, though. Luckily, the <a href="../podcast">podcast system</a> solves this problem, albeit less content..</p>
+youtube-dl -f best -ciw -o &quot;%(title)s.%(ext)s&quot; --add-metadata -v &quot;$url&quot; |&amp; tee log.txt
+#https://askubuntu.com/questions/856911/using-youtube-dl-to-download-entire-youtube-channel</code></pre>
+<p>Unfortunatelly, I cannot host these videos on GitHub. Many videos are heavy and long, like 40min or even longer. I wish I could host them here, though. Luckily, the <a href="../podcast">podcast system</a> solves this problem, albeit with less content..</p>
 <hr>
 <p>GitHub repos were made private, following a <a title="DT for the closer subscribers" href="https://www.youtube.com/c/DistroTube/videos">suggestion from DistroTube</a> some time ago.. That is a relief for me. But know what, I will make <a href="../../repo">my own version of a repo</a> and share <em>static copies</em> of my public c files (dotfiles) and some other interesting stuff (mostly neutral things) that need sharing to complement my blog posts here and keep those dedicated GitHub repos for <em>private use</em>.</p>
 <p>Just a note, this website is <a href="https://github.com/mountaineerbr/mountaineerbr.github.io">hosted in GitHub</a>, so you can check it over there, too..</p>
@@ -2328,7 +2452,7 @@ That leaves me in a difficult position but it is decided I will write in whichev
 <br>
 <div>
 <figure><img src="https://mountaineerbr.github.io/blog/gfx/html_how_to_meet_ladies.jpg" alt="t-shirt with html pun: how to meet ladies" width="400" height="300">
-<figcaption>Fig 1. What about html in how to meet lads? <small>(credit: <a href="https://www.flickr.com/photos/kk/106960641">kris krüg</a>)</small></figcaption>
+<figcaption>Fig 1. May HTML also be read as `how to meet lads&#39;? <small>(credit: <a href="https://www.flickr.com/photos/kk/106960641">kris krüg</a>)</small></figcaption>
 </figure>
 </div>
 <hr>

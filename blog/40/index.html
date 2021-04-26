@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--  THIS IS A TEMPLATE DOCUMENT USED BY THE BLOG POSTING SYSTEM.        -->
+<!--  A SCRIPT WILL COMPILE THIS INTO FINISHED PAGES FOR PUBLICATION.     -->
+<!--  SEE ALSO H-ENTRY and H-FEED MICROFORMATS AT                         -->
+<!--  <https://developer.mozilla.org/en-US/docs/Web/HTML/microformats>    -->
+<html lang="en">
+<head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.7.45">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS" href="../rss.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Alternative feed)" href="../rss_alt.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Podcast)" href="../rss_podcast.xml">
+<!-- metatags -->
+
+<title>13/sep/2021 #40 - Ksh2020 Flamewars</title>
+<link rel="canonical" href=
+"https://mountaineerbr.github.io/blog/40/">
+<meta name="description" content=
+"A little about ksh history. David Korn's ksh93u+ and v- are work of art and we should be respectful of the code base.">
+<meta name="keywords" content=
+"ksh93u+, ksh93v-, ksh93u+m, history, issues, development, lore">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+<meta name="resource-type" content="document">
+<meta name="author" content="jsn">
+<meta name="distribution" content="global">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<link rel="shortcut icon" href="../../favicon.ico" type=
+"image/x-icon">
+<style>
+        /* Microformat style */
+        .dt-published
+        {
+                font-size: 1.1em;
+        }
+
+</style>
+</head>
+<body>
+<header>
+<div class="w3-bar w3-amber">
+<nav class="navbar"><a class="w3-bar-item w3-left" href=
+"../../">Home</a> <a class="w3-bar-item w3-left" href="../">Post
+index</a> <!-- navitem -->
+<a class="w3-bar-item w3-right" href="../41/">Next</a> <a class=
+"w3-bar-item w3-right" href="../39/">Previous</a></nav>
+</div>
+</header>
+<!-- FEED -->
+<a href="../rss.xml"><img class="postfeed" src="../gfx/pic_rss.gif"
+alt="RSS Logo" width="36" height="14"></a>
+<main class="h-feed" style="clear:both;">
+<p>by <span class="p-author">Mountaineerbr</span></p>
+<!-- article -->
+
+<article class="h-entry">
+<header>
+<h1 class="p-name" id="40">#40 - Ksh2020 Flamewars</h1>
+<time class="dt-published" datetime="2021-09-13">13/sep/2021</time>
+<br>
+</header>
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+<!-- <div lang="pt" class="p-summary"><p></p></div><br> -->
+<!-- MAIN TEXT  -->
+
+<p>I don't think any clone of <code>ksh</code> can beat the
+original in term of speed because Korn's C code cannot be beat.</p>
+
+<p>Feature-wise, <code>mksh</code> wants to be compatible with
+<code>bash</code> and <code>oksh</code> is a little more true to
+<code>ksh</code> however it has gone a different path and has got
+less features than <code>ksh</code>. But I haven't read nor used
+near enough about these yet to have any due criticism..</p>
+
+<p><code>ksh</code> code is also dependent on other software from
+<a href="https://github.com/att/ast/">Advanced Software
+Technology</a> suite, developed by Mr Korn and a few others through
+many decades of work.</p>
+
+<p>When Siteshwar and Kurtis Rader started to work on
+<code>ksh</code> code in 2017 thereabouts, they <a title=
+"Squeezing Water from Stone - KornShell in 2019" href=
+"https://www.youtube.com/watch?v=9J20eGwGCwU">could not understand
+it very well</a> and chose to remove large chunks of the code and
+rewrite whatever was left in such a C idiomatics and using
+compilers that made the shell terribly slow compared to original
+stable <code>ksh93u+</code> and ultimately led to the AST code
+reversion.</p>
+
+<p>In retrospective, if Siteshwar and kdrader1961 wanted to change
+so much of the code, they should have <strong>forked</strong>
+<em><code>ksh</code> repo</em> in the first place</p>
+
+<p>I am happy some stepped up and manage to get AST (and
+<code>ksh93</code>) official repo back on the correct track.</p>
+
+<p><code>ksh</code> seems like a suitable default shell for
+scripting. Feature-wise, that is comparable to
+<code>bash+zsh</code> in some sense. Even though Mr Korn, Mr Glenn
+and others stopped developing AST tools, I reckon these tools can
+be useful for quite some time yet almost unrivalled..</p>
+
+<p>For example, instead of using GNU or <code>busybox</code>
+default utilities such as <code>grep</code>, one can use AST
+<code>grep</code>, <code>wc</code> and so on..</p>
+
+<p>AST repo was easy to compile in my machine and
+<code>ksh93</code> had many features enabled by defaults. I wonder
+why Siteshwar decided to change the compiler if this works so well
+in my current machine and, as I have read, in so many legacy
+hardware architectures, too.</p>
+
+<p>I will be using <code>ksh</code> for scripting more often. There
+are some specific cases <code>ksh</code> beats <code>zsh</code> and
+<code>bash</code> by a lot, in other cases just by little. Still,
+it does not let the user expectations down as it seems to always be
+faster than these other big shells.</p>
+
+<p>In fact, I rewrote a <code>bash</code> <a href=
+"../../repo/scripts/bitcoin.tx.sh">bitcoin parser script</a> in
+<code>ksh</code>. Unfortunately, in this case, as the script is so
+big, convoluted and makes heavy use of external tools (mainly
+<code>bitcoin-cli</code> and <code>jq</code>), it cannot be get
+much faster.. Still I got a 10-15% speed increase and sometimes
+more than that depending on the functions used. However, if you are
+going to use that script parser, prefer the <code>bash</code>
+version as the <code>ksh</code> code is experimental and not fully
+tested to match <code>bash</code> output..</p>
+
+<p>Below are some references I spent almost a full day reading.
+They are related to <code>ksh</code> more recent developments and
+some other references from a live event I made recently on
+YouTube..</p>
+
+<dl>
+<dt lang="pt">Entrevista David Korn</dt>
+
+<dd><a href=
+"https://news.slashdot.org/story/01/02/06/2030205/david-korn-tells-all">
+https://news.slashdot.org/story/01/02/06/2030205/david-korn-tells-all</a>
+</dd>
+
+<dt lang="pt">Demissão do David Korn , Glenn e outros da
+AT&amp;T</dt>
+
+<dd><a href=
+"https://www.mail-archive.com/ast-developers@lists.research.att.com/msg01462.html">
+https://www.mail-archive.com/ast-developers@lists.research.att.com/msg01462.html</a>
+</dd>
+
+<dt lang="pt">Repo Oficial da AT&amp;T (att/ast)</dt>
+
+<dd><a href=
+"https://github.com/att/ast">https://github.com/att/ast</a>
+</dd>
+
+<dt>KornShell 2020 - Impossible Happens!</dt>
+
+<dd><a href=
+"http://situ.im/posts/kornshell-2020-impossible-happens">http://situ.im/posts/kornshell-2020-impossible-happens</a>
+</dd>
+
+<dt lang="pt">Anúncio da Restauração do Repo do Ksh93u+
+(att/ast)</dt>
+
+<dd><a href=
+"https://github.com/att/ast/issues/1466">https://github.com/att/ast/issues/1466</a>
+</dd>
+
+<dt>Issue #1466 - Rewinding [ast/ksh93] repo and encouraging
+community</dt>
+
+<dd><a href=
+"https://github.com/att/ast/issues/1466">https://github.com/att/ast/issues/1466</a>
+</dd>
+
+<dt>Issue #1446</dt>
+
+<dd><a href=
+"https://github.com/att/ast/pull/1446">https://github.com/att/ast/pull/1446</a>
+</dd>
+
+<dt>Issue # 1449</dt>
+
+<dd><a href=
+"https://github.com/att/ast/issues/1449">https://github.com/att/ast/issues/1449</a>
+</dd>
+
+<dt>Issue # 1464</dt>
+
+<dd><a href=
+"https://github.com/att/ast/issues/1464">https://github.com/att/ast/issues/1464</a>
+</dd>
+
+<dt lang="pt">Site do Korn Shell oficial</dt>
+
+<dd><a href="http://kornshell.com/">http://kornshell.com/</a>
+</dd>
+
+<dt lang="pt">Repo do Ksh93u+m</dt>
+
+<dd><a href=
+"https://github.com/ksh93/ksh">https://github.com/ksh93/ksh</a>
+</dd>
+
+<dt lang="pt">Sobre os <span lang="en">double floats</span>
+(notação matemática interna do Ksh/Zsh)</dt>
+
+<dd><a href=
+"https://unix.stackexchange.com/questions/422122/why-does-0-1-expand-to-0-10000000000000001-in-zsh">
+https://unix.stackexchange.com/questions/422122/why-does-0-1-expand-to-0-10000000000000001-in-zsh</a>
+</dd>
+
+<dt>echo(1) and printf(1)</dt>
+
+<dd><a href=
+"https://www.in-ulm.de/~mascheck/various/echo+printf/">https://www.in-ulm.de/~mascheck/various/echo+printf/</a>
+</dd>
+
+<dt>Biology for Cynics</dt>
+
+<dd><a href=
+"https://mountaineerbr.github.io/blog/16/">https://mountaineerbr.github.io/blog/16/</a>
+</dd>
+
+<dt>Computer for Cynics (Ted Nelson)</dt>
+
+<dd><a href=
+"https://www.youtube.com/user/TheTedNelson/videos">https://www.youtube.com/user/TheTedNelson/videos</a>
+</dd>
+</dl>
+</article>
+</main>
+
+<footer>
+<hr class="sep">
+<!-- Google Analytics -->
+<!--
+- - - - Copyright ©2021 JSN.
+ - - -  Verbatim copying and distribution of this entire article is
+- - - - permitted in any medium, provided this notice is preserved.
+-->
+</footer>
+</body>
+</html>

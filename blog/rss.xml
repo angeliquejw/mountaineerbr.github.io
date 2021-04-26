@@ -13,7 +13,7 @@
   <channel>
     <lastBuildDate>Mon, 13 Sep 2021 00:00:00 -0300</lastBuildDate>
     <title>Biology Blogger</title>
-    <description>Current as of Mon, 26 Apr 2021 10:57:52 -0300.</description>
+    <description>Current as of Mon, 26 Apr 2021 18:02:47 -0300.</description>
     <link>https://mountaineerbr.github.io/blog/</link>
     <language>en</language>
     <category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
@@ -31,6 +31,26 @@
 		</copyright>
     <!-- # IMPORTANT: keep [generator] as [item] elements will be appended after it -->
     <generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
+    <item>
+      <title xml:lang="en">#41 - Overview on My Blogging Systems</title>
+      <pubDate>Mon, 13 Sep 2021 00:00:00 -0300</pubDate>
+      <description>Details about my shell scripts that generate static webpages for this website. Some grew rather complex..</description>
+      <link>https://mountaineerbr.github.io/blog/41/</link>
+      <dc:language>en</dc:language>
+      <category>shell script/scripting/programmes/hobby/webmaster/tools/ferramentas/desenvolvedor da web/bash/zsh/html</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">20ae903a-5f11-57d6-8cbd-79495d6eb81d</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#40 - Ksh2020 Flamewars</title>
+      <pubDate>Mon, 13 Sep 2021 00:00:00 -0300</pubDate>
+      <description>A little about ksh history. David Korn's ksh93u+ and v- are work of art and we should be respectful of the code base.</description>
+      <link>https://mountaineerbr.github.io/blog/40/</link>
+      <dc:language>en</dc:language>
+      <category>ksh93u+/ksh93v-/ksh93u+m/history/issues/development/lore</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">17d30fd0-8384-5efc-ac62-a9ccb7e56ff9</guid>
+    </item>
     <item>
       <title xml:lang="en">#39 - Not Quite Done Yet</title>
       <pubDate>Mon, 13 Sep 2021 00:00:00 -0300</pubDate>

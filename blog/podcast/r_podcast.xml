@@ -26,13 +26,13 @@
       permitted in any medium, provided this notice is preserved.
     </copyright>
 
-    <!-- # MINIMUM SIZE OF 1400 X 1400 PIXELS AND A MAXIMUM SIZE OF 3000 X 3000 PIXELS -->
+    <!-- # Min size of 1400 x 1400 px and a max size of 3000 x 3000 px    -->
     <itunes:image href="https://mountaineerbr.github.io/gfx/sherlockb_big.png" />
     <itunes:category text="Science">
     	<itunes:category text="Natural Sciences" />
     </itunes:category>
     <itunes:author>jamilbio20@gmail.com (JSN)</itunes:author>
-    <!-- # [OWNER] TAG IS FOR ADMINISTRATIVE COMMUNICATION AND ISN'T DISPLAYED -->
+    <!-- # [OWNER] tag is for admin communication and isn't displayed     -->
     <itunes:owner>
 	<itunes:email>jamilbio20@gmail.com</itunes:email>
 	<itunes:name>mountaineerbr</itunes:name>
@@ -40,28 +40,30 @@
     <itunes:type>episodic</itunes:type>
     <itunes:explicit>false</itunes:explicit>
 
-    <!-- # <itunes:complete> --> <!-- # If you will never publish another episode to your show, use this tag -->
-    <!-- # <itunes:title> --> <!-- # The show title specific for Apple Podcasts -->
+    <!-- # If you will never publish another episode to your show         -->
+    <!-- # <itunes:complete> -->
+    <!-- # The show title specific for Apple Podcasts                     -->
+    <!-- # <itunes:title> -->
 
     <googleplay:owner>jamilbio20@gmail.com</googleplay:owner>
     <googleplay:author>mountaineerbr</googleplay:author>
     <googleplay:image href="https://mountaineerbr.github.io/gfx/sherlockb_big.png" />
     
-    <!-- # The primary individual responsible for the content of the resource -->
+    <!-- # The primary individual responsible for the content             -->
     <dc:creator>mountaineerbr</dc:creator>
-    <!-- # The individual(s) or companies responsible for contributing content to the resource -->
+    <!-- # The individual(s) or companies responsible for contributing    -->
     <!-- # <dc:contributor></dc:contributor> -->
-    <!-- # The individual or company responsible for providing the content -->
+    <!-- # The individual/company responsible for providing the content   -->
     <!-- # <dc:publisher> -->
 
-    <!-- # IMPORTANT: keep [generator] as [item] elements will be appended after it -->
+    <!-- # IMPORTANT: keep [generator] tag below                          -->
     <generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
 
 
   </channel>
 </rss>
 
-<!-- # https://help.apple.com/itc/podcasts_connect/#/itcb54353390 -->
+<!-- # https://help.apple.com/itc/podcasts_connect/#/itcb54353390         -->
 <!-- # https://www.dublincore.org/specifications/dublin-core/usageguide/elements/ -->
-<!-- # https://www.feedforall.com/dublin-core.htm -->
+<!-- # https://www.feedforall.com/dublin-core.htm                         -->
 

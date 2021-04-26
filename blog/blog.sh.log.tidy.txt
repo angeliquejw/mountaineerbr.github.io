@@ -1,0 +1,8 @@
+File: 41/index.html
+line 171 column 8 - Warning: <a> attribute "href" lacks value
+line 209 column 20 - Warning: <a> attribute "href" lacks value
+
+File: /home/jsn/www/mountaineerbr.github.io/blog/cat.html
+line 180 column 8 - Warning: <a> attribute "href" lacks value
+line 218 column 20 - Warning: <a> attribute "href" lacks value
+
