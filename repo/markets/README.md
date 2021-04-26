@@ -91,7 +91,7 @@ de funcionar a qualquer momento ou serem limitadas rapidamente.
 
 _bcalc.sh_ -- a wrapper for bash calculator and zshell maths that keeps a record of results
 
-<https://github.com/mountaineerbr/scripts/blob/master/bcalc.sh>
+<https://mountaineerbr.github.io/repo/scripts/bcalc.sh>
 
 Alexander Epstein's _currency_bash-snipet.sh_ uses the same API as _erates.sh_
 
