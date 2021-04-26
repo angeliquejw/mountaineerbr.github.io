@@ -9,7 +9,7 @@
 
 treef()
 {
-	local baseHREF basePATH out title mdarray txtarray notes xtrastyles inject
+	local baseHREF basePATH out title mdarray txtarray notes xtrastyles inject meta
 	typeset -a mdarray txtarray
 	
 	baseHREF="$1"
@@ -57,6 +57,9 @@ treef()
 	[[ -n "$inject" ]] && sed -i '/<body/ r /dev/stdin' "$out" <<<"$inject"
 
 	#HTML CUSTOMISATION
+	#metatags
+	meta='<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	'
 	#extra styles
 	xtrastyles='.tar  { color: red;  background-color: beige;}
 	h1 { text-transform: uppercase; } 
@@ -80,6 +83,8 @@ treef()
 	fi
 
 
+	#add meta tags
+	sed -i '/<head.*/ r /dev/stdin' "$out" <<<"$meta"
 	#add extra styles
 	sed -i '/<style.*/ r /dev/stdin' "$out" <<<"$xtrastyles"
 	#inject notes
