@@ -122,9 +122,11 @@ then
 		repo="${repo%/}"
 		tarfile="${repo:u}".TGZ
 		tar czvf "$tarfile" "$repo"
-		(( $(du "$tarfile" ) > 94000000 )) && rm "$tarfile"  #max of 100MB in GitHub
+		fsize=( $(du "$tarfile" ) )
+		(( ${fsize[1]} > 94500 )) && print "WARNING: file exceeds 94MB -- $tarfile" >&2
+		(( ${fsize[1]} > 100500 )) && rm -v "$tarfile"  #max of 100MB in GitHub
 	done
-	unset tarfile repo
+	unset tarfile repo fsize
 fi
 
 #make index pages with `tree'
