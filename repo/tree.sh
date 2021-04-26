@@ -48,7 +48,7 @@ treef()
 		mdarray=( $( print -l "$basePATH"/(readme|info).md* ) )
 		((${#mdarray[@]}))
 	then inject="$(
-		sed -E -e '/```+/,/```+/ s/^/    /; s/```.*//' "${mdarray[1]}" \
+		sed -E -e '/^\s*```+/,/^\s*```+/ s/^/    /; s/```.*//' "${mdarray[1]}" \
 		| markdown
 	)<hr>"
 	elif
@@ -66,7 +66,7 @@ treef()
 	xtrastyles='.tar  { color: red;  background-color: beige;}
 	h1 { text-transform: uppercase; } 
 	img {
-		max-width: 800px;
+		max-width: 500px;
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
@@ -119,6 +119,7 @@ then
 		repo="${repo%/}"
 		tarfile="${repo:u}".TGZ
 		tar czvf "$tarfile" "$repo"
+		(( $(du "$tarfile" ) > 94000000 )) && rm "$tarfile"  #max of 100MB in GitHub
 	done
 	unset tarfile repo
 fi
