@@ -1,0 +1,97 @@
+#curl -s "https://www.google.com/async/finance_wholepage_price_updates?ei=ywprXZHwMcCy5OUPqeK3qAw&yv=3&async=mids:%2Fm%2F016yss%7C%2Fg%2F1q6b4f1pf%7C%2Fm%2F04xjcr%7C%2Fm%2F07zm2vb%7C%2Fm%2F07zllzd%7C%2Fm%2F07zln_9%7C%2Fm%2F02853rl%7C%2Fm%2F04zvfw%7C%2Fm%2F0877z%7C%2Fm%2F046k_p%7C%2Fm%2F02hl6w%7C%2Fm%2F04ww1p%7C%2Fm%2F0b18t%7C%2Fm%2F016j14%7C%2Fm%2F04t5sp,currencies:%2Fm%2F02l6h%2B%2Fm%2F09nqf%7C%2Fm%2F09nqf%2B%2Fm%2F088n7%7C%2Fm%2F01nv4h%2B%2Fm%2F09nqf%7C%2Fm%2F09nqf%2B%2Fm%2F0ptk_%7C%2Fm%2F09nqf%2B%2Fm%2F02nb4kq%7C%2Fm%2F09nqf%2B%2Fm%2F0hn4_%7C%2Fm%2F0kz1h%2B%2Fm%2F09nqf,_fmt:json" |
+
+	<test.json | jq -r '.PriceUpdate.entities[]|
+		(.financial_entity//.currency_entity|
+		"\(.exchange//"")$\(.last_close_price//null|.value//"")$\((.common_entity_data|"\(.name)$\(.symbol//.name)$\(.last_updated_time)$\(.change)$\(.value_change)$\(.percent_change)$\(.last_value)"))")' | column -et -s'$' -NEXCHANGE,LASTCLOSE,NAME,SYMBOL,UPDATE,DIRECTION,CHANGE,CHANGE%,VALUE -TNAME,UPDATE -HDIRECTION,EXCHANGE -OSYMBOL,NAME,EXCHANGE,CHANGE,CHANGE%,VALUE,UPDATE,LASTCLOSE
+
+
+
+
+
+exit
+
+Simple ticker:
+	<test.json | jq -r '.PriceUpdate.entities[]|
+		(.financial_entity//.currency_entity|
+			.exchange//empty,
+			(.last_close_price//empty|
+				"LastClose: \(.value)"
+			),
+			(.common_entity_data|
+				.name,
+				.symbol//empty,
+				"\(.last_updated_time)  (\(.min_refresh_interval_secs//empty)s)",
+				.change,
+				"\(.value_change)  (\(.percent_change))",
+				.last_value
+			)
+		),
+		""'
+
+Full ticker:
+		.. | jq -r '.PriceUpdate.entities[]|
+		(.financial_entity//.currency_entity|
+			(.common_entity_data|
+				"",
+				.change,
+				.last_updated_time,
+				.last_updated_time_short,
+				.last_value,
+				.last_value_dbl,
+				(.live_update_id|
+					.financial_id//empty,
+					(.currency_id//empty|
+						.source_mid,
+						.target_mid
+					)
+				),
+				.min_refresh_interval_secs//empty,
+				.name,
+				.percent_change,
+				.query_url,
+				.symbol//empty,
+				.value_change
+			),
+			"",
+			.exchange//empty,
+			(.last_close_price//empty|
+				.precision,
+				.value
+			),
+			"",
+			.mid//empty,
+			.type//empty
+		),
+		(.live_update_id|
+			.financial_id//empty,
+			(.currency_id//empty|
+				.source_mid,
+				.target_mid
+			)
+		),
+		""'
+
+ids:
+/g/1q6b4f1pf
+/m/016j14
+/m/016yss
+/m/01nv4h
+/m/02853rl
+/m/02hl6w
+/m/02l6h
+/m/02nb4kq
+/m/046k_p
+/m/04t5sp
+/m/04ww1p
+/m/04xjcr
+/m/04zvfw
+/m/07zllzd
+/m/07zln_9
+/m/07zm2vb
+/m/0877z
+/m/088n7
+/m/09nqf
+/m/0b18t
+/m/0hn4_
+/m/0kz1h
+/m/0ptk_
