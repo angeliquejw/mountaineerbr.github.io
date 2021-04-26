@@ -1,0 +1,136 @@
+
+Tutorial de Compilação XMRig para Windows 10 64-bit
+
+[07/junho/2018 ]
+
+Vamos compilar os códigos-fonte do XMRig com suporte a CPU para sistemas de
+64-bits. Para tanto, é necessário primeiro "excluir pastas" do rastreamento do
+Windows Defender, pois os mineradores, em geral ,possuem partes do Blockchain do
+Monero em seus códigos que o Windows Defender, ou qualquer outro anti-virus, vai
+bloquear; e finalmente iremos instalar compiladores e dependências; usar um
+comando do CMake que vai juntamente com o Visual Studio 2017 compilar o binário
+do XMRig;
+
+0 ==Desativando o Window Defender==
+
+0.1 Abra a "Central de Segurança do Windows Defender" e selecione "Proteção
+contra vírus e ameaças" (lado esquerdo) - "Configurações de Proteção contra
+vírus e ameaças" - "Adicionar ou remover exclusões"; em Adicionar uma exclusão,
+escolha "pastas" e selecione a sua pasta "C:\Usuários\seu_nome_de_usuário\"; no
+mesmo painel, também retire "Proteção em tempo real";
+
+0.2. **Importante: Por qustão de segurança, reabilite essas opções depois da
+compilação do binário, mas deixe a pasta onde o binário estiver fora do rastreio
+dos anti-virus, do contrário ele poderá sumir misteriosamente (depois não me diga
+que não avisei!)...;
+
+==Instalando dependências==
+
+1 Visual Studio Community 2017
+
+1.1 Faça download e instale Visual Studio Community 2017 em
+https://www.visualstudio.com/downloads/
+
+1.2 Durante a instalação, escolha o seguinte componente:
+a) Desenvolvimento para desktop com C++ (lado esquerdo);
+
+2 CMake para Win64
+
+2.1 Faça download e inicie a instalação da últma versão disponível em
+https://cmake.org/download/
+(versão testada: 3.11)
+
+2.2 **Importante: Durante a instalação, escolha a opção "Add Cmake to system PATH
+to all user"
+
+3. Download e preparação do pacote de dependências providas pelos desenvolvedores
+para a compilação (xmrig-deps)
+
+3.1 Acesse e baixe a última versão do pacote (Source code.zip) do "xmrig-deps" em
+https://github.com/xmrig/xmrig-deps/releases
+(testado com o pacote v3.1)
+
+3.2 Extraia (copie e cole) a pasta "xmrig-deps-3.1" para c:\xmrig-deps-3.1
+
+3.3 Renomei a pasta para simplesmente "xmrig-deps", ou seja, o caminho para essas
+depedências vai ficar c:\xmrig-deps para facilitar na hora da compilação;
+
+4 ==Baixando e preparando o código-fonte do XMRig para doação automática 0.0%==
+
+4.1 Baixe a últma versão do código-fonte (Source code. zip) do XMRig em
+https://github.com/xmrig/xmrig/releases
+(versão testada: 2.6.2)
+
+4.2 Extraia (copie e cole) a pasta "xmrig-2.6.2" para
+c:\Users\nome_usuário\xmrig-2.6.2
+
+4.3 Renomei a pasta para simplesmente "xmrig" para facilitar na hora da
+compilação;
+
+4.4a Se ainda não tiver o programa Notepad++, faça o download em
+https://notepad-plus-plus.org/download/v7.5.6.html e escolha o binário de
+instalação "Notepad++ Installer 64-bit x64";
+
+4.4b pela interface gráfica, vá até c:\Users\nome_usuário\xmrig\src\donate.h ,
+abra o arquivo (donate.h) com o Notepad++ e modifique as seguintes linhas para:
+
+constexpr const int kDefaultDonateLevel = 0;
+constexpr const int kMinimumDonateLevel = 0;
+
+4.4c Salve o arquivo;
+
+5 ==Compilando==
+
+5.1 Abra uma janela de prompt de comando (Menu do Windows, digite "cmd" e aperte
+enter); na janela de promt vamos até a pasta com o código-fonte e criar uma
+pasta chamada de "build" e entrar nela;
+
+a)  cd xmrig
+
+b)  mkdir build
+
+c)  cd build
+
+5.2 Execute o seguinte comando (uma linha longa só, cuidado na hora de copiar!):
+
+cmake .. -G "Visual Studio 15 2017 Win64" -DXMRIG_DEPS=c:\xmrig-deps\msvc2017\x64
+
+5.3 Abra uma janela gráfica do explorador de arquivos do Windows e vá até a pasta
+c:\Users\nome_usuário\xmrig\buid
+
+5.4 Abra o arquivo "xmrig.sln" pelo Microsoft Visual Studio 2017;
+
+5.5 Não esqueça de mudar o build de "Debug" para "Release";
+https://github.com/xmrig/xmrig/issues/197
+5.6 No Menu "Compilação", selecione "Compilar ALL_BUILD";
+
+5.7 Cheque por erros (falhas), avisos não problema!; o binário vai estar
+disponível em c:\Users\nome_usuário\xmrig\build\Release
+
+6 ==Utilizando um arquivo de "config.jason" para rodar o XMRig a 0.0% de doação==
+
+6.1 Você poderá utilizar seu arquivo de configuração existente, basta copiá-lo
+para a mesma pasta que contém uma *cópia* do binário que acabamos de compilar;
+
+**Importante: não se esqueça de modificar/configurar a sua
+"https://github.com/xmrig/xmrig/wiki/Windows-Buildconfig.jason" com zero por
+cento de doação, também!, do contrário o binário criado vai continuar doando a
+porcentagem que estiver no seu arquivo .jason;
+
+6.2 Para criar um arquivo de configuração, acesse https://config.xmrig.com/ e
+siga os passos para selecionar o tipo de minerador (neste tutorial, para CPU
+somente), sistema operacional, adicionar seus pools e ajustar a porcentagem de
+doação para "0" e por fim, salvar o arquivo gerado juntamente com o binário do
+xmrig.exe a zero por cento de doação automática;
+
+Boa mineração!
+
+7 Referências:
+
+Tutorial original de compilação dos desenvolvedores para o Windows:
+
+OBS: Também recomendo a seguinte conversa em inglês se você precisar compilar
+para outra arquitetura que não seja de 64-bit ou estiver usando uma versão
+diferente do Microsoft VS 2017, vai poder entender um pouco melhor como proceder
+(debug your way through the compilation process!):
+

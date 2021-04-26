@@ -1,0 +1,115 @@
+
+===== EASTER-EGGS, DICAS E TRUQUES NO ARCH LINUX =====
+
+[ Atualizado em 11/09/2018 ]
+
+Vídeo disponível em:
+
+https://youtu.be/KXzoRjeu6y8
+
+====== Pacman ILoveCandy & outros =====
+
+Edite como raiz o arquivo de texto /etc/pacman.conf
+
+No meio do arquivo mais ou menos, na seção "# Misc Options", adicione
+"ILoveCandy" no final para ativar o pacman comendo pílulas de poder quando faz o
+download dos pacotes de update; também retire o símbolo de tralha "#" de Colors
+para ativar um pouco de cor no Pacman; e do "VerbosePkgLists" para informações
+detalhadas sobre tamanho de cada apacote a ser atualizado no sistema;
+
+# nano /etc/pacman.conf
+
+===== Insultos Padrão =====
+
+Faça um backup do arquivo "sudoers" antes de modificá-lo:
+
+# cp /etc/sudoers /etc/sudoers.backup
+
+Como raiz, edite o arquivo "sudoers" com o programa "visudo" e adicione na frente
+de "Defaults" a opção "insults", ou adicione uma nova linha no final do texto dos
+sudoers:
+
+Abrir Visudo com Nano:
+
+# EDITOR=nano visudo
+
+Linha a adicionar no final do arquivo:
+
+Defaults insults
+
+===== Sons de Eventos do Sistema =====
+
+Adicionar os pacotes de livrarias necessárias de "libcanberra" para quem usa o
+driver de som da ALSA e um plug-in que suporte o seu gerenciador de áudio, no
+meu caso o Pulseaudio com o pacote "libcanberra-pulse", ou se você usar o
+Gstreamer instale "libcanberra-gstreamer";
+
+# pacman -S libcanberra libcanberra-pulse sound-theme-freedesktop
+
+Depois, instale um tema de sons; para um tema com poucos sons de eventos, instale
+o "sound-theme-freedesktop" dos repositórios oficiais, e/ou os temas de sons mais
+completos como "sound-theme-smooth" e "ubuntu-sounds" disponíveis no AUR;
+
+Agora uma etapa específica do XFCE, é setar no Editor de Configurações o Tema de
+Sons que se quer utilizar:
+
+Todas as Configurações > Editor de Configurações > xsettings > Net >
+SoundThemeName
+
+Clicar no campo de Valor e inserir o nome do Tema de Son da meira que se encontra
+na pasta:
+
+/usr/share/sounds
+
+Fazer log-off e log-in.
+
+Referências para Sons do Sistema:
+
+https://wiki.archlinux.org/index.php/xfce#Sound
+
+https://wiki.archlinux.org/index.php/Libcanberra
+
+https://wiki.archlinux.org/index.php/PulseAudio#X11_Bell_Events
+
+===== Oneko =====
+
+Instalar pacote "oneko" disponível no AUR.
+
+Para testar e configurar o Oneko, vamos abrir uma janela de terminal. Para ver
+todas as opçoes que pode-se utilizar digitar:
+
+$ oneko --help
+
+Se preferir um cachorro ao invés de um gato seguindo o mouse:
+
+$ oneko -dog
+
+Ou pode se usar as flags para os personages alternativos "-bsd_daemon" ,
+"-sakura" ou "-tomoyo"; para modificar a cor de fundo "-bc" do personagem para
+pink, use "-bg pink" e para definir a cor de contorno "-fc" do personagem para
+azul, use "-fc blue"; para o personagem ficar na barra de tarefas da janela
+ativa/ em foco, usar a opção "-tofocus"; exemplo:
+
+$ neko -tomoyo -tofocus -bg pink -fg blue
+
+Depois de definido uma configuração, vamos usar esse comando para inicializar com
+a sessão do usuário. Isso depende do ambiente gráfico de uso de cada um. Uma
+forma que serve para todos é adicionar o comando do Oneko ao arquivo ".xinit".
+Já pela interface gráfica do XFCE, vá em:
+
+Todas as Configurações > Sessão e Inicialização > Início automático de
+aplicativos > Adicionar
+
+Para adicionarmos o comando personalizado do Oneko na inicialização, vamos
+inserir o comando de "sleep 10s" para atrasar o carregamento do mesmo, para o
+Oneko não afetar o carregamento dos programas mais importantes do Ambiente de
+Trabalho; um exemplo de comando a se Adicionar:
+
+Nome:    Oneko
+
+Descrição: Oneko Personalizado
+
+Comando: /bin/bash -c "sleep 10 && neko -tomoyo -tofocus -bg pink -fg blue"
+
+Obs: Cuidado para fechar as aspas corretamente depois de /bin/bash -c
+

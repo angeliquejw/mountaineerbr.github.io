@@ -1,0 +1,472 @@
+
+==========================================================
+
+============= AURUTILS “1.5” : AJUDANTE DO AUR ==============
+
+[Atualizado pela última vez em 28/01/19]
+
+[!! Atualizado - Havia incompatiblidade entre os arquivos gerados pelo Repo-add e
+Repo-remove e depois quando se utilizava o Repose para manutençãp da base de
+dados; agora somente se usa o Repose]
+
+IMPORTANTE: AUR Utils foi atualizado de 1.5 para 2.0 e agora não tem suporte ao
+uso do REPOSE. Deve-se criar e depois fazr manutenção do banco de dados com o
+Repo-add, OK?! Ainda não tenho um tutorial completo sobre o Repo-add, mas falo
+um pouco em como usar a nova versão do Aurutils nesse link:
+https://www.youtube.com/watch?v=tgp9A0eMKXI&t=108s
+
+Tutoriais em Vídeo:
+
+https://youtu.be/dAGWKwHJ4no
+
+https://youtu.be/NljLFBGERgI
+
+== INTRODUÇÃO E BASE TEÓRICA ==
+
+Os auxiliares ou ajudantes do Arch User Repository (AUR) automatizam certas
+tarefas para usar o AUR. A maioria dos auxiliares automatiza o processo de
+obtenção de um pacote PKGBUILD do AUR e a compilação do pacote.
+
+*Atenção: Auxiliares do AUR não possuem suporte pelo Arch Linux. Você deve se
+familiarizar com o processo manual de compilação para estar preparado para
+diagnosticar e resolver problemas.
+
+O Yaourt é um tipo de ajudante do AUR, porém tem-se visto ultimamente o seu
+desenvolvedor atualizando infrequentemente o pacote; na realidade, o Yaourt
+ainda funciona muito bem, porém é um bom hábito mudarmos para um auxiliar de AUR
+que possua um desenvolvedor animado e dócil, tanto para corrigir eventuais bugs
+devido a atualizações do Arch, assim como implementar funções que fazem sentido
+para sua comunidade.
+
+Há um outro auxiliar de AUR muito bom escrito em Phyton e que ganhou fama
+rapidamente este ano, chamado de Aurman. Recentemente, o seu desenvolvedor parou
+com os canais de suporte direto aos usuários. Ficou irritado com tantos pedidos
+de funcionalidades e relatórios de erros do Aurman, e também com a ignorância
+dos usuários que reclamavam para ele de problemas que, na realidade, não tinham
+a ver com o Aurman, mas sim, por exemplo, com assinaturas GPG que não tinham
+sido importadas pelo próprio usuário, ou ainda PKGBUILDS que precisavam ser
+configurados antes da compilação.... Assim, tanto por conta dos usuários tanto
+por conta das pobres habilidades comunicativas do desenvolvedor, formou-se uma
+comunidade tóxica ao redor do Aurman.
+
+Alternativas a esses dois grandes ajudantes de AUR são muito numerosos no mundo
+do Arch; o Yay tem uma boa piada de desenvolvedor na seção de "objetivos" na
+descrição do GitHub:
+
+"Há um momento na vida de todos que se sente uma necessidade de escrever um
+ajudante de AUR porque há apenas cerca de 20 deles. Então diga oi para 20 + 1."
+
+O Yay, programado em Go, depende de um monte de livrarias do Go. Se isso não for
+um problema para seu sistema, ele é super recomendável. Uma atualização:
+encontrei no AUR um pacote com binário pré-compilado do Yay que não precisa das
+libs de go para compilar chamado “yay-bin”… Resta saber se realmente depois de
+instalado no sistema, o Yay ainda não vai precisar das libs de go para rodar e
+compilar os pacotes, mas talvez não -- façam o teste e me falem.
+
+Ainda, em uma outra categoria de ajudantes de AUR (até agora não citamos nenhum
+ajudante de AUR que use "interface gráfica"), enquandram-se o Aurutils e o
+Bauerbill, que são coleções de scripts ao invés de algoritmos monolíticos como o
+Yaourt e Aurman. O grupo de scripts do Aurutils tem como objetivo realmente ser
+um “ajudante” não uma interface “wrapper” totalmente como o Yay ou Yaourt; ou
+seja, com Aurutils, você ainda vai precisar o Pacman para instalar o binário.
+
+Nesse tutorial, vamos instalar, adicionar um servidor do Pacman personalizado
+para o AUR, aprender a procurar pacotes do AUR, a instalá-los e a removê-los com
+o poderoso Aurutils e ferramentas do Pacman.
+
+O desenvolvedor do Aurutils, Alad Wenter, propõe um ajudante com uma
+implementação com atributos de uma linguagem minimal, ou seja, uma linguagem
+de scripts como dash, e a preferência pela simplicidade ao invés da
+hiper-funcionalidade. A necessidade específica de ação de um programa segue a
+filosofia dos programas do UNIX.
+
+Doug McIlroy, o inventor do sistema e um dos fundadores da tradição UNIX, resumiu
+(1994) a filosofia do mesmo muito tempo depois de sua criação da seguinte forma :
+
+"Escreva programas que façam uma coisa e façam-na bem. Escreva programas para
+trabalhar juntos. Escreva programas para manipular fluxos de texto, porque essa
+é uma interface universal."
+
+O Aurutils é na realidade um grupo de scripts que operam funções bem definidas.
+Vamos nos preocupar aqui somente com três dessas funções: Aursearch (busca por
+pacotes disponíveis nas bases de dados), Aursync (que irá usar vários scripts
+conjuntamente para fazer download do código-fonte e compilar um binário) e o
+Aurcheck (para checar por atualizações dos pacotes do AUR).
+
+== INSTALAÇÃO & CONFIGURAÇÃO ==
+
+O Aurutils não está disponível em nenhum repositório oficial do Pacman. O seu
+código-fonte encontra-se no AUR.
+
+Se você já tiver um ajudante de AUR no computador como o Yaourt, utilize-o para
+compilar e instalar o Aurutils do AUR ( depois que estiver acostumado com o
+Aurutils, poderá remover o Yaourt -- é essa a motivação desse tutorial! )
+
+Mas vamos supor que acabamos de instalar o Arch Linux e ainda não temos nenhum
+ajudante do AUR disponível no sistema. Nesse caso, vamos precisar usar as
+ferramentas do "Git" e o script do Pacman chamado de "Makepkg". Se não tiver o
+git, instale-o juntamente com suas dependências:
+
+$ sudo pacman -S git
+
+Abra um terminal e crie uma pasta "ajudanteaur", por exemplo, dentro da pasta do
+seu usuário:
+
+$ mkdir ajudanteaur
+
+Depois precisaremos entrar na pasta cridada:
+
+$ cd ajudanteaur
+
+Vamos clonar o código-fonte do Aurman pelo Git:
+
+$ git clone https://aur.archlinux.org/aurutils.git
+
+E dê um cd para a pasta aurutils que foi criada com o comando do git:
+
+$ cd aurutils
+
+Em seguida, vamos usar o script do Pacman para construir o binário e instalá-lo
+no sistema, mas antes precisamos adicionar a assinatura GPG do desenvolvedor do
+Aurutils no nosso molho de chaves no Arch , do contrário o binário não poderá
+ser compilado (vai dar erro):
+
+$ gpg --recv-keys 6BC26A17B9B7018A
+
+$ makepkg -si
+
+Siga as instruções no visor para compilação/instalação do binário no sistema.
+Observe que deverá ser feita a instalação das dependências do Aurutils, também.
+Essas dependências incluem pacotes dos repositórios oficiais como: base-devel
+devtools vifm aria2 parallel expac repose . Para ter certeza que foram
+instalados:
+
+$ sudo pacman -S base-devel devtools repose vifm vim aria2 parallel expac
+
+Os pacotes mais importantes são "base-devel" e "devtools" (OBRIGATÓRIOS) que têm
+ferramentas para compilação de pacotes, "Repose" (OPCIONAL) que é um gerenciador
+de base de dados que vamos precisar no final, "vifm" e "vim" (OPCIONAL) para
+modificar arquivos de PKGBUILD e PATCH na linha de comando; "aria2" e "parallel"
+(OPCIONAIS) para downloads simultâneos; e o "expac" (OPCIONAL) que é um scrpit
+usado pelo Aursift, que tem funções avançadas de compilação para desenvolvedores
+de aplicativos...
+
+== CRIANDO UM REPOSITÓRIO PERSONALIZADO DO AUR ==
+
+Será necessária a criação de um repositório personalizado localmente e
+configurá-lo para ser utilizado pelo pacman. De acordo com o manual do
+aurutils, vamos primeiro configurar o repositório pessoal chamado "custom" e em
+um segundo momento vamos de fato criar o banco de dados "custom". Acredito que
+aqui a ordem dos fatores não altere o produto mas estou seguindo o tutorial do
+desenvolvedor.
+
+Assim, comece criando um arquivo de configuração separado para o repositório
+personalisado "custom";
+
+Como root, crie um arquivo de texto dentro da pasta "/etc/pacman.d/" com o nome
+"custom" e insira no arquivo de texto o seguinte:
+
+[options]
+
+CacheDir = /var/cache/pacman/pkg
+
+CacheDir = /var/cache/pacman/custom
+
+CleanMethod = KeepCurrent
+
+[custom]
+
+SigLevel = Optional TrustAll
+
+Server = file:///var/cache/pacman/custom
+
+Ainda como root, navegue até o arquivo "/etc/pacman.conf" e adicione a seguinte
+linha no final do arquivo, onde for possível:
+
+Include = /etc/pacman.d/custom
+
+Em uma janela de terminal, criaremos o diretório do respositório "custom" e
+depois povoar o respositório;
+
+$ sudo install -d /var/cache/pacman/custom -o $USER
+
+Em seguida, caminhe até o diretório:
+
+$ cd /var/cache/pacman/custom
+
+E depois vamos criar uma base de dados nova com o prohgrama Repose:
+
+$ repose -vf custom.db
+
+Explico, -v para verbose e -f para também criar um arquivo “custom.files” (uso do
+Pacman)
+
+Por fim, sincronize as bases de dados com o Pacman:
+
+$ sudo pacman -Syu
+
+*Nota do desenvolvedor do Aurutils (página do manual): É recomendado usar-se o
+diretório de cache do pacman (CacheDir) como o provedor dos pacotes; isso evita
+que haja qualquer incompatibilidade entre os pacotes compilados e qualquer
+versão em cache. Por essa razão vamos seguir o tutorial original do
+desenvolvedor, mas se você quiser fazer pastas de cache para o Aurutils em outra
+localização diferente da que mostramos aqui, você deverá se atentar para
+modificar as configurações do Pacman lerem os diretórios adequados).
+
+Configuração concluída!
+
+== USO DOS SCRIPTS DO AURUTILS : AURSEARCH, AURSYNC E AURCHECK ==
+
+Para procurar um pacote, usar o script "Aursearch"
+
+$ aursearch [nome_pacote]
+
+Para baixar o código-fonte de um aplicativo e compilá-lo como a maioria dos
+outros ajudantes de AUR, usa-se o script "aursync" (que roda os scripts do
+"aurfetch", "aurchain" e "aurbuild" em conjunto):
+
+$ aursync [nome_pacote]
+
+Se houver o programa "vifm", o aursync vai mostrar os arquivos de configuração
+para compilação do código-fonte, como PKGBUILD e PATCHES, e uma maneira de
+editá-los na interface de linha, do contrário o Aursync só vai mostrar uma
+lista com o nome dos arquivos que foram baixados; você poderá abrir e modificar
+esses arquivos, via interface gráfica, antes de dar prosseguimento à instalação;
+
+*Atenção. Para SALVAR e SAIR do VIM e VIFM, aperte “Esc” e depois “:x”;
+
+Para SAIR do VIM e VIFM, aperte “Esc” e depois “:q”;
+
+*Atenção. Se houver errors relacionados à falta da chave dos desenvolvedores no
+seu molho de chaves, adicione as chaves com o comando “gpg --recev-keys [CHAVE]”
+
+
+Depois da compilação sem erros (que podem ser resultado de más configurações do
+PKGBUILD), será feita uma cópia do binário produzido no repositório "custom" que
+criamos, e automaticamente o Aursync irá atualizar o arquivo da base de dados e
+disponibilizará o registro do binário no repositório.
+
+Porém, o binário que tem uma cópia no repositório ainda precisa ser instalado via
+Pacman no sistema operacional ( em /usr/bin ); esse é um passo normal que os
+ajudantes de AUR como Yaourt também fazem, porém faremos manualmente (se não me
+engano, no Aurutils não tem um gancho no script que faz essa parte ou eu ainda
+não descobri...).
+
+Então, vamos sincronizar os repositórios, incluaindo o repo pessoal "custom",
+para o pacman saber quais binários estão disponíveis:
+
+$ sudo pacman -Sy
+
+Finalmente, podemos instalar o binário gerado pelo Aurutils no sistema. Note que
+o binário agora está disponível no repositório "custom" e reconhecido pelo
+Pacman para instalação no sistma (ou seja, instalação do binário na pasta
+/usr/bin ) :
+
+$ sudo pacman -S [nome_pacote]
+
+Note que o Pacman vai buscar o pacote do repositório "custom" que criamos
+anteriormente.
+
+Para checar se há updates do AUR, rodar:
+
+$ aurcheck -d custom
+
+A flag "-d" diz para o aurcheck checar por atualizações no repositório "custom".
+
+== MANUTENÇÃO DOS PACOTES DE CACHE DO AURUTILS & PACMAN ==
+
+Depois de instalar e desinstalar vários pacotes pelo Aurutils, os códigos-fontes
+irão ficar guardados em "/home/$USER/.cache/aursync", e uma outra cópia do
+binário compilado disponível no repositório "custom" em
+"/var/cache/pacman/custom". Essa parte de limpeza geralmente é manual e deve ser
+feita periodicamente para economizar espaço em disco e consolidar a base de dados
+do Pacman e Aurutils.
+
+Poderá limpar o cache de códigos-fonte em "/home/$USER/.cache/aursync" sem
+problemas, porém os binários gerados da compilação desses cógigos-fintes ainda
+irão estar disponíveis no repositório "custom" do Pacman.
+
+Para remover binários de versões anteriormente instalados que ainda estão
+disponíveis no repositório "custom", pode-se usar tanto o comando do Pacman ou
+o script de limpeza do Pacman, que são mais ou menos equivalentes. Prefere-se o
+método de script do Pacman, "Paccache". (Acredito que você poderá, mais
+seletivamente que o Paccache, deletar os pacotes com binários do repositório
+custom manualmente, e depois prosseguir para a reconstrução da base de dados do
+respositório).
+
+O Paccache é um script poderoso e flexível para limpeza de cache do Pacman. Ele
+está junto com o pacote “pacman-contrib” de ferramentas mantido pela comunidade;
+se não tiver esse pacote ainda, instále-o com:
+
+$ sudo pacman -S pacman-contrib
+
+Para remover a disponibilidade dos binários de versões anteriores *somente* no
+repositórios personalizado “custom”, menos as três últimas versões de cada
+pacote (padrão), rodar:
+
+$ paccache -rk 3 -c /var/cache/pacman/custom
+
+Onde “-r” é o comando de remover versões antigas; “-k” (keep) de manter o número
+n de versões do pacote instalado mais recentes; e “-c” designa o caminho do
+diretório de cache do repositório que queremos que o Paccache faça a limpeza;
+
+Para remover todas as versões mais antigas, menos a versão atual dos binários, no
+repositório "custom":
+
+$ paccache -rk 1 -c /var/cache/pacman/custom
+
+Para remover todo o cache de todas as versões de pacotes contidos no repositório
+"custom":
+
+$ paccache -rk 0 -c /var/cache/pacman/custom [*AVISO: Ação não recomendada pois o
+Aurcheck possivelmente não conseguirá procurar por atualizações de pacotes que
+foram removidos do cache; porém desde que o arquivo de base de dados “custom.db”
+não for atualizado com Repose, o Aurcheck ainda conseguirá checar por updates!]
+
+-------------------------------------------------------------------------------------------------------
+
+*Atenção. Se o caminho do cache “-c /var/cache/pacman/custom” não for
+especificado, o Paccache irá fazer a limpeza nos repositórios oficiais do Pacman
+e em quelquer outro repositório pessoal que tenha sido criado dentro de
+/var/cache/pacman/ . Nesse caso, pode-se utilizar o comando do próprio pacman
+que é equivalente ao do Pacache para deixar as três últimas versões de pacotes
+nos repositórios com:
+
+$ sudo pacman -Sc
+
+Ou o comando abaixo para retirar todo o cache de binários disponíveis localmente
+de todos os repositórios (Cuidado!):
+
+$ sudo pacman -Scc [*AVISO:Comando *não* recomendado também!]
+
+-------------------------------------------------------------------------------------------------------
+
+Para que serve uma cópia do pacote de binário no repositório "custom"? Isso
+permite que o Pacman possa desinstalar um programa e reinstalá-lo no sistema
+mesmo sem acesso à internet; e se alguma atualização afetar negativamente um
+aplicativo, poderá utilizar o cache de um binário mais antigo do mesmo pacote
+(downgrade) que não apresente problemas.
+
+Se você precisar fazer downgrade de um aplicativo, ou se quiser reinstalar um
+aplicativo que desinstalou, deverá fazer novo download do binário pelo Pacman ou
+recompilar pelo Aurutils pelas formas convencionais, e isso é sempre um risco já
+que você não sabe se uma nova versão do aplicativo irá realmente funcionar no
+seu sistema ao invés de usar um binário que já estava disponível no repositório
+pessoal! Além disso, com os pacotes com os binários já compilados no seu
+repositório personalizado local, poderá fazer uma cópia desse repositório no
+pen-drive e levar para um novo computador/sistema e reinstalar todas as últimas
+versões dos aplicativos sem precisar compilar eles de novo do código-fonte.
+
+Sempre que se desinstalar um pacote do sistema e quiser retirar o binário do
+repositório local “custom” ou limpar as suas versões antigas, é necessário
+atualizar a base de dados do repositório pessoal "custom" que é utilizado pelo
+Pacman manualmente, com a ajuda de um gerenciador de base de dados chamado
+"Repose" (instalado no primeiro passo deste tutorial); Navega-se até a pasta
+/var/cache/pacman/custom e deleta-se os pacotes que não tem mais interesse e
+depois atualiza-se o arquivo da base dados da seguinte forma:
+
+$ cd /var/cache/pacman/custom
+
+$ repose custom.db -v
+
+O Repose irá atualizar o arquivo “custom.db” e -v para verbose que irá mostrar as
+operações que efetuou.
+
+Para uma lista (-l) com os binários disponíveis no “custom.db”, rode dentro da
+pasta de cache:
+
+$ repose -l custom.db
+
+Nessa operação, o Repose irá verificar quais pacotes estão disponíveis de fato no
+cache do repositório e atualizar a base de dados. Então, é necessário usar o “cd”
+e caminhar até a pasta de cache do repositório “custom”, primeiro, assim o Repose
+poderá operar com os arquivos da pasta sem precisarmos especificar caminhos para
+ele.
+
+*Em caso de manutenção e limpeza de pacotes, também não se esqueça de excluir os
+códigos-fonte na pasta “/home/[usuário]/.cache/aursync”
+
+Agora, sincronize todas as bases de dados para o catálogo de programas ficarem
+disponíveis para o Pacman com:
+
+$ sudo pacman -Sy
+
+*Exclarecimento: os procedimentos manuais que qualquer ajudante ou wrapper do AUR
+substituem são os seguintes:
+
+Download do código-fonte -> Compilação do binário e empactamento -> Cópia do
+pacote para um repositório local -> Atualização do banco de dados do repositório
+local -> Uso do Pacman para instalação do binário no sistema
+
+== EXEMPLOS DE USO DO REPOSE ==
+
+IMPORTANTE: Caminhe até a pasta que se quer criar uma base de dados para sempre
+rodar os comandos da pasta em que irá de fato trabalhar:
+
+$ cd /var/cache/pacman/custom
+
+Cria um arquivo de base de dados limpo, ou se já houver pacotes na pasta,
+atualiza a base de dados com os novos pacotes. Aqui, o arquivo da base de dados
+terá o mesmo nome que o repositório local e se chamará "custom.db":
+
+$ repose -vf custom.db
+
+A opção "-v" da verbose sempre pode ser utilizada para podermos ver o que o
+programa está fazendo, do contrário, o Repose só irá mostrar mensagens se houver
+algum erro ou aviso; e estamos usando de forma explícita a opção "-f" é para
+criar um arquivo adicional de banco de dados "custom.file" que é usado pelo
+Pacman (padrão).
+
+Quando o Aurutils já tiver compilado um binário, criado o pacote para a
+instalação (xyz.pkg.tar.gz) e copiado ele para a pasta do repositório custom
+local, você poderá atualizar o arquido de banco de dados com o seguinte comando:
+
+$ repose custom.db -v
+
+Neste caso, como o Repose vai encontrar o arquivo "custom.db", irá simplesmente
+atualizá-lo e a opção "-v" vai mostrar quais pacotes ele está inserindo na base
+de dados (adding) e quantos retirando (dropping).
+
+Assim, sempre que Deletar um pacote do cache do repositório local, atualize o
+arquivo de bacno de dados.
+
+Após essas operações, não se esqueça de Sincronizar os repositórios do Pacman
+com:
+
+$ sudo pacman -Sy
+
+*Lembre-se que o Aursync já atualiza o arquivo do banco de dados automaticamente
+toda vez que compila um pacote novo.
+
+== REFERÊNCIAS ==
+
+1) https://wiki.archlinux.org/index.php/AUR_helpers_(Português)
+
+2) https://wiki.archlinux.org/index.php/Talk:AUR_helpers
+
+3)
+https://www.reddit.com/r/archlinux/comments/9aotjr/aurman_no_longer_being_maintained_publicly/
+
+4) https://www.ostechnix.com/recommended-way-clean-package-cache-arch-linux/
+
+5)
+https://www.reddit.com/r/archlinux/comments/7kxa9o/aurutils_reporemove_in_a_pacman_hook_and_list/
+
+6) https://homepage.cs.uri.edu/~thenry/resources/unix_art/ch01s06.html
+
+7) $ man pacman.conf
+
+Vide "REPOSITORY SECTIONS"
+
+8) $ man aurutils
+
+9) $ man aursync
+
+10) $ man paccache
+
+11) $ man repose
+
+===================================================
+
+===================================================
+

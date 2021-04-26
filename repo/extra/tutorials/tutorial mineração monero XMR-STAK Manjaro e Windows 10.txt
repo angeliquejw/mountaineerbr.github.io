@@ -1,0 +1,576 @@
+
+01/maio/2018
+
+** LEIA-ME: TUTORIAL: Instalação e Configuração do
+
+Minerador de Monero XMR-Stak no Windows e Manjaro Linux **
+
+Tutorial em Vídeo: https://youtu.be/lpS4rCIcobw
+
+De forma geral, vou discutir sobre: o que é uma carteira virtual de Monero?;
+quais os benefícios em comparação do Monero com o Bitcoin para um
+usuário(não-minerador,comum)? ; qual seu nome de usuário em um grupo de
+mineração?; como obter o "seu" endereço de recebimento de pagamento da carteira
+virtual?; como escolher um grupo de mineração (“pool”)?; como fazer “Back-ups” da
+sua carteira virtual?; qual versão do XMR-Stak baixar para usar?; quais
+dependências de bibliotecas são necessárias para rodar o minerador?; como
+verificar se está tudo configurado corretamente?; qual a sua taxa de geração de
+hashes?; quantos resultados enviou para o pool de mineração?;
+
+**IMPORTANTE**: Sobre o Hack para zerar a doação: depois de umas semanas testando
+o hack que mostro neste vídeo, apesar de aparecer no cabeçalho do programa que
+está a 0.0% de doação, na realidade, acompanhando os Logs, pude verificar que a
+cada 100 minutos minerando para mim, o minerador mudava para a 'Dev Pool' para
+minerar para eles; ou seja, o hack que eu mostro neste vídeo não funciona; eu
+atualizei o hack por completo (está em ‘2e’ neste tutorial escrito) e de forma
+muito mais simples, conseguimos zerar a doação automática para os Devs: Veja
+esse outro vídeo mais novo e atualizado com a instalação do XMR-Stalk2.4.4 no
+Manjaro Linux ( https://www.youtube.com/watch?v=4WF4dZk3pmU );
+
+*IMPORTANTE*: Se a carteira virtual do Monero não abrir, favor seguir o ponto
+(1a) no tutorial completo em texto; ...na mesma pasta de "monero-wallet-gui",
+clique em “start-low-graphics-mode.bat”; isso deve resolver qualquer problema
+que tenha ocorrido nesta etapa com relação a inicialização da carteira virtual;
+
+*IMPORTANTE*: Erros ao iniciar o XMR-Stak, com erros sobre a falta dos arquivos
+"MSVCP140.dll" e "VCRuntime140.dll", por favor siga os passos em (2b); no
+Windows, pode ser necessária a instalação de bibliotecas do Visual Studio da
+Microsoft para que XMR-Stak rode corretamente; neste caso baixar o arquivo
+abaixo e instalar:
+
+https://go.microsoft.com/fwlink/?LinkId=746572
+
+OBS 1: Este tutorial funciona em todas as versões do Windows (Vista, 7, 8 e
+inclusive o Windows 10), para CPU e também para GPU da NVIDIA e da AMD;
+*Atenção* na hora de fazer o download do XMR-Stak no endereço do Github pois
+há versões que só contém suporte para CPU ou só para NVIDIA ou só para AMD;
+aqui queremos instalar a versão com suporte a todos os cartões gráficos;
+
+ÍNDICE GERAL
+
+INTRODUÇÃO
+
+0. INSTALANDO UM APLICATIVO DE ACESSO A CARTEIRAS VIRTUAIS DE MONERO
+
+1. CRIANDO UMA CARTEIRA VIRTUAL PESSOAL E FAZENDO BACKUPS
+
+2. INSTALANDO O MINERADOR XMR-Stak
+
+3. PREPARANDO O SISTEMA OPERACIONAL PARA MINERAÇÃO - HABILITANDO SUPORTE A
+PÁGINAS GRANDES E DESEMPENHO DE ENERGIA MÁXIMO
+
+4. ESCOLHENDO UM GRUPO DE MINERAÇÃO DE MONERO
+
+5. ÚLTIMAS CONFIGURAÇÕES E EXECUTANDO O XMR-Stak (CPU E GPU)
+
+INTRODUÇÃO
+
+O Monero é uma Altcoin (Alternative coin), ou seja, uma moeda digital que não é
+"o" Bitcoin; o Monero se diferencia do Bitcoin por sua maior qualidade de
+"Anonimidade", pois (A) tem seu block-chain, ou o "livro contábil digital de
+transações", controlado por um algoritmo, ou regras computacionais, que impedem
+que se possa identificar a direção de transferência monetária entre duas
+carteiras virtuais; (B) tem anonima a identidade ou endereço de carteira virtual
+específica das partes envolvidas; (C) somente podem saber a quantidade
+transferida de Moeda Monero as duas pessoas envolvidas na transação e (D) não se
+pode saber se aquela quantidade de Monero foi gasta pela parte que recebeu;
+
+Esses pontos mencionados no parágrafo anterior contrastam com o funcionamento do
+block-chain do Bitcoin pois este, apesar de ter uma certa garantia de
+Anonimidade, pode ter as transações rastreadas com algum esforço, pois as
+transferências deixam algumas referências intelegíveis no block-chain; isso, na
+realidade, pode ser um benefício: por exemplo, se uma determinada carteira
+virtual está recebendo Bitcoins demais, Bitcoins que são de certa forma forjados
+ou anti-éticas, é necessário que a comunidade mantenedora do Bitcoin possa
+rastrear essas transações inválidas, mou qualquer um, sob um esforço derivado de
+um ato ilegal, sem necessariamente retirar o direito da anonimidade de pessoas
+comuns que não tem nada a ver com o ato anti-ético, anti-político no sistema do
+Bitcoin;
+
+É importante que, antes de mais nada, criemos uma "carteira virtual", grátis,
+para que a nosso dinheiro possa ficar seguro; uma carteira virtual nada mais é
+do que uma porta de acesso que você tem no computador para se conectar ao
+block-chain do Monero e acessar seu dinheiro; cada tipo de moeda virtual só vai
+para um tipo específico de carteira virtual construída nos moldes para funcionar
+com os diferentes block-chains específicos, ou seja, a carteira virtual do
+Bitcoin só vai funcionar para transações com Bitcoins, e uma carteira de Monero
+só efetuará e receberá transferências de Moedas de Monero; as Casas de Câmbio,
+ou “Exchanges”, fazem essas conversões de moedas para nós, mas isso é assunto
+para um outro tutorial;
+
+Uma vez que nossa carteira virtual for criada, a "recompensa" por minerar em
+grupos de mineradores, ou "pools", teremos para onde receber a recompensa em
+dinheiro quando o limite mínimo de recebimento atingir uma determinada
+quantidade (especificada em cada grupo de minerações que você escolher); no caso
+deste exemplo, vamos minerar Moedas de Monero (a sigla oficial desta moeda é
+"XMR" - X de cripto/segurança e MR de Monero), pois vamos estar ajudando a rede
+do Monero, ou seja, ajudando a rede a processar o block-chain do Monero; como
+ajudamos com esse processamento de verificação de segurança no block-chain do
+Monero, gastamos energia elétrica com isso e devemos receber algum tipo de
+recompensa por isso; daí é que as taxas de transações pagas pelos usuários do
+Monero entram para pagar os mineradores, juntamente com um adicional de Moeda de
+Monero que é minerado, criado e entregue ao minerador....
+
+Sempre precisaremos de uma internet funcionando durante o tutorial, inclusive
+para a contínua execução da mineração depois que o XMR-Stak estiver configurado
+e rodando beleza; no Windows, será necessário reiniciar durante as
+instalações/configurações;
+
+0. INSTALANDO UM APLICATIVO DE ACESSO A CARTEIRAS VIRTUAIS DE MONERO
+
+WINDOWS
+
+0a. No Windows, é primeiro necessário abrir exceções para o Windows Defender, ou
+outro antivírus, não bloquear a carteira virtual do Monero e nem o minerador
+XMR-Stak, pois esses aplicativos contém partes do Block-chain do Monero que o
+Windows Defender vai bloquear; por questão de segurança, vamos adicionar duas
+exceções, uma temporária (para a pasta "Downloads" que pode ser retirada depois
+de terminarmos o tutorial) e uma exceção permanente, que será para uma pasta
+nova criada pelo usuário fora da pasta Downloads;
+
+Então, primeiramente, vamos criar uma pasta chamada "mineracao" dentro da nossa
+pasta de usuário, clicando com o botão direito e criando a pasta (exemplo, foi
+criado um diretório em "C:\Usuários\seu_nome_de_usuário\mineracao" );
+
+0b. Abra a "Central de Segurança do Windows Defender" e selecione "Proteção
+contra vírus e ameaças" > "Configurações de Proteção contra vírus e ameaças" >
+"Adicionar ou remover exclusões"; em Adicionar uma exclusão, escolha "pastas" e
+selecione primeiro a pasta "C:\Usuários\seu_nome_de_usuário\Downloads" e depois
+"C:\Usuários\seu_nome_de_usuário\mineracao";
+
+0c. Acessar o site dos criadores do Monero e baixar o aplicativo de interface
+gráfica de carteira virtual do Monero de acordo com sua versão do Windows, no
+nosso exemplo, vamos fazer o download para Windows 64-bit; abrir o arquivo
+zipado "monero-gui-x64-vx.xx.x.x" e descomprimir a pasta "monero-gui-vx.xx.x.x"
+para a pasta "mineracao" ;
+
+https://getmonero.org/downloads/
+
+GNU/LINUX
+
+0d. No Manjaro ou em outro derivativo do Arch Linux, abrir o "Adicionar/Remover
+Software" (interface gráfica do Pacman Package Manager), entrar em
+"Preferências", selecionar a guia "AUR" (Arch User Repositories) e ativar
+"Suporte ao AUR";
+
+0e. Na tela de pesquisa do Pacman, procure por "monero-gui-bin", selecione-o e
+clique em Aplicar; autentique com sua senha de administrador e em seguida clique
+em Comprometer;
+
+1. CRIANDO UMA CARTEIRA VIRTUAL PESSOAL E FAZENDO BACKUPS
+
+1a. No WINDOWS, navegue até a pasta
+"C:\Usuários\nomeusuario\mineracao\monero-gui-vx.xx.x.x" que foi descomprimida
+e execute o arquivo "monero-wallet-gui.exe";
+
+ATENÇÃO: Estou ciente que no tutorial do youtube, a interface gráfica da carteira
+virtual de Monero não abriu a interface gráfica corretamente; se a carteira não
+abrir no seu computador de Windows rodando nativamnete, é por que está com
+gráficos muitos precários (no meu caso, uma máquina virtual do Windows...);
+isso não é um empecilho, simplesmente clique em um outro arquivo na mesma pasta
+da carteira virtual chamado de “start-low-graphics-mode.bat”; isto deve resolver
+qualquer problema que tenha ocorrido nesta etapa com relação a inicialização da
+carteira virtual;
+
+( Referência do Reddit:
+https://www.reddit.com/r/Monero/comments/7jqlvf/i_can_not_start_the_monerowalletguiexe_windows/
+)
+
+1b. No MANJARO, procurar Monero-gui-bin nos AUR via Pacman "Adicionar ou Remover
+Software"; espere a compilação terminar sem erros;
+
+1c. Execute o aplicativo; na tela de "Boas-vindas", selecione o idioma
+"Português" > "Criar nova carteira"; adicionar nome da carteira (pode ser um
+apelido) e anotar em um caderno as palavras semente (para uma recuperação da
+carteira diretamente do block-chain sem a senha) e também, para ter certeza
+absoluta, o caminho de onde os arquivos da carteira virtual estarão guardados em
+seu computador;
+
+1d. Clique em Avançar e crie uma senha forte e anote essa senha no caderno,
+também;
+
+1e. Para se comunicar com a Rede Monero, escolha a opção de se conectar a nó
+remoto; um dos endereços de nó remoto que sugiro é "node.moneroworld.com" sem as
+aspas, e a porta número "18089";
+
+1f. Clicar em Avançar e depois em "Usar o Monero" para acessar sua carteira
+virtual;
+
+2. INSTALANDO O MINERADOR XMR-Stak
+
+WINDOWS
+
+2a. Acessar o site do GitHub (abaixo) do programa XMR-Stak e fazer o download do
+pacote ZIP "xmr-stak-win64.zip";
+
+https://github.com/fireice-uk/xmr-stak/releases
+
+2b. Abrir o arquivo zipado em Downloads; extrair (descomprimir) a pasta
+"xmr-stak" em um diretório de sua preferência, no caso do nosso exemplo, o
+caminho para a pasta nossa criada é "C:\Usuários\seu_nome_de_usuário\mineracao";
+observe que dentro da pasta "xmr-stak", há mais arquivos, incluindo .dlls;
+
+2c. IMPORTANTE: No Windows, pode ser necessário que você precise instalar pacotes
+de bibliotecas do Visual Studio da Microsoft para que XMR-Stak rode corretamente;
+neste caso baixar pelo endereço abaixo o arquivo "VC_redist.x64.exe”:
+
+https://go.microsoft.com/fwlink/?LinkId=746572
+
+Download alternativo:
+
+https://www.microsoft.com/pt-BR/download/details.aspx?id=53840
+
+GNU/LINUX
+
+2d. Para instalar nos derivados do Arch usando o yaourt na linha de comando,
+digitar:
+
+$ yaourt -S xmr-stak-git
+
+Observe que poderá haver outros pacotes de dependências adicionais que irão ser
+instalados, como o gcc6, numactl, hwloc, cuda, etc;
+
+Vá para 2e;
+
+2e. No vídeo do tutorial, vou ensinar a fazer um hack para zerar o "nível de
+doação" de tempo de CPU para os desenvolvedores do XMR-stak no Manjaro; no
+Windows, deve-se compilar o programa desde o código fonte, e é um processo longo
+e doloroso que não abordaremos neste tutorial;
+
+2f.IMPORTANTE: Após a compilação do binário pelo Pacman(yaourt), faça uma cópia
+do executável localizado em "/usr/bin" para uma pasta dentro do seu usuário
+dentro de "/home/nomeusuario/mineracao/xmr-stak" por exemplo; use o comando de
+cp para copiar:
+
+$ cp "/usr/bin/xmr-stak" "/home/nomeusuario/mineracao"
+
+HACK PACMAN+YAOURT: Acesse o local de construção de pacotes do AUR no seu sistema
+e navegue até: ".../xmr-stak-git/src/xmr-stak/xmrstak/donate-level.hpp", abra em
+um editor de texto e mude a última linha para que fique …”0.0 / 100.0" e salve o
+arquivo antes de a compilação do Pacman terminar para zerar a doação de tempo de
+CPU para os desenvolvedores do XMR-Stak no Manjaro Linux;
+
+2e INSTALANDO COM HACK 0% DE DOAÇÃO PELO YAOURT:
+
+Testado com a versão mais recente atualizada do XMR-stak--git v2.4.4
+
+Para realizarmos todas as modificações pelo programa do yaourt, vamos precisar de
+um editor de texto de interface de linha que leia os arquivos de PKGBUILD dos
+repositórios do AUR.
+
+Os PKGBUILD são arquivos que contém instruções para o yaourt de onde puxar os
+códigos-fonte (no caso xmr-stak, puxam do git-hub) e qual compiladores usar,
+entre outras coisas. No tutorial do vídeo novo que fiz no youtube e que deixo o
+link abaixo, vamos precisar de um editor de texto de linha de comando -
+recomendo o 'nano', ou se você já estiver acostumado, pode ser o ‘vim’...
+
+Porém, acredito que as modificações no PKGBUILD também poderão ser realizadas com
+um editor de texto gráfico, como o Mousepad ou um outro da sua distribuição,
+contanto que em determinado momento do começo da preparação da instalação do
+xmr-stak pelo yaourt, você deixar pausado, digamos assim, enquanto faz as
+modificações no PKGBUILD pelo editor de texto gráfico; a pasta em que o yaourt
+deixa os pacotes que baixa do AUR ficam em
+
+/tmp/yaourt-tmp/[nome_usuário]
+
+Começando a instalação pelo yaourt:
+
+$ yaourt -S xmr-stak-git
+
+Quando ele perguntar:
+
+==> Edit PKGBUILD ? [Y/n] ("A" to abort)
+
+==> ------------------------------------
+
+==>
+
+Digite “y”
+
+Na próxima pergunta:
+
+==> Edit PKGBUILD with:
+
+Digite ‘nano’ ou ‘vim’ - ou qual você achar melhor de usar!
+
+Uma vez dentro do PKGBUILD, basta deletar o sinal de jogo-da-velha '#'
+(sustenido) do bloco a seguir:
+
+prepare() {
+
+cd "$srcdir/xmr-stak"
+
+#patch -p1 -i ../no-donate.patch
+
+}
+
+Salve; no nano, aperte Crt+O e depois Enter; depois, Ctr+X para sair do editor e
+voltar ao yaourt;
+
+Antes de sair do nano, se precisar atualizar a versao do compilador de C e C++
+para uma versão mais recente do que a que está especificada no PKGBUILD, mude no
+bloco a seguir gcc-6' para 'gcc-7' e 'gcc++-6' para 'gcc++-7':
+
+build() {
+
+cd "$srcdir/xmr-stak"
+
+CC=/bin/gcc-6 CXX=/bin/g++-6 cmake .
+
+make
+
+}
+
+Salve e saio do PKGBUILD e volte para o yaourt; o yaourt vai te apresentar as
+dependências para se construir o xmr-stak, e vai te perguntar:
+
+==> Continue building xmr-stak-git ? [Y/n]
+
+==> --------------------------------------
+
+==>
+
+Digite ‘y’
+
+No final, o yaourt vai fazer mais umas perguntas:
+
+==> Exporting xmr-stak-git to [diretório_em_seu_sistema]
+
+[sudo] password for [nome_usuário]:
+
+Digite sua senha de sudoer
+
+E, finalmente, em:
+
+==> Continue installing xmr-stak_cpu ? [Y/n]
+
+==> [v]iew package contents [c]heck package with namcap
+
+==> ---------------------------------------------------
+
+==>
+
+Digite ‘y’
+
+E, pronto! Agota te garanto que usamos o no-donate.patch dos próprios developers
+da maneira correta e o minerdor só vai minerar para sua pool.
+
+2f. Para rodar sem configurar o GPU (ou testar só se a mineração do CPU está
+funcionando), navegue até o diretório em que você deseja executar o xmr-stak
+pela primeira vez; no diretório que você escolher rodá-lo serão criados arquivos
+de configuração do seu pool, do seu cpu, do seu NVIDIA, AMD etc...
+
+[nomeusuario@MJUX ~]$ cd mineracao
+
+[nomeusuario@MJUX mineracao]$ xmr-stak
+
+3. PREPARANDO O SISTEMA OPERACIONAL PARA MINERAÇÃO - HABILITANDO SUPORTE A
+PÁGINAS GRANDES E DESEMPENHO DE ENERGIA MÁXIMO
+
+As páginas grandes são pedaços de memória que são alocadas para que o minerador
+possa rodar com rapidez. Se habilitado, o acesso à páginas grandes pode aumentar
+o desempenho do minerador em até 20%. Por padrão, o minerador tentará alocar
+páginas grandes automaticamente quando inicializar, porém primeiro precisamos
+conceder autorização para que consigamos bloquear, ou alocar, páginas grandes de
+memória;
+
+WINDOWS 10 HOME EDITION
+
+3a. No menu Iniciar, clique em Executar; digite "gpedit.msc" para abrir o "Editor
+de Política de Grupos Locais"; pode ser que na sua versão de Windows ele abra
+direto;
+
+3b. No Windows 10 Home Edition, apesar de estar presente, esta ferramenta
+encontra-se bloqueada; para habilitar esta funcionalidade, faça o download de
+"gpedit-enabler.bat" no link abaixo:
+
+https://www.itechtics.com/?ddownload=26357
+
+Fonte da referência: "GPEdit Enabler for Windows 10 Home Edition", em
+https://www.itechtics.com/easily-enable-group-policy-editor-gpedit-msc-in-windows-10-home-edition/
+
+3c. Finalizado o download, execute-o com privilégios de Administrador (clicando
+com o botão direito do mouse em cima); após finalizada a instalação; reinicie o
+equipamento;
+
+3d. Iniciar e depois em Executar; digite gpedit.msc e Enter; isso irá abrir o
+"Editor de Política de Grupos Locais";
+
+3e. Expanda "Configuração do Computador" e, em seguida, expanda "Configurações do
+Windows";
+
+3f. Expanda "Configurações de Segurança" e, em seguida, expanda "Políticas
+Locais";
+
+3g. Selecione a pasta "Atribuição de Direitos do Usuário";
+
+3h. No painel de detalhes, clique duas vezes em "Bloquear páginas na memória";
+
+3i. Na caixa que abriu, "Bloqueio de páginas na memória", clique em "Adicionar
+usuário ou grupo";
+
+3j. Na caixa de diálogo "Selecionar usuários, contas de serviço ou grupos",
+adicione seu nome de usuário no Windows, e clique em "Verificar"; após a
+verificação, dê OK em todas as caixas de diálogo abertas e feche;
+
+3k. Reinicie para que a mudança entre em vigor;
+
+OBS: O Windows também tende a fragmentar muito a memória. Se você estiver
+executando em um sistema com 4 a 8 GB de RAM, talvez seja necessário desativar
+todos os aplicativos de inicialização automática e reinicializar para ter um
+espaço suficiente de memória contígua;
+
+IMPORTANTE: Quando formos rodar o XMR-Stak no ítem mais à frente, lembre-se que
+você deverá clicar com o botão direito sobre o aplicativo executável e
+selecionar "Executar como administrador" no Windows;
+
+3l. É necessário mudarmos o plano de economia de energia do Windows para ele usar
+sempre a maior frequência e potência do computador; para isso, acesse
+"Configurações do Windows" > "Sistema" > "Energia e Suspensão"; configure para
+um plano de alta performance; se não houver essa opção, configure manualmente
+para a menor economia de energia possível;
+
+3m. Ainda nessa janela, clique em "Configurações de Energia Adicionais" >
+"Alterar configurações de plano" e verifique que as opções estão marcadas como
+sempre para consumir mais energia; em seguida clique "Configurações de energia
+avançadas"; configure as opções "Disco rígido - Na tomada: Nunca",
+"Configurações de adaptadores sem fio - Na tomada: Desempenho máximo",
+"Suspender - Na tomada: Ativar", "PCI Express - Política de resfriamento do
+sistema Na tomada: Ativo", etc,, e depois de finalizada as alterações, clique em
+todas os OK das caixas de diálogo abertas até agora;
+
+Uma refrência de como modificar essas comfigurações:
+https://www.youtube.com/watch?v=EpHjTslotX0
+
+GNU/LINUX
+
+3n.No Linux, é necessário aumentar seu "ulimit -l"; para isso, abra e adicionar
+as seguintes linhas no arquivo /etc/security/limits.conf sem as aspas, com a
+ajuda de um editor de texto de sua preferência (no nosso tutorial, vou utilizar
+o nano):
+
+$ sudo nano /etc/security/limits.conf
+
+Linhas a adicionar no documento de texto abaixo com os asteriscos:
+
+* soft memlock 262144
+
+* hard memlock 262144
+
+Salve com (Ctrl+o); Enter e (Ctrl+x) para sair;
+
+3o. IMPORTANTE: será necessário habilitar o suporte a páginas grandes sempre que
+reiniciar o sistema e antes de rodar o XMR-Stak; o comando seguinte habilita o
+suporte a páginas grandes até o reinício do sistema:
+
+$ sudo sysctl -w vm.nr_hugepages=128
+
+3p. Verifique se a frequência do CPU está no máximo com:
+
+$ watch grep \"cpu MHz\" /proc/cpuinfo
+
+3q. IMPORTANTE: Para mudar o governador (controlador de energia) para performance
+(no caso do meu tutorial, estou usando um processador Intel(r), e esses
+governadores de energia mudam de acordo com o fabricante do CPU); este comando
+deve ser executado sempre que reinicializar o computador no Linux:
+
+$ sudo cpupower frequency-set -g performance
+
+OBS: Pode-se instalar e utilizar o comando "sensors" para verificar e acompanhar
+temperatura e velocidade dos circuladores de ar do computador, tanto da CPU
+quanto da GPU;
+
+4. ESCOLHENDO UM GRUPO DE MINERAÇÃO DE MONERO
+
+4a. Entre no site http://www.moneropools.com/ e escolha um grupo de mineração; os
+critérios para escolha de grupos podem ser: tamanho do grupo (nem um muito
+pequeno, nem um muito ruim - os muito pequenos são um pouco ruim em termos de
+tempo para os usuários com poder de processamento baixo, os grupos grandes
+demais são uma ameaça ao block-chain); taxa do grupo (pool ou group fee) que
+deverá ser retida pelo grupo toda vez que você minerar, mínimo de recompensa que
+pode ser retirado para a sua carteira virtual, se o grupo suporta fazer as
+transferências de recompensa em outra moeda que não a Moeda Monero, gráficos e
+informações disponíveis aos mineradores do grupo, e também, suporte do grupo
+(geralmente em inglês, pode ser por somente e-mail, chat ou FAQ), visõe
+políticas do grupo etc;
+
+4b. Para este tutorial, vamos escolher a XMRPool.eu
+https://web.xmrpool.eu/#getting_started ; tomar nota das informações de conexão
+com o grupo (endereço de conexão com o grupo e a porta a ser utilizada para
+receber e enviar os dados de mineração);
+
+Endereço do grupo de mineração: xmrpool.eu
+
+Porta: 3333
+
+Dificuldade de começo: 10000
+
+5. ÚLTIMAS CONFIGURAÇÕES E EXECUTANDO O XMR-Stak (CPU E GPU)
+
+WINDOWS E MANJARO LINUX
+
+Na primeira vez que o XMR-Stack for aberto, você deverá fornecer algumas
+informações de configuração finais sobre o grupo de mineração ao qual ele vai
+se conectar e entregar os resultados; no Windows, navegue até a pasta
+"nomeusuario\mineracao\xmr-stak" e abra como Administrador o arquivo executável
+"xmr-stak.exe"; no Manjaro Linux, é necessário alguns passos a mais para
+utilizar o GPU da nvidia; vide mais abaixo, porém uma vez executado o binário no
+Manjaro Linux, a configuração apresentada a seguir é idêntica;
+
+5a. Não vamos discorrer muito sobre o que cada configuração significa no tutorial
+escrito; no vídeo falo um pouco mais; na pergunta "Do you want to use the HTTP
+interface?"; digite "0" e Enter;
+
+5b. "Please enter the currency that you want to mine:", digite "monero7" e Enter;
+
+5c. "Pool address:", digite "xmrpool.eu:3333" ou qualquer endereço de grupo de
+mineração que você escolher, com a porta de conexão;
+
+5d. "Username (wallet address or pool login):" , vá até a sua nova carteira
+virtual de Monero, na guia Receber, copie seu endereço de recebimento de Monero
+de 95 caracteres e cole no terminal do XMR-Stak; confira se está tudo certo e
+Enter;
+
+5e. "Password (mostly empty or x):", digite "x";
+
+5f. Deixe em branco "Rig identifier..."; nas próximas três etapas, responda com
+"n" e Enter;
+
+5g. O XMR-Stak deve estar funcionando; espere alguns minutos e tecle "h" para ver
+relatório de hashrate, "r" results e "c" para ver o estado da conexão com o pool
+de mineração; certifique-se que o CPU e o GPU estão gerando hasrate; e monitore
+o hashrate tanto pelo XMR-Stak quanto pela webpage do grupo de mineração, use
+seu endereço de carteira virtual fornecido para ver quantos hashes eles estão
+recebendo e te devem de recompensa;
+
+5h. No Windows, após terminar de instalar o XMR-Stark e a carteira virtual,
+pode-se desabilitar a exclusão concedida à pasta "Downloads" no Windows defender
+e deixar somente as pastas em que os arquivos do XMR-stal e carteira rodam;
+
+GNU/LINUX
+
+No Linux, se você estiver utilizando o driver
+"video-hybrid-intel-nvidia-bumblebee" assim como eu, poderá ser necessário rodar
+o seguinte comando em (5c) toda vez antes de iniciar o minerador xmr-stak;
+
+5i. Inicie a disponibilização de acesso ao cartão gráfico da NVIDIA com o
+comando:
+
+$ optirun -b none nvidia-settings -c :8
+
+5j. Navegue até a pasta que você deseja minerar, onde serão criados, assim que
+for executado o xmr-stak pela primeira vez, os arquivos de configuração do seu
+pool, cpu, e outros;
+
+[nomeusuario@MJUX ~]$ cd mineracao
+
+[nomeusuario@MJUX mineracao]$ xmr-stak
+
+5k. Lembre-se que os itens (3o), (3q), (5i) e (5j) sempre devem ser executados
+antes de iniciar o XMR-Stak no Manjaro Linux, enquanto que no Windows, deve-se
+iniciar o XMR-Stak como Administrador se não tiver habilitado pelo procedimento
+do “gpedit” as permissões para o usuário, de forma a poder alocar as páginas
+grandes.
+
+* * = = F I M = = * *
+

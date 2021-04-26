@@ -1,0 +1,62 @@
+Thank you for requesting my 22 Rules for using Bollinger Bands. One of the great joys of having invented an analytical technique such as Bollinger Bands is seeing what other people do with it. The rules below cover the use of Bollinger Bands. They were assembled in response to questions often asked by users and our experience over 30 years of using the bands. While there are many ways to use Bollinger Bands, these rules should serve as a good starting point.
+ 
+John Bollinger's 22 Bollinger Band Rules:
+ 
+1 Bollinger Bands provide a relative definition of high and low. By definition price is high at the upper band and low at the lower band.
+ 
+2 That relative definition can be used to compare price action and indicator action to arrive at rigorous buy and sell decisions.
+ 
+3 Appropriate indicators can be derived from momentum, volume, sentiment, open interest, inter-market data, etc.
+ 
+4 If more than one indicator is used the indicators should not be directly related to one another. For example, a momentum indicator might complement a volume indicator successfully, but two momentum indicators aren't better than one.
+ 
+5 Bollinger Bands can be used in pattern recognition to define/clarify pure price patterns such as "M" tops and "W" bottoms, momentum shifts, etc.
+ 
+6 Tags of the bands are just that, tags not signals. A tag of the upper Bollinger Band is NOT in-and-of-itself a sell signal. A tag of the lower Bollinger Band is NOT in-and-of-itself a buy signal.
+ 
+7 In trending markets price can, and does, walk up the upper Bollinger Band and down the lower Bollinger Band.
+ 
+8 Closes outside the Bollinger Bands are initially continuation signals, not reversal signals. (This has been the basis for many successful volatility breakout systems.)
+ 
+9 The default parameters of 20 periods for the moving average and standard deviation calculations, and two standard deviations for the width of the bands are just that, defaults. The actual parameters needed for any given market/task may be different.
+ 
+10 The average deployed as the middle Bollinger Band should not be the best one for crossovers. Rather, it should be descriptive of the intermediate-term trend.
+ 
+11 For consistent price containment: If the average is lengthened the number of standard deviations needs to be increased; from 2 at 20 periods, to 2.1 at 50 periods. Likewise, if the average is shortened the number of standard deviations should be reduced; from 2 at 20 periods, to 1.9 at 10 periods.
+ 
+12 Traditional Bollinger Bands are based upon a simple moving average. This is because a simple average is used in the standard deviation calculation and we wish to be logically consistent.
+ 
+13 Exponential Bollinger Bands eliminate sudden changes in the width of the bands caused by large price changes exiting the back of the calculation window. Exponential averages must be used for BOTH the middle band and in the calculation of standard deviation.
+ 
+14 Make no statistical assumptions based on the use of the standard deviation calculation in the construction of the bands. The distribution of security prices is non-normal and the typical sample size in most deployments of Bollinger Bands is too small for statistical significance. (In practice we typically find 90%, not 95%, of the data inside Bollinger Bands with the default parameters)
+ 
+15 %b tells us where we are in relation to the Bollinger Bands. The position within the bands is calculated using an adaptation of the formula for Stochastics
+ 
+16 %b has many uses; among the more important are identification of divergences, pattern recognition and the coding of trading systems using Bollinger Bands.
+ 
+17 Indicators can be normalized with %b, eliminating fixed thresholds in the process. To do this plot 50-period or longer Bollinger Bands on an indicator and then calculate %b of the indicator.
+ 
+18 BandWidth tells us how wide the Bollinger Bands are. The raw width is normalized using the middle band. Using the default parameters BandWidth is four times the coefficient of variation.
+ 
+19 BandWidth has many uses. Its most popular use is to identify "The Squeeze", but is also useful in identifying trend changes.
+ 
+20 Bollinger Bands can be used on most financial time series, including equities, indices, foreign exchange, commodities, futures, options and bonds.
+ 
+21 Bollinger Bands can be used on bars of any length, 5 minutes, one hour, daily, weekly, etc. The key is that the bars must contain enough activity to give a robust picture of the price-formation mechanism at work.
+ 
+22 Bollinger Bands do not provide continuous advice; rather they help identify setups where the odds may be in your favor.
+ 
+To receive occasional emails from me regarding upcoming Bollinger Band events and my new work please sign up here. We never share your information with anyone.
+ 
+To learn more about Bollinger Bands, and access educational videos and articles, visit www.BollingerBands.com
+ 
+Good Trading,
+ 
+John Bollinger
+www.BollingerBands.com
+www.BollingerBands.us
+ 
+ 
+Bollinger Capital Management, Inc.
+PO Box 3358
+Manhattan Beach, CA 90266

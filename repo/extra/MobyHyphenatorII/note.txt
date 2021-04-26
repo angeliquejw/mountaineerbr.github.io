@@ -1,0 +1,7 @@
+#<http://www.gutenberg.org/ebooks/3204>
+#<http://www.gutenberg.org/files/3204/>
+#<http://www.gutenberg.org/files/3204/files/mhyph.txt>
+
+#join same arq processed differently
+pr -m -t <(tr -d '¥' <"${DIC}") <(tr '¥' '-' <"${DIC}") | sed -e 's/\r//g' -e 's/\s\s*/ /g' -e 's/\t//g' | sed 's/^\([a-z][a-z]*\)\s/\1\t/' | grep -ai "^${@:-.}" | column -ets $'\t' -NWORD,HYPHEN -TWORD
+

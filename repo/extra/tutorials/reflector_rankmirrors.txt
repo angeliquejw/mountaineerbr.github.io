@@ -1,0 +1,155 @@
+
+=============================================
+
+CLASSIFICANDO OS SERVIDORES DE ESPELHOS
+
+DO ARCH COM RANKMIRRORS & REFLECTOR
+
+[Atualizado em 11/09/2018)
+
+Tutorial em vídeo:
+
+https://youtu.be/ssaJEXwozx4
+
+================ INTRODUÇÃO =================
+
+O Rankmirrors é um script que classifica os servidores de uma lista já definida
+com relação ao tempo de resposta .
+
+A lista *padrão* com servidores de espelhos do Arch é mantida pelo pacote
+"pacman-mirrors" que é parte da coleção maior, "pacman-contrib" mantido pela
+comunidade. Toda vez que o Pacman atualiza o "pacman-mirrors", é recriado o
+arquivo "/etc/pacman.d/mirrorlist". Se esse arquivo "mirrorlist" for
+personalizado, o Pacman vai criar uma arquivo "mirrorlist.pacnew", o qual vai
+conter uma lista de servidores atualizada do mundo todo...
+
+No primeiro método, vamos primeiro criar uma lista de espelhos personalizada pelo
+site "Pacman Mirrorlist Generator" e depois classificá-los por velocidade com o
+script do Rankmirrors. Este processo de classificação é bastante manual; com
+base no site "Arch Mirror Status", você poderá ainda modificar a ordem dos
+servidores manualmente, dependendo do que você verificar no site do “Arch Mirror
+Status” e considerar bons parâmetros.
+
+No segundo método, mais automatizado, vamos utilizar o Reflector que além de
+classificar os servidores de espelho por velocidade, pode utilizar outros
+parâmetros para filtragem como por exemplo, o quanto o servidor se encontra
+"populado" (ou atualizado -- veja "Completion%" disponível no site do "Arch
+Mirror Status"), que serve como um parâmetro de confiabilidade de um servidor.
+
+============= ATENÇÃO -- BACKUP =============
+
+Antes de prosseguir, faça um backup do arquivo "mirrorlist" do seu pacman.
+Pode-se utilizar o seguinte comando:
+
+# cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+
+=============================================
+
+============= USANDO O RANKMIRRORS ==========
+
+Dê uma conferida na qualidade dos servidores e veja quais são os "melhores"
+servidores com base no que você puder observar nos dados da página "Arch Mirror
+Status":
+
+https://www.archlinux.org/mirrors/status/
+
+Você poderá gerar uma nova lista com os servidores Brasileiros (ou do país que
+você estiver) mais recentes no site do "Pacman Mirrorlist Generator":
+
+https://www.archlinux.org/mirrorlist/
+
+Copie e cole o resultado gerado pelo site no arquivo "/etc/pacman.d/mirrorlist" e
+retirar o símbolo de tralha "#" da frente do endereço dos servidores. O Pacman lê
+primeiro o servidor que está no topo da lista, e depois, caso haja algum tipo de
+falha, vai tentar com o segundo e assim por diante.
+
+Mas, para classificar os servidores de espelho mais rápidos, é necessário uma
+verificação a partir do seu lugar geográfico. Sempre que mudar de cidade, e
+quiser desfrutar de conexão de download rápida para atualizações ou instalações
+de pacotes, é bom atualizar a lista de servidores espelhos com o Rankmirrors (ou
+Reflector, que utiliza mais do que somente o parâmetro de velocidade).
+
+Uma vez que você tenha modificado uma "mirrorlist" para conter somente os
+servidores de nosso interesse, no caso, brasileiros, vamos usar o Rankmirrors
+para classificar os mais rápidos dessa lista. Primeiro, vamos *verificar* o
+tempo “--time” de ping com cada servidor com o comando:
+
+$ rankmirrors --time /etc/pacman.d/mirrorlist
+
+Cada número depois do endereço do servidor indica, em segundos, o tempo de
+resposta, e quanto menor o número, mais rápido sua conexão com ele.
+
+Esse procedimento serve para verificarmos as condições de cada servidor para
+termos uma ideia de quais os mais rápidos e quais os mais lentos com relação à
+nossa localização geográfica, mas ainda não foram classificados.
+
+Para criar um arquivo com os servidores já ranqueados, vamos logar como root e
+pedir para o rankmirrors criar um arquivo com um nome um pouco diferente do
+original, por exemplo, um arquivo "mirrorlist_rank", com somente os 5 servidores
+mais rápidos em ordem crescente de latência de ping. Pode-se especificar com o
+parâmetro "-n" quantos servidores ele considerará na classificação, excluindo os
+restantes. Para incluir todos na classificação, utilize "-n 0".
+
+Não se pode sobrescrever o arquivo "mirrorlist" diretamente pois ele é a fonte
+dos endereços dos servidores que o Rankmirrors vai usar!
+
+*Atenção, o script do Rankmirrors precisa ser utilizado como root.
+
+# rankmirrors -n 5 /etc/pacman.d/mirrorlist > /etc/pacman.d/mirrorlist_rank
+
+Nesse arquivo criado, os 5 servidores com tempo de resposta mais rápidos formarão
+a nova lista em ordem do mais rápido ao menos rápido. Como root, poderemos
+deletar o arquivo "mirrorlist" original e então renomear o arquivo criado de
+"mirrorlist_rank" para "mirrorlist" (pode-e utilizar a interface gráfica
+também).
+
+# rm /etc/pacman.d/mirrorlist
+
+# mv /etc/pacman.d/mirrorlist_rank /etc/pacman.d/mirrorlist
+
+Lembre-se de sincronizar o Pacman com dois "-yy" sempre que mudar de servidor de
+espelho!
+
+# pacman -Syy
+
+============= USANDO O REFLECTOR ============
+
+O Reflector (disponível nos repositórios oficiais do Arch) classifica os espelhos
+por velocidade de conexão e também só usa os que estão 100% populados (de acordo
+com Completion% no site do "Arch Mirror Status").
+
+Faça um teste com o Reflector para ver quantos servidores totalemente populados
+estão disponível em cada país:
+
+$ reflector --list-countries
+
+Você irá verificar que há poucos servidores no Brasil, 12 servidores hoje em
+10/08/2018, mas Reflector só vai considerar os que estão 100% populados naquele
+momento. Portanto, não muita razão para pedirmos para classificar somente os n
+melhores... Vamos deixar ele classificar todos servidores brasileiros
+disponíveis. Para verificar a lista que será gerada com esses parâmetros, rode:
+
+$ reflector -c Brazil
+
+Depois, criar o arquivo com:
+
+# reflector -c Brazil --save /etc/pacman.d/mirrorlist
+
+Se você estiver em um país que tenha muitos servidores, poderá pedir ao reflector
+que faça uma lista dos 5 servidores mais rápidos "-f", que usam protocolo "-p"
+https (maior segurança! -- no Brasil, só o servidor da Unicamp oferece essa
+opção), e os 5 servidores que tenham a maior nota "--score" com:
+
+Verificar o que vai ser feito com:
+
+$ reflector -c 'United States' -p https -f 5 --score 5
+
+Depois, criar o arquivo com:
+
+# reflector -c 'United States' -p https -f 5 --score 5 --save
+/etc/pacman.d/mirrorlist
+
+=============================================
+
+=============================================
+

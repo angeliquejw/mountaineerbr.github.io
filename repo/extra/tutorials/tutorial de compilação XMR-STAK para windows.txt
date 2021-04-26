@@ -1,0 +1,203 @@
+
+Tutorial de Compilação XMR-stak para Windows 10 64-bit
+
+[07/junho/2018]
+
+Neste tutorial, vamos percorrer todos os procedimentos para compilação do
+XMR-stak no Windows 10 de 64-bit, ajustando a taxa de doação para os
+desenvolvedores para zero por cento. Os procedimentos no tutorial visão à
+disponibilização de todas as dependências para compatibilidade com GPUs NVIDIA,
+AMD, OpenCL e também para CPU, em um minerador unificado. Caso não possua um
+cartão NVIDIA no seu hardware, deverá, em determinado momento do tutorial,
+desabilitar o suporte ao CUDA da NVIDIA; ou seja, se for compilar para um
+computador que usa NVIDIA, compile no próprio computador que vai usar o
+XMR-stak; é necessáio muito espaço em disco para instalar todas as dependências
+para a compilação completa (em torno de 15-20GB);
+
+É necessário, primeiro, "excluir pastas" do rastreamento do Windows Defender,
+pois os mineradores, em geral ,possuem partes do Blockchain do Monero em seus
+códigos que o Windows Defender, ou qualquer outro anti-virus, vai bloquear;
+
+==Desativando o Window Defender==
+
+0a. Abra a "Central de Segurança do Windows Defender" e selecione "Proteção
+contra vírus e ameaças" (lado esquerdo) - "Configurações de Proteção contra
+vírus e ameaças" - "Adicionar ou remover exclusões"; em Adicionar uma exclusão,
+escolha "pastas" e selecione a sua pasta "C:\Usuários\seu_nome_de_usuário\"; no
+mesmo painel, também retire "Proteção em tempo real";
+
+0b. **Importante: Por qustão de segurança, reabilite essas opções depois da
+compilação do binário, mas deixe a pasta onde o binário estiver fora do rastreio
+dos anti-virus, do contrário ele poderá sumir misteriosamente (depois não me diga
+que não avisei!)...;
+
+==Instalando dependências==
+
+0 Visual Studio Community 2017
+
+0.1 Faça download e instale Visual Studio Community 2017 em
+https://www.visualstudio.com/downloads/
+
+0.2 Durante a instalação, escolha os seguintes componentes:
+
+a) Desenvolvimento para desktop com C++ (lado esquerdo);
+
+b) VC++ 2017 versão 15.4 v14.14 ferramentas(toolset) v141 (sob a aba Componentes
+Individuais, seção "Compiladores, ferramentas de build e tempos de execução");
+
+1 CMake para Win64
+
+1.1 Faça download e instale a últma versão disponível em
+https://cmake.org/download/
+
+(versão testada: 3.11)
+
+1.2 **Importante: Durante a instalação, escolha a opção "Add Cmake to system PATH
+to all user"
+
+2 AMD APP SDK 3.0 (só necessário para suporte a GPUs AMD)
+
+2.1 Faça download e instale a últma versão de
+https://www.dropbox.com/s/gq8vqhelq0m6gj4/AMD-APP-SDKInstaller-v3.0.130.135-GA-windows-F-x64.exe
+
+3 Dependêncies OpenSSL/Hwloc e Microhttpd (pacote de dependências dos próprios
+desenvolvedores)
+
+3.1 For CUDA 9 e/ou GPUs AMD and CPU, faça download da versão 2 do binário
+pré-compilado de
+https://github.com/fireice-uk/xmr-stak-dep/releases/download/v2/xmr-stak-dep.zip
+
+3.2 Faça a extração do arquivo (copie e cole) em C:\xmr-stak-dep
+
+3.3 Valide a Árvore de Dependências: abra um prompt de comando no Windows (tecla
+do Windows + r) e digite cmd e execute;
+
+3.4 Depois, no prompt de comando (OBS: veja que o '.' após 'tree' deve ser
+inserido!):
+
+a)  cd c:\xmr-stak-dep
+
+b)  tree .
+
+Você deverá ver algo como:
+
+C:\xmr-stak-dep>tree .
+
+Folder PATH listing for volume Windows
+
+Volume serial number is XX02-XXXX
+
+C:\XMR-STAK-DEP
+
+├───hwloc
+
+│ ├───include
+
+│ │ ├───hwloc
+
+│ │ │ └───autogen
+
+│ │ └───private
+
+│ │   └───autogen
+
+│ └───lib
+
+├───libmicrohttpd
+
+│ ├───include
+
+│ └───lib
+
+└───openssl
+
+├───bin
+
+├───include
+
+│ └───openssl
+
+└───lib
+
+4 ==Baixando código-fonte e modificando percentual de doação para zero==
+
+4.1 Faça download do código fonte da última versão do xmr-stak "Source Code.zip"
+em https://github.com/fireice-uk/xmr-stak/releases/
+
+4.2 Abra o arquivo zipado e extraia-o em um lugar sob sua pasta de usuário
+C:\Users\nome_usuario\xmr-stak-<versão>
+
+4.2 Abra o arquivo
+"C:\Users\nome_usuario\xmr-stak-<versão>\xmrstak\donate-level.hpp" com o
+programa Notepad++ ( https://notepad-plus-plus.org/download/v7.5.6.html );
+
+4.3 Modifique a linha para:
+
+constexpr double fDevDonationLevel = 0.0 / 100.0;
+
+4.4 Salve e saia do editor de texto Notepad++;
+
+5 ==Compilação==
+
+5.2 Abra um prompt de comando (tecla do Windows + r e digite cmd);
+
+5.3 Vá até o diretório com o código fonte extraído, por e.x. cd
+C:\Users\nome_usuario\xmr-stak-<versão>
+
+5.4 Execute os seguintes comandos (NOTA: o caminho para o diretório do Visual
+Studio Community 2017 pode ser diferente, cheque antes de executar os seguintes
+comandos se batem com o seu sistema); **importante: são dois comandos longos
+(“a” e “b”), certifique-se que você irá copiá-los inteiros em uma linha só
+cada um:
+
+a)  "C:\Program Files (x86)\Microsoft Visual
+Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x64 -vcvars_ver=14.14
+
+b)  "C:\Program Files (x86)\Microsoft Visual
+Studio\2017\Community\Common7\Tools\VsMSBuildCmd.bat"
+
+5.5 Certifique-se que ainda permanece em C:\Users\nome_usuário\xmr-stak-<versão>,
+e crie uma pasta com nome "build"; **importante: o comando “c” é longo e começa
+com “set” e só termina com “openssl” na mesma linha:
+
+a)  mkdir build
+
+b)  cd build
+
+c)  set
+CMAKE_PREFIX_PATH=C:\xmr-stak-dep\hwloc;C:\xmr-stak-dep\libmicrohttpd;C:\xmr-stak-dep\openssl
+
+6 CMake - Ajustando preferências e compilando
+
+6.1 Primeiramente, execute o seguinte comando para configurar o Visual Studio
+(OBS: digite os '..' no final do comando!):
+
+cmake -G "Visual Studio 15 2017 Win64" -T v141,host=x64 ..
+
+**6.2 Se ocorrer um erro com relação ao CUDA, ou se você não quiser compilar o
+binário com suporte a cartões da NVIDIA, ou não possue um cartão da NVIDIA (e
+portanto não tem as dependências proprietárias da NVIDIA necessárias), então
+execute o seguinte procedimento:
+
+cmake .. -DCUDA_ENABLE=OFF
+
+6.3 Com os arquivos de CMake configurados corretamente, poderá proceder para:
+
+a)  cmake --build . --config Release --target install
+
+b)  cd bin\Release
+
+c)  copy C:\xmr-stak-dep\openssl\bin\* .
+
+O binário juntamente com arquivos .dll importantes estarão na pasta
+C:\Users\nome_usuário\xmr-stak-<versão>\build\Release !!
+
+O Minerador é compilado para GPUs da NVIDIA (se CUDA estiver instalado), GPUs da
+AMD (se o AMD APP SDK estiver instalado) e CPUs.
+
+7 Tutoriais originais por fireice-uk (desenvolvedor do XMR-Stak):
+
+< https://github.com/fireice-uk/xmr-stak/blob/master/doc/compile.md >
+
+< https://github.com/fireice-uk/xmr-stak/blob/master/doc/compile_Windows.md >
+
