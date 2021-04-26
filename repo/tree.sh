@@ -66,7 +66,7 @@ treef()
 	xtrastyles='.tar  { color: red;  background-color: beige;}
 	h1 { text-transform: uppercase; } 
 	img {
-		max-width: 400px;
+		max-width: 800px;
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
