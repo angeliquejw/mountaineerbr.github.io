@@ -1,0 +1,80 @@
+#
+# ~/.screenrc
+#
+
+startup_message off
+
+#for xterm-based terms
+#term screen.xterm-256color
+term screen-256color
+#term xterm-256color
+#term xterm
+#start screen with different TERM: screen -T xterm-256color
+
+#use xterm scroll buffer by default
+#termcapinfo xterm* ti@:te@
+#Screen's buffer: Ctrl+[ or Ctr+a + ESC
+
+#copying to clipboard
+#you can use a CLI clipboard tool like xsel or pbpaste and the cat utility to 
+#grab contents from STDIN. The steps on Linux with xsel are as follows:
+# 1. Copy text from your screen session into GNU screen's copy buffer.
+# 2. Run this command within screen: cat | xsel -b
+# 3. If xsel didn't report any error, now dump screen's copy buffer to STDIN: Ctrl+a+]
+# 4. Send an EOF to cat to terminate it: Ctrl+d
+#https://stackoverflow.com/questions/16111548/how-to-copy-the-gnu-screen-copy-buffer-to-the-clipboard
+
+#use altscreen
+#altscreen on
+#removes text on screen after editor is closed
+
+#copy to clipboard
+#bufferfile /tmp/screen-exchange # defaults
+bindkey -m ' ' eval 'stuff \040' 'writebuf' 'exec sh -c "cat /tmp/screen-exchange | xsel -b"'
+#'stuff' is a screen command, and \040 is non-breaking space key
+#https://stackoverflow.com/questions/16111548/how-to-copy-the-gnu-screen-copy-buffer-to-the-clipboard
+#https://superuser.com/questions/102600/clipboard-integration-with-gnu-screen-and-mac-os-x-terminal
+
+#fix for Name column in windowlist only show 'bash'
+windowlist string "%4n %h%=%f"
+#https://wiki.archlinux.org/index.php/GNU_Screen
+
+#informative statusbar
+#new escape sequences for v5+
+truecolors on
+hardstatus off
+backtick 0 5 5 "/bin/date" '+%Y-%m-%d'
+backtick 1 5 5 "/bin/date" '+%H:%M'
+hardstatus alwayslastline '%{#00ff00}[ %H ][%{#ffffff}%= %{7}%?%-Lw%?%{1;0}%{1}(%{15}%n%f%t%?(%u)%?%{1;0}%{1})%{7}%?%+Lw%?%? %=%{#00ff00}][ %{#00a5ff}%{6}%0` %{#ffffff}%{7}%1`%{#00ff00} ]'
+
+#hardstatus off
+#hardstatus alwayslastline
+#hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W} %c %{g}]'
+
+#hardstatus alwayslastline '%{= G}[ %{G}%H %{g}][%= %{= w}%?%-Lw%?%{= R}%n*%f %t%?%{= R}(%u)%?%{= w}%+Lw%?%= %{= g}][ %{y}Load: %l %{g}][%{B}%Y-%m-%d %{W}%c:%s %{g}]'
+
+#hardstatus alwayslastline "%{bw}[%H] [%?%-Lw%?%{wb}%n*%f %t%{bw}%?%+Lw%?]%=%{bw} [%1`] [%c:%s] [%l]"
+## modified from http://lists.gnu.org/archive/html/screen-users/2007-08/msg00008.html
+
+#autodetach
+autodetach on
+#default: on
+
+#scroll-back
+defscrollback 10000
+#default: 100
+#<Ctrl+a> : and then issue scrollback <num>
+
+#disable ctrl+c to terminate screen
+stty intr ""
+
+#just detach
+#bindkey ^C detach
+#https://unix.stackexchange.com/questions/415384/how-to-detach-and-not-terminate-a-gnu-screen-session-inside-xterm-when-pressing?rq=1
+
+#xon xoff flow control
+#defflow ...
+
+#if you started a program outside screen but now you would like it to be inside,
+#you can use 'reptyr' to reparent the process from its current TTY to one inside screen.
+

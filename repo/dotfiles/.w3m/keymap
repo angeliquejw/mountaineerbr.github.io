@@ -1,0 +1,8 @@
+keymap y EXTERN
+keymap Y EXTERN_LINK
+#http://jasonwryan.com/blog/2011/05/05/w3m/
+
+keymap p PREV  #go back in history
+keymap P NEXT  #go forward in history
+#BACK deletes the current buffer and Go back in history
+

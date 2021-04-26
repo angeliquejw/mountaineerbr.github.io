@@ -11,9 +11,9 @@
 
 	-->
   <channel>
-    <lastBuildDate>Fri, 23 Apr 2021 00:00:00 -0300</lastBuildDate>
+    <lastBuildDate>Mon, 13 Sep 2021 00:00:00 -0300</lastBuildDate>
     <title>Biology Blogger</title>
-    <description>Current as of Sun, 25 Apr 2021 14:36:56 -0300.</description>
+    <description>Current as of Mon, 26 Apr 2021 00:28:46 -0300.</description>
     <link>https://mountaineerbr.github.io/blog/</link>
     <language>en</language>
     <category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
@@ -31,6 +31,16 @@
 		</copyright>
     <!-- # IMPORTANT: keep [generator] as [item] elements will be appended after it -->
     <generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
+    <item>
+      <title xml:lang="en">#39 - Not Quite Done Yet</title>
+      <pubDate>Mon, 13 Sep 2021 00:00:00 -0300</pubDate>
+      <description>I don't mean to be dramatic. I will leave some things up behind and try to move on..</description>
+      <link>https://mountaineerbr.github.io/blog/39/</link>
+      <dc:language>en</dc:language>
+      <category>drama/maybe/notes/notas/liberdade/freedom/repo/own repo/tree/repositório/arquivos de configuração/c files/rc files/dotfiles/scripts/bin</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">21d06084-3288-5f4c-bb2e-aa564c56952b</guid>
+    </item>
     <item>
       <title xml:lang="en">#38 - Going Away</title>
       <pubDate>Fri, 23 Apr 2021 00:00:00 -0300</pubDate>

@@ -53,7 +53,7 @@
     30  classificacaoFinal</code></pre>
 <p>The following shell function was used to calculate positivity. The shell will loop through all csv files given and group results by date.</p>
 <p>Some <code>awk</code> conditionals will test values from columns $12 and $30, and will decide if that will be counted as a positive case, a negative case or be ignored. There is no guarantee this analysis is sufficient.</p>
-<p>You can check the script with some functions to process the data at my <a href="https://github.com/mountaineerbr/scripts/blob/master/corona_notifyBR.sh">sub repo</a> for covid test positivity studies.</p>
+<p>You can check the script with some functions to process the data at my <a href="https://mountaineerbr.github.io/repo/scripts/corona_notifyBR.sh">sub repo</a> for covid test positivity studies.</p>
 <p>The last step is to generate graphs with <code>gnuplot</code>. I am having some difficulty with the x-ticks dates because <code>gnuplot</code> only accepts numbers by defaults.. May as it be, bear in mind the data start from about February and ends on 24<sup>th</sup> December.</p>
 <h2>Interpretation</h2>
 <p>Well, I have been avoiding interpreting Sars-2-Covid data too hastily, as I am learning a lot in this pandemics from a scientific perspective myself..</p>

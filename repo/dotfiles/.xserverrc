@@ -1,0 +1,24 @@
+#!/bin/sh
+
+exec /usr/bin/Xorg -nolisten tcp "$@" vt$XDG_VTNR
+
+#to run xorg as a regular user, issue:
+#$ startx
+#or if #xserverrc is configured:
+#$ xinit -- :1
+#
+#in order to maintain an authenticated session with logind and to prevent 
+#bypassing the screen locker by switching terminals, xorg has to be started 
+#on the same virtual terminal where the login occurred. therefore it is 
+#recommended to specify vt$XDG_VTNR
+#
+#note: to re-enable redirection of the output from x session into the xorg 
+#log file, add -keeptty . see xorg#session log redirection for details.
+#https://wiki.archlinux.org/index.php/Xinit
+#
+#6.6. remote clients can't connect
+#the x server now uses -nolisten tcp by default, which increases the security
+#of the x server by not opening a tcp/ip socket.
+#use the -listen tcp option to allow the x server to open a tcp/ip socket
+#https://x.cygwin.com/docs/faq/cygwin-x-faq.html#q-remote-clients-cant-connect
+

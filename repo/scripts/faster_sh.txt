@@ -1,0 +1,652 @@
+#http://www.los-gatos.ca.us/davidbu/faster_sh.html
+
+
+David Butcher: Speeding Up Your UNIX Shell Scripts
+
+
+
+
+David Butcher: Speeding Up Your UNIX Shell Scripts
+
+Who would not want to speed up their shell scripts? Here are some simple
+tips to make your shell scripts run faster.
+
+Disclaimer: These techniques have made my UNIX shell
+scripts faster, on my hardware and OS.  They may not work for you.  Program
+at your own risk. YMMV (Your mileage may vary) Speedup factors are
+approximate.  Bourne Shell only.  Changing your code to conform to these
+examples may have side effects (particularly when variables are set in
+subshells by one code path and not by the other).  Implementation details
+are left to the reader.  Some speedups are based in part on using memory-
+mapped files (ramdisks).  Sometimes these scripts can dramatically affect
+the performance of the test system while they are running, in a negative
+way.  You have been warned.
+
+
+Issue: Reading successive lines from a file using a "while" loop.
+Code:
+
+:
+
+cd /tmp
+exec 3<&0
+
+A1(){
+	while read A
+	do
+		:
+	done < /tmp/somefile
+}
+
+A2(){
+	exec 0< /tmp/somefile
+	while read A
+	do
+		:
+	done
+	exec 0<&3
+}
+
+for i in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for j in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for k in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+	A1
+done
+done
+done
+
+# end of script
+
+Results in seconds:
+
+A1
+real       37.1
+user        4.9
+sys        30.6
+
+A2
+real        8.5
+user        3.2
+sys         5.3
+
+
+
+
+Conclusion: 5X speedup
+
+Use file descriptor manipulation instead of input
+redirection when using a loop to read from a file.
+
+
+
+
+
+Issue: Reading successive lines from the output of a command
+using a "while" loop.
+
+:
+
+cd /tmp
+exec 3<&0
+
+A1(){
+
+	cal | while read LINE
+	do
+		:
+	done
+}
+
+A2(){
+
+	cal > /tmp/fast$$
+
+	exec 0< /tmp/fast$$
+
+	while read LINE
+	do
+		:
+	done
+
+	exec 0<&3
+}
+
+for i in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for j in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+	A1
+done
+done
+
+# end of script
+
+# Results in seconds:
+
+A1
+
+real       19.3
+user        1.5
+sys        12.2
+
+A2
+
+real        6.6
+user        1.2
+sys         4.3
+
+
+
+Conclusion: 3X speedup
+
+Use file descriptor manipulation and a temporary
+file to hold results of the command output
+instead of pipes when using a loop to read output from
+a command.
+
+
+
+
+
+Issue: Appending output to a file from within a loop.
+
+:
+
+cd /tmp
+
+A1(){
+	echo "\c" >> /tmp/tt$$
+}
+
+A2(){
+	echo "\c"
+}
+
+
+exec 3<&1
+exec 1>>/tmp/tt$$
+
+for i in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for j in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for k in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for l in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+	A2
+done
+done
+done
+done
+
+exec 1<&3
+
+# end of script
+
+rm /tmp/tt$$
+
+# Results in seconds:
+
+# A1
+
+# real     1:03.7
+# user       26.7
+# sys        36.9
+
+# A2
+
+# real       10.7
+# user       10.6
+# sys         0.0
+
+
+
+
+Conclusion: 6X speedup
+
+Always perform file output around the outside of the loop, instead
+of opening and closing the file multiple times within the loop.  Use
+file descriptor manipulation to avoid running the loop in a subshell.
+
+
+NOTE: in A1 above, the file descriptor manipulation is not used.  Test
+times were generated for A1 without the exec's.
+
+
+
+
+
+Issue: Testing for a particular integer value.
+
+:
+
+cd /tmp
+A=1
+
+A1(){
+	[ "$A" = 1 ]
+}
+
+A2(){
+	[ "$A" -eq 1 ]
+}
+
+for i in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for j in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for k in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for l in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+	A2
+done
+done
+done
+done
+
+# end of script
+
+# Results in seconds:
+
+# A1
+
+# real       14.9
+# user       14.9
+# sys         0.0
+
+# A2
+
+# real       17.8
+# user       17.6
+# sys         0.0
+
+
+
+
+Conclusion: 15% speedup
+
+When testing integer equality, the string operator "=" is slightly faster
+than the arithmetic operator "-eq".  Be careful, though, because "=" will
+deny that "1" is equal to "01", and "-eq" will get it right.
+
+
+
+
+
+Issue: Testing for a particular integer value.
+
+:
+
+cd /tmp
+A=1
+
+A1(){
+	if [ "$A" = 1 ]
+	then
+		B="$A"
+	fi
+}
+
+A2(){
+	case "$A" in
+		1)B="$A";;
+	esac
+}
+
+
+for i in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for j in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for k in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for l in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+	A1
+done
+done
+done
+done
+
+# end of script
+
+# Results in seconds:
+
+# A1
+
+# real       19.6
+# user       19.6
+# sys         0.0
+
+# A2
+
+# real       12.3
+# user       12.3
+# sys         0.0
+
+
+
+
+Conclusion: 35% speedup
+
+When testing integer equality, "case" is quite a bit faster than "test."
+Be careful, though, because "case: will deny that "1" is equal to "01",
+and "test" using the arithmetic operator "-eq" will get it right.
+
+
+
+
+
+Issue: Testing multiple equality conditions, string or integer.
+
+:
+
+cd /tmp
+A=1
+B=1
+
+A1(){
+	if [ "$A" = 1 -a "$B" = 1 ]
+	then
+		C="$A"
+	fi
+}
+
+A2(){
+	case "$A$B" in
+		11)C="$A";;
+	esac
+}
+
+
+for i in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for j in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for k in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for l in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+	A2
+done
+done
+done
+done
+
+# end of script
+
+# Results in seconds:
+
+# A1
+
+# real       26.6
+# user       26.4
+# sys         0.0
+
+# A2
+
+# real       13.5
+# user       13.5
+# sys         0.0
+
+
+
+
+Conclusion: 2X speedup (or more with more conditions)
+
+When testing for multiple conditions, "case" is much faster
+than "test."  The more conditions to be simultaneously compared, the
+bigger the speedup.  Case statements make excellent replacements for
+"if then" statements which must test multiple conditions simultaneously.
+
+
+
+
+
+Issue: Placing the names in the current directory in a variable.
+
+:
+
+A1(){
+	set -- *
+	FILES="$*"
+}
+
+A2(){
+	FILES=`echo *`
+}
+
+
+for i in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for j in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for k in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+	A2
+done
+done
+done
+
+# end of script
+
+exit
+
+# Results in seconds:
+
+# A1
+
+real        9.5
+user        4.8
+sys         4.6
+
+# A2
+
+real       52.9
+user        8.9
+sys        41.9
+
+
+
+Conclusion: 5X speedup
+
+Use 'set -- [wildcards]' to make current directory filenames available
+for variable assignment through $*.
+
+
+
+
+
+Issue: Setting and reading a "lock file."
+
+:
+
+A1(){
+	while [ -s lock_file ]
+	do
+		# should be sleep here in "real" program
+		# with a timeout if necessary to prevent sleeping "forever"
+		:
+	done
+	# acquire the lock
+	echo "$$" > lock_file
+	# verify that we got it, someone else could have just tried to
+	# acquire it as well
+	read MY_PID < lock_file
+	case "$MY_PID" in
+		$$)
+		# we have the lock, execute the program
+		:
+		# after program is complete, clear the lock
+		> lock_file
+		;;
+	esac
+}
+
+A2(){
+	while [ -s lock_file ]
+	do
+		# should be sleep here in "real" program
+		# with a timeout if necessary to prevent sleeping "forever"
+		:
+	done
+	# acquire the lock
+	echo "$$" > lock_file
+	# verify that we got it, someone else could have just tried to
+	# acquire it as well
+	read MY_PID < lock_file
+	case "$MY_PID" in
+		$$)
+		# we have the lock, execute the program
+		:
+		# after program is complete, remove the lock
+		rm lock_file
+		;;
+	esac
+}
+
+
+for i in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for j in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+for k in 1 2 3 4 5 6 7 8 9 1 2 3 4 5 6 7 8 9 0
+do
+	A2
+done
+done
+done
+
+# end of script
+
+exit
+
+# Results in seconds:
+
+# A1
+
+real        4.5
+user        3.9
+sys         0.3
+
+# A2
+
+real       43.1
+user       22.2
+sys        15.8
+
+
+
+Conclusion: 10X speedup
+
+If possible, leave lock files in place, and check to see if they have
+contents to begin the process of setting the lock. Do not erase the lock
+file between program runs, as the 'rm' command is expensive, and checking
+for non-existent files exercises more of the file system code than checking
+for existing files, especially if the existing file is in the filesystem
+cache.
+
+
+
+Note: Any scripts presented below this line were tested on Linux using
+GNU bash, version 2.05.0(1)-release (i386-suse-linux)
+Copyright 2000 Free Software Foundation, Inc.
+
+
+
+
+
+Issue: Performing work inline versus calling a function.
+
+# program with inline variable set
+:
+for h in 1 2 3 4 5 6 7 8 9 10
+do
+for i in 1 2 3 4 5 6 7 8 9 10
+do
+for j in 1 2 3 4 5 6 7 8 9 10
+do
+for k in 1 2 3 4 5 6 7 8 9 10
+do
+	a=1
+done
+done
+done
+done
+
+# end of script
+
+exit
+
+# program with function
+:
+A(){
+a=1
+}
+
+for h in 1 2 3 4 5 6 7 8 9 10
+do
+for i in 1 2 3 4 5 6 7 8 9 10
+do
+for j in 1 2 3 4 5 6 7 8 9 10
+do
+for k in 1 2 3 4 5 6 7 8 9 10
+do
+	A
+done
+done
+done
+done
+
+# end of script
+
+exit
+
+# Results in seconds:
+
+# Variable Set inline
+
+real	0m0.379s
+user	0m0.310s
+sys	0m0.010s
+
+# Variable set in a function
+
+real	0m0.921s
+user	0m0.790s
+sys	0m0.000s
+
+
+
+
+Conclusion: 3X speedup
+
+Unless there is a compelling reason to call a function, and
+there typically ARE many compelling reasons to place code
+in functions, you will see significantly faster execution if
+the code is simply typed inline in your program. Of course,
+this will make the most difference in overall execution time
+if the code is called repeatedly, as it is in the example above.
+Coincidentally, that is one of the reasons code is placed in
+functions: so it can be called repeatedly WITHOUT copying it
+inline everywhere. Exercise common sense on this speedup.
+
+
+
+
+
+Back To:
+[ David Butcher's Personal Page ]
+
+This page is hosted by
+The WEBworks
+ * Copyright 1998, All Rights Reserved
+
+
+
+

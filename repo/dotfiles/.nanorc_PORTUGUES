@@ -1,0 +1,306 @@
+## Exemplo de arquivo de inicialização para o GNU Nano, versão 4.
+##
+## Este arquivo não pode estar no formato DOS ou Mac e caracteres
+## especialmente interpretado pelo shell não devem ser escapado aqui.
+##
+## Para garantir que uma opção esteja desabilitada, use "unset <opção>".
+##
+## Para as opções que aceitam parâmetros, o valor padrão é dado.
+## Outras opções estão desabilitadas por padrão.
+##
+## Dentro dos parâmetros da cadeia de caracteres, as aspas não devem ser escapadas.
+## As últimas aspas duplas na linha serão vistas como as aspas finais.
+
+## Faça a função 'nextword' (Ctrl + Direita) parar no final da palavra
+## em vez de no início.
+set afterends
+
+## Quando as quebras automáticas de linha estiver ativada (softwrap), faça a quebra automática de linhas nos "espaços em branco"
+## (tabulações e espaços) em vez de sempre na extremidade da tela.
+#set atblanks
+
+## Recuar automaticamente uma linha recém-criada para o mesmo número de
+## tabulações e/ou espaços como a linha anterior - ou como a linha seguinte
+## se a linha anterior for o começo de um parágrafo.
+set autoindent
+
+## Faça backup dos arquivos com o nome do arquivo atual mais um til "~".
+set backup
+
+## Diretório exclusivo para colocar arquivos de backup.
+set backupdir "~/bak/nanoAutoBak"
+
+## Use texto em negrito em vez de texto em vídeo reverso.
+#set boldtext
+
+## Os caracteres tratados como colchetes ao justificar parágrafos.
+## Isso pode não incluir nenhum caracteres em branco. Somente pontuação de fechamento,
+## opcionalmente seguida por esses colchetes, pode terminar as frases.
+# set brackets ""')>]}"
+
+## Inserir Quebra de Linha dura (hardwrap) automaticamente na linha atual quando ela ficar muito longa.
+# set breaklonglines
+
+## Faça pesquisas com distinção entre maiúsculas e minúsculas por padrão.
+# set casesensitive
+
+## Exiba constantemente a posição do cursor na barra de status. Observe que
+## isso substitui a opção "quickblank".
+set constantshow
+
+## Use recortar-do-cursor-até-o-final-da-linha por padrão.
+#set cutfromcursor
+
+## Não use a linha abaixo da barra de título, deixando-a em branco.
+#set emptyline
+
+## Ative a Quebra de Linha Automática dura (hardwrap) e defina a largura do alvo, ambos para
+## quebras de linhas e para justificação de parágrafos. Se o valor for 0 ou
+## menor, o ponto de quebra será a largura da tela menos esse número.
+set fill 80
+
+## Lembre-se das entradas de pesquisa/substituição nas sessões seguintes.
+set historylog
+
+## Role o conteúdo do buffer meia tela por vez ao invés vez de linha por linha.
+#set jumpyscrolling
+
+## Exibir números de linha à esquerda do texto.
+set linenumbers
+
+## Habilite Bloqueio de Arquivos no estilo Vim. Isso é apenas para informar um usuário do vim que você
+estão editando um arquivo que ele está tentando editar e vice-versa.
+## Não há planos para implementar a recuperação de arquivos no estilo Vim.
+set locking
+
+## Os parênteses de abertura e fechamento que podem ser encontrados por pesquisas de parênteses
+## Eles não podem conter caracteres em branco. O conjunto anterior deve
+## vir antes do último conjunto e ambos devem estar na mesma ordem.
+# set matchbrackets "(<[{)>]}"
+
+## Ative o suporte ao mouse, se disponível para o seu sistema. Quando ativado,
+## cliques do mouse podem ser usados ​​para colocar o cursor, definir a marca (com um
+## duplo clique) e executar atalhos. O mouse funcionará no X
+## Window System e no console quando o gpm estiver em execução.
+set mouse
+
+## Ative vários buffers de arquivo (a inserção de um arquivo o colocará em
+## um buffer separado).
+# set multibuffer
+
+## Não converta arquivos do formato DOS/Mac automaticamente.
+# set noconvert
+
+## Não exiba a lista de atalhos úteis na parte inferior da tela.
+#set nohelp
+
+## Não adicione automaticamente uma nova linha quando um arquivo não terminar com uma.
+#set nonewlines
+
+## Não faça uma pausa entre avisos na inicialização. O que significa que apenas o
+## o último aviso será legível (quando houver vários).
+# set nopauses
+
+## Defina o diretório operacional. O Nano não lerá ou gravará arquivos fora
+## deste diretório e seus subdiretórios. Além disso, o diretório corrente
+## é alterado para o diretório operacional, para que todos os arquivos sejam inseridos nesse diretório. Um espaço em branco
+## no campo de caracteres significa que o recurso de diretório operacional está desativado.
+# set operatingdir "~/Documents"
+
+## Lembre-se da posição do cursor em cada arquivo nas sessões seguintes de edição.
+set positionlog
+
+## Preserve as teclas XON e XOFF (^Q e ^S).
+# set preserve
+
+## Os caracteres tratados como pontuação final ao justificar
+## parágrafos. Eles não podem conter caracteres em branco. Somente puntuação de
+## término, opcionalmente seguida por colchetes, pode terminar frases.
+# set punct "!.?;"
+
+## Faça limpeza rápida da barra de status. As mensagens da barra de status desaparecerão após
+## 1 pressionamento de tecla em vez de 26. Observe que "constantshow" substitui isso.
+set quickblank
+
+## A expressão regular que corresponde a caracteres entre aspas no e-mail
+## ou apresentadores de comentários de linha no código-fonte. O padrão é:
+# set quotestr "^([ 	]*([!#%:;>|}]|//))+"
+
+## Tente solucionar uma descrição terminfo do terminal incompatível.
+# set rawsequences
+
+## Corrigir problema de troca de Backspace/Delete.
+# set rebinddelete
+
+## Faça pesquisas com Expressões Regulares por padrão.
+## Expressões regulares são do tipo estendido (ERE).
+# set regexp
+
+## Coloque o cursor no item realçado no navegador de arquivos e mostre
+## o cursor no visualizador de ajuda; útil para pessoas que usam exibição em braille
+## e para pessoas com baixa visão.
+set showcursor
+
+## Torne a tecla Home mais inteligente. Quando Home é pressionado em qualquer lugar, exceto em
+## caracteres de início que não são espaços em branco de uma linha, o cursor
+## pulará para esse início (para frente ou para trás). Se o
+## Se o cursor já estiver nessa posição, ele irá para o verdadeiro
+## início da linha.
+set smarthome
+
+## Ativar quebra de linha flexível (software) (também conhecido como exibição completa de linhas).
+set softwrap
+
+## Use este verificador ortográfico em vez do interno. Esta opção
+## não tem um valor padrão.
+## OBS: para usar o Aspell, faça o download dos pacotes "aspell" e "aspell-pt" !
+set speller "aspell -x -c"
+ 
+## Permita que o nano seja suspenso.
+# set suspend
+
+## Use esse tamanho de Tabulação em vez do padrão; deve ser maior que 0.
+# set tabsize 8
+
+## Converta Tabs digitados em espaços.
+# set tabstospaces
+
+## Salve automaticamente ao sair; não pergunte.
+# set tempfile
+
+## Corte espaços em branco no final das linhas ao justificar ou inserir quebra de linhas.
+# set trimblanks
+
+## Não permitir modificação de arquivo. Por que você iria querer isso em um arquivo rc? ;)
+# set view
+
+## Os dois caracteres de coluna única usados ​​para exibir os primeiros caracteres
+## de guias e espaços. 187 na ISO 8859-1 (0000BB em Unicode) e 183 na
+## ISO-8859-1 (0000B7 em Unicode) parecem ser um bons valores para esses caracteres.
+## O padrão quando em um código de idioma UTF-8:
+# set whitespace "»·"
+## O padrão caso contrário:
+# set whitespace ">."
+
+## Detectar limites de palavras de maneira diferente tratando caracteres de
+## pontuação como parte das palavras.
+set wordbounds
+
+## Os caracteres (além dos alfanuméricos) que devem ser considerados
+## como partes de palavras. Esta opção não possui um valor padrão. Quando
+## definida, substitui a opção 'set wordbounds'.
+# set wordchars "<_>."
+
+## Deixe um Backspace ou Delete não modificado apagar a região marcada totalmente
+## (em vez de apagar um único caractere por vez, e sem afetar o cutbuffer).
+set zap
+
+## Pinte os elementos da interface do nano. Estes são exemplos;
+## Por padrão, não há cores, exceto a cor para errorcolor.
+set titlecolor brightwhite,blue
+set statuscolor brightwhite,green
+set errorcolor brightwhite,red
+set selectedcolor brightwhite,magenta
+set stripecolor ,yellow
+set numbercolor cyan
+set keycolor cyan
+set functioncolor green
+## No .nanorc do USUÁRIO RAIZ, você pode querer usar:
+# set titlecolor brightwhite,magenta
+# set statuscolor brightwhite,magenta
+# set errorcolor brightwhite,red
+# set selectedcolor brightwhite,cyan
+# set stripecolor ,yellow
+# set numbercolor magenta
+# set keycolor brightmagenta
+# set functioncolor magenta
+
+
+## Configuração da coloração da sintaxe.
+##
+## Formato:
+##
+## sintaxe "descrição_curta" ["nome_do_arquivo expressão_regular" ...]
+##
+## A sintaxe "none" está reservada; especificá-lo na linha de comando é
+## o mesmo que não ter uma sintaxe. A sintaxe "padrão" é
+## especial: não requer regexes de nome de arquivo e se aplica a arquivos que
+## não correspondem a nenhum outro regex nos nomes dos arquivos de sintaxe.
+##
+## color foreground,background "regex" ["regex"...]
+## ou
+## icolor foreground,background "regex" ["regex"...]
+##
+## "color" fará correspondências que diferenciam maiúsculas de minúsculas, enquanto "icolor" fará
+## correspondências que não diferenciam maiúsculas de minúsculas.
+##
+## Nomes de cores válidos: white, black, normal, red, blue, green,
+## yellow, magenta, cyan.   Para cores de primeiro plano, você pode usar o
+## prefixo "bright" para obter um destaque mais forte.
+##
+## Todas as expressões regulares (regex) são do tipo estendido (ERE).
+##
+## Para usar expressões regulares multi-linhas, use o formato
+## start="regex" end="regex"  [start="regex" end="regex"...].
+##
+## Se o seu sistema suportar transparência, não for especificada uma cor de plano de fundo,
+## será usada uma cor transparente. Se você não quiser isso, tenha certeza
+## que definiu a cor do plano de fundo para preto ou branco.
+##
+## Se desejar, você pode colocar suas definições de sintaxe em arquivos separados.
+## Você pode usar esses arquivos da seguinte maneira:
+##
+## include "/path/to/syntax_file.nanorc"
+##
+## Salvo indicação em contrário, o nome do arquivo de sintaxe (sem o
+## ".nanorc") deve ser igual ao nome da "descrição_curta"
+## dentro desse arquivo. Esses nomes devem ser mantidos relativamente curtos
+## para serem mais fáceis de lembrar e mais rápidos de digitar usando a opção -Y do nano.
+
+## Para incluir todas as definições de sintaxe existentes, você pode:
+include "/usr/share/nano/*.nanorc"
+
+
+## Combinações de teclas.
+## See nanorc(5) (section REBINDING KEYS) for more details on this.
+
+## The <Ctrl+Delete> keystroke deletes the word to the right of the cursor.
+## On some terminals the <Ctrl+Backspace> keystroke produces ^H, which is
+## the ASCII character for backspace, so it is bound by default to the
+## backspace function.  The <Backspace> key itself produces a different
+## keycode, which is hard-bound to the backspace function.  So, if you
+## normally use <Backspace> for backspacing and not ^H, you can make
+## <Ctrl+Backspace> delete the word to the left of the cursor with:
+# bind ^H chopwordleft main
+
+## If you would like nano to have keybindings that are more "usual",
+## such as ^O for Open, ^F for Find, ^H for Help, and ^Q for Quit,
+## then uncomment these:
+#bind ^Q exit all
+#bind ^H help all
+#bind ^H exit help
+#bind ^F whereis all
+#bind ^G findnext all
+#bind ^B wherewas all
+#bind ^D findprevious all
+#bind ^R replace main
+#bind ^W writeout main
+#bind ^O insert main
+#unbind ^V all
+#unbind ^Y all
+#bind M-X flipnewbuffer all
+#bind ^X cut all
+#bind ^C copy all
+#bind ^V paste all
+#bind ^P curpos main
+#bind ^T gotoline main
+#bind ^T gotodir browser
+#bind ^Y speller main
+#unbind ^K all
+#unbind ^U all
+#bind M-R redo main
+#bind ^U undo main
+#bind ^E redo main
+#unbind M-J main
+#unbind M-T main
+#set multibuffer

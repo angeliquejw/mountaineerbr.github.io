@@ -1,0 +1,17 @@
+!
+! ~/.Xmodmap
+!
+
+clear Lock
+
+!modify <caps lock> to <esc>
+keycode 66 = Escape NoSymbol Escape
+
+!defaults
+!keycode   9 = Escape NoSymbol Escape
+!keycode  66 = Caps_Lock NoSymbol Caps_Lock
+
+!shell cmd examples
+!xmodmap -e "keycode   9 = Escape NoSymbol Escape"
+!xmodmap -e "keycode  66 = Caps_Lock NoSymbol Caps_Lock"
+

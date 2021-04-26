@@ -61,6 +61,115 @@ reunidos em um único documento.</i>
 
 <article class="h-entry">
 <header>
+<h2 class="p-name" id="39">#39 - Not Quite Done Yet</h2>
+<time class="dt-published" datetime="2021-09-13">13/sep/2021</time>
+<nav><a href="39/">[stand-alone]</a>
+</nav>
+
+<br>
+</header>
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+<!-- <div lang="pt" class="p-summary"><p></p></div><br> -->
+<!-- MAIN TEXT  -->
+
+<p class="alert">Unfinished. Update soon.</p>
+
+<p>I am really proud of my little blog system. I cannot just remove
+it from the public domain reach. The same feeling is not so strong
+about my YouTube Channel.</p>
+
+<p>In fact, with very little remorse I was able to remove that on
+Friday. Google (at least YouTube branch) cannot use my data and my
+subscribers data as they wish anymore. There were 258 subscribers
+to my YouTube channel and more than 130, many which I am proud to
+have recorded, some turned out to be lessons of didatics or lack
+of.. I made a copy of all of the videos with good <code><a href=
+"https://wiki.archlinux.org/index.php/Youtube-dl">youtube-dl</a></code>
+and for my surprise, there was no more than 26GB of content. I know
+some YouTubers claim to have much more data for content but they
+must mean raw content shot locally, without edition and directly
+from the camera, not downloaded with:</p>
+
+<pre><code>url=https://www.youtube.com/channel/UCbjGrylVSBjPx02LRH7HCAA
+youtube-dl -f best -ciw -o "%(title)s.%(ext)s" --add-metadata -v "$url" |&amp; tee log.txt
+#
+</code></pre>
+
+<p>Unfortunatelly, I cannot host these videos on GitHub. Many
+videos are heavy and long, like 40min or even longer. I wish I
+could host them here, though. Luckily, the <a href=
+"../podcast">podcast system</a> solves this problem, albeit less
+content..</p>
+
+<hr>
+
+<p>GitHub repos were made private, following a <a title=
+"DT for the closer subscribers" href=
+"https://www.youtube.com/c/DistroTube/videos">suggestion from
+DistroTube</a> some time ago.. That is a relief for me. But know
+what, I will make <a href="../../repo">my own version of a repo</a>
+and share <em>static copies</em> of my public c files (dotfiles)
+and some other interesting stuff (mostly neutral things) that need
+sharing to complement my blog posts here and keep those dedicated
+GitHub repos for <em>private use</em>.</p>
+
+<p>Just a note, this website is <a href=
+"https://github.com/mountaineerbr/mountaineerbr.github.io">hosted
+in GitHub</a>, so you can check it over there, too..</p>
+
+<hr>
+
+<p>There are some more or less sensitive information I am removing
+from this website. When other people say they have got a
+<em>personnal website</em>, they don't usually mean a <em>public
+diary</em>, rather leave some (hopefully useful) information and
+ideas for other peple to reach.</p>
+
+<p>Things get complicated when it comes to employment. We don't
+mean to scare off potential employers.. Reconsidering what to post
+exatcly is a good idea. Very clear context should avoid some
+problems of interpretation, too.</p>
+
+<p>That said, the website structure is growing big and may seem
+like a complete mess for an outsider. One of my first intentions
+when building this website was that it had <strong>depth</strong>
+and there was a lot to learning shell scripting for developing a
+sort of suite of <em>poor man webmaster tools</em> to manage this
+website. Not too hard but it demands effort and time. I am sure
+anyone can make a dream website in details from scratch in under 9
+months. That may seem like a long time but if you don't start, you
+will never get there.</p>
+
+<p>While I don't mind using HTML docs to keeping my personal
+annotations like <a href=
+"https://www.youtube.com/c/XahLee/videos">Xah Lee</a>, it is also
+important that the useful information in this blog be accessible
+for me through any device over the internet. That is another reason
+why one should have one personal website: to keep himself organised
+and available reference-wise.</p>
+
+<hr>
+
+<p>There are some powerful and bad peple trying to get hold of me
+on personal grounds due to my confronting their dangerous research
+on Brazilian people. I ought to refrain from getting into details
+as a possible lawsuit may be involved. My accusation against them
+is very technical and to explain it would take a reasonable amount
+of time and writing. Wish me luck, time is my best friend.</p>
+
+<hr>
+
+<p>Considering what I wrote in previous posts, all this builds
+towards my <strong>freezing</strong>, rather than
+<em>removing</em>, this website from public domain.</p>
+
+<p>This does not mean I cannot eventually post here again but
+rather I mean to have multiple websites! That tastes like
+<strong>Freedom &amp; Independence</strong>!</p>
+</article>
+
+<article class="h-entry">
+<header>
 <h2 class="p-name" id="38">#38 - Going Away</h2>
 <time class="dt-published" datetime="2021-04-23">23/apr/2021</time>
 <nav><a href="38/">[stand-alone]</a>
@@ -93,7 +202,8 @@ do something about my career.</p>
 
 <p>That was fun to make my own broadcasting network.</p>
 
-<p>I hope the reader/listener/visitor enjoyed the content!</p>
+<p>I hope the reader/listener/visitor enjoyed the content in this
+channel!</p>
 
 <p>See you. Cheers!</p>
 </article>
@@ -331,8 +441,7 @@ various environment variables as options.</p>
 
 <p>Below these variables are presented with verbose commentary. You
 can find more code commentary in my <a href=
-"https://github.com/mountaineerbr/scripts/blob/master/firefox.sh">shell
-script launcher</a>.</p>
+"../repo/scripts/firefox.sh">shell script launcher</a>.</p>
 
 <pre><code>#This content should be clarified
 #To enable WebRender on Firefox Stable:
@@ -414,10 +523,9 @@ finally be white-listed for performance improvements by
 defaults.</p>
 
 <p>As for now, I find it best to <a href=
-"https://github.com/mountaineerbr/scripts/blob/master/firefox.sh">launch
-Firefox with a shell script</a>. My Firefox launcher in XFCE dock
-and keyboard shortcut in <code>.xbindkeysrc</code> also points to
-the script.</p>
+"../repo/scripts/firefox.sh">launch Firefox with a shell
+script</a>. My Firefox launcher in XFCE dock and keyboard shortcut
+in <code>.xbindkeysrc</code> also points to the script.</p>
 
 <figure><img src="gfx/Linus-Torvalds-Fuck-You-Nvidia.webp" alt=
 "Linus Torwalds meme, Fuck You NVIDIA" width="600" height="339">
@@ -868,10 +976,9 @@ after three weeks</strong>..</li>
 <ul>
 <li>Check my config files with the options described in the
 audiocast: <a href=
-"https://github.com/mountaineerbr/dotfiles/blob/master/.bitcoin/bitcoin.conf">
-<code>bitcoin.conf</code></a> and <a href=
-"https://github.com/mountaineerbr/dotfiles/blob/master/etc/tor/torrc">
-<code>torrc</code></a></li>
+"../repo/dotfiles/.bitcoin/bitcoin.conf"><code>bitcoin.conf</code></a>
+and <a href=
+"../repo/dotfiles/etc/tor/torrc"><code>torrc</code></a></li>
 
 <li><strong>Tor.md</strong>: <a href=
 "https://github.com/bitcoin/bitcoin/blob/master/doc/tor.md">Tor
@@ -1279,10 +1386,9 @@ of peers.</p>
 
 <p>I will leave some generic config which works for me
 (<code>bitcoin.conf</code> and <code>/etc/tor/torrc</code>) at
-<a href=
-"https://github.com/mountaineerbr/dotfiles/blob/master/.bitcoin/bitcoin.conf">
-my github repo</a>. In these files, there are general commentary
-and references for some config options, as well as setting up a
+<a href="../repo/dotfiles/.bitcoin/bitcoin.conf">my github
+repo</a>. In these files, there are general commentary and
+references for some config options, as well as setting up a
 hardware client in the router..</p>
 
 <p>A combination of settings may set the node to work dual-stack in
@@ -2834,12 +2940,11 @@ too.)
 <p>I installed <a href=
 "https://newsboat.org/"><code>newsboat</code></a>, available from
 the official repos. <a href=
-"https://github.com/mountaineerbr/dotfiles/blob/master/.newsboat/config">
-After configuring it</a>, that seems a really cool cli news
-aggregator, I recommend it! I am also testing <a href=
-"https://quiterss.org/"><code>QuiteRSS</code></a> (GUI, on
-reconsideration, it is a very impressive reader), Thunderbird
-add-on <a href=
+"../repo/dotfiles/.newsboat/config">After configuring it</a>, that
+seems a really cool cli news aggregator, I recommend it! I am also
+testing <a href="https://quiterss.org/"><code>QuiteRSS</code></a>
+(GUI, on reconsideration, it is a very impressive reader),
+Thunderbird add-on <a href=
 "http://gnome.eu.org/index.php/Evolution_RSS_Reader_Plugin"><code>evolution-rss</code></a>
 (very good!), Firefox add-on <a href=
 "https://addons.mozilla.org/en-GB/firefox/addon/livemarks/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search">
@@ -3282,9 +3387,8 @@ case, a negative case or be ignored. There is no guarantee this
 analysis is sufficient.</p>
 
 <p>You can check the script with some functions to process the data
-at my <a href=
-"https://github.com/mountaineerbr/scripts/blob/master/corona_notifyBR.sh">
-sub repo</a> for covid test positivity studies.</p>
+at my <a href="../repo/scripts/corona_notifyBR.sh">sub repo</a> for
+covid test positivity studies.</p>
 
 <p>The last step is to generate graphs with <code>gnuplot</code>. I
 am having some difficulty with the x-ticks dates because
@@ -3459,8 +3563,7 @@ interesses pessoais.”</p>
 <small>https://www.oantagonista.com/brasil/doria-defende-frente-para-derrotar-bolsonaro/
 <br>
 (Fetched with a scraper script <a href=
-"https://github.com/mountaineerbr/scripts/blob/master/anta.sh">anta.sh</a>
-from my GitHub repo)</small>
+"../repo/scripts/anta.sh">anta.sh</a> from my GitHub repo)</small>
 </p>
 </blockquote>
 
@@ -3910,11 +4013,10 @@ was not at the temp directory.</p>
 
 <p>I run <code>rm *.txt~*archInstall*</code> and removed 7 files
 from <code>$HOME</code> (I was messing with <a href=
-"https://github.com/mountaineerbr/scripts/blob/master/archPkgCrossCheck.sh">
-this script</a>).. Fortunately, it only removed some of the
-<em>.txt</em> files, which I was able to recover all except one and
-maybe another one may be outdated a little from my last backup in
-December.</p>
+"../repo/scripts/archPkgCrossCheck.sh">this script</a>)..
+Fortunately, it only removed some of the <em>.txt</em> files, which
+I was able to recover all except one and maybe another one may be
+outdated a little from my last backup in December.</p>
 
 <p>I have been trying to follow a tip from <a href=
 "https://aurelio.net/">Aurelio Jargas</a> that is to try and always

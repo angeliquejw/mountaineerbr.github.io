@@ -1,0 +1,16 @@
+# Youtube-dl personal config file
+# Other options are passed to youtube-dl through a per-case demand
+# and also by use of alias
+
+--continue
+
+--console-title
+
+--restrict-filenames
+
+--ignore-errors
+
+--no-call-home
+
+--output /home/jsn/Documents/Videos/%(uploader)s_%(title)s.%(ext)s
+

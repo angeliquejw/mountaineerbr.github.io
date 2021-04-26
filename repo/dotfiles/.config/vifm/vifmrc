@@ -1,0 +1,958 @@
+"
+" ~/.config/vifm/vifmrc
+" vim:filetype=vim
+"                        o       .oo                         
+"                        8      .P 8                         
+" .oPYo. .oPYo. .oPYo.  o8P    .P  8 o   o   o .oPYo. o    o 
+" 8    ' .oooo8 Yb..     8    oPooo8 Y. .P. .P .oooo8 8    8 
+" 8    . 8    8   'Yb.   8   .P    8 `b.d'b.d' 8    8 8    8 
+" `YooP' `YooP8 `YooP'   8  .P     8  `Y' `Y'  `YooP8 `YooP8 
+" :.....::.....::.....:::..:..:::::..::..::..:::.....::....8 
+" ::::::::::::::::::::::::::::::::::::::::::::::::::::::ooP'.
+" ::::::::::::::::::::::::::::::::::::::::::::::::::::::...::
+
+
+" Sample configuration file for vifm (last updated: 21 January, 2018)
+" You can edit this file by hand.
+" The " character at the beginning of a line comments out the line.
+" Blank lines are ignored.
+" The basic format for each item is shown with an example.
+
+" ------------------------------------------------------------------------------
+
+" Command used to edit files in various contexts.  The default is vim.
+" If you would like to use another vi clone such as Elvis or Vile
+" you will need to change this setting.
+
+set vicmd=vim
+" set vicmd=elvis\ -G\ termcap
+" set vicmd=vile
+
+" This makes vifm perform file operations on its own instead of relying on
+" standard utilities like `cp`.  While using `cp` and alike is a more universal
+" solution, it's also much slower when processing large amounts of files and
+" doesn't support progress measuring.
+
+set syscalls
+
+" Trash Directory
+" The default is to move files that are deleted with dd or :d to
+" the trash directory.  If you change this you will not be able to move
+" files by deleting them and then using p to put the file in the new location.
+" I recommend not changing this until you are familiar with vifm.
+" This probably shouldn't be an option.
+
+set trash
+
+" Trash Directories
+set trashdir+=$HOME/.local/share/Trash/files
+" Defaults Dirs for *nix
+"set trashdir+=%r/.vifm-Trash-%u,$VIFM/Trash,%r/.vifm-Trash
+
+
+" This is how many directories to store in the directory history.
+" Maximum number of stored items in all histories
+set history=150
+
+" Chase Links
+"  When  enabled path of view is always resolved to real path
+" (with all symbolic links expanded)
+set chaselinks
+
+" Navigate to destination file instead of treating
+" the link as if  it  were  target  file
+set followlinks
+
+" With this option turned on you can run partially entered commands with
+" unambiguous beginning using :! (e.g. :!Te instead of :!Terminal or :!Te<tab>).
+set fastrun
+
+" Maximum number of changes that can be undone
+" One file deleted, one unit, not one operation
+" (Default: 100)
+set undolevels=1600
+
+" If you installed the vim.txt help file set vimhelp.
+" If would rather use a plain text help file set novimhelp.
+set vimhelp
+
+" If you would like to run an executable file when you
+" press Enter, l or Right Arrow, set this.
+set norunexec
+
+" Selected color scheme
+"colorscheme molokai 
+colorscheme Default-256 Default
+
+" Border Fill chars
+set fillchars=vborder:" ▒"
+" Chars: ▒ ▓ • ∅ ‖ Ѫ 
+
+" Border Colors after loading Theme
+highlight Border cterm=none ctermbg=DarkBlue ctermfg=White
+
+" Format for displaying time in file list. For example:
+" TIME_STAMP_FORMAT=%m/%d-%H:%M
+" See man date or man strftime for details.
+"set timefmt=%m/%d\ %H:%M
+"set timefmt=%y/%m/%d\_%R
+set timefmt=%y%b%d\ %H%M
+" OBS: Check "man 1 date"
+
+" Show list of matches on tab completion in command-line mode
+set wildmenu
+" Display completions in a form of popup with descriptions of the matches
+set wildstyle=popup
+
+" Display suggestions in normal, visual and view modes for keys, marks and
+" registers (at most 5 files).  In other view, when available.
+"set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
+"set suggestoptions+=delay:900
+
+" Time in milliseconds that is waited for a mapped key
+" of already typed key sequence is ambiguous. (Default: 1000)
+"set timeoutlen:1000
+
+" When enabled title of the  terminal  or  terminal  multiplexer's
+" window is updated according to current location
+set title
+
+" Tune User Interface
+" p - when included:
+"     *  file  list  inside  a pane gets additional single character
+"     padding on left and right sides;
+"     * quick view and view mode get single character padding.
+" s - when included, left and right borders (side  borders,  hence
+"     "s" character) are visible.
+" u  - use Unicode characters in the TUI (Unicode ellipsis instead of "...")
+" v - vary width of middle border to equalize view sizes.
+set tuioptions=puv
+" Default "psv"
+
+" Ignore case in search patterns unless
+" it contains at least one uppercase letter
+set ignorecase
+set smartcase
+
+" Wrap "Searches"
+"(Default: true)
+set wrapscan
+" Do not Wrap by Default in Quick View
+set nowrap
+
+" Case Sensitivity Expanded Control 
+" p - always ignore case of paths during completion
+" P - always match case of paths during completion
+set caseoptions=p
+
+
+" Delete operations require confirmation
+"(Default: delete,permdelete)
+set confirm=delete,permdelete
+
+" How size of directories is  displayed;
+" size: size of dir; nitems: number of entries in dir
+set dirsize=size
+
+" Search replaces all occurrences in the line.  Without this argument,
+" replacement occurs only for the first occurrence in each line.
+set gdefault
+
+" Highlight search results automatically
+set hlsearch
+
+" Size Format Option
+" Use  KiB,  MiB,  ... suffixes instead of K, M
+"set iec
+
+" Human-friendly Size Format Configuration
+set sizefmt=units:iec,precision:2,nospace
+
+" Terminal height in lines on startup
+"set lines=50
+
+" Terminal Multiplexer
+" A terminal multiplexer uses pseudo terminals to allow multiple
+" windows to be used in the console or in a single xterm.
+screen!
+
+" Enable LS View
+" No file manipulation, fastfor viewing lots of files
+"(Set a Toggle Action!)set lsview
+" LSOPTIONS used for filling grid by cloumns
+" rather than by lines. Default is none set
+set lsoptions=transposed
+
+"  Miller View Configuration
+" Size  specifies  ratios of columns.  Each ratio is in the range
+" from 0 to 100 and values are adjusted to fit the  limits.
+" Example 1
+"set milleroptions=lsize:1,csize:2,rsize:2
+" Example 2 of two-column mode which is useful
+" in combination with :view cmd
+"default
+"set milleroptions=lsize:1,csize:1,rsize:1,rpreview:dirs
+"two-column mode which is useful in combination with :view command:
+set milleroptions=lsize:1,csize:2
+" More options: ,rsize:1
+
+" Use increment searching (search while typing)
+set incsearch
+
+" Try to leave some space from cursor to upper/lower border in lists
+
+set scrolloff=5
+
+" Don't do too many requests to slow file systems
+
+if !has('win')
+    set slowfs=curlftpfs
+endif
+
+" ------------------------------------------------------------------------------
+
+" MARKS
+
+":mark mark /full/directory/path [filename]
+mark 1 ~
+mark a ~/arq
+mark b ~/bak
+mark c ~/arq/Concursos_Publicos
+mark d ~/arq/docs
+mark D ~/Documents
+mark k ~/.config/conky/confs
+mark m ~/bin/markets
+mark M /media
+mark q ~/www/mountaineerbr.github.io
+mark Q ~/www/mountaineerbr.github.io/blog
+mark s ~/bin
+mark t /tmp
+mark T ~/tmp
+mark v ~/Documents/Videos
+mark w ~/Downloads
+mark W ~/www/mountaineerbr
+
+" ------------------------------------------------------------------------------
+
+" COMMANDS
+
+" :com[mand][!] command_name action
+" The following macros can be used in a command
+" %a is replaced with the user arguments.
+" %c the current file under the cursor.
+" %C the current file under the cursor in the other directory.
+" %f the current selected file, or files.
+" %F the current selected file, or files in the other directory.
+" %b same as %f %F.
+" %d the current directory name.
+" %D the other window directory name.
+" %m run the command in a menu window
+
+command! df df -h %m 2> /dev/null
+command! diff vim -d %f %F
+command! zip zip -r %f.zip %f
+command! run !! ./%f
+command! make !!make %a
+command! mkcd :mkdir %a | cd %a
+command! vgrep vim "+grep %a"
+command! reload :write | restart full
+
+" Open Root ViFM
+command! Root :!sudo vifm %d %D
+		
+" \ -c ":source /home/jsn/.config/vifm/vifmrc" 
+" \ -c "highlight Win cterm=none ctermfg=white ctermbg=052"
+		
+" Creating symbolic links
+" When you call :link a link of the selected file is made in
+" the other directory (if you are in split view). It even works
+" with multiple files selected with visual (v) or tag (t)
+command link ln -s %d/%f %D
+
+" Toggle Between Three Sorting States
+command! togglesort
+         \ :if &sort == '+ext,+name'
+	 \ |    set sort=+name 
+         \ |    echo 'Sorted by NAME'
+         \ |elseif &sort == '-size,+name'
+	 \ |    set sort=+ext
+         \ |    echo 'Sorted by EXTENSION'
+	 \ |elseif &sort == '+mtime,+name'
+         \ |    set sort=-size
+         \ |    echo 'Sorted by SIZE'
+         \ |elseif &sort == '+iname'
+         \ |    set sort=+mtime
+	 \ |    echo 'Sorted by MODIFICATION DATE'
+         \ |else
+         \ |    set sort=+iname
+	 \ |    echo 'Defaults view, iNAME'
+         \ |endif
+" https://q2a.vifm.info/78/how-can-i-toggle-between-two-sorting-states?show=79#a79
+"ORIGINAL CODE:
+"command! togglesort
+"         \ :if &sort == '-size,+name'
+" 	  \ | 	set viewcolumns=-{name}.,12{}. 
+"         \ |    set sort=+mtime
+"         \ |    echo 'Sorted by modification date'
+"         \ |else
+"         \ |    if &sort == '+name'
+"         \ |        set sort=-size
+"         \ |        echo 'Sorted by size'
+"         \ |    else
+"         \ |        set sort=+name
+"         \ |        echo 'Sorted by name'
+"         \ |    endif
+"         \ |endif
+"
+"
+
+" Sanitise FileNames Command
+" Replace all spaces and various OS's reserved characters 
+" from file names and directory names
+command! sanitize :tr/ ?<>\\:*|"/__________
+" https://q2a.vifm.info/107/santize-directory-names?show=111#a111
+
+
+"Edit .Vimrc                                                                    
+command Vrc !vim ~/.vimrc                                                     
+"Edit .ViFMrc                                                                   
+command Vfrc !vim ~/.config/vifm/vifmrc                                      
+"Edit .Xresources                                                               
+command Xrc !vim ~/.Xresources
+"Edit .Bashrc
+command Brc !vim ~/.bashrc
+"Edit .xbindbeysrc
+command Xbrc !vim ~/.xbindkeysrc
+
+
+" ------------------------------------------------------------------------------
+
+" The file type is for the default programs to be used with
+" a file extension.
+" :filetype pattern1,pattern2 defaultprogram,program2
+" :fileviewer pattern1,pattern2 consoleviewer
+" The other programs for the file type can be accessed with the :file command
+" The command macros like %f, %F, %d, %D may be used in the commands.
+" The %a macro is ignored.  To use a % you must put %%.
+" %i     Completely ignore command output.
+
+" For automated FUSE mounts, you must register an extension with :file[x]type
+" in one of following formats:
+"
+" :filetype extensions FUSE_MOUNT|some_mount_command using %SOURCE_FILE and %DESTINATION_DIR variables
+" %SOURCE_FILE and %DESTINATION_DIR are filled in by vifm at runtime.
+" A sample line might look like this:
+" :filetype *.zip,*.jar,*.war,*.ear FUSE_MOUNT|fuse-zip %SOURCE_FILE %DESTINATION_DIR
+"
+" :filetype extensions FUSE_MOUNT2|some_mount_command using %PARAM and %DESTINATION_DIR variables
+" %PARAM and %DESTINATION_DIR are filled in by vifm at runtime.
+" A sample line might look like this:
+" :filetype *.ssh FUSE_MOUNT2|sshfs %PARAM %DESTINATION_DIR
+" %PARAM value is filled from the first line of file (whole line).
+" Example first line for SshMount filetype: root@127.0.0.1:/
+"
+" You can also add %CLEAR if you want to clear screen before running FUSE
+" program.
+
+
+" FAVORITE PROGRAMMES (MIME TYPE)
+
+" Pdf
+" note: xreader cannot open from tmux
+filextype {*.pdf},<application/pdf> xpdf %c %i &, xreader %c %i &, evince %c %i &, zathura %c %i &, apvlv %c
+fileviewer {*.pdf},<application/pdf> pdftotext -nopgbrk %c -
+
+" PostScript
+filextype {*.ps,*.eps,*.ps.gz},<application/postscript>
+        \ {View in gv}
+        \ gv %c %i &,
+	\ {View in evince}
+	\ evince %f,
+        \ {View in zathura}
+        \ zathura %f,
+
+" Djvu
+filextype {*.djvu},<image/vnd.djvu>
+	\ {View in evince}
+	\ evince %f,
+        \ {View in zathura}
+        \ zathura %f,
+        \ {View in apvlv}
+        \ apvlv %f,
+
+" Audio
+filetype {*.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus},
+        \<audio/*>
+       \ {Play using MPlayer}
+       \ mplayer %f,
+       \ {Play using ffplay}
+       \ ffplay -nodisp -autoexit %c,
+fileviewer {*.mp3},<audio/mpeg> mp3info
+fileviewer {*.flac},<audio/flac> soxi
+
+" Video
+filextype {*.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
+          \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+          \*.as[fx]},
+         \<video/*>
+	\ {View using VLC}
+	\ vlc %f %i &,
+        \ {View using ffplay}
+        \ ffplay -fs -autoexit %f,
+        \ {View using Dragon}
+        \ dragon %f:p,
+        \ {View using mplayer}
+        \ mplayer %f,
+fileviewer {*.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
+           \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+           \*.as[fx]},
+          \<video/*>
+         \ ffprobe -pretty %c 2>&1
+
+" Web
+filextype {*.html,*.htm},<text/html>
+	\ {Open with Vim} 
+	\ vim %f ,
+	\ {Open with Firefox} 
+	\ firefox %f &,
+	\ {Open with dwb}
+	\ dwb %f %i &,
+	\ {Open with uzbl}
+	\ uzbl-browser %f %i &,
+filetype {*.html,*.htm},<text/html> w3m, lynx, links
+
+" RTF files
+filetype {*.rtf},<application/rtf>
+	\ {Open with Catdoc and pipe to Vim}
+	\ catdoc %f | vim -,
+fileviewer {*.rtf},<application/rtf> catdoc %c
+
+" Object
+filetype {*.o},<application/x-object> nm %f | less
+
+" Man page
+filetype {*.[1-8]},<text/troff> man ./%c
+fileviewer {*.[1-8]},<text/troff> man ./%c | col -b
+
+" Images
+filextype {*.bmp,*.jpg,*.jpeg,*.png,*.xpm,*.pnm,*.tiff},<image/*>
+	\ {View in Feh}
+	\ feh -FZ %d --start-at %d/%c %i,
+	\ {View in sxiv}
+        \ sxiv %f,
+        \ {View in gpicview}
+        \ gpicview %c,
+        \ {View in shotwell}
+        \ shotwell,
+filextype {*.svg},<image/svg+xml>
+	\ nomacs %c,
+fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
+         \ imgt %px %py %pw %ph %c %i, 
+         \ %pc,
+         \ imgc %px %py %pw %ph,
+         \ identify %f
+	"\ convert -identify %f -verbose /dev/null
+	"\ img2txt %c
+	"\ imgc %c
+	"\ fbi %c  "for frame buffers, tty; also check fim
+	"\ chafa -s 40x80 --color-space din99d %c
+"aalib (b&w), libcaca (colour)
+"img2txt (from libcaca), cacaviewer, aatest, aview, jp2a, pixterm
+"imgt and imgc:: https://wiki.vifm.info/index.php/How_to_preview_images
+
+" GIF with NOMACS
+filextype {*.gif},<image/gif>
+	\ {View in Nomacs}
+	\ nomacs %f,
+
+" OpenRaster
+filextype *.ora
+        \ {Edit in MyPaint}
+        \ mypaint %f,
+
+" Mindmap
+filextype *.vym
+        \ {Open with VYM}
+        \ vym %f &,
+
+" MD5
+filetype *.md5
+       \ {Check MD5 hash sum}
+       \ md5sum -c %f %S,
+
+" SHA1
+filetype *.sha1
+       \ {Check SHA1 hash sum}
+       \ sha1sum -c %f %S,
+
+" SHA256
+filetype *.sha256
+       \ {Check SHA256 hash sum}
+       \ sha256sum -c %f %S,
+
+" SHA512
+filetype *.sha512
+       \ {Check SHA512 hash sum}
+       \ sha512sum -c %f %S,
+
+" GPG signature
+filetype {*.asc},<application/pgp-signature>
+       \ {Check signature}
+       \ !!gpg --verify %c,
+
+" Torrent
+filetype {*.torrent},<application/x-bittorrent>
+	\ transmission-gtk %f &,
+	\ ktorrent %f &,
+fileviewer {*.torrent},<application/x-bittorrent>
+	\ dumptorrent -v %c,
+	\ cat %c,
+
+" FuseZipMount
+filetype {*.zip,*.jar,*.war,*.ear,*.oxt,*.apkg},
+        \<application/zip,application/java-archive>
+       \ {Mount with fuse-zip}
+       \ FUSE_MOUNT|fuse-zip %SOURCE_FILE %DESTINATION_DIR,
+       \ {View contents}
+       \ zip -sf %c | less,
+       \ {Extract here}
+       \ tar -xf %c,
+fileviewer *.zip,*.jar,*.war,*.ear,*.oxt zip -sf %c
+
+" ArchiveMount
+filetype {*.tar,*.tar.bz2,*.tbz2,*.tgz,*.tar.gz,*.tar.xz,*.txz},
+        \<application/x-tar>
+       \ {Mount with archivemount}
+       \ FUSE_MOUNT|archivemount %SOURCE_FILE %DESTINATION_DIR,
+fileviewer *.tgz,*.tar.gz tar -tzf %c
+fileviewer *.tar.bz2,*.tbz2 tar -tjf %c
+fileviewer *.tar.txz,*.txz xz --list %c
+fileviewer {*.tar},<application/x-tar> tar -tf %c
+
+" XZ Archieves
+filetype *.xz
+       \ { Open with File Roller - needs X }
+       \ file-roller %c &
+fileviewer *.xz xz --list %c
+
+
+" Rar2FsMount and rar archives
+filetype {*.rar},<application/x-rar>
+	\ {View with File Roller - needs X}
+	\ file-roller %c &,
+       \ {Mount with rar2fs}
+       \ FUSE_MOUNT|rar2fs %SOURCE_FILE %DESTINATION_DIR,
+fileviewer {*.rar},<application/x-rar> unrar v %c
+
+" IsoMount
+filetype {*.iso},<application/x-iso9660-image>
+       \ {Mount with fuseiso}
+       \ FUSE_MOUNT|fuseiso %SOURCE_FILE %DESTINATION_DIR,
+
+" SshMount
+filetype *.ssh
+       \ {Mount with sshfs}
+       \ FUSE_MOUNT2|sshfs %PARAM %DESTINATION_DIR %FOREGROUND,
+
+" FtpMount
+filetype *.ftp
+       \ {Mount with curlftpfs}
+       \ FUSE_MOUNT2|curlftpfs -o ftp_port=-,,disable_eprt %PARAM %DESTINATION_DIR %FOREGROUND,
+
+" Fuse7z and 7z archives
+filetype {*.7z},<application/x-7z-compressed>
+       \ {Mount with fuse-7z}
+       \ FUSE_MOUNT|fuse-7z %SOURCE_FILE %DESTINATION_DIR,
+fileviewer {*.7z},<application/x-7z-compressed> 7z l %c
+
+" Office files
+filextype {*.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx,*.ppt},
+         \<application/vnd.openxmlformats-officedocument.*,
+          \application/msword,
+          \application/vnd.ms-excel>
+        \ libreoffice %f %i &
+fileviewer {*.doc},<application/msword> catdoc %c
+fileviewer {*.docx},
+          \<application/
+           \vnd.openxmlformats-officedocument.wordprocessingml.document>
+         \ docx2txt.pl %f -
+
+" TuDu files
+filetype *.tudu tudu -f %c
+
+" Qt projects
+filextype *.pro qtcreator %f &
+
+" Directories
+filextype */
+        \ {View in thunar}
+        \ Thunar %f &,
+
+
+" Try to Open Other files with Vim
+filetype * vim
+
+" -------------------------------------------------------
+
+
+" Classify
+" Using charset of font "xos4 Terminus"
+"(Default)
+"set classify=":dir:/"
+"ジァミール ≫ -- My name in Japanese!
+
+
+" More filetypes
+"set classify+="X :exe:,X :reg:"
+"set classify+=" :link:"
+
+" Backup files
+"set classify+=" ::*.bak,,*.bckp,,*.bu,,
+	      "\*.orig,,*.ori::"
+
+" Previous Dir
+"set classify+="X ::../::"
+
+" Various file names
+"set classify+="‡ ::*.sh::"
+"set classify+="§ ::*.pdf::"
+"set classify+="␉ ::*.htm,,*.html,,**.[sx]html,,*.xml::"
+"
+"set classify+="X ::*.[hc]pp::,
+"		\X ::*.[hc]::,
+"		\X ::/^copying|license$/::,
+"     		\X ::.git/,,*.git/::,
+"		\X ::*.epub,,*.fb2,,*.djvu::"
+
+" Archives
+"set classify+="≡ ::*.7z,,*.ace,,*.arj,,*.bz2,,*.cpio,,
+		"\*.deb,,*.dz,,*.gz,,*.jar,,*.lzh,,*.lzma,,
+		"\*.rar,,*.rpm,,*.rz,,*.tar,,*.taz,,*.tb2,,
+		"\*.tbz,,*.tbz2,,*.tgz,,*.tlz,,*.trz,,*.txz,,
+		"\*.tz,,*.tz2,,*.xz,,*.z,,*.zip,,*.zoo::"
+
+" Images
+"set classify+="∆ ::*.bmp,,*.gif,,*.jpeg,,*.jpg,,*.ico,,*.png,,
+		"\*.ppm,,*.svg,,*.svgz,,*.tga,,*.tif,,*.tiff,,
+		"\*.xbm,,*.xcf,,*.xpm,,*.xspf,,*.xwd::"
+
+" Audio
+"set classify+="♪ ::*.aac,,*.anx,,*.asf,,*.au,,*.axa,,*.flac,,
+		"\*.m2a,,*.m4a,,*.mid,,*.midi,,*.mp3,,*.mpc,,
+		"\*.oga,,*.ogg,,*.ogx,,*.ra,,*.ram,,*.rm,,
+		"\*.spx,,*.wav,,*.wma,,*.ac3::"
+
+" Media
+"set classify+="♫ ::*.avi,,*.ts,,*.axv,,*.divx,,*.m2v,,*.m4p,,
+		"\*.m4v,,.mka,,*.mkv,,*.mov,,*.mp4,,*.flv,,
+		"\*.mp4v,,*.mpeg,,*.mpg,,*.nuv,,*.ogv,,*.pbm,,
+		"\*.pgm,,*.qt,,*.vob,,*.wmv,,*.xvid::"
+
+" Libre and MS Office files
+"set classify+="Ð ::*.doc,,*.docx,,*.odt,,*.ott::,
+		"\Ð ::*.xls,,*.xls[mx],,*.ods,,*.odt::,
+		"\Ð ::*.pptx,,*.ppt,,*.odp,,*.otp::"
+" TXT and RTF
+"set classify+="☼ ::*.txt,,*.rtf::"
+
+
+" -------------------------------------------------------
+
+
+" Highlight different filetypes
+highlight /^.*\.(mp3|ogg|oga|flac|m4a)$/ ctermfg=magenta
+highlight /^.*\.(jpg|jpeg|png|gif|tiff|webp|bmp|svg|svgz)$/ ctermfg=yellow
+highlight /^.*\.(zip|gz|bz2|xz|tar|tgz|tbz2|7z|rar|iso|rpm|deb)$/ ctermfg=red
+
+
+" Syntax highlighting in preview
+"
+" Explicitly set highlight type for some extensions
+"
+" 256-color terminal
+" fileviewer *.[ch],*.[ch]pp highlight -O xterm256 -s dante --syntax c %c
+" fileviewer Makefile,Makefile.* highlight -O xterm256 -s dante --syntax make %c
+"
+" 16-color terminal
+" fileviewer *.c,*.h highlight -O ansi -s dante %c
+"
+" Or leave it for automatic detection
+"
+" fileviewer *[^/] pygmentize -O style=monokai -f console256 -g
+
+" Displaying pictures in terminal
+"
+" fileviewer *.jpg,*.png shellpic %c
+
+" Open all other files with default system programs (you can also remove all
+" :file[x]type commands above to ensure they don't interfere with system-wide
+" settings).  By default all unknown files are opened with 'vi[x]cmd'
+" uncommenting one of lines below will result in ignoring 'vi[x]cmd' option
+" for unknown file types.
+" For *nix:
+" filetype * xdg-open
+" For OS X:
+" filetype * open
+" For Windows:
+" filetype * start, explorer
+
+" ------------------------------------------------------------------------------
+
+" What should be saved automatically between vifm sessions.  Drop "savedirs"
+" value if you don't want vifm to remember last visited directories for you.
+set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
+    \phistory,fhistory,dirstack,registers,bookmarks,bmarks
+
+" ------------------------------------------------------------------------------
+
+" Examples of configuring both panels
+
+" Customize view columns a bit (enable ellipsis for truncated file names)
+"set viewcolumns=-{name},{ext},{mtime}
+"set viewcolumns=-{name}..,12{}.
+"set viewcolumns=-{name}.,12{}.
+"windo set viewcolumns=-{name}..,6{size},11{perms}
+nmap ,0 :set viewcolumns=-{name}..,3{ext},7{size},13{mtime} <cr>
+"set defaults
+windo    set viewcolumns=-{name}..,3{ext},7{size},13{mtime} <cr>
+
+"change mtime to perms
+nmap ,p  :set viewcolumns=-{name}..,3{ext},7{size},11{perms} <cr>
+
+" detailed information about files
+nnoremap <silent> ,d :set viewcolumns=*{name}..,11{perms},7{uname},-7{gname},7{size}.,13{mtime}<cr>
+"https://q2a.vifm.info/464/filtering-columns-when-window-is-too-small
+
+
+" Natural sort of (version) numbers within text.
+set sortnumbers
+
+" Sort by names, ignores case
+set sort=iname
+set sortorder=ascending
+
+
+" Filter-out build and temporary files
+"
+" filter! {*.lo,*.o,*.d,*.class,*.pyc,*.pyo,.*~}
+
+" Ruler Content ( at cmd line )
+" This example shows the number of
+" hidden files at the rightmost (%x)
+" You can put output of set rulerformat
+" to 'statusline', for other items there
+" are no macros available at the moment.
+set rulerformat='%2l-%S%[ +%x%]'
+
+" Set Status Line Look
+"set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
+" Content of the status line above command-line
+" Example without colors, size of one file only:
+"set statusline="  %t%= %A %10u:%-7g %15s %20d %{&sort} "
+" Example without colors, size of all files selected:
+"DEFAULT: set statusline="  %t%= %A %10u:%-7g %15E %20d %{&sort} "
+set statusline="%-t%=||%u:%-g %10E %d %{&sort} "
+" Example with colors:
+"highlight User1 ctermbg=yellow
+"highlight User2 ctermbg=blue ctermfg=white cterm=bold
+"set statusline="%1* %-26t %2* %= %1* %A %2* %7u:%-7g %1* %-5s %2* %d "
+
+" ------------------------------------------------------------------------------
+
+" MAPPINGS
+
+" There is no :let mapleader support yet
+"Check TO-DO list
+"https://github.com/vifm/vifm/blob/master/TODO
+
+" Start shell in current directory
+nnoremap s :shell<cr>
+
+" Display sorting dialog
+nnoremap S :sort<cr>
+
+" Toggle visibility of preview window
+nnoremap w :view<cr>
+vnoremap w :view<cr>gv
+
+" Open file in existing instance of gvim
+"nnoremap o :!gvim --remote-tab-silent %f<cr>
+" Open file in new instance of gvim
+"nnoremap O :!gvim %f<cr>
+
+" Open file in the background using its default program
+nnoremap gb :file &<cr>l
+
+" yank current directory path into primary and selection clipboards
+nnoremap yd :!echo -n %d | xsel --input --primary %i &&
+            \ echo -n %d | xsel --clipboard --input %i<cr>:echo expand('%"d') "yanked"<cr>
+
+" yank current file path into primary and selection clipboards
+nnoremap yf :!echo -n %c:p | xsel --input --primary %i &&
+            \ echo -n %c:p | xsel --clipboard --input %i<cr>:echo expand('%"c:p') "yanked"<cr>
+
+" yank current filename without path into primary and selection clipboards
+nnoremap yn :!echo -n %c | xsel --input --primary %i &&
+            \ echo -n %c | xsel --clipboard --input %i<cr>:echo expand('%"c') "yanked"<cr>
+
+" yank root of current file's name into primary and selection clipboards
+nnoremap yr :!echo -n %c:r | xsel --input --primary %i &&
+            \ echo -n %c:r | xsel --clipboard --input %i<cr>:echo expand('%"c:r') "yanked"<cr>
+"https://wiki.vifm.info/index.php/How_to_copy_path_to_current_file/directory_to_system_clipboard
+
+" RENAMING Maps
+" Rename from first char
+"nnoremap I cw<c-a>
+" Rename to New Name
+"nnoremap cc cw<c-u>
+" Rename from last char
+"nnoremap A cw
+
+"Panel resizing
+"Just type - or _ to resize the panels
+nnoremap - <C-w>5<
+nnoremap _ <C-w>5>
+"https://wiki.archlinux.org/index.php/Vifm
+
+" Single stroke to access command line
+nnoremap ; :
+                                                                            
+" Exits
+"Prefer to use ZZ or ZQ
+" Bash-like quit
+"nmap <C-d> :q <CR>
+" May want to remap something to trigger original command:
+"noremap <C-s> <C-d>
+nmap ;q  :q
+nmap :Q  :q
+nmap ;Q  :q
+nmap :Wq :wq
+nmap ;Wq :wq
+
+
+
+" BINDDINGS WITH LEADER ,
+
+" Execute command togglesort
+noremap ,t :togglesort<cr>
+
+"sync directory in panes
+noremap ,i :sync! <cr>
+
+" Examples
+" Open console in current directory
+nnoremap ,x :!xterm &<cr>
+" Open editor to edit vifmrc and apply settings after returning to vifm
+"nnoremap ,c :write | edit $MYVIFMRC | restart full<cr>
+" Open gvim to edit vifmrc
+" nnoremap ,C :!gvim --remote-tab-silent $MYVIFMRC &<cr>
+"https://wiki.vifm.info/index.php/Configuration_model#:restart_usage_example
+
+" Toggle wrap setting on ,w key
+nnoremap ,w :set wrap!<cr>
+
+" Open with firefox
+nnoremap ,f :!firefox %c &<cr>
+
+"toggle lsview
+noremap ,l :set lsview! <cr>
+"toggle millerview
+noremap ,m :set millerview! 
+	\ |view
+	\ |set viewcolumns={name} <cr>
+"tree view
+noremap ,e :tree! <cr>
+
+
+" BINDDINGS WITH LEADER \
+
+
+
+" FUNCTION ( FN ) KEYS BINDDINGS
+
+" Example of standard two-panel file managers mappings
+"nnoremap <f3> :!less %f<cr>
+"nnoremap <f4> :edit<cr>
+"nnoremap <f5> :copy<cr>
+"nnoremap <f6> :move<cr>
+"nnoremap <f7> :mkdir<space>
+"nnoremap <f8> :delete<cr>
+
+" Midnight commander alike mappings
+" Open current directory in the other pane
+nnoremap <a-i> :sync<cr>
+" Open directory under cursor in the other pane
+nnoremap <a-o> :sync %c<cr>
+" Swap panes
+nnoremap <c-u> <c-w>x
+
+" Use keybinding F3 by the developer for this function!!!
+" (This is only for Reference)
+" Toggle :only plus :view mode and back again to :split
+"nnoremap e :only|normal e<cr>
+"qnoremap e q:vsplit<cr>
+" The above breaks if you have :view enabled
+"nnoremap x :view!|view|only|normal e<cr>
+"qnoremap x q:vsplit<cr>
+" above is a workaroung
+" https://q2a.vifm.info/31/visual-mode-how-to-fill-the-whole-screen?show=31#q31
+
+
+
+
+
+" ------------------------------------------------------------------------------
+
+" Various customization examples
+
+" Use ag (the silver searcher) instead of grep
+set grepprg=ag\ --smart-case\ --hidden\ --nofollow\ --heading\ --numbers\ %i\ %a\ %s
+" Spaces can also be used to separate directory names (for backwards
+"compatibility with version 3.0).  To have a space in a directory
+"name, precede it with an extra backslash, and escape the space: >
+" :set path=.,/dir/with\\\ space
+" One order of mag faster, from community the_silver_searcher
+
+" Add additional place to look for executables
+"
+" let $PATH = $HOME.'/bin/fuse:'.$PATH
+
+" Block particular shortcut
+"
+" nnoremap <left> <nop>
+
+" Export IPC name of current instance as environment variable and use it to
+" communicate with the instance later.
+"
+" It can be used in some shell script that gets run from inside vifm, for
+" example, like this:
+"     vifm --server-name "$VIFM_SERVER_NAME" --remote +"cd '$PWD'"
+"
+" let $VIFM_SERVER_NAME = v:servername
+
+" -------------------------------------
+
+" Default View ( resets last session view options )
+":cd / /home/jsn
+":only
+":vsplit
+":winrun ^ set millerview
+":winrun ^ set viewcolumns=-{name}...,6{}.
+":winrun $ set nomillerview
+" Winrun- ^ - top-left pane
+" 	- $ - bottom-right pane
+" 	- % - all panes
+" 	- . - current pane
+" 	- , - other pane
+
+" Colorscheme adjustments
+highlight  CurrLine    cterm=underline,bold    ctermfg=087  ctermbg=red
+"highlight  OtherLine   cterm=none     ctermfg=cyan  ctermbg=236
+"highlight AuxWin cterm=bold,underline ctermfg=default ctermbg=default
+"highlight TopLine cterm=underline ctermfg=yellow ctermbg=234
+"highlight TopLineSel cterm=bold,underline ctermfg=yellow ctermbg=066
+
+"cd into directory on vifm exit
+"https://wiki.vifm.info/index.php?title=How_to_set_shell_working_directory_after_leaving_Vifm
+
+

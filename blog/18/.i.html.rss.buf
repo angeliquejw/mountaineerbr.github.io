@@ -98,7 +98,7 @@ vfcd()
 <hr>
 <h3>Fifty-one days later (2021 jan)..</h3>
 <p>I did it again.. I was testing a script at a dedicated temp directory. I opened many terminal windows at once and was doing too many tests quickly. I opened another terminal window and forgot it was not at the temp directory.</p>
-<p>I run <code>rm *.txt~*archInstall*</code> and removed 7 files from <code>$HOME</code> (I was messing with <a href="https://github.com/mountaineerbr/scripts/blob/master/archPkgCrossCheck.sh">this script</a>).. Fortunately, it only removed some of the <em>.txt</em> files, which I was able to recover all except one and maybe another one may be outdated a little from my last backup in December.</p>
+<p>I run <code>rm *.txt~*archInstall*</code> and removed 7 files from <code>$HOME</code> (I was messing with <a href="https://mountaineerbr.github.io/repo/scripts/archPkgCrossCheck.sh">this script</a>).. Fortunately, it only removed some of the <em>.txt</em> files, which I was able to recover all except one and maybe another one may be outdated a little from my last backup in December.</p>
 <p>I have been trying to follow a tip from <a href="https://aurelio.net/">Aurelio Jargas</a> that is to try and always use a glob that <em>more than</em> just <code>*</code>..</p>
 <br>
 <figure><img src="https://mountaineerbr.github.io/blog/gfx/homer.gif" alt="Duh! Slaping forehead" width="480" height="366">

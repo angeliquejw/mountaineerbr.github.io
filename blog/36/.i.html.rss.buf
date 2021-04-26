@@ -1,7 +1,7 @@
 <article class="h-entry">
 <header>
 <h1 class="p-name" id="36">#36 - Firefox on NVIDIA Graphics Card</h1>
-<time class="dt-published" datetime="2021-09-12">12/sep/2021</time><br></header>
+<time class="dt-published" datetime="2021-04-12">12/apr/2021</time><br></header>
 <p>Using the NVIDIA driver in Linux is quite difficult and it is not so straightforward because it varies depending on what application needs it. Mining Monero was not too difficult but the XMR miner used CUDA and that is another story.</p>
 <p>Configuring Firefox to use NVIDIA may be overwhelming option-wise because there are so many unstable outcomes when setting these experimental or unstable options.</p>
 <h2>NVDIA-related Drivers</h2>
@@ -49,7 +49,7 @@ ON</code></pre>
 </ul>
 <p>My current Firefox can run stably and smoothly (under XFCE and Picom) with only <code>layers.acceleration.force-enabled</code> set, as force enabling the webrender makes my Firefox very buggy and unstable..</p>
 <p>Alternative (or additionally, you will need testing) to messing with <code>about:config</code> options, Mozilla Firefox can read various environment variables as options.</p>
-<p>Below these variables are presented with verbose commentary. You can find more code commentary in my <a href="https://github.com/mountaineerbr/scripts/blob/master/firefox.sh">shell script launcher</a>.</p>
+<p>Below these variables are presented with verbose commentary. You can find more code commentary in my <a href="https://mountaineerbr.github.io/repo/scripts/firefox.sh">shell script launcher</a>.</p>
 <pre><code>#This content should be clarified
 #To enable WebRender on Firefox Stable:
 export MOZ_ACCELERATED=1        #same as:`layers.acceleration.force-enabled = true&#39;
@@ -85,7 +85,7 @@ export MOZ_USE_OMTC=1
 <p>Follow instructions from <a href="https://wiki.archlinux.org/index.php/Firefox/Tweaks">Firefox#Tweaks</a> to check if options are enabled. You can also type <code>CTR+F</code> and search for <em>`Intel&#39;</em> to check whether Intel integrated graphics or <em>`Nvidia&#39;</em> driver is being used as renderer.</p>
 <p>Alternatively, some information can be retrieved from <a title="WebGL MAX parameters support" href="https://alteredqualia.com/tmp/webgl-maxparams-test/">test this website</a>.</p>
 <p>It is a little time consuming until you get yoru configuration working properly and maybe your system cannot support all features, but they will eventually come the official way and your driver may finally be white-listed for performance improvements by defaults.</p>
-<p>As for now, I find it best to <a href="https://github.com/mountaineerbr/scripts/blob/master/firefox.sh">launch Firefox with a shell script</a>. My Firefox launcher in XFCE dock and keyboard shortcut in <code>.xbindkeysrc</code> also points to the script.</p>
+<p>As for now, I find it best to <a href="https://mountaineerbr.github.io/repo/scripts/firefox.sh">launch Firefox with a shell script</a>. My Firefox launcher in XFCE dock and keyboard shortcut in <code>.xbindkeysrc</code> also points to the script.</p>
 <figure><img src="https://mountaineerbr.github.io/blog/gfx/Linus-Torvalds-Fuck-You-Nvidia.webp" alt="Linus Torwalds meme, Fuck You NVIDIA" width="600" height="339">
 <figcaption>Fig 1. At moments like these we like to remember <a href="https://www.theverge.com/2012/6/17/3092829/linus-torvalds-fuck-you-nvidia">Mr Torwalds wishes to NVIDIA..</a></figcaption>
 </figure>

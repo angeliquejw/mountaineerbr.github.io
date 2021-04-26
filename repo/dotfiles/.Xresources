@@ -1,0 +1,728 @@
+!
+! ~/.Xresources
+!                         _        _                      ___      
+! ._ _ _  ___  _ _ ._ _ _| |_ ___ <_>._ _  ___  ___  _ _ | . > _ _ 
+! | ' ' |/ . \| | || ' | | | <_> || || ' |/ ._>/ ._>| '_>| . \| '_>
+! |_|_|_|\___/`___||_|_| |_| <___||_||_|_|\___.\___.|_|  |___/|_|  
+!
+!                  _    ___                  
+!  ___  ___  ___ _| |_ | . | _ _ _  ___  _ _ 
+! / | '<_> |<_-<  | |  |   || | | |<_> || | |
+! \_|_.<___|/__/  |_|  |_|_||__/_/ <___|`_. |
+!                                       <___'
+                                                                 
+
+!load (default) xresources: xrdb -load ~/.Xresources
+!merge xresources: xrdb -merge ~/.Xresources
+!check man xrdb
+
+!x11 colour names
+!https://en.wikipedia.org/wiki/X11_color_names
+
+! XScreenSaver
+! xscreensaver-demo writes the chosen configuration to ~/.xscreensaver,
+! discarding any manual modifications to the file.
+! Since at least XScreenSaver 5.22, user can use .Xresources
+! 5.22 defaults from: https://gist.github.com/anonymous/682d8daf5631b588e12e
+
+!xscreensaver.mode: random
+!xscreensaver.timeout: 0:10:00
+!xscreensaver.cycle: 0:10:00
+!xscreensaver.lockTimeout: 0:00:00
+!xscreensaver.passwdTimeout: 0:00:30
+!xscreensaver.dpmsEnabled: False
+!xscreensaver.dpmsQuickoffEnabled: False
+!xscreensaver.dpmsStandby: 2:00:00
+!xscreensaver.dpmsSuspend: 2:00:00
+!xscreensaver.dpmsOff: 4:00:00
+!xscreensaver.grabDesktopImages: True
+!xscreensaver.grabVideoFrames: False
+!xscreensaver.chooseRandomImages: True
+
+! This can be a local directory name, or the URL of an RSS or Atom feed.
+!xscreensaver.imageDirectory: /usr/share/wallpapers/
+!xscreensaver.nice: 10
+!xscreensaver.memoryLimit: 0
+!xscreensaver.lock: False
+!xscreensaver.verbose: False
+!xscreensaver.timestamp: True
+!xscreensaver.fade: True
+!xscreensaver.unfade: False
+!xscreensaver.fadeSeconds: 0:00:03
+!xscreensaver.fadeTicks: 20
+!xscreensaver.splash: True
+!xscreensaver.splashDuration: 0:00:05
+!xscreensaver.visualID: default
+!xscreensaver.captureStderr: True
+!xscreensaver.ignoreUninstalledPrograms: False
+!
+!xscreensaver.textMode: file
+!xscreensaver.textLiteral: XScreenSaver
+!xscreensaver.textFile:
+!xscreensaver.textProgram: fortune
+!xscreensaver.textURL: http://en.wikipedia.org/w/index.php?title=Special:NewPages&feed=rss
+!
+!xscreensaver.overlayTextForeground: #FFFF00
+!xscreensaver.overlayTextBackground: #000000
+!xscreensaver.overlayStderr: True
+!xscreensaver.font: *-medium-r-*-140-*-m-*
+
+! The default is to use these extensions if available (as noted.)
+!xscreensaver.sgiSaverExtension: True
+!xscreensaver.xidleExtension: True
+!xscreensaver.procInterrupts: True
+
+! Turning this on makes pointerHysteresis not work.
+!xscreensaver.xinputExtensionDev: False
+
+! Set this to True if you are experiencing longstanding XFree86 bug #421
+! (xscreensaver not covering the whole screen)
+!xscreensaver.GetViewPortIsFullOfLies: False
+
+! This is what the "Demo" button on the splash screen runs (/bin/sh syntax.)
+!xscreensaver.demoCommand: xscreensaver-demo
+
+! This is what the "Prefs" button on the splash screen runs (/bin/sh syntax.)
+!xscreensaver.prefsCommand: xscreensaver-demo -prefs
+
+! This is the URL loaded by the "Help" button on the splash screen,
+! and by the "Documentation" menu item in xscreensaver-demo.
+!xscreensaver.helpURL: http://www.jwz.org/xscreensaver/man.html
+
+! loadURL       -- how the "Help" buttons load the helpURL (/bin/sh syntax.)
+!xscreensaver.loadURL: firefox '%s' || mozilla '%s' || netscape '%s'
+
+! manualCommand -- how the "Documentation" buttons display man pages.
+!xscreensaver.manualCommand: xterm -sb -fg black -bg gray75 -T '%s manual' -e /bin/sh -c 'man "%s" ; read foo'
+
+! The format used for printing the date and time in the password dialog box
+! To show the time only:  %I:%M %p
+! For 24 hour time: %H:%M
+!xscreensaver.dateFormat: %d-%b-%y (%a); %I:%M %p
+
+! This command is executed by the "New Login" button on the lock dialog.
+! (That button does not appear on the dialog if this program does not exist.)
+! For Gnome: probably "gdmflexiserver -ls".  KDE, probably "kdmctl reserve".
+! Or maybe yet another wheel-reinvention, "lxdm -c USER_SWITCH".
+!xscreensaver.newLoginCommand: kdmctl reserve
+!xscreensaver.installColormap: True
+!xscreensaver.pointerPollTime: 0:00:05
+!xscreensaver.pointerHysteresis: 10
+!xscreensaver.initialDelay: 0:00:00
+!xscreensaver.windowCreationTimeout: 0:00:30
+!xscreensaver.bourneShell: /bin/sh
+
+! Resources for the password and splash-screen dialog boxes of
+! the "xscreensaver" daemon.
+!xscreensaver.Dialog.headingFont: *-helvetica-bold-r-*-*-*-180-*-*-*-iso8859-1
+!xscreensaver.Dialog.bodyFont: *-helvetica-bold-r-*-*-*-140-*-*-*-iso8859-1
+!xscreensaver.Dialog.labelFont: *-helvetica-bold-r-*-*-*-140-*-*-*-iso8859-1
+!xscreensaver.Dialog.unameFont: *-helvetica-bold-r-*-*-*-120-*-*-*-iso8859-1
+!xscreensaver.Dialog.buttonFont: *-helvetica-bold-r-*-*-*-140-*-*-*-iso8859-1
+!xscreensaver.Dialog.dateFont: *-helvetica-medium-r-*-*-*-80-*-*-*-iso8859-1
+
+! Helvetica asterisks look terrible.
+!xscreensaver.passwd.passwdFont: *-courier-medium-r-*-*-*-140-*-*-*-iso8859-1
+
+!xscreensaver.Dialog.foreground: #000000
+!xscreensaver.Dialog.background: #E6E6E6
+!xscreensaver.Dialog.Button.foreground: #000000
+!xscreensaver.Dialog.Button.background: #F5F5F5
+
+!*Dialog.Button.pointBackground: #EAEAEA
+!*Dialog.Button.clickBackground: #C3C3C3
+!xscreensaver.Dialog.text.foreground: #000000
+!xscreensaver.Dialog.text.background: #FFFFFF
+!xscreensaver.passwd.thermometer.foreground: #4464AC
+!xscreensaver.passwd.thermometer.background: #FFFFFF
+!xscreensaver.Dialog.topShadowColor: #FFFFFF
+!xscreensaver.Dialog.bottomShadowColor: #CECECE
+!xscreensaver.Dialog.logo.width: 210
+!xscreensaver.Dialog.logo.height: 210
+!xscreensaver.Dialog.internalBorderWidth: 24
+!xscreensaver.Dialog.borderWidth: 1
+!xscreensaver.Dialog.shadowThickness: 2
+!
+!xscreensaver.passwd.heading.label: XScreenSaver %s
+!xscreensaver.passwd.body.label: This screen is locked.
+!xscreensaver.passwd.unlock.label: OK
+!xscreensaver.passwd.login.label: New Login
+!xscreensaver.passwd.user.label: Username:
+!xscreensaver.passwd.thermometer.width: 8
+!xscreensaver.passwd.asterisks: True
+!xscreensaver.passwd.uname: True
+!
+!xscreensaver.splash.heading.label: XScreenSaver %s
+!xscreensaver.splash.body.label: Copyright © 1991-2013 by
+!xscreensaver.splash.body2.label: Jamie Zawinski <jwz@jwz.org>
+!xscreensaver.splash.demo.label: Settings
+!xscreensaver.splash.help.label: Help
+
+
+! urxvt
+
+URxvt.geometry: 80x24
+
+!colour settings
+URxvt.reverseVideo: false
+URxvt.background: black
+URxvt.foreground: white
+URxvt.colorBD: yellow
+URxvt.colorUL: green
+
+URxvt.highlightColor: steelblue
+URxvt.highlightTextColor: floralwhite
+URxvt.cursorColor: firebrick
+URxvt.cursorColor2: antiquewhite
+URxvt.cursorBlink: false
+URxvt.cursorUnderline: false
+
+!bitmap font
+URxvt.font: 9x15
+!spacing between chars can be reduced by one pixel as such: 
+!URxvt.letterSpace: -1
+
+URxvt.scrollBar: true
+URxvt.scrollstyle: plain
+URxvt.thickness: 13
+URxvt.borderLess: false
+URxvt.borderColor: #000030
+URxvt.internalBorder: 4
+
+URxvt.saveLines: 15000
+
+!bell
+URxvt*visualBell: true
+URxvt.urgentOnBell: true
+
+!bell command
+!add 'bell-command' to perl extensions and set:
+!URxvt.bell-command: aplay /path/to/a/file.wav
+!URxvt.bell-command: canberra-gtk-play -i bell
+
+!pop a visual notification
+!URxvt.bell-command: notify-send "rxvt-unicode: bell!"
+
+!title of windows (.bashrc ps1 function may superseed)
+!URxvt*title: Name
+
+!set window icon and picture as background, compile 'rxvt-unicode-pixbuf'
+!URxvt*iconFile: /path
+!URxvt*backgroundPixmap: ~/penguinitis.xpm
+!URxvt*menu: ~/URxvt.menu
+
+!scrollback position
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+!scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+!scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+!scrollback buffer in secondary screen
+!when scroll a pager in a secondary screen, it may be a good idea to disable the
+!scrollback buffer to be able to scroll in the pager itself, instead of the terminal buffer
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+
+!for the ctrl+shift bindings to work, a default binding needs to be disabled
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+!copy and paste as usual (built-in eval functions)
+URxvt.keysym.M-v: eval:paste_clipboard
+URxvt.keysym.M-c: eval:selection_to_clipboard
+!man urxvt-eval
+!https://unix.stackexchange.com/questions/294337/rebinding-ctrl-alt-cv-to-ctrl-shift-cv-in-urxvt-9-20
+
+
+!quick Reference
+!
+! scrolling:
+!   Scroll Wheel
+!   Shift-PgUp/PgDn
+!
+! copy/paste:
+!   Mouse-Select        : popy to PRIMARY
+!   Shift + Mouse-Select: popy to CLIPBOARD
+!
+!   Middle-Click        : paste from PRIMARY
+!   Shift + Middle-Click: paste from CLIPBOARD
+!
+!   Ctrl+Shift+V        : paste from CLIPBOARD
+!   Ctrl+Alt+Shift+V    : paste from PRIMARY
+!http://blog.ssokolow.com/archives/2011/05/01/modernizing-xterms-paste/
+
+
+!perl extensions
+URxvt.perl-ext-common: default,matcher,selection-to-clipboard,tabbed,resize-font,keyboard-select
+
+!keyboard selection
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+!use meta-escape to activate selection mode, then use the following keys:
+!   h/j/k/l:    Move cursor left/down/up/right (also with arrow keys)
+!   g/G/0/^/$/H/M/L/f/F/;/,/w/W/b/B/e/E: More vi-like cursor movement keys
+!   '/'/?:      Start forward/backward search
+!   n/N:        Repeat last search, N: in reverse direction
+!   Ctrl-f/b:   Scroll down/up one screen
+!   Ctrl-d/u:   Scroll down/up half a screen
+!   v/V/Ctrl-v: Toggle normal/linewise/blockwise selection
+!   y/Return:   Copy selection to primary buffer, Return: quit afterwards
+!   Y:          Copy selected lines to primary buffer or cursor line and quit
+!   q/Escape:   Quit keyboard selection mode
+!https://github.com/muennich/urxvt-perls/blob/master/keyboard-select
+!https://bbs.archlinux.org/viewtopic.php?id=102972&p=2
+
+!clickable urls
+!add 'matcher' to perl extensions
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.url-select.underline: true
+URxvt.matcher.button: 2
+URxvt.matcher.rend.0: Uline Bold fg5
+!button 1 is left click and 2 is middle click
+!colourise hyperlinks (fg5=yellow;fg4=green;fg3=red;etc)
+
+!changing font size on the fly with 'urxvt-resize-font-git'
+!Ctrl++ (or Ctrl+Shift+=) to increase size
+!Ctrl+- to decrease size
+!Ctrl+= to reset size
+!Ctrl+? to see current size
+
+!simple tabs
+!add 'tabbed' to perl Extensions
+!Shift+Down 	New tab
+!Shift+Left 	Go to left tab
+!Shift+Right 	Go to right tab
+!Ctrl+Left 	Move tab to the left
+!Ctrl+Right 	Move tab to the right
+!Ctrl+d 	Close tab 
+!you can change the colors of tabs with the following:
+URxvt.tabbed.tabbar-fg: 2
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg: 3
+URxvt.tabbed.tab-bg: 0
+
+!http://510x.se/notes/posts/Configuring_and_using_URxvt-unicode/
+!https://raw.githubusercontent.com/lixiao123/gentoo-config/master/.Xresources
+!https://wiki.archlinux.org/index.php/rxvt-unicode
+!https://wiki.archlinux.org/index.php/Rxvt-unicode/Tips_and_tricks
+
+
+!emacs
+
+emacs*background: darkblue
+emacs*foreground: wheat
+emacs*pointerColor: orchid
+emacs*cursorColor: orchid
+emacs*bitmapIcon: on
+emacs*font: 10x20
+
+
+! █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ 
+! █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ 
+! █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ █▓▒░ 
+! 
+! xterm
+! xterm rocks!
+
+!have uxterm use xterm resources, replace "Xterm.vt100.name" with "*.vt100.name" or "xterm.vt100.name" 
+
+!theme one
+! Dracula Xresources palette -- Derek DistroTube
+!XTerm*foreground: #bbc5ff
+!XTerm*background: #292d3e
+!XTerm*cursorColor: #bbc5ff
+! black
+!! color0 was originally #292d3e
+!*.color0:       #101010  
+!*.color8:       #434758
+! red
+!*.color1:       #f07178
+!*.color9:       #ff8b92
+! green
+!*.color2:       #c3e88d
+!*.color10:      #ddffa7
+! yellow
+!*.color3:       #ffcb6b
+!*.color11:      #ffe585
+! blue
+!*.color4:       #82aaff
+!*.color12:      #9cc4ff
+! magenta
+!*.color5:       #c792ea
+!*.color13:      #e1acff
+! cyan
+!*.color6:       #89ddff
+!*.color14:      #a3f7ff
+! white
+!*.color7:       #d0d0d0
+!*.color15:      #ffffff
+!https://gitlab.com/dwt1/dotfiles/-/blob/master/.Xresources
+
+!theme two
+!xterm.vt100.background: rgb:00/00/00
+!xterm.vt100.foreground: rgb:cf/cf/cf
+!xterm.vt100.color0:     rgb:00/00/00
+!xterm.vt100.color1:     rgb:e0/10/10
+!xterm.vt100.color2:     rgb:20/ad/20
+!xterm.vt100.color3:     rgb:d4/c2/4f
+!xterm.vt100.color4:     rgb:23/1b/b8
+!xterm.vt100.color5:     rgb:9c/38/85
+!xterm.vt100.color6:     rgb:1d/bd/b8
+!xterm.vt100.color7:     rgb:fe/fe/fe
+!xterm.vt100.color8:     rgb:6a/6a/6a
+!xterm.vt100.color9:     rgb:e8/3a/3d
+!xterm.vt100.color10:    rgb:35/e9/56
+!xterm.vt100.color11:    rgb:ff/ff/2f
+!xterm.vt100.color12:    rgb:3a/53/f0
+!xterm.vt100.color13:    rgb:e6/28/ba
+!xterm.vt100.color14:    rgb:1c/f5/f5
+!xterm.vt100.color15:    rgb:ff/ff/ff
+
+!theme three
+!xterm.vt100.background: rgb:10/10/10
+!xterm.vt100.foreground: rgb:d3/d3/d3
+!xterm.vt100.color0:     rgb:10/10/10
+!xterm.vt100.color1:     rgb:cd/5c/5c
+!xterm.vt100.color2:     rgb:2e/8b/57
+!xterm.vt100.color3:     rgb:f0/e6/8c
+!xterm.vt100.color4:     rgb:b0/c4/de
+!xterm.vt100.color5:     rgb:ba/55/d3
+!xterm.vt100.color6:     rgb:46/82/b4
+!xterm.vt100.color7:     rgb:d3/d3/d3
+!xterm.vt100.color8:     rgb:4d/4d/4d
+!xterm.vt100.color9:     rgb:ff/6a/6a
+!xterm.vt100.color10:    rgb:8f/bc/8f
+!xterm.vt100.color11:    rgb:ff/fa/cd
+!xterm.vt100.color12:    rgb:1e/90/ff
+!xterm.vt100.color13:    rgb:db/70/93
+!xterm.vt100.color14:    rgb:5f/9e/a0
+!xterm.vt100.color15:    rgb:ff/ff/ff
+!http://web.archive.org/web/20090130061234/http://phraktured.net/terminal-colors/
+
+!colour settings
+xterm.vt100.reverseVideo: false
+xterm.vt100.background: Black
+xterm.vt100.foreground: White
+xterm.vt100.colorBD: Yellow
+xterm.vt100.colorUL: Green
+!xterm.vt100.veryBoldColors:4
+!xterm.vt100.colorRVMode:True
+!xterm.vt100.colorRV:XtDefaultForeground
+
+xterm.vt100.cursorColor: firebrick
+!hotpink
+xterm.vt100.cursorBlink: true
+
+xterm.vt100.highlightReverse: true
+xterm.vt100.highlightColorMode: false
+xterm.vt100.highlightColor: steelblue
+!steelblue = #4682B4
+xterm.vt100.highlightTextColor: floralwhite
+!xterm.vt100.highlightSelection: false
+!xterm.vt100.reverseVideo: false
+
+!mouse pointer
+!xterm.vt100.pointerColor: navy
+!xterm.vt100.pointerColorBackground: green
+!xterm.vt100.pointerMode: 0
+!xterm.vt100.pointerShape: bogosity
+
+!allow xterm to report the TERM variable correctly
+xterm.termName: xterm-256color
+!xterm.termName: linux
+!ensure locale is set to UTF8
+xterm.vt100.locale: true
+
+!extended window control
+xterm.vt100.allowWindowOps: true
+
+!alt and meta keys
+!note that the alt key is not necessarily the same as the meta modifier.
+!the xmodmap utility lists your key modifiers. x defines modifiers
+!and xterm inspects the same information.
+
+!treat alt-key as if it were the weta-key (default: false)
+!xterm.vt100.altIsNotMeta: false
+
+!alt characters (a character combined with the modifier associated with
+!left/right Alt-keys) are converted into a two-character sequence with
+!the character itself preceded by ESC (defaults: false)
+!xterm.vt100.altSendsEscape:False
+!(only if altIsNotMeta is set!)
+
+!make meta key behave as on other terminal emulators
+xterm.vt100.metaSendsEscape: true
+!(only if altIsNotMeta is set!
+
+!num lock key
+!check if it is a modifier with xmodmap
+xterm.vt100.numLock: true
+!give preference to Mod Keys
+!override the numLock resource, telling xterm
+!to use the Alt and Meta modifiers to construct
+!parameters for function key:
+!xterm.vt100.alwaysUseMods: false
+
+!fix the backspace key
+!on Arch Linux, xterm sends ^H key when backspace is pressed.
+!this breaks the Ctrl+H key combination on Emacs 
+!xterm.vt100.backarrowKey: false
+!xterm.vt100.ttyModes: erase ^?
+ 
+!bell
+xterm.vt100.visualBell: true
+xterm.vt100.visualBellLine: true
+xterm.vt100.bellIsUrgent: true
+!xterm.vt100.marginbell:False
+
+!saved lines - screen buffer
+xterm.vt100.saveLines: 15000
+
+!geometry
+!xterm.vt100.geometry: 86x40
+!try 85x because there is 5 columns reserved for line numbers set in vim man pager config
+
+!scrollbar
+!xterm.vt100.scrollBar: true
+xterm.vt100.scrollbar.width: 14
+xterm.vt100.scrollLines: 9
+xterm.vt100.scrollTtyOutput: false
+
+!scroll to the bottom of screen on a keypress:
+xterm.vt100.scrollKey: true
+!tip: set keybindings such as shift+pgup/pgdown for scrolling
+
+!faster scroll (multiple lines a time)
+xterm.vt100.jumpScroll: true
+
+!modifies the effect of jump scroll (jumpScroll) by suppressing
+!screen refreshes for the special case when output to the screen
+!has completely shifted the contents off-screen
+xterm.vt100.fastScroll: true
+
+!multi scroll indicates xterm may scroll asynchronously,
+!meaning that the screen does not have to be kept completely up to date
+!while scrolling. This allows XTerm to run faster when network latencies
+!are very high and is typically useful when running across a very large
+!internet or many gateways
+xterm.vt100.multiScroll: true
+
+!control sequences that set/query the scroll lock key should be allowed,
+!as well as whether the Scroll Lock key responds to users keypress
+xterm.vt100.allowScrollLock: true
+
+!reverse-wrap
+xterm.vt100.reverseWrap: true
+
+!whether to display a box outlining places where a character
+!has been used that the font does not represent
+xterm.vt100.showMissingGlyphs: true
+
+!xterm wrapping
+!because of the wrapping behavior, you would occasionally have to
+!repaint the screen when using a text editor with the “ansi” description
+
+!borders
+xterm.vt100.colorInnerBorder: true
+xterm.vt100.borderColor: #000030
+xterm.vt100.internalBorder: 2
+
+!enable/disable toolbar from appearing
+!xterm.vt100.toolBar: true
+!must set an entry to tranlations, such as: Ctrl <key>8: set-toolbar(toggle)
+
+!line spacing (may be a hack for certain fonts, too)
+!xterm.vt100.scaleHeight: 1.01
+
+!fixed xterm title (bash ps1 can also modify this setting)
+!xterm.title
+
+!alternate screen
+!check toggle in keybindings 
+!default is to ctrl-middle-click and toggle Alternate Screen
+!bash defaults:
+! 	Ctrl+S stops output to screen but still receives inputs
+! 	Ctrl-Z suspend process and put in background
+! 	Ctrl-Q resumes output to screen (restarts flow-control)
+
+
+!xterm fonts
+!for a font list, use 'xlsfonts'
+
+!default font:
+!xterm*font: -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
+!xterm*font: -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
+xterm*font: -xos4-terminus-medium-r-normal--18-180-72-72-c-100-iso10646-1
+!xterm*font: -xos4-terminus-medium-r-normal--20-200-72-72-c-100-iso10646-1
+!xterm*font: -xos4-terminus-medium-r-normal--22-220-72-72-c-110-iso10646-1
+!xterm*font: -xos4-terminus-medium-r-normal--24-240-72-72-c-120-iso10646-1
+!!xterm*font: -xos4-terminus-medium-r-normal--28-280-72-72-c-140-iso10646-1
+!xterm*font: -xos4-terminus-medium-r-normal--32-320-72-72-c-160-iso10646-1
+!xterm*font: *-fixed-*-*-18-*-*
+
+!good fonts:
+!7x14
+!-misc-hack-medium-r-normal--4-0-0-0-m-0-iso10646-1
+!-misc-inconsolata-medium-r-normal--14-0-0-0-m-0-iso10646-1
+!-misc-ubuntu mono-medium-r-normal--14-0-0-0-m-0-iso10646-1
+!-misc-dejavu sans mono-medium-r-normal--14-0-0-0-m-0-iso10646-1
+
+!to change font from xterm, make sure FontOps is on
+!sequence to change font: echo -n -e "\033]50;8x16\007"
+!https://sites.google.com/site/ongytenes/code/xterm-configuration-tips
+
+!bitmap font sizes 
+
+!Unreadable (do not set to use xterm default font):
+!xterm*font1: -xos4-terminus-medium-r-normal--0-0-72-72-c-0-iso10646-1
+!tiny:
+xterm*font2: -xos4-terminus-medium-r-normal--12-120-72-72-c-60-iso10646-1
+!small:
+xterm*font3: -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
+!xterm*font3: -xos4-terminus-medium-r-normal--18-180-72-72-c-100-iso10646-1
+!medium:
+xterm*font4: -xos4-terminus-medium-r-normal--22-220-72-72-c-110-iso10646-1
+!large:
+xterm*font5: -xos4-terminus-medium-r-normal--28-280-72-72-c-140-iso10646-1
+!huge:
+xterm*font6: -xos4-terminus-medium-r-normal--32-320-72-72-c-160-iso10646-1
+!9x15bold 
+
+!use ttf fonts instead
+!XTerm*faceName: TerminessTTF Nerd Font Mono
+!XTerm*faceSize: 12
+!good fonts:
+!Noto Sans Mono Condensed
+!Hack Nerd Font Mono
+!GoMono Nerd Font Mono
+!Roboto Condensed
+!DejaVuSansMono Nerd Font Mono
+!Cousine Nerd Font Mono
+!BitstreamVeraSansMono Nerd Font Mono
+!Inconsolata Nerd Font Mono
+
+!warning on font errors
+!xterm.vt100.fontWarnings: 2
+!0=never; 1=only if font is at Xresources (default); 2=always
+
+!slection
+!selected text will use CLIPBOARD
+!set to false uses PRIMARY by defaults
+!programmes may also have a CUTBUFFER (eg. vim)
+xterm.vt100.selectToClipboard: true
+
+!select whole url when double-clicking
+xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+!https://debian-administration.org/article/66/Customizing_your_xterm
+
+!triple-click select both filesystem paths and url links 
+!(does not seem to work very well!)
+!xterm.vt100.on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+
+!keybindings
+xterm.vt100.translations: #override \n\
+	Meta <Key>minus:smaller-vt-font() \n\
+	Meta <Key>plus:larger-vt-font() \n\
+	Ctrl <Key>Tab:set-altscreen(toggle) \n\
+	Alt <Key>Tab:set-altscreen(toggle) \n\
+	Shift <Key>Insert:insert-selection(PRIMARY) \n\
+	<Key>Insert:insert-selection(CLIPBOARD) \n\
+	Shift <Btn2Up>:insert-selection(CLIPBOARD) \n\
+	Shift Ctrl <Key>x:insert-selection(PRIMARY) \n\
+	Shift Ctrl <Key>c:copy-selection(CLIPBOARD) \n\
+	Meta <Key>v:insert-selection(CLIPBOARD) \n\
+	Meta <Key>x:insert-selection(PRIMARY) \n\
+	Shift Ctrl <Key>c:copy-selection(CLIPBOARD) \n\
+	Shift Ctrl <Key>v:insert-selection(CLIPBOARD) \n\
+	Shift <Key>Up:scroll-back(2,line) \n\
+	Shift <Key>Down:scroll-forw(2,line) \n\
+	Shift <Key>Home:scroll-to(begin) \n\
+	Shift <Key>End:scroll-to(end) \n\
+	Meta <Key>s:set-scrollbar(toggle) \n\
+        Ctrl <Key>Return:fullscreen()
+! 	
+!       Ctrl <Key>Return:maximize()   #may not work as expected in dual display systems
+! 	Meta <Key>Prior:scroll-back(13,line) \n\
+!	Meta <Key>Next:scroll-forw(13,line) \n\
+!	Meta <Key>Up:scroll-back(2,line) \n\
+!	Meta <Key>Down:scroll-forw(2,line) \n\
+!	Meta <Key>End:scroll-to(end) \n\
+!	Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(CLIPBOARD) \n\
+!	Meta <Key>v:insert-selection(PRIMARY) \n\
+!	~Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(PRIMARY) \n\
+! 	Ctrl <Key>[: smaller-vt-font() \n\
+! 	Ctrl <Key>]: larger-vt-font() \n\
+!obs: vim uses pgup/pgdown and does not work if you set 'prior' and 'next' functions.
+!obs: 'pgup' is 'prior' and 'pgdown' is 'next'
+!obs: ~Alt means "alt is not pressed".
+!https://github.com/charnley/dotfiles.x/blob/master/Xresources
+!https://askubuntu.com/questions/169054/make-terminal-use-pageup-pagedown-instead-of-shift-pageup-shift-pagedown
+!https://www.linuxquestions.org/questions/linux-software-2/xterm-tabs-and-scrolling-700001/
+!https://askubuntu.com/questions/161652/how-to-change-the-default-font-size-of-xterm
+
+!default key bindings
+!       The default bindings in the VTxxx window use the SELECT token, which is
+!       set by the selectToClipboard resource.  These are for the vt100 widget:
+!
+!                     Shift <KeyPress> Prior:scroll-back(1,halfpage) \n\
+!                      Shift <KeyPress> Next:scroll-forw(1,halfpage) \n\
+!                    Shift <KeyPress> Select:select-cursor-start() \
+!                                            select-cursor-end(SELECT, CUT_BUFFER0) \n\
+!                    Shift <KeyPress> Insert:insert-selection(SELECT, CUT_BUFFER0) \n\
+!                            Alt <Key>Return:fullscreen() \n\
+!                   <KeyRelease> Scroll_Lock:scroll-lock() \n\
+!               Shift~Ctrl <KeyPress> KP_Add:larger-vt-font() \n\
+!               Shift Ctrl <KeyPress> KP_Add:smaller-vt-font() \n\
+!               Shift <KeyPress> KP_Subtract:smaller-vt-font() \n\
+!                           ~Meta <KeyPress>:insert-seven-bit() \n\
+!                            Meta <KeyPress>:insert-eight-bit() \n\
+!                           !Ctrl <Btn1Down>:popup-menu(mainMenu) \n\
+!                      !Lock Ctrl <Btn1Down>:popup-menu(mainMenu) \n\
+!            !Lock Ctrl @Num_Lock <Btn1Down>:popup-menu(mainMenu) \n\
+!                ! @Num_Lock Ctrl <Btn1Down>:popup-menu(mainMenu) \n\
+!                           ~Meta <Btn1Down>:select-start() \n\
+!                         ~Meta <Btn1Motion>:select-extend() \n\
+!                           !Ctrl <Btn2Down>:popup-menu(vtMenu) \n\
+!                      !Lock Ctrl <Btn2Down>:popup-menu(vtMenu) \n\
+!            !Lock Ctrl @Num_Lock <Btn2Down>:popup-menu(vtMenu) \n\
+!                ! @Num_Lock Ctrl <Btn2Down>:popup-menu(vtMenu) \n\
+!                     ~Ctrl ~Meta <Btn2Down>:ignore() \n\
+!                            Meta <Btn2Down>:clear-saved-lines() \n\
+!                       ~Ctrl ~Meta <Btn2Up>:insert-selection(SELECT, CUT_BUFFER0) \n\
+!                           !Ctrl <Btn3Down>:popup-menu(fontMenu) \n\
+!                      !Lock Ctrl <Btn3Down>:popup-menu(fontMenu) \n\
+!            !Lock Ctrl @Num_Lock <Btn3Down>:popup-menu(fontMenu) \n\
+!                ! @Num_Lock Ctrl <Btn3Down>:popup-menu(fontMenu) \n\
+!                     ~Ctrl ~Meta <Btn3Down>:start-extend() \n\
+!                         ~Meta <Btn3Motion>:select-extend() \n\
+!                            Ctrl <Btn4Down>:scroll-back(1,halfpage,m) \n\
+!                       Lock Ctrl <Btn4Down>:scroll-back(1,halfpage,m) \n\
+!             Lock @Num_Lock Ctrl <Btn4Down>:scroll-back(1,halfpage,m) \n\
+!                  @Num_Lock Ctrl <Btn4Down>:scroll-back(1,halfpage,m) \n\
+!                                 <Btn4Down>:scroll-back(5,line,m)     \n\
+!                            Ctrl <Btn5Down>:scroll-forw(1,halfpage,m) \n\
+!                       Lock Ctrl <Btn5Down>:scroll-forw(1,halfpage,m) \n\
+!             Lock @Num_Lock Ctrl <Btn5Down>:scroll-forw(1,halfpage,m) \n\
+!                  @Num_Lock Ctrl <Btn5Down>:scroll-forw(1,halfpage,m) \n\
+!                                 <Btn5Down>:scroll-forw(5,line,m)     \n\
+!                                    <BtnUp>:select-end(SELECT, CUT_BUFFER0) \n\
+!                                  <BtnDown>:ignore()
+!
+
+!more refs of defaults
+!from bash
+! <Ctrl+J) linefeed
+! <Ctrl-H) carriage return
+!
+! <F8> adds a tilda '~'
+!
+!from xterm man
+! 	<Btn5Down>: StartScroll(Forward) \n\
+!	<Btn1Down>: StartScroll(Forward) \n\
+!	<Btn2Down>: StartScroll(Continuous) MoveThumb() NotifyThumb() \n\
+!	<Btn3Down>: StartScroll(Backward) \n\
+!	<Btn4Down>: StartScroll(Backward) \n\
+!	<Btn2Motion>: MoveThumb() NotifyThumb() \n\
+!	<BtnUp>:    NotifyScroll(Proportional) EndScroll()
+

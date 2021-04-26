@@ -1,0 +1,209 @@
+#
+# ~/.inputrc
+# config for readline
+
+#bind options for one session: bind 'set enable-bracketed-paste on'
+
+#keybindings
+
+#make sure Meta is enabled (for macos compatibility)
+#meta-key is bind to Alt
+#set enable-meta-key On
+
+#defaults: C-x C-r is bound to 're-read-init-file'
+
+#move to next screen line vertically (vim-like)
+"\e[1;5A": previous-screen-line
+#ctl+up arrow
+"\e[1;5B": next-screen-line
+#ctl+down arrow
+
+#fix home/end keys if needed
+#"\e[H": beginning-of-line
+#"\e[F": end-of-line
+#https://wiki.archlinux.org/index.php/Home_and_End_keys_not_working#Readline
+
+#menu-complete
+#next file in list
+#"\C-n": menu-complete
+#previous file in list
+#"\C-b": menu-complete-backward
+#"\C-n" is actually defaults binding for 'next char'
+#https://www.youtube.com/watch?v=MxRTh8wlmJk
+
+
+
+
+#history search to match current input 
+#up arrow key
+"\e[A": history-search-backward
+# Down Arrow key
+"\e[B": history-search-forward
+#"\e[C": forward-char
+#"\e[D": backward-char
+#https://codeinthehole.com/tips/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/
+
+
+#history configuration
+
+#history code attempts to place the point (the current cursor position) at the 
+#same location on each history line retrieved with previous-history or next-history
+set history-preserve-point On
+
+#history lines that have been modified displayed with a preceding asterisk (*)
+set mark-modified-lines Off
+
+#completion configuration
+
+#disable default completion
+set disable-completion Off
+
+#if no partial completions are possible, a double tab shows all possible completions
+set show-all-if-unmodified On
+
+#turn off internal pager when returning long completion lists
+set page-completions Off
+#if set to 'on', readline uses an internal more-like pager
+#to display a screenful of possible completions at a time
+#https://github.com/scop/bash-completion
+
+#filename completion/expansion
+set completion-ignore-case On
+
+#expand homedir name in auto-completion
+set expand-tilde On
+
+#hyphen equals underscore
+#if set to On, and completion-ignore-case is enabled, readline
+#treats hyphens (-) and underscores (_) as equivalent when
+#performing case-insensitive filename matching and completion
+set completion-map-case On
+
+#magic space expands variables in cmdline
+#history search and space goes to end of line
+#set to work only with bash:
+$if Bash
+	SPACE: magic-space
+$endif
+
+#search for hidden (dot)files
+set match-hidden-files On
+
+#colour configuration
+
+#colourise filetypes
+set colored-stats On
+
+#append char to indicate type
+set visible-stats On
+
+#colourise the common prefix
+set colored-completion-prefix On
+
+#colorise the common prefix in menu-complete
+set menu-complete-display-prefix On
+
+#directory names have a slash appended, defaults is 'on'
+set mark-directories On
+
+#mark symlinked directories
+set mark-symlinked-directories On
+
+
+#misc
+
+#blinking parenthesis
+set blink-matching-paren On
+
+#safe bracketed paste
+#this can prevent pasted characters from being interpreted as editing commands
+set enable-bracketed-paste On
+
+#horizontal scroll instead of wrapping cmd to next line
+#set horizontal-scroll-mode On
+
+#visible bell
+#set bell-style visible 
+
+# List all matches in case multiple possible completions are possible
+set show-all-if-ambiguous on
+
+# Show extra file information when completing, like `ls -F` does
+#set visible-stats on
+
+# Be more intelligent when autocompleting by also looking at the text after
+# the cursor.
+#set skip-completed-text on
+
+# Make TAB cycle through possible completions
+"\t": menu-complete
+
+# Make SHIFT-TAB reverse cycle through possible completions
+"\e[Z": "\e-1\C-i"
+
+#resources
+
+#note: show what characters have a special meaning to the terminal with 'stty -a' 
+#note: 'ctrl+\' (backslash) is one of the control characters that cause the 
+#terminal to send a signal (SIGQUIT), like ctrl+c (SIGINT) and Ctrl+Z (SIGTSTP)
+#https://unix.stackexchange.com/questions/220448/bind-ctrl-in-inputrc
+
+#key mappings available
+#  the 2 unused keystrokes with ctrl are the rather awkward:
+#  Ctrl+\
+#  Ctrl+^
+#
+#  but there are 15 letters available for  use with meta, namely:
+#  Meta+A, Meta+E, Meta+G, Meta+H, Meta+I,
+#  Meta+J, Meta+K, Meta+M, Meta+O, Meta+Q,
+#  Meta+S, Meta+V, Meta+W, Meta+X, and Meta
+
+#https://wiki.archlinux.org/index.php/Readline#Faster_completion
+#https://github.com/AndrewRayCode/configs/blob/master/.inputrc
+#https://unix.stackexchange.com/questions/364498/how-to-bind-ctrlarrows-backspace-del-to-the-readline-commands
+
+#https://github.com/kevva/dotfiles/blob/master/shell/inputrc
+
+
+# Make Tab autocomplete regardless of filename case
+#set completion-ignore-case on
+
+# List all matches in case multiple possible completions are possible
+#set show-all-if-ambiguous on
+
+# Immediately add a trailing slash when autocompleting symlinks to directories
+#set mark-symlinked-directories on
+
+# Use the text that has already been typed as the prefix for searching through
+# commands (i.e. more intelligent Up/Down behavior)
+#"\e[B": history-search-forward
+#"\e[A": history-search-backward
+
+# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
+#set match-hidden-files off
+
+# Show all autocomplete results at once
+#set page-completions off
+
+# If there are more than 200 possible completions for a word, ask to show them all
+#set completion-query-items 200
+
+# Show extra file information when completing, like `ls -F` does
+#set visible-stats on
+
+# Be more intelligent when autocompleting by also looking at the text after
+# the cursor. For example, when the current line is "cd ~/src/mozil", and
+# the cursor is on the "z", pressing Tab will not autocomplete it to "cd
+# ~/src/mozillail", but to "cd ~/src/mozilla". (This is supported by the
+# Readline used by Bash 4.)
+#set skip-completed-text on
+
+# Allow UTF-8 input and output, instead of showing stuff like $'\0123\0456'
+#set input-meta on
+#set output-meta on
+#set convert-meta off
+
+# Use Alt/Meta + Delete to delete the preceding word
+#"\e[3;3~": kill-word
+#https://github.com/brito/dotfiles/blob/master/.inputrc
+

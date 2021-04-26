@@ -1,0 +1,34 @@
+# Use case-insensitive TAB autocompletion
+set completion-ignore-case on
+
+# Make TAB cycle through possible completions
+"\t": menu-complete
+
+# Make SHIFT-TAB reverse cycle through possible completions
+"\e[Z": "\e-1\C-i"
+
+# Use the string that has already been typed as the prefix for searching
+# through commands (i.e. more intelligent Up/Down-arrow behavior)
+"\e[B": history-search-forward
+"\e[A": history-search-backward
+
+# List all matches in case multiple possible completions are possible
+set show-all-if-ambiguous on
+
+# Show extra file information when completing, like `ls -F` does
+set visible-stats on
+
+# Immediately add a trailing slash when autocompleting symlinks to directories
+set mark-symlinked-directories on
+
+# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
+set match-hidden-files off
+
+# Be more intelligent when autocompleting by also looking at the text after
+# the cursor.
+set skip-completed-text on
+
+# Allow UTF-8 input and output, instead of showing stuff like $'\0123\0456'
+set input-meta on
+set output-meta on
+set convert-meta off

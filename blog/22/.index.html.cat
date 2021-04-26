@@ -268,7 +268,7 @@ I need studying Atom more..</p>
 
 <p>I installed <a href="https://newsboat.org/"><code>newsboat</code></a>,
 available from the official repos.
-<a href="https://github.com/mountaineerbr/dotfiles/blob/master/.newsboat/config">After configuring it</a>,
+<a href="../repo/dotfiles/.newsboat/config">After configuring it</a>,
 that seems a really cool cli news aggregator, I recommend it!
 I am also testing <a href="https://quiterss.org/"><code>QuiteRSS</code></a>
 (GUI, on reconsideration, it is a very impressive reader),

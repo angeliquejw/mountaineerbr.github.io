@@ -1,0 +1,109 @@
+# ~/.newsboat/config
+# Newsboat config
+
+#Color schemes
+#The package ships with a number of schemes in
+#/usr/share/doc/newsboat/contrib/colorschemes/ 
+#include /usr/share/doc/newsboat/contrib/colorschemes/inkpot
+
+refresh-on-startup yes
+
+always-display-description no
+
+display-article-progress yes
+
+goto-first-unread yes
+
+notify-beep no
+
+notify-always yes
+
+notify-screen no
+
+#pager
+
+#show-title-bar no
+
+#show-read-articles no
+
+#show-read-feeds no
+
+#swap-title-and-hints yes
+
+confirm-exit no
+
+#cleanup-on-quit no
+
+#delete-read-articles-on-quit no
+
+
+#Automatic feed reloads
+#{ /usr/bin/newsboat -x reload ;}
+auto-reload no
+#reload-time <desired number of minutes>
+
+#Loading of feeds in parallel for faster updates
+#reload-threads 100
+reload-only-visible-feeds no
+
+
+#Subheadings (hack)
+highlight feedlist "---.*---" color230 default bold
+highlight feedlist ".*0/0.." default default invis
+
+
+#color info default default reverse
+#color listnormal_unread yellow default
+#color listfocus blue default reverse bold
+#color listfocus_unread blue default reverse bold
+
+#https://wiki.archlinux.org/index.php/Newsboat#Configuration
+#https://github.com/gpakosz/.newsboat/blob/master/config
+#
+
+
+#xeronull
+#https://github.com/xeronull/
+#auto-reload
+#auto-reload yes
+
+#keep cursor above and below set line
+#scrolloff 10
+
+#colors
+#color listnormal cyan default
+#color listfocus black yellow standout bold
+#color listnormal_unread blue default
+#color listfocus_unread yellow default bold
+#color info red black bold
+#color article cyan default
+
+#keybinds
+#bind-key j down
+#bind-key k up
+#bind-key j next articlelist
+#bind-key k prev articlelist
+#bind-key J next-feed articlelist
+#bind-key K prev-feed articlelist
+#bind-key G end
+#bind-key g home
+#bind-key d pagedown
+#bind-key u pageup
+#bind-key l open
+#bind-key h quit
+#bind-key a toggle-article-read
+#bind-key n next-unread
+#bind-key N prev-unread
+#bind-key D pb-download
+#bind-key U show-urls
+#bind-key x pb-delete
+#bind-key ^t next-unread
+
+
+#external programs 
+#browser w3m
+#player mpv
+#macro m set browser "mpv %u"; open-in-browser ; set browser "w3m %u"
+#macro i set browser "feh %u"; open-in-browser ; set browser "w3m %u"
+
+

@@ -14,9 +14,9 @@
 	-->
 
 	<channel>
-		<lastBuildDate>Fri, 23 Apr 2021 00:00:00 -0300</lastBuildDate>
+		<lastBuildDate>Mon, 13 Sep 2021 00:00:00 -0300</lastBuildDate>
 		<title>Biology Blogger (Alternative feed)</title>
-		<description>Current as of Sun, 25 Apr 2021 14:36:56 -0300.</description>
+		<description>Current as of Mon, 26 Apr 2021 00:28:46 -0300.</description>
 		<link>https://mountaineerbr.github.io/blog/</link>
 		<category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
 		<webMaster>jamilbio20@gmail.com (JSN)</webMaster>
@@ -35,6 +35,41 @@
 		<generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
 
 		<!-- additemsfull -->
+	<item>
+		<title xml:lang="en">#39 - Not Quite Done Yet</title>
+		<pubDate>Mon, 13 Sep 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/39/</link>
+		<dc:language>en</dc:language>
+		<category>drama/maybe/notes/notas/liberdade/freedom/repo/own repo/tree/repositório/arquivos de configuração/c files/rc files/dotfiles/scripts/bin</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">97034e73-24a1-59b6-827d-20a44783dc11</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="39">#39 - Not Quite Done Yet</h1>
+<time class="dt-published" datetime="2021-09-13">13/sep/2021</time><br></header>
+<p class="alert">Unfinished. Update soon.</p>
+<p>I am really proud of my little blog system. I cannot just remove it from the public domain reach. The same feeling is not so strong about my YouTube Channel.</p>
+<p>In fact, with very little remorse I was able to remove that on Friday. Google (at least YouTube branch) cannot use my data and my subscribers data as they wish anymore. There were 258 subscribers to my YouTube channel and more than 130, many which I am proud to have recorded, some turned out to be lessons of didatics or lack of.. I made a copy of all of the videos with good <code><a href="https://wiki.archlinux.org/index.php/Youtube-dl">youtube-dl</a></code> and for my surprise, there was no more than 26GB of content. I know some YouTubers claim to have much more data for content but they must mean raw content shot locally, without edition and directly from the camera, not downloaded with:</p>
+<pre><code>url=https://www.youtube.com/channel/UCbjGrylVSBjPx02LRH7HCAA
+youtube-dl -f best -ciw -o &quot;%(title)s.%(ext)s&quot; --add-metadata -v &quot;$url&quot; |&amp; tee log.txt
+#
+</code></pre>
+<p>Unfortunatelly, I cannot host these videos on GitHub. Many videos are heavy and long, like 40min or even longer. I wish I could host them here, though. Luckily, the <a href="../podcast">podcast system</a> solves this problem, albeit less content..</p>
+<hr>
+<p>GitHub repos were made private, following a <a title="DT for the closer subscribers" href="https://www.youtube.com/c/DistroTube/videos">suggestion from DistroTube</a> some time ago.. That is a relief for me. But know what, I will make <a href="../../repo">my own version of a repo</a> and share <em>static copies</em> of my public c files (dotfiles) and some other interesting stuff (mostly neutral things) that need sharing to complement my blog posts here and keep those dedicated GitHub repos for <em>private use</em>.</p>
+<p>Just a note, this website is <a href="https://github.com/mountaineerbr/mountaineerbr.github.io">hosted in GitHub</a>, so you can check it over there, too..</p>
+<hr>
+<p>There are some more or less sensitive information I am removing from this website. When other people say they have got a <em>personnal website</em>, they don&#39;t usually mean a <em>public diary</em>, rather leave some (hopefully useful) information and ideas for other peple to reach.</p>
+<p>Things get complicated when it comes to employment. We don&#39;t mean to scare off potential employers.. Reconsidering what to post exatcly is a good idea. Very clear context should avoid some problems of interpretation, too.</p>
+<p>That said, the website structure is growing big and may seem like a complete mess for an outsider. One of my first intentions when building this website was that it had <strong>depth</strong> and there was a lot to learning shell scripting for developing a sort of suite of <em>poor man webmaster tools</em> to manage this website. Not too hard but it demands effort and time. I am sure anyone can make a dream website in details from scratch in under 9 months. That may seem like a long time but if you don&#39;t start, you will never get there.</p>
+<p>While I don&#39;t mind using HTML docs to keeping my personal annotations like <a href="https://www.youtube.com/c/XahLee/videos">Xah Lee</a>, it is also important that the useful information in this blog be accessible for me through any device over the internet. That is another reason why one should have one personal website: to keep himself organised and available reference-wise.</p>
+<hr>
+<p>There are some powerful and bad peple trying to get hold of me on personal grounds due to my confronting their dangerous research on Brazilian people. I ought to refrain from getting into details as a possible lawsuit may be involved. My accusation against them is very technical and to explain it would take a reasonable amount of time and writing. Wish me luck, time is my best friend.</p>
+<hr>
+<p>Considering what I wrote in previous posts, all this builds towards my <strong>freezing</strong>, rather than <em>removing</em>, this website from public domain.</p>
+<p>This does not mean I cannot eventually post here again but rather I mean to have multiple websites! That tastes like <strong>Freedom &amp; Independence</strong>!</p>
+</article> ]]></description>
+	</item>
 	<item>
 		<title xml:lang="en">#38 - Going Away</title>
 		<pubDate>Fri, 23 Apr 2021 00:00:00 -0300</pubDate>
@@ -55,7 +90,7 @@
 <p>I will be making two websites for family members this year and it will be unsustainable if I care to keep my own (this) website up. The shell scripts I wrote to generate pages for this website are working fine but became complex and I would rather try to write a more simple website sometime. That is unforeseeable future plans. I may reuse this github.io address or even buy my own domain..</p>
 <p>Other than that, I need focus to studying environmental law and do something about my career.</p>
 <p>That was fun to make my own broadcasting network.</p>
-<p>I hope the reader/listener/visitor enjoyed the content!</p>
+<p>I hope the reader/listener/visitor enjoyed the content in this channel!</p>
 <p>See you. Cheers!</p>
 </article> ]]></description>
 	</item>
@@ -101,7 +136,7 @@
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="36">#36 - Firefox on NVIDIA Graphics Card</h1>
-<time class="dt-published" datetime="2021-09-12">12/sep/2021</time><br></header>
+<time class="dt-published" datetime="2021-04-12">12/apr/2021</time><br></header>
 <p>Using the NVIDIA driver in Linux is quite difficult and it is not so straightforward because it varies depending on what application needs it. Mining Monero was not too difficult but the XMR miner used CUDA and that is another story.</p>
 <p>Configuring Firefox to use NVIDIA may be overwhelming option-wise because there are so many unstable outcomes when setting these experimental or unstable options.</p>
 <h2>NVDIA-related Drivers</h2>
@@ -149,7 +184,7 @@ ON</code></pre>
 </ul>
 <p>My current Firefox can run stably and smoothly (under XFCE and Picom) with only <code>layers.acceleration.force-enabled</code> set, as force enabling the webrender makes my Firefox very buggy and unstable..</p>
 <p>Alternative (or additionally, you will need testing) to messing with <code>about:config</code> options, Mozilla Firefox can read various environment variables as options.</p>
-<p>Below these variables are presented with verbose commentary. You can find more code commentary in my <a href="https://github.com/mountaineerbr/scripts/blob/master/firefox.sh">shell script launcher</a>.</p>
+<p>Below these variables are presented with verbose commentary. You can find more code commentary in my <a href="https://mountaineerbr.github.io/repo/scripts/firefox.sh">shell script launcher</a>.</p>
 <pre><code>#This content should be clarified
 #To enable WebRender on Firefox Stable:
 export MOZ_ACCELERATED=1        #same as:`layers.acceleration.force-enabled = true&#39;
@@ -185,7 +220,7 @@ export MOZ_USE_OMTC=1
 <p>Follow instructions from <a href="https://wiki.archlinux.org/index.php/Firefox/Tweaks">Firefox#Tweaks</a> to check if options are enabled. You can also type <code>CTR+F</code> and search for <em>`Intel&#39;</em> to check whether Intel integrated graphics or <em>`Nvidia&#39;</em> driver is being used as renderer.</p>
 <p>Alternatively, some information can be retrieved from <a title="WebGL MAX parameters support" href="https://alteredqualia.com/tmp/webgl-maxparams-test/">test this website</a>.</p>
 <p>It is a little time consuming until you get yoru configuration working properly and maybe your system cannot support all features, but they will eventually come the official way and your driver may finally be white-listed for performance improvements by defaults.</p>
-<p>As for now, I find it best to <a href="https://github.com/mountaineerbr/scripts/blob/master/firefox.sh">launch Firefox with a shell script</a>. My Firefox launcher in XFCE dock and keyboard shortcut in <code>.xbindkeysrc</code> also points to the script.</p>
+<p>As for now, I find it best to <a href="https://mountaineerbr.github.io/repo/scripts/firefox.sh">launch Firefox with a shell script</a>. My Firefox launcher in XFCE dock and keyboard shortcut in <code>.xbindkeysrc</code> also points to the script.</p>
 <figure><img src="https://mountaineerbr.github.io/blog/gfx/Linus-Torvalds-Fuck-You-Nvidia.webp" alt="Linus Torwalds meme, Fuck You NVIDIA" width="600" height="339">
 <figcaption>Fig 1. At moments like these we like to remember <a href="https://www.theverge.com/2012/6/17/3092829/linus-torvalds-fuck-you-nvidia">Mr Torwalds wishes to NVIDIA..</a></figcaption>
 </figure>
@@ -389,7 +424,7 @@ export MOZ_USE_OMTC=1
 </ul>
 <h2>References</h2>
 <ul>
-<li>Check my config files with the options described in the audiocast: <a href="https://github.com/mountaineerbr/dotfiles/blob/master/.bitcoin/bitcoin.conf"><code>bitcoin.conf</code></a> and <a href="https://github.com/mountaineerbr/dotfiles/blob/master/etc/tor/torrc"><code>torrc</code></a></li>
+<li>Check my config files with the options described in the audiocast: <a href="../../repo/dotfiles/.bitcoin/bitcoin.conf"><code>bitcoin.conf</code></a> and <a href="https://mountaineerbr.github.io/repo/dotfiles/etc/tor/torrc"><code>torrc</code></a></li>
 <li><strong>Tor.md</strong>: <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/tor.md">Tor support in bitcoin</a></li>
 <li><a href="https://wiki.archlinux.org/index.php/OpenSSH#Tips_and_tricks">OpenSSH tricks</a></li>
 <li><a href="https://www.youtube.com/watch?v=oSZxWmvrh5o">Tone Vays on the Mempool</a> (Andreas Antonopoulos videos on mempool are more technical but Tone&#39;s takes on the mempool in this video, not his guest, are really interesting, too)</li>
@@ -565,7 +600,7 @@ export MOZ_USE_OMTC=1
 <p>I added the following to <code>/etc/tor/torrc</code>: <code>ControlPort 9051</code>, <code>CookieAuthentication 1</code>, <code>CookieAuthFileGroupReadable 1</code> and <code>DataDirectoryGroupReadable 1</code>. Check <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/tor.md">this help page.</a></p>
 <p><em>Bitcoin version 0.21</em> <q><a title="0.21.0 Release Notes - Compatibility & P2P and network changes" href="https://bitcoincore.org/en/releases/0.21.0/">release adds support for Tor version 3 hidden services</a>, and gossiping them over the network to other peers using BIP155. Version 2 hidden services are still fully supported by Bitcoin Core, but the Tor network will start deprecating them in the coming months</q>.</p>
 <p>That is important to note because even if you set everything up correctly, <a title="Bitcoin Core 0.21.0 no incoming peers over Tor" href="https://bitcointalk.org/index.php?topic=5309923.0">there may be very few onion peers because they may not be using <em>Tor 3 services</em> yet</a>. Also, <a title="Bitcoin full nodes with IPv4 and IPv6 - Why most peers are on IPv4?" href="https://bitcointalk.org/index.php?topic=1347811">IPv6 peers are much more rare than IPv4 peers</a>, which is the large majority of peers.</p>
-<p>I will leave some generic config which works for me (<code>bitcoin.conf</code> and <code>/etc/tor/torrc</code>) at <a href="https://github.com/mountaineerbr/dotfiles/blob/master/.bitcoin/bitcoin.conf">my github repo</a>. In these files, there are general commentary and references for some config options, as well as setting up a hardware client in the router..</p>
+<p>I will leave some generic config which works for me (<code>bitcoin.conf</code> and <code>/etc/tor/torrc</code>) at <a href="https://mountaineerbr.github.io/repo/dotfiles/.bitcoin/bitcoin.conf">my github repo</a>. In these files, there are general commentary and references for some config options, as well as setting up a hardware client in the router..</p>
 <p>A combination of settings may set the node to work dual-stack in <em>clearnet</em> (IPv4 and IPv6) <strong>and</strong> <em>onion</em> networks, which is a very important network synchronisation role which few nodes partake..</p>
 <p>The following steps are required:</p>
 <ol>
@@ -1073,7 +1108,7 @@ export MOZ_USE_OMTC=1
 <p>Instead of using <em>two channels</em>, there is an alternative using Atom namespaces but I don&#39;t see any major benefit plus I need studying Atom more..</p>
 <blockquote>In case of Atom, you could even provide both in the same feed: a content element for the full content, and a summary element for the excerpt. (I guess other feed formats allows this, too.)<br>
 --<a href="https://webmasters.stackexchange.com/questions/100290/duplicating-a-rss-feed-to-show-the-whole-post-in-addition-to-the-feed-showing-sn/100296#100296">unor</a></blockquote>
-<p>I installed <a href="https://newsboat.org/"><code>newsboat</code></a>, available from the official repos. <a href="https://github.com/mountaineerbr/dotfiles/blob/master/.newsboat/config">After configuring it</a>, that seems a really cool cli news aggregator, I recommend it! I am also testing <a href="https://quiterss.org/"><code>QuiteRSS</code></a> (GUI, on reconsideration, it is a very impressive reader), Thunderbird add-on <a href="http://gnome.eu.org/index.php/Evolution_RSS_Reader_Plugin"><code>evolution-rss</code></a> (very good!), Firefox add-on <a href="https://addons.mozilla.org/en-GB/firefox/addon/livemarks/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search">Livemarks</a> (rather simple), and <a href="https://play.google.com/store/apps/details?id=com.madsvyat.simplerssreader&hl=en&gl=US">RSS Reader</a> (for Android). They all behave in different ways..</p>
+<p>I installed <a href="https://newsboat.org/"><code>newsboat</code></a>, available from the official repos. <a href="../../repo/dotfiles/.newsboat/config">After configuring it</a>, that seems a really cool cli news aggregator, I recommend it! I am also testing <a href="https://quiterss.org/"><code>QuiteRSS</code></a> (GUI, on reconsideration, it is a very impressive reader), Thunderbird add-on <a href="http://gnome.eu.org/index.php/Evolution_RSS_Reader_Plugin"><code>evolution-rss</code></a> (very good!), Firefox add-on <a href="https://addons.mozilla.org/en-GB/firefox/addon/livemarks/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search">Livemarks</a> (rather simple), and <a href="https://play.google.com/store/apps/details?id=com.madsvyat.simplerssreader&hl=en&gl=US">RSS Reader</a> (for Android). They all behave in different ways..</p>
 <p>I added <code>&lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; title=&quot;Biology Blog RSS&quot; href=&quot;rss.xml&quot;&gt;</code> to the <code>&lt;header&gt;</code> of <i>index.html</i> to reference the <i>RSS Feed</i>.</p>
 <p>After a lot of trying, I decided to go the Stallman way and release two feeds, the <a href="../rss.xml"><span class="arialbfont" style="font-style:italic; font-variant: small-caps; color:crimson; background:orange;padding:.2em;">Default RSS Feed</span></a> which shall contain only short descriptions of posts and the <a href="https://mountaineerbr.github.io/blog/rss_alt.xml"><span class="arialbfont" style="font-style:italic; font-variant: small-caps; color:crimson; background:orange;padding:.2em;">Alternative RSS Feed</span></a> which shall contain full content of posts injected within <code>&lt;![[CDATA]]&gt;</code> arrays (and is bigger in size).</p>
 <hr>
@@ -1232,7 +1267,7 @@ export MOZ_USE_OMTC=1
     30  classificacaoFinal</code></pre>
 <p>The following shell function was used to calculate positivity. The shell will loop through all csv files given and group results by date.</p>
 <p>Some <code>awk</code> conditionals will test values from columns $12 and $30, and will decide if that will be counted as a positive case, a negative case or be ignored. There is no guarantee this analysis is sufficient.</p>
-<p>You can check the script with some functions to process the data at my <a href="https://github.com/mountaineerbr/scripts/blob/master/corona_notifyBR.sh">sub repo</a> for covid test positivity studies.</p>
+<p>You can check the script with some functions to process the data at my <a href="https://mountaineerbr.github.io/repo/scripts/corona_notifyBR.sh">sub repo</a> for covid test positivity studies.</p>
 <p>The last step is to generate graphs with <code>gnuplot</code>. I am having some difficulty with the x-ticks dates because <code>gnuplot</code> only accepts numbers by defaults.. May as it be, bear in mind the data start from about February and ends on 24<sup>th</sup> December.</p>
 <h2>Interpretation</h2>
 <p>Well, I have been avoiding interpreting Sars-2-Covid data too hastily, as I am learning a lot in this pandemics from a scientific perspective myself..</p>
@@ -1288,7 +1323,7 @@ export MOZ_USE_OMTC=1
 <p>Sobre Sergio Moro, ele disse:</p>
 <p>“Ele deve fazer parte dessa frente. Tem história, biografia e posicionamento. Nunca declarou que era candidato. Sempre teve altivez e grandeza para defender o País, independentemente dos interesses pessoais.”</p>
 <p><small>https://www.oantagonista.com/brasil/doria-defende-frente-para-derrotar-bolsonaro/<br>
-(Fetched with a scraper script <a href="https://github.com/mountaineerbr/scripts/blob/master/anta.sh">anta.sh</a> from my GitHub repo)</small></p>
+(Fetched with a scraper script <a href="https://mountaineerbr.github.io/repo/scripts/anta.sh">anta.sh</a> from my GitHub repo)</small></p>
 </blockquote>
 <p>The governor, João Doria, is talking about politics parties, however as I was sort of expecting a response from him, I read through all the nuances and extracted a message I thought was directed for me.</p>
 <p>I read it like so:</p>
@@ -1427,7 +1462,7 @@ vfcd()
 <hr>
 <h3>Fifty-one days later (2021 jan)..</h3>
 <p>I did it again.. I was testing a script at a dedicated temp directory. I opened many terminal windows at once and was doing too many tests quickly. I opened another terminal window and forgot it was not at the temp directory.</p>
-<p>I run <code>rm *.txt~*archInstall*</code> and removed 7 files from <code>$HOME</code> (I was messing with <a href="https://github.com/mountaineerbr/scripts/blob/master/archPkgCrossCheck.sh">this script</a>).. Fortunately, it only removed some of the <em>.txt</em> files, which I was able to recover all except one and maybe another one may be outdated a little from my last backup in December.</p>
+<p>I run <code>rm *.txt~*archInstall*</code> and removed 7 files from <code>$HOME</code> (I was messing with <a href="https://mountaineerbr.github.io/repo/scripts/archPkgCrossCheck.sh">this script</a>).. Fortunately, it only removed some of the <em>.txt</em> files, which I was able to recover all except one and maybe another one may be outdated a little from my last backup in December.</p>
 <p>I have been trying to follow a tip from <a href="https://aurelio.net/">Aurelio Jargas</a> that is to try and always use a glob that <em>more than</em> just <code>*</code>..</p>
 <br>
 <figure><img src="https://mountaineerbr.github.io/blog/gfx/homer.gif" alt="Duh! Slaping forehead" width="480" height="366">

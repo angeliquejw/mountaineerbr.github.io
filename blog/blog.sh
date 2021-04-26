@@ -6,11 +6,6 @@
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
 
-#TODO
-#leaving tmp files behind
-#does not update post date reliably?
-#or date tags cannot contain any date to activate it?
-
 
 #defaults
 

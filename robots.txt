@@ -3,6 +3,7 @@ User-agent: *
 Disallow: /blog/a/
 Disallow: */js/
 Disallow: */cvsum.html
+Disallow: */repo/*/*
 
 #all robots read the sitemap file
 #this should be a full url

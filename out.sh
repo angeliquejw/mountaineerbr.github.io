@@ -1,62 +1,10 @@
 #!/bin/zsh
+# mountaineerbr  apr/20201
+# CAUTION: This will replace all text between [BODY]
+# tags of files in array $files with text from $html.
 
 
-text='<body>
-
-
-<h1>Away</h1>
-
-<h2>Out-0f-business for the foreseeable future.</h2>
-
-
-<p>Podcast and Blog RSS feeds remain available.</p>
-
-<p>The blog HTML can be
-<a title="For the sake of convenience, all posts concatenated into one document" href="https://mountaineerbr.github.io/blog/cat.html">found here</a>
-(without images or styles, sorry about that).</p>
-
-<p>Thanks to all visitors!</p>
-
-
-<hr>
-<h1>Saímos</h1>
-
-<h2>Indisponível por tempo indeterminado.</h2>
-
-<p>Os feeds do Podcast e Blog permanecem disponíveis.</p>
-
-<p>O Blog em HTML pode ser
-<a title="Pelo benefício da comodidade, todos os posts reunidos em um único documento" href="https://mountaineerbr.github.io/blog/cat.html">encontrado aqui</a>
-(sem images e estilos, foi mal).</p>
-
-<p>Obrigado a todos os visitantes!</p>
-
-
-<footer>
- 
-
-<!--
-- - - -	Copyright ©2021.
- - - -	Verbatim copying and distribution of this entire article is
-- - - -	permitted in any medium, provided this notice is preserved.
--->
-
-<!--
-- - - -	Legal Mumbo Jumbo
-- - - -	You are free to copy or repost any or part of these
-- - - -	blogs, as long as the proper attribution is given.
-- - - -	A heads-up is always appreciated.
-- - - -	The opinions expressed are mine and my own and they
-- - - -	do not represent my employer or company opinions.
--->
-
-
-</footer>
-
-</body>'
-
-
-
+#files to modify
 files=(
 about/index.html
 blog/10/index.html
@@ -116,14 +64,76 @@ sitemap.html
 
 )
 
+#html text to inject
+html='<body>
+
+
+<h1>Away</h1>
+
+<h2>Out-0f-business for the foreseeable future.</h2>
+
+
+<p>Podcast and Blog RSS feeds remain available.</p>
+
+<p>The blog HTML can be
+<a title="For the sake of convenience, all posts concatenated into one document" href="https://mountaineerbr.github.io/blog/cat.html">found here</a>
+(without images or styles, sorry about that).</p>
+
+<p>Thanks to all visitors!</p>
+
+
+<hr>
+<h1>Saímos</h1>
+
+<h2>Indisponível por tempo indeterminado.</h2>
+
+<p>Os feeds do Podcast e Blog permanecem disponíveis.</p>
+
+<p>O Blog em HTML pode ser
+<a title="Pelo benefício da comodidade, todos os posts reunidos em um único documento" href="https://mountaineerbr.github.io/blog/cat.html">encontrado aqui</a>
+(sem images e estilos, foi mal).</p>
+
+<p>Obrigado a todos os visitantes!</p>
+
+
+<footer>
+ 
+
+<!--
+- - - -	Copyright ©2021.
+ - - -	Verbatim copying and distribution of this entire article is
+- - - -	permitted in any medium, provided this notice is preserved.
+-->
+
+<!--
+- - - -	Legal Mumbo Jumbo
+- - - -	You are free to copy or repost any or part of these
+- - - -	blogs, as long as the proper attribution is given.
+- - - -	A heads-up is always appreciated.
+- - - -	The opinions expressed are mine and my own and they
+- - - -	do not represent my employer or company opinions.
+-->
+
+
+</footer>
+
+</body>'
+
+#temp tag
 tag='<!-- tag -->'
+
+
+#start
+set -e
 
 for f in $files[@]
 do
+	printf "%s..." "$f"
 	sed -i "s/.*<body.*/$tag\n&/" $f
 	sed -i "/<body/,/<\/body>/ d" $f
-	sed -i "/$tag/ r /dev/stdin"  $f <<<"$text"
+	sed -i "/$tag/ r /dev/stdin"  $f <<<"$html"
 	sed -i "/$tag/ d"  $f
+	printf "%s\n" Done
 done
 
 

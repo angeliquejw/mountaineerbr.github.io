@@ -1,0 +1,33 @@
+
+" Configuration for Vim when it is used as MANPAGER
+" This configuration is read when MANPAGER is 
+" set to use Vim in .bashrc
+
+source ~/.vimrc
+
+"set clipboard=unnamedplus
+
+"colorscheme colorsbox-faff
+"colorscheme default
+set background=dark 
+
+set nonumber
+
+set colorcolumn=0
+
+"WRAPPING
+"Need to set an environment variable as:
+"export MANWIDTH=80
+"Check you .bash_profile !
+"Exporting from vim does not take effect, neither does setting textwidth
+"let $MANWIDTH=80
+"set textwidth=40
+
+" MANGPAGER should be off for AnsiEsc as default!
+"autocmd VimEnter * AnsiEsc
+"Note: AnsiEsc plug-in has the same effect as RAW CONTROL CHARS in Less             
+"Plug-in from: http://www.drchip.org/astronaut/vim/index.html#ANSIESC  
+"Improved: https://github.com/powerman/vim-plugin-AnsiEsc
+"https://www.vim.org/scripts/script.php?script_id=302
+"Explanation at https://stackoverflow.com/questions/6821033/vim-how-to-run-a-command-immediately-when-starting-vim
+

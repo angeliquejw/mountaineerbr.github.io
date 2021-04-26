@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=UXTerm
+Comment=xterm wrapper for Unicode environments
+Exec=uxterm
+Terminal=false
+Type=Application
+Encoding=UTF-8
+Icon=xterm-color_48x48
+Categories=System;TerminalEmulator;
+Keywords=shell;prompt;command;commandline;cmd;
+X-XFCE-Source=file:///usr/share/applications/uxterm.desktop
+Path=
+StartupNotify=false

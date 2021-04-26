@@ -1,0 +1,288 @@
+#
+# ~/.xbindkeysrc
+#
+
+#xinit loads this
+
+#reload:
+#killall -s1 xbindkeys
+#start xbindkeys daemon
+#xbindkeys -f ~/.xbindkeysrc
+
+#find a keycode:
+#xbindkeys -k
+# List of modifiers:
+#   Release, Control, Shift, Mod1 (Alt), Mod2 (NumLock),
+#   Mod3 (CapsLock), Mod4, Mod5 (Scroll).
+
+#start 'xev' and press to get key code and name
+
+#xf86 keys 
+"uxterm -e /usr/bin/vifm"
+  XF86Explorer
+"google-chrome-stable"
+  XF86HomePage 
+"amixer set Master toggle"
+  XF86Tools
+#keycode 160 = XF86AudioMute
+#keycode 174 = XF86AudioLowerVolume
+#keycode 176 = XF86AudioRaiseVolume
+#keycode 162 = XF86AudioPlay
+#keycode 144 = XF86AudioPrev
+#keycode 145 = XF86AudioNext
+#keycode 164 = XF86AudioStop
+#keycode 237 = XF86HomePage
+
+#backlight
+#increase
+# ( b:5 mouse scroll up; b:4 down )
+"xdotool key XF86MonBrightnessUp"
+  alt + Mod2+Mod4 + b:4
+#"sleep 0.15s && xdotool key XF86MonBrightnessUp"
+"sudo brightnessctl set 4%+"
+  alt + Mod2+Mod4 + Up
+#decrease
+"xdotool key XF86MonBrightnessDown"
+  alt + Mod2+Mod4 + b:5
+#"sleep 0.15s && xdotool key XF86MonBrightnessDown"
+"sudo brightnessctl set 4%-"
+  alt + Mod2+Mod4 + Down
+
+#fine tuning
+#increase
+"sudo brightnessctl set 3+"
+  alt + Mod2+Mod4 + equal
+#decrease
+"sudo brightnessctl set 3-"
+  alt + Mod2+Mod4 + minus
+#set to level 1
+"sudo brightnessctl set 1"
+  alt + Mod2+mod4 + 0
+
+#bc window
+"uxterm -geometry 34x18"
+  Mod2+Mod4 + c
+"uxterm -geometry 34x18"
+  XF86Calculator
+#calculator
+"speedcrunch"
+  alt + Mod2+Mod4 + c
+
+#firefox
+#run with pvkrun only if that pkg is present
+"$HOME/bin/firefox.sh"
+  Mod2+Mod4 + f
+#chrome
+"google-chrome-stable"
+  Mod2+Mod4 + g
+
+
+#gmaps
+"$HOME/bin/mapsandresize.sh"
+  Mod2+Mod4 + m
+
+#screen lock
+#"xflock4"
+# control + alt + del
+#xflock4 is the reference Bash script which is used to lock an Xfce
+#session. It tries consecutively four screen lockers or exits with 
+#return code 1 if it fails to find any. Therefore, for xflock4 to 
+#succeed, either xscreensaver, gnome-screensaver, slocki, xlockmore 
+#or light-locker needs to be installed.
+
+#screenshot
+#select region
+"xfce4-screenshooter -r -s $HOME/Downloads"
+ Mod2+Mod4 + s
+#more options
+"xfce4-screenshooter -s $HOME/Downloads"
+ alt + Mod2+Mod4 + s
+
+#vifm
+"uxterm -e /usr/bin/vifm"
+ Mod2+Mod4 + a
+
+#thunar
+"thunar"
+ alt + Mod2+Mod4 + a
+
+
+#vim
+"uxterm -e /usr/bin/vim"
+ Mod2+Mod4 + e
+#mousepad
+"mousepad"
+ alt + Mod2+Mod4 + e
+
+#notas
+"mousepad $HOME/arq/_Notas_sobre_GNU+Linux"
+ Mod2+Mod4 + j
+
+
+#raise vol ('b:4' is mouse scroll up)
+#"amixer sset -q 'Master' 2%+"
+#  Mod2+Mod4 + b:4
+"amixer sset -q 'Master' 2%+"
+ Mod2+Mod4 + Up
+#volume Decrease ('b:5' is mouse scroll down)
+#"amixer sset -q 'Master' 2%-"
+#  Mod2+Mod4 + b:5
+"amixer sset -q 'Master' 2%-"
+ Mod2+Mod4 + Down
+
+
+#wisker menu popup
+"xfce4-popup-whiskermenu"
+ Mod2+Mod4 + space
+"xfce4-popup-whiskermenu"
+ XF86Search
+
+#xkill
+"xkill"
+ Mod2+Mod4 + k
+
+#rofimoji
+"rofimoji"
+ Mod2+Mod4 + r
+
+#location of pointer on keypress
+#must enable settings>acessibility>mouse in xfce4
+#"xfce4-find-cursor"
+# Control + space
+
+#xterm
+"/usr/bin/uxterm"
+  Mod2+Mod4 + z
+#xfce4-term
+"/usr/bin/xfce4-terminal"
+ Mod2+Mod4 + x
+
+#window sizes
+#normal windows
+#titebar does not count for Y values
+"xdotool getactivewindow windowsize 375 340" # Youtube Small
+  Mod2+Mod4 + 1
+"xdotool getactivewindow windowsize 550 440" # Youtube Medium
+  Mod2+Mod4 + 2
+"xdotool getactivewindow windowsize 710 560"
+  Mod2+Mod4 + 3
+"xdotool getactivewindow windowsize 950 660"
+  Mod2+Mod4 + 4
+"xdotool getactivewindow windowsize 570 660"
+  Mod2+Mod4 + 5
+#xrerm windows
+#"xdotool getactivewindow windowsize --usehints 86 24"
+#  Mod2+Mod4 + 6
+#"xdotool getactivewindow windowsize --usehints 86 48"
+#  Mod2+Mod4 + 7
+#"xdotool getactivewindow windowsize  --usehints 144 48"
+#  Mod2+Mod4 + 8
+#"xdotool getactivewindow windowsize  --usehints 9 39"
+
+
+#price streams
+"$HOME/bin/markets/pricesroll.sh"
+ Mod2+Mod4 + p
+
+#price streams
+"$HOME/bin/markets/pricesroll2.sh"
+ Shift + Mod2+Mod4 + p
+
+#xfce-like zoom
+"xdotool keydown Super click 4 keyup Super"
+ Mod2+Mod4 + u
+
+"xdotool keydown Super click 5 keyup Super"
+ Mod2+Mod4 + y
+#xdotool keydown Alt click 4 keyup Alt
+#"$HOME/bin/zoomDown.sh"
+
+#x11 keymaps
+#http://xahlee.info/linux/linux_show_keycode_keysym.html
+
+#identifying keycodes
+# To find the keycodes for a particular key, enter the following command:
+#
+# $ xbindkeys --key
+#
+# or the following to grab multiple keys:
+#
+# $ xbindkeys --multikey
+#
+# To show all loaded key bindings:
+#
+# $ xbindkeys --show
+#
+#https://wiki.archlinux.org/index.php/Xbindkeys
+
+
+# Example config
+# For the benefit of emacs users: -*- shell-script -*-
+###########################
+# xbindkeys configuration #
+###########################
+#
+# Version: 1.8.6
+#
+# If you edit this file, do not forget to uncomment any lines
+# that you change.
+# The pound(#) symbol may be used anywhere for comments.
+#
+# To specify a key, you can use 'xbindkeys --key' or
+# 'xbindkeys --multikey' and put one of the two lines in this file.
+#
+# The format of a command line is:
+#    "command to start"
+#       associated key
+#
+#
+# A list of keys is in /usr/include/X11/keysym.h and in
+# /usr/include/X11/keysymdef.h
+# The XK_ is not needed.
+#
+# List of modifier:
+#   Release, Control, Shift, Mod1 (Alt), Mod2 (NumLock),
+#   Mod3 (CapsLock), Mod4, Mod5 (Scroll).
+#
+## The release modifier is not a standard X modifier, but you can
+# use it if you want to catch release events instead of press events
+#
+#By defaults, xbindkeys does not pay attention with the modifiers
+# NumLock, CapsLock and ScrollLock.
+# Uncomment the lines above if you want to pay attention to them.
+#
+#keystate_numlock = enable
+#keystate_capslock = enable
+#keystate_scrolllock= enable
+#
+# Examples of commands:
+#
+#"xbindkeys_show" 
+#  control+shift + q
+#
+# set directly keycode (here control + f with my keyboard)
+#"xterm"
+#  c:41 + m:0x4
+#
+# specify a mouse button
+#"xterm"
+#  control + b:2
+#
+#"xterm -geom 50x20+20+20"
+#   Shift+Mod2+alt + s
+#
+## set directly keycode (here control+alt+mod2 + f with my keyboard)
+#"xterm"
+#  alt + c:0x29 + m:4 + mod2
+#
+## Control+Shift+a  release event starts rxvt
+#"rxvt"
+#  release+control+shift + a
+#
+## Control + mouse button 2 release event starts rxvt
+#"rxvt"
+#  Control + b:2 + Release
+#
+##################################
+# End of xbindkeys configuration #
+##################################
