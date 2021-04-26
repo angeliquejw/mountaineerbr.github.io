@@ -121,7 +121,7 @@ bitcoin.blk.sh -ii 400000 | head | bitcoin.tx.sh -b"$BLOCK_HASH"
 is bitcoin blockchain explorer.
 
 There are many shell functions to get data from many API points
-at my [markets repo](..repo/markets/)
+at my [markets repo](../repo/markets/)
 
 Grondilu's bitcoin-bash-tools: [bitcoin.sh](https://github.com/grondilu/bitcoin-bash-tools)
 
