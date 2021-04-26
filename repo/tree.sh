@@ -63,7 +63,7 @@ treef()
 	'
 	#notes
 	notes='To download all files from a directory, try:
-	<code>wget -r --no-parent --reject "index.html*"
+	<code>wget -r --no-parent --reject "index.html*" [URL]
 	</code><hr>
 	'
 	
