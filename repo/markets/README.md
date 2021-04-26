@@ -87,7 +87,7 @@ de funcionar a qualquer momento ou serem limitadas rapidamente.
   
 ---
 
-## SEE ALSO / TAMBÉM VEJA</b>
+## SEE ALSO / TAMBÉM VEJA
 
 _bcalc.sh_ -- a wrapper for bash calculator and zshell maths that keeps a record of results
 
