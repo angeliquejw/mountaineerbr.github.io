@@ -59,7 +59,7 @@ print
 #PART FOUR
 ##make repo tree pages
 cd repo
-tree.sh
+./sync.sh
 cd -
 print
 

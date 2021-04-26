@@ -15,7 +15,7 @@ set -e
 
 #STEP 1
 #MAKE TAR FILES FROM DIRECTORIES
-./maketar.sh
+./mktar.sh
 
 
 #STEP 2
