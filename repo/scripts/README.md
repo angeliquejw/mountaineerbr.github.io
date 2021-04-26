@@ -123,9 +123,6 @@ is bitcoin blockchain explorer.
 There are many shell functions to get data from many API points
 at my [markets repo](https://github.com/mountaineerbr/markets)
 
-[My list of timestamps](../repo/extra/bitcoin.blk1-638200.timestamps.1231006505.txt)
-(unix time) from block 1 through 638200
-
 Grondilu's bitcoin-bash-tools: [bitcoin.sh](https://github.com/grondilu/bitcoin-bash-tools)
 
 Some `bitcoin-cli` scripts: https://github.com/kristapsk/bitcoin-scripts
