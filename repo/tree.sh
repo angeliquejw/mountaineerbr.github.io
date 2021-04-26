@@ -30,6 +30,7 @@ treef()
 		-L 1 \
 		-F \
 		-h \
+		-T "Tree -- $title" \
 		--dirsfirst \
 		-C \
 		--charset utf-8 \
@@ -37,7 +38,6 @@ treef()
 		| sed 's/<h1/<h2/g' >"$out"	#change [H1] to [H2]
 
 # 		UNUSED OPTIONS:
-#		-T "$title" \
 #		--noreport \
 #		-o "$out" \
 
