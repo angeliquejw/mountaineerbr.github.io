@@ -30,7 +30,7 @@ treef()
 		-L 1 \
 		-F \
 		-h \
-		-T "Tree -- $title" \
+		-T "$title - Tree" \
 		--dirsfirst \
 		-C \
 		--charset utf-8 \
