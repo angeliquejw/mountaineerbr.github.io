@@ -161,6 +161,7 @@ https://mountaineerbr.github.io/repo/extra/
 https://mountaineerbr.github.io/repo/extra/MobyHyphenatorII/
 https://mountaineerbr.github.io/repo/extra/NytRefs/
 https://mountaineerbr.github.io/repo/extra/tutorials/
+https://mountaineerbr.github.io/repo/extra/yahooFinanceSymbols/
 https://mountaineerbr.github.io/repo/markets/
 https://mountaineerbr.github.io/repo/scripts/
 https://mountaineerbr.github.io/sitemap.html
