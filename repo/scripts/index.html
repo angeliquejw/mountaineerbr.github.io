@@ -253,31 +253,28 @@ The following examples are more complicated than normal usage.</p>
 
 <p><em>A.</em> Use bitcoin-cli to make an rpc-call and get transaction hashes from the memory pool; use jq to open the json array with transaction hashes; bitcoin.tx.sh will make further rpc-calls and parse each transaction data asynchronously; at the end, the script sorts buffers and writes a text file at $PWD:</p>
 
-<p><code>bash
-bitcoin-cli getrawmempool  | jq -r '.[]' | bitcoin.tx.sh
-</code></p>
+<pre><code>bitcoin-cli getrawmempool  | jq -r '.[]' | bitcoin.tx.sh
+</code></pre>
 
 <p><em>B.</em> Parse a single transaction; the last two commands should have the same outputs:</p>
 
-<p>```bash
-TRANSACTION_HASH=a8bb9571a0667d63eaaaa36f9de87675f0d430e13c916248ded1d13093a77561</p>
+<pre><code>TRANSACTION_HASH=a8bb9571a0667d63eaaaa36f9de87675f0d430e13c916248ded1d13093a77561
 
-<p>BLOCK_HEIGHT=638200</p>
+BLOCK_HEIGHT=638200
 
-<p>BLOCK_HASH=$( bitcoin-cli getblockhash $BLOCK_HEIGHT )</p>
+BLOCK_HASH=$( bitcoin-cli getblockhash $BLOCK_HEIGHT )
 
-<p>bitcoin.tx.sh -b"$BLOCK_HASH" &ldquo;$TRANSACTION_HASH&rdquo;</p>
+bitcoin.tx.sh -b"$BLOCK_HASH" "$TRANSACTION_HASH"
 
-<p>bitcoin-cli getrawtransaction &ldquo;$TRANSACTION_HASH&rdquo; true &ldquo;$BLOCK_HASH&rdquo; | bitcoin.tx.sh
-```</p>
+bitcoin-cli getrawtransaction "$TRANSACTION_HASH" true "$BLOCK_HASH" | bitcoin.tx.sh
+</code></pre>
 
 <p><em>C.</em> Parse the first 10 transactions from block height number 400000; no output to screen is written, wait until all transactions are parsed and then concatenated in the correct order; a file containing the resulting parsing is written to $PWD, or use options -o to write output to screen only (check script help page):</p>
 
-<p>```bash
-BLOCK_HASH=000000000000000004ec466ce4732fe6f1ed1cddc2ed4b328fff5224276e3f6f</p>
+<pre><code>BLOCK_HASH=000000000000000004ec466ce4732fe6f1ed1cddc2ed4b328fff5224276e3f6f
 
-<p>bitcoin.blk.sh -ii 400000 | head | bitcoin.tx.sh -b"$BLOCK_HASH"
-```</p>
+bitcoin.blk.sh -ii 400000 | head | bitcoin.tx.sh -b"$BLOCK_HASH"
+</code></pre>
 
 <hr />
 

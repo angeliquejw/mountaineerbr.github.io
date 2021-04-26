@@ -2,6 +2,9 @@
 # mountaineerbr  apr/2021
 # Create pages for exploring directories and files
 # Requires `markdown' and `txt2html'.
+# <https://archlinux.org/packages/extra/x86_64/discount/>
+# <https://www.pell.portland.or.us/~orc/Code/discount/>
+# <https://daringfireball.net/projects/markdown/basics>
 
 
 treef()
@@ -42,7 +45,10 @@ treef()
 	if
 		mdarray=( $( print -l "$basePATH"/(readme|info).md* ) )
 		((${#mdarray[@]}))
-	then inject="$(markdown "${mdarray[1]}")<hr>"
+	then inject="$(
+		sed -E -e '/```+/,/```+/ s/^/    /; s/```.*//' "${mdarray[1]}" \
+		| markdown
+	)<hr>"
 	elif
 		txtarray=( $( print -l "$basePATH"/(readme|info).txt* ) )
 		((${#txtarray[@]}))
