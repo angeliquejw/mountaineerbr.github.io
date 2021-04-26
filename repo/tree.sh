@@ -22,6 +22,7 @@ treef()
 	print "BASE HREF: $baseHREF\nBASE PATH: $basePATH\nOUT: $out\n" >&2
 
 	tree "$basePATH" \
+		-a \
 		-H "$baseHREF" \
 		-L 1 \
 		-F \
