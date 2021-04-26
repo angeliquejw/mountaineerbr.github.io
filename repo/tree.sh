@@ -1,7 +1,7 @@
 #!/bin/zsh
 # mountaineerbr  apr/2021
 # Create pages for exploring directories and files
-# Requires `markdown', `tidu' and `txt2html'.
+# Requires `markdown' and `txt2html'.
 
 
 treef()
@@ -42,18 +42,11 @@ treef()
 	if
 		mdarray=( $( print -l "$basePATH"/(readme|info).md* ) )
 		((${#mdarray[@]}))
-	then
-		inject="$(
-			sed -E	-e 's/```+(.*)/<code>\1/' \
-				-e 's/(.*)```+/\1<\/code>/'  "${mdarray[1]}" \
-			| tidy  --show-body-only yes 2>/dev/null \
-			| markdown 
-		)<hr>"
+	then inject="$(markdown "${mdarray[1]}")<hr>"
 	elif
 		txtarray=( $( print -l "$basePATH"/(readme|info).txt* ) )
 		((${#txtarray[@]}))
-	then
-		inject="$(txt2html "${txtarray[1]}" | sed -n '/<body/,/<\/body/ p')"
+	then inject="$(txt2html "${txtarray[1]}" | sed -n '/<body/,/<\/body/ p')"
 	fi
 	[[ -n "$inject" ]] && sed -i '/<body/ r /dev/stdin' "$out" <<<"$inject"
 

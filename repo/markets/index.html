@@ -36,7 +36,340 @@
  </style>
 </head>
 <body>
-<hr>
+<h1>markets</h1>
+
+<p><img src="git_screenshot1.png" alt="ScreenShot" />
+Fig. 1. Scripts on display: binance.sh, bitfinex.sh, binfo.sh,
+bitstamp.sh, cgk.sh, cmc.sh and others.</p>
+
+<hr />
+
+<h2>SUMMARY</h2>
+
+<p>This is a repo related to crypto, bank currency and stock markets.</p>
+
+<p>Run the script with <code>-h</code> for a help page. Check below for script descriptions,
+download and basic instructions to run them.</p>
+
+<p>These bash scripts mostly need <code>curl</code>. Some of them will work
+if you have got <code>wget</code> instead, but not all of them.
+Other important packages are <code>jq</code> and <code>websocat</code> or <code>wscat</code> for some scripts.</p>
+
+<p>I cannot promise to follow up api changes and update these scripts
+once they start failing.  So I may just remove failing scripts
+or leave them broken..</p>
+
+<hr />
+
+<h2>SUMÁRIO</h2>
+
+<p>Este repo é relacionado com mercados de cripto, de moedas de
+banco centrais e ações. Rode os scripts com <code>-h</code> para uma página de ajuda.</p>
+
+<p>A maioria desses scripts de bash precisam do <code>curl</code>.
+Alguns irão funcionar se você tiver somente o <code>wget</code>, mas não todos.
+Outros pacotes importantes para alguns scripts são <code>jq</code> e
+&lsquo;websocat&rsquo; ou <code>wscat</code>.</p>
+
+<p>Não posso prometer acompanhar as alterações das APIs e atualizar esses
+scripts assim que começarem a falhar.
+Então, posso remover scripts com falha ou deixá-los quebrados..</p>
+
+<hr />
+
+<h2>INDEX / ÍNDICE</h2>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">SCRIPT NAME </th>
+<th style="text-align:left;"> DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"><strong>alpha.sh</strong> </td>
+<td style="text-align:left;"> Stocks and currency rates from &lt;alphaavantage.co>, most popular yahoo finance api alternative; free api key</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>bakkt.sh</strong> </td>
+<td style="text-align:left;"> Price and contract/volume tickers from bakkt public api</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>binance.sh</strong> </td>
+<td style="text-align:left;">  Binance public API, crypto converter, prices, book depth, coin ticker</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>binfo.sh</strong> </td>
+<td style="text-align:left;"> Blockchain explorer for bitcoin; uses &lt;blockchain.info> and &lt;blockchair.com> public apis; notification on new block found</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>bitstamp.sh</strong> </td>
+<td style="text-align:left;"> Bitstamp exchange public api for live trade prices/info</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>bitfinex.sh</strong> </td>
+<td style="text-align:left;"> Bitfinex exchange public api for live trade prices</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>brasilbtc.sh</strong> </td>
+<td style="text-align:left;"> Fetches bitcoin rates from brazilian exchanges public apis. Puxa cotações de bitcoin de agências de câmbio brasileiras de apis públicas</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong><em>cgk.sh</em></strong> </td>
+<td style="text-align:left;"> &lt;Coinggecko.com> public api, convert one crypto, bank/fiat or metal currency into any another, market ticker, cryptocurrency ticker. This is my favorite everyday-use script for all-currency rates!</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>clay.sh</strong> </td>
+<td style="text-align:left;"> &lt;Currencylayer.com> central bank currency, precious metal and cryptocurrency converter, free api key</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>cmc.sh</strong> </td>
+<td style="text-align:left;">  &lt;Coinmarketcap.com> convert any amount of one crypto, bank/fiat currency or metal into any another, NON-public api access</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>erates.sh</strong> </td>
+<td style="text-align:left;"> &lt;Exchangeratesapi.io> public api, currency converter (same API as Alexander Epstein&rsquo;s Bash-Snippets/currency)</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>foxbit.sh</strong> </td>
+<td style="text-align:left;"> FoxBit exchange public API rates. Acesso ao api público da Foxbit para cotações</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>hgbrasil.sh</strong> </td>
+<td style="text-align:left;"> Bovespa and tax rates. Cotações de ações da Bovespa e índices e taxas (CDI e SELIC) do api da hg brasil</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>myc.sh</strong> </td>
+<td style="text-align:left;"> &lt;Mycurrency.net> public api, central bank currency rate converter</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>metais.sh</strong> </td>
+<td style="text-align:left;"> script to retrieve various rates, mostly using other scripts from this repo; there are some unique shell functions, though</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong><em>mkt_func.sh</em></strong> </td>
+<td style="text-align:left;"> shell functions (bash and z-shell) to get some market data from public apis. Google Finance and Yahoo! Finance hacks.. these functions need improvement; source from this file to make these funtions available in your shell</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>novad.sh</strong> </td>
+<td style="text-align:left;"> puxa dados das apis públicas da NovaDax brasileira. fetch public api data from NovaDax brazilian enchange</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>openx.sh</strong> </td>
+<td style="text-align:left;"> &lt;Openexchangerates.org> central bank currencies and precious metals converter, free api key</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>ourominas.sh</strong> </td>
+<td style="text-align:left;"> Ourominas (precious metals exchange) rates public api. Pega taxas da api pública da Ouro Minas</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>parmetal.sh</strong> </td>
+<td style="text-align:left;"> Parmetal (precious metals exchange) rates public api. Pega taxas da api pública da Parmetal</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>pricesroll.sh</strong> </td>
+<td style="text-align:left;"> script to open and arrange terminal windows with these market scripts on X</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>stocks.sh</strong> </td>
+<td style="text-align:left;"> &lt;Financialmodelingprep.com> latest and historical stock and major index rates</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>tradingview.sh</strong> </td>
+<td style="text-align:left;"> just open some tradingview windows at the right screen position with xdotool</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>uol.sh</strong> </td>
+<td style="text-align:left;"> Fetches rates from uol service provider public api. Puxa dados de páginas da api pública do uol economia</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>wexplorer.sh</strong> </td>
+<td style="text-align:left;"> get some data from <a href="https://www.walletexplorer.com">https://www.walletexplorer.com</a>; this script usage is not very comprehensible and API server may be slow</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>whalealert.sh</strong> </td>
+<td style="text-align:left;"> latest whale transactions from &lt;whale-alert.io>; this is such a bad api, very limited, not even worth having written a script for this, free api key</td>
+</tr>
+<tr>
+<td style="text-align:left;"><strong>yahooscrape.sh</strong> </td>
+<td style="text-align:left;"> scrape some yahoo! finance tickers</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>For a large list of Yahoo! Finance symbols, <a href="https://github.com/mountaineerbr/extra/tree/master/yahooFinanceSymbols">check my lists</a></p>
+
+<hr />
+
+<h2>API KEYS / CHAVES DE API</h2>
+
+<p>Please create free API keys and add them to shell environment or set
+them in the script head source code. Demo api keys were added to the scripts,
+however they may stop working at any time or get rate limited quickly.</p>
+
+<p>Por favor, crie chaves de API grátis e as adicione no ambiente da shell
+ou as configure na cabeça do código-fonte dos scripts. Chaves para fins
+de demonstração foram adicionadas aos scripts, porém elas podem parar
+de funcionar a qualquer momento ou serem limitadas rapidamente.</p>
+
+<hr />
+
+<h2>SEE ALSO / TAMBÉM VEJA</b></h2>
+
+<p><em>bcalc.sh</em> &ndash; a wrapper for bash calculator and zshell maths that keeps a record of results</p>
+
+<p><a href="https://github.com/mountaineerbr/scripts/blob/master/bcalc.sh">https://github.com/mountaineerbr/scripts/blob/master/bcalc.sh</a></p>
+
+<p>Alexander Epstein&rsquo;s <em>currency_bash-snipet.sh</em> uses the same API as <em>erates.sh</em></p>
+
+<p><a href="https://github.com/alexanderepstein">https://github.com/alexanderepstein</a></p>
+
+<p>MiguelMota&rsquo;s <em>Cointop</em> for crypto currency tickers</p>
+
+<p><a href="https://github.com/miguelmota/cointop">https://github.com/miguelmota/cointop</a></p>
+
+<p>8go&rsquo;s <em>CoinBash.sh</em> for CoinMarketCap simple tickers (outdated)</p>
+
+<p><a href="https://github.com/8go/coinbash">https://github.com/8go/coinbash</a></p>
+
+<p>Brandleesee&rsquo;s <em>Mop: track stocks the hacker way</em></p>
+
+<p><a href="https://github.com/mop-tracker/mop">https://github.com/mop-tracker/mop</a></p>
+
+<p>Packages <code>units</code> and <code>qalc</code> (qalculate) also have got
+bank currency rate convertion although they are not as powerful as my scripts.</p>
+
+<hr />
+
+<h2>IMPORTANT / IMPORTANTE</h2>
+
+<p>None of these scripts are supposed to be used under truly professional constraints. Do your own research!</p>
+
+<p>Nenhum desses scripts deve ser usado em meio profissional sem análise prévia. Faça sua própria pesquisa!</p>
+
+<hr />
+
+<blockquote><p>If useful, please consider sending me a nickle! =)</p>
+
+<p>Se foi útil, considere me lançar um trocado!</p>
+
+<p>   bc1qlxm5dfjl58whg6tvtszg5pfna9mn2cr2nulnjr</p></blockquote>
+
+<hr />
+
+<h2>BASIC INSTRUCTIONS</h2>
+
+<p>On Ubuntu 20.04, you can install <code>curl</code>, <code>jq</code> and <code>lolcat</code> packages easily from the official repos.
+The <code>websocat</code> and <code>wscat</code> packages may be a little more complicated..</p>
+
+<p>To download a script, view it on Github.
+Then, right-click on the <em>Raw</em> button and choose <em>Save Link As &hellip;</em> option.
+Once downloaded (<em>eg</em> <code>~/Downloads/binance.sh</code>),
+you will need to mark the script as executable.
+In GNOME, <em>right-click on the file > Properties > Permissions</em>
+and check the <em>Allow executing file as programme</em> box, or</p>
+
+<p><code>bash
+chmod +x ~/Downloads/binance.sh
+</code></p>
+
+<p>Then cd to the folder where the script is located.</p>
+
+<p><code>bash
+cd ~/Downloads
+</code></p>
+
+<p>To execute it, be sure to add &lsquo;./&rsquo; before the script name:</p>
+
+<p><code>bash
+./binance.sh
+</code></p>
+
+<p>or</p>
+
+<p><code>bash
+bash binance.sh
+</code></p>
+
+<p>Alternatively, you can clone this entire repo.</p>
+
+<p>```bash
+cd Downloads</p>
+
+<p>git clone https://github.com/mountaineerbr/markets.git</p>
+
+<p>chmod +x ~/Downloads/markets/*.sh
+```</p>
+
+<p>You can use bash aliases to individual scripts or place them under your $PATH .</p>
+
+<p>Some scripts need free api keys. You can test these scripts with
+the builtin demo key, however that may stop working at any time.</p>
+
+<hr />
+
+<h2>INSTRUÇÕES BÁSICAS</h2>
+
+<p>No Ubuntu 20.04, pode-se instalar os pacotes <code>curl</code>, <code>jq</code> e <code>lolcat</code>
+facilmente dos repos oficiais.
+Já o pacote <code>websocat</code> e <code>wscat</code> podem ser um pouco mais complicado..</p>
+
+<p>Para fazer o download de um script, abra-o/visualize-o no Github e
+depois clique com o botão direito do mouse em cima do botão <em>Raw</em> e
+escolha a opção <em>Salvar Link Como&hellip;</em>.
+Depois de feito o download (<em>por exemplo</em>, em <code>~/Downloads/binance.sh</code>),
+será necessário marcar o script como executável.
+No GNOME, clicar com o botão direito em
+<em>cima do arquivo > Propriedades > Permissões</em> e selecione a caixa
+<em>Permitir execução do arquivo como programa</em>, ou</p>
+
+<p><code>bash
+chmod +x ~/Downloads/binance.sh
+</code></p>
+
+<p>Então, caminhe até a pasta onde script se encontra.</p>
+
+<p><code>bash
+cd ~/Downloads
+</code></p>
+
+<p>Para executá-lo, não se esqueça de adicionar &lsquo;./&rsquo; antes do nome do script:</p>
+
+<p><code>bash
+./binance.sh
+</code></p>
+
+<p>ou</p>
+
+<p><code>bash
+bash binance.sh&lt;/i&gt;
+</code></p>
+
+<p>Alternativeamente, você pode clonar este repo inteiro.</p>
+
+<p>```bash
+cd Downloads</p>
+
+<p>git clone https://github.com/mountaineerbr/markets.git</p>
+
+<p>chmod +x ~/Downloads/markets/*.sh
+```</p>
+
+<p>Você pode fazer bash aliases individuais para os scripts
+ou colocar os scripts sob seu $PATH .</p>
+
+<p>Alguns scripts precisam de chaves de API gratuitas.
+Você pode testá-los com as chaves de APIs de demonstração
+adicionadas nos scripts, porém elas podem parar de funcionar
+a qualquer tempo.</p>
+
+<hr />
+
+<blockquote><p>Please consider sending me a nickle!  = )</p>
+
+<p>   bc1qlxm5dfjl58whg6tvtszg5pfna9mn2cr2nulnjr</p></blockquote><hr>
 	<h2>Directory Tree</h1><p>
 	<a class="NORM" href=".">.</a><br>
 	├── [9.4K]&nbsp;&nbsp;<a class="EXEC" href="./alpha.sh">alpha.sh</a>*<br>
