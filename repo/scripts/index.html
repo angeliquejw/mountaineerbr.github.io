@@ -259,7 +259,7 @@ bitcoin-cli getrawmempool  | jq -r '.[]' | bitcoin.tx.sh
 
 <p><em>B.</em> Parse a single transaction; the last two commands should have the same outputs:</p>
 
-<p>```bash
+<p><code>bash
 TRANSACTION_HASH=a8bb9571a0667d63eaaaa36f9de87675f0d430e13c916248ded1d13093a77561</p>
 
 <p>BLOCK_HEIGHT=638200</p>
@@ -269,15 +269,15 @@ TRANSACTION_HASH=a8bb9571a0667d63eaaaa36f9de87675f0d430e13c916248ded1d13093a7756
 <p>bitcoin.tx.sh -b"$BLOCK_HASH" &ldquo;$TRANSACTION_HASH&rdquo;</p>
 
 <p>bitcoin-cli getrawtransaction &ldquo;$TRANSACTION_HASH&rdquo; true &ldquo;$BLOCK_HASH&rdquo; | bitcoin.tx.sh
-```</p>
+<code></p>
 
 <p><em>C.</em> Parse the first 10 transactions from block height number 400000; no output to screen is written, wait until all transactions are parsed and then concatenated in the correct order; a file containing the resulting parsing is written to $PWD, or use options -o to write output to screen only (check script help page):</p>
 
-<p>```bash
+<p><code>bash
 BLOCK_HASH=000000000000000004ec466ce4732fe6f1ed1cddc2ed4b328fff5224276e3f6f</p>
 
 <p>bitcoin.blk.sh -ii 400000 | head | bitcoin.tx.sh -b"$BLOCK_HASH"
-```</p>
+<code></p>
 
 <hr />
 

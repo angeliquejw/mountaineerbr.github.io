@@ -42,11 +42,17 @@ treef()
 	if
 		mdarray=( $( print -l "$basePATH"/(readme|info).md* ) )
 		((${#mdarray[@]}))
-	then inject="$(markdown "${mdarray[1]}")<hr>"
+	then
+		inject="$(
+			markdown "${mdarray[1]}" |
+			sed -E	-e 's/```+(.*)/<code>\1/' \
+				-e 's/(.*)```+/\1<\/code>/'
+		)<hr>"
 	elif
 		txtarray=( $( print -l "$basePATH"/(readme|info).txt* ) )
 		((${#txtarray[@]}))
-	then inject="$(txt2html "${txtarray[1]}" | sed -n '/<body/,/<\/body/ p')"
+	then
+		inject="$(txt2html "${txtarray[1]}" | sed -n '/<body/,/<\/body/ p')"
 	fi
 	[[ -n "$inject" ]] && sed -i '/<body/ r /dev/stdin' "$out" <<<"$inject"
 
