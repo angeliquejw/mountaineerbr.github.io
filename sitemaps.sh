@@ -395,7 +395,8 @@ unset REPLY n URL ALT MOD TS
 #create directory tree
 echo "$SN: create sitemap.html with  \`tree' package.." >&2
 #remove default meta tags
-tree -r -H "." -P "$EXTENSIONSTREE" -I "$EXTREE" \
+#eval "$(dircolors -b)"
+tree -C -r -H "." -P "$EXTENSIONSTREE" -I "$EXTREE" \
 	-T Sitemap -L 6 -F -v --noreport --charset utf-8 |
 	sed '/<meta/,/<title/ d' > "$SMAPTREE"
 
