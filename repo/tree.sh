@@ -89,12 +89,10 @@ treef()
 	#and change to class .tar
 	ext='tar.bz2\|tar.gz\|bz2\|rar\|gz\|tar\|tbz2\|tgz\|zip\|Z\|7z\|deb\|zstd\|tar.xz\|txz'
 	extt='tar.bz2|tar.gz|bz2|rar|gz|tar|tbz2|tgz|zip|Z|7z|deb|zstd|tar.xz|txz'
-	#ext='tar|tgz'
 	if [[ "$(<"$out")" =~ \.($extt) ]]
 	then
-		sed -i -E -e "s|\.($ext)<|.\1(📦)<|I" \
-			-e "/\.($ext)\">/ s|class=\"[^\"]*\"|class=\"tar\"|I" \
-			"$out"
+		sed -i -E -e "s|\.($ext)<|.\1(📦)<|I" "$out"
+		sed -i -e "/\.($ext)\">/ s|class=\"[^\"]*\"|class=\"tar\"|I" "$out"
 	fi
 
 
