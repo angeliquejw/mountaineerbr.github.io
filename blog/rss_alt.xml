@@ -16,7 +16,7 @@
 	<channel>
 		<lastBuildDate>Mon, 13 Sep 2021 00:00:00 -0300</lastBuildDate>
 		<title>Biology Blogger (Alternative feed)</title>
-		<description>Current as of Tue, 27 Apr 2021 17:24:48 -0300.</description>
+		<description>Current as of Tue, 27 Apr 2021 17:37:23 -0300.</description>
 		<link>https://mountaineerbr.github.io/blog/</link>
 		<category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
 		<webMaster>jamilbio20@gmail.com (JSN)</webMaster>
@@ -1728,7 +1728,7 @@ vfcd()
 <br>
 <p>Notes about some subjects I am planning on talking about in the podcast premiere. The podcast will be in Portuguese however most notes are in English below. This podcast will also be posted at my youtube channel and is expect to go on air by the end of the month. Subjects not met in this episode will be saved for the next ones.</p>
 <p>See the podcast <a href="../">index here</a> (currently at the blog portal).</p>
-<h2 id="ep1"><a hreflang="pt" href="https://mountaineerbr.github.io/blog/podcast/ep1low.mp3">Podcast première</a></h2>
+<h2 id="ep1"><a hreflang="pt" href="https://mountaineerbr.github.io/podcast/ep1low.mp3">Podcast première</a></h2>
 <dl>
 <dt>General notices</dt>
 <dd>About youtube and podcast content frequency.</dd>
@@ -1780,7 +1780,7 @@ A lot of public money was spent in this expedition, however the scientific group
 <dd>On the <em>17<sup>th</sup> of December 2017</em>, bitcoin reached <strong>BRL 65,952</strong> (almost 66K Brazilian Reais). On the <em>17<sup>th</sup> of August 2020</em>, a new all time high reached <strong>BRL 68,695</strong>.</dd>
 </dl>
 <br>
-<h2 id="ep2"><a hreflang="pt" href="https://mountaineerbr.github.io/blog/podcast/ep2.mp3">Episode #2 - Arch Linux updates and privy key management</a></h2>
+<h2 id="ep2"><a hreflang="pt" href="https://mountaineerbr.github.io/podcast/ep2.mp3">Episode #2 - Arch Linux updates and privy key management</a></h2>
 <dl>
 <dt><a href="https://archive.archlinux.org/">Arch Linux update notes on sync&#39;ing with Arch Linux Archive (ALA)</a></dt>
 <dd>I sync Arch Linux with the monthly repo (snapshot of the 1<sup>st</sup> of a month) from <abbr title="Arch Linux Archive">ALA</abbr>. However, sometimes even the monthly repo snapshot (which is used to generate the official Arch Linux install iso image) is not 100% stable for my specific hardware and thus I need to try and sync again some days later.. For example, what I do when there is news such as <q>nvidia 455.28 is incompatible with linux = 5.9</q> recently? I do not agree a rolling release distribution requires the user to update constantly as a rule.</dd>
@@ -1798,7 +1798,7 @@ A lot of public money was spent in this expedition, however the scientific group
 </ul>
 </dd>
 <dt>US Govt wants everyone under its thumb</dt>
-<dd>More comments on the same track of <a hreflang="pt" href="../podcast/ep1low.mp3">last podcast episode</a> <strong>Ugly Old Goat&#39;s</strong> (Greatest Of All Times) explanation about <a href="https://www.coindesk.com/bitmex-cftc-enforcement">BitMEX &#39;Attempted to Evade&#39; US Regulations, CFTC Charges</a> and <a href="https://cointelegraph.com/news/cftc-charges-bitmex-with-illegally-operating-derivatives-exchange">CFTC charges BitMex with illegally operating derivatives exchange</a>. See also <a href="https://news.bitcoin.com/ripple-ceo-threatens-to-relocate-company-overseas-due-to-unfavorable-us-regulation/">Ripple CEO Threatens to Relocate Company Overseas Due to Unfavorable US Regulation</a> and an older news (2000) <a href="https://www.theguardian.com/technology/2000/jun/07/microsoft.business1">Microsoft ordered to split into two companies</a>. Perhaps I will comment on some wide-range implications.</dd>
+<dd>More comments on the same track of <a hreflang="pt" href="../../podcast/ep1low.mp3">last podcast episode</a> <strong>Ugly Old Goat&#39;s</strong> (Greatest Of All Times) explanation about <a href="https://www.coindesk.com/bitmex-cftc-enforcement">BitMEX &#39;Attempted to Evade&#39; US Regulations, CFTC Charges</a> and <a href="https://cointelegraph.com/news/cftc-charges-bitmex-with-illegally-operating-derivatives-exchange">CFTC charges BitMex with illegally operating derivatives exchange</a>. See also <a href="https://news.bitcoin.com/ripple-ceo-threatens-to-relocate-company-overseas-due-to-unfavorable-us-regulation/">Ripple CEO Threatens to Relocate Company Overseas Due to Unfavorable US Regulation</a> and an older news (2000) <a href="https://www.theguardian.com/technology/2000/jun/07/microsoft.business1">Microsoft ordered to split into two companies</a>. Perhaps I will comment on some wide-range implications.</dd>
 <dt>Bitcoin price in Brazil</dt>
 <dd>Bitcoin price in BRL is at new All Time Highs. On <em>25<sup>th</sup> Sep 2020</em> it broke to <strong>75,216 <abbr title="Brazilian Reais">BRL</abbr></strong>, going above <em>17<sup>th</sup> Dec 2017</em> <strong>66,066 BRL/BTC</strong> price.</dd>
 </dl>

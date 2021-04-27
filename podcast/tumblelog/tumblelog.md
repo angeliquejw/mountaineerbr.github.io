@@ -6,15 +6,15 @@
 
 This page iz ___Under konstrucssion___.
 
-Please check <https://mountaineerbr.github.io/about/>
+Please check <https://mountaineerbr.github.io/blog/>
 
 %
 @subscribe[subscribe] 2021-03-26 Subscribe
 ## Subscribe
 
-This podcast has got one feed: [Podcast RSS feed](rss_podcast.xml).
+This podcast has got one feed: [Podcast RSS feed](/blog/rss_podcast.xml).
 
-Alo check our blog feed: [Blog RSS feed](../blog/rss.xml).
+Alo check our blog feed: [Blog RSS feed](/blog/rss.xml).
 
 Thank you for subscribing!  
   
@@ -22,7 +22,7 @@ Thank you for subscribing!
 
 <div align="center">
 
-![Transmission tower](../blog/gfx/tower.gif)
+![Transmission tower](/blog/gfx/tower.gif)
 Keep connected!
 
 </div>
