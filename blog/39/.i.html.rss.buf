@@ -1,7 +1,7 @@
 <article class="h-entry">
 <header>
 <h1 class="p-name" id="39">#39 - Not Quite Done Yet</h1>
-<time class="dt-published" datetime="2021-09-13">13/sep/2021</time><br></header>
+<time class="dt-published" datetime="2021-04-24">24/apr/2021</time><br></header>
 <p>I am really proud of my little blog system. I cannot just remove it from the public domain reach. The same feeling is not so strong about my YouTube Channel.</p>
 <p>In fact, with very little remorse I was able to remove that on Friday. Google (at least YouTube branch) cannot use my data and my subscribers data as they wish anymore. There were 258 subscribers to my YouTube channel and more than 130, many which I am proud to have recorded, some turned out to be lessons of didatics or lack of.. I made a copy of all of the videos with good <code><a href="https://wiki.archlinux.org/index.php/Youtube-dl">youtube-dl</a></code> and for my surprise, there was no more than 26GB of content. I know some YouTubers claim to have much more data for content but they must mean raw content shot locally, without edition and directly from the camera, not downloaded with:</p>
 <pre><code>url=https://www.youtube.com/channel/UCbjGrylVSBjPx02LRH7HCAA

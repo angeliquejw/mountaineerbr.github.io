@@ -1,7 +1,7 @@
 <article class="h-entry">
 <header>
 <h1 class="p-name" id="41">#41 - Overview on My Blogging Systems</h1>
-<time class="dt-published" datetime="2021-09-13">13/sep/2021</time><br></header>
+<time class="dt-published" datetime="2021-04-26">26/apr/2021</time><br></header>
 <p>As mentioned in previous posts, it was so much fun to develop shell scripts which generate static webpages for the website.</p>
 <p>I don&#39;t programme in C but use many C blobs (programmes) in my scripts.</p>
 <p>After almost one year developing my own tools, I don&#39;t regret not learning Jekyll or WordPress. I am sure these scripts will work for a long time, but I will get into details.</p>

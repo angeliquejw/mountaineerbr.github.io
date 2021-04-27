@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.1  apr/2021  mountaineerbr
+# v0.6.3  apr/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -261,7 +261,7 @@ creatf()
 
 	#update date in i.html
 	((OPTV)) && echo "$SN: update time stamps -- $tgti" >&2
-	sed -i -E "s/datetime=\"[0-9?-]*\">[0-9a-zA-Z?/-]</datetime=\"$time1\">${time2:l}</" "$tgti"
+	sed -i -E "s|datetime=\"[mMyYdD0-9?/-]*\">[mMyYdD0-9a-zA-Z?/-]*<|datetime=\"$stamp1\">${stamp2:l}<|" "$tgti"
 
 	#first post edit
 	((OPTV)) && echo "$SN: post editor -- ${VISUAL:-vim}" >&2

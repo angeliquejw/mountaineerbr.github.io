@@ -1,7 +1,7 @@
 <article class="h-entry">
 <header>
 <h1 class="p-name" id="40">#40 - Ksh2020 Flamewars</h1>
-<time class="dt-published" datetime="2021-09-13">13/sep/2021</time><br></header>
+<time class="dt-published" datetime="2021-04-25">25/apr/2021</time><br></header>
 <p>I don&#39;t think any clone of <code>ksh</code> can beat the original in term of speed because Korn&#39;s C code cannot be beat.</p>
 <p>Feature-wise, <code>mksh</code> wants to be compatible with <code>bash</code> and <code>oksh</code> is a little more true to <code>ksh</code> however it has gone a different path and has got less features than <code>ksh</code>. But I haven&#39;t read nor used near enough about these yet to have any due criticism..</p>
 <p><code>ksh</code> code is also dependent on other software from <a href="https://github.com/att/ast/">Advanced Software Technology</a> suite, developed by Mr Korn and a few others through many decades of work.</p>

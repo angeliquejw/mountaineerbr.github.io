@@ -14,9 +14,9 @@
 	-->
 
 	<channel>
-		<lastBuildDate>Mon, 13 Sep 2021 00:00:00 -0300</lastBuildDate>
+		<lastBuildDate>Mon, 26 Apr 2021 00:00:00 -0300</lastBuildDate>
 		<title>Biology Blogger (Alternative feed)</title>
-		<description>Current as of Tue, 27 Apr 2021 18:35:16 -0300.</description>
+		<description>Current as of Tue, 27 Apr 2021 19:29:14 -0300.</description>
 		<link>https://mountaineerbr.github.io/blog/</link>
 		<category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
 		<webMaster>jamilbio20@gmail.com (JSN)</webMaster>
@@ -37,7 +37,7 @@
 		<!-- additemsfull -->
 	<item>
 		<title xml:lang="en">#41 - Overview on My Blogging Systems</title>
-		<pubDate>Mon, 13 Sep 2021 00:00:00 -0300</pubDate>
+		<pubDate>Mon, 26 Apr 2021 00:00:00 -0300</pubDate>
 		<link>https://mountaineerbr.github.io/blog/41/</link>
 		<dc:language>en</dc:language>
 		<category>shell script/scripting/programmes/hobby/webmaster/tools/ferramentas/desenvolvedor da web/bash/zsh/html</category>
@@ -46,7 +46,7 @@
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="41">#41 - Overview on My Blogging Systems</h1>
-<time class="dt-published" datetime="2021-09-13">13/sep/2021</time><br></header>
+<time class="dt-published" datetime="2021-04-26">26/apr/2021</time><br></header>
 <p>As mentioned in previous posts, it was so much fun to develop shell scripts which generate static webpages for the website.</p>
 <p>I don&#39;t programme in C but use many C blobs (programmes) in my scripts.</p>
 <p>After almost one year developing my own tools, I don&#39;t regret not learning Jekyll or WordPress. I am sure these scripts will work for a long time, but I will get into details.</p>
@@ -103,7 +103,7 @@
 	</item>
 	<item>
 		<title xml:lang="en">#40 - Ksh2020 Flamewars</title>
-		<pubDate>Mon, 13 Sep 2021 00:00:00 -0300</pubDate>
+		<pubDate>Sun, 25 Apr 2021 00:00:00 -0300</pubDate>
 		<link>https://mountaineerbr.github.io/blog/40/</link>
 		<dc:language>en</dc:language>
 		<category>ksh93u+/ksh93v-/ksh93u+m/history/issues/development/lore</category>
@@ -112,7 +112,7 @@
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="40">#40 - Ksh2020 Flamewars</h1>
-<time class="dt-published" datetime="2021-09-13">13/sep/2021</time><br></header>
+<time class="dt-published" datetime="2021-04-25">25/apr/2021</time><br></header>
 <p>I don&#39;t think any clone of <code>ksh</code> can beat the original in term of speed because Korn&#39;s C code cannot be beat.</p>
 <p>Feature-wise, <code>mksh</code> wants to be compatible with <code>bash</code> and <code>oksh</code> is a little more true to <code>ksh</code> however it has gone a different path and has got less features than <code>ksh</code>. But I haven&#39;t read nor used near enough about these yet to have any due criticism..</p>
 <p><code>ksh</code> code is also dependent on other software from <a href="https://github.com/att/ast/">Advanced Software Technology</a> suite, developed by Mr Korn and a few others through many decades of work.</p>
@@ -161,7 +161,7 @@
 	</item>
 	<item>
 		<title xml:lang="en">#39 - Not Quite Done Yet</title>
-		<pubDate>Mon, 13 Sep 2021 00:00:00 -0300</pubDate>
+		<pubDate>Sat, 24 Apr 2021 00:00:00 -0300</pubDate>
 		<link>https://mountaineerbr.github.io/blog/39/</link>
 		<dc:language>en</dc:language>
 		<category>drama/maybe/notes/notas/liberdade/freedom/repo/own repo/tree/repositório/arquivos de configuração/c files/rc files/dotfiles/scripts/bin</category>
@@ -170,7 +170,7 @@
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="39">#39 - Not Quite Done Yet</h1>
-<time class="dt-published" datetime="2021-09-13">13/sep/2021</time><br></header>
+<time class="dt-published" datetime="2021-04-24">24/apr/2021</time><br></header>
 <p>I am really proud of my little blog system. I cannot just remove it from the public domain reach. The same feeling is not so strong about my YouTube Channel.</p>
 <p>In fact, with very little remorse I was able to remove that on Friday. Google (at least YouTube branch) cannot use my data and my subscribers data as they wish anymore. There were 258 subscribers to my YouTube channel and more than 130, many which I am proud to have recorded, some turned out to be lessons of didatics or lack of.. I made a copy of all of the videos with good <code><a href="https://wiki.archlinux.org/index.php/Youtube-dl">youtube-dl</a></code> and for my surprise, there was no more than 26GB of content. I know some YouTubers claim to have much more data for content but they must mean raw content shot locally, without edition and directly from the camera, not downloaded with:</p>
 <pre><code>url=https://www.youtube.com/channel/UCbjGrylVSBjPx02LRH7HCAA
