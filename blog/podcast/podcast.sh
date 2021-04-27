@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # podcast.sh -- BLOG RSS FEED AND TUMBLELOG SYSTEM 
-# v0.2.3  apr/2021  mountaineerbr
+# v0.2.4  apr/2021  mountaineerbr
 #                       |        _)                  |        
 #   ` \   _ \ |  |   \   _|  _` | |   \   -_)  -_)  _|_ \  _| 
 # _|_|_|\___/\_,_|_| _|\__|\__,_|_|_| _|\___|\___|_|_.__/_|   
@@ -377,7 +377,7 @@ do
 
 	#PART THREE: PREPARE LIST FOR TUMBLELOG INJECTION
 	tumbleindex="${pubDate_pre} #${n} - ${title}
-## \#$n - ${title}
+## ${title}
 
 $desc
 
