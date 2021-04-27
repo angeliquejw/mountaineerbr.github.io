@@ -10,7 +10,7 @@
   <channel>
     <lastBuildDate>Fri, 02 Apr 2021 00:00:00 -0300</lastBuildDate>
     <title>Biology Blogger (Podcast)</title>
-    <description>Podcast stream. Current as of Tue, 27 Apr 2021 16:03:02 -0300.</description>
+    <description>Podcast stream. Current as of Tue, 27 Apr 2021 16:14:36 -0300.</description>
     <language>en</language>
     <link>https://mountaineerbr.github.io/blog/</link>
     <copyright>
@@ -130,7 +130,7 @@
       <itunes:image href="https://mountaineerbr.github.io/blog/podcast/ep2.png"/>
     </item>
     <item>
-      <title>Première: Meio Ambiente, Exp. MOSAiC, Boy Plunger, BitMEX</title>
+      <title>Première - Meio Ambiente, Exp. MOSAiC, Boy Plunger, BitMEX</title>
       <description>Estréia do nosso primeiro episódio de podcast. Tratamos de vários temas interessantes de meio ambiente e mercado financeiro com um comentário da história do Jesse Livermore.</description>
       <pubDate>Sun, 18 Oct 2020 00:00:00 -0300</pubDate>
       <enclosure url="https://mountaineerbr.github.io/blog/podcast/ep1.mp3" type="audio/mpeg" length="4044"/>
