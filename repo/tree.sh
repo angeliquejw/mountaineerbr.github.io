@@ -87,8 +87,8 @@ treef()
 	
 	#add package unicode to any .TGZ filenames (U+1F4E6)
 	#and change to class .tar
-	ext='tar.bz2\|tar.gz\|bz2\|rar\|gz\|tar\|tbz2\|tgz\|zip\|Z\|7z\|deb\|zstd\|tar.xz\|txz'
-	extt='tar.bz2|tar.gz|bz2|rar|gz|tar|tbz2|tgz|zip|Z|7z|deb|zstd|tar.xz|txz'
+	ext='tar.xz\|txz\|tar.bz2\|tar.gz\|bz2\|rar\|gz\|tar\|tbz2\|tgz\|zip\|7z\|deb\|zstd'
+	extt='tar.xz|txz|tar.bz2|tar.gz|bz2|rar|gz|tar|tbz2|tgz|zip|7z|deb|zstd'
 	if [[ "$(<"$out")" =~ \.($extt) ]]
 	then
 		sed -i -E -e "s|\.($ext)<|.\1(📦)<|I" "$out"
