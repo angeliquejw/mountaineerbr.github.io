@@ -1,6 +1,6 @@
 #!/bin/bash
 # sitemap.sh -- SITEMAP SYSTEM
-# v0.4.16  apr/2021  by mountaineerbr
+# v0.4.17  apr/2021  by mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -39,6 +39,7 @@ EXARR=(
 	'.*/business/.*' 	#under construction
 	'.*/podcast/archive.*' 	#podcast files
 	'.*/podcast/tumblelog.*' 	#podcast files
+	'.*/blog/podcast/*' 	#old podcast files
 	'.*/repo/.*/.*' 		#podcast files
 
 	'.*/fool\.html$' 	#this is a redirection page --> fool/index.html
@@ -398,7 +399,7 @@ echo "$SN: create sitemap.html with  \`tree' package.." >&2
 #eval "$(dircolors -b)"
 tree -C -r -H "." -P "$EXTENSIONSTREE" -I "$EXTREE" \
 	-T Sitemap -L 6 -F -v --noreport --charset utf-8 |
-	sed '/<meta/,/<title/ d' > "$SMAPTREE"
+	sed '/<meta/,/<title/ d; s|.*/blog/podcast/.*||' > "$SMAPTREE"
 
 #hack `tree' output
 echo "$SN: hack \`tree' output" >&2

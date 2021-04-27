@@ -4,9 +4,9 @@
 @about[about] 2021-03-26! About
 ## About
 
-This page iz ___Under konstrucssion___.
+This paje ___konstrucssion___ is __halted__.
 
-Please check <https://mountaineerbr.github.io/blog/>
+Please check <https://mountaineerbr.github.io/blog/>.
 
 %
 @subscribe[subscribe] 2021-03-26 Subscribe
