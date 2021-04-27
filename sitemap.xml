@@ -11,7 +11,7 @@
 	-->
   <url>
     <loc>https://mountaineerbr.github.io/</loc>
-    <lastmod>2021-04-27T13:22:47+00:00</lastmod>
+    <lastmod>2021-04-27T20:24:49+00:00</lastmod>
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/about/</loc>
@@ -23,7 +23,7 @@
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/blog/</loc>
-    <lastmod>2021-04-26T21:04:29+00:00</lastmod>
+    <lastmod>2021-04-27T20:24:49+00:00</lastmod>
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/blog/1/</loc>
@@ -191,31 +191,19 @@
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/blog/cat.html</loc>
-    <lastmod>2021-04-26T21:04:27+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://mountaineerbr.github.io/blog/podcast/</loc>
-    <lastmod>2021-04-26T20:03:05+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://mountaineerbr.github.io/blog/podcast/about.html</loc>
-    <lastmod>2021-04-26T21:04:29+00:00</lastmod>
-  </url>
-  <url>
-    <loc>https://mountaineerbr.github.io/blog/podcast/subscribe.html</loc>
-    <lastmod>2021-04-26T21:04:29+00:00</lastmod>
+    <lastmod>2021-04-27T20:24:46+00:00</lastmod>
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/blog/rss.xml</loc>
-    <lastmod>2021-04-26T21:04:29+00:00</lastmod>
+    <lastmod>2021-04-27T20:24:48+00:00</lastmod>
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/blog/rss_alt.xml</loc>
-    <lastmod>2021-04-26T21:04:29+00:00</lastmod>
+    <lastmod>2021-04-27T20:24:48+00:00</lastmod>
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/blog/rss_podcast.xml</loc>
-    <lastmod>2021-04-26T21:04:29+00:00</lastmod>
+    <lastmod>2021-04-27T20:24:49+00:00</lastmod>
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/contact/</loc>
@@ -243,36 +231,44 @@
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/links.html</loc>
-    <lastmod>2021-04-25T23:24:46+00:00</lastmod>
+    <lastmod>2021-04-27T19:53:48+00:00</lastmod>
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/lud.html</loc>
     <lastmod>2021-03-05T22:16:52+00:00</lastmod>
   </url>
   <url>
-    <loc>https://mountaineerbr.github.io/podcast.html</loc>
-    <lastmod>2021-04-17T01:35:31+00:00</lastmod>
+    <loc>https://mountaineerbr.github.io/podcast/</loc>
+    <lastmod>2021-04-27T20:24:49+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://mountaineerbr.github.io/podcast/about.html</loc>
+    <lastmod>2021-04-27T20:24:49+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://mountaineerbr.github.io/podcast/subscribe.html</loc>
+    <lastmod>2021-04-27T20:24:49+00:00</lastmod>
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/quotes.html</loc>
-    <lastmod>2021-04-25T23:25:02+00:00</lastmod>
+    <lastmod>2021-04-27T19:53:32+00:00</lastmod>
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/repo/</loc>
-    <lastmod>2021-04-27T02:27:12+00:00</lastmod>
+    <lastmod>2021-04-27T14:03:14+00:00</lastmod>
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/sitemap.html</loc>
-    <lastmod>2021-04-27T13:22:47+00:00</lastmod>
+    <lastmod>2021-04-27T20:24:49+00:00</lastmod>
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/sitemap.txt</loc>
-    <lastmod>2021-04-27T13:22:47+00:00</lastmod>
+    <lastmod>2021-04-27T20:24:49+00:00</lastmod>
   </url>
   <url>
     <loc>https://mountaineerbr.github.io/sitemap.xml</loc>
-    <lastmod>2021-04-27T13:22:47+00:00</lastmod>
+    <lastmod>2021-04-27T20:24:50+00:00</lastmod>
   </url>
 </urlset>
-<!-- generated-on="2021-04-27T13:22:47+00:00" -->
-<!-- items="66" -->
+<!-- generated-on="2021-04-27T20:24:49+00:00" -->
+<!-- items="65" -->

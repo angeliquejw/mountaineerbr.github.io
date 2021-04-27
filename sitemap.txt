@@ -44,9 +44,6 @@ https://mountaineerbr.github.io/blog/39/
 https://mountaineerbr.github.io/blog/40/
 https://mountaineerbr.github.io/blog/41/
 https://mountaineerbr.github.io/blog/cat.html
-https://mountaineerbr.github.io/blog/podcast/
-https://mountaineerbr.github.io/blog/podcast/about.html
-https://mountaineerbr.github.io/blog/podcast/subscribe.html
 https://mountaineerbr.github.io/blog/rss.xml
 https://mountaineerbr.github.io/blog/rss_alt.xml
 https://mountaineerbr.github.io/blog/rss_podcast.xml
@@ -58,7 +55,9 @@ https://mountaineerbr.github.io/fool/
 https://mountaineerbr.github.io/guestbook/
 https://mountaineerbr.github.io/links.html
 https://mountaineerbr.github.io/lud.html
-https://mountaineerbr.github.io/podcast.html
+https://mountaineerbr.github.io/podcast/
+https://mountaineerbr.github.io/podcast/about.html
+https://mountaineerbr.github.io/podcast/subscribe.html
 https://mountaineerbr.github.io/quotes.html
 https://mountaineerbr.github.io/repo/
 https://mountaineerbr.github.io/sitemap.html

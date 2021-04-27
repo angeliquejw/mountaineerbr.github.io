@@ -1,6 +1,6 @@
 #!/bin/zsh
 # portal.sh -- SYNC MY WEBSITE
-# v0.1.9  apr/2021  by mountaineerbr
+# v0.1.10  apr/2021  by mountaineerbr
 
 #    #  ####  #    # #    # #####   ##   # #    # ###### ###### #####  #####  #####  
 ##  ## #    # #    # ##   #   #    #  #  # ##   # #      #      #    # #    # #    # 
@@ -39,8 +39,13 @@ blog/sync.sh "$@"
 print
 
 
-
 #PART TWO
+#generate the podcast rss feed
+podcast/podcast.sh
+print
+
+
+#PART THREE
 #update sitemaps
 #bash PMWMT/zzsitemap1.sh
 #bash PMWMT/zzsitemap2.sh
@@ -50,13 +55,13 @@ print
 
 
 
-#PART THREE
+#PART FOUR
 #add newest link and quote items
 ./linksq.sh
 print
 
 
-#PART FOUR
+#PART FIVE
 ##make repo tree pages
 cd repo
 ./sync.sh

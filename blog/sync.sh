@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # sync.sh -- UPDATE BLOG, RSS AND TUBLELOG
-# v0.1  mar/2021  mountaineerbr
+# v0.1.1  apr/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -33,10 +33,6 @@ print
 
 #generate the blog rss feed
 "$ROOTB"/rss.sh
-print
-
-#generate the podcast rss feed
-"$ROOTB"/podcast/podcast.sh
 print
 
 
