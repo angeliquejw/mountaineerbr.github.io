@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # podcast.sh -- BLOG RSS FEED AND TUMBLELOG SYSTEM 
-# v0.2.2  apr/2021  mountaineerbr
+# v0.2.3  apr/2021  mountaineerbr
 #                       |        _)                  |        
 #   ` \   _ \ |  |   \   _|  _` | |   \   -_)  -_)  _|_ \  _| 
 # _|_|_|\___/\_,_|_| _|\__|\__,_|_|_| _|\___|\___|_|_.__/_|   
@@ -366,7 +366,7 @@ do
 	mainindex="<li>
 	<time class=\"dt-published\" datetime=\"${pubDate_pre}\">${pubDate_index}</time>
 	<a class=\"p-name\" lang=\"pt\" hreflang=\"pt\" href=\"podcast/${mp3file}\">
-	#${n} - ${title}</a>,
+	${title}</a>,
 	<strong>${duration}</strong>, ${size[*]}${lowresmainindex}
 
 	</li>
