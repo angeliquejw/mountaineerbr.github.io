@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # podcast.sh -- BLOG RSS FEED AND TUMBLELOG SYSTEM 
-# v0.2.6  apr/2021  mountaineerbr
+# v0.2.7  apr/2021  mountaineerbr
 #                       |        _)                  |        
 #   ` \   _ \ |  |   \   _|  _` | |   \   -_)  -_)  _|_ \  _| 
 # _|_|_|\___/\_,_|_| _|\__|\__,_|_|_| _|\___|\___|_|_.__/_|   
@@ -319,8 +319,8 @@ do
 	if [[ -e "$lowres" ]]
 	then
 		lowressize=( $( du -h "$lowres" ) )
-		lowresmainindex=", <em>low-res:</em> ${lowressize[1]} <a href=\"${lowres}\">${lowres}</a>"
-		lowrestumbleindex=", low-res: *${lowressize[1]}* [${lowres}](podcast/${lowres})"
+		lowresmainindex=", <em>low-res:</em> ${lowressize[1]} <a href=\"../podcast/${lowres}\">${lowres}</a>"
+		lowrestumbleindex=", low-res: *${lowressize[1]}* [${lowres}](${lowres})"
 	fi
 
 	#unavailable messages
@@ -366,7 +366,7 @@ do
 	#PART TWO: PREPARE LIST FOR BLOG>PODCAST INDEX.HTML INJECTION
 	mainindex="<li>
 	<time class=\"dt-published\" datetime=\"${pubDate_pre}\">${pubDate_index}</time>
-	<a class=\"p-name\" lang=\"pt\" hreflang=\"pt\" href=\"${mp3file}\">
+	<a class=\"p-name\" lang=\"pt\" hreflang=\"pt\" href=\"../podcast/${mp3file}\">
 	${title}</a>,
 	<strong>${duration}</strong>, ${size[*]}${lowresmainindex}
 
