@@ -11,7 +11,8 @@ SN="${0##*/}"
 
 treef()
 {
-	local baseHREF basePATH out title mdarray txtarray notes xtrastyles inject meta ext
+	local baseHREF basePATH out title mdarray meta txtarray notes xtrastyles inject
+	local ext extt pic media doc txt pdf 
 	typeset -a mdarray txtarray
 	
 	baseHREF="$1"
@@ -28,7 +29,18 @@ treef()
 	[[ -d "$basePATH" ]] || exit
 	print "BASE HREF: $baseHREF\nBASE PATH: $basePATH\nOUT: $out\n" >&2
 
-	#eval "$(dircolors -b)"
+	#make html tree 
+	#add package unicode to any .TGZ filenames (U+1F4E6)
+	#change class of some filetypes
+	#change [H1] to [H2]
+	#add go up dir
+	ext='tar.bz2\|tar.gz\|bz2\|rar\|gz\|tar\|tbz2\|tgz\|zip\|Z\|7z\|deb\|zstd\|tar.xz\|txz\|iso'
+	extt='tar.bz2|tar.gz|bz2|rar|gz|tar|tbz2|tgz|zip|Z|7z|deb|zstd|tar.xz|txz|iso'
+	pic='jpg|jpeg|png|gif|tiff|webp|bmp|svg|svgz|ico|svg|ppm|tga|tif|xbm|xcf|xpm|xspf|xwd'
+	media='mp3|ogg|oga|flac|m4a|mp4|aac|wma|anx|asf|au|axa|m2a|mid|midi|mpc|ogx|ra|ram|spx|wma|ac3'
+	doc='doc|docx|odt|xls|xlsx|odp|pptx|ppt|ods'
+	txt='txt|rtf|conf'
+	pdf=pdf
 	tree "$basePATH" \
 		-a \
 		-H "$baseHREF" \
@@ -40,28 +52,34 @@ treef()
 		-C \
 		--charset utf-8 \
 		-I 'index.html|README.md' \
-		| sed -e 's/<h1/<h2/g ;s/<\/h1/<\/h2/g' \
+		| sed -E \
+			-e 's/<h1/<h2/g ;s/<\/h1/<\/h2/g' \
 			-e 's|<a class="NORM" href=".">|<a class="NORM" href="..">..</a><br>\n&|' \
+			-e "s|\.($ext)<|.\1(📦)<|I" \
+			-e "/\.($extt)\">/I s|class=\"[^\"]*\"|class=\"tar\"|I" \
+			-e "/\.($pic)\">/I s|class=\"[^\"]*\"|class=\"pic\"|I" \
+			-e "/\.($media)\">/I s|class=\"[^\"]*\"|class=\"media\"|I" \
+			-e "/\.($doc)\">/I s|class=\"[^\"]*\"|class=\"doc\"|I" \
+			-e "/\.($txt)\">/I s|class=\"[^\"]*\"|class=\"txt\"|I" \
+			-e "/\/\.[^\"]+\">/I s|class=\"[^\"]*\"|class=\"hidden\"|I" \
+			-e "/\.($pdf)\">/I s|class=\"[^\"]*\"|class=\"pdf\"|I" \
 			>"$out"
-		#change [H1] to [H2]
-		#add go up dir
 
-# 		UNUSED OPTIONS:
+# 		TREE UNUSED OPTIONS:
 #		--noreport \
 #		-o "$out" \
 
-	#inject README file
-	if
-		mdarray=( $( print -l "$basePATH"/(readme|info).md* ) )
+
+	#inject MD file?
+	if mdarray=( $( print -l "$basePATH"/(readme|info).md* ) )
 		((${#mdarray[@]}))
-	then inject="$(
-		sed -E -e '/^\s*```+/,/^\s*```+/ s/^/    /; s/```.*//' "${mdarray[1]}" \
-		| markdown
-	)<hr>"
-	elif
-		txtarray=( $( print -l "$basePATH"/(readme|info).txt* ) )
+	then
+		inject="$( sed -E -e '/^\s*```+/,/^\s*```+/ s/^/    /; s/```.*//' "${mdarray[1]}" | markdown )<hr>"
+	#inject TXT file?
+	elif txtarray=( $( print -l "$basePATH"/(readme|info).txt* ) )
 		((${#txtarray[@]}))
-	then inject="$(txt2html "${txtarray[1]}" | sed -n '/<body/,/<\/body/ p')"
+	then
+		inject="$(txt2html "${txtarray[1]}" | sed -n '/<body/,/<\/body/ p')"
 	fi
 	[[ -n "$inject" ]] && sed -i '/<body/ r /dev/stdin' "$out" <<<"$inject"
 
@@ -92,31 +110,6 @@ treef()
 	That is a shame GitHub limits file size to 100MB.<hr>
 	'
 	
-	#add package unicode to any .TGZ filenames (U+1F4E6)
-	#and change to class .tar
-	ext='tar.bz2\|tar.gz\|bz2\|rar\|gz\|tar\|tbz2\|tgz\|zip\|Z\|7z\|deb\|zstd\|tar.xz\|txz\|iso'
-	extt='tar.bz2|tar.gz|bz2|rar|gz|tar|tbz2|tgz|zip|Z|7z|deb|zstd|tar.xz|txz|iso'
-	if [[ "$(<"$out")" =~ \.($extt) ]]
-	then
-		sed -i -E -e "/\.($extt)\">/I s|class=\"[^\"]*\"|class=\"tar\"|I" "$out"
-		sed -i -E -e "s|\.($ext)<|.\1(📦)<|I" "$out"
-	fi
-
-	#change class of some filetypes
-	pic='jpg|jpeg|png|gif|tiff|webp|bmp|svg|svgz|ico|svg|ppm|tga|tif|xbm|xcf|xpm|xspf|xwd'
-	media='mp3|ogg|oga|flac|m4a|mp4|aac|wma|anx|asf|au|axa|m2a|mid|midi|mpc|ogx|ra|ram|spx|wma|ac3'
-	doc='doc|docx'
-	txt='txt|rtf|conf'
-	pdf=pdf
-	sed -i -E \
-		-e "/\.($pic)\">/I s|class=\"[^\"]*\"|class=\"pic\"|I" \
-		-e "/\.($media)\">/I s|class=\"[^\"]*\"|class=\"media\"|I" \
-		-e "/\.($doc)\">/I s|class=\"[^\"]*\"|class=\"doc\"|I" \
-		-e "/\.($txt)\">/I s|class=\"[^\"]*\"|class=\"txt\"|I" \
-		-e "/\/\.[^\"]+\">/I s|class=\"[^\"]*\"|class=\"hidden\"|I" \
-		-e "/\.($pdf)\">/I s|class=\"[^\"]*\"|class=\"pdf\"|I" \
-		"$out"
-
 	#add meta tags
 	sed -i '/<head.*/ r /dev/stdin' "$out" <<<"$meta"
 	#add extra styles
