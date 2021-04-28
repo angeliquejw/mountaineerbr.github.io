@@ -7,6 +7,13 @@
    "home_page_url": "https://mountaineerbr.github.io",
    "items": [
       {
+         "content_html": "<article>\n<h2>Season Finale - Freedom, Focus and Mushrooms</h2>\n<p>Some final thoughts and notes about this podcast season. I will talk about removing YouTube channel, pausing my website development and trying to focus on other things. Topics will vary, such as bitcoin, crypto and biology.</p>\n<p><em><strong><a href=\"https://mountaineerbr.github.io/podcast/ep7.m4a\">ep7.m4a</a></strong></em>, <strong>1:25:42</strong>, <em>41M</em>, low-res: <em>31M</em> <a href=\"ep7low.m4a\">ep7low.m4a</a></p>\n<p>Supporting reference: <a href=\"https://mountaineerbr.github.io/blog/42/\">https://mountaineerbr.github.io/blog/42/</a></p>\n</article>\n",
+         "date_published": "2021-04-28T23:59:59-03:00",
+         "id": "https://mountaineerbr.github.io/archive/2021/04/28.html",
+         "title": "#7 - Season Finale - Freedom, Focus and Mushrooms",
+         "url": "https://mountaineerbr.github.io/archive/2021/04/28.html"
+      },
+      {
          "content_html": "<article>\n<h2>EP #6 - Mais Configurações do Tor para o Nó do Bitcoin e SSH</h2>\n<p>Comentando sobre mais algumas configurações que fiz depois de gravar o último podcast sobre bitcoind. Pretendemos dominar as configurações necessárias para poder retransmitir dados para as redes clearnet e onion do Bitcoin. Também falo sobre uma experiência curta colhendo soja em uma empresa privada, montando um servidorzinho em casa, usar acesso SSH em casa e mais. ERRATA: conexões 'outbound' são iniciadas pelo seu nó com os demais, enquanto conexão 'inbound' é iniciada de outro nó para o seu.</p>\n<p><em><strong><a href=\"https://mountaineerbr.github.io/podcast/ep6.m4a\">ep6.m4a</a></strong></em>, <strong>1:13:38</strong>, <em>36M</em></p>\n<p>Supporting reference: <a href=\"https://mountaineerbr.github.io/blog/33/\">https://mountaineerbr.github.io/blog/33/</a></p>\n</article>\n",
          "date_published": "2021-04-02T23:59:59-03:00",
          "id": "https://mountaineerbr.github.io/archive/2021/04/02.html",

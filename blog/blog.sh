@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.3  apr/2021  mountaineerbr
+# v0.6.4  apr/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -134,7 +134,8 @@ DIRECTORY AND FILE STRUCTURE
 
 
 ENVIRONMENT
-	No environmental variables are read currently.
+	VISUAL 		New posts created with -a will be edited with text
+			editor set in \$VISUAL, otehrwise uses vim.
 
 
 REFERENCES

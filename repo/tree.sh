@@ -1,5 +1,5 @@
 #!/bin/zsh
-# v0.3  mountaineerbr  apr/2021
+# v0.3.1  mountaineerbr  apr/2021
 # Create pages for exploring directories and files
 # Requires `markdown' and `txt2html'.
 # <https://archlinux.org/packages/extra/x86_64/discount/>
@@ -76,7 +76,7 @@ treef()
 	then
 		inject="$( sed -E -e '/^\s*```+/,/^\s*```+/ s/^/    /; s/```.*//' "${mdarray[1]}" | markdown )<hr>"
 	#inject TXT file?
-	elif txtarray=( $( print -l "$basePATH"/(readme|info).txt* ) )
+	elif txtarray=( $( print -l "$basePATH"/(readme|info).txt* "$basePATH"/(readme|info )) )
 		((${#txtarray[@]}))
 	then
 		inject="$(txt2html "${txtarray[1]}" | sed -n '/<body/,/<\/body/ p' | sed '/<body/d ;/<\/body/ d')"

@@ -8,9 +8,9 @@
      readable page.
   -->
   <channel>
-    <lastBuildDate>Fri, 02 Apr 2021 00:00:00 -0300</lastBuildDate>
+    <lastBuildDate>Wed, 28 Apr 2021 00:00:00 -0300</lastBuildDate>
     <title>Biology Blogger (Podcast)</title>
-    <description>Podcast stream. Current as of Tue, 27 Apr 2021 19:29:15 -0300.</description>
+    <description>Podcast stream. Current as of Wed, 28 Apr 2021 15:08:48 -0300.</description>
     <language>en</language>
     <link>https://mountaineerbr.github.io/blog/</link>
     <copyright>
@@ -34,6 +34,25 @@
     <googleplay:image href="https://mountaineerbr.github.io/gfx/sherlockb_big.png"/>
     <dc:creator>mountaineerbr</dc:creator>
     <generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
+    <item>
+      <title>Season Finale - Freedom, Focus and Mushrooms</title>
+      <description>Some final thoughts and notes about this podcast season.
+I will talk about removing YouTube channel, pausing my website development
+and trying to focus on other things. Topics will vary, such as bitcoin,
+crypto and biology.</description>
+      <pubDate>Wed, 28 Apr 2021 00:00:00 -0300</pubDate>
+      <enclosure url="https://mountaineerbr.github.io/blog/podcast/ep7.m4a" type="audio/mpeg" length="5142"/>
+      <link>https://mountaineerbr.github.io/blog/42/</link>
+      <dc:language>pt</dc:language>
+      <dc:creator>mountaineerbr</dc:creator>
+      <!-- <dc:contributor></dc:contributor> -->
+      <itunes:episode>7</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <guid isPermaLink="false">987f288f-e298-51b6-bf2d-5958c1d3cd62</guid>
+      <itunes:duration>1:25:42</itunes:duration>
+      <itunes:image href="https://mountaineerbr.github.io/blog/podcast/ep7.png"/>
+    </item>
     <item>
       <title>EP #6 - Mais Configurações do Tor para o Nó do Bitcoin e SSH</title>
       <description>Comentando sobre mais algumas configurações que fiz depois
