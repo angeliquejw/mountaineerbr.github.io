@@ -1,5 +1,0 @@
-===
-File -- 42/i.html
-Warning -- more than one reference per line
-42/i.html:57:	<a href="../38/">#38</a> and <a href="../39/">#39</a>.</dd>
-

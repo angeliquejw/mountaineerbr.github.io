@@ -1,4 +1,0 @@
-File: /home/jsn/www/mountaineerbr.github.io/blog/cat.html
-line 359 column 8 - Warning: <a> attribute "href" lacks value
-line 397 column 20 - Warning: <a> attribute "href" lacks value
-
