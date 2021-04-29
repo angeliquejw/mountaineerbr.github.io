@@ -319,7 +319,8 @@ table.lnk th
 	-webkit-animation: pulse 0.5s infinite alternate;
 }
 
-/* anchors - mind the fixed header */
+/* anchors - mind the fixed header, only when fixed header is on */
+/*
 .anchor::before
 {
 	content: " ";
@@ -328,6 +329,7 @@ table.lnk th
 	height: 5em;
 	margin-top: -5em;
 }
+* /
 /* Hash Tag Links That Don't Headbutt The Browser Window  */
 /* https://css-tricks.com/hash-tag-links-padding/ */
 
