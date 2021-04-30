@@ -138,8 +138,8 @@ by ShigeS at the time of his publication.</p>
 title="Clique para ler a publicação original. Click to read original publication." hreflang="pt" href="0/espelho.html"
 onmouseover=
 "this.style.backgroundColor='red'" onmouseout=
-"this.style.backgroundColor='yellow'" class="button button1" style=
-"background:blue; padding:0.2em; font-size:1.4em; border: 4px solid #4CAF50; color: var(--stallman-purple);"><!--
+"this.style.backgroundColor='blue'" class="button button1" style=
+"background:#4CAF50; padding:0.2em; font-size:1.4em; border: 4px solid #4CAF50; color: var(--stallman-purple);"><!--
         how to center a button in css
         https://www.javatpoint.com/how-to-center-a-button-in-css
 

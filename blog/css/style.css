@@ -263,17 +263,15 @@ a:link:hover, a:visited:hover
 	text-align: center;
 }
 
+/* post 0 */
 .alert0
 {
 	/* border: 0.31em outset crimson; */
 	border: 0.42em outset orange;
 	padding: 0.6em;
-	background-color: yellow;
+	background-color: white;
 	text-align: center;
 }
-
-
-/* post 0 */
 .starz
 {
 	text-align: center;

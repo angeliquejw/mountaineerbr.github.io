@@ -16,7 +16,7 @@
 	<channel>
 		<lastBuildDate>Sat, 27 Feb 2021 00:00:00 -0300</lastBuildDate>
 		<title>Biology Blogger (Alternative feed)</title>
-		<description>Current as of Fri, 30 Apr 2021 13:36:06 -0300.</description>
+		<description>Current as of Fri, 30 Apr 2021 14:34:51 -0300.</description>
 		<link>https://mountaineerbr.github.io/blog/</link>
 		<category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
 		<webMaster>jamilbio20@gmail.com (JSN)</webMaster>
@@ -2564,7 +2564,7 @@ I checked Dan&#39;s web tips website and he has got an analytics/statistics scri
 <p>I needed a <em>more full copy</em> of the website to be able to find the complete style sheets and website design images. I run <code>wget --header=&quot;$UAG&quot; --convert-links --page-requisites [URL]</code>, in which <code>$UAG</code> is a custom user agent string (maybe not required).</p>
 <p>So I got all the essential page requisites cloned locally. I only had to adjust some relative paths. The page looks cool and actually loads much fast.</p>
 <p>The original text is in Portuguese. Some images in the post are actually mine, although not the very same chosen by ShigeS at the time of his publication.</p>
-<div style="text-align:center;padding:2em;"><a title="Clique para ler a publicação original. Click to read original publication." hreflang="pt" href="espelho.html" onmouseover="this.style.backgroundColor=&#39;red&#39;" onmouseout="this.style.backgroundColor=&#39;yellow&#39;" class="button button1" style="background:blue; padding:0.2em; font-size:1.4em; border: 4px solid #4CAF50; color: var(--stallman-purple);">
+<div style="text-align:center;padding:2em;"><a title="Clique para ler a publicação original. Click to read original publication." hreflang="pt" href="espelho.html" onmouseover="this.style.backgroundColor=&#39;red&#39;" onmouseout="this.style.backgroundColor=&#39;blue&#39;" class="button button1" style="background:#4CAF50; padding:0.2em; font-size:1.4em; border: 4px solid #4CAF50; color: var(--stallman-purple);">
 <figure class="alert0">
 <h3 lang="pt">O ESPELHO</h3>
 <h4>Relatos de um estudante de intercâmbio no Japão</h4>
