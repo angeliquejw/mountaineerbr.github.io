@@ -41,4 +41,5 @@
 <li>	<time class="dt-published" datetime="2020-09-02">02/sep/2020</time> 	<a href="3/" class="p-name" id="3">#3 - Blog Design</a></li>
 <li>	<time class="dt-published" datetime="2020-08-31">31/aug/2020</time> 	<a href="2/" class="p-name" id="2">#2 - English &amp; Português</a></li>
 <li>	<time class="dt-published" datetime="2020-08-28">28/aug/2020</time> 	<a href="1/" class="p-name" id="1">#1 - Sync an HTML Blog!</a></li>
+<li>	<time class="dt-published" datetime="2021-04-30">30/apr/2021</time> 	<a href="0/" class="p-name" id="0">#0 - O Espelho (The Mirror)</a></li>
 <!-- postlistX -->

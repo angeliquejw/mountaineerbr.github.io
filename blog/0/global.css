@@ -1,0 +1,34 @@
+img.latex { vertical-align: middle; border: none; }
+
+form.contact-form { width: 100%; text-align: left; }
+form.contact-form textarea { width: 96%; }
+form.contact-form label { float: none; display: inline; }
+.form-error, form.contact-form p label.form-error { color: maroon; }
+
+.video-player { margin: auto; padding: 5px; text-align:center; border: 0px;}
+.wpvidavee_title { text-align:left; font-weight:bold; font-family:Tahoma,Arial,sans-serif; font-size:10px; line-height:12px; padding: 2px 5px; }
+.wpvidavee_footer { text-align:right; font-family:Tahoma,Arial,sans-serif; font-size:9px; line-height:11px; padding: 2px 5px; }
+.wpvidavee_footer a { text-decoration: none; }
+.wpvidavee_p { color: red; }
+
+/*
+     FILE ARCHIVED ON 18:59:46 Mar 19, 2008 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 18:28:55 Apr 29, 2021.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 212.336
+  exclusion.robots: 0.163
+  exclusion.robots.policy: 0.151
+  RedisCDXSource: 17.421
+  esindex: 0.009
+  LoadShardBlock: 163.611 (3)
+  PetaboxLoader3.datanode: 231.315 (4)
+  CDXLines.iter: 21.924 (3)
+  load_resource: 256.048
+  PetaboxLoader3.resolve: 149.263
+*/

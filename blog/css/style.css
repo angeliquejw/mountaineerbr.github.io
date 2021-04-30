@@ -263,6 +263,23 @@ a:link:hover, a:visited:hover
 	text-align: center;
 }
 
+.alert0
+{
+	/* border: 0.31em outset crimson; */
+	border: 0.42em outset orange;
+	padding: 0.6em;
+	background-color: yellow;
+	text-align: center;
+}
+
+/* won't be hidden if does not access this style sheet */
+.pseudohidden
+{
+	/* visibility: hidden; */
+	/* opacity: 0.0; */
+	display: none;
+}
+
 .postfeed
 {
 	float:right;

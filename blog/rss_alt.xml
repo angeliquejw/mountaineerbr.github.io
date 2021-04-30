@@ -16,7 +16,7 @@
 	<channel>
 		<lastBuildDate>Sat, 27 Feb 2021 00:00:00 -0300</lastBuildDate>
 		<title>Biology Blogger (Alternative feed)</title>
-		<description>Current as of Thu, 29 Apr 2021 09:23:03 -0300.</description>
+		<description>Current as of Fri, 30 Apr 2021 12:36:33 -0300.</description>
 		<link>https://mountaineerbr.github.io/blog/</link>
 		<category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
 		<webMaster>jamilbio20@gmail.com (JSN)</webMaster>
@@ -42,7 +42,7 @@
 		<dc:language>en</dc:language>
 		<category>final/biology/crypto/refocus/life/season/temporada/mudança/change/clima/climate</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">1429c11d-89c0-5dbf-bca6-2c492428dc54</guid>
+		<guid isPermaLink="false">61dde75e-4008-5400-992c-526495682d4b</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="42">#42 - Podcast #7 - Season Finale - Freedom, Focus and Mushrooms</h1>
@@ -108,7 +108,7 @@ This last one channel (Davi&#39;s) is helping me a lot because he has got new te
 		<dc:language>en</dc:language>
 		<category>shell script/scripting/programmes/hobby/webmaster/tools/ferramentas/desenvolvedor da web/bash/zsh/html</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">13194b6d-04c9-5e4a-ac12-99d9c3355b56</guid>
+		<guid isPermaLink="false">1429c11d-89c0-5dbf-bca6-2c492428dc54</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="41">#41 - Overview on My Blogging Systems</h1>
@@ -174,7 +174,7 @@ This last one channel (Davi&#39;s) is helping me a lot because he has got new te
 		<dc:language>en</dc:language>
 		<category>ksh93u+/ksh93v-/ksh93u+m/history/issues/development/lore</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">bff13a7d-05c8-5164-8723-151e070b4faf</guid>
+		<guid isPermaLink="false">13194b6d-04c9-5e4a-ac12-99d9c3355b56</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="40">#40 - Ksh2020 Flamewars</h1>
@@ -232,7 +232,7 @@ This last one channel (Davi&#39;s) is helping me a lot because he has got new te
 		<dc:language>en</dc:language>
 		<category>drama/maybe/notes/notas/liberdade/freedom/repo/own repo/tree/repositório/arquivos de configuração/c files/rc files/dotfiles/scripts/bin</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">97034e73-24a1-59b6-827d-20a44783dc11</guid>
+		<guid isPermaLink="false">bff13a7d-05c8-5164-8723-151e070b4faf</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="39">#39 - Not Quite Done Yet</h1>
@@ -265,7 +265,7 @@ youtube-dl -f best -ciw -o &quot;%(title)s.%(ext)s&quot; --add-metadata -v &quot
 		<dc:language>en</dc:language>
 		<category>the end/pause/focus/fim/pausa/foco/estudos/studying</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">88c9e8b8-e580-5a44-9363-dbced2a61194</guid>
+		<guid isPermaLink="false">97034e73-24a1-59b6-827d-20a44783dc11</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="38">#38 - Going Away</h1>
@@ -289,7 +289,7 @@ youtube-dl -f best -ciw -o &quot;%(title)s.%(ext)s&quot; --add-metadata -v &quot
 		<dc:language>en</dc:language>
 		<category>webbrowsers/navegador de internet/bug/erro/android/mobile phone/celular/cell phone/opera/chrome</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">f5fdd86f-2f61-5ea8-b4a9-0841d912ab9b</guid>
+		<guid isPermaLink="false">88c9e8b8-e580-5a44-9363-dbced2a61194</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="37">#37 - Firefox on Mobile (Android)</h1>
@@ -320,7 +320,7 @@ youtube-dl -f best -ciw -o &quot;%(title)s.%(ext)s&quot; --add-metadata -v &quot
 		<dc:language>en</dc:language>
 		<category>performance/improvements/rapidez/melhorias/hack/dicas/tips/mozilla/webbrowser/navegador de internet/drivers/options/about:config/webrenderer</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">08f0ea79-a116-5ffb-b320-44ac14e89185</guid>
+		<guid isPermaLink="false">f5fdd86f-2f61-5ea8-b4a9-0841d912ab9b</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="36">#36 - Firefox on NVIDIA Graphics Card</h1>
@@ -421,7 +421,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>vaccine/politics/try/tentativa/vaccination halt/suspensão da vacinação/car trip/family/vigagem de carro/família</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">e0daf23b-c599-5ac5-92b8-038447874a86</guid>
+		<guid isPermaLink="false">08f0ea79-a116-5ffb-b320-44ac14e89185</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="35">#35 - Removing Google Analytics</h1>
@@ -552,7 +552,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>diversification/assets/bonds/stocks/cash/bitcoin/forecast/previsão/diversificação/títulos/ações/papel/dinheiro</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">44ad5177-5b7c-5cfd-a5d3-f6de24043aa9</guid>
+		<guid isPermaLink="false">e0daf23b-c599-5ac5-92b8-038447874a86</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="34">#34 - Bitcoin Graph Watch</h1>
@@ -584,7 +584,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>ipv4/ipv6/onion/networking/configurations/configurações/clearnet/linux management/gerenciamento de sistema</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">c691c519-ecd6-5160-a7cb-01a2f4bbf34c</guid>
+		<guid isPermaLink="false">44ad5177-5b7c-5cfd-a5d3-f6de24043aa9</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="33">#33 - Podcast #6 - More Tor Configs for Bitcoin Node and SSH</h1>
@@ -630,7 +630,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>immunisation/imunização/vacina/health/saúde/father/dad/day together/fun</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">ac811842-7e7e-51bd-a6e6-c893a252c226</guid>
+		<guid isPermaLink="false">c691c519-ecd6-5160-a7cb-01a2f4bbf34c</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="32">#32 - First Vaccine Shot (Coronavac)</h1>
@@ -657,7 +657,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>tumblelog/internet provider/provedor de internet/bad equipament/signal noise/packet loss/ping/perda de pacotes/ruído de sinal/microblog</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">bad06c63-106d-5e4d-909a-e1e32ebbcb3c</guid>
+		<guid isPermaLink="false">ac811842-7e7e-51bd-a6e6-c893a252c226</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="31">#31 - Arrgh! Internet Issues</h1>
@@ -767,7 +767,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>bitcoind/bitcoin daemon/networking/options/webbrowsers/navegadores</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">d3a3ba58-db9f-5b04-b96b-ce642f40ddd8</guid>
+		<guid isPermaLink="false">bad06c63-106d-5e4d-909a-e1e32ebbcb3c</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="30">#30 - Podcast #5 - Running a Bitcoin Full Node with Tor</h1>
@@ -836,7 +836,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>persistence/persistência/dicas/tips/bitcoin-daemon/bitcoind/server/full node/full-node/nodo/nodo inteiro/bitcoin</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">8ace46a4-f32d-5974-8053-764a2fa60b94</guid>
+		<guid isPermaLink="false">d3a3ba58-db9f-5b04-b96b-ce642f40ddd8</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="29">#29 - Sweeping Bitcoin Wallets and Low Fees</h1>
@@ -879,7 +879,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>analysis/análise/health/saúde/symptons/sintomas/recionalização/rationalisation/anxiety</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">c77f3ad5-9203-5776-b360-49460956dd51</guid>
+		<guid isPermaLink="false">8ace46a4-f32d-5974-8053-764a2fa60b94</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="28">#28 - Wrapping Up: What Happened, Afterall?</h1>
@@ -928,7 +928,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>crop/trip/job/company/experience/hard working/breathless/sem fôlego/cultivo/plantação/viagem/empresa/experiência/trabalho duro</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">d55cc4fa-eed7-5bdb-840e-8490cab64ee1</guid>
+		<guid isPermaLink="false">c77f3ad5-9203-5776-b360-49460956dd51</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="27">#27 - Quick Notes on the First Job External Trip</h1>
@@ -965,7 +965,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>biology/genetically modified organisms/biologia/organismos geneticamente modificados/new job/novo emprego/futuro/future/plans/planos</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">5e2e8e4a-3297-5419-b27d-78a5798775af</guid>
+		<guid isPermaLink="false">d55cc4fa-eed7-5bdb-840e-8490cab64ee1</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="26">#26 - New Job</h1>
@@ -1047,7 +1047,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>topics/scripts/tópicos/bitcoin/volunteer work/trabalho voluntário/work/trabalho/confissões de biólogo/confessions of a biologist/nasa perseverance rover/commentaries/comentários/astronomy/astronomia/personal update</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">c9238d22-6311-5dfa-98bb-03bccf3b8b93</guid>
+		<guid isPermaLink="false">5e2e8e4a-3297-5419-b27d-78a5798775af</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="25">#25 - Podcast #4 - Ban, Sending <abbr title="Curriculum Vitae">CVs</abbr> and <abbr title="Poor Man&#39;s Webmaster Tools">PMWMT</abbr></h1>
@@ -1129,7 +1129,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>biology reports/confissões/histórias/stories/url list/links/lista de links/blogs</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">55718c87-a8cb-5cbf-a1ac-1725d228220c</guid>
+		<guid isPermaLink="false">c9238d22-6311-5dfa-98bb-03bccf3b8b93</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="24">#24 - List of Science-Related Confessions</h1>
@@ -1163,7 +1163,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>environment/system fine-tuning/BSD/unfairness/sun/environmental forcings/biologist against environmentalists/science/biology/meio ambiente/ajust fino de sistema/injustiça/sol/forças do meio ambiente/biólogo contra ambientalistas/biologia/ciência</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">5c5f75e3-1755-5ad5-8169-6a59ae2f9c7c</guid>
+		<guid isPermaLink="false">55718c87-a8cb-5cbf-a1ac-1725d228220c</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="23">#23 - Banned from BSD Forums by Said Environmentalists</h1>
@@ -1218,7 +1218,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>rss feed/xml/atom/posting system/sistema de postagem/notícias/news/ideas/shell scripting/poor man webmaster tools</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">c312fbc2-3d60-5f54-920c-4fa8fbd9b203</guid>
+		<guid isPermaLink="false">5c5f75e3-1755-5ad5-8169-6a59ae2f9c7c</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="22">#22 - Website Improvements, Shell RSS Feed Generator</h1>
@@ -1349,7 +1349,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>work/trabalho/vida/life/rotina/routine/intentions/intenções/expectation/expectativa/personal/pessoal/objetivos/metas/effort/esforço/2017/2018/2019/2020/2021/year-start goals/year-end goals/metas de fim de ano/metas de começo de ano/análise/auto-análise/analysis/autoanalysis</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">4022f533-e4a1-5b41-90c1-f1dcdb60bb75</guid>
+		<guid isPermaLink="false">c312fbc2-3d60-5f54-920c-4fa8fbd9b203</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="21">#21 - Goals and Objectives for 2021</h1>
@@ -1399,7 +1399,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>covid-19/covid19/Sars-CoV-2/graphs/gráficos/test positivity/statistics/pcr tests/quick tests/brazil/brazillian data/dados brasileiros/sus/susopendata/dados da saúde/health/sars/respiratory syndrome/síndrome respiratória</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">426fcb46-ce94-5b4b-a05a-bd0bee10abab</guid>
+		<guid isPermaLink="false">4022f533-e4a1-5b41-90c1-f1dcdb60bb75</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="20">#20 - Generating Graphs of Covid19 Positivity Rate</h1>
@@ -1471,7 +1471,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>e-mail/letter/carta/agradecimento/trabalho voluntário/volunteer work/thanks letter/governor/São Paulo/government/governo/decepção/disappointment/iludido/ilusão</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">9604edef-d968-5afe-a643-c0ad2f974fdd</guid>
+		<guid isPermaLink="false">426fcb46-ce94-5b4b-a05a-bd0bee10abab</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="19">#19 - State Governor Response</h1>
@@ -1549,7 +1549,7 @@ export MOZ_USE_OMTC=1
 		<dc:language>en</dc:language>
 		<category>accident/linux/shell/glob/acidente/losing files/perdendo arquivos/removing file/removendo arquivos/deletando tudo/removing everything/deleting everything/error/mistakes/trapalhadas/micos/story/estória/história/regret/arrependimento/noob stuff/aprendendo/learning</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">40457eda-2101-54ca-86f2-dec7d47d7c4c</guid>
+		<guid isPermaLink="false">9604edef-d968-5afe-a643-c0ad2f974fdd</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="18">#18 - Removing Important Files with `rm -r *&#39;</h1>
@@ -1665,7 +1665,7 @@ vfcd()
 		<dc:language>en</dc:language>
 		<category>podcast/crypto/cripto/bitmex/pix/pagamentos instantâneo/psicanálise/carteiras virtuais/dicas/tips/bitcoin/episódio</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">cb2fc513-f33b-523f-8c59-dab25d6a3258</guid>
+		<guid isPermaLink="false">40457eda-2101-54ca-86f2-dec7d47d7c4c</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="17">#17 - Podcast #3 - Auto Analysis, PIX Payments, Bitmex</h1>
@@ -1730,7 +1730,7 @@ vfcd()
 		<dc:language>en</dc:language>
 		<category>teaching/class/basic science/notions/life/biology laws/Kuznets/protection of species/extinction/genesis/ensinar/classe/aula/ciência básica/cínicos/noções/céticos/skeptical/vida/leis da biologia/proteção de espécies/extinção/gênese/carbono/carbon/pollution/poluição/valor da vida/life value</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">d5a60891-a4d8-57ac-a70d-c9e88052899f</guid>
+		<guid isPermaLink="false">cb2fc513-f33b-523f-8c59-dab25d6a3258</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="16">#16 - Biology for Cynics 0 - Saving the Wrong Species</h1>
@@ -1765,7 +1765,7 @@ vfcd()
 		<dc:language>en</dc:language>
 		<category>passado/past/psicologia/psychology</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">a4248c7e-d495-561e-a6f9-31f59d32d4c9</guid>
+		<guid isPermaLink="false">d5a60891-a4d8-57ac-a70d-c9e88052899f</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="15">#15 - Moved on</h1>
@@ -1783,7 +1783,7 @@ vfcd()
 		<dc:language>en</dc:language>
 		<category>environment/politics/meio ambiente/política/commentary/news/bbc/Prince William/Sir David Attenborough/Earthshot prize/bitcoin/cryptocurrency/podcast episode/us government/bitmex/bitfinex/encryption/keys/private keys/tips/dicas governo dos estados unidos/criptografia/criptomoedas</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">d376f9a1-e6a0-5034-a308-dc3ef51200bd</guid>
+		<guid isPermaLink="false">a4248c7e-d495-561e-a6f9-31f59d32d4c9</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="14">#14 - Podcast Première and Episode #2 - <span title="Sir Attenborough, World Hunger, MOSAiC Expedition, Boy Plunger, Wallet and File Cryptography on Linux">Various Subjects</span></h1>
@@ -1899,7 +1899,7 @@ I reckon that when a person is diagnosed with covid or any other contagious dise
 		<dc:language>en</dc:language>
 		<category>animais/bugs/insetos/salvamento/dicas/estrada/road/highway</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">71e4e581-ff0c-5d53-b935-8b65e5ed5fbe</guid>
+		<guid isPermaLink="false">d376f9a1-e6a0-5034-a308-dc3ef51200bd</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="13">#13 - Saving Bugs and Other Animals</h1>
@@ -1953,7 +1953,7 @@ I reckon that when a person is diagnosed with covid or any other contagious dise
 		<dc:language>en</dc:language>
 		<category>aspell/hunspell/vim/linux/orthography/ortografia/correção/error correction/checagem/tutorial/errors ortográficos/mispelling/tips/tricks/dicas</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">eb9c565d-7fba-5f5e-ae88-03213c9b150c</guid>
+		<guid isPermaLink="false">71e4e581-ff0c-5d53-b935-8b65e5ed5fbe</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="12">#12 - Spell Checking Programmes</h1>
@@ -2033,7 +2033,7 @@ set spellfile=~/.vim/spell/en.utf-8.add</code></pre>
 		<dc:language>en</dc:language>
 		<category>environmental law/law/leis ambientais/leis/livros/blogs de biólogos/biology blogs/plans/planos/reading/leitura/informação/information</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">732b48b1-260d-5505-8c02-ff89c08b4320</guid>
+		<guid isPermaLink="false">eb9c565d-7fba-5f5e-ae88-03213c9b150c</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="11">#11 - Blogs and Books</h1>
@@ -2081,7 +2081,7 @@ set spellfile=~/.vim/spell/en.utf-8.add</code></pre>
 		<dc:language>en</dc:language>
 		<category>war tribute/military story/tibuto militar/in memorian/história militar/estados unidos da américa/blaacky/adventures/soldier/soldado/aventuras/honor/honour/honra/ar/céu/air/aircraft/aeronave</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">a50c4301-d912-548c-8fa2-91f02a23e286</guid>
+		<guid isPermaLink="false">732b48b1-260d-5505-8c02-ff89c08b4320</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="10">#10 - Flying Memphis Belle, a B-17 Air Fortress</h1>
@@ -2142,7 +2142,7 @@ in memoriam of Walter Schwartz</pre>
 		<dc:language>en</dc:language>
 		<category>forest/fires/fire/environment/floresta/fogo/incêndio/meio ambiente/meio-ambiente/conservation/conservationism/conservação/conservacionismo/lista/list/causas/fogo florestal/</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">b8f21ef3-1fa4-5563-9d0f-29d4cda36ddd</guid>
+		<guid isPermaLink="false">a50c4301-d912-548c-8fa2-91f02a23e286</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="9">#9 - What Causes Forest Fires?</h1>
@@ -2213,7 +2213,7 @@ in memoriam of Walter Schwartz</pre>
 		<dc:language>en</dc:language>
 		<category>references/scientists/referências/cientistas/achar referências/estrutural racional/rational structure/using other people work/building upon others/construindo em cima de gigantes</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">56c8478a-dacf-525a-8c5e-d81294681fc6</guid>
+		<guid isPermaLink="false">b8f21ef3-1fa4-5563-9d0f-29d4cda36ddd</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="8">#8 - Good References, a Structure to Climb</h1>
@@ -2246,7 +2246,7 @@ Consensus should not be more important than a very well defined and rational fun
 		<dc:language>pt</dc:language>
 		<category>validator/html/webmaster/gerenciamento/website formatting/site layout/management/estilo/style/formatação</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">951912a4-9b10-54f3-88dc-a53a8bb5514e</guid>
+		<guid isPermaLink="false">56c8478a-dacf-525a-8c5e-d81294681fc6</guid>
 		<description><![CDATA[ <article lang="pt">
 <header>
 <h1 class="p-name" id="7">#7 - CSS é Legal!</h1>
@@ -2284,7 +2284,7 @@ Consensus should not be more important than a very well defined and rational fun
 		<dc:language>en</dc:language>
 		<category>dicas/tips/validator/css/html/the guardian/alarmist news/webmaster/tools/bash/shell/ferramentas/gerenciamento/site/management</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">f65878a4-d7f9-5f90-9e1a-c628f4dc4799</guid>
+		<guid isPermaLink="false">951912a4-9b10-54f3-88dc-a53a8bb5514e</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="6">#6 - More Web Master Resources</h1>
@@ -2334,7 +2334,7 @@ $ sed -i &#39;/^PATTERN/ r /dev/stdin&#39; file1.txt</code></pre>
 		<dc:language>en</dc:language>
 		<category>tips/dicas/webmaster/tools/bash/shell/ferramentas/gerenciamento/site/management/status pages/development/poor man/homem pobre/cabra pobre</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">2aaebd59-e130-5ee5-a23f-e243b4e8b7bd</guid>
+		<guid isPermaLink="false">f65878a4-d7f9-5f90-9e1a-c628f4dc4799</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="5">#5 - Using Poor Man&#39;s Web Master Tools</h1>
@@ -2383,7 +2383,7 @@ You can check a script snapshot <a href="https://mountaineerbr.github.io/blog/re
 		<dc:language>en</dc:language>
 		<category>podcast/ideia/idéia/transmissão de voz/voice transmission/voice/audio/áudio/radio/voz/opinion/opinião/communication/other blogs/outros blogs</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">15ed0bb9-fff1-5049-b428-b069d79dd567</guid>
+		<guid isPermaLink="false">2aaebd59-e130-5ee5-a23f-e243b4e8b7bd</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="4">#4 - Podcast Idéia</h1>
@@ -2404,7 +2404,7 @@ You can check a script snapshot <a href="https://mountaineerbr.github.io/blog/re
 		<dc:language>en</dc:language>
 		<category>personal website/design/desenho/blueprint/decision-making/decisão/plano/plan/writings/opinion/opinião/communication/other blogs/outros blogs/decision/decisão</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">1f557e32-4d86-5cfe-9d04-2a7436bad0ea</guid>
+		<guid isPermaLink="false">15ed0bb9-fff1-5049-b428-b069d79dd567</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="3">#3 - Blog Design</h1>
@@ -2424,7 +2424,7 @@ Not everything can be done with CSS but I reckon much can be done without need o
 		<dc:language>en</dc:language>
 		<category>espelho/mirror/august/agosto/decisions/decisão/plano/plan/health/saúde/japão/japan/meitoku gijuku/languages/línguas/inglês/english/português/portuguese/japanese/japonês/personal website/design/writings/opinion/opinião/text/texto/blog/communication/html/css/code/first-time/unix/internet/otsukaresama/compromise/balanço</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">c30d53ed-805c-518d-8bb1-470d9bfb67a5</guid>
+		<guid isPermaLink="false">1f557e32-4d86-5cfe-9d04-2a7436bad0ea</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="2">#2 - English &amp; Português</h1>
@@ -2457,7 +2457,7 @@ That leaves me in a difficult position but it is decided I will write in whichev
 		<dc:language>en</dc:language>
 		<category>website design/site design/writings/opinion/opinião/text/texto/blog/communication/html/css/code/first-time/unix/internet/structure/skeleton</category>
 		<author>jamilbio20@gmail.com (JSN)</author>
-		<guid isPermaLink="false">441309d8-8683-53d5-bb76-f355602f741e</guid>
+		<guid isPermaLink="false">c30d53ed-805c-518d-8bb1-470d9bfb67a5</guid>
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="1">#1 - Sync an HTML Blog!</h1>
@@ -2526,6 +2526,140 @@ That leaves me in a difficult position but it is decided I will write in whichev
 I checked Dan&#39;s web tips website and he has got an analytics/statistics script, so maybe that is not 100% an evil thing to do.. He also seems to have had a simple visitor counter before that, which is now commented out in the page HTML code.. I checked and it reached 38000+ hits before being commented out in favor of his new analytics script..</p>
 <p>PPS: it seems that the bad thing is not really getting website guest statistics as much as showing ads! Content quality may decrease when all the author wants is the advertisement revenue.. For example, youtube incites vlog authors to make any type of content in large quantities in order to have channel monetisation via ad views..</p>
 <p>PPPS: one of the trackers I was testing uses a third-party services matomo [[dot]] org which seems a very suspicious company. As their advertising of user information collection and selling is so outspoken in their website, I am removing it.. I will leave Google Analytics, though.</p>
+</article> ]]></description>
+	</item>
+	<item>
+		<title xml:lang="en">#0 - O Espelho (The Mirror)</title>
+		<pubDate>Fri, 30 Apr 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/0/</link>
+		<dc:language>en</dc:language>
+		<category>experience/japan/japão/experiência/relato/report/youth/exchange/student/estudante/intercâmbio/bolsa de estudos/scholarship/meitoku gijuku</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">441309d8-8683-53d5-bb76-f355602f741e</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="0">#0 - O Espelho (The Mirror)</h1>
+<time class="dt-published" datetime="2021-04-30">30/apr/2021</time><br></header>
+<div lang="pt" class="p-summary">
+<p>Este é um relato das minhas experiências no Japão que escrevi antes de voltar ao Brazil em 2006. O texto foi republicado no blog das Viagens do ShigeS. Com o tempo, o meu texto foi retirado da postagem então resolvi clonar o site daquela época para disponibilizar aqui. O texto foi escrito em Português.</p>
+</div>
+<br>
+<p>Before coming back to Brazil in 2006, I decided to write yet another but shorter account of my experiences in Japan.</p>
+<p><a href="https://www.meitoku-gijuku.ed.jp/english/aday.html">Life was hectic at Meitoku Gijuku</a>, a traditional boarding school. Our day would start with a loud Japanese pop music blowing on the speakers at the dorm corridors and we had to get up to be counted. We would run to the baseball fields and do 5-10 minutes of stretching and exercise and sing Japan national anthem. Sometimes, if student groups delayed at arrival or behaved particularly bad at some point that morning, the exercise would extend and sometimes we would run about the baseball fields until the teachers were satisfied.</p>
+<p>At cafeteria, we would sit and sing our thanks for the farmers who planted and reaped the food. Only then were we allowed to have breakfast. Sometimes there would be only rice and powdered algae to sprinkle over it for seasoning.</p>
+<p>The food wasn&#39;t too bad most days, we would have milk at least 2 days a week. You could not eat freely, the exceptions were the boys from <a href="https://www.youtube.com/watch?v=xwE9Ybb1rA4">Sumo club</a>, who could eat at least twice as much as other students.</p>
+<p>There were vending machines at the school and teachers would take exchange students, me included, to the supermarket once a month for buying personal food.</p>
+<p>I wrote many long texts with accounts of my experiences in Japan. Some of them were handwritten and I haven&#39;t got a copy anymore.</p>
+<p>This is a shorter piece I wrote immediately before coming back to Brazil, at my American friend Michael Khan home, deep into the mountains, at around Sept 2006.</p>
+<p>The 19-year-old student who wrote that was far from perfect but had courage to cater for himself and learn new things. I need relearn some of those attributes.</p>
+<h2>Getting published and removed</h2>
+<p>I cannot really remember how I got acquainted with ShigueS, maybe from <a href="https://www.flickr.com/photos/jamilsoni/">Flickr</a>. I used to post photos there and had quite some followers and followed many people, too.</p>
+<p>Originally, ShigueS&#39; post about me was about 5 paragraphs long and only cited a passage of my accounts of Japan. ShigueS asked whether he could publish my original piece in <a href="https://shigues.wordpress.com/">his personal website</a>, which mostly talks about about his international trips and experiences.</p>
+<p>Eventually ShigueS removed my original accounts from that post altogether. I reckon there were two problems with my text. The first is I used a bad and rude expression and reapeated it three times, such expression was <em>shit-scared</em>. I regret the poor choosing of words that is not ellegant. Second problem was back in ~2010, two photos he linked back to my Fickr became unavailable as my those photos were removed..</p>
+<p>While I am grateful he kept my content on his post for many years, I reckon removing it is <em>unfair</em>. I did share that post link many times in various places. Now that my piece is gone, people who may find that old link can still reach his website but not my experience accounts anymore. Also, there were about 8 comments from visitors which were all but removed.</p>
+<h2>Cloning</h2>
+<p>I decided to fork his website post from 2008. I removed all scripting code, meta links to Wayback Machine and Google analytics and all other references to weird websites.</p>
+<p>That wasn&#39;t a hard task. First, I got a copy of the website with <a href="https://github.com/hartator/wayback-machine-downloader">wayback_machine_downloader</a> from <a href="https://aur.archlinux.org/packages/wayback_machine_downloader/">Arch Linux AUR</a>, which delivers a clean <code>index.html</code> without most of Wayback machine code additions.</p>
+<p>That HTML file had far too many meta links and scripts to other webpages, which mostly got removed. <em>Digg3</em> style sheet was a little tricky to get rid of as it was required to download little images that compound the menu bar.</p>
+<p>I needed a <em>more full copy</em> of the website to be able to find the complete style sheets and website design images. I run <code>wget --header=&quot;$UAG&quot; --convert-links --page-requisites [URL]</code>, in which <code>$UAG</code> is a custom user agent string (maybe not required).</p>
+<p>So I got all the essential page requisites cloned locally. I only had to adjust some relative paths. The page looks cool and actually loads much fast.</p>
+<p>The original text is in Portuguese. Two images in the post are actually mine, although not the very same chosen by ShigeS at the time of his publication.</p>
+<div style="text-align:center;padding:2em;"><a title="Clique para ler a publicação original. Click to read original publication." hreflang="pt" href="espelho.html" onmouseover="this.style.backgroundColor=&#39;red&#39;" onmouseout="this.style.backgroundColor=&#39;yellow&#39;" class="button button1" style="background:blue; padding:0.2em; font-size:1.4em; border: 4px solid #4CAF50; color: var(--stallman-purple);">
+<figure class="alert0">
+<h3 lang="pt">O ESPELHO</h3>
+<h4>Relatos de um estudante de intercâmbio no Japão</h4>
+<img src="gfx/flickr3.jpg" alt="Leisurely reading a book (personal archive)." width="375" height="500"></figure>
+</a></div>
+<div lang="pt" class="pseudohidden">
+<h2>O Espelho (Íntegra)</h2>
+<p>Olá a todos!</p>
+<p><strong>Japão</strong>. Estou fazendo vários textos sobre o país, sobre minha experiência aqui. Em alguns dias estarei voltando ao Brasil. Nunca pensei que estaria com tanta vontade de ouvir e falar português novamente. Em inglês o termo que demonstra corretamente a vontade que estou sentindo seria “<em>craving</em>”.</p>
+<p><em>Craving</em> por ouvir e falar português novamente! Nunca pensei que tal iria acontecer. Não comigo&#8230;</p>
+<p>De vez em quando uso o Skype e falo com minha mãe, meu pai e com alguns de meus amigos, ou os ligo por telefone mesmo. Mas o que quero mesmo é estar frente a frente com eles e conversar e dar risadas e fazer gestos e olhar a minha volta e poder entender tudo o que está escrito e tudo o que todos fazem sem precisar tentar assimilar uma cultura nova e complexa. Não que eu tenha me enchido do Japão ou que não goste daqui mais. Eu adoro! E sofro a<br>
+cada momento que me aproximo da inevitável viagem de 40 horas. Adoro a terra, as pessoas e amo as experiências que tive. “<em>Serão páginas douradas no livro da sua vida</em>”, como alguém uma certa vez me escreveu.</p>
+<p align="center">★ ★ ★</p>
+<p>De vez em quando os meus propósitos se diluíam. Quando isso acontecia, algo fascinante e ao mesmo tempo considerado normal para as pessoas do local, como uma simples brisa talvez com um aroma diferente para mim, um aroma, como posso me expressar? Um aroma&#8230;</p>
+<p><em>Indescritível</em></p>
+<p>Essa é a palavra! Um aroma indescritível soprava e magicamente acertava novamente minha cabeça atordoada. <strong>Um aroma do Japão</strong>. É impressionante como um simples leve vento pode mudar tudo. É algo mágico. É como se houvesse uma força que inspira e renova, como o empurrão na primeira peça do dominó que foi enfileirado. Cada pessoa percebe essas forças renovadoras de uma forma, eu acredito. Para cada pessoa é algo diferente e sublime.</p>
+<p>Voltar para o Brasil agora é necessário. A lógica na maioria das vezes não bate em sincronia com coração e sentimentos. Eu sei que tenho que voltar, meu tempo aqui, pelo menos desta vez, chegou ao fim. Então por que é mais difícil aceitar voltar do que deveria ser?</p>
+<p>Bem, eu também não entendia. Por muito tempo achei que na verdade eu não queria voltar, mas dentro de mim havia sempre algo que puxava e me desconcertava. Apesar de ser boa, “<em>não querer voltar</em>” não era a resposta real do que eu estava sentindo. Até que um dia, subitamente, realização veio: não é que não quero ir embora para o Brasil. <strong><em>É só que eu estou meio que simplesmente borrando-me de medo de ir embora e nunca mais conseguir voltar para<br>
+o Japão!<br></em></strong><br>
+A vida começa a se mostrar mais difícil a cada momento. Eu cresci no Japão, tive que começar a pensar no meu futuro, nas minhas paixões -a cultura japonesa e a biologia, pra citar duas somente duas- e como fazer para juntar tudo em uma profissão que eu trabalhe com elas simultaneamente. Eu não tinha certeza, e ainda não tenho, se conseguirei um caminho na minha vida em que ambas paixões se combinem. Meu medo é que eu tenha que optar por uma única delas.</p>
+<p align="center">★ ★ ★</p>
+<p>Fazer turismo não é ver o país em que você está por inteiro. É ver só o que ele tem de bonito, de legal, de superficial. Morar é ver tudo isso <em>mais</em> a realidade. A realidade consiste em coisas ruins também, assim tem-se um equilíbrio. Os que ficam demoradamente vivendo a realidade do cotidiano do país, têm uma vantagem: apesar dos momentos ruins acham os mais preciosos grãos de ouro de sua experiência. São as pequenas coisas, nada de monte Fuji, de Templo de Ouro. Coisas mais simples que somadas são o que realmente marcam a ferro em brasa o coração. Coisas que talvez você não conseguirá dizer às pessoas num dia de festa aqui no Brasil, mas que por alguns segundos te farão baixar os olhos mesmo na mais animada das festas, chacoalhar a cabeça de mansinho e um sorriso de saudade vai brotar<br>
+em seus lábios. E alguém do outro lado da mesa, ou que está em sua frente na roda de conversa, vai te perguntar, <em>o que foi?</em>. Você irá responder <em>nada não&#8230;</em>, mas na verdade será <strong>tudo</strong>. É aquilo que realmente importa.</p>
+<p>Outra coisa importante que percebi aqui no Japão é que adoro o meu país e minha cultura apesar de todos os pontos ruins que nela há e que eram os únicos pontos que eu pensava existir quando ainda estava no Brasil. Aqui eu aprendi que o Brasil é um país normal, se um pouco mais violento em alguns aspectos, mas um pais ótimo apesar de tudo. A minha nação tem algumas qualidades que a do Japão não têm.</p>
+<p>Aqui também há mendigos, indigentes, pessoas com doenças ou com calombos ou qualquer outra nojentice no corpo, andando pelas ruas, cheirando mal e sem dinheiro ou casa para morar. Aqui também há desrespeito, política suja (se bem que mais refinada), criminalidade e drogas. Quando vi um pessoal fumando maconha em uma festa, fiquei super surpreso em saber que no País do Sol Nascente pode-se comprar facilmente a erva da larica. Nunca me ocorreu que aqui as pessoas também fumavam maconha assim como no Brasil. Inocência minha, assim como pensava que tudo o que havia de ruim no Brasil era exclusivo do Brasil.</p>
+<p>Que pretensão!</p>
+<p>Com isso esclarecido, gostaria de falar brevemente de algumas experiências que merecem ser citadas.</p>
+<p align="center">★ ★ ★</p>
+<p><strong>Meitoku</strong>. Meu colégio interno foi uma grande oportunidade de ver as grandes e mais importantes engrenagens que ficam bem no centro de tudo o que governa o Japão e que muitos não sabem o que são. Alguns já ouviram falar delas, mas não têm noção do quão importante são.</p>
+<p>As engrenagens do Sistema <em>Kohai-Sempai</em> são grandes e lubrificadas ao ponto de pingarem graxa. É mais ou menos assim: o mais novo sempre obedece o mais velho. O mais novo sempre respeita o mais velho. Faz até mesmo o uso de uma linguagem mais formal para o demonstrar.</p>
+<p><em>Mas&#8230;</em></p>
+<p>O mais velho não precisa respeitar o mais novo sempre. O mais velho pode pedir o que quiser que provavelmente terá sua vontade realizada, como por exemplo usar um garoto mais novo como empregado.</p>
+<p><em>Me trás uma coca! Um ramen! Limpa a minha escrivaninha!</em></p>
+<p>Claro que não é com todos os mais novos que os mais velhos fazem esse tipo de maldade; e não é em todos os lugares que isso acontece tão explicitamente também. Eu vi isso acontecer mais acentuadamente em escolas, onde todos são jovens e preferem imaginar que o que estão fazendo não tem importância. Os alunos mais fracos psicologicamente são os mais sofredores por esse tipo de cultura. A intensidade também varia, mas há casos extremos.</p>
+<p><strong>Há casos extremos</strong>. E não é tão raro assim.</p>
+<p>Quando digo “mais velho”, me refiro a qualquer pessoa um ano ou mais mais velha do que outra pessoa. É cruel saber que um ano de idade faz toda a diferença. Na maioria dos casos as crianças e jovens só conseguem ter amigos com pessoas da mesma idade.</p>
+<p>Os mais novos, na maioria dos casos, são feitos para serem explorados. Só é merecedor de respeito as pessoas da mesma idade que eu, é mais ou menos o que eles pensam. O sistema se aplica a todas as relações entre todos os japoneses desde a pequena idade. Supostamente o sistema Korrai-Sempai é um sistema em que o mais velho é responsável pela educação dos mais novos, podendo até mesmo receber a culpa pelos maus, ou errôneos, atos dos mais novos.</p>
+<p><em>Suspostamente.</em></p>
+<p>Comigo esse sistema nunca funcionou direito. Alias, não se aplicou apesar de inúmeros esforços de alguns mais velhos. Tenho muitas histórias para contar de como deixei pessoas irritadas das formas mais inesperadas possíveis. Comigo o sistema ocidental prevaleceu:</p>
+<p><em>Respeitar os mais velhos desde que esses me respeitem também.</em></p>
+<p>Recordando, agora acho que deveria ter entrado um pouco no sistema deles. Deveria ter sido mais humilde em algumas</p>
+<p><em>muitas</em></p>
+<p>situações. Minha experiência no colégio interno teria sido melhor se eu tivesse usado mais da humildade. Mas era eu contra o mundo. Não tive muita ajuda, tive que descobrir as coisas por mim mesmo. E descobrir por si mesmo é um processo demorado e doloroso. Só agora entendo acertadamente o que deveria ter feito.</p>
+<p align="center">★ ★ ★</p>
+<p>Como é fácil fazer amizade com pessoas que não tem olho puxado quando você está no Japão! É um dos privilégios que só estrangeiros têm. Vou sentir a maior saudade disso quando estiver em solo Brasileiro de novo. Aqui eu sou <em>gaikoku-jin</em>, no Brasil eu sou simplesmente <em>koku-jin</em>. Ou seja, no Japão eu sou um estrangeiro todo especial, no Brasil sou somente um brasileiro a mais na multidão.</p>
+<p>Conheci e me tornei amigo de senegaleses, chineses, ingleses, americanos, canadenses, coreanos, taiwaneses, malasianos, polandeses, uma kenyana e um sul africano. Também conheci alguns mongóis, árabes e chilenos. Um monte de gente da Esfera inteira!</p>
+<p>Conheci a maioria dos meus amigos estrangeiros de forma inusitada mas não totalmente espontânea, a princípio quando saía com um grupo supervisionado por professores para ir fazer nossas minhas compras individuais para o mês. Depois que arrumei meus primeiros contatos fora da escola, as coisas ficaram mais fáceis. A medida que eu ia passar alguns dias nas casas deles, como férias por exemplo, eu comecei a ver a o que era o Japão por inteiro.<br>
+Meu universo concernindo o Japão simplesmente deu um salto enorme.</p>
+<p>E com isso, a dura verdade sobre o colégio interno que eu estava começou a ficar clara para mim. Até aquele momento eu pensava estar vendo o que era o Japão. Mas não era bem assim. Apesar do meu colégio estar no Japão, ele era só uma <em>pequeníssima</em> parte de tudo o que o Japão é e representa na verdade. O Japão fora do colégio era maior, mais real, mais mágico.</p>
+<p>Era o que eu tinha vindo ver e aprender, mas que me fora substituído sem eu perceber por algo totalmente diferente. Até que a ficha caiu.</p>
+<p>Graças aos meus amigos.</p>
+<p>Foi por esses meus amigos que consegui ter uma experiência que valeu a pena apesar de todos os maus momentos na escola.</p>
+<p align="center">★ ★ ★</p>
+<p>Conheci Michael Kahn, e sua casa na “<em>Vila do Espelho</em>”.</p>
+<p><strong>Deep in the mountains.</strong><br>
+<em>Sugoku yama no naka da.</em></p>
+<p>Passei inesquecíveis momentos aqui. No ano novo fizemos um <em>trekking</em> (=caminhada) para o pico de uma montanha ainda quando a noite aguardava o sol aparecer. Subimos com lanternas às mãos, um guia à frente nos contando histórias de como ele e mais outros tinham sido os primeiros a cortar aquele caminho pelo qual nós passávamos, sobre as plantas e animais da região. Barulhos de insetos e dos ganhos quebrando aos nossos pés ricocheteavam nas altas árvores, figuras negras e imponentes naquela hora da madrugada.</p>
+<p>Depois de uma longa caminhada de 45 minutos na quase-manhã fria, chegamos ao topo e vimos o nascer do sol. O mais bonito do mundo para mim. Um dos mais bonitos dos últimos anos para eles. As nuvens na distância pareciam estar na mesma altura que nós estávamos. A paisagem montanhosa a nossa volta era primeiro azul marinha e aos poucos tornou-se dourada, com o sol cor de ouro saindo timidamente pelas nuvens e revelando toda a paisagem no seu máximo esplendor. Ao longe, as montanhas mais altas ainda carregavam grandes quantidades de neve em seus dorsos.</p>
+<p>Vi o primeiro dia de 2006 se revelando das mantas noturnas lentamente, minuto a minuto com canções japonesas pairando no ar a minha volta, cantadas pelos integrantes do nosso grupo de trekking.</p>
+<p align="center">★ ★ ★</p>
+<p>Outras memórias consistem da minha ida para Nagoya fazer meu alistamento militar (AM). Recentemente fui para Osaka tirar meu visto dos EUA para poder voltar ao Brasil e fui a Kyoto, que fica bem pertinho de lá.</p>
+<p>Ah, Kyoto! Nunca vou esquecer da atmosfera cinematográfica, do perfume embriagante, ou da aprendiz de Geisha, chamada Maiko, que vi se apressando entre uma sessão e outra enquanto passeava pelas estreitas e antigas ruazinhas de Gyon.</p>
+<p>Kyoto é uma das cidade japonesas mais tradicionais do país inteiro. Só pude ir pois ganhei o dinheiro da passagem, transporte local, comida e hotel dos meus amigos. Um presente que, com câmeras profissionais, boa trilha sonora daria um daqueles ótimos documentários de TV que no final você fica pensando Ah! Mais eu TENHO que ir pra esse lugar!</p>
+<p>Kyoto foi o lugar mais inesquecível que visitei até hoje e eu gostaria muito de morar lá no futuro. Nunca pensei que eu ficaria com tanta inveja de um lugar.</p>
+<p align="center">★ ★ ★</p>
+<p align="left">O “Festival das Camisetas” e o “Festival de Filmes e Slideshows” me deram outros bons dias. Fui voluntário no Festival das Camisetas e conheci muitos japoneses vindos de lugares longínquos, e uma cidade com uma ótima, ótima praia e paisagem (o lema da cidade era alguma coisa do tipo: “<em>para que precisamos de um museu se temos a nossa belíssima praia?</em>”), além de ficar hospedado com uma família muito especial.</p>
+<p align="left">Naqueles dias, eu me cansava de dia e de noite relaxava em passeios noturnas a luz de lanternas no meio dos imensos campos de arroz da região. Sapos coaxando e pirilampos piscando estavam em todos os lugares. O cheiro da água lamacenta e da natureza caracterizava o lugar e o dava uma atmosfera única. A luz da lua dá o toque final na composição.</p>
+<p align="left">Em uma noite do Festival de Camisetas, eu e algumas meninas de outras prefeituras até fomos para a areia da praia onde o festival acontece, e brincamos de pega-pega sob as estrelas e entre os longos varais com camisetas penduradas expondo os desenhos ou frases de seus autores.</p>
+<p align="center">★ ★ ★</p>
+<p align="left">Para o Festival de Filmes, fiz um videozinho de três minutos e meio sobre minha experiência aqui no Japão. Deixei a Meitoku de fora. Um dos lugares que eu menos queria me lembrar enquanto aproveitava minha chance lá fora. No grande dia consegui me vestir decentemente somente graças a dois amigos que me emprestaram as peças de roupa formal que me faltavam para completar o aparato do terno. Para minha grande surpresa, consegui ficar com o quinto lugar. O Festival de Filmes e Slideshow daquele ano, esse ano, 2006, foi o primeiro dos muito que virão.</p>
+<p align="left">Apareci até em rede nacional por causa desse fetsival! A TV Japonesa NHK estava lá, viu meu filme e gostou de mim o suficiente para ir até minha escola e fazer entrevistas comigo. Depois de mais ou menos 20 dias, quando a matéria da reportagem ficou pronta, apareci na televisão. Fui uma das únicas duas pessoas que foram entrevistadas entre os candidatos do Festival de Filmes. Da noite para o dia, virei astro no colégio. Todos os professores me paparicavam.<br>
+Ninguém poderia comprar essa&#8230;</p>
+<p align="center">★ ★ ★</p>
+<p align="left">Depois que adquiri minha câmera em setembro de 2005, comecei a tirar fotos e estudei muito sobre fotografia. Pixels, CCD, CMOS, balanço da cor branca, exposição, stops, braketting, ISO, barulho, gráficos de luminosidade, compensação de exposição, SLR, DSLR, além de ler reviews sobre as máquinas digitais mais famosas, como Canon 10D, 20D, 30D, 5D, 1D, 350, Digital Rebel (Kiss), Fuji S9500, S6000fd, Nikon D70, D80, D100, D200 e por aí afora, só para conhecer quais eram esses modelos e saber do que falar em uma possível conversa de fotografia. Modéstia a parte, me tornei um expert em fotografia.</p>
+<p align="left">Eu comecei a postar minhas fotos no flickr e logo começaram a fazer sucesso com os meus amigos que as viam. Depois que viram que eu daria um bom fotógrafo, me pediram muitas vezes para fazer algum tipo de trabalho para eles. Tirei fotos em várias ocasiões. Ensinei muitos a usarem corretamente suas câmeras digitais. Michael, que tem uma Canon 10D, se surpreendeu muitas vezes em aprender que existiam certos botões em sua câmera que ele nem desconfiava que existiam e suas funções.</p>
+<p align="left">Um amigo que vende saxofones pediu minha ajuda para fotografar seus instrumentos e peças para seu website, além de lições sobre luz, fundo para fotografia de objetos e conselho na hora da compra de uma nova câmera. A escolhida foi uma Canon S2 IS. Recentemente fiz mais duas sessões de fotos em um estúdio semi-profissional para o <a href="http://www.sax.xo.jp">website</a> dele com duas modelos. Uma delas era japonesa e a outra <em>estadosunidense</em>.</p>
+<p align="left">Ambas vestindo roupas sexy e segurando saxs&#8230;</p>
+<p align="left">Amanhã vou ser o fotógrafo para um casamento que acontecerá aqui na Vila do Espelho, e também um pouco de cinegrafista, já que o cinegrafista oficial, que é um amigo meu e do casal, vai se ausentar em dois momentos.</p>
+<p align="left">Nessa noite fresquinha, pré-casamento, é basicamente isso o que eu queria contar. Estou escrevendo textos detalhados sobre o Japão, no estilo do texto do AM (aqueles que leram sabem como é). Mas como nem todos gostam de ler páginas e mais páginas, pensei em fazer esse resumão para saciar a curiosidade de parentes e amigos.</p>
+<p align="left">Isso é o Japão que conheço, suficiente para poder chamar de minha casa.</p>
+<p align="left">Para finalizar, eu quero mostrar o trecho de um livro chamado <em>A Hat Full Of Sky</em>, de Terry Pratchett.</p>
+<p align="left"><em>“Why do you go away? So that you can come back. So that you can see the place you came from with new eyes and extra colours. And the people there see you differently, too. Coming back to where you started is not the same as never leaving.”</em></p>
+<p align="left"><font color="#808080"><em>“Por que você vai para longe? Para que você possa voltar. Para que você possa ver o lugar de onde você veio com novos olhos e cores extras. E as pessoas lá te vêem diferente também. Voltar para onde se começou não é o mesmo que nunca se ter partido.”</em></font></p>
+<p align="right">&nbsp;</p>
+<p align="right">Vila do Espelho, Kochi, Japão. 30/09/2006.</p>
+<p align="right"><em>j s n</em></p>
+<p align="left">Eu tive que reformular esse texto. O original foi feito no Macintosh do meu amigo Michael. Eu não conseguia colocar acentos e na época não sabia que não estava mais fluente no português. Eu sei que perde um pouco da graça, ler o texto assim, editado. Mas fiz isso para que ficasse mais fácil de ser entendido e mais prazeroso ao mesmo tempo.</p>
+<p align="left">Quase 10 meses depois de ter escrito o original, minhas opiniões não mudaram. Fazia muito tempo que não relia este texto e lê-lo novamente me fez lembrar de muitas coisas que já tinham dado lugar a assuntos recentes. Este ano estou estudando bastante para o vestibular, quero fazer biologia, ou, sendo mais chique, ciências biológicas. Muita preocupação e ansiedade pelos resultados.</p>
+<p align="left">Ainda não sei que caminho minha vida vai tomar. Ainda tô meio que simplesmente <em>apavorado de medo</em> de não conseguir conciliar minha paixões, apavorado de medo de não conseguir voltar para o Japão logo&#8230;</p>
+<p align="left">Mas eu acho que dou um jeito.</p>
+<p align="left">&nbsp;</p>
+<p align="right"><em>Noite fria e chuvosa, Curitiba, Paraná, Brasil. 22/07/2007.</em></p>
+<p align="right">j s n</p>
+<p align="left">&nbsp;</p>
+</div>
 </article> ]]></description>
 	</item>
 

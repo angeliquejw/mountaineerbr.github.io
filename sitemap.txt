@@ -2,6 +2,9 @@ https://mountaineerbr.github.io/
 https://mountaineerbr.github.io/about/
 https://mountaineerbr.github.io/about/cvsum.html
 https://mountaineerbr.github.io/blog/
+https://mountaineerbr.github.io/blog/0/
+https://mountaineerbr.github.io/blog/0/espelho.html
+https://mountaineerbr.github.io/blog/0/raw_clone.html
 https://mountaineerbr.github.io/blog/1/
 https://mountaineerbr.github.io/blog/2/
 https://mountaineerbr.github.io/blog/3/

@@ -1,0 +1,76 @@
+File: 0/index.html
+line 239 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 286 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 331 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 404 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 447 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 482 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 505 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 507 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 515 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 522 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 528 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 530 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 540 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 551 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 553 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 564 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 573 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 582 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 585 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 590 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 597 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 600 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 603 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 609 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 609 column 17 - Warning: <font> element removed from HTML5
+line 616 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 618 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 620 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 623 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 630 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 638 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 643 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 645 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 647 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 651 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 653 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+
+File: /home/jsn/www/mountaineerbr.github.io/blog/cat.html
+line 7787 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 7834 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 7879 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 7952 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 7995 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8030 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8053 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8055 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8063 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8070 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8076 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8078 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8088 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8099 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8101 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8112 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8121 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8130 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8133 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8138 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8145 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8148 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8151 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8157 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8157 column 17 - Warning: <font> element removed from HTML5
+line 8164 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8166 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8168 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8171 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8178 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8186 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8191 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8193 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8195 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8199 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+line 8201 column 1 - Warning: <p> attribute "align" not allowed for HTML5
+

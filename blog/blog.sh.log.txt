@@ -1,5 +1,0 @@
-===
-File -- 2/i.html
-Warning -- more than one reference per line
-2/i.html:87:	<a hreflang="pt" href="https://shigues.wordpress.com/2007/07/24/o-espelho-de-jamil/"><img src="../gfx/otsukaresama.jpg" alt="blog author after trekking in a mountain trail in Japan" width="500" height="333"></a>
-
