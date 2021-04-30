@@ -272,6 +272,12 @@ a:link:hover, a:visited:hover
 	text-align: center;
 }
 
+
+/* post 0 */
+.starz
+{
+	text-align: center;
+}
 /* won't be hidden if does not access this style sheet */
 .pseudohidden
 {
