@@ -74,11 +74,11 @@ sloped versions of the regular face.” */
   -ms-transform: translate(-50%, -50%);
   background-color: #555;
   color: white;
-  font-size: 16px;
-  padding: 12px 24px;
+  font-size: 1em;
+  padding: .6em 1.2em;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 1em;
 }
 
 .img-container .playbtn:hover {
@@ -94,6 +94,13 @@ sloped versions of the regular face.” */
 	{
 		margin: auto;
 		max-width: 90%;
+	}
+
+
+	.w3-content video
+	{
+		margin: auto;
+		max-width: 100%;
 	}
 
 }
