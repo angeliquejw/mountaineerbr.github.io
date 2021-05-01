@@ -1,0 +1,88 @@
+/* styles for the vlog channel */
+/* mountaineerbr 2021 */
+
+#doc img
+{
+	margin: auto;
+	max-width: 600px;
+}
+#doc p
+{
+	font-size: 1.2em;
+}
+
+#doc table th
+{
+	text-align: left;
+}
+#doc table
+{
+	padding: 1em;
+	margin: 1em;
+}
+#doc table *
+{
+	padding-right: 0.6em;
+	padding-top: 0.4em;
+}
+
+
+/* nav button BACK, HOME */
+.navbtn:link,
+.navbtn:visited
+{
+	color: yellow;
+	font-style: italic;
+}
+.navbtn:hover
+{
+	/* color: red; */
+	/* font-style: normal; */
+	font-weight: bold;
+}
+/* .navbtn:link:hover, */
+.navbtn:visited:hover
+{
+	font-style: italic;
+	text-shadow: 2px 2px 9px #f44;
+} 
+
+/* According to the spec, “Italic forms are generally
+cursive in nature while oblique faces are typically
+sloped versions of the regular face.” */
+
+
+ /* Container needed to position the play button */
+ /* https://www.w3schools.com/howto/howto_css_button_on_image.asp */
+.img-container {
+  position: relative;
+  /* width: 50%; */
+}
+
+/* Make the image responsive */
+/* .img-container img {
+  width: 100%;
+  height: auto;
+} */
+
+/* Style the button and place it in the middle of the container/image */
+.img-container .playbtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.img-container .playbtn:hover {
+  background-color: black;
+} 
+
+
