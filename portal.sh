@@ -1,6 +1,6 @@
 #!/bin/zsh
 # portal.sh -- SYNC MY WEBSITE
-# v0.1.10  apr/2021  by mountaineerbr
+# v0.1.11  apr/2021  by mountaineerbr
 
 #    #  ####  #    # #    # #####   ##   # #    # ###### ###### #####  #####  #####  
 ##  ## #    # #    # ##   #   #    #  #  # ##   # #      #      #    # #    # #    # 
@@ -61,10 +61,18 @@ print
 print
 
 
-#PART FIVE
-##make repo tree pages
-cd repo
-./sync.sh
-cd -
-print
+##PART FIVE
+###make repo tree pages
+#cd repo
+#./sync.sh
+#cd -
+#print
+#
+#
+##PART SIX
+###make video vlog pages
+#cd vlog
+#./vid.sh
+#cd -
+#print
 
