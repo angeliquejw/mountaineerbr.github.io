@@ -1,6 +1,6 @@
 #!/bin/zsh
 # create a page with my videos
-# v0.1  apr/2021  by mountaineerbr
+# v0.1.2  apr/2021  by mountaineerbr
 
 # github limits file size to 100MB
 # requires ffmpeg, ffprobe and txt2html
@@ -27,7 +27,7 @@ INDEXMAIN="$ROOTV/index.html"
 ROOTTHUMB="$ROOTV/thumb"
 
 #default video thumbnail
-THUMBDEF="$ROOTTHUMB/default.jpg"
+THUMBDEF="default.jpg"
 
 #video file list by size
 # max 100.000 KB
@@ -42,7 +42,7 @@ cd "$ROOTV"
 
 typeset -a prefiles files
 #files=( $(du -s "$ROOTMED"/*.mp4) )
-for filepath in "$ROOTMED"/*.{mp4,m4a,mpg,avi,mov}
+for filepath in "$ROOTMED"/*.(mp4|m4a|mpg|avi|mov)
 do
 	date="$(ffprobe "$filepath" 2>&1 | sed -En '/^\s*date/ s/.*:\s*([^\s]*)/\1/ p' <<<"$probe" )"
 	prefiles+=("$date	$filepath")  #separator is a literal <TAB>
@@ -91,8 +91,8 @@ do
 	#add self-referencing canonical url
 	canonical="<link rel=\"canonical\" href=\"${ROOTVW%/}/doc/${fname%???}html\">"
 
-	for t in "$ROOTTHUMB/${fname%???}"{jpg,png,gif,jpeg}
-	do [[ -e "$t" ]] && img="$t" && break
+	for t in "$ROOTTHUMB/${fname%???}"(jpg|png|gif|jpeg)
+	do [[ -e "$t" ]] && img="${t##*/}" && break
 	done
 	if [[ -z "$img" ]]
 	then print "$SN: no thumbnail -- $fname" >&2 ;img="$THUMBDEF"
@@ -104,7 +104,7 @@ do
 
 <div class=\"w3-third\">
   <a title=\"Click to go to video page\" href=\"doc/${fname%???}html\">
-  <img src=\"$img\" style=\"width:100%;min-height:200px\">
+  <img src=\"thumb/$img\" style=\"width:100%;min-height:200px\">
   </a>
 </div>
 <div class=\"w3-twothird w3-container\">
@@ -160,6 +160,38 @@ do
 				padding-top: 0.4em;
 			}
 
+			 /* Container needed to position the play button */
+			 /* https://www.w3schools.com/howto/howto_css_button_on_image.asp */
+			.img-container {
+			  position: relative;
+			  /* width: 50%; */
+			}
+
+			/* Make the image responsive */
+			/* .img-container img {
+			  width: 100%;
+			  height: auto;
+			} */
+
+			/* Style the button and place it in the middle of the container/image */
+			.img-container .playbtn {
+			  position: absolute;
+			  top: 50%;
+			  left: 50%;
+			  transform: translate(-50%, -50%);
+			  -ms-transform: translate(-50%, -50%);
+			  background-color: #555;
+			  color: white;
+			  font-size: 16px;
+			  padding: 12px 24px;
+			  border: none;
+			  cursor: pointer;
+			  border-radius: 5px;
+			}
+
+			.img-container .playbtn:hover {
+			  background-color: black;
+			} 
 
 		</style>
 
@@ -171,8 +203,9 @@ do
 		</div>
 
 		<br>
-		<div class="w3-container w3-center">
-		<a title="Click to watch or download" href="$videourl2"><img src="$img" alt="Video thumbnail"></a>
+		<div class="w3-container w3-center img-container">
+		<a title="Click to watch or download" href="$videourl2"><img src="../thumb/$img" alt="Video thumbnail">
+		<button class="playbtn">Play</button></a>
 
 		<!-- <video width="320" height="240" autoplay>
 		  <source src="$videourl2" type="video/${fname##*.}">

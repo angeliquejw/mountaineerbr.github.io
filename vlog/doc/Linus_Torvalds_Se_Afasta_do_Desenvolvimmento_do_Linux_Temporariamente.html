@@ -32,6 +32,38 @@ padding-right: 0.6em;
 padding-top: 0.4em;
 }
 
+ /* Container needed to position the play button */
+ /* https://www.w3schools.com/howto/howto_css_button_on_image.asp */
+.img-container {
+  position: relative;
+  /* width: 50%; */
+}
+
+/* Make the image responsive */
+/* .img-container img {
+  width: 100%;
+  height: auto;
+} */
+
+/* Style the button and place it in the middle of the container/image */
+.img-container .playbtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.img-container .playbtn:hover {
+  background-color: black;
+} 
 
 </style>
 
@@ -43,8 +75,9 @@ padding-top: 0.4em;
 </div>
 
 <br>
-<div class="w3-container w3-center">
-<a title="Click to watch or download" href="../media/Linus_Torvalds_Se_Afasta_do_Desenvolvimmento_do_Linux_Temporariamente.mp4"><img src="/home/jsn/www/mountaineerbr.github.io/vlog/thumb/Linus_Torvalds_Se_Afasta_do_Desenvolvimmento_do_Linux_Temporariamente.jpg" alt="Video thumbnail"></a>
+<div class="w3-container w3-center img-container">
+<a title="Click to watch or download" href="../media/Linus_Torvalds_Se_Afasta_do_Desenvolvimmento_do_Linux_Temporariamente.mp4"><img src="../thumb/Linus_Torvalds_Se_Afasta_do_Desenvolvimmento_do_Linux_Temporariamente.jpg" alt="Video thumbnail">
+<button class="playbtn">Play</button></a>
 
 <!-- <video width="320" height="240" autoplay>
   <source src="../media/Linus_Torvalds_Se_Afasta_do_Desenvolvimmento_do_Linux_Temporariamente.mp4" type="video/mp4">
