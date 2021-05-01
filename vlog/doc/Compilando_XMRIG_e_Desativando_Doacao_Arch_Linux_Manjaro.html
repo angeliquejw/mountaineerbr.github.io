@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Compilando XMRIG e Desativando Doacao Arch Linux Manjaro -- X GNU Bio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/w3.css">
+<link rel="canonical" href="https://www.mountaineerbr.github.io/vlog/doc/Compilando_XMRIG_e_Desativando_Doacao_Arch_Linux_Manjaro.html">
+<style>
+img
+{
+margin: auto;
+max-width: 600px;
+}
+p
+{
+font-size: 1.2em;
+}
+
+table th
+{
+text-align: left;
+}
+table
+{
+padding: 1em;
+margin: 1em;
+}
+table *
+{
+padding-right: 0.6em;
+padding-top: 0.4em;
+}
+
+
+</style>
+
+</head>
+<body>
+<div class="w3-container w3-teal">
+<p class="w3-right"><a href="../"><em>[BACK]</em></a></p>
+<h1>Compilando XMRIG e Desativando Doacao Arch Linux Manjaro</h1>
+</div>
+
+<br>
+<div class="w3-container w3-center">
+<a title="Click to watch or download" href="../media/Compilando_XMRIG_e_Desativando_Doacao_Arch_Linux_Manjaro.mp4"><img src="/home/jsn/www/mountaineerbr.github.io/vlog/thumb/Compilando_XMRIG_e_Desativando_Doacao_Arch_Linux_Manjaro.jpg" alt="Video thumbnail"></a>
+
+<!-- <video width="320" height="240" autoplay>
+  <source src="../media/Compilando_XMRIG_e_Desativando_Doacao_Arch_Linux_Manjaro.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video> -->
+
+<!-- <button onclick="playPause()">Play/Pause</button> 
+<button onclick="makeBig()">Big</button>
+<button onclick="makeSmall()">Small</button>
+<button onclick="makeNormal()">Normal</button>
+<br><br>
+<video id="video1" width="420">
+<source src="../media/Compilando_XMRIG_e_Desativando_Doacao_Arch_Linux_Manjaro.mp4" type="video/mp4">
+Your browser does not support HTML video.
+</video> -->
+
+</div>
+
+<div class="w3-content w3-margin">
+<h2>Description</h2>
+<p>Aqui vai o hack! Zerando a doação automática pros devs do XMR-Stak no Manjaro ou Arch Linux.
+</p>
+<p>Esclarencendo um Hack do último video ( <a href="https://www.youtube.com/watch?v=lpS4rCIcobw&amp;t=1594s">https://www.youtube.com/watch?v=lpS4rCIcobw&amp;t=1594s</a> ), que parecia funcionar, mas que com o tempo os Logs do minerador acusaram que a cada 100 minutos minerando para mim, o minerador ainda se conectava ao 'Dev Pool
+</p>
+<p>Aqui vai o Hack Quente, feito pelo 'yaourt'. Aproveitamos e já estamos instalando a versão mais recente disponível do xmr-stak-git 2.4.4 !!
+</p>
+<p>Tutorial completo disponível no meu GitHub:
+<a href="https://github.com/mountaineerbr/extra/tree/master/tutorials">https://github.com/mountaineerbr/extra/tree/master/tutorials</a>
+</p>
+<p>2e INSTALANDO COM HACK 0% DE DOAÇÃO PELO YAOURT:
+</p>
+<p>Testado com a versão mais recente atualizada do XMR-stak--git v2.4.4
+</p>
+<p>Para realizarmos todas as modificações pelo programa do yaourt, vamos precisar de um editor de texto de interface de linha que leia os arquivos de PKGBUILD dos repositórios do AUR. 
+</p>
+<p>Os PKGBUILD são arquivos que contém instruções para o yaourt de onde puxar os códigos-fonte (no caso xmr-stak, puxam do git-hub) e qual compiladores usar, entre outras coisas. No tutorial do vídeo novo que fiz no youtube e que deixo o link abaixo, v
+</p>
+<p>Porém, acredito que as modificações no PKGBUILD também poderão ser realizadas com um editor de texto gráfico, como o Mousepad ou um outro da sua distribuição, contanto que em determinado momento do começo da preparação da instalação do xmr-st
+</p>
+<p>/tmp/yaourt-tmp/nome_usuário
+</p>
+<p>Começando a instalação pelo yaourt:
+</p>
+<p>$ yaourt -S xmr-stak-git
+</p>
+<p>Quando ele perguntar:
+</p>
+<p>== Edit PKGBUILD ? (Y/n) ("A" to abort)
+</p><hr/>
+==<br/>
+Digite “y”
+
+<p>Na próxima pergunta:
+</p>
+<p>== Edit PKGBUILD with: <br/>
+Digite ‘nano’ ou ‘vim’ - ou qual você achar melhor de usar!
+</p>
+<p>Uma vez dentro do PKGBUILD, basta deletar o sinal de jogo-da-velha '#' (sustenido) do bloco a seguir:
+</p>
+<p>prepare() {<br/>
+cd "$srcdir/xmr-stak"<br/>
+#patch -p1 -i ../no-donate.patch<br/>
+}
+</p>
+<p>Salve; no nano, aperte Crt+O e depois Enter; depois, Ctr+X para sair do editor e voltar ao yaourt;
+</p>
+<p>Antes de sair do nano, se precisar atualizar a versao do compilador de C e C++ para uma versão mais recente do que a que está especificada no PKGBUILD, mude no bloco a seguir gcc-6' para 'gcc-7' e 'gcc++-6' para 'gcc++-7':
+</p>
+<p>build() {<br/>
+cd "$srcdir/xmr-stak"<br/>
+CC=/bin/gcc-6 CXX=/bin/g++-6 cmake .<br/>
+make<br/>
+}
+</p>
+<p>Salve e saio do PKGBUILD e volte para o yaourt; o yaourt vai te apresentar as dependências para se construir o xmr-stak, e vai te perguntar:
+</p>
+<p>== Continue building xmr-stak-git ? (Y/n)
+</p><hr/>
+==<br/>
+Digite ‘y’
+
+<p>No final, o yaourt vai fazer mais umas perguntas:
+</p>
+<p>== Exporting xmr-stak-git to diretório_em_seu_sistema
+(sudo) password for nome_usuário:<br/>
+Digite sua senha de sudoer
+</p>
+<p>E, finalmente, em:
+</p>
+<p>== Continue installing xmr-stak_cpu ? (Y/n)
+== (v)iew package contents (c)heck package with namcap
+</p><hr/>
+==<br/>
+Digite ‘y’
+
+<p>E, pronto! Agota te garanto que usamos o no-donate.patch dos próprios developers da maneira correta e o minerdor só vai minerar para sua pool.
+</p>
+<p>Tutorial completo disponível no meu GitHub:
+<a href="https://github.com/mountaineerbr/extra/tree/master/tutorials">https://github.com/mountaineerbr/extra/tree/master/tutorials</a>
+description     : Aqui vai o hack! Zerando a doação automática pros devs do XMR-Stak no Manjaro ou Arch Linux.</p>
+
+<h2>Details</h2>
+<table>
+
+<tr>
+<th>Title</th>
+<td>Compilando XMRIG e Desativando Doacao Arch Linux Manjaro</td>
+</tr>
+
+<tr>
+<th>Channel</th>
+<td>X GNU Bio</td>
+</tr>
+
+<tr>
+<th>Author</th>
+<td>mountaineerbr</td>
+</tr>
+
+<tr>
+<th>Date</th>
+<td>2018/06/01</td>
+</tr>
+
+<tr>
+<th>Duration</th>
+<td>9:48</td>
+</tr>
+
+<tr>
+ 		<th>Size</th>
+<td>24M</td>
+</tr>
+
+<tr>
+ 		<th>File</th>
+<td><a href="../media/Compilando_XMRIG_e_Desativando_Doacao_Arch_Linux_Manjaro.mp4">Compilando_XMRIG_e_Desativando_Doacao_Arch_Linux_Manjaro.mp4</a></td>
+</tr>
+
+<tr>
+ 		<th>License</th>
+<td>Attribution</td>
+</tr>
+
+</table>
+</div>
+
+<footer>
+<!-- video playback controls -->
+<!-- <script> 
+var myVideo = document.getElementById("video1"); 
+
+function playPause() { 
+  if (myVideo.paused) 
+    myVideo.play(); 
+  else 
+    myVideo.pause(); 
+} 
+
+function makeBig() { 
+  if (myVideo.width==560) 
+    makeNormal(); 
+  else 
+    myVideo.width = 560; 
+} 
+
+function makeSmall() { 
+    myVideo.width = 320; 
+} 
+
+function makeNormal() { 
+    myVideo.width = 420; 
+} 
+
+function toggleMute() {
+  myVideo.muted = !myVideo.muted;
+}
+
+</script> -->
+
+<!--
+- - - -	Copyright ©2021 JSN.
+ - - -	Verbatim copying and distribution of this entire article is
+- - - -	permitted in any medium, provided this notice is preserved.
+-->
+</footer>
+</body>
+</html>

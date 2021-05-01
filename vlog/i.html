@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<title>X GNU Bio Video Channel</title>
+<!-- # THIS IS A TEMPLATE FOR THE VLOG SYSTEM                        -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/w3.css">
+<body>
+
+<div class="w3-container w3-teal">
+<p class="w3-right"><a href="../"><em>[HOME]</em></a></p>
+<h1>X GNU Bio Channel Videos</h1>
+</div>
+
+<br>
+<div class="w3-content w3-center">
+	<button onclick="playPause()">Play/Pause</button> 
+	<button onclick="makeBig()">Size</button>
+	<!-- <button onclick="makeNormal()">Normal</button> -->
+	<button onclick="toggleMute()">(Un)Mute</button>
+	<br><br>
+	<video id="video1" width="420" autoplay muted>
+		<source src="media/Intro_do_Canal.mp4" type="video/mp4">
+		Your browser may not support HTML video.
+	</video>
+</div>
+
+<div lang="pt" class="w3-content">
+	<p>Aqui você encontrará videos originalmente upados para o YouTube
+	no meu canal antigo.</p>
+	<p>Infelizmente, o GitHub limita o upload de arquivos aqui,
+	portanto somente um número limitado de vídeos está disponível abaixo.
+	</p>
+	<p>Todos os vídeos são em português.</p>
+</div>
+<div class="w3-content">
+	<p>Here you can find videos originally uploaded to YouTube
+	on my old channel.</p>
+	<p>Unfortunately GitHub limits file uploads to 100MB here so
+	that is why there only a limited number of videos are available below.</p>
+	<p>All videos are in Portuguese.</p>
+</div>
+
+<hr>
+<div class="w3-content">
+<!-- videolist -->
+
+
+
+</div>
+<footer>
+
+	<!-- video playback controls -->
+	<script> 
+	var myVideo = document.getElementById("video1"); 
+
+	function playPause() { 
+	  if (myVideo.paused) 
+	    myVideo.play(); 
+	  else 
+	    myVideo.pause(); 
+	} 
+
+	function makeBig() { 
+	  if (myVideo.width==560) 
+	    makeNormal(); 
+	  else 
+	    myVideo.width = 560; 
+	} 
+
+	function makeSmall() { 
+	    myVideo.width = 320; 
+	} 
+
+	function makeNormal() { 
+	    myVideo.width = 420; 
+	} 
+
+	function toggleMute() {
+	  myVideo.muted = !myVideo.muted;
+	}
+
+	</script> 
+
+
+	<!--
+	- - - -	Copyright ©2021 JSN.
+	 - - -	Verbatim copying and distribution of this entire article is
+	- - - -	permitted in any medium, provided this notice is preserved.
+	-->
+</footer>
+</body>
+</html>
+
+
+
+<!-- ITEM TEMPLATE -->
+<!-- <div class="w3-row w3-margin">
+
+<div class="w3-third">
+  <img src="img_5terre.jpg" style="width:100%;min-height:200px">
+</div>
+<div class="w3-twothird w3-container">
+  <h2>5 Terre</h2>
+  <p>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </p>
+</div>
+</div> -->
+

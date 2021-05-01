@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Como eu Lido com Updates do Arch Linux Repo Fixo Snapshot -- X GNU Bio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/w3.css">
+<link rel="canonical" href="https://www.mountaineerbr.github.io/vlog/doc/Como_eu_Lido_com_Updates_do_Arch_Linux_Repo_Fixo_Snapshot.html">
+<style>
+img
+{
+margin: auto;
+max-width: 600px;
+}
+p
+{
+font-size: 1.2em;
+}
+
+table th
+{
+text-align: left;
+}
+table
+{
+padding: 1em;
+margin: 1em;
+}
+table *
+{
+padding-right: 0.6em;
+padding-top: 0.4em;
+}
+
+
+</style>
+
+</head>
+<body>
+<div class="w3-container w3-teal">
+<p class="w3-right"><a href="../"><em>[BACK]</em></a></p>
+<h1>Como eu Lido com Updates do Arch Linux Repo Fixo Snapshot</h1>
+</div>
+
+<br>
+<div class="w3-container w3-center">
+<a title="Click to watch or download" href="../media/Como_eu_Lido_com_Updates_do_Arch_Linux_Repo_Fixo_Snapshot.mp4"><img src="/home/jsn/www/mountaineerbr.github.io/vlog/thumb/Como_eu_Lido_com_Updates_do_Arch_Linux_Repo_Fixo_Snapshot.jpg" alt="Video thumbnail"></a>
+
+<!-- <video width="320" height="240" autoplay>
+  <source src="../media/Como_eu_Lido_com_Updates_do_Arch_Linux_Repo_Fixo_Snapshot.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video> -->
+
+<!-- <button onclick="playPause()">Play/Pause</button> 
+<button onclick="makeBig()">Big</button>
+<button onclick="makeSmall()">Small</button>
+<button onclick="makeNormal()">Normal</button>
+<br><br>
+<video id="video1" width="420">
+<source src="../media/Como_eu_Lido_com_Updates_do_Arch_Linux_Repo_Fixo_Snapshot.mp4" type="video/mp4">
+Your browser does not support HTML video.
+</video> -->
+
+</div>
+
+<div class="w3-content w3-margin">
+<h2>Description</h2>
+<p>Veja meu arquivo de mirrorlist no github:
+<a href="https://github.com/mountaineerbr/dotfiles/blob/master/etc/pacman.d/mirrorlist">https://github.com/mountaineerbr/dotfiles/blob/master/etc/pacman.d/mirrorlist</a>
+</p>
+<dl>
+  <dt>Dicas</dt>
+<dd>-- Faça updates somente quando precisar dos pacotes mais novos/recursos mais novos;
+-- Só instale novos pacotes depois de fazer um upgrade total no sistema, ou seja, antes de instalar um novo pacote, sempre atualize o sistema antes;
+-- Há períodos no mês em que os updates podem ser mais estáveis que outros; minha observação indica que os pacotes estão mais estáveis imediatamente antes da criação mensal de um novo .iso de instalação do Arch Linux pelos Desenvolvedores. A c
+-- Depois de fazer uma atualização no sistema e deixar ele estável, você poderá usar um repositório "fixo" (snapshot) por um tempo para não ter que atualizar o sistema todo caso precise instalar um pacote novo. Nesse caso, vá até o seu arquivo de
+</dd></dl>
+<p>Server=<a href="https://archive.archlinux.org/repos/2019/08/31/">https://archive.archlinux.org/repos/2019/08/31/</a>$repo/os/$arch
+</p>
+<p>Essa linha indica para o Pacman usar o repositório fixo do dia que você especificar. No exemplo acima, o repo fixo é do dia 31 de agosto de 2019.
+</p>
+<p>OBS: se você for sincronizar com um repo mais antigo do que a data atual, será necessário usar -Syy para forçar o update da lista de pacotes do Pacman, além de precisar fazer um downgrade em todos os pacotes do sistema!
+</p>
+<p>Referência:<br/>
+<a href="https://www.ostechnix.com/downgrade-packages-specific-date-arch-linux/">https://www.ostechnix.com/downgrade-packages-specific-date-arch-linux/</a>
+<a href="https://archive.archlinux.org/repos/2019/08/31/">https://archive.archlinux.org/repos/2019/08/31/</a>
+</p>
+<p>O arquivo de Mirrorlist/Espelhos encontra-se em:
+/etc/pacman.d/mirrorlist
+</p>
+<p>IMPORTANTE: Os pacotes do AUR não são suportados oficialmente e você estará sob seu próprio risco ao instalar eles!
+description     : Veja meu arquivo de mirrorlist no github:</p>
+
+<h2>Details</h2>
+<table>
+
+<tr>
+<th>Title</th>
+<td>Como eu Lido com Updates do Arch Linux Repo Fixo Snapshot</td>
+</tr>
+
+<tr>
+<th>Channel</th>
+<td>X GNU Bio</td>
+</tr>
+
+<tr>
+<th>Author</th>
+<td>mountaineerbr</td>
+</tr>
+
+<tr>
+<th>Date</th>
+<td>2019/09/01</td>
+</tr>
+
+<tr>
+<th>Duration</th>
+<td>17:32</td>
+</tr>
+
+<tr>
+ 		<th>Size</th>
+<td>98M</td>
+</tr>
+
+<tr>
+ 		<th>File</th>
+<td><a href="../media/Como_eu_Lido_com_Updates_do_Arch_Linux_Repo_Fixo_Snapshot.mp4">Como_eu_Lido_com_Updates_do_Arch_Linux_Repo_Fixo_Snapshot.mp4</a></td>
+</tr>
+
+<tr>
+ 		<th>License</th>
+<td>Attribution</td>
+</tr>
+
+</table>
+</div>
+
+<footer>
+<!-- video playback controls -->
+<!-- <script> 
+var myVideo = document.getElementById("video1"); 
+
+function playPause() { 
+  if (myVideo.paused) 
+    myVideo.play(); 
+  else 
+    myVideo.pause(); 
+} 
+
+function makeBig() { 
+  if (myVideo.width==560) 
+    makeNormal(); 
+  else 
+    myVideo.width = 560; 
+} 
+
+function makeSmall() { 
+    myVideo.width = 320; 
+} 
+
+function makeNormal() { 
+    myVideo.width = 420; 
+} 
+
+function toggleMute() {
+  myVideo.muted = !myVideo.muted;
+}
+
+</script> -->
+
+<!--
+- - - -	Copyright ©2021 JSN.
+ - - -	Verbatim copying and distribution of this entire article is
+- - - -	permitted in any medium, provided this notice is preserved.
+-->
+</footer>
+</body>
+</html>
