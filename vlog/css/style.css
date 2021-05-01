@@ -86,3 +86,15 @@ sloped versions of the regular face.” */
 } 
 
 
+/* If the browser window is smaller than 600px, make the columns stack on top of each other */
+@media only screen and (max-width: 600px)
+{
+
+	#doc img
+	{
+		margin: auto;
+		max-width: 90%;
+	}
+
+}
+

@@ -260,7 +260,6 @@ do
 
 
 	#clean environment!
-	unset l t
 	unset filepath fname size probe title date  comm desc deschtml commhtml
 	unset dur itemdocpath canonical img lowpath lowfname sizelow lowurl
 	unset itemlow itemdoclow item videorelurldoc thumbrelurldoc
