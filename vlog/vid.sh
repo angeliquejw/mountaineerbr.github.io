@@ -35,11 +35,14 @@ THUMBDEF="$ROOTTHUMB/default.jpg"
 
 
 set -e
+setopt extendedglob  
+setopt nullglob
+setopt nocaseglob
 cd "$ROOTV"
 
 typeset -a prefiles files
 #files=( $(du -s "$ROOTMED"/*.mp4) )
-for filepath in "$ROOTMED"/*.mp4
+for filepath in "$ROOTMED"/*.{mp4,m4a,mpg,avi,mov}
 do
 	date="$(ffprobe "$filepath" 2>&1 | sed -En '/^\s*date/ s/.*:\s*([^\s]*)/\1/ p' <<<"$probe" )"
 	prefiles+=("$date	$filepath")  #separator is a literal <TAB>
@@ -88,9 +91,9 @@ do
 	#add self-referencing canonical url
 	canonical="<link rel=\"canonical\" href=\"${ROOTVW%/}/doc/${fname%???}html\">"
 
-	for t in "$ROOTTHUMB/${fname%???}"{jpg,png,gif}
+	for t in "$ROOTTHUMB/${fname%???}"{jpg,png,gif,jpeg}
 	do [[ -e "$t" ]] && img="$t" && break
-	fi
+	done
 	if [[ -z "$img" ]]
 	then print "$SN: no thumbnail -- $fname" >&2 ;img="$THUMBDEF"
 	fi
@@ -172,7 +175,7 @@ do
 		<a title="Click to watch or download" href="$videourl2"><img src="$img" alt="Video thumbnail"></a>
 
 		<!-- <video width="320" height="240" autoplay>
-		  <source src="$videourl2" type="video/mp4">
+		  <source src="$videourl2" type="video/${fname##*.}">
 		  Your browser does not support the video tag.
 		</video> -->
 
@@ -182,7 +185,7 @@ do
 		<button onclick="makeNormal()">Normal</button>
 		<br><br>
 		<video id="video1" width="420">
-			<source src="$videourl2" type="video/mp4">
+			<source src="$videourl2" type="video/${fname##*.}">
 			Your browser does not support HTML video.
 		</video> -->
 

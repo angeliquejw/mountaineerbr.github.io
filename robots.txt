@@ -4,6 +4,8 @@ Disallow: /blog/a/
 Disallow: */js/
 Disallow: */cvsum.html
 Disallow: */repo/*/*
+Disallow: */vlog/media/*
+Disallow: */vlog/thumb/*
 
 #all robots read the sitemap file
 #this should be a full url

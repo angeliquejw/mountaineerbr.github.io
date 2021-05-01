@@ -42,6 +42,8 @@ EXARR=(
 	'.*/blog/podcast/*' 	#old podcast files
 	'.*/repo/.*/.*' 		#podcast files
 	'.*/digg3.*' 		#espelho files
+	'.*/vlog/media/.*' 	#vlog files
+	'.*/vlog/thumb/.*' 	#vlog files
 
 	'.*/fool\.html$' 	#this is a redirection page --> fool/index.html
 	'.*google.*' 		#google shit
@@ -50,7 +52,7 @@ EXARR=(
 #exts for `tree` (should be equivalent to $EXTENSIONS)
 EXTENSIONSTREE='*.htm|*.html|*.php|*.asp|*.aspx|*.jsp|sitemap.txt|rss.xml|rss_alt.xml|rss_podcast.xml'
 #exclude for `tree` (should be equivalent to $EXARR[@])
-EXTREE='[._]*|[a-z].html|[a-z]|index.html|bak|css|gfx|js|misc|res|PMWMT|business|archive|tumblelog|fool.html|google*|conky|dotfiles|extra|markets|scripts|digg3'
+EXTREE='[._]*|[a-z].html|[a-z]|index.html|bak|css|gfx|js|misc|res|PMWMT|business|archive|tumblelog|fool.html|google*|conky|dotfiles|extra|markets|scripts|digg3|thumb|media'
 
 #sitemap files
 #txt
