@@ -240,6 +240,35 @@ on the compression method. But this should not be run
 every time, anyways, so not a problem speed-wise.</p>
 
 
+<h3>Vlog System</h3>
+<p>This is the latest <em>latest</em> system I developed to take care of
+publishing some videos from my old <strong>YouTube channel -- X GNU Bio</strong>.</p>
+
+<p>Before removing my YouTube channel, I decided to backup all
+my videos with <code>youtube-dl</code>. The option to add meta data
+to the videos is really generous and that enabled me to
+automatically make pages for them for republication.
+All I have got to do is to get meta data for fields such as title,
+description, comment (the full YouTube video description), date and etc
+with shell scripting tools and make HTML pages for them.
+ </p>
+
+<p>I gave a try to make a vlog section under my own website.
+GitHub does not allow files larger than 100MB, so only about 20% of my YouTube
+videos can be published over here (the smaller and shortest videos).</p>
+
+<p>I am happy with the <a href="../../vlog/">vlog portal</a>,
+and you can check some of my YouTube videos.</p>
+
+<p>This system will only work with my YouTube videos because I downloaded them
+all with the same settings and metadata available.
+But eventually I may have a new vlog with more videos, but will need
+a new vlog system then.
+</p>
+
+<p>One thing is for sure, we shall not return to YouTube anytime soon.</p>
+
+
 <h2>Some links</h2>
 
 <ul>
