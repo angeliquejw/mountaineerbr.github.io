@@ -2,7 +2,7 @@
 # ala.sh -- arch linux archive explorer (search and download)
 # v0.14.4  may/2021  by castaway
 
-#defaults
+#defaults 
 #script name
 SN="${0##*/}"
 

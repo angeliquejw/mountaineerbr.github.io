@@ -1,0 +1,58 @@
+2615919597 2634941 extra/A_Guerra_da_Arte_Steven_Pressfield.pdf
+72148986 62473 extra/animal_phylogenetic_tree.JPG
+1878717466 6075931 extra/a-vida-o-livro-da-vida-the-book-of-life-j-krishnamurti.pdf
+1198567669 5099 extra/bollingerBandRulesYouRequested.txt
+2367227235 17493074 extra/bruce-lee-o-tao-do-jeet-kune-do-portugues-livro.pdf
+1700284793 661 extra/brunoDicasEmpreendedorismo
+1141554961 96310 extra/btc_2011_bubble.jpg
+3885342938 46561 extra/caldas_ecologicas_diversas.pdf
+3747699271 342190 extra/calda-vicosa.pdf
+2081301802 1162108 extra/chilledCow.jpg
+96064198 2289803 extra/chilledCow.png
+2811069865 4531136 extra/ConnollyConnollySoon17-June2-RecalibrationofArcticseaiceextentdatasetsusingArcticsurfaceairtemperaturerecords.pdf
+2811069865 4531136 extra/ConnollySoon.pdf
+2627503376 558374 extra/Core-devs having dinner with Nick Szabo.jpg
+2957028292 177561 extra/criticaldates_picycle_btc_tonev.png
+4232559403 4561516 extra/dicionarioSinonimos_dicsin-br.oxt
+835931247 15296516 extra/dicionarioSinonimos_th_pt_BR.dat
+3735455759 209500 extra/ebookHackerDanteLinux.pdf
+591317102 2698453 extra/Estudo_Pos_Graduados_Brasil_Apres_CGEE_MD2015_S.pdf
+3675600438 7556 extra/Evidencias_contra_a_problematica_Teoria_do_Aquec.txt
+2106267865 9452 extra/faster_sh.txt
+4077863129 852817 extra/Fernando_Ulrich_Bitcoin_2014.pdf
+2985356870 8394425 extra/FlemingRiseAndFallofCarbonDioxide.pdf
+2079916884 83339 extra/globalWarmingNames.txt
+3696065961 10635 extra/index.html
+3126043246 100222 extra/IPCA-RELATORIO_1979_a_1999.zip
+2215525498 22473 extra/ipca_SerieHist.zip
+3287207174 807447 extra/Jesse-Livermore-1024x796.png
+2313590924 4462972 extra/Jesse-Livermore_Edwin_LeFevre_Reminiscences_of_a_Stock_Operator.pdf
+2981778316 7827418 extra/Jesse_Livermore-How_To_Trade_In_Stocks_(1940_original)-EN.pdf
+3840434612 45786 extra/Kung-fu_Lista de Golpes.pdf
+2576919306 218422 extra/MÁRQUEZ_gabriel_garcía_crônica_de_uma_morte_anunciada.pdf
+1251143991 45601 extra/Nascimento de Buddha.pdf
+1667673493 41121 extra/NET_Grade de Canais NET Fácil HD.pdf
+189060731 13208 extra/Números sorteados da mega-sena.ods
+1461243768 1660818 extra/panic_cycles_finance.png
+1434937810 23 extra/README.md
+22794155 247061 extra/ScientificCareerGroups2.png
+2122044102 114690 extra/ScientificCareerGroups5.png
+4275949934 471103 extra/ScientificCareerGroups7.png
+4021775789 304784 extra/ScientificCareerGroups8.png
+3267795735 199401 extra/ScientificCareerGroups.png
+2867371128 12800 extra/SimpleSolarAngle.xls
+378904623 8793 extra/sobreDdt.txt
+1509449323 1888631 extra/SoonBaliunas17-June8-FINAL-CCTF2017_Ch11_2pp.pdf
+871754498 12785131 extra/SoonConnollyConnolly15-Sep11-ESR-final.pdf
+1774289707 80433 extra/SoonMonckton15-Nov6-DivestmentEssayforNASreport.pdf
+210115041 254688 extra/Stratigraphic_Chart_GTS2016.pdf
+1783129184 62464 extra/SUTRA_CAUSA_EFEITO.doc
+1313013763 14489 extra/timezones.txt
+605641441 65850 extra/universidades_2019_o-comentarista.png
+2811894266 185184 extra/unix_shell_programming_information_evolution.png
+3272228637 23601 extra/unixtips.txt
+4280288024 46449 extra/viagemAFlorianopolis.txt
+1568099144 2220339 extra/wickedCoolShellScripts.pdf
+4268497677 20408 extra/worldCountryArea.txt
+1912098528 99086 extra/worldCountryAreaWiki2.txt
+3654151316 28098 extra/worldCountryAreaWiki.txt

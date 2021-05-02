@@ -61,16 +61,16 @@ print
 print
 
 
-##PART FIVE
-###make repo tree pages
-#cd repo
-#./sync.sh
-#cd -
-#print
-#
-#
-##PART SIX
-###make video vlog pages
+#PART FIVE
+##make repo tree pages
+cd repo
+./sync.sh
+cd -
+print
+
+
+#PART SIX
+##make video vlog pages
 #cd vlog
 #./vid.sh
 #cd -

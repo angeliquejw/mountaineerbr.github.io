@@ -1,0 +1,15 @@
+2642726175 5487 conky/aurora_allinone.conf
+3675125755 2197 conky/aurora_ds_sensors.conf
+88378640 457 conky/calendar.conf
+1649831170 2172 conky/conkykiller.sh
+2363846401 293412 conky/git_conky1.png
+3522889172 1295532 conky/git_conky2.png
+4241374558 5097 conky/index.html
+2798969488 697 conky/monitor_cooler.conf
+2354971575 4007 conky/monitor_cooler_notas_português.txt
+2858347142 657 conky/README.md
+3854517988 2911 conky/rss_long1.conf
+3624238248 817 conky/rss_short1.conf
+882182043 650 conky/rss_short2.conf
+2646845948 514 conky/todo.conf
+1705322592 24 conky/todo.txt
