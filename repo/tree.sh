@@ -51,7 +51,7 @@ treef()
 		--dirsfirst \
 		-C \
 		--charset utf-8 \
-		-I 'index.html|README.md|cksum' \
+		-I 'index.html|README.md|cksum.d' \
 		| sed -E \
 			-e 's/<h1/<h2/g ;s/<\/h1/<\/h2/g' \
 			-e 's|<a class="NORM" href=".">|<a class="NORM" href="..">..</a><br>\n&|' \

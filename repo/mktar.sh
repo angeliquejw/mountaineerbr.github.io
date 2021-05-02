@@ -15,8 +15,8 @@ pbase=$HOME/www/mountaineerbr.github.io
 #DIRECTORY: REPOS
 pbaserepos="$pbase/repo"
 
-#cache checksum filename root
-cksumroot="$pbaserepos/cksum"
+#cache checksum dir root
+cksumroot="$pbaserepos/cksum.d"
 
 #max file sizes
 warningsize=94500  #(KB)
