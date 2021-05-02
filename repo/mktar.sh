@@ -3,7 +3,7 @@
 # Make archive packages from directories
 # usage: mktar.sh [FILE]
 # by defaults, archives all folder of $PWD
-# set $SUMONLY to update checksum only
+# set $SUMONLY to update checksum only (exits with 100)
 # requires `cksum' package
 
 #script name
@@ -25,8 +25,8 @@ maxsize=100500     #(KB)
 #checksum fun
 cksumf()
 {
-	zargs -r -- "$1"/**(.) -- cksum --
 	#zsh glob (.) excludes directories
+	zargs -r -- "$1"/**(.) -- cksum --
 }
 
 
@@ -57,10 +57,10 @@ do
 	[[ "$repo" = "${cksumroot##*/}" ]] && continue  #don't make tar of _cksum/
 	if ((SUMONLY))
 	then
-		ret+=(1)
 		#create a cksum file
 		cksumf "$repo" >"$cksumfilenameold"
-		print "$SN: cksum sync'd -- $repo" >&2
+		ret=(100)
+		print "$SN: cksum generated -- $repo" >&2
 		continue
 	elif [[ -e "$cksumfilenameold" ]]
 	then
@@ -70,8 +70,8 @@ do
 		if (($#==0)) &&
 			diff -q "$cksumfilenameold" "$cksumfilenamenew"
 		then
-			ret+=(1)
 			rm -- "$cksumfilenamenew"
+			ret+=(0)
 			print "$SN: repo is sync'd -- $repo" >&2
 			continue
 		else
@@ -86,6 +86,7 @@ do
 	#: z (gzip), --zstd (zstd), J (xz)
 	#tar --zstd -c -f "$tarfile" "$repo"
 	tar cJf "$tarfile" "$repo"
+	ret+=($?)
 
 	fsize=( $(du "$tarfile" ) )
 	(( ${fsize[1]} > warningsize )) && {

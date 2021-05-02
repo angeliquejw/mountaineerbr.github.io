@@ -15,13 +15,11 @@ set -e
 
 #STEP 1
 #MAKE TAR FILES FROM DIRECTORIES
-if ./mktar.sh "$@"
-then
-	#STEP 2
-	#GENERATE HTML PAGES WITH `TREE'
-	./tree.sh
-else
-	true
-fi
+./mktar.sh "$@"
+
+
+#STEP 2
+#GENERATE HTML PAGES WITH `TREE'
+./tree.sh
 
 
