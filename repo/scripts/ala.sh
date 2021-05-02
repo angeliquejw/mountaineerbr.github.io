@@ -1,12 +1,15 @@
 #!/bin/bash
 # ala.sh -- arch linux archive explorer (search and download)
-# v0.13.28  feb/2021  by castaway
+# v0.14.1  may/2021  by castaway
 
 #defaults
+#script name
+SN="${0##*/}"
+
 #local folder for downloading
 DLFOLDER="$HOME/Downloads"
 
-#trash folder
+#trash folder (for removing downloads with -w)
 TFOLDER="$HOME/.local/share/Trash/files"
 
 #default DATE or special repo
@@ -49,6 +52,9 @@ BURL3=http://archlinux.arkena.net/archive/iso
 #(experimental, opt -3)
 #MURLDEF=http://ftp.gwdg.de/pub/linux/archlinux/
 MURLDEF=http://archlinux.c3sl.ufpr.br
+
+#cache directory
+CACHEDIR="${TMPDIR:-/tmp}/$SN"
 
 #do not change the following
 #LC_NUMERIC=en_US.UTF-8
@@ -109,6 +115,11 @@ SYNOPSIS
 
 	If the script tries to interpret a PKGNAME as DATE, try seting
 	option -p.
+
+	$SN will keep cache files at $CACHEDIR. Set \$ALANOCACHE to
+	a value greater than 0 to not use cache dir and cache files
+	at all. Optionally, set option -l to update cached files or
+	-ll or -L to not use cache at all.
 
 	The oficial <archive.archlinux.org> archive was started at end
 	of august 2013.
@@ -181,6 +192,10 @@ ENVIRONMENT
 		set with repo date, such as special repos last, week,
 		month or any valid date such as 2020/01/01.
 		Defaults to $DEFALADATE .
+
+	\$ALANOCACHE
+		set with value greater than 0 to not use cache at all.
+		this inhibits creation of cache directory at $CACHEDIR .
 
 	\$CACREPOS
 		set with REPO names. It is used in option -c to calculate
@@ -336,16 +351,20 @@ OPTIONS
 	-2 	      Use Arkena's server (slow, sometimes down).
 	-a 	      List all packages and versions from server.
 	-c  [DATE] [REPOS]
-	-cc [DATE] [REPOS]
-		      Calculate REPOS sizes from DATE;
+		      Calculate REPOS sizes from DATE; sizes taken from webpage;
 		      defaults DATE=$DEFALADATE, REPOS=( ${AUTOREPOS[*]} ).
+	-cc [DATE] [REPOS]
+		      Same as -c but sizes are calculated from db.tar.gz file.
 	-d 	      Disable date checking and automatic correction.
 	-h 	      Show this help page.
 	-i  DATE      Use the ISO archives.
 	-k  PKGNAME [DATE] [REPOS] [i686|x86_64]
+		      Dump information of packages; defaults DATE=$DEFALADATE ,
+		      REPOS=( ${AUTOREPOS[*]} ).
 	-K  PKGNAME [DATE] [REPOS] [i686|x86_64]
-		      Dump information of packages; -K dumps more info;
-		      defaults DATE=$DEFALADATE, REPOS=( ${AUTOREPOS[*]} ).
+		      Same as -k but dumps more info;
+	-l 	      Don't use cached files (will update cache files).
+	-ll, -L	      Same as -l but don't even check for cache directory.
 	-n 	      Arch Linux news feed.
 	-nn  [NUM]    Arch Linux news feed alternative, fetch NUM news
 		      articles; NUM is a natural number; defaults=6.
@@ -362,6 +381,35 @@ OPTIONS
 #pkgs with similar fuctionalities, however they are not ala explorers:
 #ref: powerpill: https://bbs.archlinux.org/viewtopic.php?id=110136
 #ref: agetpkg: https://github.com/seblu/agetpkg
+
+#cache files
+#wrapper around "${YOURAPP[@]}" arrays
+yourappf()
+{
+	local opt url file
+
+	opt=$1 ;[[ -n "$opt" ]] || return
+	url="${@: -1}" || return
+	file="$CACHEDIR/${url//[\/:]/}".dump
+	shift
+
+	case $opt in
+	0) app=("${YOURAPP[@]}") ;;
+	2) app=("${YOURAPP2[@]}") ;;
+	3) app=("${YOURAPP3[@]}") ;;
+	esac
+	
+	if ((OPTL>1)) 				#don't use cache at all  #|| [[ ! -d "$CACHEDIR" ]]
+	then "${app[@]}" "$@" 
+	elif ((OPTL==0)) && [[ -e "$file" ]] 	#is there a cache file?
+	then cat "$file"
+	else "${app[@]}" "$@" | tee "$file" 	#data will be copied as cache
+	fi
+
+	#timestamp
+	#{ stat --printf='%Y\n' [FILE] ;}
+}
+
 
 #consolidate path
 consolidatepf()
@@ -596,9 +644,7 @@ alad() {
 			
 			#server response is error
 			printf '%s: err: not found -- %s\n' "$SN" "$*" >&2 
-	
-			mv "$DLFOLDER/${1##*/}" "$TFOLDER" || printf '%s: warning -- cannot mv downloaded file to trash folder\n' "$SN" >&2
-	
+			rm -v "$DLFOLDER/${1##*/}" "$TFOLDER"
 			return 1
 		fi
 	
@@ -621,16 +667,15 @@ alad() {
 
 	#check for error
 	#get the sig file first
-	if printf '<%s>\n\n' "$URL"
+	if
+		printf '<%s>\n\n' "$URL"
 		"${YOURAPP2[@]}" "$URL/.all/${1}.sig"  "$REDIR" "$DLFOLDER/${1}.sig"
 		echo >&2
 		grep -iq -e 'not found' -e 'error' -e 'no listing' -e 'format not recognized' "$DLFOLDER/${1}.sig"
 	then
 	
 		printf '%s: err: not found -- %s\n' "$SN" "${1}.sig" >&2
-
-		mv "$DLFOLDER/${1}.sig" "$TFOLDER" || printf '%s: warning -- cannot mv downloaded file to trash folder\n' "$SN" >&2
-
+		rm -v "$DLFOLDER/${1}.sig" "$TFOLDER"
 		exit 1
 	else
 		#print sig file location
@@ -708,7 +753,7 @@ calcf() {
 			printf 'wait \r' >&2
 
 			#get repo list
-			PAGE="$( "${YOURAPP3[@]}" "$URLADD/$i/os/x86_64/" )"
+			PAGE="$( yourappf 3 "$URLADD/$i/os/x86_64/" )"
 			
 			#calc size in the 4th column
 			PROC=( $(
@@ -738,9 +783,11 @@ calcf() {
 
 		#total
 		printf 'TOTAL   \t%5dGB  %5d pkgs  %5d sigs\n' "$( bc <<<"$TSSUM/1000" )" "$PKGSUM" "$SIGPKGSUM"
+	
+	#the following alternative method uses
+	#db.tar.gz files from each repo
+	#experimental
 	else
-		#this method uses the db.tar.gz files from each repo
-		#experimental
 	
 		#header
 		printf '%s\n' 'Arch Linux Archive'
@@ -752,7 +799,7 @@ calcf() {
 
 			#get repo list
 			SIZES=( $( {
-				"${YOURAPP3[@]}" "$URLADD/$i/os/x86_64/${i}.db.tar.gz" |
+				yourappf 3 "$URLADD/$i/os/x86_64/${i}.db.tar.gz" |
 					tar --extract --wildcards -Ozf - '*/desc' |
 					sed -n '/%CSIZE%/{n;p}'
 			} 2>/dev/null ) )
@@ -878,7 +925,7 @@ infodumpf() {
 			URLADD="$(consolidatepf "$URLADD")"
 		
 			#get database and extract
-			"${YOURAPP[@]}" -o - "$URLADD" |
+			yourappf 0 -o - "$URLADD" |
 				tar --extract --wildcards -Ozf - "${TGLOB[@]}" |
 				sed 's/^%FILENAME%$/--------\n\n&/' |
 				tac
@@ -1022,7 +1069,7 @@ searchf() {
 						URLADD="$(consolidatepf "$URLADD")"
 
 						#get data
-						LIST="$( "${YOURAPP[@]}" "$URLADD" )"
+						LIST="$( yourappf 0 "$URLADD" )"
 	
 						#process page
 						pagepf  #obs: will not get exit code from subshell
@@ -1068,7 +1115,7 @@ searchf() {
 	URLADD="$(consolidatepf "$URLADD")"
 
 	#get page
-	LIST="$( "${YOURAPP[@]}" "$URLADD" )"
+	LIST="$( yourappf 0 "$URLADD" )"
 
 	#process page
 	pagepf
@@ -1099,7 +1146,7 @@ lupf() {
 			URLADD="$URL2/$dt/$file"
 			URLADD="$(consolidatepf "$URLADD")"
 			
-			TIME="$("${YOURAPP[@]}" "$URLADD")"
+			TIME="$(yourappf 0 "$URLADD")"
 			date -d@"$TIME" +"$fmt" 2>/dev/null ||
 				sed 's/<[^>]*>//g' <<<"$TIME" >&2
 			
@@ -1116,7 +1163,7 @@ allf() {
 	checkunxzf
 
 	#get the special .all
-	APKGS="$( "${YOURAPP2[@]}" "$URL/.all/index.0.xz" | unxz )"
+	APKGS="$( yourappf 2 "$URL/.all/index.0.xz" | unxz )"
 	UNXZ="${PIPESTATUS[0]}"  #$PIPESTATUS changes every new cmd
 	echo >&2
 
@@ -1138,7 +1185,7 @@ feedf() {
 	local NEWSPAGE SIGNAL
 
 	#get feed and process
-	NEWSPAGE="$( "${YOURAPP[@]}" 'http://www.archlinux.org/feeds/news/' )"
+	NEWSPAGE="$( yourappf 0 'http://www.archlinux.org/feeds/news/' )"
 
 	#check for error
 	SIGNAL="$?"
@@ -1188,7 +1235,7 @@ feedfb()
 	for ((p=1 ;p<=pnum ;p++))
 	do
 		page="$page
-		$( "${YOURAPP[@]}" --header 'user-agent: Mozilla/5.0 Gecko' "https://www.archlinux.org/news/?page=$p" 2>/dev/null )"
+		$( yourappf 0 --header 'user-agent: Mozilla/5.0 Gecko' "https://www.archlinux.org/news/?page=$p" 2>/dev/null )"
 	done
 
 	#grep only links
@@ -1224,7 +1271,7 @@ feedfb()
 		#print simple feedback to stderr
 		[[ -t 1 ]] || printf '>>>%s/%s\r' "$counter" "$articles" >&2
 
-		"${YOURAPP3[@]}" --header 'user-agent: Mozilla/5.0 Gecko' "$l" |
+		yourappf 3 --header 'user-agent: Mozilla/5.0 Gecko' "$l" |
 			sed -n '/itemprop="headline/,/id="footer/ p' |
 				"${WBROWSER[@]}"
 
@@ -1242,7 +1289,7 @@ userrepof() {
 	local REPOLIST SIGNAL
 
 	#get list
-	REPOLIST="$( "${YOURAPP[@]}" 'https://wiki.archlinux.org/index.php/Unofficial_user_repositories' )"
+	REPOLIST="$( yourappf 0 'https://wiki.archlinux.org/index.php/Unofficial_user_repositories' )"
 
 	#check for error
 	SIGNAL="$?"
@@ -1281,7 +1328,7 @@ checktarf() {
 }
 
 #parse options
-while getopts :23acdhik:K:nopsuvw opt
+while getopts :23acdhik:K:lLnopsuvw opt
 do
 	case $opt in
 		3) #user a mirror server, *not* and archieval server
@@ -1298,7 +1345,7 @@ do
 			ALLOPT=1
 			;;
 		c) #calculate repo sizes
-			((COPT)) && COPT=2 || COPT=1
+			((++COPT))
 			;;
 		d) #disable date checking and autocorrection
 			NOCKOPT=1
@@ -1318,8 +1365,14 @@ do
 			INFOOPT=2
 			INFOOPTARG="${OPTARG:-\*}"
 			;;
+		L) #don't use cache at all
+			OPTL=2
+			;;
+		l) #download new data/update cached files or don't use cache at all
+			((++OPTL))
+			;;
 		n) #arch linux news
-			(( FEEDOPT++ ))
+			((++FEEDOPT))
 			;;
 		o) #list user repositories
 			USERREPOOPT=1
@@ -1364,6 +1417,11 @@ else
 	printf '%s: warning -- curl or wget is required\n' "$SN" >&2
 	exit 1
 fi
+
+#is $ALANOCACHE env parameter set?
+((ALANOCACHE)) && OPTL=2
+#make a cache folder
+((OPTL>1)) || [[ -d "$CACHEDIR" ]] || mkdir -v "$CACHEDIR" || exit
 
 #use a mirror address instead of archieve?
 #(experimental)
