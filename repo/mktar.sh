@@ -30,7 +30,7 @@ cd "$pbaserepos"
 if read -q "?$SN: Create archive files? y/N  "
 then
 	print
-	for repo in "${@:-*/}"
+	for repo in ${@:-*/}
 	do
 		repo="${repo%/}"
 		tarfile="${repo:u}".TXZ

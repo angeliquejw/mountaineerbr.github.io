@@ -1,6 +1,6 @@
 #!/bin/bash
 # ala.sh -- arch linux archive explorer (search and download)
-# v0.14.3  may/2021  by castaway
+# v0.14.4  may/2021  by castaway
 
 #defaults
 #script name
@@ -117,10 +117,11 @@ SYNOPSIS
 	If the script tries to interpret a PKGNAME as DATE, try seting
 	option -p.
 
-	$SN will keep cache files at $CACHEDIR. Set \$ALANOCACHE to
-	a value greater than 0 to not use cache dir and cache files
-	at all. Optionally, set option -l to update cached files or
-	-ll or -L to not use cache at all.
+	Option -l applies to all options that downloads data with the 
+	exception of option -w. $SN will keep cache files at $CACHEDIR .
+	Option -l updates cached files and -ll or -L disable use of cache
+	altogether. Set environment \$ALANOCACHE to a value greater than
+	0 to disable cache dir and cache files altogether.
 
 	The oficial <archive.archlinux.org> archive was started at end
 	of august 2013.
@@ -190,23 +191,23 @@ DESCRIPTION
 
 ENVIRONMENT
 	\$ALADATE
-		set with repo date, such as special repos last, week,
+		Set with repo date, such as special repos last, week,
 		month or any valid date such as 2020/01/01.
 		Defaults to $DEFALADATE .
 
 	\$ALANOCACHE
-		set with value greater than 0 to not use cache at all.
+		Set with value greater than 0 to not use cache at all.
 		this inhibits creation of cache directory at $CACHEDIR .
 
 	\$CACREPOS
-		set with REPO names. It is used in option -c to calculate
+		Set with REPO names. It is used in option -c to calculate
 		repo sizes. It may be easier to just pass multiple REPO
 		names to option -c for the calculation. See usage example (3).
 		Defaults to ${DEFCALCREPOS[*]} .
 
 	\$MURL
-		experimental, not all functions will work.
-		set with mirror-only repository address such as
+		Experimental. Not all functions will work.
+		Set with mirror-only repository address such as
 		$MURLDEF .
 		Defaults is unset.
 
@@ -355,7 +356,8 @@ OPTIONS
 		      Calculate REPOS sizes from DATE; sizes taken from webpage;
 		      defaults DATE=$DEFALADATE, REPOS=( ${AUTOREPOS[*]} ).
 	-cc [DATE] [REPOS]
-		      Same as -c but sizes are calculated from db.tar.gz file.
+		      Same as -c but sizes are calculated from db.tar.gz file,
+		      (experimental).
 	-d 	      Disable date checking and automatic correction.
 	-h 	      Show this help page.
 	-i  DATE      Use the ISO archives.
@@ -363,9 +365,9 @@ OPTIONS
 		      Dump information of packages; defaults DATE=$DEFALADATE ,
 		      REPOS=( ${AUTOREPOS[*]} ).
 	-K  PKGNAME [DATE] [REPOS] [i686|x86_64]
-		      Same as -k but dumps more info;
-	-l 	      Don't use cached files (will update cache files).
-	-ll, -L	      Same as -l but don't even check for cache directory.
+		      Same as -k but dumps more info.
+	-l 	      Don't use cached files (updates cache with fresh data).
+	-ll, -L	      Same as -l but doesn't keep any cache.
 	-n 	      Arch Linux news feed.
 	-nn  [NUM]    Arch Linux news feed alternative, fetch NUM news
 		      articles; NUM is a natural number; defaults=6.
