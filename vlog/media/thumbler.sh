@@ -12,12 +12,10 @@ ROOTMED="$ROOTV/media"
 ROOTTHUMB="$ROOTV/thumb"
 
 
+#start
 set -e
 cd "$ROOTMED"
 
-#Intro_do_Canal.mp4  
-# *.mp4
-#Diario_de_Criptomoedas_2.mp4  Bitcoin_Em_Queda_Crash_Ao_Vivo.mp4  Chuva_no_Por-do-Sol_da_Universidade.mp4  Intro_do_Canal.mp4  Bitcorn_10_000.mp4  Black_Week_do_Bitcoin.mp4  Nano_VIm_Abrir_Arquivo_Ja_na_Posicao_Especifica.mp4  Repos_do_Arch_Linux_Archive_ALA_e_Downgrade_de_Pacotes_no_Pacman.mp4  Sobre_Backups_de_Backups_de_Dados.mp4
 for fname
 do
 	#fname="${fname##*/}"
