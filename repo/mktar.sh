@@ -55,12 +55,20 @@ do
 
 	#check checksum
 	[[ "$repo" = "${cksumroot##*/}" ]] && continue  #don't make tar of _cksum/
-	if [[ -e "$cksumfilenameold" ]] && ((SUMONLY==0))
+	if ((SUMONLY))
+	then
+		ret+=(1)
+		#create a cksum file
+		cksumf "$repo" >"$cksumfilenameold"
+		print "$SN: cksum sync'd -- $repo" >&2
+		continue
+	elif [[ -e "$cksumfilenameold" ]]
 	then
 		#check new against old checksum file
 		cksumf "$repo" >"$cksumfilenamenew"
 
-		if diff -q "$cksumfilenameold" "$cksumfilenamenew"
+		if (($#==0)) &&
+			diff -q "$cksumfilenameold" "$cksumfilenamenew"
 		then
 			ret+=(1)
 			rm -- "$cksumfilenamenew"
@@ -72,7 +80,6 @@ do
 	else
 		#create a cksum file
 		cksumf "$repo" >"$cksumfilenameold"
-		((SUMONLY)) && ret+=(1) && continue
 	fi
 
 	print "$SN: creating -- $tarfile" >&2
