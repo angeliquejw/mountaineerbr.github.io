@@ -1,6 +1,6 @@
 #!/bin/zsh
 # create a page with my videos
-# v0.1.4  may/2021  by mountaineerbr
+# v0.1.3  may/2021  by mountaineerbr
 
 # github limits file size to 100MB
 # requires ffmpeg, ffprobe and txt2html
@@ -44,7 +44,7 @@ setopt nocaseglob
 cd "$ROOTV"
 
 typeset -a prefiles files
-for filepath in "$ROOTMED"/*.(mp4|m4a|mpg|avi|mov|aac|mp3)~*_low.*
+for filepath in "$ROOTMED"/*.(mp4|m4a|mpg|avi|mov)~*_low.*
 do
 	date="$(ffprobe "$filepath" 2>&1 | sed -En '/^\s*date/ s/.*:\s*([^\s]*)/\1/ p' <<<"$probe" )"
 	prefiles+=("$date	$filepath")  #separator is a literal <TAB>
@@ -115,7 +115,7 @@ do
 
 	
 	#low res version?
-	for lowpath in "$ROOTMED/${fname%.*}_low".(mp4|m4a|mpg|mpeg|avi|mov|aac|mp3)
+	for lowpath in "$ROOTMED/${fname%.*}_low".(mp4|m4a|mpg|mpeg|avi|mov)
 	do
 		#declare parameters
 		lowfname="${lowpath##*/}"
