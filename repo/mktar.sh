@@ -49,8 +49,8 @@ do
 	repo="${repo%/}"
 	tarfile="${repo:u}".TXZ
 	cksumfilename="${cksumf}${repo}"
-	cksumfilenameold="$cksumfilename".txt
-	cksumfilenamenew="$cksumfilename".new
+	cksumfilenameold="$cksumfilename".cksum
+	cksumfilenamenew="$cksumfilename".new.cksum
 
 	#check checksum
 	if [[ -e "$cksumfilenameold" ]]
