@@ -35,6 +35,7 @@ setopt extendedglob
 setopt nullglob
 setopt nocaseglob 	#or use `(#i)(readme.md)*'
 setopt dotglob  	#or use *(D)
+typeset -a ret
 
 #really make tar for repos
 #read -q "?$SN: Create archive files? y/N  " || exit
@@ -58,8 +59,13 @@ do
 		cksumf "$repo" >"$cksumfilenamenew"
 
 		if diff -q "$cksumfilenameold" "$cksumfilenamenew"
-		then rm -- "$cksumfilenamenew" ;continue
-		else mv -fv -- "$cksumfilenamenew" "$cksumfilenameold"
+		then
+			ret+=(1)
+			rm -- "$cksumfilenamenew"
+			print "$SN: repo is sync'd -- $repo" >&2
+			continue
+		else
+			mv -fv -- "$cksumfilenamenew" "$cksumfilenameold"
 		fi
 	else
 		#create a cksum file
@@ -82,3 +88,6 @@ do
 	}
 done
 unset tarfile repo fsize warningsize maxsize cksumfilename cksumfilenameold cksumfilenamenew
+
+return $(( ${ret[@]/%/+} 0 ))
+
