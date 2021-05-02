@@ -1,6 +1,8 @@
 #!/bin/zsh
 # mountaineerbr  apr/2021
 # Make archive packages from directories
+# usage: mktar.sh [FILE]
+# otherwise archives all folder of $PWD
 
 #script name
 SN="${0##*/}"
@@ -28,7 +30,7 @@ cd "$pbaserepos"
 if read -q "?$SN: Create archive files? y/N  "
 then
 	print
-	for repo in */
+	for repo in "${@:-*/}"
 	do
 		repo="${repo%/}"
 		tarfile="${repo:u}".TXZ

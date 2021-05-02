@@ -1,6 +1,6 @@
 #!/bin/bash
 # ala.sh -- arch linux archive explorer (search and download)
-# v0.14.1  may/2021  by castaway
+# v0.14.3  may/2021  by castaway
 
 #defaults
 #script name
@@ -54,7 +54,8 @@ BURL3=http://archlinux.arkena.net/archive/iso
 MURLDEF=http://archlinux.c3sl.ufpr.br
 
 #cache directory
-CACHEDIR="${TMPDIR:-/tmp}/$SN"
+#defaults=/tmp/ala.sh.d
+CACHEDIR="${TMPDIR:-/tmp}/$SN".d
 
 #do not change the following
 #LC_NUMERIC=en_US.UTF-8
@@ -338,13 +339,13 @@ USAGE EXAMPLES
 	     will be printed. If the package does not change at all,
 	     it shall not appear in the list.
 
-		$ { ala.sh core.. ;ala.sh last week core.. ;} | sort | uniq -u
+		$ { $SN core.. ;$SN last week core.. ;} | sort | uniq -u
 
 		Output from the command above will be sorted; for a better
 		organised list (keep different versions of packages under
 		their parent date):
 
-		$ { ala.sh core.. ;ala.sh last week core.. ;} | nl | sort -k2 | uniq -f1 -u | sort -n | cut -f2
+		$ { $SN core.. ;$SN last week core.. ;} | nl | sort -k2 | uniq -f1 -u | sort -n | cut -f2
 
 
 OPTIONS
@@ -390,7 +391,7 @@ yourappf()
 
 	opt=$1 ;[[ -n "$opt" ]] || return
 	url="${@: -1}" || return
-	file="$CACHEDIR/${url//[\/:]/}".dump
+	file="$CACHEDIR/${url//[\/:]/}".cache
 	shift
 
 	case $opt in
@@ -625,7 +626,7 @@ alad() {
 	local REDIR
 
 	#test if it is curl or wget
-	[[ "${YOURAPP[0]}" = curl ]] && REDIR='-o' || REDIR='-O'
+	[[ "${YOURAPP2[0]}" = curl ]] && REDIR='-o' || REDIR='-O'
 	
 	#check input for full pkg name
 	if [[ -n "$ISOOPT" ]]
@@ -635,7 +636,7 @@ alad() {
 
 		#get the file
 		printf '<%s>\n' "$URL3/$1"
-		"${YOURAPP2[@]}" "$URL3/$1" "$REDIR" "$DLFOLDER/${1##*/}"
+		"${YOURAPP[@]}" "$URL3/$1" "$REDIR" "$DLFOLDER/${1##*/}"
 		echo >&2
 
 		#check for error
@@ -669,7 +670,7 @@ alad() {
 	#get the sig file first
 	if
 		printf '<%s>\n\n' "$URL"
-		"${YOURAPP2[@]}" "$URL/.all/${1}.sig"  "$REDIR" "$DLFOLDER/${1}.sig"
+		"${YOURAPP[@]}" "$URL/.all/${1}.sig"  "$REDIR" "$DLFOLDER/${1}.sig"
 		echo >&2
 		grep -iq -e 'not found' -e 'error' -e 'no listing' -e 'format not recognized' "$DLFOLDER/${1}.sig"
 	then
@@ -682,7 +683,7 @@ alad() {
 		printf '%s: warning: file at -- %s\n\n' "$SN" "$DLFOLDER/${1}.sig"
 
 		#get pkg
-		"${YOURAPP2[@]}" "$URL/.all/$1"  "$REDIR" "$DLFOLDER/$1"
+		"${YOURAPP[@]}" "$URL/.all/$1"  "$REDIR" "$DLFOLDER/$1"
 		echo >&2
 
 		#print pkg file location
@@ -925,7 +926,7 @@ infodumpf() {
 			URLADD="$(consolidatepf "$URLADD")"
 		
 			#get database and extract
-			yourappf 0 -o - "$URLADD" |
+			yourappf 2 -o - "$URLADD" |
 				tar --extract --wildcards -Ozf - "${TGLOB[@]}" |
 				sed 's/^%FILENAME%$/--------\n\n&/' |
 				tac
@@ -1069,7 +1070,7 @@ searchf() {
 						URLADD="$(consolidatepf "$URLADD")"
 
 						#get data
-						LIST="$( yourappf 0 "$URLADD" )"
+						LIST="$( yourappf 2 "$URLADD" )"
 	
 						#process page
 						pagepf  #obs: will not get exit code from subshell
@@ -1115,7 +1116,7 @@ searchf() {
 	URLADD="$(consolidatepf "$URLADD")"
 
 	#get page
-	LIST="$( yourappf 0 "$URLADD" )"
+	LIST="$( yourappf 2 "$URLADD" )"
 
 	#process page
 	pagepf
@@ -1146,7 +1147,7 @@ lupf() {
 			URLADD="$URL2/$dt/$file"
 			URLADD="$(consolidatepf "$URLADD")"
 			
-			TIME="$(yourappf 0 "$URLADD")"
+			TIME="$(yourappf 2 "$URLADD")"
 			date -d@"$TIME" +"$fmt" 2>/dev/null ||
 				sed 's/<[^>]*>//g' <<<"$TIME" >&2
 			
@@ -1163,7 +1164,7 @@ allf() {
 	checkunxzf
 
 	#get the special .all
-	APKGS="$( yourappf 2 "$URL/.all/index.0.xz" | unxz )"
+	APKGS="$( yourappf 0 "$URL/.all/index.0.xz" | unxz )"
 	UNXZ="${PIPESTATUS[0]}"  #$PIPESTATUS changes every new cmd
 	echo >&2
 
@@ -1185,7 +1186,7 @@ feedf() {
 	local NEWSPAGE SIGNAL
 
 	#get feed and process
-	NEWSPAGE="$( yourappf 0 'http://www.archlinux.org/feeds/news/' )"
+	NEWSPAGE="$( yourappf 2 'http://www.archlinux.org/feeds/news/' )"
 
 	#check for error
 	SIGNAL="$?"
@@ -1235,7 +1236,7 @@ feedfb()
 	for ((p=1 ;p<=pnum ;p++))
 	do
 		page="$page
-		$( yourappf 0 --header 'user-agent: Mozilla/5.0 Gecko' "https://www.archlinux.org/news/?page=$p" 2>/dev/null )"
+		$( yourappf 2 --header 'user-agent: Mozilla/5.0 Gecko' "https://www.archlinux.org/news/?page=$p" 2>/dev/null )"
 	done
 
 	#grep only links
@@ -1289,7 +1290,7 @@ userrepof() {
 	local REPOLIST SIGNAL
 
 	#get list
-	REPOLIST="$( yourappf 0 'https://wiki.archlinux.org/index.php/Unofficial_user_repositories' )"
+	REPOLIST="$( yourappf 2 'https://wiki.archlinux.org/index.php/Unofficial_user_repositories' )"
 
 	#check for error
 	SIGNAL="$?"
@@ -1406,13 +1407,13 @@ unset opt
 
 #check for pkgs
 if command -v curl &>/dev/null; then
-	YOURAPP2=( curl --compressed -Lb nilcookie )
-	YOURAPP=( "${YOURAPP2[@]}" -\# )
-	YOURAPP3=( "${YOURAPP2[@]}" -s )
+	YOURAPP=( curl --compressed -Lb nilcookie )
+	YOURAPP2=( "${YOURAPP[@]}" -\# )
+	YOURAPP3=( "${YOURAPP[@]}" -s )
 elif command -v wget &>/dev/null; then
-	YOURAPP2=( wget -O- )
-	YOURAPP=( "${YOURAPP2[@]}" -q --show-progress )
-	YOURAPP3=( "${YOURAPP2[@]}" -q )
+	YOURAPP=( wget -O- )
+	YOURAPP2=( "${YOURAPP[@]}" -q --show-progress )
+	YOURAPP3=( "${YOURAPP[@]}" -q )
 else
 	printf '%s: warning -- curl or wget is required\n' "$SN" >&2
 	exit 1
