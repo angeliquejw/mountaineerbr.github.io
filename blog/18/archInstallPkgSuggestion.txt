@@ -87,6 +87,7 @@ ebook-tools
 expac
 feh
 ffmpeg
+ffnvcodec-headers  #NVIDIA
 figlet
 file-roller
 firefox
