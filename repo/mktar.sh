@@ -2,7 +2,8 @@
 # mountaineerbr  may/2021
 # Make archive packages from directories
 # usage: mktar.sh [FILE]
-# otherwise archives all folder of $PWD
+# by defaults, archives all folder of $PWD
+# set $SUMONLY to update checksum only
 # requires `cksum' package
 
 #script name
@@ -15,7 +16,7 @@ pbase=$HOME/www/mountaineerbr.github.io
 pbaserepos="$pbase/repo"
 
 #cache checksum filename root
-cksumf="$pbaserepos/cksum_"
+cksumroot="$pbaserepos/cksum"
 
 #max file sizes
 warningsize=94500  #(KB)
@@ -48,12 +49,13 @@ for repo in ${@:-*/}
 do
 	repo="${repo%/}"
 	tarfile="${repo:u}".TXZ
-	cksumfilename="${cksumf}${repo}"
+	cksumfilename="${cksumroot%/}/${repo}"
 	cksumfilenameold="$cksumfilename".cksum
 	cksumfilenamenew="$cksumfilename".new.cksum
 
 	#check checksum
-	if [[ -e "$cksumfilenameold" ]]
+	[[ "$repo" = "${cksumroot##*/}" ]] && continue  #don't make tar of _cksum/
+	if [[ -e "$cksumfilenameold" ]] && ((SUMONLY==0))
 	then
 		#check new against old checksum file
 		cksumf "$repo" >"$cksumfilenamenew"
@@ -70,6 +72,7 @@ do
 	else
 		#create a cksum file
 		cksumf "$repo" >"$cksumfilenameold"
+		((SUMONLY)) && ret+=(1) && continue
 	fi
 
 	print "$SN: creating -- $tarfile" >&2
