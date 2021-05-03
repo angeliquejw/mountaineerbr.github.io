@@ -2,7 +2,7 @@
 # mountaineerbr  may/2021
 # Make archive packages from directories
 # usage: mktar.sh [FILE]
-# by defaults, archives all folder of $PWD
+# by defaults, archives all dirs of $PWD
 # set $SUMONLY to update checksum only (exits with 100)
 # requires `cksum' package
 

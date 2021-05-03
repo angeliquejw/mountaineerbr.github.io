@@ -1,5 +1,5 @@
 #!/bin/zsh
-# v0.3.2  mountaineerbr  apr/2021
+# v0.3.3  mountaineerbr  apr/2021
 # Create pages for exploring directories and files
 # Requires `markdown' and `txt2html'.
 # <https://archlinux.org/packages/extra/x86_64/discount/>
@@ -105,8 +105,8 @@ treef()
 	'
 	#notes
 	notes='To download all files from a directory, try:
-	<code>wget -r --no-parent --reject "index.html*" [URL]
-	</code><br>
+	<!-- wget -r --no-parent --reject "index.html*" [URL] -->
+	<code>wget -r --no-parent [URL]</code><br>
 	That is a shame GitHub limits file size to 100MB.<hr>
 	'
 	
