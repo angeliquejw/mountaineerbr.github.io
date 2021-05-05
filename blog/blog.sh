@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.4  apr/2021  mountaineerbr
+# v0.6.5  apr/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -568,7 +568,7 @@ do
 		unset p q
 
 		#get rid of some comments
-		sed -i '/^\s*<!-- #.*-->/ d' "$targetpost"
+		sed -i '/^\s*<!--\s*#.*-->/ d' "$targetpost"
 
 
 
@@ -718,7 +718,7 @@ fi  >>"$LOGFILE"
 
 #more cat.html fixes
 #get rid of some comments
-sed -i '/^\s*<!-- #.*-->/ d' "$TARGET_CAT"
+sed -i '/^\s*<!--\s*#.*-->/ d' "$TARGET_CAT"
 
 #change heading numbers
 for h in 4 3 2 1
