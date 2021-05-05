@@ -1,6 +1,6 @@
 #!/bin/bash
 # ala.sh -- arch linux archive explorer (search and download)
-# v0.14.4  may/2021  by castaway
+# v0.14.5  may/2021  by castaway
 
 #defaults
 #script name
@@ -314,8 +314,8 @@ USAGE EXAMPLES
 
 		Tip: set -K to dump more info of packages:
 
-		$ $SN -2k. yesterday extra
 		$ $SN -K. 20140601/core
+		$ $SN -2k. yesterday extra
 
 
 	(8) Download an entire repository from given DATE or from a
@@ -351,6 +351,7 @@ USAGE EXAMPLES
 
 OPTIONS
 	-2 	      Use Arkena's server (slow, sometimes down).
+	-3 	      Custom server; simple mirror URL may be set (experimental);
 	-a 	      List all packages and versions from server.
 	-c  [DATE] [REPOS]
 		      Calculate REPOS sizes from DATE; sizes taken from webpage;
