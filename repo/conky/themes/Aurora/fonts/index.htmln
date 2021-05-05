@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <meta name="Author" content="Made by 'tree'">
+ <meta name="GENERATOR" content="$Version: $ tree v1.8.0 (c) 1996 - 2018 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro $">
+ <title>FONTS - Directory Tree</title>
+ <style type="text/css">
+h1 { text-transform: uppercase; } 
+	img {
+		max-width: 500px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.tar  { color: brown;  background-color: beige;}
+	.pic  { color: blueviolet;}
+	.media  { color: orange;}
+	.doc  { color: indianred;}
+	.txt  { color: crimson;}
+	.pdf  { color: white;  background-color: blue;}
+	.hidden  { background-color: azure;}
+	
+  <!-- 
+  BODY { font-family : ariel, monospace, sans-serif; }
+  P { font-weight: normal; font-family : ariel, monospace, sans-serif; color: black; background-color: transparent;}
+  B { font-weight: normal; color: black; background-color: transparent;}
+  A:visited { font-weight : normal; text-decoration : none; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:link    { font-weight : normal; text-decoration : none; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:hover   { color : #000000; font-weight : normal; text-decoration : underline; background-color : yellow; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:active  { color : #000000; font-weight: normal; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  .VERSION { font-size: small; font-family : arial, sans-serif; }
+  .NORM  { color: black;  background-color: transparent;}
+  .FIFO  { color: purple; background-color: transparent;}
+  .CHAR  { color: yellow; background-color: transparent;}
+  .DIR   { color: blue;   background-color: transparent;}
+  .BLOCK { color: yellow; background-color: transparent;}
+  .LINK  { color: aqua;   background-color: transparent;}
+  .SOCK  { color: fuchsia;background-color: transparent;}
+  .EXEC  { color: green;  background-color: transparent;}
+  -->
+ </style>
+</head>
+<body>
+	<h2>FONTS - Directory Tree</h2><p>
+	<a class="NORM" href="..">..</a><br>
+<a class="NORM" href=".">.</a><br>
+	├── [&nbsp;95K]&nbsp;&nbsp;<a class="NORM" href="./ADELE-Light.ttf">ADELE-Light.ttf</a><br>
+	├── [&nbsp;77K]&nbsp;&nbsp;<a class="NORM" href="./Aliquam.ttf">Aliquam.ttf</a><br>
+	├── [&nbsp;11K]&nbsp;&nbsp;<a class="txt" href="./Apache License.txt">Apache License.txt</a><br>
+	├── [710K]&nbsp;&nbsp;<a class="NORM" href="./Capture it.ttf">Capture it.ttf</a><br>
+	├── [9.7K]&nbsp;&nbsp;<a class="NORM" href="./ConkyColors.ttf">ConkyColors.ttf</a><br>
+	├── [&nbsp;16K]&nbsp;&nbsp;<a class="NORM" href="./ConkyColorsWeather.ttf">ConkyColorsWeather.ttf</a><br>
+	├── [&nbsp;78K]&nbsp;&nbsp;<a class="NORM" href="./Constrocktion.ttf">Constrocktion.ttf</a><br>
+	├── [724K]&nbsp;&nbsp;<a class="NORM" href="./DejaVuSans.ttf">DejaVuSans.ttf</a><br>
+	├── [&nbsp;27K]&nbsp;&nbsp;<a class="NORM" href="./Digital Readout Thick Upright.ttf">Digital Readout Thick Upright.ttf</a><br>
+	├── [114K]&nbsp;&nbsp;<a class="NORM" href="./DroidLogo-Bold.ttf">DroidLogo-Bold.ttf</a><br>
+	├── [186K]&nbsp;&nbsp;<a class="NORM" href="./DroidSans.ttf">DroidSans.ttf</a><br>
+	├── [&nbsp;48K]&nbsp;&nbsp;<a class="NORM" href="./FEENC___.ttf">FEENC___.ttf</a><br>
+	├── [169K]&nbsp;&nbsp;<a class="NORM" href="./ge_inspira.ttf">ge_inspira.ttf</a><br>
+	├── [&nbsp;22K]&nbsp;&nbsp;<a class="NORM" href="./Genericons.ttf">Genericons.ttf</a><br>
+	├── [&nbsp;59K]&nbsp;&nbsp;<a class="NORM" href="./GeosansLight.ttf">GeosansLight.ttf</a><br>
+	├── [255K]&nbsp;&nbsp;<a class="NORM" href="./HNUT.ttf">HNUT.ttf</a><br>
+	├── [151K]&nbsp;&nbsp;<a class="NORM" href="./Homestead-Display.ttf">Homestead-Display.ttf</a><br>
+	├── [&nbsp;57K]&nbsp;&nbsp;<a class="NORM" href="./Inconsolata.otf">Inconsolata.otf</a><br>
+	├── [&nbsp;&nbsp;36]&nbsp;&nbsp;<a class="EXEC" href="./install_fonts_and_update_cache_aurora.sh">install_fonts_and_update_cache_aurora.sh</a>*<br>
+	├── [137K]&nbsp;&nbsp;<a class="NORM" href="./ITCAvantGardePro-XLt.ttf">ITCAvantGardePro-XLt.ttf</a><br>
+	├── [180K]&nbsp;&nbsp;<a class="NORM" href="./KnifeFightBallet-Regular.otf">KnifeFightBallet-Regular.otf</a><br>
+	├── [&nbsp;91K]&nbsp;&nbsp;<a class="NORM" href="./Lato-Bold.ttf">Lato-Bold.ttf</a><br>
+	├── [&nbsp;94K]&nbsp;&nbsp;<a class="NORM" href="./Lato-Regular.ttf">Lato-Regular.ttf</a><br>
+	├── [3.8K]&nbsp;&nbsp;<a class="NORM" href="./LG_Weather_Z.ttf">LG_Weather_Z.ttf</a><br>
+	├── [&nbsp;54K]&nbsp;&nbsp;<a class="NORM" href="./NEUROPOL.ttf">NEUROPOL.ttf</a><br>
+	├── [&nbsp;41K]&nbsp;&nbsp;<a class="NORM" href="./OldSansBlack.ttf">OldSansBlack.ttf</a><br>
+	├── [&nbsp;26K]&nbsp;&nbsp;<a class="NORM" href="./Open 24 Display St.ttf">Open 24 Display St.ttf</a><br>
+	├── [&nbsp;22K]&nbsp;&nbsp;<a class="EXEC" href="./pf_tempesta_five_condensed.ttf">pf_tempesta_five_condensed.ttf</a>*<br>
+	├── [&nbsp;28K]&nbsp;&nbsp;<a class="NORM" href="./PIZZADUDEBULLETS.ttf">PIZZADUDEBULLETS.ttf</a><br>
+	├── [172K]&nbsp;&nbsp;<a class="NORM" href="./Raleway-Regular.ttf">Raleway-Regular.ttf</a><br>
+	├── [146K]&nbsp;&nbsp;<a class="NORM" href="./Roboto-BlackItalic.ttf">Roboto-BlackItalic.ttf</a><br>
+	├── [139K]&nbsp;&nbsp;<a class="NORM" href="./Roboto-Black.ttf">Roboto-Black.ttf</a><br>
+	├── [141K]&nbsp;&nbsp;<a class="NORM" href="./Roboto-BoldItalic.ttf">Roboto-BoldItalic.ttf</a><br>
+	├── [160K]&nbsp;&nbsp;<a class="NORM" href="./Roboto-Bold.ttf">Roboto-Bold.ttf</a><br>
+	├── [142K]&nbsp;&nbsp;<a class="NORM" href="./RobotoCondensed-BoldItalic.ttf">RobotoCondensed-BoldItalic.ttf</a><br>
+	├── [138K]&nbsp;&nbsp;<a class="NORM" href="./RobotoCondensed-Bold.ttf">RobotoCondensed-Bold.ttf</a><br>
+	├── [141K]&nbsp;&nbsp;<a class="NORM" href="./RobotoCondensed-Italic.ttf">RobotoCondensed-Italic.ttf</a><br>
+	├── [142K]&nbsp;&nbsp;<a class="NORM" href="./RobotoCondensed-LightItalic.ttf">RobotoCondensed-LightItalic.ttf</a><br>
+	├── [138K]&nbsp;&nbsp;<a class="NORM" href="./RobotoCondensed-Light.ttf">RobotoCondensed-Light.ttf</a><br>
+	├── [137K]&nbsp;&nbsp;<a class="NORM" href="./RobotoCondensed-Regular.ttf">RobotoCondensed-Regular.ttf</a><br>
+	├── [145K]&nbsp;&nbsp;<a class="NORM" href="./Roboto-Italic.ttf">Roboto-Italic.ttf</a><br>
+	├── [143K]&nbsp;&nbsp;<a class="NORM" href="./Roboto-LightItalic.ttf">Roboto-LightItalic.ttf</a><br>
+	├── [137K]&nbsp;&nbsp;<a class="NORM" href="./Roboto-Light.ttf">Roboto-Light.ttf</a><br>
+	├── [144K]&nbsp;&nbsp;<a class="NORM" href="./Roboto-MediumItalic.ttf">Roboto-MediumItalic.ttf</a><br>
+	├── [134K]&nbsp;&nbsp;<a class="NORM" href="./Roboto-Medium.ttf">Roboto-Medium.ttf</a><br>
+	├── [142K]&nbsp;&nbsp;<a class="NORM" href="./Roboto-Regular.ttf">Roboto-Regular.ttf</a><br>
+	├── [129K]&nbsp;&nbsp;<a class="NORM" href="./Roboto-ThinItalic.ttf">Roboto-ThinItalic.ttf</a><br>
+	├── [127K]&nbsp;&nbsp;<a class="NORM" href="./Roboto-Thin.ttf">Roboto-Thin.ttf</a><br>
+	├── [&nbsp;45K]&nbsp;&nbsp;<a class="NORM" href="./Santana-Bold.ttf">Santana-Bold.ttf</a><br>
+	├── [&nbsp;44K]&nbsp;&nbsp;<a class="NORM" href="./Santana.ttf">Santana.ttf</a><br>
+	├── [118K]&nbsp;&nbsp;<a class="NORM" href="./SourceCodePro-Light.ttf">SourceCodePro-Light.ttf</a><br>
+	├── [&nbsp;26K]&nbsp;&nbsp;<a class="NORM" href="./Space Age.ttf">Space Age.ttf</a><br>
+	├── [&nbsp;21K]&nbsp;&nbsp;<a class="NORM" href="./STYLBCC_.TTF">STYLBCC_.TTF</a><br>
+	├── [342K]&nbsp;&nbsp;<a class="NORM" href="./Ubuntu.ttf">Ubuntu.ttf</a><br>
+	├── [137K]&nbsp;&nbsp;<a class="NORM" href="./WireOne.ttf">WireOne.ttf</a><br>
+	└── [&nbsp;64K]&nbsp;&nbsp;<a class="NORM" href="./zekton rg.ttf">zekton rg.ttf</a><br>
+	<br><br>
+	</p>
+	<p>
+
+0 directories, 56 files
+	<br><br>
+	</p>
+	<hr>
+	<p class="VERSION">
+To download all files from a directory, try:
+	<!-- wget -r --no-parent --reject "index.html*" [URL] -->
+	<code>wget -r --no-parent [URL]</code><br>
+	That is a shame GitHub limits file size to 100MB.<hr>
+	
+		 tree v1.8.0 © 1996 - 2018 by Steve Baker and Thomas Moore <br>
+		 HTML output hacked and copyleft © 1998 by Francesc Rocher <br>
+		 JSON output hacked and copyleft © 2014 by Florian Sesser <br>
+		 Charsets / OS/2 support © 2001 by Kyosuke Tokoro
+	</p>
+</body>
+</html>

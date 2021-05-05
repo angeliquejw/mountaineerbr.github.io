@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+
+<!--	THIS IS A TEMPLATE DOCUMENT USED BY THE BLOG POSTING -->
+<!--	SYSTEM.  A SCRIPT WILL COMPILE THIS INTO -->
+<!--	FINISHED PAGES FOR PUBLICATION.  TEXT FROM <ARTICLE>, -->
+<!--	<HEADER> AND <HEAD> SECTIONS ARE SOURCED AND ARE -->
+<!--	MANDATORY (USE LOWERCASE TAGS). -->
+
+
+<!--	NOTE THE <HEADER> SECTION MUST CONTAIN ONE <H1> -->
+<!--	AND ONE <P> ONLY. -->
+
+<!--	THE <HEAD> SECTION HOLDS VERY SPECIFIC META TAGS, -->
+<!--	SUCH AS KEY WORDS AND CSS STYLE SHEET REFERENCES, -->
+<!--	WHICH MUST BE ADDRESSED AT THE END OF EACH POST -->
+<!--	(SEE END OF PAGE). -->
+
+<!--	SEE ALSO H-ENTRY and H-FEED MICROFORMATS AT -->
+<!--	<https://developer.mozilla.org/en-US/docs/Web/HTML/microformats> -->
+
+
+<article class="h-entry">
+
+<header>
+	<h1 class="p-name" id="15">#15 - Moved on</h1>
+	<time class="dt-published" datetime="2020-11-05">05/nov/2020</time>
+	
+	<br>
+</header>
+
+
+<!-- SUMMARY IN DIFFERENT LANGUAGE -->
+<!-- <div lang="pt" class="p-summary"><p></p></div><br> -->
+
+
+<!-- MAIN TEXT  -->
+
+<br>
+<figure>
+	<img src="hubbleExtremeDeepField1b_small.jpg" alt="Space with various visible galaxies" width="3000" height="2400">
+	<figcaption>
+		Fig 1. 
+		<q>
+
+		<a href="https://www.spacetelescope.org/science/deep_fields/">Hubble eXtreme Deep Field</a>.
+		Thousands of galaxies are seen when Hubble pointed its
+		camera to an unseemingly dark spot in the space.
+		Local copy of <a href="hubbleExtremeDeepField1b.jpg">image here</a>.
+		</q>
+
+		<small>
+		(credit: Hubble Space Telescope)
+		</small>
+	</figcaption>
+</figure>
+
+
+</article>
+
+
+<!-- META TAGS -->
+<!-- <TITLE> TAG WILL BE A CLONE FROM <H1> -->
+<head>
+<meta name="description" content="There are times when we go down the memory lane and get upset. After reviewing it, we must move on for our own health.">
+<meta name="keywords" content="passado, past, psicologia, psychology">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+
+</head>
+

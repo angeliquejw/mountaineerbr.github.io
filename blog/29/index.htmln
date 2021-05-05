@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.7.45">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS" href="../rss.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Alternative feed)" href="../rss_alt.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Podcast)" href="../rss_podcast.xml">
+<!-- metatags -->
+
+<title>17/mar/2021 #29 - Sweeping Bitcoin Wallets and Low
+Fees</title>
+<link rel="canonical" href=
+"https://mountaineerbr.github.io/blog/29/">
+<meta name="description" content=
+"Trying to broadcast own transactions with low fees has many a stand but is not generally a difficult process to understand. Practice and patience are required to get low-fee transactions included in the blockchain. Persistence is a key word in this pursue.">
+<meta name="keywords" content=
+"persistence, persistência, dicas, tips, bitcoin-daemon, bitcoind, server, full node, full-node, nodo, nodo inteiro, bitcoin">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+<meta name="resource-type" content="document">
+<meta name="author" content="jsn">
+<meta name="distribution" content="global">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<link rel="shortcut icon" href="../../favicon.ico" type=
+"image/x-icon">
+<style>
+        /* Microformat style */
+        .dt-published
+        {
+                font-size: 1.1em;
+        }
+
+</style>
+</head>
+<body>
+<header>
+<div class="w3-bar w3-amber">
+<nav class="navbar"><a class="w3-bar-item w3-left" href=
+"../../">Home</a> <a class="w3-bar-item w3-left" href="../">Post
+index</a> <!-- navitem -->
+<a class="w3-bar-item w3-right" href="../30/">Next</a> <a class=
+"w3-bar-item w3-right" href="../28/">Previous</a></nav>
+</div>
+</header>
+<!-- FEED -->
+<a href="../rss.xml"><img class="postfeed" src="../gfx/pic_rss.gif"
+alt="RSS Logo" width="36" height="14"></a>
+<main class="h-feed" style="clear:both;">
+<p>by <span class="p-author">Mountaineerbr</span></p>
+<!-- article -->
+
+<article class="h-entry">
+<header>
+<h1 class="p-name" id="29">#29 - Sweeping Bitcoin Wallets and Low
+Fees</h1>
+<time class="dt-published" datetime="2021-03-17">17/mar/2021</time>
+<br>
+</header>
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+
+<div lang="pt" class="p-summary">
+<p>Precisando fazer umas operações de varredura (<span lang=
+"en">sweeps</span>) em umas carteiras e endereços antigos, achei
+alguns detalhes sobre o processo de transmissão das transação para
+os <span lang="en">mempools</span> através do meu nodo completo que
+compartilho aqui.</p>
+</div>
+
+<br>
+<!-- MAIN TEXT  -->
+
+<p>There are some legacy bitcoin keys which produce vanity
+addresses, such as <q>1Bio*</q> made with <code>vanitygen</code>
+and some legacy wallets made with <code>Electrum</code> which
+needed to be swept to segwit addresses as transaction fees are
+doomed to get very high on the main chain as time goes on.</p>
+
+<p>Some time ago, Adreas Antonopoulos said in one of his lectures
+the best way to do that is to sweep the old wallets. Moving
+<em>utxos</em> to a single address will reduce the size of the
+following transactions but sweeping may generate a large
+transaction (in bytes) because it can contain <em>various unspent
+outputs</em>. That is why it is a good idea to do sweeps leisurely,
+with time at hand and aiming for low fees..</p>
+
+<p>I can sync my full node that lives in a USB hard drive with the
+network. I have got the <code>bitcoind</code> inbound port open to
+get other nodes to sync with me (including the <em>mempool</em>). I
+just don't mine nor use <code>bitcoind</code> with my wallets
+because I rather prefer <code>Electrum</code> to manage them.</p>
+
+<p>I have been trying to set sweeps with small transaction fees,
+such as 1-6 satoshi/Byte.</p>
+
+<h2>Notes on broadcasting transactions from my full node</h2>
+
+<p>As many of the readers may be aware, most <code>Electrum</code>
+mempools will not accept transactions with very low fees and their
+threshold is much higher than the minimum of 1sat/B as the default
+relay (broadcasting) fee.</p>
+
+<p>What the reader may not be aware of is about <em>the minimum
+mempool fee</em>: <q>The amount of system memory allocated for
+unconfirmed transactions is defined with the option
+<code>maxmempool</code>. <code>maxmempool</code> defaults to 300MB
+of RAM. Once the maxmempool-memory is fully used, the lowest-fee
+transactions are dropped from the nodes mempool and
+<code>mempoolminfee</code> is increased to reject lower-fee
+transactions</q> (by <a href=
+"https://github.com/bitcoin/bitcoin/issues/11955">0xB10C</a>).</p>
+
+<p>Transactions may be dropped from the mempool just a few minutes
+after they are added or until 336 hours (two weeks) or after even
+longer.</p>
+
+<p>Andreas Antonopoulos said he can get <em>most</em> of his
+transactions through with 1sat/B fee, so I reckon he keeps
+broadcasting his transactions through his own node until they are
+taken in a block or he gives up.</p>
+
+<p>Andreas said that even though transactions marked with the flag
+<em>Replaceable By Fee</em> (RBF) are less dependable than
+non-flagged transactions, all of his transactions are marked as
+RBF. It should not really make much of a difference but if a
+transaction is not marked as RBF, <code>bitcoind</code> will not
+just double-spend the same <em>utxo</em> while the old transaction
+is in your local mempool and will throw out a broadcasting error,
+whereas RBF transactions are promptly double-spent and the older
+transaction (conflicting transaction) is removed from the local
+mempool by <code>bitcoind</code>.</p>
+
+<p><a title=
+"Bitcoin Fees: What are RBF and CPFP? What to do if my bitcoin transaction gets stuck?!?"
+href="https://www.youtube.com/watch?v=zL9Nu39qft4&t=331s">Andreas
+also remarked</a> that <strong>RBF</strong> transactions may be
+replaced by the <strong>sender</strong>, while <em>Child Pays For
+Parent</em> (<strong>CPFP</strong>) transactions are made by the
+<strong>recipient</strong>.</p>
+
+<hr>
+
+<p>I decided to use <code>Electrum</code> to make and sign the
+sweep transactions and then broadcast them through my own node.</p>
+
+<p>The first time I messed with those sweep transactions,
+broadcasting a bunch of to my local mempool and soon
+<em>blockcypher</em> could detect them in various other mempools,
+too.</p>
+
+<p>After less than 24 hours, no transaction could be found in other
+mempools by <em>blockcypher</em>, but they still persisted at my
+local mempool.</p>
+
+<p>After restarting <code>bitcoind-daemon</code>, those old
+transactions were rebroadcasted from my local node and could be
+detected by <em>blockcypher</em> again. So if you don't want to
+rebroadcast old transactions accidentally, be sure to remove
+<code>mempool.dat</code> before <code>bitcoind</code> starts or
+setting option <code>persistmempool=0</code>. File
+<code>mempool.dat</code> is created by dumping mempool data from
+RAM when <code>bitcoind</code> exits..</p>
+
+<p>To keep rebroadcasting your own transactions, be sure to set a
+large enough value for <code>maxmempool</code> size so your
+transactions are not outside <code>mempoolminfee</code> range.</p>
+
+<p>I will keep trying some more experimentations with low
+transaction fees and broadcasting them from my own node to see how
+many, if any at all, will be confirmed in the following few days..
+So far, only one transaction with feed ~6sat/B got to the
+blockchain, but that is higher than I want to pay for the other
+transactions..</p>
+
+<p><strong>Tip:</strong> if you are using the clipboard and dealing
+with <em>private keys</em>, beware not to paste one of them in a
+block explorer as I did.. Ideally, don't connect your computer to
+the internet while dealing with private keys. This avoids many
+problems.</p>
+
+<h2>More references</h2>
+
+<ul>
+<li><a href=
+"https://bitcointalk.org/index.php?topic=5313115.0">Strategies to
+save off Bitcoin fees?</a>, see <strong>tranthidung</strong>
+commentary</li>
+
+<li><a href=
+"https://bitcointalk.org/index.php?topic=5306306.0">Unconfirmed
+transaction</a>
+</li>
+
+<li><a href="https://bitcointalk.org/index.php?topic=5304064.0">It
+is pointless if the BTC fees increases along with rise in BTC
+price!</a>, this is a long discussion and seems interesting..</li>
+</ul>
+</article>
+</main>
+
+<footer>
+<hr class="sep">
+<!-- Google Analytics -->
+<!--
+- - - - Copyright ©2021 JSN.
+ - - -  Verbatim copying and distribution of this entire article is
+- - - - permitted in any medium, provided this notice is preserved.
+-->
+</footer>
+</body>
+</html>

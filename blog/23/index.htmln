@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.7.45">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS" href="../rss.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Alternative feed)" href="../rss_alt.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Podcast)" href="../rss_podcast.xml">
+<!-- metatags -->
+
+<title>23/feb/2021 #23 - Banned from BSD Forums by Said
+Environmentalists</title>
+<link rel="canonical" href=
+"https://mountaineerbr.github.io/blog/23/">
+<meta name="description" content=
+"Are the BSD people an alternative or are they just like everybody else? Here is a repost of my original reply to their `Environmentalist' thread which got me banned unfairly.">
+<meta name="keywords" content=
+"environment, system fine-tuning, BSD, unfairness, sun, environmental forcings, biologist against environmentalists, science, biology, meio ambiente, ajust fino de sistema, injustiça, sol, forças do meio ambiente, biólogo contra ambientalistas, biologia, ciência">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+<meta name="resource-type" content="document">
+<meta name="author" content="jsn">
+<meta name="distribution" content="global">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<link rel="shortcut icon" href="../../favicon.ico" type=
+"image/x-icon">
+<style>
+        /* Microformat style */
+        .dt-published
+        {
+                font-size: 1.1em;
+        }
+
+</style>
+</head>
+<body>
+<header>
+<div class="w3-bar w3-amber">
+<nav class="navbar"><a class="w3-bar-item w3-left" href=
+"../../">Home</a> <a class="w3-bar-item w3-left" href="../">Post
+index</a> <!-- navitem -->
+<a class="w3-bar-item w3-right" href="../24/">Next</a> <a class=
+"w3-bar-item w3-right" href="../22/">Previous</a></nav>
+</div>
+</header>
+<!-- FEED -->
+<a href="../rss.xml"><img class="postfeed" src="../gfx/pic_rss.gif"
+alt="RSS Logo" width="36" height="14"></a>
+<main class="h-feed" style="clear:both;">
+<p>by <span class="p-author">Mountaineerbr</span></p>
+<!-- article -->
+
+<article class="h-entry">
+<header>
+<h1 class="p-name" id="23">#23 - Banned from BSD Forums by Said
+Environmentalists</h1>
+<time class="dt-published" datetime="2021-02-23">23/feb/2021</time>
+<br>
+</header>
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+<!-- <div lang="pt" class="p-summary"><p></p></div><br> -->
+<!-- MAIN TEXT  -->
+
+<p>That is so difficult to be an intelectual!</p>
+
+<p>I was checking out BSD forms because I like BSD and plan(ned) to
+migrate to BSD someday, so I like to check that out sometimes and
+see what are the troubles that affect that people..</p>
+
+<p>Today I found a very intriguing thread called <a href=
+"https://forums.freebsd.org/threads/environmentalist.77011/"><strong>
+Environmentalist</strong></a>, in which there is a pitiful
+discussion about <em>saving the environment by setting and
+fine-tuning their BSD system <strong>power plan</strong>
+correctly</em>..</p>
+
+<p>I thought the BSD people were sort of alternative people who
+would care to open their minds to other possibilities. and decided
+to post a reply to that thread and see if I could shed some light
+on these complex environmental questions. As it turned out, they
+are just as inflexible as anyone else, I am afraid. I was banned
+less than 30 minutes later by allegations of spamming!</p>
+
+<p>I sent an appeal e-mail to <em>accounts@FreeBSD.org</em> and
+<em>forum-admins@FreeBSD.org</em>. Unfortunately, I do not expect
+to hear back from them.</p>
+
+<p>The following is a copy of my original reply to that thread.
+Enjoy!</p>
+
+<hr>
+
+<p>Hallo guys,</p>
+
+<p>The Sun still warms. There are other forces in Nature which have
+got a planetary effect. Keep in mind the insignificance of humans
+in the bigger space scenery. Global forcings include, the Sun by
+various means, its energy flux <em>and</em> magnetic field
+strength. Actually, magnetic changes of the Sun fields seem to have
+a greater effect on Earth than merely Sun's energy flux. Something
+that is really worrisome is the influx of cosmic rays which are
+really powerful when coming from out of solar system and are
+mutagenic, for the worse and for the better, but mostly bad for
+humans.. Also, The Sun will affect the oceans which are able to
+have a global effect, too. Still, we can go to smaller scale and
+point out that volcanoes can change global temperature (albeit for
+maybe only a short period of time, say months or years).</p>
+
+<p>Why do the forces above can change Earth climate? The Sun has
+got many cycles, for example one magnetic cycle that lasts 11
+years, others that last hundreds of years and others thousand of
+years.. These cycles all overlap each other, so they are not so
+easy to identify but possible. Only recently scientists have been
+questioning what are the effects of the `Galactic Current Sheet',
+which crosses Earth at about 12K or so years. That is
+<em>roughly</em> about the same period of time Earth uses to flip
+poles..</p>
+
+<p>Check Suspicious Observer, however take with a grain of salt his
+seemingly alarmism sometimes:
+<br>
+<a href="https://youtu.be/ouGhtFOpaHM">Galactic Sheet Impact |
+Timing the Arrival</a></p>
+
+<p>The following article is also useful in this specific context:
+<br>
+<a href=
+"https://watchers.news/2019/09/22/solar-system-approaching-the-closest-position-to-the-galactic-core-energetic-region-altering-magnetic-fields-of-the-sun-and-all-planets/">
+Solar system approaching the closest position to the galactic core,
+energetic region altering magnetic fields of the Sun and all
+planets</a></p>
+
+<p>There are some recent papers describing what I find most
+fascinating and is potentially a unifying background for all this
+discussion is the understanding of `Sun Inertial Motion' (SIM),
+check Zharkova (she has got some lectures videos on the tubes):
+<br>
+<a href=
+"https://sci-hub.st/https://www.nature.com/articles/s41598-019-45584-3">
+Oscillations of the baseline of solar magnetic field and solar
+irradiance on a millennial timescale</a>
+<br>
+<a href=
+"https://mountaineerbr.github.io/blog/res/zharkova2019.pdf">Or my
+copy of the article</a></p>
+
+<p>And also:
+<br>
+<a href=
+"https://www.thegrandsolarminimum.com/valentina-zharkovas-statement-to-ben-davidson-of-suspicious-observers/">
+One of Zharkova's team website (reply to Suspicious
+Observer)</a></p>
+
+<p>These are Milankovich cycles.</p>
+
+<p>Other cycles affect Earth, for example the effects of</p>
+
+<p>The Oceans have got their own cycles, too, some being
+multidecadal cycles. For example, one Pacific Ocean cycle is 60
+years long, so a human that is lucky enough to live a long life may
+live through Pacific Ocean cycle once, surely less than 2 full
+cycles at the luckiest possibility for human life experience..</p>
+
+<p>There are also Geologic forces which will change Earth face very
+quickly even in terms of human life time span. Se this article from
+Dr. Peet, a great geologist from last century in NYT article:</p>
+
+<blockquote>
+<p>England is known to being eaten by the ocean (erosion) while
+primitive regions have a habit of throwing up new islands and some
+to vanish.</p>
+
+<p>Some parts of Scandiavia have lifted from .45 to .95 meters per
+century.</p>
+
+<p>The Bavarian Alps have advanced closer to Munich at the rate of
+a .30 to .91 meters in the course of 100 years.</p>
+
+<p>In other parts of Germany church steeples which were formerly
+not visible from certain points are beginning to rise above the
+horizon..</p>
+
+<p>--<a href=
+"https://www.nytimes.com/1926/07/25/archives/europe-shrinks-as-earth-cools-geologist-finds-that-nordic-lands.html">Europe
+Shrinks as Earth Cools</a>, <a href=
+"https://github.com/mountaineerbr/extra/blob/master/NytRefs/europeShrinksAsEarthCools.pdf">
+(or my copy of the article)</a></p>
+</blockquote>
+
+<p>On the other hand, humans have got a very limited experience and
+power over their surroundings. Whereas rain storms may have a
+regional impact on the environment (albeit for only a short period
+of time), humans can only impact local environment such as for
+example: the city will affect its own environment and its immediate
+surroundings but as soon as you go farther to country side, city
+effects soon disappear. I have seem many people trying to
+extrapolate the very limited power of humans to affect the whole
+Earth but that is only wishful thinking, as we shall see.</p>
+
+<p>I fear science has become banal. Every one now thinks they are
+`environmentalists' without the burden to dig deep into Ecology
+(mostly important perhaps: Island Ecology). They are still very
+naive about biology and ignore how brutal it has been and still is
+against human beings.</p>
+
+<p>As Schrodinger warns us:</p>
+
+<blockquote>
+<p>In the tribunal there sits by the side of the judges a
+non-jurisprudent assessor- namely our own little self- which finds
+it distasteful to pass for an automaton.</p>
+--<a href=
+"https://philosophyandphysics.wordpress.com/2014/11/22/do-electrons-think/">Schrodinger,
+Do Electrons Think?</a></blockquote>
+
+<p>And also <q>there is no boundary between the living and
+non-living</q>, meaning we are bound by the same physical laws that
+govern the entire universe.</p>
+
+<p>Where do you guys live? I saw a comment in this thread of
+somebody saying:</p>
+
+<blockquote>We are at a point where most people have everything
+they need</blockquote>
+
+<p>I will not give you a reference but surely you guys should open
+your eyes to the fact most people in the <em>World</em> have got
+terrible life conditions and fight against illness, poverty and
+hunger..</p>
+
+<p>The biggest <strong>sustainability problem</strong> we have got
+is <strong>Poverty</strong>. Get this one right.</p>
+</article>
+</main>
+
+<footer>
+<hr class="sep">
+<!-- Google Analytics -->
+<!--
+- - - - Copyright ©2021 JSN.
+ - - -  Verbatim copying and distribution of this entire article is
+- - - - permitted in any medium, provided this notice is preserved.
+-->
+</footer>
+</body>
+</html>

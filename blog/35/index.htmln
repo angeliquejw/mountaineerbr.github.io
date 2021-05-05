@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.7.45">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS" href="../rss.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Alternative feed)" href="../rss_alt.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Podcast)" href="../rss_podcast.xml">
+<!-- metatags -->
+
+<title>07/apr/2021 #35 - Removing Google Analytics</title>
+<link rel="canonical" href=
+"https://mountaineerbr.github.io/blog/35/">
+<meta name="description" content=
+"Planning to remove Google Analytics and some politics ramble..">
+<meta name="keywords" content=
+"vaccine, politics, try, tentativa, vaccination halt, suspensão da vacinação, car trip, family, vigagem de carro, família">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+<meta name="resource-type" content="document">
+<meta name="author" content="jsn">
+<meta name="distribution" content="global">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<link rel="shortcut icon" href="../../favicon.ico" type=
+"image/x-icon">
+<style>
+        /* Microformat style */
+        .dt-published
+        {
+                font-size: 1.1em;
+        }
+
+</style>
+</head>
+<body>
+<header>
+<div class="w3-bar w3-amber">
+<nav class="navbar"><a class="w3-bar-item w3-left" href=
+"../../">Home</a> <a class="w3-bar-item w3-left" href="../">Post
+index</a> <!-- navitem -->
+<a class="w3-bar-item w3-right" href="../36/">Next</a> <a class=
+"w3-bar-item w3-right" href="../34/">Previous</a></nav>
+</div>
+</header>
+<!-- FEED -->
+<a href="../rss.xml"><img class="postfeed" src="../gfx/pic_rss.gif"
+alt="RSS Logo" width="36" height="14"></a>
+<main class="h-feed" style="clear:both;">
+<p>by <span class="p-author">Mountaineerbr</span></p>
+<!-- article -->
+
+<article class="h-entry">
+<header>
+<h1 class="p-name" id="35">#35 - Removing Google Analytics</h1>
+<time class="dt-published" datetime="2021-04-07">07/apr/2021</time>
+<br>
+</header>
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+<!-- <div lang="pt" class="p-summary"><p></p></div><br> -->
+<!-- MAIN TEXT  -->
+
+<p>Google Analytics is such naughty software. I can't bear it
+anymore.</p>
+
+<p>Some of the things that annoy me are the data presentation
+interface, which makes heavy use of java (I suppose and I don't
+much care). That is extremely slow to load and process the
+data.</p>
+
+<p>The interface is not very responsive when it is fully loaded,
+either. It has got a lot of options but most of them don't make a
+whole lot of sense to me.</p>
+
+<p>It is clear <strong><abbr title=
+"Google Analytics">GA</abbr></strong> does not show the raw data
+and try to make some specifics obscure. As my website has got
+little traffic, I can see how badly GA tries to hide me the little
+data there actually was collected from users!</p>
+
+<p>The <abbr title="Comma Separated Value">CSV</abbr> spreadsheets
+are terrible, <abbr title="In My Humble Opinion">IMHO</abbr>.</p>
+
+<p>That is a sure thing GA first collects a whole lot of data from
+my visitors and only after processing that it shows me some of it
+in whatever representations GA thinks is better for their
+webmasters `<abbr title="users">useds</abbr>'.</p>
+
+<p>Plus, its interface is very slow to load because it collects
+data from we, webmasters, as well! There is no limit for whatever
+garbage data they collect... If GA would only show me what GA
+sees...</p>
+
+<p>Once I tried a service called <em>matomo</em>, but was wary soon
+after reading its terms of use. And mind that the only statistics
+it showed me was a <strong>hit counter</strong>...</p>
+
+<p>If anyone knows of a <strong>clean, simpler and better
+service</strong>, <a href="../../contact/">please let me know</a>.
+Whatever a simple webmaster wants from simple statistics..</p>
+
+<p>I will remove GA scripts from my webpage in the following days.
+I am still deciding what method (<code>sed -i</code> or <a title=
+"Perl Pie : Replace String in Files" href=
+"http://perlpie.com/"><code>perl -pie</code></a>) and regular
+expression to use, or whether manually...</p>
+
+<p>As for now, you can check webpage sources, press [CTRL+U] in
+Firefox or Chrome.</p>
+
+<p>Besides adding GA to the &lt;FOOTER&gt; section of webpages (as
+opposed to Google recommendation to adding it to the &lt;HEADER&gt;
+section), I know <code>uBlock</code> can block GA scripts (at least
+partially) from loading.. GA scripts should not be one of the first
+things to load in the webpage or at all..</p>
+
+<p>More two bad factors in using these analytics: a) I don't know
+how many of these `<em>unique</em>' users are not actually myself
+as I did not set filters to prevent that and b) there were at least
+three days with intense robot crawlings from various parts of the
+world. So I reckon most of the data available to me may be garbage
+at this point.</p>
+
+<h2>Google Analytics Data</h2>
+
+<p>So, before I just forget about GA, I am downlaoding some of
+their CSV files. Available data is about the same as that shown to
+me in GA web console.</p>
+
+<p>In the next table, that is the full data about <em>Location</em>
+of visitors since my website started using GA about 7 months ago,
+which is what mostly I wanted to know after the total hit
+count.</p>
+
+<p>This data appears to have robot attacks filtered out, so I will
+assume these are reasonable numbers.</p>
+
+<br>
+
+<table class="tablep35">
+<caption>Table 1. Google Analytics sumamry data for the period from
+01 Sep 2020 to 08 Apr 2021.</caption>
+
+<tr>
+<th>Country</th>
+<th>Users</th>
+<th>New Users</th>
+<th>Sessions</th>
+</tr>
+
+<tr>
+<td>Brazil</td>
+<td>177</td>
+<td>177</td>
+<td>398</td>
+</tr>
+
+<tr>
+<td>United States</td>
+<td>146</td>
+<td>146</td>
+<td>231</td>
+</tr>
+
+<tr>
+<td>China</td>
+<td>145</td>
+<td>145</td>
+<td>259</td>
+</tr>
+
+<tr>
+<td>India</td>
+<td>73</td>
+<td>73</td>
+<td>136</td>
+</tr>
+
+<tr>
+<td>Germany</td>
+<td>46</td>
+<td>46</td>
+<td>76</td>
+</tr>
+
+<tr>
+<td>Nigeria</td>
+<td>46</td>
+<td>46</td>
+<td>82</td>
+</tr>
+
+<tr>
+<td>Japan</td>
+<td>45</td>
+<td>45</td>
+<td>72</td>
+</tr>
+
+<tr>
+<td>United Kingdom</td>
+<td>44</td>
+<td>44</td>
+<td>70</td>
+</tr>
+
+<tr>
+<td>Russia</td>
+<td>42</td>
+<td>42</td>
+<td>69</td>
+</tr>
+
+<tr>
+<td>(not set)</td>
+<td>50</td>
+<td>50</td>
+<td>80</td>
+</tr>
+
+<tr>
+<td>Total</td>
+<td>1637</td>
+<td>1637</td>
+<td>2781</td>
+</tr>
+</table>
+
+<p>If reasonably correct with due reservations, I am quite pleased
+with the reach of my website for this period.</p>
+
+<p>But as Rob Willians from <a href="http://www.ratz.com/">Ratz</a>
+would say, <q>who cares about page views [in a personal
+website]?</q></p>
+
+<p>Besides GA not collecting data from me and my visitors, pages
+should load faster.</p>
+
+<p>I removed GA from HTML templates for the blog and podcast,
+recreated all blog pages and opted by purging the other few HTML
+files (about 13) manually, so I would not lose <em>vim
+undoes</em>..</p>
+
+<p>Github history (objects) of this website repo will also be
+removed..</p>
+
+<h2>Vaccine Frustration</h2>
+
+<p>Mum got vaccinated when her age group was eligible on
+Monday.</p>
+
+<p>Today, Wednesday, I tried to bring my aunt, who lives in a close
+city to my town, to vaccination because her age group would have
+become eligible.</p>
+
+<p>However, as I had last asked about vaccination on Monday and did
+not confirm the schedule on Tuesday (yesterday), it was only too
+late when we arrived at the vaccination center and discovered it
+had been suspended the previous day..</p>
+
+<p>Even though my aunt really does not live at town, she was born
+here and always lived at the area. As mum could prove her home is
+located at town, it all should be OK fr my aunt to have the
+vaccine, too..</p>
+
+<p>I take the blame for not phoning up the vaccination centre
+yesterday or even this morning before taking the highway trip.</p>
+
+<p>Politics is terrible in my country. That is mad to turn on the
+TV or the radio. Pandemics, vaccination and death are the main
+topics. The president is against lock down and restrictive
+measures. He confuses everybody! Occasionally some weird news about
+the president attending unimportant events..</p>
+
+<p>For example, the president does not say <strong lang=
+"pt">pessoas</strong> (persons, citizens) cleanly but also mouths
+<strong lang="pt">pensões</strong> (pensions) when talking about
+the pandemics..</p>
+
+<p>I wonder what he is really at.</p>
+
+<p>Relative numbers about the pandemics and vaccination mark Brazil
+in bad positions internationally. I see the USA has got too many
+vaccines in comparison to the rest of the world in absolute
+numbers. That is not OK, either..</p>
+
+<p>This is a somewhat stressful and frustrating day.. I am having
+some beer..</p>
+
+<hr>
+
+<p><strong>PS</strong>: even though I removed all GA scripts from
+my webpages two days ago, today I was checking GA console and
+another bot attack was recorded yesterday (9 Apr), which I reckon
+is not possible..</p>
+
+<p>May that be Google injects <em>weyrd</em> numbers itself to
+confuse and obfuscate real data? It may be possible. I am glad
+about not using GA anymore..</p>
+
+<p>But that is also possible this last bot attack at least was
+performed on a <a title="We are at the WayBack Machine!" href=
+"https://web.archive.org/web/2020*/https://mountaineerbr.github.io/">
+copy of my old website</a>.. Cannot discard this possibility.</p>
+
+<p><strong>PPS</strong>: Robots are really crazy, at least I feel
+like <em>something</em> does like my blog.. Once some good YouTube
+bots left comments. After I mistreated their comments (removed
+them), they gradually stopped commenting, so I am reasonably sure
+those were <em>good</em> YouTube bots..</p>
+
+<figure><a href="../gfx/GABots.png"><img src=
+"../gfx/GABotsSmall.png" alt=
+"Google Analytics screenshot of bot traffic." width="350" height=
+"173"></a>
+<figcaption>Fig 1. Screenshot of Google Analytics overview console.
+Click on the image to see screenshot at original size.</figcaption>
+</figure>
+</article>
+</main>
+
+<footer>
+<hr class="sep">
+<!-- Google Analytics -->
+<!--
+- - - - Copyright ©2021 JSN.
+ - - -  Verbatim copying and distribution of this entire article is
+- - - - permitted in any medium, provided this notice is preserved.
+-->
+</footer>
+</body>
+</html>

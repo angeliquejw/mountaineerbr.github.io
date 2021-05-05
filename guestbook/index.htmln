@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Guestbook -- Biologist Blogger</title>
+<meta name="resource-type" content="document">
+<meta name="description" content="Guest books and how to leave a message for us">
+<meta name="keywords" content="contact, contato, guestbook, livro de visitas, visitante, visitas, guest, comments, comentários, suggestion, suggestions, sugestões, críticas, critics">
+<meta name="distribution" content="global">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<link rel="canonical" href="https://mountaineerbr.github.io/guestbook/">
+<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
+<link rel="stylesheet" href="../css/style.css" type="text/css"/>
+<link rel="stylesheet" href="../css/style_layeredtext.css" type="text/css"/>
+
+<style>
+	body
+	{
+		background: radial-gradient(khaki, darkturquoise);
+		background-image: url("../gfx/jungle_small.jpg");
+		background-repeat: repeat;
+		background-size: auto;
+	}
+
+	h1, p
+	{
+		color: floralwhite;
+		font-family: ArialB, "Arial Black", Gadget, sans-serif;
+		text-shadow: 0px 0px 6px orange, 2px 2px 6px var(--stallman-lightpurple);
+		/* text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF; */
+	}
+
+	h1, h2
+	{
+		text-align: center;
+	}
+
+	img
+	{
+		display: block;
+		padding: 1em;
+	}
+
+	div
+	{
+		padding: .2em;
+
+	}
+
+	.center
+	{
+		text-align: center;
+		display: block;
+		margin: auto;
+		padding: 1em;
+		height: auto;
+		width: 60%;
+	}
+
+	.twttr
+	{
+		float: left;
+	}
+
+	.insta
+	{
+		float: right;
+		transform: scale(0.8);
+	}
+
+	.mouse
+	{
+		display: block;
+		transform: scale(1.8);
+		margin: auto;
+		width: auto;
+	}
+
+
+	.hovinv:hover
+	{
+		-webkit-filter: invert(1);
+		filter: invert(1);
+	}
+
+	@media only screen and (max-width: 600px)
+	{
+
+		.center
+		{
+			padding: 0;
+			width: 90%;
+		}
+	}
+
+</style>
+</head>
+
+<body>
+<header>
+	<nav class="navbar">
+		<ul>
+			<li><a href="../">Home</a></li>
+		</ul>
+	</nav>
+
+</header>
+
+<div class="layered">Guest<wbr>books</div>
+
+<br>
+<div class="center">
+<!-- <h1>Guestbooks</h1> -->
+
+<p>
+Leave us a message! We may take some time to get back to you.
+Click on a guestbook from one of the providers below ↓
+</p>
+
+
+
+<!-- PORTUGUESE -->
+<p id="portalpt" lang="pt">
+Deixe-nos uma mensagem! Podemos demorar para responder.
+Clique em um livro de visitas de um dos provedores abaixo ↓
+</p>
+<!-- PORTUGUESE -->
+</div>
+
+
+<div class="center group">
+	<!-- twitter -->
+	<a href="https://twitter.com/BiologistBlogg1/"><img src="../gfx/twitter_small.png" title="Twitter Guestbook" width="100" height="100" alt="[Go to Twitter guestbook]" class="twttr hovinv"></a>
+
+	<!-- instagram -->
+	<a href="https://www.instagram.com/biology_blogger/"><img src="../gfx/instagram_small.png" title="Instagram Guestbook" width="100" height="100" alt="[Go to Instagram guestbook ]" class="insta hovinv"></a>
+
+</div>
+
+
+
+<div>
+	<!-- e-mail -->
+	
+	<a href="../contact/"><img class="mouse hovinv" src="../gfx/mouseemail-small.gif" title="Go to contact page (e-mail)" alt="Mouse reading paper" width="38" height="32"></a>
+
+	<!-- <a href="../contact/"><img class="center hovinv" src="../gfx/dinomail.gif" title="Go to contact page (e-mail)" alt="dinosaur sending letter"></a> -->
+</div>
+
+
+<footer>
+
+	<!-- Google Analytics -->
+
+
+<!--
+- - - -	Copyright ©2021 JSN.
+ - - -	Verbatim copying and distribution of this entire article is
+- - - -	permitted in any medium, provided this notice is preserved.
+-->
+
+<!--
+- - - -	Legal Mumbo Jumbo
+- - - -	You are free to copy or repost any or part of these
+- - - -	blogs, as long as the proper attribution is given.
+- - - -	A heads-up is always appreciated.
+- - - -	The opinions expressed are mine and my own and they
+- - - -	do not represent my employer or company opinions.
+-->
+
+
+</footer>
+
+</body>
+</html>
+

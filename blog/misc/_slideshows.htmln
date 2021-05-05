@@ -1,0 +1,72 @@
+Slideshows
+
+<!-- Ilham Samui -->
+<!-- https://codepen.io/ilhamsanusi/pen/XQyvZG -->
+<h2 style="text-align:center">Multiple Slideshows</h2>
+
+<p>Slideshow 1:</p>
+<div class="slideshow-container">
+  <div class="mySlides1">
+    <img src="https://www.w3schools.com/howto/img_nature_wide.jpg" style="width:100%">
+  </div>
+
+  <div class="mySlides1">
+    <img src="https://www.w3schools.com/howto/img_snow_wide.jpg" style="width:100%">
+  </div>
+
+  <div class="mySlides1">
+    <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg" style="width:100%">
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
+</div>
+
+<p>Slideshow 2:</p>
+<div class="slideshow-container">
+  <div class="mySlides2">
+    <img src="https://www.w3schools.com/howto/img_band_chicago.jpg" style="width:100%">
+  </div>
+
+  <div class="mySlides2">
+    <img src="https://www.w3schools.com/howto/img_band_la.jpg" style="width:100%">
+  </div>
+
+  <div class="mySlides2">
+    <img src="https://www.w3schools.com/howto/img_band_ny.jpg" style="width:100%">
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
+</div>
+
+<script src="../js/slideshowIlham.js"></script>
+
+
+
+
+<!-- W3 -->
+<div class="w3-container">
+  <!-- <h2 class="w3-center">Some photos</h2> -->
+  <!-- <p></p> -->
+</div>
+
+<div class="w3-content" style="width:auto;"> 
+  <img alt="" class="mySlides" src="">
+  <img alt="" class="mySlides" src="">
+  <img alt="" class="mySlides" src="">
+  <img alt="" class="mySlides" src="">
+  <img alt="" class="mySlides" src="">
+</div>
+
+<div class="w3-center">
+  <div class="w3-section">
+    <button class="w3-button w3-light-grey" onclick="plusDivs(-1)">❮ Prev</button>
+    <button class="w3-button w3-light-grey" onclick="plusDivs(1)">Next ❯</button>
+  </div>
+  <button class="w3-button demo" onclick="currentDiv(1)">1</button> 
+  <button class="w3-button demo" onclick="currentDiv(2)">2</button> 
+  <button class="w3-button demo" onclick="currentDiv(3)">3</button> 
+</div>
+<script src="../js/w3css_slideshow1.js"></script>
+

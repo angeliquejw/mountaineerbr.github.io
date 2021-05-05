@@ -1,0 +1,658 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="pt-br">
+<head profile="http://gmpg.org/xfn/11">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>O Espelho de Jamil e &laquo; A viagem de SHIGUES &raquo; mountanineerbr</title>
+<link rel="stylesheet" href="global.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="style_digg3.css" type="text/css" media="screen" />
+
+<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+
+<!--
+    Clone from WayBack Machine, 1st Apr 2008 + 24 Jan 2008 + 16 Mar 2012 
+    <https://web.archive.org/web/20080401142617/http://shigues.wordpress.com/2007/07/24/o-espelho-de-jamil/>
+	By yours truly,
+		~mountaineerbr, 2021
+-->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func) {
+	var oldonload = window.onload;
+	if (typeof window.onload != 'function') {
+		window.onload = func;
+	} else {
+		window.onload = function() { oldonload(); func(); }
+	}
+}
+/* ]]> */
+</script>
+
+
+<style type="text/css">
+#header h1 a, #header .description {display: none;}
+.recentcomments a{display:inline !important;padding: 0 !important;margin: 0 !important;}
+</style>
+
+<style>
+	.authormeta
+	{
+		font-style: italic;
+	}
+	.post img
+	{
+		height: auto !important;
+		max-width: 100% !important;
+	}
+
+	/* If the browser window is smaller than Npx, make the columns stack on top of each other */
+	@media only screen and (max-width: 800px)
+	{
+		.lbar, .rbar, #footer
+		{
+			display: none !important;
+		}
+		#container, #header, #header-overlay, #pagetitle,
+		.page, .wrapper, .pagewrapper,
+		.sidebar, .obar, .content, .narrowcolumnwrapper, .narrowcolumn
+		{
+			width: auto !important;
+			min-width: auto !important;
+			max-width: 100% !important;
+		}
+		body, hr,
+		.page, .pagewrapper, .narrowcolumn, .narrowcolumnwrapper, .content
+		{
+			background: none !important;
+		}
+		p, h1, h2, h3, h4
+		{
+			font-size: 1.6em !important;
+			line-height: 1.2em !important;
+			padding: auto !important;
+			margin: auto !important;
+		}
+		.entry, .browse, .post
+		{
+			line-height: 1.2em !important;
+		}
+	}
+	
+</style>
+
+</head>
+<body><div id="container">
+
+<div class="lbar" id="header">
+
+	<div id="menu">
+		<ul>
+			<li><a href="http://shigues.wordpress.com/" title="A viagem de SHIGUES">Início</a></li>
+			<li class="page_item page-item-27"><a href="http://shigues.wordpress.com/guga/" title="Guga">Guga</a></li>
+<li class="page_item page-item-80 current_page_item "><a href="http://shigues.wordpress.com/o-espelho-de-jamil/" title="O Espelho de&nbsp;Jamil">O Espelho de&nbsp;Jamil</a></li>
+<li class="page_item page-item-77"><a href="http://shigues.wordpress.com/relato-de-um-coracao-partido/" title="Relato de um Coração&nbsp;Partido">Relato de um Coração&nbsp;Partido</a></li>
+<li class="page_item page-item-2"><a href="http://shigues.wordpress.com/about/" title="Sobre&nbsp;Mim">Sobre&nbsp;Mim</a></li>
+		</ul>
+	</div>
+
+	<div id="header-box">
+	<div id="header-image">
+		<img src="gfx/shiguesheader.jpg" alt="" />
+	</div>
+	<div id="header-overlay">
+		<img src="gfx/bg_header_overlay.png" alt="" />
+	</div>
+
+	<div id="pagetitle">
+		<h1><a href="http://shigues.wordpress.com/" title="A viagem de SHIGUES">A viagem de SHIGUES</a></h1>
+	</div>
+
+	<div id="syndication">
+		<a href="" title="Veicule este site usando RSS" class="feed"><abbr title="Really Simple Syndication">RSS</abbr> das entradas</a> &#124; <a href="" title="Sindicalizar comentários utilizando RSS">Comments RSS</a>
+	</div>
+	<div id="searchbox">
+		<!-- <form method="get" id="searchform" action="">
+<div>
+	<input type="text" value="" name="s" id="s" />
+	<input type="submit" id="searchsubmit" value="Search" />
+</div>
+</form> -->	</div>
+	</div>
+</div>
+
+<div class="pagewrapper"><div class="page">
+
+<!-- Start Obar -->
+
+	<div class="lbar obar">
+<ul>
+
+<li id="categories-1" class="widget widget_categories"><h2 class="widgettitle">Tipos e Coisas</h2>
+<select name='cat' id='cat' class='postform'>
+	<option value='-1'> Selecione a categoria</option>
+	<option value="1122">Anime&nbsp;&nbsp;(2)</option>
+	<option value="30908">Culinária&nbsp;&nbsp;(2)</option>
+	<option value="2367">Cultura&nbsp;&nbsp;(29)</option>
+	<option value="32832">&nbsp;&nbsp;&nbsp;Links Recomendados&nbsp;&nbsp;(2)</option>
+	<option value="15016">Devaneios&nbsp;&nbsp;(2)</option>
+	<option value="23208">Entretenimento&nbsp;&nbsp;(10)</option>
+	<option value="241">Família&nbsp;&nbsp;(1)</option>
+	<option value="5297683">fiu-fiu&nbsp;&nbsp;(5)</option>
+	<option value="129637">Fofoca&nbsp;&nbsp;(1)</option>
+	<option value="73386">Idioma&nbsp;&nbsp;(3)</option>
+	<option value="189005">japão&nbsp;&nbsp;(2)</option>
+	<option value="661719">Kitigai&nbsp;&nbsp;(9)</option>
+	<option value="15243">Meio-ambiente&nbsp;&nbsp;(2)</option>
+	<option value="646382">Moradia&nbsp;&nbsp;(3)</option>
+	<option value="775">Notícias&nbsp;&nbsp;(5)</option>
+	<option value="34250">Serviços&nbsp;&nbsp;(8)</option>
+	<option value="792103">sonhos &amp; vertigens&nbsp;&nbsp;(4)</option>
+	<option value="1472494">&nbsp;&nbsp;&nbsp;Experiências Alheias&nbsp;&nbsp;(7)</option>
+	<option value="5414957">Tikan&nbsp;&nbsp;(4)</option>
+	<option value="14591">Trabalho&nbsp;&nbsp;(10)</option>
+	<option value="429479">Tradição&nbsp;&nbsp;(7)</option>
+	<option value="10207">turismo&nbsp;&nbsp;(1)</option>
+	<option value="1">Uncategorized&nbsp;&nbsp;(3)</option>
+	<option value="1149">Vídeos&nbsp;&nbsp;(12)</option>
+	<option value="661682">Yonezu&nbsp;&nbsp;(5)</option>
+</select>
+
+</li>
+<li id="links" class="widget widget_links"><h2 class="widgettitle">Links Recomendados</h2>
+
+	<ul>
+<li><a href="http://marinaammar.blogspot.com/" title="Vídeoblog da Tintim na Espanha">As Aventuras de Marina</a></li>
+<li><a href="http://blacklodge.blogger.com.br/" title="Diário Virtual da Ingrid">Blog da Ingrid</a></li>
+<li><a href="http://napqp.blogspot.com/" title="Relatos, idéias, pensamentos e outras viagens malucas de um dekassegui nipo-brasileiro ilhado numa cidadezinha chamada Izumo, perdida nos quintos do Japão.">Nos quintos do Japão</a></li>
+
+	</ul>
+</li>
+
+		<li id="text-2" class="widget widget_text">			<h2 class="widgettitle">BLOGfólio</h2>
+			<div class="textwidget"><a href="http://shigues.blogspot.com">
+<img src="gfx/blogfolionm7.jpg" alt="" />
+</a>
+<p>
+Sim, eu desenho. É uma bênção e uma maldição. Confira meus trabalhos no <a href="http://shigues.blogspot.com">Blogfólio</a>
+<p></div>
+		</li>
+		<li id="text-4" class="widget widget_text">						<div class="textwidget"><a href="http://feeds.feedburner.com/AViagemDeShigues">
+<img src="gfx/sgsfeedde6.png" alt="" />
+</a>
+<p>
+</div>
+		</li>
+<li id="archives" class="widget widget_archives"><h2 class="widgettitle">Arquivos</h2>
+		<ul>
+			<li><a href='' title='março 2008'>março 2008</a>&nbsp;(18)</li>
+	<li><a href='' title='fevereiro 2008'>fevereiro 2008</a>&nbsp;(6)</li>
+	<li><a href='' title='janeiro 2008'>janeiro 2008</a>&nbsp;(11)</li>
+	<li><a href='' title='dezembro 2007'>dezembro 2007</a>&nbsp;(10)</li>
+	<li><a href='' title='novembro 2007'>novembro 2007</a>&nbsp;(1)</li>
+	<li><a href='' title='Outubro 2007'>Outubro 2007</a>&nbsp;(2)</li>
+	<li><a href='' title='setembro 2007'>setembro 2007</a>&nbsp;(2)</li>
+	<li><a href='' title='agosto 2007'>agosto 2007</a>&nbsp;(5)</li>
+	<li><a href='' title='julho 2007'>julho 2007</a>&nbsp;(4)</li>
+	<li><a href='' title='junho 2007'>junho 2007</a>&nbsp;(1)</li>
+	<li><a href='' title='Maio 2007'>Maio 2007</a>&nbsp;(1)</li>
+	<li><a href='' title='abril 2007'>abril 2007</a>&nbsp;(1)</li>
+	<li><a href='' title='março 2007'>março 2007</a>&nbsp;(4)</li>
+	<li><a href='' title='fevereiro 2007'>fevereiro 2007</a>&nbsp;(7)</li>
+	<li><a href='' title='janeiro 2007'>janeiro 2007</a>&nbsp;(5)</li>
+		</ul>
+</li>
+		<li id="Xdelicious" class="XXwidget XXXwidget_delicious">			<h2 class="widgettitle"><a href='http://del.icio.us/shigues'>Links do ShigueS</a></h2>
+<div id="delicious-box" class="snap_preview" style="margin:0;padding:0;border:none;"> </div>
+
+		</li>
+		<li id="blog-stats" class="widget widget_statscounter">			<h2 class="widgettitle">Visitas</h2>
+			<ul>
+			<li>13,936 hits</li>
+			</ul>
+		</li>
+		<li id="rss-1" class="widget widget_rss">			<h2 class="widgettitle"><a class='rsswidget' href='http://feeds.feedburner.com/AViagemDeShigues' title='Veicule este conteúdo'><img style='background:orange;color:white;border:none;' width='14' height='14' src='gfx/rss.png' alt='RSS' /></a> <a class='rsswidget' href='' title='Aventuras do dia-a-dia no Japão'>Subscreva-se!</a></h2>
+<ul><li><a class='rsswidget' href='' title=' A gatinha de hoje é Arisa Oda, nascida em 1982 em Kanagawa. Mais uma das famosas bikini models, Arisa gosta de fazer compras e ir ao karaoke nas horas livres. Super autêntica não? Mas não vá tirar sarro da moça pois ela luta karate e pode te quebrar ao meio como um graveto. Além disso [...]'>Japinhas | Arisa Oda 小田有紗</a></li></ul></li>
+		<li id="text-3" class="widget widget_text">						<div class="textwidget"><!-- Begin Motigo Webstats code -->
+<!-- Title: A Viagem de ShigueS -->
+<!-- URL: http://shigues.wordpress.com/ -->
+
+
+
+
+
+
+<a target="_blank" href="">
+
+
+</a><br />
+<a target="_blank" href="">Free counter</a>
+
+<!-- End Motigo Webstats code -->
+
+</div>
+		</li>
+<li id="wp_tag_cloud" class="widget wp_widget_tag_cloud"><h2 class="widgettitle">Etiquetas</h2>
+<a href='' class='tag-link-1946559' title='3 topics' rel="tag" style='font-size: 8.8235294117647pt;'>aichi</a>
+<a href='' class='tag-link-2230360' title='4 topics' rel="tag" style='font-size: 9.2352941176471pt;'>arubaito</a>
+<a href='' class='tag-link-273' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>blog</a>
+<a href='' class='tag-link-1020327' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>bonecos</a>
+<a href='' class='tag-link-130395' title='3 topics' rel="tag" style='font-size: 8.8235294117647pt;'>brasileiros</a>
+<a href='' class='tag-link-241501' title='4 topics' rel="tag" style='font-size: 9.2352941176471pt;'>centenário</a>
+<a href='' class='tag-link-4251517' title='3 topics' rel="tag" style='font-size: 8.8235294117647pt;'>centenário&nbsp;da&nbsp;imigração&nbsp;japonesa</a>
+<a href='' class='tag-link-19639' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>comédia</a>
+<a href='' class='tag-link-2367' title='3 topics' rel="tag" style='font-size: 8.8235294117647pt;'>Cultura</a>
+<a href='' class='tag-link-176275' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>cultura&nbsp;japonesa</a>
+<a href='' class='tag-link-5650' title='3 topics' rel="tag" style='font-size: 8.8235294117647pt;'>dicas</a>
+<a href='' class='tag-link-165701' title='4 topics' rel="tag" style='font-size: 9.2352941176471pt;'>emprego</a>
+<a href='' class='tag-link-3031603' title='4 topics' rel="tag" style='font-size: 9.2352941176471pt;'>emprego&nbsp;no&nbsp;japão</a>
+<a href='' class='tag-link-25545' title='1 topic' rel="tag" style='font-size: 8pt;'>exterior</a>
+<a href='' class='tag-link-772' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>fotos</a>
+<a href='' class='tag-link-21' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>games</a>
+<a href='' class='tag-link-774873' title='5 topics' rel="tag" style='font-size: 9.6470588235294pt;'>garotas</a>
+<a href='' class='tag-link-1690247' title='5 topics' rel="tag" style='font-size: 9.6470588235294pt;'>gatinhas</a>
+<a href='' class='tag-link-172303' title='5 topics' rel="tag" style='font-size: 9.6470588235294pt;'>gostosas</a>
+<a href='' class='tag-link-11225' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>guerra</a>
+<a href='' class='tag-link-176514' title='1 topic' rel="tag" style='font-size: 8pt;'>guia</a>
+<a href='' class='tag-link-94714' title='1 topic' rel="tag" style='font-size: 8pt;'>homesick</a>
+<a href='' class='tag-link-376' title='1 topic' rel="tag" style='font-size: 8pt;'>humor</a>
+<a href='' class='tag-link-189005' title='35 topics' rel="tag" style='font-size: 22pt;'>japão</a>
+<a href='' class='tag-link-2502121' title='6 topics' rel="tag" style='font-size: 10.058823529412pt;'>japinhas</a>
+<a href='' class='tag-link-251423' title='3 topics' rel="tag" style='font-size: 8.8235294117647pt;'>japoneses</a>
+<a href='' class='tag-link-16043' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>jogos</a>
+<a href='' class='tag-link-15254' title='5 topics' rel="tag" style='font-size: 9.6470588235294pt;'>mulheres</a>
+<a href='' class='tag-link-484747' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>olimpíadas</a>
+<a href='' class='tag-link-411355' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>paisagens</a>
+<a href='' class='tag-link-2353399' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>programa&nbsp;japonês</a>
+<a href='' class='tag-link-4500822' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>Quioto</a>
+<a href='' class='tag-link-9503' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>relatos</a>
+<a href='' class='tag-link-31593' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>reportagens</a>
+<a href='' class='tag-link-11759' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>samurai</a>
+<a href='' class='tag-link-7027' title='4 topics' rel="tag" style='font-size: 9.2352941176471pt;'>serviço</a>
+<a href='' class='tag-link-34250' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>Serviços</a>
+<a href='' class='tag-link-14565' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>textos</a>
+<a href='' class='tag-link-1624044' title='2 topics' rel="tag" style='font-size: 8.4117647058824pt;'>tokugawa</a>
+<a href='' class='tag-link-14591' title='4 topics' rel="tag" style='font-size: 9.2352941176471pt;'>Trabalho</a>
+<a href='' class='tag-link-4131553' title='4 topics' rel="tag" style='font-size: 9.2352941176471pt;'>trabalho&nbsp;no&nbsp;japão</a>
+<a href='' class='tag-link-10207' title='4 topics' rel="tag" style='font-size: 9.2352941176471pt;'>turismo</a>
+<a href='' class='tag-link-3859963' title='1 topic' rel="tag" style='font-size: 8pt;'>tv&nbsp;japonesa</a>
+<a href='' class='tag-link-1149' title='6 topics' rel="tag" style='font-size: 10.058823529412pt;'>Vídeos</a>
+<a href='' class='tag-link-88228' title='3 topics' rel="tag" style='font-size: 8.8235294117647pt;'>viagem</a></li>
+
+</ul>
+	</div>
+
+<!-- End Obar -->
+
+	<div class="wrapper"><!-- This wrapper class appears only on Page and Single Post pages. -->
+	<div class="narrowcolumnwrapper"><div class="narrowcolumn">
+
+		<div class="content">
+
+			
+			<div class="post" id="post-80">
+
+				<h2><a href="http://shigues.wordpress.com/o-espelho-de-jamil/" rel="bookmark" title="O Espelho de&nbsp;Jamil">O Espelho de&nbsp;Jamil</a></h2>
+
+				<div class="entry">
+					<div class='snap_preview'>
+
+
+<br>
+<div class="foreword">
+<p align="left"><em>j s  n</em> é um rapaz de 19 anos que veio ao Japão estudar em um internato, afim de aprender a língua japonesa e a cultura do país. Ficou 2 anos convivendo com outros jovens japoneses e muitas pessoas de outras nações e etnias. Nesse período descobriu muito sobre si mesmo e sobre a vida.</p>
+<p align="left"><img src="gfx/sakuraBanner.jpg" height="218" width="750"></p>
+<p align="left">Eu o encontrei por acaso em um de minhas andanças no <em>Flickr</em>, onde Jamil tem uma <a href="https://web.archive.org/web/20080124173216/http://flickr.com/photos/jamilsoni/"><strong>conta</strong></a> e muitas fotos bacanas (principalmente as tiradas durante o período que passou no Japão). Durante sua estadia aqui ele aprendeu muito sobre fotografia. Mandei um e-mail e acabamos nos tornando amigos, ele tem me dado umas dicas sobre a vida no Japão.</p>
+<p align="left">Jamil, ou DJami-chan, escreveu um <a href="https://web.archive.org/web/20080124173216/http://shigues.wordpress.com/o-espelho-de-jamil/"><strong>texto</strong></a> sobre essa experiência. Um texto cheio de emoção contando sua experiência quase mágica na terra do sol nascente. Eu o li e não resisti em pedir sua autorização para compartilhá-lo com as pessoas que passam por esse blog. Acredito que seja de muita valia para quem quer um dia se aventurar pelo mundo, ainda mais por aqui, nos confins do planeta Terra.</p>
+<p align="left">Tomei a liberdade de batizar o texto como &#8220;<em>O Espelho de Jamil</em>&#8220;, pois acredito que ele tenha escrito, meio que inconscientemente,  contando a história para si mesmo. Alguém vê um grande talento para fotografia? Pô Jamil, continue postando novas fotos!</p>
+<p class="authormeta">~ por <strong>ShigueS</strong> em julho 24, 2007.</p>
+</div>
+
+
+
+
+<hr>
+<p style="text-align:center;"><img src="gfx/flickr2.jpg" height="310" width="465"></p>
+<p>Olá a todos!</p>
+<p><strong>Japão</strong>. Estou fazendo vários textos sobre o país, sobre minha experiência aqui. Em alguns dias estarei voltando ao Brasil. Nunca pensei que estaria com tanta vontade de ouvir e falar português novamente. Em inglês o termo que demonstra corretamente a vontade que estou sentindo seria “<em lang="en">craving</em>”.</p>
+<p><em>Craving</em> por ouvir e falar português novamente! Nunca pensei que tal iria acontecer. Não comigo&#8230;</p>
+<p>De vez em quando uso o Skype e falo com minha mãe, meu pai e com alguns de meus amigos, ou os ligo por telefone mesmo. Mas o que quero mesmo é estar frente a frente com eles e conversar e dar risadas e fazer gestos e olhar a minha volta e poder entender tudo o que está escrito e tudo o que todos fazem sem precisar tentar assimilar uma cultura nova e complexa. Não que eu tenha me enchido do Japão ou que não goste daqui mais. Eu adoro! E sofro a<br />
+cada momento que me aproximo da inevitável viagem de 40 horas. Adoro a terra, as pessoas e amo as experiências que tive. “<em>Serão páginas douradas no livro da sua vida</em>”, como alguém uma certa vez me escreveu.</p>
+<p align="center">★ ★ ★</p>
+<p>De vez em quando os meus propósitos se diluíam. Quando isso acontecia, algo fascinante e ao mesmo tempo considerado normal para as pessoas do local, como uma simples brisa talvez com um aroma diferente para mim, um aroma, como posso me expressar? Um aroma&#8230;</p>
+<p><em>Indescritível</em></p>
+<p>Essa é a palavra! Um aroma indescritível soprava e magicamente acertava novamente minha cabeça atordoada. <strong>Um aroma do Japão</strong>. É impressionante como um simples leve vento pode mudar tudo. É algo mágico. É como se houvesse uma força que inspira e renova, como o empurrão na primeira peça do dominó que foi enfileirado. Cada pessoa percebe essas forças renovadoras de uma forma, eu acredito. Para cada pessoa é algo diferente e sublime.</p>
+<p>Voltar para o Brasil agora é necessário. A lógica na maioria das vezes não bate em sincronia com coração e sentimentos. Eu sei que tenho que voltar, meu tempo aqui, pelo menos desta vez, chegou ao fim. Então por que é mais difícil aceitar voltar do que deveria ser?</p>
+<p>Bem, eu também não entendia. Por muito tempo achei que na verdade eu não queria voltar, mas dentro de mim havia sempre algo que puxava e me desconcertava. Apesar de ser boa, “<em>não querer voltar</em>” não era a resposta real do que eu estava sentindo. Até que um dia, subitamente, realização veio: não é que não quero ir embora para o Brasil. <strong><em>É só que eu estou meio que simplesmente borrando-me de medo de ir embora e nunca mais conseguir voltar para<br />
+o Japão!<br />
+</em></strong><br />
+A vida começa a se mostrar mais difícil a cada momento. Eu cresci no Japão, tive que começar a pensar no meu futuro, nas minhas paixões -a cultura japonesa e a biologia, pra citar duas somente duas- e como fazer para juntar tudo em uma profissão que eu trabalhe com elas simultaneamente. Eu não tinha certeza, e ainda não tenho, se conseguirei um caminho na minha vida em que ambas paixões se combinem. Meu medo é que eu tenha que optar por uma única delas.</p>
+<p align="center">★ ★ ★</p>
+<p align="center"><img src="gfx/flickr1.jpg" height="640" width="427"></p>
+<p>Fazer turismo não é ver o país em que você está por inteiro. É ver só o que ele tem de bonito, de legal, de superficial. Morar é ver tudo isso <em>mais </em>a realidade. A realidade consiste em coisas ruins também, assim tem-se um equilíbrio. Os que ficam demoradamente vivendo a realidade do cotidiano do país, têm uma vantagem: apesar dos momentos ruins acham os mais preciosos grãos de ouro de sua experiência. São as pequenas coisas, nada de monte Fuji, de Templo de Ouro. Coisas mais simples que somadas são o que realmente marcam a ferro em brasa o coração. Coisas que talvez você não conseguirá dizer às pessoas num dia de festa aqui no Brasil, mas que por alguns segundos te farão baixar os olhos mesmo na mais animada das festas, chacoalhar a cabeça de mansinho e um sorriso de saudade vai brotar<br />
+em seus lábios. E alguém do outro lado da mesa, ou que está em sua frente na roda de conversa, vai te perguntar, <em>o que foi?</em>. Você irá responder <em>nada não&#8230;</em>, mas na verdade será <strong>tudo</strong>. É aquilo que realmente importa.</p>
+<p>Outra coisa importante que percebi aqui no Japão é que adoro o meu país e minha cultura apesar de todos os pontos ruins que nela há e que eram os únicos pontos que eu pensava existir quando ainda estava no Brasil. Aqui eu aprendi que o Brasil é um país normal, se um pouco mais violento em alguns aspectos, mas um pais ótimo apesar de tudo. A minha nação tem algumas qualidades que a do Japão não têm.</p>
+<p>Aqui também há mendigos, indigentes, pessoas com doenças ou com calombos ou qualquer outra nojentice no corpo, andando pelas ruas, cheirando mal e sem dinheiro ou casa para morar. Aqui também há desrespeito, política suja (se bem que mais refinada), criminalidade e drogas. Quando vi um pessoal fumando maconha em uma festa, fiquei super surpreso em saber que no País do Sol Nascente pode-se comprar facilmente a erva da larica. Nunca me ocorreu que aqui as pessoas também fumavam maconha assim como no Brasil. Inocência minha, assim como pensava que tudo o que havia de ruim no Brasil era exclusivo do Brasil.</p>
+<p>Que pretensão!</p>
+<p>Com isso esclarecido, gostaria de falar brevemente de algumas experiências que merecem ser citadas.</p>
+<p align="center">★ ★ ★</p>
+<p><span lang="ja"><strong>Meitoku</strong></span>. Meu colégio interno foi uma grande oportunidade de ver as grandes e mais importantes engrenagens que ficam bem no centro de tudo o que governa o Japão e que muitos não sabem o que são. Alguns já ouviram falar delas, mas não têm noção do quão importante são.</p>
+<p>As engrenagens do Sistema <span lang="ja"><em>Kohai-Sempai</em></span> são grandes e lubrificadas ao ponto de pingarem graxa. É mais ou menos assim: o mais novo sempre obedece o mais velho. O mais novo sempre respeita o mais velho. Faz até mesmo o uso de uma linguagem mais formal para o demonstrar.</p>
+<p><em>Mas&#8230;</em></p>
+<p>O mais velho não precisa respeitar o mais novo sempre. O mais velho pode pedir o que quiser que provavelmente terá sua vontade realizada, como por exemplo usar um garoto mais novo como empregado.</p>
+<p><em>Me trás uma coca! Um <span lang="ja">ramen</span>! Limpa a minha escrivaninha!</em></p>
+<p>Claro que não é com todos os mais novos que os mais velhos fazem esse tipo de maldade; e não é em todos os lugares que isso acontece tão explicitamente também. Eu vi isso acontecer mais acentuadamente em escolas, onde todos são jovens e preferem imaginar que o que estão fazendo não tem importância. Os alunos mais fracos psicologicamente são os mais sofredores por esse tipo de cultura. A intensidade também varia, mas há casos extremos.</p>
+<p><strong>Há casos extremos</strong>. E não é tão raro assim.</p>
+<p>Quando digo “mais velho”, me refiro a qualquer pessoa um ano ou mais mais velha do que outra pessoa. É cruel saber que um ano de idade faz toda a diferença. Na maioria dos casos as crianças e jovens só conseguem ter amigos com pessoas da mesma idade.</p>
+<p>Os mais novos, na maioria dos casos, são feitos para serem explorados. Só é merecedor de respeito as pessoas da mesma idade que eu, é mais ou menos o que eles pensam. O sistema se aplica a todas as relações entre todos os japoneses desde a pequena idade. Supostamente o sistema <span lang="ja">Korrai-Sempai</span> é um sistema em que o mais velho é responsável pela educação dos mais novos, podendo até mesmo receber a culpa pelos maus, ou errôneos, atos dos mais novos.</p>
+<p><em>Supostamente.</em></p>
+<p>Comigo esse sistema nunca funcionou direito. Alias, não se aplicou apesar de inúmeros esforços de alguns mais velhos. Tenho muitas histórias para contar de como deixei pessoas irritadas das formas mais inesperadas possíveis. Comigo o sistema ocidental prevaleceu:</p>
+<p><em>Respeitar os mais velhos desde que esses me respeitem também.</em></p>
+<p>Recordando, agora acho que deveria ter entrado um pouco no sistema deles. Deveria ter sido mais humilde em algumas</p>
+<p><em>muitas</em></p>
+<p>situações. Minha experiência no colégio interno teria sido melhor se eu tivesse usado mais da humildade. Mas era eu contra o mundo. Não tive muita ajuda, tive que descobrir as coisas por mim mesmo. E descobrir por si mesmo é um processo demorado e doloroso. Só agora entendo acertadamente o que deveria ter feito.</p>
+<p align="center">★ ★ ★</p>
+<p> Como é fácil fazer amizade com pessoas que não tem olho puxado quando você está no Japão! É um dos privilégios que só estrangeiros têm. Vou sentir a maior saudade disso quando estiver em solo Brasileiro de novo. Aqui eu sou <span lang="ja"><em>gaikoku-jin</em></span>, no Brasil eu sou simplesmente <span lang="ja"><em>koku-jin</em></span>. Ou seja, no Japão eu sou um estrangeiro todo especial, no Brasil sou somente um brasileiro a mais na multidão.</p>
+<p>Conheci e me tornei amigo de senegaleses, chineses, ingleses, americanos, canadenses, coreanos, taiwaneses, malasianos, polandeses, uma kenyana e um sul africano. Também conheci alguns mongóis, árabes e chilenos. Um monte de gente da Esfera inteira!</p>
+<p>Conheci a maioria dos meus amigos estrangeiros de forma inusitada mas não totalmente espontânea, a princípio quando saía com um grupo supervisionado por professores para ir fazer nossas minhas compras individuais para o mês. Depois que arrumei meus primeiros contatos fora da escola, as coisas ficaram mais fáceis. A medida que eu ia passar alguns dias nas casas deles, como férias por exemplo, eu comecei a ver a o que era o Japão por inteiro.<br />
+Meu universo concernindo o Japão simplesmente deu um salto enorme.</p>
+<p>E com isso, a dura verdade sobre o colégio interno que eu estava começou a ficar clara para mim. Até aquele momento eu pensava estar vendo o que era o Japão. Mas não era bem assim. Apesar do meu colégio estar no Japão, ele era só uma <em>pequeníssima</em> parte de tudo o que o Japão é e representa na verdade. O Japão fora do colégio era maior, mais real, mais mágico.</p>
+<p>Era o que eu tinha vindo ver e aprender, mas que me fora substituído sem eu perceber por algo totalmente diferente. Até que a ficha caiu.</p>
+<p>Graças aos meus amigos.</p>
+<p>Foi por esses meus amigos que consegui ter uma experiência que valeu a pena apesar de todos os maus momentos na escola.</p>
+<p align="center">★ ★ ★</p>
+<p> Conheci Michael Kahn, e sua casa na “<em>Vila do Espelho</em>”.</p>
+<p><strong>Deep in the mountains.</strong><br />
+<span lang="ja"><em> Sugoku yama no naka da.</em></span></p>
+<p>Passei inesquecíveis momentos aqui. No ano novo fizemos um <em>trekking</em> (=caminhada) para o pico de uma montanha ainda quando a noite aguardava o sol aparecer. Subimos com lanternas às mãos, um guia à frente nos contando histórias de como ele e mais outros tinham sido os primeiros a cortar aquele caminho pelo qual nós passávamos, sobre as plantas e animais da região. Barulhos de insetos e dos ganhos quebrando aos nossos pés ricocheteavam nas altas árvores, figuras negras e imponentes naquela hora da madrugada.</p>
+<p>Depois de uma longa caminhada de 45 minutos na quase-manhã fria, chegamos ao topo e vimos o nascer do sol. O mais bonito do mundo para mim. Um dos mais bonitos dos últimos anos para eles. As nuvens na distância pareciam estar na mesma altura que nós estávamos. A paisagem montanhosa a nossa volta era primeiro azul marinha e aos poucos tornou-se dourada, com o sol cor de ouro saindo timidamente pelas nuvens e revelando toda a paisagem no seu máximo esplendor. Ao longe, as montanhas mais altas ainda carregavam grandes quantidades de neve em seus dorsos.</p>
+<p>Vi o primeiro dia de 2006 se revelando das mantas noturnas lentamente, minuto a minuto com canções japonesas pairando no ar a minha volta, cantadas pelos integrantes do nosso grupo de trekking.</p>
+<p align="center">★ ★ ★</p>
+<p align="center"><img src="gfx/geisha-kyoto-p-019.3.jpg" height="459" width="676"></p>
+<p> Outras memórias consistem da minha ida para Nagoya fazer meu alistamento militar (AM). Recentemente fui para Osaka tirar meu visto dos EUA para poder voltar ao Brasil e fui a Kyoto, que fica bem pertinho de lá.</p>
+<p>Ah, Kyoto! Nunca vou esquecer da atmosfera cinematográfica, do perfume embriagante, ou da aprendiz de Geisha, chamada <span lang="ja">Maiko</span>, que vi se apressando entre uma sessão e outra enquanto passeava pelas estreitas e antigas ruazinhas de <span lang="ja">Gyon</span>.</p>
+<p>Kyoto é uma das cidade japonesas mais tradicionais do país inteiro. Só pude ir pois ganhei o dinheiro da passagem, transporte local, comida e hotel dos meus amigos. Um presente que, com câmeras profissionais, boa trilha sonora daria um daqueles ótimos documentários de TV que no final você fica pensando Ah! Mais eu TENHO que ir pra esse lugar!</p>
+<p>Kyoto foi o lugar mais inesquecível que visitei até hoje e eu gostaria muito de morar lá no futuro. Nunca pensei que eu ficaria com tanta inveja de um lugar.</p>
+<p align="center">★ ★ ★</p>
+<p align="left"> O “Festival das Camisetas” e o “Festival de Filmes e <span lang="en">Slideshows</span>” me deram outros bons dias. Fui voluntário no Festival das Camisetas e conheci muitos japoneses vindos de lugares longínquos, e uma cidade com uma ótima, ótima praia e paisagem (o lema da cidade era alguma coisa do tipo: “<em>para que precisamos de um museu se temos a nossa belíssima praia?</em>”), além de ficar hospedado com uma família muito especial.</p>
+<p align="left">Naqueles dias, eu me cansava de dia e de noite relaxava em passeios noturnas a luz de lanternas no meio dos imensos campos de arroz da região. Sapos coaxando e pirilampos piscando estavam em todos os lugares. O cheiro da água lamacenta e da natureza caracterizava o lugar e o dava uma atmosfera única. A luz da lua dá o toque final na composição.</p>
+<p align="left">Em uma noite do Festival de Camisetas, eu e algumas meninas de outras prefeituras até fomos para a areia da praia onde o festival acontece, e brincamos de pega-pega sob as estrelas e entre os longos varais com camisetas penduradas expondo os desenhos ou frases de seus autores.</p>
+<p align="center">★ ★ ★</p>
+<p align="left"> Para o Festival de Filmes, fiz um videozinho de três minutos e meio sobre minha experiência aqui no Japão. Deixei a Meitoku de fora. Um dos lugares que eu menos queria me lembrar enquanto aproveitava minha chance lá fora. No grande dia consegui me vestir decentemente somente graças a dois amigos que me emprestaram as peças de roupa formal que me faltavam para completar o aparato do terno. Para minha grande surpresa, consegui ficar com o quinto lugar. O Festival de Filmes e Slideshow daquele ano, esse ano, 2006, foi o primeiro dos muito que virão.</p>
+<p align="left">Apareci até em rede nacional por causa desse festival! A TV Japonesa NHK estava lá, viu meu filme e gostou de mim o suficiente para ir até minha escola e fazer entrevistas comigo. Depois de mais ou menos 20 dias, quando a matéria da reportagem ficou pronta, apareci na televisão. Fui uma das únicas duas pessoas que foram entrevistadas entre os candidatos do Festival de Filmes. Da noite para o dia, virei astro no colégio. Todos os professores me paparicavam.<br />
+Ninguém poderia comprar essa&#8230;</p>
+<p align="center">★ ★ ★</p>
+<p align="left"> Depois que adquiri minha câmera em setembro de 2005, comecei a tirar fotos e estudei muito sobre fotografia. Pixels, CCD, CMOS, balanço da cor branca, exposição, <span lang="en">stops</span>, <span lang="en">braketting</span>, ISO, barulho, gráficos de luminosidade, compensação de exposição, SLR, DSLR, além de ler reviews sobre as máquinas digitais mais famosas, como Canon 10D, 20D, 30D, 5D, 1D, 350, Digital Rebel (Kiss), Fuji S9500, S6000fd, Nikon D70, D80, D100, D200 e por aí afora, só para conhecer quais eram esses modelos e saber do que falar em uma possível conversa de fotografia. Modéstia a parte, me tornei um expert em fotografia.</p>
+<p align="left"> Eu comecei a postar minhas fotos no flickr e logo começaram a fazer sucesso com os meus amigos que as viam. Depois que viram que eu daria um bom fotógrafo, me pediram muitas vezes para fazer algum tipo de trabalho para eles. Tirei fotos em várias ocasiões. Ensinei muitos a usarem corretamente suas câmeras digitais. Michael, que tem uma Canon 10D, se surpreendeu muitas vezes em aprender que existiam certos botões em sua câmera que ele nem desconfiava que existiam e suas funções.</p>
+<p align="left">Um amigo que vende saxofones pediu minha ajuda para fotografar seus instrumentos e peças para seu website, além de lições sobre luz, fundo para fotografia de objetos e conselho na hora da compra de uma nova câmera. A escolhida foi uma Canon S2 IS.  Recentemente fiz mais duas sessões de fotos em um estúdio semi-profissional para o <a href="http://www.sax.xo.jp">website</a> dele com duas modelos. Uma delas era japonesa e a outra <em>estadosunidense</em>.</p>
+<p align="left"> Ambas vestindo roupas sexy e segurando saxs&#8230;</p>
+<p align="left">Amanhã vou ser o fotógrafo para um casamento que acontecerá aqui na Vila do Espelho, e também um pouco de cinegrafista, já que o cinegrafista oficial, que é um amigo meu e do casal, vai se ausentar em dois momentos.</p>
+<p align="left">Nessa noite fresquinha, pré-casamento, é basicamente isso o que eu queria contar. Estou escrevendo textos detalhados sobre o Japão, no estilo do texto do AM (aqueles que leram sabem como é). Mas como nem todos gostam de ler páginas e mais páginas, pensei em fazer esse resumão para saciar a curiosidade de parentes e amigos.</p>
+<p align="left">Isso é o Japão que conheço, suficiente para poder chamar de minha casa.</p>
+<p align="left">Para finalizar, eu quero mostrar o trecho de um livro chamado <em>A Hat Full Of Sky</em>, de Terry Pratchett.</p>
+<p align="left" lang="en"><em>“Why do you go away? So that you can come back. So that you can see the place you came from with new eyes and extra colours. And the people there see you differently, too. Coming back to where you started is not the same as never leaving.”</em></p>
+<p align="left"><font color="#808080"><em>“Por que você vai para longe? Para que você possa voltar. Para que você possa ver o lugar de onde você veio com novos olhos e cores extras. E as pessoas lá te vêem diferente também. Voltar para onde se começou não é o mesmo que nunca se ter partido.”</em></font></p>
+<p align="right" class="authormeta">&nbsp;</p>
+<p align="right" class="authormeta">Vila do Espelho, Kochi, Japão. 30/09/2006.</p>
+<p align="right" class="authormeta"><strong>j s n</strong></p>
+
+<br>
+<p align="left">Eu tive que reformular esse texto. O original foi feito no Macintosh do meu amigo Michael. Eu não conseguia colocar acentos e na época não sabia que não estava mais fluente no português. Eu sei que perde um pouco da graça, ler o texto assim, editado. Mas fiz isso para que ficasse mais fácil de ser entendido e mais prazeroso ao mesmo tempo.</p>
+<p align="left">Quase 10 meses depois de ter escrito o original, minhas opiniões não mudaram. Fazia muito tempo que não relia este texto e lê-lo novamente me fez lembrar de muitas coisas que já tinham dado lugar a assuntos recentes. Este ano estou estudando bastante para o vestibular, quero fazer biologia, ou, sendo mais chique, ciências biológicas. Muita preocupação e ansiedade pelos resultados.</p>
+<p align="left">Ainda não sei que caminho minha vida vai tomar. Ainda tô meio que simplesmente <em>apavorado de medo</em> de não conseguir conciliar minha paixões, apavorado de medo de não conseguir voltar para o Japão logo&#8230;</p>
+<p align="left">Mas eu acho que dou um jeito.</p>
+<p align="left" class="authormeta">&nbsp;</p>
+<p align="right" class="authormeta"><em>Noite fria e chuvosa, Curitiba, Paraná, Brasil. 22/07/2007.</em></p>
+<p align="right" class="authormeta"><strong>j s n</strong></p>
+<p align="left" class="authormeta">&nbsp;</p>
+
+</div>										
+
+				</div>
+			</div>
+
+
+		</div><!-- End content -->
+
+	</div></div><!-- End narrowcolumnwrapper and narrowcolumn classes -->
+
+<!-- Start Comments Template -->
+
+	<div class="narrowcolumnwrapper"><div class="narrowcolumn">
+
+		<div class="content">
+
+			<div class="post">
+
+
+<!-- You can start editing here. -->
+
+	<h3 id="comments">8 Responses to &#8220;O Espelho de&nbsp;Jamil&#8221;</h3>
+
+<ol class="commentlist snap_preview">
+
+	<li class="alt" id="comment-188">
+
+<div class="commentmetadata">
+<strong><a href='' rel='external nofollow'>kelloy</a></strong>, em <a href="#comment-188" title="">agosto 5th, 2007 às 6:58 pm</a> Diz&#58; 		</div>
+
+<p>te amo japo adoro vcs me envie pasagens pra i para toquio hihi</p>
+	</li>
+
+
+
+	<li class="" id="comment-189">
+
+<div class="commentmetadata">
+<strong><a href='http://shigues.wordpress.com/o-espelho-de-jamil/#comment-188' rel='external nofollow'>kelloy</a></strong>, em <a href="#comment-189" title="">agosto 5th, 2007 às 6:59 pm</a> Diz&#58; 		</div>
+
+<p>adoro vcs me mandem uma pasagem pra ir para toquio</p>
+	</li>
+
+
+
+	<li class="alt" id="comment-193">
+
+<div class="commentmetadata">
+<strong>Ana</strong>, em <a href="#comment-193" title="">agosto 24th, 2007 às 3:01 pm</a> Diz&#58; 		</div>
+
+<p>Adorei seu texto, você é muito criativo. Deveria escrever um ou vários livros&#8230;Um abraço!</p>
+	</li>
+
+
+
+	<li class="" id="comment-219">
+
+<div class="commentmetadata">
+<strong>Danielle Batista</strong>, em <a href="#comment-219" title="">Outubro 16th, 2007 às 8:58 pm</a> Diz&#58; 		</div>
+
+<p>olha eu gostaria de conheçer o japão!!!!!!!!!!!!!!!!!amo a cultura japonesa!!!!!!!!!!!</p>
+	</li>
+
+
+
+	<li class="alt" id="comment-220">
+
+<div class="commentmetadata">
+<strong>Danielle Batista</strong>, em <a href="#comment-220" title="">Outubro 16th, 2007 às 8:59 pm</a> Diz&#58; 		</div>
+
+<p>espero um dia ir no japão!!!!!!!!!!!</p>
+	</li>
+
+
+
+	<li class="" id="comment-235">
+
+<div class="commentmetadata">
+<strong>maria</strong>, em <a href="#comment-235" title="">novembro 18th, 2007 às 9:56 pm</a> Diz&#58; 		</div>
+
+<p>queria te dizer que pintei em tela o monte Fuji a uns 25 anos atras e sempre fiu apaixonada pela cultura japonesa mas ainda não descobri o porque,às vezes acho que em outra encarnação tive a ver com isso.Quero te dizer que sou chilena mas ainda não conheço o meu país.Um abraço do Brasil.</p>
+	</li>
+
+
+
+	<li class="alt" id="comment-246">
+
+<div class="commentmetadata">
+<strong>maria</strong>, em <a href="#comment-246" title="">dezembro 24th, 2007 às 2:08 am</a> Diz&#58; 		</div>
+
+<p>FELIZ NATAL E PRÓSPERO ANO NOVO QUE 2008 SEJA REPLETO DE REALIZAÇÕES GRANDIOSAS COM MUIATA SAÚDE,ALEGRIA E DIM DIM</p>
+	</li>
+
+
+
+<!--	<li class="" id="comment-247">
+
+<div class="commentmetadata">
+<strong><a href='http://www.flickr.com/photos/jamilsoni' rel='external nofollow'>j s n</a></strong>, em <a href="#comment-247" title="">dezembro 26th, 2007 às 12:40 pm</a> Diz&#58; 		</div>
+
+<p>Para a todos que deixaram aqui seus comentários: Obrigado!</p>
+<p>Nunca pensei que teria um que fosse ler meu texto a não ser o Shigues-san!</p>
+<p>xD</p>
+<p>Feliz Natal atrasado a todos e um ano legal ano que vem&#8230;</p>
+<p> <img src='gfx/icon_wink.gif' alt=';)' class='wp-smiley' /></p>
+	</li> -->
+
+
+<li class="" id="comment-248">
+
+<div class="commentmetadata">
+<strong><a href='' rel='external nofollow'>Alexandre</a></strong>, em <a href="#comment-248" title="">29/11/2008 às 17:14</a> Diz&#58; 		</div>
+				<p>Super legal seu texto. Adorei! Inspirador, de vdd!</p>
+<p>Escreva mais!</p>
+<p>=)</p>
+	</li>
+
+	</ol>
+
+
+
+
+		<!-- <h3 id="respond">Leave a Reply</h3> -->
+		<center><small>Cloned by <em>mountaineerbr</em>, 2021.</small></center>
+		<center><small><em>Page layout depends on viewport width.</em></small></center>
+
+
+
+			</div>
+
+		</div><!-- End content for comments template -->
+
+	</div></div><!-- End narrowcolumnwrapper and narrowcolumn classes for comments template -->
+	</div><!-- End wrapper class -->
+
+<!-- Start Sidebar -->
+	<div class="rbar sidebar">
+<ul>
+
+		<li id="text-1" class="widget widget_text">			<h2 class="widgettitle">BEM-VINDOS!!!</h2>
+			<div class="textwidget">[ShigueS]
+<p>
+Um blog sobre cultura, comida e curiosidades do Japão. Lugares, pessoas, costumes e outras coisas características desse país tão peculiar que todos adoramos.</font>
+<p>
+</div>
+		</li>
+		<li id="text-5" class="widget widget_text">						<div class="textwidget"><a href="http://www.linkedin.com/in/shigues"><!--<img src="gfx/btn_linkedin_120x30.gif" width="120" height="30" border="0" alt="View Gabriel Shiguemoto's profile on LinkedIn">-->LinkedIn do ShigueS</a></div>
+		</li>
+		<li id="text-6" class="widget widget_text">			<h2 class="widgettitle">LinkS Uteis</h2>
+			<div class="textwidget"><a href="">
+<img src="gfx/nihongojq6.jpg" alt="" />
+</a>
+<p>
+<a href="">
+<img src="gfx/jjobslinksbu7.jpg" alt="" />
+</a>
+<p>
+<a href="http://www.jorudan.co.jp/english/">
+<img src="gfx/jorudanlinksgx9.jpg" alt="" />
+</a></div>
+		</li>
+<li id="calendar" class="widget widget_calendar"><h2 class="widgettitle">&nbsp;</h2>
+<div id="calendar_wrap"><table id="wp-calendar" summary="Calendário">
+	<caption>março 2008</caption>
+	<thead>
+	<tr>
+		<th abbr="Domingo" scope="col" title="Domingo">D</th>
+		<th abbr="Segunda-feira" scope="col" title="Segunda-feira">S</th>
+		<th abbr="Terça-feira" scope="col" title="Terça-feira">T</th>
+		<th abbr="Quarta-feira" scope="col" title="Quarta-feira">Q</th>
+		<th abbr="Quinta-feira" scope="col" title="Quinta-feira">Q</th>
+		<th abbr="Sexta-Feira" scope="col" title="Sexta-Feira">S</th>
+		<th abbr="Sábado" scope="col" title="Sábado">S</th>
+	</tr>
+	</thead>
+
+	<tfoot>
+	<tr>
+		<td abbr="fevereiro" colspan="3" id="prev"><a href="" title="Ver posts para fevereiro 2008">&laquo; Fev</a></td>
+		<td class="pad">&nbsp;</td>
+		<td colspan="3" id="next" class="pad">&nbsp;</td>
+	</tr>
+	</tfoot>
+
+	<tbody>
+	<tr>
+		<td colspan="6" class="pad">&nbsp;</td><td>1</td>
+	</tr>
+	<tr>
+		<td>2</td><td>3</td><td>4</td><td><a href="" title="O Ataque das Vespas&nbsp;Assassinas!">5</a></td><td><a href="" title="Fuga aos&nbsp;prisioneiros, Programa Dekassegui&nbsp;Empreendedor">6</a></td><td>7</td><td><a href="" title="Quioto - parte&nbsp;1">8</a></td>
+	</tr>
+	<tr>
+		<td><a href="" title="Japinhas&nbsp;O_o">9</a></td><td>10</td><td>11</td><td><a href="" title="Choque&nbsp;Cultural!, Japão em&nbsp;HDR">12</a></td><td><a href="" title="Japinhas | Yoko Matsugane 松金&nbsp;洋子">13</a></td><td><a href="" title="Luz, câmera, SURUBA! Mega-escândalo sexual na&nbsp;Ásia, Festival Brasileiro em&nbsp;Toyota, Dia das&nbsp;Namoradas">14</a></td><td><a href="" title="Action Figures de&nbsp;Evangelion, Japinhas | Reon Kadena&nbsp;かでなれおん">15</a></td>
+	</tr>
+	<tr>
+	<td><a href="" title="Espírito Olímpico&nbsp;Chinês, Veja Anime via Streaming&nbsp;Gratuitamente">16</a></td><td>17</td><td><a href="" title="家康行列 2008 - ShigueS vira General&nbsp;Samurai, Puchi Hard: O Bruce Willis&nbsp;Japonês">18</a></td><td id="today"><a href="" title="Japinhas | Arisa Oda&nbsp;小田有紗">19</a></td><td>20</td><td>21</td><td>22</td>
+	</tr>
+	<tr>
+		<td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td>
+	</tr>
+	<tr>
+		<td>30</td><td>31</td>
+		<td class="pad" colspan="5">&nbsp;</td>
+	</tr>
+	</tbody>
+	</table></div></li>
+	<li id="pages" class="widget widget_pages">		<h2 class="widgettitle">Textos Especiais</h2>
+		<ul>
+			<li class="page_item page-item-27"><a href="http://shigues.wordpress.com/guga/" title="Guga">Guga</a></li>
+<li class="page_item page-item-80 current_page_item "><a href="http://shigues.wordpress.com/o-espelho-de-jamil/" title="O Espelho de&nbsp;Jamil">O Espelho de&nbsp;Jamil</a></li>
+<li class="page_item page-item-77"><a href="http://shigues.wordpress.com/relato-de-um-coracao-partido/" title="Relato de um Coração&nbsp;Partido">Relato de um Coração&nbsp;Partido</a></li>
+<li class="page_item page-item-2"><a href="http://shigues.wordpress.com/about/" title="Sobre&nbsp;Mim">Sobre&nbsp;Mim</a></li>
+		</ul>
+	</li>
+
+		<li id="recent-comments" class="widget widget_recent_comments">			<h2 class="widgettitle">Recados Recentes</h2>
+			<ul id="recentcomments"><li class="recentcomments">felipe em <a href="">Japinhas | Arisa Oda&nbsp;小田有紗</a></li><li class="recentcomments">vauberti moreira em <a href="">Buscando Empregos no Japão (em&nbsp;inglês)</a></li><li class="recentcomments">Ivan em <a href="">家康行列 2008 - ShigueS vira General&nbsp;Samurai</a></li><li class="recentcomments"><a href='' rel='external nofollow'>家康行列2008 - ShigueS vira General Samurai &laquo; A viagem de SHIGUES</a> em <a href="">Castelo de&nbsp;Ogaki</a></li><li class="recentcomments"><a href='' rel='external nofollow'>家康行列2008 - ShigueS vira General Samurai &laquo; A viagem de SHIGUES</a> em <a href="">Okazaki - Berço&nbsp;Samuraico</a></li></ul>
+		</li>
+		<li id="top-clicks" class="widget widget_stats_topclicks">			<h2 class="widgettitle">Top Clicks</h2>
+			<ul><li><a href='' rel='nofollow'>xxx</a></li><li><a href='' rel='nofollow'>xxx</a></li><li><a href='http://shigues.blogspot.com/' rel='nofollow'>shigues.blogspot.com</a></li><li><a href='' rel='nofollow'>xxx</a></li><li><a href='' rel='nofollow'>xxx</a></li><li><a href='' rel='nofollow'>xxx</a></li><li><a href='' rel='nofollow'>xxx</a></li><li><a href='' rel='nofollow'>xxx</a></li><li><a href='' rel='nofollow'>xxx</a></li><li><a href='' rel='nofollow'>xxx</a></li></ul>		</li>
+		<li id="sonific" class="widget widget_songspot">			<h2 class="widgettitle"><a href=''>Sonific SongSpot</a></h2>
+
+			<!-- <script src="http://sonific.com/widgets/wordpress_js/fea170dd0b498afd969e6f8c84da47226b47cabe" type="text/javascript" charset="utf-8"></script> -->
+		
+
+		</li>
+<li id="tag_cloud" class="widget widget_tag_cloud"><h2 class="widgettitle">Categorias</h2>
+<div style='overflow: hidden'><a href='' style='font-size: 106.25%; padding: 1px; margin: 1px;' title='Anime (2)'>Anime</a> <a href='' style='font-size: 106.25%; padding: 1px; margin: 1px;' title='Culinária (2)'>Culinária</a> <a href='' style='font-size: 275%; padding: 1px; margin: 1px;' title='Cultura (29)'>Cultura</a> <a href='' style='font-size: 106.25%; padding: 1px; margin: 1px;' title='Devaneios (2)'>Devaneios</a> <a href='' style='font-size: 156.25%; padding: 1px; margin: 1px;' title='Entretenimento (10)'>Entretenimento</a> <a href='' style='font-size: 137.5%; padding: 1px; margin: 1px;' title='Experiências Alheias (7)'>Experiências Alheias</a> <a href='' style='font-size: 100%; padding: 1px; margin: 1px;' title='Família (1)'>Família</a> <a href='' style='font-size: 125%; padding: 1px; margin: 1px;' title='fiu-fiu (5)'>fiu-fiu</a> <a href='' style='font-size: 100%; padding: 1px; margin: 1px;' title='Fofoca (1)'>Fofoca</a> <a href='' style='font-size: 112.5%; padding: 1px; margin: 1px;' title='Idioma (3)'>Idioma</a> <a href='' style='font-size: 106.25%; padding: 1px; margin: 1px;' title='japão (2)'>japão</a> <a href='' style='font-size: 150%; padding: 1px; margin: 1px;' title='Kitigai (9)'>Kitigai</a> <a href='' style='font-size: 106.25%; padding: 1px; margin: 1px;' title='Links Recomendados (2)'>Links Recomendados</a> <a href='' style='font-size: 106.25%; padding: 1px; margin: 1px;' title='Meio-ambiente (2)'>Meio-ambiente</a> <a href='' style='font-size: 112.5%; padding: 1px; margin: 1px;' title='Moradia (3)'>Moradia</a> <a href='' style='font-size: 125%; padding: 1px; margin: 1px;' title='Notícias (5)'>Notícias</a> <a href='' style='font-size: 143.75%; padding: 1px; margin: 1px;' title='Serviços (8)'>Serviços</a> <a href='' style='font-size: 118.75%; padding: 1px; margin: 1px;' title='sonhos &amp; vertigens (4)'>sonhos &amp; vertigens</a> <a href='' style='font-size: 118.75%; padding: 1px; margin: 1px;' title='Tikan (4)'>Tikan</a> <a href='' style='font-size: 156.25%; padding: 1px; margin: 1px;' title='Trabalho (10)'>Trabalho</a> <a href='' style='font-size: 137.5%; padding: 1px; margin: 1px;' title='Tradição (7)'>Tradição</a> <a href='' style='font-size: 100%; padding: 1px; margin: 1px;' title='turismo (1)'>turismo</a> <a href='' style='font-size: 112.5%; padding: 1px; margin: 1px;' title='Uncategorized (3)'>Uncategorized</a> <a href='' style='font-size: 168.75%; padding: 1px; margin: 1px;' title='Vídeos (12)'>Vídeos</a> <a href='' style='font-size: 125%; padding: 1px; margin: 1px;' title='Yonezu (5)'>Yonezu</a> </div></li>
+		<li id="top-posts" class="widget widget_stats_topposts">			<h2 class="widgettitle">More</h2>
+			<ul><li><a href=''>xxx</a></li><li><a href=''>xxx</a></li><li><a href=''>xxx</a></li></ul>		</li>
+
+</ul>
+	</div>
+
+<!-- End Sidebar -->
+
+</div><!-- End pagewrapper -->
+
+<div id="footer">
+<p><a href='' rel='generator'>Blog no WordPress.com</a>. Theme: Digg 3 Column by <a href="" rel="designer">WP Designer</a></p>
+</div>
+
+</div><!-- end page -->
+
+</div><!-- End container id -->
+
+</body>
+</html>

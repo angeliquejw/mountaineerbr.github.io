@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+                                         _  
+   ._ _  _    .__|_ _.o._  _  _ ._|_ ._ |R|
+   | | |(_)|_|| ||_(_||| |(/_(/_| |_)|  `-' 
+-->
+<link rel="alternate" type="application/rss+xml" title="Biology Blogger RSS" href="/blog/rss.xml">
+<link rel="alternate" type="application/rss+xml" title="Biology Blogger RSS (Alternative feed)" href="/blog/rss_alt.xml">
+<link rel="alternate" type="application/rss+xml" title="Biology Blogger RSS (Podcast)" href="/blog/rss_podcast.xml">
+    <title>week 17, 2021 — Biology Blogger</title>
+    <meta name="author" content="Mountaineerbr">
+    <meta name="description" content="Audio episodes of our podcast in which we talk about biology, science and free software.">
+    <link rel="stylesheet" href="../../../css/steel.css">
+    <meta property="og:url" content="https://mountaineerbr.github.io/archive/2021/week/17.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="week 17, 2021">
+    <meta property="og:image"
+          content="/gfx/sherlockb_small.png">
+    <meta property="og:description" content="Link to: https://mountaineerbr.github.io/archive/2021/week/17.html">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image:alt" content="/gfx/sherlockb_small.png">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <style>
+
+	#tl-main-header nav {
+		text-align: left;
+	}
+    </style>
+
+  </head>
+  <body>
+    <div id="tl-page">
+      <header id="tl-main-header">
+        <div class="tl-title">
+          <h1>Biology Blogger</h1>
+          <div>an audiocast</div>
+          <span>week 17, 2021</span>
+        </div>
+        <nav>
+          <ul class="tl-navigation">
+            <li><a title="home" href="/podcast/"><img src="/gfx/sherlockb_smaller.png"
+	    alt="Podcast logo" width="50" height="50"></a></li>
+            <li><a href="/">root</a></li>
+            <li><a href="/blog/">blog</a></li>
+            <li><a href="/podcast/subscribe.html">subscribe</a></li>
+            <li><a href="/podcast/about.html">about</a></li>
+            <li><a href="/podcast/rss_podcast.xml">rss</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+<time class="tl-date" datetime="2021-04-28"><a href="../../2021/04/28.html" title="#7 - Season Finale - Freedom, Focus and Mushrooms">28 Apr 2021</a></time>
+<article>
+<h2>Season Finale - Freedom, Focus and Mushrooms</h2>
+<p>Some final thoughts and notes about this podcast season. I will talk about removing YouTube channel, pausing my website development and trying to focus on other things. Topics will vary, such as bitcoin, crypto and biology.</p>
+<p><em><strong><a href="https://mountaineerbr.github.io/podcast/ep7.m4a">ep7.m4a</a></strong></em>, <strong>1:25:42</strong>, <em>41M</em>, low-res: <em>31M</em> <a href="ep7low.m4a">ep7low.m4a</a></p>
+<p>Supporting reference: <a href="https://mountaineerbr.github.io/blog/42/">https://mountaineerbr.github.io/blog/42/</a></p>
+</article>
+      </main>
+      <nav class="tl-archive">
+        <h2>Archive</h2>
+<dl>
+  <dt><a href="../../2021/">2021</a></dt>
+  <dd>
+    <ul>
+      <li><a href="../../2021/week/08.html" title="week 08, 2021">08</a></li>
+      <li><a href="../../2021/week/12.html" title="week 12, 2021">12</a></li>
+      <li><a href="../../2021/week/13.html" title="week 13, 2021">13</a></li>
+      <li class="tl-self">17</li>
+    </ul>
+  </dd>
+  <dt><a href="../../2020/">2020</a></dt>
+  <dd>
+    <ul>
+      <li><a href="../../2020/week/42.html" title="week 42, 2020">42</a></li>
+      <li><a href="../../2020/week/43.html" title="week 43, 2020">43</a></li>
+      <li><a href="../../2020/week/47.html" title="week 47, 2020">47</a></li>
+    </ul>
+  </dd>
+</dl>
+      </nav>
+      <footer>
+        Copyright &copy; 2020–2021 Mountaineerbr.
+        Pages generated with
+        <a
+          href="http://johnbokma.com/articles/tumblelog/"
+        >tumblelog 4.1.0</a>.
+
+
+	<!-- Google Analytics -->
+
+      </footer>
+    </div>
+  </body>
+</html>

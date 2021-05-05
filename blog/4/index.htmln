@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.7.45">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS" href="../rss.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Alternative feed)" href="../rss_alt.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Podcast)" href="../rss_podcast.xml">
+<!-- metatags -->
+
+<title>02/sep/2020 #4 - Podcast Idéia</title>
+<link rel="canonical" href=
+"https://mountaineerbr.github.io/blog/4/">
+<meta name="description" content=
+"Checking Luke Smith's website, I got the idea of a Podcast! But most episodes, if not all, shall be in Portuguese while I haven't got a big enough foreign audience and confidence to record in English.">
+<meta name="keywords" content=
+"podcast, ideia, idéia, transmissão de voz, voice transmission, voice, audio, áudio, radio, voz, opinion, opinião, communication, other blogs, outros blogs">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+<meta name="resource-type" content="document">
+<meta name="author" content="jsn">
+<meta name="distribution" content="global">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<link rel="shortcut icon" href="../../favicon.ico" type=
+"image/x-icon">
+<style>
+        /* Microformat style */
+        .dt-published
+        {
+                font-size: 1.1em;
+        }
+
+</style>
+</head>
+<body>
+<header>
+<div class="w3-bar w3-amber">
+<nav class="navbar"><a class="w3-bar-item w3-left" href=
+"../../">Home</a> <a class="w3-bar-item w3-left" href="../">Post
+index</a> <!-- navitem -->
+<a class="w3-bar-item w3-right" href="../5/">Next</a> <a class=
+"w3-bar-item w3-right" href="../3/">Previous</a></nav>
+</div>
+</header>
+<!-- FEED -->
+<a href="../rss.xml"><img class="postfeed" src="../gfx/pic_rss.gif"
+alt="RSS Logo" width="36" height="14"></a>
+<main class="h-feed" style="clear:both;">
+<p>by <span class="p-author">Mountaineerbr</span></p>
+<!-- article -->
+
+<article class="h-entry">
+<header>
+<h1 class="p-name" id="4">#4 - Podcast Idéia</h1>
+<time class="dt-published" datetime="2020-09-02">02/sep/2020</time>
+<br>
+</header>
+
+<div lang="pt" class="p-summary">
+<p>Depois de ver dar uma olhada melhor no <a hreflang="en" href=
+"https://lukesmith.xyz/blog">blog do Luke Smith</a>, estou pensando
+em copiar algumas seções, como por exemplo, inaugurar um podcast em
+<b>Português</b>. Definitivamente, o meu conteúdo vai ter que ser
+espalhado em duas línguas. Veja, por exemplo, meu canal
+<a hreflang="pt" href="https://www.youtube.com/c/XGnuBio">canal no
+YouTube</a>, totalmente em português.. A ideia de um podcast é
+muito boa pois abre uma avenida de possibilidades, além de ser mais
+fácil de gravar, quem sabe um episódio por mês.. Aguardem..</p>
+</div>
+
+<br>
+
+<p><a href="https://lukesmith.xyz/blog">Luke Smith's blog</a> has
+nice posts about his website development. Specially, today, I was
+reading the very first posts, from may 2008, and he states
+preference for a minimalist website. There is also depth to his
+website, browsing it I could find many links to different sections
+of his website: video, podcast and rss feed. He has got even a
+forum, which I avoided entering so far, may check it later. That
+<a href="https://larbs.xyz/">LARBS</a> distribution seems to have
+many users. I would't dare using it, because that would be one more
+layer -- instead of having to learn how to configure the tools
+themselves, I would have to learn how to configure his
+<cite>LARBS</cite> tools.. And I just found how convoluted his
+distro design might be, look at how redundant is this directory
+structure, which he cites in <a href=
+"https://lukesmith.xyz/blog/font-gone-crazy-in-larbs">this post</a>
+in which you navigate downwards levels until you can find the
+distro default configuration file at
+<code>~/.config/fontconfig/fonts.conf</code>.</p>
+
+<p>His website has very interesting ideas, pages and depth to
+content. Specially, the podcast section got my attention. I already
+have got a <a hreflang="pt" href=
+"https://www.youtube.com/c/XGnuBio">YouTube channel</a> (in
+portuguese), and some faithful followers, even though I advertise
+that channel as a B-side channel, meaning produced with as little
+time as would afford that.. However, a podcast, in which only the
+voice is the most important piece of the play, seems like good fun.
+That is easier to record, easy to upload, easy to download.. It can
+have high quality sound as any mobile phone has great microphone,
+much different from my computer microphone used for producing my
+youtube channel content!</p>
+
+<p>It would make sense to have my podcast in portuguese, which
+means effectively splitting content in two languages in this
+website. Production would be slower, one episode a month. And I
+could have co-hosts or interviews, chatting with other cool people,
+so that is a big opened avenue.</p>
+<img src="../gfx/tower.gif" alt="[tower signalling]" class="center"
+width="35" height="45">
+</article>
+</main>
+
+<footer>
+<hr class="sep">
+<!-- Google Analytics -->
+<!--
+- - - - Copyright ©2021 JSN.
+ - - -  Verbatim copying and distribution of this entire article is
+- - - - permitted in any medium, provided this notice is preserved.
+-->
+</footer>
+</body>
+</html>

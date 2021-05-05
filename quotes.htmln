@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="alternate" type="application/rss+xml" title="Biology Blogger RSS" href="blog/rss.xml">
+<link rel="alternate" type="application/rss+xml" title="Biology Blogger RSS (Alternative feed)" href="blog/rss_alt.xml">
+<link rel="alternate" type="application/rss+xml" title="Biology Blogger RSS (Podcast)" href="blog/rss_podcast.xml">
+<title>Quotes -- Biology Blogger</title>
+<meta name="resource-type" content="document">
+<meta name="description" content="Some of my favourite quotes.
+This list should contain quotes from various subjects..
+I like to keep them here for my own reference an hopefully they
+will be usefull for other people as well!">
+<meta name="keywords" content="citações, citations,
+inspirational, references, referências,
+dicas, parceiros, recomendações, recommendations, tips">
+<meta name="distribution" content="global">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<link rel="canonical" href="https://mountaineerbr.github.io/quotes.html">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+<link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+<style>
+	body {
+		background-image: url("gfx/background_stars.gif");
+	}
+
+	.quotes {
+		padding: 1em 0 2em 0;
+	}
+
+</style>
+
+    <!--
+    Hello, curious viewer of the source! :)
+    Viewing the source is the best way to learn about web design and development.
+    It's what I did when I started out, and what's I still continue to do on
+    a daily basis. So thank you for your interest — and I hope something you find
+    here that will be useful to you. The source code of this web page is available
+    at GitHub for scrutiny. Also, you should be able to use your browser’s
+    Inspect tools to dig through the original files.
+    Since you're here, check this great designer website: https://elliotjaystocks.com/
+    -->
+</head>
+
+<body>
+<header>
+	<nav class="navbar fixednavbar">
+		<ul>
+			<li><a href="./#quotes">Home</a></li>
+			<li><a href="blog/">Blog</a></li>
+			<li><a href="podcast/">Podcast</a></li>
+			<li><a href="fool/">The Fool</a></li>
+			<li><a href="repo/">Repo</a></li>
+			<!-- <li><a hreflang="pt" href="https://www.youtube.com/c/xgnubio/">Vlog</a></li> -->
+			<li><a hreflang="pt" href="vlog/">Vlog</a></li>
+			<li><a href="links.html">Links</a></li>
+			<li><a href="sitemap.html">Site Map</a></li>
+			<li style="float:right"><a title="Go to Bottom" href="#bottom">⬇</a></li>
+			<!--  down emojis: ⬇🔻⏬  -->
+		</ul>
+
+	</nav>
+
+	<!-- RSS Feed logo -->
+	<div class="homefeed">
+		<a href="blog/rss.xml"><img src="gfx/pic_rss.gif" alt="RSS Logo" width="36" height="14"></a>
+	</div>
+
+	<div style="clear:both;">
+		<h1 class="hometitle2">
+		Biology Blogger
+		</h1>
+
+		<p class="homedesc homedesc_lnk">
+		Some of my favourite quotes.
+		<br>
+		Some of them are extracted from random studies and
+		left here for future reference.
+		</p>
+	</div>
+
+</header>
+
+<br>
+<main>
+
+
+<!-- COL3 -->
+<div class="col-container c4 colborder">
+<!-- QUOTES -->
+<div id="quotes">
+<h2 class="t">Quotes</h2>
+<dl class="center quotes">
+	<!-- <dt>
+	<q></q>
+	</dt>
+	<dd><small>
+	--<a href=""></a>
+	</small></dd> -->
+
+	<!-- <dt>
+	<q></q>
+	</dt>
+	<dd><small>
+	--<a href=""></a>
+	</small></dd> -->
+
+	<dt>
+	<q>Do you want my advice? Stop looking for advice.
+	Go out and do something. And stick to it.
+	Remember: everything is a risk. Now go take a risk.
+	</q>
+	</dt>
+	<dd><small>
+	--<a href="https://www.youtube.com/watch?v=snBrvFkyeYE">Myron Steves</a>
+	</small></dd>
+
+	<dt>
+	<q>
+	Power improves no one. Love, gentleness, compassion, kindness -
+	have no use for power. They flower from the heart. 
+
+	The parts hungry for power are greed, hostility and every other
+	destructive aspect of human nature. 
+
+	Power corrupts. Without exception.
+	</q>
+	</dt>
+	<dd><small>
+	--<a href="https://mobile.twitter.com/officialmcafee/status/1337068100567633924">John McAfee</a>
+	</small></dd>
+
+
+
+	<dt>
+	<q>Tolerance is not a moral absolute; it is a peace treaty. [...]
+	[Tolerance] is an agreement to live in peace, not an agreement
+	to be peaceful no matter the conduct of others.</q>
+	</dt>
+	<dd><small>
+	--<a href="https://extranewsfeed.com/tolerance-is-not-a-moral-precept-1af7007d6376">Tolerance is not a moral precept</a>
+	</small></dd>
+
+	<dt>
+	<q>Ask for forgiveness, not permission</q>
+	</dt>
+	<dd><small>
+	--<a href="http://ln.hixie.ch/?start=1610654145&count=1">Hixie's Natural Log</a>
+	</small></dd>
+
+	<dt>
+	<q>A grandeza da obra deverá sobrepor-se a todos e a tudo,
+	nomeadamente à comunicação social. O alarido não enalteceu nem
+	o momento nem a obra do túnel do Marão. Mas quem vai receber os
+	louros? Quem inaugurou, quem iniciou, quem acompanhou, quem suspendeu
+	ou quem esteve presente e, sem merecer, quis ser o candidato
+	principal à coroa de louros? Parece-me que todos se esqueceram
+	dos mil trabalhadores que escavaram os quase seis quilómetros
+	de montanha.</q>
+	</dt>
+	<dd><small>
+	--Luis Ferreira, <a title="Quem recebe os louros?" hreflang="pt" href="https://www.diariodetrasosmontes.com/cronica/quem-recebe-os-louros">Who deserves glory?</a>.
+	</small></dd>
+
+	<dt>
+	<q>The price of freedom is eternal vigilance.</q>
+	</dt>
+	<dd><small>
+	--<a href="https://en.wikiquote.org/wiki/Leonard_H._Courtney">Leonard H. Courtney</a>
+	</small></dd>
+
+	<dt>
+	<q lang="pt">Como intelectual, tenho que me habituar a estar sozinho.
+	Nã tenho que me preocupar com quem me acompanha.
+	Não é prórpio do intelectual se tem apoio ou não.
+	São as posições das ideas, a coragem de defendê-las até o fim.</q>
+
+	<br><br>
+	<q>As an intellectual, I have got to get used to being alone.
+	I need not worry about whoever follows me.
+	That is not proper of the intellectual to worry about whether he has got support or not,
+	but the position of ideas, courage to defend them until the end.</q>
+	</dt>
+	<dd><small>
+	--<a title="Interview by Roda Viva." hreflang="pt" href="https://www.youtube.com/watch?v=xPfkiR34law">Geographer Milton Santos</a>
+	(<a hreflang="pt" href="http://www.rodaviva.fapesp.br/materia_busca/112/milton%20santos/entrevistados/milton_santos_1997.htm">transcription</a>)
+	<!-- AVES-RARA: https://iela.ufsc.br/noticia/duas-ou-quatro-observacoes-sobre-o-memorial-do-professor-nildo-ouriques -->
+	</small></dd>
+
+	<dt lang="pt">
+	<q>Você pode perguntar sobre qualquer coisa desde que com naturalidade</q> -- Jô Soares ao Pedro Bial
+	<br>
+	<q>Não há naturalidade. Tudo é artifício</q> -- Resposta de um diretor de teatro
+	</dt>
+	<dd lang="pt"><small>
+	--Relato em <a href="https://cbn.globoradio.globo.com/media/audio/323451/e-mais-facil-conversa-ficar-pessoal-diz-pedro-bial.htm" title="Fim de Expediente - 'É mais fácil a conversa ficar pessoal', diz Pedro Bial sobre entrevistas à distância">entrevista do Pedro Bial à CBN</a>
+	(<a href="gfx/CBN_Bial_20201120.mp3" title="Local backup copy of Pedro Bial's CBN interview (MP3)">local</a>), 20/11/2020
+	</small></dd>
+
+	<dt>
+	<q lang="pt">Jorge sentou praça
+	na cavalaria.
+	Eu estou feliz por que
+	eu também, talvez, estou na sua compania.
+	Eu estou vestido com as roupas 
+	e as armas de Jorge.
+	Para que meus inimigos tenham mãos,
+	não me toquem.
+	Para que meus inimigos tenham pés.
+	Não me alcançem.
+	Para que meus inimigos tenham olhos
+	e não me vejam.
+	E nem mesmo o pensamento eles possam ter
+	para me fazerem mal.</q>
+	</dt>
+
+	<dd><small>
+	--Jorge Ben Jor, <a hreflang="pt" href="gfx/jorgeBen.png">Jorge de Capadócia</a>
+	</small></dd>
+	<!-- https://www.youtube.com/watch?v=luJZbeyfvmc -->
+
+	<dt>
+	<q title="Grandes talentos amadurecem lentamente" lang="ja">大器晩成</q>
+	<q>Great talents mature slowly.</q>
+	</dt>
+	<dd><small>
+	--<a href="gfx/taikibansei.png">Japanese proverb</a>
+	</small></dd>
+
+	<dt>
+	<q>Death is only the end of the book.  The book remains to be re-read.</q>
+	</dt>
+	<dd><small>
+	--<a href="https://www.youtube.com/watch?v=nAoDNo6xWwQ&lc=UgxQZd_Igtxm9osBWc94AaABAg.9FT02-5N1-x9FT2Lwh_Yog">Talking Philosophy, see comments section</a>
+	</small></dd>
+
+	<dt>
+	<q><!-- »──❥ -->If you are patient in one moment of anger, you will escape a hundred days of sorrow.</q>
+	</dt>
+	<dd><small>
+	--Chinese proverb
+	</small></dd>
+
+	<dt>
+	<q>It is fascinating to know things but
+	the more you know, the greater the boundary of the unknown.</q>
+	</dt>
+	<dd><small>
+	--<a title="A Very General Lecture" href="https://www.youtube.com/watch?v=AL3YWupzj6E">Ted Nelson</a>
+	</small></dd>
+
+	<dt>
+	<q>I'm not the person who loves to be in the spotlight and
+	so on and so forth, that kind of success is like a fever,
+	and high fever can be very dangerous. It’s not reality.</q>
+	</dt>
+	<dd><small>
+	--<a title="Rubik’s Cube Inventor Opens Up About His Creation in New Book &#x27;Cubed&#x27;" href="https://www.nytimes.com/2020/09/16/books/erno-rubik-rubiks-cube-inventor-cubed.html">Erno Rubik</a>
+	</small></dd>
+
+	<dt>
+	<q>Concerns about 'rights' and 'ownership' of domains are
+	inappropriate. It is appropriate to be concerned about
+	'responsibilities' and 'service' to the community.</q>
+	</dt>
+	<dd><small>
+	--<a title="Memo: Domain Name System Structure and Delegation" href="https://www.ietf.org/rfc/rfc1591.txt">RFC documents</a>
+	</small></dd>
+
+	<dt>
+	<q>When you have eliminated all which is impossible, then
+	whatever remains, however improbable, must be the truth.</q>
+	</dt>
+	<dd><small>
+	--The Adventure of the Blanchedn Soldier
+	</small></dd>
+
+</dl>
+
+</div>
+<!-- QUOTES -->
+</div>
+
+</main>
+
+<footer id="bottom">
+	<br>
+	<div style="float:right;">
+		<!-- seibutsugakku logo -->
+		<img src="gfx/seibutsugaku.gif" title="Seibutsugaku, biology, biologia" width="88" height="31" alt="biology logo">
+
+		<!-- css certificate -->
+		<!--
+		<p>
+		    <a href="https://jigsaw.w3.org/css-validator/check/referer">
+		        <img width="88" height="31" style="border:0;width:88px;height:31px"
+		            src="https://jigsaw.w3.org/css-validator/images/vcss"
+		            alt="Valid CSS!" />
+		    </a>
+		</p>
+		-->
+
+	</div>
+	
+	<!-- <br style="clear: both;" /> -->
+	<nav class="navbar" style="clear: both;">
+		<ul>
+			<li><a href="about/">About/ <span lang="pt">Sobre</span></a></li>
+			<li><a href="contact/">Contact</a></li>
+			<li><a href="donate/">Donation</a></li>
+			<li><a href="guestbook/">Guestbook/ <span lang="pt">Livro de visitas</span></a></li>
+			<li><a href="faqf.html" hreflang="pt">FAQ Filosófico</a></li>
+			<li style="float:right"><a title="Go to Top" href="#">🔝</a></li>
+		</ul>
+	</nav>
+	
+
+	<!-- Google Analytics -->
+
+
+<!--
+- - - -	Copyright ©2021 JSN.
+ - - -	Verbatim copying and distribution of this entire article is
+- - - -	permitted in any medium, provided this notice is preserved.
+-->
+
+<!--
+- - - -	Legal Mumbo Jumbo
+- - - -	You are free to copy or repost any or part of these
+- - - -	blogs, as long as the proper attribution is given.
+- - - -	A heads-up is always appreciated.
+- - - -	The opinions expressed are mine and my own and they
+- - - -	do not represent my employer or company opinions.
+-->
+
+
+</footer>
+
+</body>
+</html>
+

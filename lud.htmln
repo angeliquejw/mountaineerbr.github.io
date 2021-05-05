@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>City of Lud Thinny</title>
+<meta name="resource-type" content="document">
+<meta name="description" content="Welcome to the city of Lud whilst in the quest for the Dark Tower">
+<meta name="keywords" content="the dark tower, stephen king, a torre negra, turtle, beam, tartaruga, Tick-Tock Man, fã, fanatic, Roland, Jake, Oy">
+<meta name="distribution" content="global">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="canonical" href="https://mountaineerbr.github.io/lud.html">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
+<link rel="stylesheet" href="blog/css/style2.css" type="text/css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-win8.css">
+
+<style>
+	body
+	{
+		padding: 40px;
+		max-width: 60em;
+	}
+
+	.i1
+	{
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+	.i1x:after
+	{
+		display: block;
+	}
+
+	.i2
+	{
+		display: block;
+		float: left;
+
+	}
+
+	.i3
+	{
+
+	}
+
+	.centralise
+	{
+		text-align: center;
+
+	}
+
+	.blkc
+	{
+		display: inline-block;
+
+	}
+
+
+
+	/* Container holding the image and the text */
+	.container {
+		position: relative;
+		text-align: center;
+		color: white;
+	}
+	/* Centered text */
+	.centered {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	/* https://www.w3schools.com/howto/howto_css_image_text.asp */
+
+</style>
+
+<style>
+	/* STATION */ /* STATION */ /* STATION */
+#station
+{
+	height: 30vh;
+
+}
+#station:after
+{
+	clear:both
+}
+
+:root
+{
+	--colour1: #00ff0a;
+}
+
+section.load
+{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+section.load
+{
+	position: relative;
+	width: 100%;
+	height: 80vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background: #001300;
+	animation: changeColor 5s linear infinite;
+}
+
+@keyframes changeColor
+{
+	0%
+	{
+		filter: hue-rotate(0deg);
+	}
+	100%
+	{
+		filter: hue-rotate(360deg);
+	}
+}
+
+section.load h2
+{
+	color: var(--colour1);
+	font-family: consolas;
+	font-weight: 300;
+	letter-spacing: 10px;
+}
+
+section .loader
+{
+	position: relative;
+	display: flex;
+}
+
+section .loader .dot
+{
+	position: relative;
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: var(--colour1);
+	box-shadow: 0 0 10px var(--colour1),
+		0 0 20px var(--colour1),
+		0 0 40px var(--colour1),
+		0 0 60px var(--colour1),
+		0 0 80px var(--colour1),
+		0 0 100px var(--colour1);
+	margin: 20px 10px;
+	transform: scale(0.1);
+	border-radius: 50%;
+	animation: animateDot 2s linear infinite;
+	animation-delay: calc(0.1s * var(--i));
+}
+
+section .loader:last-child .dot
+{
+	animation-delay: calc(-0.1s * var(--i));
+}
+
+@keyframes animateDot
+{
+	0%
+	{
+		transform: scale(0.1);
+	}
+	10%
+	{
+		transform: scale(1);
+
+	}
+	50%, 100%
+	{
+		transform: scale(0.1);
+
+	}
+}
+
+	/* BLAKE */ /* BLAKE */ /* BLAKE */
+	div#blake
+	{
+		background:url('gfx/rainbow.gif') repeat;
+		text-align: center;
+		overflow: auto;
+		margin: auto;
+		width: 80%;
+		height: auto;
+		border: 3px solid green;
+	}
+	#blake h2
+	{
+		text-decoration: underline overline;
+		display: block;
+		/* background:url('http://i.stack.imgur.com/tQTRW.gif') repeat-x left; */
+	}
+
+</style>
+
+<style>
+	/* CHALKBOARD */ /* CHALKBOARD */ /* CHALKBOARD */
+/* https://codepen.io/craigiswayne/pen/XmBzzq */
+@import url(https://fonts.googleapis.com/css?family=Walter+Turncoat);
+div.chalk1 {
+  background: -webkit-linear-gradient(90deg, #485563 10%, #29323c 90%);
+  background: -moz-linear-gradient(90deg, #485563 10%, #29323c 90%);
+  background: -ms-linear-gradient(90deg, #485563 10%, #29323c 90%);
+  background: -o-linear-gradient(90deg, #485563 10%, #29323c 90%);
+  background: linear-gradient(90deg, #485563 10%, #29323c 90%);
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden
+}
+
+div.chalk2 {
+  font-size: 2em;
+  color: #E8E8E8;
+  font-family: "Walter Turncoat", cursive;
+  display: block;
+  width: 80%;
+  height: 80%;
+  min-height: auto;
+  margin: 30px auto 0 auto;
+  background-color: #497959;
+  padding: 20px 30px;
+  overflow-y: auto;
+  box-shadow: -1px 2px 2px 0px #555, inset 0 0 10px 0 #555;
+  -webkit-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  border: #B78240 solid 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  background-image: url(gfx/lud_img.png);
+}
+
+div.chalk2:after {
+  content: "";
+  display: block;
+  position: fixed;
+  -webkit-border-radius: 0.1em 0.1em 0 0.1em;
+  -khtml-border-radius: 0.1em 0.1em 0 0.1em;
+  -moz-border-radius: 0.1em 0.1em 0 0.1em;
+  -ms-border-radius: 0.1em 0.1em 0 0.1em;
+  -o-border-radius: 0.1em 0.1em 0 0.1em;
+  border-radius: 0.1em 0.1em 0 0.1em;
+  width: 50px;
+  height: 8px;
+  background: #f1f1f1;
+  top: 80%;
+  margin-top: 75px;
+  margin-right: 60px;
+  right: 5%;
+  box-shadow: inset 0 -4px 1px rgba(0, 0, 0, 0.3), -1px -1px 1px rgba(0, 0, 0, 0.2), 0 2px 0 rgba(0, 0, 0, 0.3)
+}
+
+.chalk2 a {
+  color: #ff0
+}
+
+</style>
+
+</head>
+
+<body class="w3-blue-grey">
+<header>
+	<div class="w3-bar w3-orange">
+	<nav>
+		<a class="w3-bar-item w3-left" href="../">Home</a>
+	</nav>
+	</div>
+	
+</header>
+
+<div class="w3-container w3-panel w3-pink centralise" style="padding:20px;">
+	<hr>
+	<h1 style="padding-bottom:1.4em;">
+		Beware of<br>
+		the <q>Thinny</q>!
+	</h1>
+	
+	<div class="container">
+
+	<img src="gfx/thin-fabric-2-small.jpg" alt="Thin fabric" width="284" height="213" class="w3-sepia-min w3-hover-sepia i1">
+
+
+	<iframe class="centered w3-opacity" width="420" height="315"
+	src="https://www.youtube.com/embed/F89McWFENTs?controls=1">
+	</iframe> 
+	<!-- src="https://www.youtube.com/embed/CS4o1ZKjOSc?autoplay=1&mute=1&showinfo=0&controls=1"> -->
+
+	
+	<p class="centered">
+	[🎵 Music 🎶]
+	</p>
+	<!-- more music chars: ♭♮♯ -->
+
+	</div>
+
+	<p style="padding-top:2.6em;">
+	This is where the fabric of the
+	<a style="text-decoration:none;" hreflang="pt" href="gfx/Murmum.pdf">worlds has been worn thin</a>.
+	</p>
+</div>
+
+
+<div class="w3-container centralise">
+	<div class="i2">
+		<img src="gfx/divider_beamwhite.gif" alt="Beam" width="400" height="3">
+		<img src="gfx/divider_beamwhite.gif" alt="Beam" width="400" height="3">
+	</div>
+	<div class="i2">
+		<img src="gfx/divider_beamwhite.gif" alt="Beam" width="400" height="3">
+		<img src="gfx/divider_beamwhite.gif" alt="Beam" width="400" height="3">
+	</div>
+
+	<img src="gfx/turtle-small.png" alt="Turtle" title="Maturin" width="75" height="85">
+
+	<div class="w3-container w3-win8-lime centralise blkc">
+		<h2>The Beam of The Bear, Path of The Turtle.</h2>
+		<p>
+		<q>
+			See the TURTLE of Enormous Girth;
+			<br>
+			On his shell he holds the Earth.
+			<br>
+			His thought is slow, but always kind.
+			<br>
+			He holds us all within his mind.
+			<br>
+			On his back all vows are made;
+			<br>
+			He sees the truth but mayn't aid.
+			<br>
+			He loves the land and loves the sea,
+			<br>
+			And even loves a childe like me.
+		</q>
+
+		</p>
+	</div>
+
+
+	<p lang="pt"><i>
+	</i></p>
+</div>
+
+<div class="i1">
+<img title="Jake?" src="gfx/child-lost-city-small.jpg" alt="[child in destroyed city]" width="346" height="228">
+</div>
+
+<br>
+<div id="blake">
+<!-- Confessions of a Mozillian  -->
+<h2>This is <a style="text-decoration:none;" href="https://web.archive.org/web/20021002004234/http://www.mozillazine.org/jason/blake/">the <strong style="font-size:1.6em;">TRUE</strong> face of <strong style="color:navy;">BLAKE</strong></a></h2>
+
+<!-- Blake wewbsite: https://web.archive.org/web/20021002004234/http://mozillazine.org/weblogs/hyatt/2002_05_19_mozillian_archive.html -->
+<!-- Make background of a gif and loop:
+https://stackoverflow.com/questions/4519433/animated-loading-gif-image-as-a-repeated-background -->
+
+
+</div>
+<br>
+<section id="station" class="load">
+	<div class="loader">
+		<div class="dot" style="--i:0;"></div>
+		<div class="dot" style="--i:1;"></div>
+		<div class="dot" style="--i:2;"></div>
+		<div class="dot" style="--i:3;"></div>
+		<div class="dot" style="--i:4;"></div>
+		<div class="dot" style="--i:5;"></div>
+		<div class="dot" style="--i:6;"></div>
+		<div class="dot" style="--i:7;"></div>
+		<div class="dot" style="--i:8;"></div>
+		<div class="dot" style="--i:9;"></div>
+	</div>
+	<h2>::: STATION :::</h2>
+	<div class="loader">
+		<div class="dot" style="--i:0;"></div>
+		<div class="dot" style="--i:1;"></div>
+		<div class="dot" style="--i:2;"></div>
+		<div class="dot" style="--i:3;"></div>
+		<div class="dot" style="--i:4;"></div>
+		<div class="dot" style="--i:5;"></div>
+		<div class="dot" style="--i:6;"></div>
+		<div class="dot" style="--i:7;"></div>
+		<div class="dot" style="--i:8;"></div>
+		<div class="dot" style="--i:9;"></div>
+	</div>
+
+</section>
+
+<section style="height: 120vh;" class="load">
+
+<div>
+<p><b>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<!-- from:Dr. Ronald B. Standler http://www.rbs2.com/ -->
+</b></p>
+</div>
+
+<div>
+	<img src="gfx/train-evil-2.jpg" alt="Evil trains at station" style="margin:auto; float:left;">
+	<!-- https://www.reddit.com/r/evilvehicles/comments/6081pj/evil_trains/ -->
+	
+	<h6>Blaine!</h6>
+	<h5>&nbsp; Blaine!</h5>
+	<h4>&nbsp;&nbsp; Blaine!</h4>
+	<h3>&nbsp;&nbsp;&nbsp; Blaine!</h3>
+	<h2>&nbsp;&nbsp; Blaine!</h2>
+	<!-- <h1>&nbsp; Blaine!</h1> -->
+</div>
+
+<br>
+<br>
+<br>
+<p><strong>Blaine is a Naughty Train, does not seem but he Killed many a Man!</strong></p>
+<p><strong>Blaine is such a real Pain!</strong></p>
+
+
+<div>
+<p><b>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<span style="color:#ff0f00;">&lt; </span><span style="color:#1099ff;">&lt; </span><span style="color:#01fff0;">&lt; </span><span style="color:#ff9910;">&lt; </span><span style="color:#1999ff;">&lt; </span>
+	<!-- from:Dr. Ronald B. Standler http://www.rbs2.com/ -->
+</b></p>
+</div>
+</section>
+
+<br>
+<h2 style="text-align:right;">
+	.......I hear the TikTok Man is a-comming!</h2>
+
+<br />
+<div class="chalk1">
+	<div lang="pt" class="chalk2">
+	Complete o texto com os termos que faltam para que este tenha sentido.
+	<br />
+	<span contenteditable>
+	a galáxia em que se encontra o nosso sistema solar é a <a href="https://s2.glbimg.com/NpWlk5DSTNfb9-liF0BRhDNJcyo=/e.glbimg.com/og/ed/f/original/2018/04/05/milkyway-full.jpg" contenteditable="false">Via</a> <a href="">______</a>.
+	está localizada no supercluster de virgem e seu formato é <a href="">__________</a>. *
+	</span>
+	</div>
+</div>
+
+
+
+
+<footer>
+
+
+	<!-- Google Analytics -TurtleTurtle -->
+	<!--TurtleTurtle Global site tag (gtag.js) - Google Analytics -->
+	<!-- uBlock seems to Tutle-block thizz -->
+	<!-- <scriptzz async srTurtleTurtlec="https://www.googletagmanager.com/gtag/js?id=UA-177031288-1"></script>
+	<scriptz>
+	  window.dataLayeTurtleTurtler = window.dataLayer || [];
+	  function gtag(){dataLayerur.puursh(arguments);}
+	  gtag('js', new Date(fuck you Google!));
+
+	  gtag('conTurtleTurtlefig', 'UA-17TurtleTurtle7031288-1');
+		Turtleeeez Rocks
+
+	</scriptz> -->
+	<!-- Turtle Google Analytics -Tur -->
+
+</footer>
+</body>
+</html>
+

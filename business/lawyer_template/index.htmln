@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Brand</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/ebs-contact-form-1.css">
+    <link rel="stylesheet" href="assets/css/ebs-contact-form.css">
+    <link rel="stylesheet" href="assets/css/News-Cards.css">
+    <link rel="stylesheet" href="assets/css/Testimonial-Slider-9-1.css">
+    <link rel="stylesheet" href="assets/css/Testimonial-Slider-9.css">
+    <link rel="stylesheet" href="assets/css/testimonialSlider-1.css">
+    <link rel="stylesheet" href="assets/css/testimonialSlider.css">
+    <link rel="stylesheet" href="assets/css/untitled.css">
+</head>
+
+<body id="page-top">
+    <nav class="navbar navbar-light navbar-expand-md navbar navbar-expand-lg fixed-top" id="mainNav" style="background: rgba(0,0,0,0.8);">
+        <div class="container"><a class="navbar-brand js-scroll-trigger" href="#">Johnson's</a><button data-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"
+                value="Menu"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link active js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="#download">services</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="#contact">contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead" style="background: linear-gradient( rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5) ), url('assets/img/intro-bg.jpg');background-position: left center;">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <p class="intro-text" style="color: rgba(255,255,255,0.71);">High quality law advice</p>
+                        <h2 class="text-uppercase" style="color: rgba(255,255,255,0.79);">We are a group of professional laywers and attorneys</h2>
+                        <p class="intro-text" style="color: rgba(255,255,255,0.76);">"We try make the world a secure place to live"</p><a class="btn btn-link btn-circle" role="button" href="#about"><i class="fa fa-angle-double-down animated"></i></a></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="about" class="content-section text-center" style="background: linear-gradient( rgb(0,0,0), rgba(1,20,38,0.85) ), url('assets/img/lawyer1,jpeg.jpeg');background-position: center;">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h4 class="text-uppercase" style="font-family: Lora, serif;">we provice legal services</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" id="underline">
+                    <h1 class="text-uppercase" style="font-family: Lora, serif;">Welcome to johnson's</h1>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-right" style="font-size: 15px;font-family: Lora, serif;"><br>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
+                        voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
+                        sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.&nbsp;<br><br></p>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-left" style="font-size: 15px;font-family: Lora, serif;"><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&nbsp;<br><strong>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</strong><br><br><br></p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"><img class="persona_img" src="assets/img/person.jpg">
+                    <h4 style="font-family: Lora, serif;">Meggy Smith</h4>
+                    <p style="font-family: Lora, serif;">Senior Lawyer</p>
+                </div>
+                <div class="col-md-3"><img class="persona_img" src="assets/img/person2.jpg">
+                    <h4 style="font-family: Lora, serif;">Mark Berstein</h4>
+                    <p>Senior Lawyer</p>
+                </div>
+                <div class="col-md-3"><img class="persona_img" src="assets/img/person3.jpg">
+                    <h4>Boris Sawyer</h4>
+                    <p>Senior Lawer</p>
+                </div>
+                <div class="col-md-3"><img class="persona_img" src="assets/img/person4.jpg">
+                    <h4>Lauren Twen</h4>
+                    <p>Senior Lawyer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="practice" class="download-section content-section text-center" style="background-image: linear-gradient( rgb(7,7,7), rgba(1,20,38,0.71) ), url('assets/img/lawyer2.jpeg');">
+        <div class="container">
+            <div class="col-lg-8 mx-auto">
+                <p>What We Do</p>
+                <h1>Practice Area</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"><i class="fas fa-place-of-worship" style="font-size: 35px;"></i>
+                    <h5 class="m-0 mb-2">Administrative Law</h5>
+                    <p class="m-0" style="font-size: 13px;">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.<br><br></p>
+                </div>
+                <div class="col-md-4"><i class="fas fa-balance-scale" style="font-size: 35px;"></i>
+                    <h5 class="m-0 mb-2">Constitutional Law</h5>
+                    <p class="m-0" style="font-size: 13px;">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum<br><br></p>
+                </div>
+                <div class="col-md-4"><i class="fas fa-hand-paper" style="font-size: 35px;"></i>
+                    <h5 class="m-0 mb-2">Human Rights</h5>
+                    <p class="m-0" style="font-size: 13px;">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
+                        vel illum qui dolorem eum fugiat quo voluptas nulla pariatur<br><br></p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"><i class="fas fa-user-injured" style="font-size: 35px;"></i>
+                    <h5 class="m-0 mb-2">Criminal Justice</h5>
+                    <p class="m-0" style="font-size: 13px;">officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
+                        perferendis doloribus asperiores repellat.<br><br></p>
+                </div>
+                <div class="col-md-4"><i class="fas fa-dollar-sign" style="font-size: 35px;"></i>
+                    <h5 class="m-0 mb-2">Company Commercial</h5>
+                    <p class="m-0" style="font-size: 13px;">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod.<br><br></p>
+                </div>
+                <div class="col-md-4"><i class="icon ion-ios-bookmarks-outline" style="font-size: 35px;"></i>
+                    <h5 class="m-0 mb-2">Civil Litigion</h5>
+                    <p class="m-0" style="font-size: 13px;">To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences,
+                        or one who avoids a pain that produces no resultant<br><br></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="pt-5 pb-5 mt-5 mb-5"><!-- Paradise Slider -->
+	<div id="testimonial_095" class="carousel slide testimonial_095_indicators testimonial_095_control_button thumb_scroll_x swipe_x ps_easeOutSine mt-4 mb-5" data-ride="carousel" style="background: black" data-pause="hover" data-interval="5000" data-duration="2000">
+
+		<!-- Header of Slider -->
+		<div class="testimonial_095_header">
+			<h5>what people<span>say</span></h5>
+		</div>
+		<!-- /Header of Slider -->
+
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li data-target="#testimonial_095" data-slide-to="0" class="active"></li>
+			<li data-target="#testimonial_095" data-slide-to="1"></li>
+			<li data-target="#testimonial_095" data-slide-to="2"></li>
+		</ol>
+
+		<!-- Wrapper For Slides -->
+		<div class="carousel-inner" role="listbox">
+
+			<!-- First Slide -->
+			<div class="carousel-item active">
+				<!-- Text Layer -->
+				<div class="testimonial_095_slide">
+					<a href="#"><span class="fa fa-twitter"></span></a>
+					<p>Lorem ipsum dolor sit amet <a href="#">@consectetuer</a> adipiscing elit am nibh unc varius facilisis eros ed erat in in velit quis arcu ornare laoreet urabitur.</p>
+					<h5><a href="#">name of consumer</a></h5>
+				</div> <!-- /Text Layer -->
+			</div> <!-- /item -->
+			<!-- End of First Slide -->
+
+			<!-- Second Slide -->
+			<div class="carousel-item">
+				<!-- Text Layer -->
+				<div class="testimonial_095_slide">
+					<a href="#"><span class="fa fa-twitter"></span></a>
+					<p>Lorem ipsum dolor sit amet <a href="#">@consectetuer</a> adipiscing elit am nibh unc varius facilisis eros ed erat in in velit quis arcu ornare laoreet urabitur.</p>
+					<h5><a href="#">name of consumer</a></h5>
+				</div> <!-- /Text Layer -->
+			</div> <!-- /item -->
+			<!-- End of Second Slide -->
+			
+			<!-- Third Slide -->
+			<div class="carousel-item">
+				<!-- Text Layer -->
+				<div class="testimonial_095_slide">
+					<a href="#"><span class="fa fa-twitter"></span></a>
+					<p>Lorem ipsum dolor sit amet <a href="#">@consectetuer</a> adipiscing elit am nibh unc varius facilisis eros ed erat in in velit quis arcu ornare laoreet urabitur.</p>
+					<h5><a href="#">name of consumer</a></h5>
+				</div> <!-- /Text Layer -->
+			</div> <!-- /item -->
+			<!-- End of Third Slide -->
+
+		</div> <!-- End of Wrapper For Slides -->
+
+		<!-- Left Control -->
+		<a class="carousel-control-prev" href="#testimonial_095" data-slide="prev">
+			<span class="fa fa-chevron-left"></span>
+		</a>
+
+		<!-- Right Control -->
+		<a class="carousel-control-next" href="#testimonial_095" data-slide="next">
+			<span class="fa fa-chevron-right"></span>
+		</a>
+
+	</div> <!-- End Paradise Slider -->
+
+	
+
+ <!-- End --></section>
+    <section id="news" class="p-2 pt-5 pb-5" style="background: white;color: black;">
+        <p class="text-center m-1">Be Up To Date</p>
+        <h1 class="text-center">Latest News</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12"><img src="assets/img/lawyer3.jpeg" style="width: inherit;"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="mb-1">Baking Bread?</h1>
+                            <p class="m-0" style="font-size: 11px;">by Chris Mellods, February 2nd 2020</p>
+                            <p class="m-0">The purpose of&nbsp;<em>lorem ipsum</em>&nbsp;is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn't distract from the layout. A practice not without controversy&nbsp;laying out pages with
+                                meaningless filler text can be very useful when the focus is meant to be on design, not content.<br><br></p>
+                            <p>read more...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row mb-2">
+                        <div class="col-md-6 col-md-2 p-0" style="max-width: 20%;width: 20%;"><img style="width: 100%;" src="assets/img/lawyer4.jpg"></div>
+                        <div class="col-md-6 col-md-9" style="width: 100%;">
+                            <h6 class="mb-1">Dealing with the legal system accessible to all</h6>
+                            <p style="font-size: 14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br></p>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6 col-md-2 p-0" style="max-width: 20%;width: 20%;"><img style="width: 100%;" src="assets/img/lawyer5.jpg"></div>
+                        <div class="col-md-6 col-md-9" style="width: 100%;">
+                            <h6 class="mb-1">Human and the Law</h6>
+                            <p style="font-size: 14px;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br>Paragraph.</p>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6 col-md-2 p-0" style="max-width: 20%;width: 20%;"><img style="width: 100%;" src="assets/img/lawyer6.jpg"></div>
+                        <div class="col-md-6 col-md-9" style="width: 100%;">
+                            <h6 class="mb-1">90s are not over...</h6>
+                            <p style="font-size: 14px;">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br><br></p>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6 col-md-2 p-0" style="max-width: 20%;width: 20%;"><img style="width: 100%;" src="assets/img/dentist4.jpg"></div>
+                        <div class="col-md-6 col-md-9" style="width: 100%;">
+                            <h6 class="mb-1">Smile while you can</h6>
+                            <p style="font-size: 14px;">From its medieval origins to the digital era, learn everything there is to know about the ubiquitous&nbsp;<em>lorem ipsum</em>&nbsp;passage.<br><br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="content-section text-center">
+        <div class="container" id="info-container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center text-info">Contact Us</h2>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6" id="contact-box">
+                    <p id="contact-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel nam magnam natus tempora cumque, aliquam deleniti voluptatibus voluptas. Repellat vel, et itaque commodi iste ab, laudantium voluptas deserunt nobis. </p>
+                    <div class="info-box"><i class="fa fa-map-marker my-info-icons"></i><span class="text-uppercase text-info">Address: </span><span>8700 Aurora Ave NE, Seattle, 98009</span></div>
+                    <div class="info-box"><i class="fa fa-envelope my-info-icons"></i><span class="text-uppercase text-info">Email: </span><span>contact@johnsons.org </span></div>
+                    <div class="info-box"><i class="fa fa-phone-square my-info-icons"></i><span class="text-uppercase text-info">Phone: </span><span>+12061234567 </span></div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 site-form">
+                    <form id="my-form">
+                        <div class="form-group"><label class="sr-only" for="firstname">First Name</label><input class="form-control" type="text" id="firstname" name="firstname" placeholder="First Name"></div>
+                        <div class="form-group"><label class="sr-only" for="lastname">Last Name</label><input class="form-control" type="text" id="lastname" name="lastname" placeholder="Last Name"></div>
+                        <div class="form-group"><label class="sr-only" for="phonenumber">Phone Number</label><input class="form-control" type="tel" id="phonenumber" name="phonenumber" required="" placeholder="Phone"></div>
+                        <div class="form-group"><label class="sr-only" for="email">Email Address</label><input class="form-control" type="text" id="email" name="email" required="" placeholder="Email"></div>
+                        <div class="form-group"><label class="sr-only" for="messages">Last Name</label><textarea class="form-control" name="messages" required="" placeholder="Message" rows="8"></textarea></div><button class="btn btn-light btn-lg" id="form-btn" type="submit">SEND </button></form>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </section>
+    <div class="map-clean"><iframe allowfullscreen="" frameborder="0" src="https://cdn.bootstrapstudio.io/placeholders/map.html" width="100%" height="450"></iframe></div>
+    <footer>
+        <div class="container text-center">
+            <p>23rd Squad, 2020</p>
+        </div>
+    </footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="assets/js/grayscale.js"></script>
+    <script src="assets/js/Testimonial-Slider-9.js"></script>
+    <script src="assets/js/testimonialSlider.js"></script>
+</body>
+
+</html>

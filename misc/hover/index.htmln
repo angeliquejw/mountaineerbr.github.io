@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS Hover Effects</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<p><a href="https://www.youtube.com/watch?v=6XbWvDmBmTE&t=0s"></a>Online Tutorials</p>
+	<div class="container"></div>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script>
+		let array = [];
+		for (let i = 0; i <= 2500; i++) {
+
+		  array.push('<div class="box"></div>')
+
+		}
+		document.querySelector(".container").innerHTML = array.join("")
+	</script>
+</body>
+</html>
+

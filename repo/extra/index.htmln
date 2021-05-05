@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <meta name="Author" content="Made by 'tree'">
+ <meta name="GENERATOR" content="$Version: $ tree v1.8.0 (c) 1996 - 2018 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro $">
+ <title>EXTRA - Directory Tree</title>
+ <style type="text/css">
+h1 { text-transform: uppercase; } 
+	img {
+		max-width: 500px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.tar  { color: brown;  background-color: beige;}
+	.pic  { color: blueviolet;}
+	.media  { color: orange;}
+	.doc  { color: indianred;}
+	.txt  { color: crimson;}
+	.pdf  { color: white;  background-color: blue;}
+	.hidden  { background-color: azure;}
+	
+  <!-- 
+  BODY { font-family : ariel, monospace, sans-serif; }
+  P { font-weight: normal; font-family : ariel, monospace, sans-serif; color: black; background-color: transparent;}
+  B { font-weight: normal; color: black; background-color: transparent;}
+  A:visited { font-weight : normal; text-decoration : none; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:link    { font-weight : normal; text-decoration : none; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:hover   { color : #000000; font-weight : normal; text-decoration : underline; background-color : yellow; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:active  { color : #000000; font-weight: normal; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  .VERSION { font-size: small; font-family : arial, sans-serif; }
+  .NORM  { color: black;  background-color: transparent;}
+  .FIFO  { color: purple; background-color: transparent;}
+  .CHAR  { color: yellow; background-color: transparent;}
+  .DIR   { color: blue;   background-color: transparent;}
+  .BLOCK { color: yellow; background-color: transparent;}
+  .LINK  { color: aqua;   background-color: transparent;}
+  .SOCK  { color: fuchsia;background-color: transparent;}
+  .EXEC  { color: green;  background-color: transparent;}
+  -->
+ </style>
+</head>
+<body>
+<h1>extra</h1>
+
+<p>misc resources</p><hr>
+	<h2>EXTRA - Directory Tree</h2><p>
+	<a class="NORM" href="..">..</a><br>
+<a class="NORM" href=".">.</a><br>
+	├── [4.0K]&nbsp;&nbsp;<a class="DIR" href="./MobyHyphenatorII/">MobyHyphenatorII</a>/<br>
+	├── [4.0K]&nbsp;&nbsp;<a class="DIR" href="./NytRefs/">NytRefs</a>/<br>
+	├── [4.0K]&nbsp;&nbsp;<a class="DIR" href="./tutorials/">tutorials</a>/<br>
+	├── [4.0K]&nbsp;&nbsp;<a class="DIR" href="./yahooFinanceSymbols/">yahooFinanceSymbols</a>/<br>
+	├── [2.5M]&nbsp;&nbsp;<a class="pdf" href="./A_Guerra_da_Arte_Steven_Pressfield.pdf">A_Guerra_da_Arte_Steven_Pressfield.pdf</a><br>
+	├── [&nbsp;61K]&nbsp;&nbsp;<a class="pic" href="./animal_phylogenetic_tree.JPG">animal_phylogenetic_tree.JPG</a><br>
+	├── [5.8M]&nbsp;&nbsp;<a class="pdf" href="./a-vida-o-livro-da-vida-the-book-of-life-j-krishnamurti.pdf">a-vida-o-livro-da-vida-the-book-of-life-j-krishnamurti.pdf</a><br>
+	├── [5.0K]&nbsp;&nbsp;<a class="txt" href="./bollingerBandRulesYouRequested.txt">bollingerBandRulesYouRequested.txt</a><br>
+	├── [&nbsp;17M]&nbsp;&nbsp;<a class="pdf" href="./bruce-lee-o-tao-do-jeet-kune-do-portugues-livro.pdf">bruce-lee-o-tao-do-jeet-kune-do-portugues-livro.pdf</a><br>
+	├── [&nbsp;661]&nbsp;&nbsp;<a class="NORM" href="./brunoDicasEmpreendedorismo">brunoDicasEmpreendedorismo</a><br>
+	├── [&nbsp;94K]&nbsp;&nbsp;<a class="pic" href="./btc_2011_bubble.jpg">btc_2011_bubble.jpg</a><br>
+	├── [&nbsp;45K]&nbsp;&nbsp;<a class="pdf" href="./caldas_ecologicas_diversas.pdf">caldas_ecologicas_diversas.pdf</a><br>
+	├── [334K]&nbsp;&nbsp;<a class="pdf" href="./calda-vicosa.pdf">calda-vicosa.pdf</a><br>
+	├── [1.1M]&nbsp;&nbsp;<a class="pic" href="./chilledCow.jpg">chilledCow.jpg</a><br>
+	├── [2.2M]&nbsp;&nbsp;<a class="pic" href="./chilledCow.png">chilledCow.png</a><br>
+	├── [4.3M]&nbsp;&nbsp;<a class="pdf" href="./ConnollyConnollySoon17-June2-RecalibrationofArcticseaiceextentdatasetsusingArcticsurfaceairtemperaturerecords.pdf">ConnollyConnollySoon17-June2-RecalibrationofArcticseaiceextentdatasetsusingArcticsurfaceairtemperaturerecords.pdf</a><br>
+	├── [4.3M]&nbsp;&nbsp;<a class="pdf" href="./ConnollySoon.pdf">ConnollySoon.pdf</a><br>
+	├── [545K]&nbsp;&nbsp;<a class="pic" href="./Core-devs having dinner with Nick Szabo.jpg">Core-devs having dinner with Nick Szabo.jpg</a><br>
+	├── [173K]&nbsp;&nbsp;<a class="pic" href="./criticaldates_picycle_btc_tonev.png">criticaldates_picycle_btc_tonev.png</a><br>
+	├── [4.3M]&nbsp;&nbsp;<a class="NORM" href="./dicionarioSinonimos_dicsin-br.oxt">dicionarioSinonimos_dicsin-br.oxt</a><br>
+	├── [&nbsp;15M]&nbsp;&nbsp;<a class="NORM" href="./dicionarioSinonimos_th_pt_BR.dat">dicionarioSinonimos_th_pt_BR.dat</a><br>
+	├── [205K]&nbsp;&nbsp;<a class="pdf" href="./ebookHackerDanteLinux.pdf">ebookHackerDanteLinux.pdf</a><br>
+	├── [2.6M]&nbsp;&nbsp;<a class="pdf" href="./Estudo_Pos_Graduados_Brasil_Apres_CGEE_MD2015_S.pdf">Estudo_Pos_Graduados_Brasil_Apres_CGEE_MD2015_S.pdf</a><br>
+	├── [7.4K]&nbsp;&nbsp;<a class="txt" href="./Evidencias_contra_a_problematica_Teoria_do_Aquec.txt">Evidencias_contra_a_problematica_Teoria_do_Aquec.txt</a><br>
+	├── [9.2K]&nbsp;&nbsp;<a class="txt" href="./faster_sh.txt">faster_sh.txt</a><br>
+	├── [833K]&nbsp;&nbsp;<a class="pdf" href="./Fernando_Ulrich_Bitcoin_2014.pdf">Fernando_Ulrich_Bitcoin_2014.pdf</a><br>
+	├── [8.0M]&nbsp;&nbsp;<a class="pdf" href="./FlemingRiseAndFallofCarbonDioxide.pdf">FlemingRiseAndFallofCarbonDioxide.pdf</a><br>
+	├── [&nbsp;81K]&nbsp;&nbsp;<a class="txt" href="./globalWarmingNames.txt">globalWarmingNames.txt</a><br>
+	├── [&nbsp;98K]&nbsp;&nbsp;<a class="tar" href="./IPCA-RELATORIO_1979_a_1999.zip">IPCA-RELATORIO_1979_a_1999.zip(📦)</a><br>
+	├── [&nbsp;22K]&nbsp;&nbsp;<a class="tar" href="./ipca_SerieHist.zip">ipca_SerieHist.zip(📦)</a><br>
+	├── [789K]&nbsp;&nbsp;<a class="pic" href="./Jesse-Livermore-1024x796.png">Jesse-Livermore-1024x796.png</a><br>
+	├── [4.3M]&nbsp;&nbsp;<a class="pdf" href="./Jesse-Livermore_Edwin_LeFevre_Reminiscences_of_a_Stock_Operator.pdf">Jesse-Livermore_Edwin_LeFevre_Reminiscences_of_a_Stock_Operator.pdf</a><br>
+	├── [7.5M]&nbsp;&nbsp;<a class="pdf" href="./Jesse_Livermore-How_To_Trade_In_Stocks_(1940_original)-EN.pdf">Jesse_Livermore-How_To_Trade_In_Stocks_(1940_original)-EN.pdf</a><br>
+	├── [&nbsp;45K]&nbsp;&nbsp;<a class="pdf" href="./Kung-fu_Lista de Golpes.pdf">Kung-fu_Lista de Golpes.pdf</a><br>
+	├── [213K]&nbsp;&nbsp;<a class="pdf" href="./MÁRQUEZ_gabriel_garcía_crônica_de_uma_morte_anunciada.pdf">MÁRQUEZ_gabriel_garcía_crônica_de_uma_morte_anunciada.pdf</a><br>
+	├── [&nbsp;45K]&nbsp;&nbsp;<a class="pdf" href="./Nascimento de Buddha.pdf">Nascimento de Buddha.pdf</a><br>
+	├── [&nbsp;40K]&nbsp;&nbsp;<a class="pdf" href="./NET_Grade de Canais NET Fácil HD.pdf">NET_Grade de Canais NET Fácil HD.pdf</a><br>
+	├── [&nbsp;13K]&nbsp;&nbsp;<a class="doc" href="./Números sorteados da mega-sena.ods">Números sorteados da mega-sena.ods</a><br>
+	├── [1.6M]&nbsp;&nbsp;<a class="pic" href="./panic_cycles_finance.png">panic_cycles_finance.png</a><br>
+	├── [241K]&nbsp;&nbsp;<a class="pic" href="./ScientificCareerGroups2.png">ScientificCareerGroups2.png</a><br>
+	├── [112K]&nbsp;&nbsp;<a class="pic" href="./ScientificCareerGroups5.png">ScientificCareerGroups5.png</a><br>
+	├── [460K]&nbsp;&nbsp;<a class="pic" href="./ScientificCareerGroups7.png">ScientificCareerGroups7.png</a><br>
+	├── [298K]&nbsp;&nbsp;<a class="pic" href="./ScientificCareerGroups8.png">ScientificCareerGroups8.png</a><br>
+	├── [195K]&nbsp;&nbsp;<a class="pic" href="./ScientificCareerGroups.png">ScientificCareerGroups.png</a><br>
+	├── [&nbsp;12K]&nbsp;&nbsp;<a class="doc" href="./SimpleSolarAngle.xls">SimpleSolarAngle.xls</a><br>
+	├── [8.6K]&nbsp;&nbsp;<a class="txt" href="./sobreDdt.txt">sobreDdt.txt</a><br>
+	├── [1.8M]&nbsp;&nbsp;<a class="pdf" href="./SoonBaliunas17-June8-FINAL-CCTF2017_Ch11_2pp.pdf">SoonBaliunas17-June8-FINAL-CCTF2017_Ch11_2pp.pdf</a><br>
+	├── [&nbsp;12M]&nbsp;&nbsp;<a class="pdf" href="./SoonConnollyConnolly15-Sep11-ESR-final.pdf">SoonConnollyConnolly15-Sep11-ESR-final.pdf</a><br>
+	├── [&nbsp;79K]&nbsp;&nbsp;<a class="pdf" href="./SoonMonckton15-Nov6-DivestmentEssayforNASreport.pdf">SoonMonckton15-Nov6-DivestmentEssayforNASreport.pdf</a><br>
+	├── [249K]&nbsp;&nbsp;<a class="pdf" href="./Stratigraphic_Chart_GTS2016.pdf">Stratigraphic_Chart_GTS2016.pdf</a><br>
+	├── [&nbsp;61K]&nbsp;&nbsp;<a class="doc" href="./SUTRA_CAUSA_EFEITO.doc">SUTRA_CAUSA_EFEITO.doc</a><br>
+	├── [&nbsp;14K]&nbsp;&nbsp;<a class="txt" href="./timezones.txt">timezones.txt</a><br>
+	├── [&nbsp;64K]&nbsp;&nbsp;<a class="pic" href="./universidades_2019_o-comentarista.png">universidades_2019_o-comentarista.png</a><br>
+	├── [181K]&nbsp;&nbsp;<a class="pic" href="./unix_shell_programming_information_evolution.png">unix_shell_programming_information_evolution.png</a><br>
+	├── [&nbsp;23K]&nbsp;&nbsp;<a class="txt" href="./unixtips.txt">unixtips.txt</a><br>
+	├── [&nbsp;45K]&nbsp;&nbsp;<a class="txt" href="./viagemAFlorianopolis.txt">viagemAFlorianopolis.txt</a><br>
+	├── [2.1M]&nbsp;&nbsp;<a class="pdf" href="./wickedCoolShellScripts.pdf">wickedCoolShellScripts.pdf</a><br>
+	├── [&nbsp;20K]&nbsp;&nbsp;<a class="txt" href="./worldCountryArea.txt">worldCountryArea.txt</a><br>
+	├── [&nbsp;97K]&nbsp;&nbsp;<a class="txt" href="./worldCountryAreaWiki2.txt">worldCountryAreaWiki2.txt</a><br>
+	└── [&nbsp;27K]&nbsp;&nbsp;<a class="txt" href="./worldCountryAreaWiki.txt">worldCountryAreaWiki.txt</a><br>
+	<br><br>
+	</p>
+	<p>
+
+4 directories, 56 files
+	<br><br>
+	</p>
+	<hr>
+	<p class="VERSION">
+To download all files from a directory, try:
+	<!-- wget -r --no-parent --reject "index.html*" [URL] -->
+	<code>wget -r --no-parent [URL]</code><br>
+	That is a shame GitHub limits file size to 100MB.<hr>
+	
+		 tree v1.8.0 © 1996 - 2018 by Steve Baker and Thomas Moore <br>
+		 HTML output hacked and copyleft © 1998 by Francesc Rocher <br>
+		 JSON output hacked and copyleft © 2014 by Florian Sesser <br>
+		 Charsets / OS/2 support © 2001 by Kyosuke Tokoro
+	</p>
+</body>
+</html>

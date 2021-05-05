@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <meta name="Author" content="Made by 'tree'">
+ <meta name="GENERATOR" content="$Version: $ tree v1.8.0 (c) 1996 - 2018 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro $">
+ <title>DOTFILES - Directory Tree</title>
+ <style type="text/css">
+h1 { text-transform: uppercase; } 
+	img {
+		max-width: 500px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.tar  { color: brown;  background-color: beige;}
+	.pic  { color: blueviolet;}
+	.media  { color: orange;}
+	.doc  { color: indianred;}
+	.txt  { color: crimson;}
+	.pdf  { color: white;  background-color: blue;}
+	.hidden  { background-color: azure;}
+	
+  <!-- 
+  BODY { font-family : ariel, monospace, sans-serif; }
+  P { font-weight: normal; font-family : ariel, monospace, sans-serif; color: black; background-color: transparent;}
+  B { font-weight: normal; color: black; background-color: transparent;}
+  A:visited { font-weight : normal; text-decoration : none; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:link    { font-weight : normal; text-decoration : none; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:hover   { color : #000000; font-weight : normal; text-decoration : underline; background-color : yellow; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:active  { color : #000000; font-weight: normal; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  .VERSION { font-size: small; font-family : arial, sans-serif; }
+  .NORM  { color: black;  background-color: transparent;}
+  .FIFO  { color: purple; background-color: transparent;}
+  .CHAR  { color: yellow; background-color: transparent;}
+  .DIR   { color: blue;   background-color: transparent;}
+  .BLOCK { color: yellow; background-color: transparent;}
+  .LINK  { color: aqua;   background-color: transparent;}
+  .SOCK  { color: fuchsia;background-color: transparent;}
+  .EXEC  { color: green;  background-color: transparent;}
+  -->
+ </style>
+</head>
+<body>
+<h1>dotfiles</h1>
+
+<pre><code>:::::::-.      ...   ::::::::::::.-:::::'::: :::    .,:::::: .::::::. 
+ ;;,   `';, .;;;;;;;.;;;;;;;;'''';;;'''' ;;; ;;;    ;;;;'''';;;`    ` 
+ `[[     [[,[[     \[[,   [[     [[[,,== [[[ [[[     [[cccc '[==/[[[[,
+  $$,    $$$$$,     $$$   $$     `$$$"`` $$$ $$'     $$""""   '''    $
+  888_,o8P'"888,_ _,88P   88,     888    888o88oo,.__888oo,__88b    dP
+  MMMMP"`    "YMMMMMP"    MMM     "MM,   MMM""""YUMMM""""YUMMM"YMmMY" 
+</code></pre>
+
+<h2>Dotfiles and other c files</h2>
+
+<p><strong>Most shell functions and aliases are at file <em>.rc</em></strong>. That is sourced from
+both <em>.bashrc</em> and <em>.zshrc</em>, which contains configs for each shell.</p>
+
+<p>The <em>.rc file</em> changes constantly and is also a testcamp for new code.
+When functions become too large and mature, they may be promoted to
+full-fledged scripts and moved to <strong><a href="https://github.com/mountaineerbr/scripts">scripts repo</a></strong>.</p>
+
+<hr />
+
+<p><img src="git_screenshot1.png" alt="ScreenShot" />
+Fig 1. <a href="https://www.youtube.com/watch?v=Mu3BfD6wmPg" title="Chilled Cow by Kupla"><em>&ldquo;Own deserted island in the heart of a busy city. Breathe in[..]&rdquo;</em></a></p>
+
+<pre><code>               __  ___                  
+ _______ ____ / /_/ _ |_    _____ ___ __
+/ __/ _ `(_-&lt;/ __/ __ | |/|/ / _ `/ // /
+\__/\_,_/___/\__/_/ |_|__,__/\_,_/\_, / 
+                                 /___/  
+                        __       _                  ___     
+  __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ _ )____
+ /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _  / __/
+/_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /____/_/   
+</code></pre><hr>
+	<h2>DOTFILES - Directory Tree</h2><p>
+	<a class="NORM" href="..">..</a><br>
+<a class="NORM" href=".">.</a><br>
+	├── [4.0K]&nbsp;&nbsp;<a class="hidden" href="./.bitcoin/">.bitcoin</a>/<br>
+	├── [4.0K]&nbsp;&nbsp;<a class="hidden" href="./.config/">.config</a>/<br>
+	├── [4.0K]&nbsp;&nbsp;<a class="DIR" href="./etc/">etc</a>/<br>
+	├── [4.0K]&nbsp;&nbsp;<a class="hidden" href="./.newsboat/">.newsboat</a>/<br>
+	├── [4.0K]&nbsp;&nbsp;<a class="hidden" href="./.vim/">.vim</a>/<br>
+	├── [4.0K]&nbsp;&nbsp;<a class="hidden" href="./.w3m/">.w3m</a>/<br>
+	├── [7.3K]&nbsp;&nbsp;<a class="hidden" href="./.bashrc">.bashrc</a><br>
+	├── [2.6K]&nbsp;&nbsp;<a class="hidden" href="./.cdmrc">.cdmrc</a><br>
+	├── [4.2K]&nbsp;&nbsp;<a class="hidden" href="./.dir_colors">.dir_colors</a><br>
+	├── [&nbsp;&nbsp;26]&nbsp;&nbsp;<a class="hidden" href="./.gitattributes">.gitattributes</a><br>
+	├── [808K]&nbsp;&nbsp;<a class="pic" href="./git_screenshot1.png">git_screenshot1.png</a><br>
+	├── [&nbsp;302]&nbsp;&nbsp;<a class="EXEC" href="./gup.sh">gup.sh</a>*<br>
+	├── [3.6K]&nbsp;&nbsp;<a class="hidden" href="./.gv">.gv</a><br>
+	├── [&nbsp;39K]&nbsp;&nbsp;<a class="hidden" href="./.gv_example">.gv_example</a><br>
+	├── [5.9K]&nbsp;&nbsp;<a class="hidden" href="./.inputrc">.inputrc</a><br>
+	├── [1.1K]&nbsp;&nbsp;<a class="hidden" href="./.inputrc.kevva">.inputrc.kevva</a><br>
+	├── [&nbsp;&nbsp;41]&nbsp;&nbsp;<a class="hidden" href="./.kshrc">.kshrc</a><br>
+	├── [&nbsp;172]&nbsp;&nbsp;<a class="hidden" href="./.less">.less</a><br>
+	├── [&nbsp;469]&nbsp;&nbsp;<a class="hidden" href="./.lesskey">.lesskey</a><br>
+	├── [4.0K]&nbsp;&nbsp;<a class="txt" href="./ls++.conf">ls++.conf</a><br>
+	├── [&nbsp;272]&nbsp;&nbsp;<a class="hidden" href="./.moprc">.moprc</a><br>
+	├── [&nbsp;10K]&nbsp;&nbsp;<a class="hidden" href="./.nanorc">.nanorc</a><br>
+	├── [&nbsp;12K]&nbsp;&nbsp;<a class="hidden" href="./.nanorc_PORTUGUES">.nanorc_PORTUGUES</a><br>
+	├── [7.5K]&nbsp;&nbsp;<a class="hidden" href="./.profile">.profile</a><br>
+	├── [108K]&nbsp;&nbsp;<a class="hidden" href="./.rc">.rc</a><br>
+	├── [2.9K]&nbsp;&nbsp;<a class="hidden" href="./.screenrc">.screenrc</a><br>
+	├── [4.4K]&nbsp;&nbsp;<a class="hidden" href="./.tmux.conf">.tmux.conf</a><br>
+	├── [&nbsp;38K]&nbsp;&nbsp;<a class="hidden" href="./.vimrc">.vimrc</a><br>
+	├── [&nbsp;949]&nbsp;&nbsp;<a class="hidden" href="./.vimrc_manpager">.vimrc_manpager</a><br>
+	├── [6.1K]&nbsp;&nbsp;<a class="hidden" href="./.xbindkeysrc">.xbindkeysrc</a><br>
+	├── [1.6K]&nbsp;&nbsp;<a class="hidden" href="./.xinitrc">.xinitrc</a><br>
+	├── [&nbsp;318]&nbsp;&nbsp;<a class="hidden" href="./.Xmodmap">.Xmodmap</a><br>
+	├── [&nbsp;26K]&nbsp;&nbsp;<a class="hidden" href="./.Xresources">.Xresources</a><br>
+	├── [&nbsp;934]&nbsp;&nbsp;<a class="hidden" href="./.xserverrc">.xserverrc</a><br>
+	├── [&nbsp;662]&nbsp;&nbsp;<a class="hidden" href="./.zshenv">.zshenv</a><br>
+	├── [&nbsp;20K]&nbsp;&nbsp;<a class="hidden" href="./.zshrc">.zshrc</a><br>
+	├── [4.0K]&nbsp;&nbsp;<a class="hidden" href="./.zshrc_fromAlad">.zshrc_fromAlad</a><br>
+	└── [123K]&nbsp;&nbsp;<a class="hidden" href="./.zshrc_from_GRML.old">.zshrc_from_GRML.old</a><br>
+	<br><br>
+	</p>
+	<p>
+
+6 directories, 32 files
+	<br><br>
+	</p>
+	<hr>
+	<p class="VERSION">
+To download all files from a directory, try:
+	<!-- wget -r --no-parent --reject "index.html*" [URL] -->
+	<code>wget -r --no-parent [URL]</code><br>
+	That is a shame GitHub limits file size to 100MB.<hr>
+	
+		 tree v1.8.0 © 1996 - 2018 by Steve Baker and Thomas Moore <br>
+		 HTML output hacked and copyleft © 1998 by Francesc Rocher <br>
+		 JSON output hacked and copyleft © 2014 by Florian Sesser <br>
+		 Charsets / OS/2 support © 2001 by Kyosuke Tokoro
+	</p>
+</body>
+</html>

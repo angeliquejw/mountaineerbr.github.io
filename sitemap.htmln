@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Website map, navigate to all pages</title>
+<meta name="resource-type" content="document">
+<meta name="description" content="Site map for human visitors; this navigation page may be preferable for some people to use">
+<meta name="keywords" content="navigation, navegação, accessibility, acessibilidade, interface, alternativo, alternative, user navigation, navegação de usuário, discover the webste, descubra o website">
+<meta name="distribution" content="global">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<style>
+	H1, H1 + P
+	{
+		margin: 1em 0 1em 4em;
+	}
+</style>
+ <style type="text/css">
+  <!-- 
+  BODY { font-family : ariel, monospace, sans-serif; }
+  P { font-weight: normal; font-family : ariel, monospace, sans-serif; color: black; background-color: transparent;}
+  B { font-weight: normal; color: black; background-color: transparent;}
+  A:visited { font-weight : normal; text-decoration : none; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:link    { font-weight : normal; text-decoration : none; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:hover   { color : #000000; font-weight : normal; text-decoration : underline; background-color : yellow; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:active  { color : #000000; font-weight: normal; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  .VERSION { font-size: small; font-family : arial, sans-serif; }
+  .NORM  { color: black;  background-color: transparent;}
+  .FIFO  { color: purple; background-color: transparent;}
+  .CHAR  { color: yellow; background-color: transparent;}
+  .DIR   { color: blue;   background-color: transparent;}
+  .BLOCK { color: yellow; background-color: transparent;}
+  .LINK  { color: aqua;   background-color: transparent;}
+  .SOCK  { color: fuchsia;background-color: transparent;}
+  .EXEC  { color: green;  background-color: transparent;}
+  -->
+ </style>
+</head>
+<body>
+	<h1>Sitemap</h1><p>
+	<a class="NORM" href=".">.</a><br>
+	├── <a class="DIR" href="./vlog/">vlog</a>/<br>
+	│   └── <a class="DIR" href="./vlog/doc/">doc</a>/<br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Vamos_Occupy_Wall_Street_Contra_o_1.html">Vamos_Occupy_Wall_Street_Contra_o_1.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Usando_o_Vanitygen_Opcoes.html">Usando_o_Vanitygen_Opcoes.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Usando_o_Vanitygen_Endereco_Personalizado_dos_Bitcoins.html">Usando_o_Vanitygen_Endereco_Personalizado_dos_Bitcoins.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Units_Convertendo_Unidades_e_Moedas.html">Units_Convertendo_Unidades_e_Moedas.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Trilha_no_Rio_Parana.html">Trilha_no_Rio_Parana.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Stallman_a_FSF_e_o_Projeto_GNU_ou_O_Que_Sera_de_Nos.html">Stallman_a_FSF_e_o_Projeto_GNU_ou_O_Que_Sera_de_Nos.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Solidao_Universal_do_Dr_Varella.html">Solidao_Universal_do_Dr_Varella.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Sobre_as_Outras_Visoes_das_Pessoas.html">Sobre_as_Outras_Visoes_das_Pessoas.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Sobre_Backups_de_Backups_de_Dados.html">Sobre_Backups_de_Backups_de_Dados.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Rolagem_Bitcoin_Blockchain.html">Rolagem_Bitcoin_Blockchain.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Repos_do_Arch_Linux_Archive_ALA_e_Downgrade_de_Pacotes_no_Pacman.html">Repos_do_Arch_Linux_Archive_ALA_e_Downgrade_de_Pacotes_no_Pacman.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Reinstalando_o_Arch.html">Reinstalando_o_Arch.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Quem_tem_Medo_do_Reddit.html">Quem_tem_Medo_do_Reddit.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Prof_Jacques_Homme_e_os_Pombos.html">Prof_Jacques_Homme_e_os_Pombos.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Para_Onde_Vamos.html">Para_Onde_Vamos.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Papo_de_Biologo_Aquecimento_Global.html">Papo_de_Biologo_Aquecimento_Global.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Nova_Carta_de_Einstein_e_a_Filosofia_de_David_Hume.html">Nova_Carta_de_Einstein_e_a_Filosofia_de_David_Hume.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Nano_VIm_Abrir_Arquivo_Ja_na_Posicao_Especifica.html">Nano_VIm_Abrir_Arquivo_Ja_na_Posicao_Especifica.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Listas_de_Arquivos_Glob_e_Glob_Extendido.html">Listas_de_Arquivos_Glob_e_Glob_Extendido.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Linux_Sucks_2020_Comentario.html">Linux_Sucks_2020_Comentario.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Linus_Torvalds_Se_Afasta_do_Desenvolvimmento_do_Linux_Temporariamente.html">Linus_Torvalds_Se_Afasta_do_Desenvolvimmento_do_Linux_Temporariamente.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Intro_do_Canal.html">Intro_do_Canal.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Historia_do_UNIX.html">Historia_do_UNIX.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Diario_de_Criptomoedas_2.html">Diario_de_Criptomoedas_2.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Diario_de_Criptomoedas_1.html">Diario_de_Criptomoedas_1.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Descongelamento_dos_Himalaias_ate_2035_e_IPCC.html">Descongelamento_dos_Himalaias_ate_2035_e_IPCC.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/De_Onde_Viemos_e_Como_a_Vida_Surge.html">De_Onde_Viemos_e_Como_a_Vida_Surge.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Compilando_XMRIG_e_Desativando_Doacao_Arch_Linux_Manjaro.html">Compilando_XMRIG_e_Desativando_Doacao_Arch_Linux_Manjaro.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Como_eu_Lido_com_Updates_do_Arch_Linux_Repo_Fixo_Snapshot.html">Como_eu_Lido_com_Updates_do_Arch_Linux_Repo_Fixo_Snapshot.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Cobertura_de_Gelo_e_Temperatura_do_Clima_Futuras.html">Cobertura_de_Gelo_e_Temperatura_do_Clima_Futuras.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Chuva_no_Por-do-Sol_da_Universidade.html">Chuva_no_Por-do-Sol_da_Universidade.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Bloomberg_e_Carvao_Limpo.html">Bloomberg_e_Carvao_Limpo.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Black_Week_do_Bitcoin.html">Black_Week_do_Bitcoin.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Bitcorn_10_000.html">Bitcorn_10_000.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; ├── <a class="NORM" href="./vlog/doc/Bitcoin_Em_Queda_Crash_Ao_Vivo.html">Bitcoin_Em_Queda_Crash_Ao_Vivo.html</a><br>
+	│   &nbsp;&nbsp;&nbsp; └── <a class="NORM" href="./vlog/doc/Arch_Updates_Mais_Dicas.html">Arch_Updates_Mais_Dicas.html</a><br>
+	├── <a class="NORM" href="./sitemap.txt">sitemap.txt</a><br>
+	├── <a class="NORM" href="./sitemap.html">sitemap.html</a><br>
+	├── <a class="DIR" href="./repo/">repo</a>/<br>
+	│   └── <a class="DIR" href="./repo/cksum/">cksum</a>/<br>
+	├── <a class="NORM" href="./quotes.html">quotes.html</a><br>
+	├── <a class="DIR" href="./podcast/">podcast</a>/<br>
+	│   ├── <a class="NORM" href="./podcast/subscribe.html">subscribe.html</a><br>
+	│   ├── <a class="NORM" href="./podcast/rss_podcast.xml">rss_podcast.xml</a><br>
+	│   └── <a class="NORM" href="./podcast/about.html">about.html</a><br>
+	├── <a class="NORM" href="./lud.html">lud.html</a><br>
+	├── <a class="NORM" href="./links.html">links.html</a><br>
+	├── <a class="DIR" href="./guestbook/">guestbook</a>/<br>
+	├── <a class="DIR" href="./fool/">fool</a>/<br>
+	├── <a class="NORM" href="./faqf.html">faqf.html</a><br>
+	├── <a class="DIR" href="./donate/">donate</a>/<br>
+	│   └── <a class="NORM" href="./donate/index_old.html">index_old.html</a><br>
+	├── <a class="DIR" href="./contact/">contact</a>/<br>
+	├── <a class="DIR" href="./blog/">blog</a>/<br>
+	│   ├── <a class="NORM" href="./blog/rss_podcast.xml">rss_podcast.xml</a><br>
+	│   ├── <a class="NORM" href="./blog/rss_alt.xml">rss_alt.xml</a><br>
+	│   ├── <a class="NORM" href="./blog/rss.xml">rss.xml</a><br>
+
+	│   ├── <a class="NORM" href="./blog/cat.html">cat.html</a><br>
+	│   ├── <a class="DIR" href="./blog/42/">42</a>/<br>
+	│   ├── <a class="DIR" href="./blog/41/">41</a>/<br>
+	│   ├── <a class="DIR" href="./blog/40/">40</a>/<br>
+	│   ├── <a class="DIR" href="./blog/39/">39</a>/<br>
+	│   ├── <a class="DIR" href="./blog/38/">38</a>/<br>
+	│   ├── <a class="DIR" href="./blog/37/">37</a>/<br>
+	│   ├── <a class="DIR" href="./blog/36/">36</a>/<br>
+	│   ├── <a class="DIR" href="./blog/35/">35</a>/<br>
+	│   ├── <a class="DIR" href="./blog/34/">34</a>/<br>
+	│   ├── <a class="DIR" href="./blog/33/">33</a>/<br>
+	│   ├── <a class="DIR" href="./blog/32/">32</a>/<br>
+	│   ├── <a class="DIR" href="./blog/31/">31</a>/<br>
+	│   ├── <a class="DIR" href="./blog/30/">30</a>/<br>
+	│   ├── <a class="DIR" href="./blog/29/">29</a>/<br>
+	│   ├── <a class="DIR" href="./blog/28/">28</a>/<br>
+	│   ├── <a class="DIR" href="./blog/27/">27</a>/<br>
+	│   ├── <a class="DIR" href="./blog/26/">26</a>/<br>
+	│   ├── <a class="DIR" href="./blog/25/">25</a>/<br>
+	│   ├── <a class="DIR" href="./blog/24/">24</a>/<br>
+	│   ├── <a class="DIR" href="./blog/23/">23</a>/<br>
+	│   ├── <a class="DIR" href="./blog/22/">22</a>/<br>
+	│   ├── <a class="DIR" href="./blog/21/">21</a>/<br>
+	│   ├── <a class="DIR" href="./blog/20/">20</a>/<br>
+	│   ├── <a class="DIR" href="./blog/19/">19</a>/<br>
+	│   ├── <a class="DIR" href="./blog/18/">18</a>/<br>
+	│   ├── <a class="DIR" href="./blog/17/">17</a>/<br>
+	│   ├── <a class="DIR" href="./blog/16/">16</a>/<br>
+	│   ├── <a class="DIR" href="./blog/15/">15</a>/<br>
+	│   ├── <a class="DIR" href="./blog/14/">14</a>/<br>
+	│   ├── <a class="DIR" href="./blog/13/">13</a>/<br>
+	│   ├── <a class="DIR" href="./blog/12/">12</a>/<br>
+	│   ├── <a class="DIR" href="./blog/11/">11</a>/<br>
+	│   ├── <a class="DIR" href="./blog/10/">10</a>/<br>
+	│   ├── <a class="DIR" href="./blog/9/">9</a>/<br>
+	│   ├── <a class="DIR" href="./blog/8/">8</a>/<br>
+	│   ├── <a class="DIR" href="./blog/7/">7</a>/<br>
+	│   ├── <a class="DIR" href="./blog/6/">6</a>/<br>
+	│   ├── <a class="DIR" href="./blog/5/">5</a>/<br>
+	│   ├── <a class="DIR" href="./blog/4/">4</a>/<br>
+	│   ├── <a class="DIR" href="./blog/3/">3</a>/<br>
+	│   ├── <a class="DIR" href="./blog/2/">2</a>/<br>
+	│   ├── <a class="DIR" href="./blog/1/">1</a>/<br>
+	│   └── <a class="DIR" href="./blog/0/">0</a>/<br>
+	│   &nbsp;&nbsp;&nbsp; └── <a class="NORM" href="./blog/0/espelho.html">espelho.html</a><br>
+	└── <a class="DIR" href="./about/">about</a>/<br>
+	&nbsp;&nbsp;&nbsp; └── <a class="NORM" href="./about/cvsum.html">cvsum.html</a><br>
+	<br><br>
+	</p>
+	<p>
+	<br><br>
+	</p>
+	<hr>
+	<p class="VERSION">
+		 tree v1.8.0 © 1996 - 2018 by Steve Baker and Thomas Moore <br>
+		 HTML output hacked and copyleft © 1998 by Francesc Rocher <br>
+		 JSON output hacked and copyleft © 2014 by Florian Sesser <br>
+		 Charsets / OS/2 support © 2001 by Kyosuke Tokoro
+	</p>
+</body>
+</html>

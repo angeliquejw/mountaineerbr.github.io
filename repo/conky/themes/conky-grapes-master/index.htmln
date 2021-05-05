@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <meta name="Author" content="Made by 'tree'">
+ <meta name="GENERATOR" content="$Version: $ tree v1.8.0 (c) 1996 - 2018 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro $">
+ <title>CONKY-GRAPES-MASTER - Directory Tree</title>
+ <style type="text/css">
+h1 { text-transform: uppercase; } 
+	img {
+		max-width: 500px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.tar  { color: brown;  background-color: beige;}
+	.pic  { color: blueviolet;}
+	.media  { color: orange;}
+	.doc  { color: indianred;}
+	.txt  { color: crimson;}
+	.pdf  { color: white;  background-color: blue;}
+	.hidden  { background-color: azure;}
+	
+  <!-- 
+  BODY { font-family : ariel, monospace, sans-serif; }
+  P { font-weight: normal; font-family : ariel, monospace, sans-serif; color: black; background-color: transparent;}
+  B { font-weight: normal; color: black; background-color: transparent;}
+  A:visited { font-weight : normal; text-decoration : none; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:link    { font-weight : normal; text-decoration : none; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:hover   { color : #000000; font-weight : normal; text-decoration : underline; background-color : yellow; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:active  { color : #000000; font-weight: normal; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  .VERSION { font-size: small; font-family : arial, sans-serif; }
+  .NORM  { color: black;  background-color: transparent;}
+  .FIFO  { color: purple; background-color: transparent;}
+  .CHAR  { color: yellow; background-color: transparent;}
+  .DIR   { color: blue;   background-color: transparent;}
+  .BLOCK { color: yellow; background-color: transparent;}
+  .LINK  { color: aqua;   background-color: transparent;}
+  .SOCK  { color: fuchsia;background-color: transparent;}
+  .EXEC  { color: green;  background-color: transparent;}
+  -->
+ </style>
+</head>
+<body>
+<h1>conky-grapes</h1>
+
+<p><strong>The Github repository is only a mirror, only for visibility purppose.</strong> I use GitLab CE for my own projects (which now has mirroring feature on Community Edition).</p>
+
+<p>You can authenticate on <a href="https://gitlab.nomagic.uk/popi/conky-grapes">my gitlab server</a> using your Github or Gitlab account to submit issues or merge requests.</p>
+
+<h3>Updates</h3>
+
+<ul>
+<li>2018-07-22: changed option <code>--arch</code> to <code>--old</code> with reverse meaning, so that by default we create config for freetype >= 2.8.</li>
+<li>2018-04-04: tagging first stable as reference.</li>
+<li>2018-01-28: Activating mirror between gitlab and github for this project. Also latest updates should allow the script to work on gnome-shell (though there might still be shome issues).</li>
+<li>2017-08-13: New io_wait ring! Due to the nature of io_wait monitoring in conky, I reversed display for this one. In the middle you will see average values for reads and writes and the rigns will show the 3 processes using most IO.
+It&rsquo;s not perfect, but it can point out which process is creating a bottleneck.</li>
+</ul>
+
+
+<h2>What is it</h2>
+
+<p>This repository aims at providing you everything you need to be able to <strong>very quickly</strong> build a fantastic grape-shaped lua/ conky adapted to your machine including:
+* Metrics on temperature, cpu (maximum fixed to 8 cpu to display), disks (maximum 3 filesystem), memory (ram and swap), networking (we select the interface used as default gateway),
+and battery when relevant.
+* Visual monitoring for high temperature, low disk space and low battery charge (orange is warning, red is critical)
+* A set of pre-defined colours that allows to easily adapt your settings to different backgrounds (colors can be added/ changed in the python file fairly easily).
+* Possibility to select different colors for the rings, the section titles, and the text.</p>
+
+<p><em>note: the limits on cpu and filesystems are for display reason.</em></p>
+
+<p><img src="https://pic.nomagic.uk/W9MjLPJF" alt="" /></p>
+
+<h2>Why use it</h2>
+
+<p>To tune up your desktop of course! It is under <a href="gpl-3.0.txt">GPLv3 License</a>, so feel free to use, study, improve and share as you please.</p>
+
+<h2>How to use it</h2>
+
+<ul>
+<li><p>If you already know your way around, all you need is:</p>
+
+<ul>
+<li>install conky-full</li>
+<li>clone this repo to ~/conky/conky-grapes</li>
+<li>install the fonts</li>
+<li>use <code>create_config.py</code> to generate your configuration (use <code>-h</code> to display help)</li>
+<li><p>enjoy color combinations and spend a fairly big amount of time looking at those magic rings</p>
+
+<hr />
+
+<h2>&lt; ALL GLORY TO THE HYPNOTOAD! ></h2>
+
+<pre><code>    \   ^__^
+     \  (@@)\_______
+        (__)\       )\/\
+         U ||----w |
+            ||     ||
+</code></pre></li>
+</ul>
+</li>
+<li><p>If you haven&rsquo;t used or set up any conky before, please go to the <a href="https://gitlab.nomagic.fr/popi/conky-grapes/wikis/home">Wiki</a> page (that you can also edit with your inputs!)</p></li>
+</ul><hr>
+	<h2>CONKY-GRAPES-MASTER - Directory Tree</h2><p>
+	<a class="NORM" href="..">..</a><br>
+<a class="NORM" href=".">.</a><br>
+	├── [2.1K]&nbsp;&nbsp;<a class="NORM" href="./conky_tpl">conky_tpl</a><br>
+	├── [&nbsp;25K]&nbsp;&nbsp;<a class="EXEC" href="./create_config.py">create_config.py</a>*<br>
+	├── [&nbsp;475]&nbsp;&nbsp;<a class="NORM" href="./ethconf">ethconf</a><br>
+	├── [&nbsp;475]&nbsp;&nbsp;<a class="NORM" href="./ethconf_old">ethconf_old</a><br>
+	├── [&nbsp;280]&nbsp;&nbsp;<a class="NORM" href="./fs_watch">fs_watch</a><br>
+	├── [&nbsp;34K]&nbsp;&nbsp;<a class="txt" href="./gpl-3.0.txt">gpl-3.0.txt</a><br>
+	├── [&nbsp;34K]&nbsp;&nbsp;<a class="NORM" href="./LICENSE">LICENSE</a><br>
+	├── [&nbsp;63K]&nbsp;&nbsp;<a class="NORM" href="./Michroma.ttf">Michroma.ttf</a><br>
+	├── [&nbsp;149]&nbsp;&nbsp;<a class="NORM" href="./nonetconf">nonetconf</a><br>
+	├── [166K]&nbsp;&nbsp;<a class="NORM" href="./Play-Bold.ttf">Play-Bold.ttf</a><br>
+	├── [167K]&nbsp;&nbsp;<a class="NORM" href="./Play-Regular.ttf">Play-Regular.ttf</a><br>
+	├── [9.2K]&nbsp;&nbsp;<a class="NORM" href="./rings-v2_tpl">rings-v2_tpl</a><br>
+	├── [122K]&nbsp;&nbsp;<a class="pic" href="./sample1.jpeg">sample1.jpeg</a><br>
+	├── [6.4K]&nbsp;&nbsp;<a class="pic" href="./tachi_conky1.jpg">tachi_conky1.jpg</a><br>
+	├── [6.7K]&nbsp;&nbsp;<a class="pic" href="./tachi_conky1.png">tachi_conky1.png</a><br>
+	├── [&nbsp;482]&nbsp;&nbsp;<a class="NORM" href="./wificonf">wificonf</a><br>
+	└── [&nbsp;482]&nbsp;&nbsp;<a class="NORM" href="./wificonf_old">wificonf_old</a><br>
+	<br><br>
+	</p>
+	<p>
+
+0 directories, 17 files
+	<br><br>
+	</p>
+	<hr>
+	<p class="VERSION">
+To download all files from a directory, try:
+	<!-- wget -r --no-parent --reject "index.html*" [URL] -->
+	<code>wget -r --no-parent [URL]</code><br>
+	That is a shame GitHub limits file size to 100MB.<hr>
+	
+		 tree v1.8.0 © 1996 - 2018 by Steve Baker and Thomas Moore <br>
+		 HTML output hacked and copyleft © 1998 by Francesc Rocher <br>
+		 JSON output hacked and copyleft © 2014 by Florian Sesser <br>
+		 Charsets / OS/2 support © 2001 by Kyosuke Tokoro
+	</p>
+</body>
+</html>

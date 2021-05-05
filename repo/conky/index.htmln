@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <meta name="Author" content="Made by 'tree'">
+ <meta name="GENERATOR" content="$Version: $ tree v1.8.0 (c) 1996 - 2018 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro $">
+ <title>CONKY - Directory Tree</title>
+ <style type="text/css">
+h1 { text-transform: uppercase; } 
+	img {
+		max-width: 500px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.tar  { color: brown;  background-color: beige;}
+	.pic  { color: blueviolet;}
+	.media  { color: orange;}
+	.doc  { color: indianred;}
+	.txt  { color: crimson;}
+	.pdf  { color: white;  background-color: blue;}
+	.hidden  { background-color: azure;}
+	
+  <!-- 
+  BODY { font-family : ariel, monospace, sans-serif; }
+  P { font-weight: normal; font-family : ariel, monospace, sans-serif; color: black; background-color: transparent;}
+  B { font-weight: normal; color: black; background-color: transparent;}
+  A:visited { font-weight : normal; text-decoration : none; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:link    { font-weight : normal; text-decoration : none; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:hover   { color : #000000; font-weight : normal; text-decoration : underline; background-color : yellow; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  A:active  { color : #000000; font-weight: normal; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }
+  .VERSION { font-size: small; font-family : arial, sans-serif; }
+  .NORM  { color: black;  background-color: transparent;}
+  .FIFO  { color: purple; background-color: transparent;}
+  .CHAR  { color: yellow; background-color: transparent;}
+  .DIR   { color: blue;   background-color: transparent;}
+  .BLOCK { color: yellow; background-color: transparent;}
+  .LINK  { color: aqua;   background-color: transparent;}
+  .SOCK  { color: fuchsia;background-color: transparent;}
+  .EXEC  { color: green;  background-color: transparent;}
+  -->
+ </style>
+</head>
+<body>
+<h1>conky</h1>
+
+<p><img src="git_conky1.png" alt="ScreenShot" />
+Fig 1. My conkies running</p>
+
+<p>Conky configs in the new <em>Lua syntax</em>.
+Some confs are original creations, others are modifications.</p>
+
+<p>There is also a script to restart conky regularly to deal with
+terrible IO ops memory leak.</p>
+
+<p>I use X11 colour names, mostly, for example <em>Tomato</em>.</p>
+
+<hr />
+
+<p>Configurações do Conky na nova <em>linguagem Lua</em>.
+Algumas confs são criações originais, outras eu apenas modifiquei de alguém.</p>
+
+<p>Há também um script para reiniciar os conkies regularmente por causa do
+terrível vazamento de memória causado por operações de IO.</p>
+
+<p>Uso os nomes de cores do X11, na maioria, por exemplo <em>Tomato</em>.</p><hr>
+	<h2>CONKY - Directory Tree</h2><p>
+	<a class="NORM" href="..">..</a><br>
+<a class="NORM" href=".">.</a><br>
+	├── [4.0K]&nbsp;&nbsp;<a class="DIR" href="./fonts/">fonts</a>/<br>
+	├── [4.0K]&nbsp;&nbsp;<a class="DIR" href="./themes/">themes</a>/<br>
+	├── [5.4K]&nbsp;&nbsp;<a class="txt" href="./aurora_allinone.conf">aurora_allinone.conf</a><br>
+	├── [2.1K]&nbsp;&nbsp;<a class="txt" href="./aurora_ds_sensors.conf">aurora_ds_sensors.conf</a><br>
+	├── [&nbsp;457]&nbsp;&nbsp;<a class="txt" href="./calendar.conf">calendar.conf</a><br>
+	├── [2.1K]&nbsp;&nbsp;<a class="EXEC" href="./conkykiller.sh">conkykiller.sh</a>*<br>
+	├── [287K]&nbsp;&nbsp;<a class="pic" href="./git_conky1.png">git_conky1.png</a><br>
+	├── [1.2M]&nbsp;&nbsp;<a class="pic" href="./git_conky2.png">git_conky2.png</a><br>
+	├── [&nbsp;697]&nbsp;&nbsp;<a class="txt" href="./monitor_cooler.conf">monitor_cooler.conf</a><br>
+	├── [3.9K]&nbsp;&nbsp;<a class="txt" href="./monitor_cooler_notas_português.txt">monitor_cooler_notas_português.txt</a><br>
+	├── [2.8K]&nbsp;&nbsp;<a class="txt" href="./rss_long1.conf">rss_long1.conf</a><br>
+	├── [&nbsp;817]&nbsp;&nbsp;<a class="txt" href="./rss_short1.conf">rss_short1.conf</a><br>
+	├── [&nbsp;650]&nbsp;&nbsp;<a class="txt" href="./rss_short2.conf">rss_short2.conf</a><br>
+	├── [&nbsp;514]&nbsp;&nbsp;<a class="txt" href="./todo.conf">todo.conf</a><br>
+	└── [&nbsp;&nbsp;24]&nbsp;&nbsp;<a class="txt" href="./todo.txt">todo.txt</a><br>
+	<br><br>
+	</p>
+	<p>
+
+2 directories, 13 files
+	<br><br>
+	</p>
+	<hr>
+	<p class="VERSION">
+To download all files from a directory, try:
+	<!-- wget -r --no-parent --reject "index.html*" [URL] -->
+	<code>wget -r --no-parent [URL]</code><br>
+	That is a shame GitHub limits file size to 100MB.<hr>
+	
+		 tree v1.8.0 © 1996 - 2018 by Steve Baker and Thomas Moore <br>
+		 HTML output hacked and copyleft © 1998 by Francesc Rocher <br>
+		 JSON output hacked and copyleft © 2014 by Florian Sesser <br>
+		 Charsets / OS/2 support © 2001 by Kyosuke Tokoro
+	</p>
+</body>
+</html>

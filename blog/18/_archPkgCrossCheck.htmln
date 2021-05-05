@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>~/bin/archPkgCrossCheck.sh.html</title>
+<meta name="Generator" content="Vim/8.2">
+<meta name="plugin-version" content="vim8.1_v2">
+<meta name="syntax" content="zsh">
+<meta name="settings" content="use_css,pre_wrap,no_foldcolumn,prevent_copy=,use_input_for_pc=fallback">
+<meta name="colorscheme" content="none">
+<style>
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #ffffff; background-color: #000000; }
+body { font-family: monospace; color: #ffffff; background-color: #000000; }
+* { font-size: 1.1em; }
+.Statement { color: #ffff00; }
+.PreProc { color: #5fd7ff; }
+.Comment { color: #00ffff; }
+.Constant { color: #ff40ff; }
+.Special { color: #ffd7d7; }
+-->
+</style>
+</head>
+<body>
+<pre id='vimCodeElement'>
+<span class="PreProc">#!/bin/zsh</span>
+<span class="Comment"># jan/2021  by mountaineerbr</span>
+<span class="Comment"># check which pkgs are required by another from a list of pkgs</span>
+<span class="Comment">#</span>
+<span class="Comment"># usage: archPkgCrossCheck.sh [PKGLIST.txt]</span>
+<span class="Comment">#</span>
+<span class="Comment"># if you use Arch Linux, probably you have made a list of packages</span>
+<span class="Comment"># to install in a fresh system and may want to check which packages</span>
+<span class="Comment"># are required against packages from the same list.</span>
+<span class="Comment"># does not check for aur packages or metapackages such as base.</span>
+<span class="Comment"># a text file containing package names, one per line, is required.</span>
+<span class="Comment"># empty lines and lines with '#' will be ignore.</span>
+<span class="Comment"># package ``expac'' is required.</span>
+
+<span class="Comment">#pkg list</span>
+pkglist=<span class="Constant">&quot;</span><span class="PreProc">$1</span><span class="Constant">&quot;</span>
+
+
+<span class="Comment">#get pkg info</span>
+<span class="Comment">#make pg list</span>
+list=( <span class="PreProc">$(</span>grep -ve <span class="Special">\#</span> -e <span class="Constant">'</span><span class="Constant">^\s*$</span><span class="Constant">'</span> <span class="Constant">&quot;</span><span class="PreProc">$pkglist</span><span class="Constant">&quot;</span> <span class="Statement">|</span> sort<span class="PreProc">)</span> )
+((<span class="PreProc">${</span><span class="PreProc">#list[@]</span><span class="PreProc">}</span>)) <span class="Statement">||</span> <span class="Statement">exit</span>
+
+<span class="Comment">#extract pkg 'depends on' fields or 'group provides'</span>
+<span class="Comment">#normal pkgs and group  pkgs</span>
+info=<span class="Constant">&quot;</span><span class="PreProc">$(</span><span class="Constant">expac -S </span><span class="Special">%n</span><span class="Constant">:</span><span class="Special">\ </span><span class="Special">%D</span><span class="Constant"> </span><span class="Constant">&quot;</span><span class="PreProc">$list</span><span class="Constant">[@]</span><span class="Constant">&quot;</span><span class="PreProc">)</span>
+<span class="PreProc">$(</span><span class="Constant">expac -Sg </span><span class="Special">%G</span><span class="Constant">:</span><span class="Special">\ </span><span class="Special">%n</span><span class="Special">\ </span><span class="Special">%D</span><span class="Constant"> </span><span class="Constant">&quot;</span><span class="PreProc">$list</span><span class="Constant">[@]</span><span class="Constant">&quot;</span><span class="PreProc">)</span><span class="Constant">&quot;</span>
+<span class="Comment">#expac: %G groups; %n file name; %D depends on</span>
+<span class="Comment">#expac: use (pacman) -S flag</span>
+
+<span class="Comment">#check if a package from list is required by another package</span>
+<span class="Statement">for</span> entry <span class="Statement">in</span> <span class="Constant">&quot;</span><span class="PreProc">$list</span><span class="Constant">[@]</span><span class="Constant">&quot;</span>
+<span class="Statement">do</span>
+<span class="Comment">	#counter</span>
+	((++n))
+<span class="Comment">	#printf '%d/%d  \r' &quot;$n&quot; &quot;${#list[@]}&quot; &gt;&amp;2  #verbose</span>
+
+	<span class="Statement">if</span>
+<span class="Comment">		#check if pkg is required by another pkg from the same list</span>
+		res=<span class="Constant">&quot;</span><span class="PreProc">$(</span><span class="Constant"> grep -v </span><span class="Constant">&quot;</span><span class="Constant">^</span><span class="PreProc">$entry</span><span class="Constant">:</span><span class="Constant">&quot;</span><span class="Constant"> </span><span class="Statement">&lt;&lt;&lt;</span><span class="Constant">&quot;</span><span class="PreProc">$info</span><span class="Constant">&quot;</span><span class="Constant"> </span><span class="Statement">|</span><span class="Constant"> grep -i </span><span class="Constant">&quot;</span><span class="Constant"> </span><span class="PreProc">$entry</span><span class="Constant"> </span><span class="Constant">&quot;</span><span class="PreProc">)</span><span class="Constant">&quot;</span>
+	<span class="Statement">then</span>
+<span class="Comment">		#counter</span>
+		((++m))
+
+		reqby=( <span class="PreProc">$(</span>cut -f1 -d: <span class="Statement">&lt;&lt;&lt;</span><span class="Constant">&quot;</span><span class="PreProc">$res</span><span class="Constant">&quot;</span><span class="PreProc">)</span> )
+		<span class="Statement">print</span> <span class="Constant">&quot;</span><span class="PreProc">$entry</span><span class="Constant"> is required by -- </span><span class="PreProc">$reqby</span><span class="Constant">[*]</span><span class="Constant">&quot;</span>
+	<span class="Statement">fi</span>
+<span class="Statement">done</span>
+
+
+<span class="Statement">print</span>
+<span class="Statement">print</span> <span class="Constant">&quot;</span><span class="PreProc">$m</span><span class="Constant"> pkgs require other pkgs from the same list</span><span class="Constant">&quot;</span>
+
+</pre>
+</body>
+</html>
+<!-- vim: set foldmethod=manual : -->

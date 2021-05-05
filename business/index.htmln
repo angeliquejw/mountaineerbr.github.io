@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>403 Forbidden</title>
+
+<style>
+	li, p
+	{
+		font-size: 1.5em;
+	}
+
+</style>
+</head>
+<body>
+
+<section>
+	<h1>Modelos de páginas</h1>
+	<ol>
+		<li><a href="www.w3schools.com/w3css/tryw3css_templates_fifty.htm">Modelo</a></li>
+		<li><a href="lawyers-layout/">Modelo</a></li>
+		<li><a href="lawyer-office-template/">Modelo</a></li>
+		<li><a href="lawyer_template/">Modelo</a></li>
+		<li><a href="lawyer-template/">Modelo</a></li>
+		<li><a href="lawyer-template2/Lawyer-template/">Modelo</a></li>
+		<li><a href="Lawyer-Attorney-HTML-Template/">Modelo</a></li>
+		<li><a href="Lawyer-Attorney-HTML-Template/index2.html">Modelo</a></li>
+		<li><a href="lawyer-website-template/">Modelo</a></li>
+		<li><a href="LawyerTemplate_180624/">Modelo</a></li>
+		<li><a href="samepage-test/">Modelo</a></li>
+		<li><a href="dc-m/">Modelo</a></li>
+	</ol>
+
+</section>
+
+<section>
+	<h2>Mais modelos</h2>
+
+	<p>Modelo 13</p>
+	<img src="template1.png" alt="modelo13">
+	<br>
+	<p>Modelo 14</p>
+	<img src="template2.png" alt="modelo14">
+	<br>
+	<p>Modelo 15</p>
+	<img src="template3.png" alt="modelo15">
+	<br>
+	<p>Modelo 16</p>
+	<img src="template4.png" alt="modelo16">
+</section>
+	
+</body>
+</html>

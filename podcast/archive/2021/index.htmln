@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+                                         _  
+   ._ _  _    .__|_ _.o._  _  _ ._|_ ._ |R|
+   | | |(_)|_|| ||_(_||| |(/_(/_| |_)|  `-' 
+-->
+<link rel="alternate" type="application/rss+xml" title="Biology Blogger RSS" href="/blog/rss.xml">
+<link rel="alternate" type="application/rss+xml" title="Biology Blogger RSS (Alternative feed)" href="/blog/rss_alt.xml">
+<link rel="alternate" type="application/rss+xml" title="Biology Blogger RSS (Podcast)" href="/blog/rss_podcast.xml">
+    <title>2021 — Biology Blogger</title>
+    <meta name="author" content="Mountaineerbr">
+    <meta name="description" content="Audio episodes of our podcast in which we talk about biology, science and free software.">
+    <link rel="stylesheet" href="../../css/steel.css">
+    <meta property="og:url" content="https://mountaineerbr.github.io/archive/2021/">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="2021">
+    <meta property="og:image"
+          content="/gfx/sherlockb_small.png">
+    <meta property="og:description" content="Link to: https://mountaineerbr.github.io/archive/2021/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image:alt" content="/gfx/sherlockb_small.png">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <style>
+
+	#tl-main-header nav {
+		text-align: left;
+	}
+    </style>
+
+  </head>
+  <body>
+    <div id="tl-page">
+      <header id="tl-main-header">
+        <div class="tl-title">
+          <h1>Biology Blogger</h1>
+          <div>an audiocast</div>
+          <span>2021</span>
+        </div>
+        <nav>
+          <ul class="tl-navigation">
+            <li><a title="home" href="/podcast/"><img src="/gfx/sherlockb_smaller.png"
+	    alt="Podcast logo" width="50" height="50"></a></li>
+            <li><a href="/">root</a></li>
+            <li><a href="/blog/">blog</a></li>
+            <li><a href="/podcast/subscribe.html">subscribe</a></li>
+            <li><a href="/podcast/about.html">about</a></li>
+            <li><a href="/podcast/rss_podcast.xml">rss</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+<div class="tl-topbar"></div>
+<article>
+  <div class="tl-year">
+    <div>← <a href="../2020/">2020</a></div>
+    <h2>2021</h2>
+    <div></div>
+  </div>
+  <table class="tl-month">
+    <caption>January</caption>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Mon</th>
+        <th scope="col">Tue</th>
+        <th scope="col">Wed</th>
+        <th scope="col">Thu</th>
+        <th scope="col">Fri</th>
+        <th scope="col">Sat</th>
+        <th scope="col">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">53</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <th scope="row">1</th>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+      </tr>
+      <tr>
+        <th scope="row">4</th>
+        <td>25</td>
+        <td>26</td>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+        <td>31</td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="tl-month">
+    <caption><a href="02/">February</a></caption>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Mon</th>
+        <th scope="col">Tue</th>
+        <th scope="col">Wed</th>
+        <th scope="col">Thu</th>
+        <th scope="col">Fri</th>
+        <th scope="col">Sat</th>
+        <th scope="col">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">5</th>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <th scope="row">6</th>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+      </tr>
+      <tr>
+        <th scope="row">7</th>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="week/08.html">8</a></th>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+        <td><a href="../2021/02/26.html" title="#4 - EP #4 - Banido dos Fórums do FreeBSD por Ambientalistas">26</a></td>
+        <td>27</td>
+        <td>28</td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="tl-month">
+    <caption><a href="03/">March</a></caption>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Mon</th>
+        <th scope="col">Tue</th>
+        <th scope="col">Wed</th>
+        <th scope="col">Thu</th>
+        <th scope="col">Fri</th>
+        <th scope="col">Sat</th>
+        <th scope="col">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">9</th>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <th scope="row">10</th>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+      </tr>
+      <tr>
+        <th scope="row">11</th>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="week/12.html">12</a></th>
+        <td><a href="../2021/03/22.html" title="#5 - EP #5 - Rodando Um Nó Completo do Bitcoin com Tor">22</a></td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+        <td>26</td>
+        <td>27</td>
+        <td>28</td>
+      </tr>
+      <tr>
+        <th scope="row">13</th>
+        <td>29</td>
+        <td>30</td>
+        <td>31</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="tl-month">
+    <caption><a href="04/">April</a></caption>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Mon</th>
+        <th scope="col">Tue</th>
+        <th scope="col">Wed</th>
+        <th scope="col">Thu</th>
+        <th scope="col">Fri</th>
+        <th scope="col">Sat</th>
+        <th scope="col">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><a href="week/13.html">13</a></th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>1</td>
+        <td><a href="../2021/04/02.html" title="#6 - EP #6 - Mais Configurações do Tor para o Nó do Bitcoin e SSH">2</a></td>
+        <td>3</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <th scope="row">14</th>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+      </tr>
+      <tr>
+        <th scope="row">15</th>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+      </tr>
+      <tr>
+        <th scope="row">16</th>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="week/17.html">17</a></th>
+        <td>26</td>
+        <td>27</td>
+        <td><a href="../2021/04/28.html" title="#7 - Season Finale - Freedom, Focus and Mushrooms">28</a></td>
+        <td>29</td>
+        <td>30</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="tl-month">
+    <caption>May</caption>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Mon</th>
+        <th scope="col">Tue</th>
+        <th scope="col">Wed</th>
+        <th scope="col">Thu</th>
+        <th scope="col">Fri</th>
+        <th scope="col">Sat</th>
+        <th scope="col">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">17</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>1</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th scope="row">18</th>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <th scope="row">19</th>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+      </tr>
+      <tr>
+        <th scope="row">20</th>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+      </tr>
+      <tr>
+        <th scope="row">21</th>
+        <td>24</td>
+        <td>25</td>
+        <td>26</td>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+      </tr>
+      <tr>
+        <th scope="row">22</th>
+        <td>31</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="tl-month">
+    <caption>June</caption>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Mon</th>
+        <th scope="col">Tue</th>
+        <th scope="col">Wed</th>
+        <th scope="col">Thu</th>
+        <th scope="col">Fri</th>
+        <th scope="col">Sat</th>
+        <th scope="col">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">22</th>
+        <td></td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <th scope="row">23</th>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+      </tr>
+      <tr>
+        <th scope="row">24</th>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+      </tr>
+      <tr>
+        <th scope="row">25</th>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+        <td>26</td>
+        <td>27</td>
+      </tr>
+      <tr>
+        <th scope="row">26</th>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="tl-month">
+    <caption>July</caption>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Mon</th>
+        <th scope="col">Tue</th>
+        <th scope="col">Wed</th>
+        <th scope="col">Thu</th>
+        <th scope="col">Fri</th>
+        <th scope="col">Sat</th>
+        <th scope="col">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">26</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <th scope="row">27</th>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+      </tr>
+      <tr>
+        <th scope="row">28</th>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+      </tr>
+      <tr>
+        <th scope="row">29</th>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+      </tr>
+      <tr>
+        <th scope="row">30</th>
+        <td>26</td>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+        <td>31</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="tl-month">
+    <caption>August</caption>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Mon</th>
+        <th scope="col">Tue</th>
+        <th scope="col">Wed</th>
+        <th scope="col">Thu</th>
+        <th scope="col">Fri</th>
+        <th scope="col">Sat</th>
+        <th scope="col">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">30</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <th scope="row">31</th>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <th scope="row">32</th>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+      </tr>
+      <tr>
+        <th scope="row">33</th>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+      </tr>
+      <tr>
+        <th scope="row">34</th>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+        <td>26</td>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+      </tr>
+      <tr>
+        <th scope="row">35</th>
+        <td>30</td>
+        <td>31</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="tl-month">
+    <caption>September</caption>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Mon</th>
+        <th scope="col">Tue</th>
+        <th scope="col">Wed</th>
+        <th scope="col">Thu</th>
+        <th scope="col">Fri</th>
+        <th scope="col">Sat</th>
+        <th scope="col">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">35</th>
+        <td></td>
+        <td></td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <th scope="row">36</th>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+      </tr>
+      <tr>
+        <th scope="row">37</th>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+      </tr>
+      <tr>
+        <th scope="row">38</th>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+        <td>26</td>
+      </tr>
+      <tr>
+        <th scope="row">39</th>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="tl-month">
+    <caption>October</caption>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Mon</th>
+        <th scope="col">Tue</th>
+        <th scope="col">Wed</th>
+        <th scope="col">Thu</th>
+        <th scope="col">Fri</th>
+        <th scope="col">Sat</th>
+        <th scope="col">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">39</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <th scope="row">40</th>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <th scope="row">41</th>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+      </tr>
+      <tr>
+        <th scope="row">42</th>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+      </tr>
+      <tr>
+        <th scope="row">43</th>
+        <td>25</td>
+        <td>26</td>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+        <td>31</td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="tl-month">
+    <caption>November</caption>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Mon</th>
+        <th scope="col">Tue</th>
+        <th scope="col">Wed</th>
+        <th scope="col">Thu</th>
+        <th scope="col">Fri</th>
+        <th scope="col">Sat</th>
+        <th scope="col">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">44</th>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <th scope="row">45</th>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+      </tr>
+      <tr>
+        <th scope="row">46</th>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+      </tr>
+      <tr>
+        <th scope="row">47</th>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+        <td>26</td>
+        <td>27</td>
+        <td>28</td>
+      </tr>
+      <tr>
+        <th scope="row">48</th>
+        <td>29</td>
+        <td>30</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="tl-month">
+    <caption>December</caption>
+    <thead>
+      <tr>
+        <td></td>
+        <th scope="col">Mon</th>
+        <th scope="col">Tue</th>
+        <th scope="col">Wed</th>
+        <th scope="col">Thu</th>
+        <th scope="col">Fri</th>
+        <th scope="col">Sat</th>
+        <th scope="col">Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">48</th>
+        <td></td>
+        <td></td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <th scope="row">49</th>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+      </tr>
+      <tr>
+        <th scope="row">50</th>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+      </tr>
+      <tr>
+        <th scope="row">51</th>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+        <td>26</td>
+      </tr>
+      <tr>
+        <th scope="row">52</th>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+        <td>31</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+      </main>
+      <nav class="tl-archive">
+        <h2>Archive</h2>
+<dl>
+  <dt><a href="../2021/">2021</a></dt>
+  <dd>
+    <ul>
+      <li><a href="../2021/week/08.html" title="week 08, 2021">08</a></li>
+      <li><a href="../2021/week/12.html" title="week 12, 2021">12</a></li>
+      <li><a href="../2021/week/13.html" title="week 13, 2021">13</a></li>
+      <li><a href="../2021/week/17.html" title="week 17, 2021">17</a></li>
+    </ul>
+  </dd>
+  <dt><a href="../2020/">2020</a></dt>
+  <dd>
+    <ul>
+      <li><a href="../2020/week/42.html" title="week 42, 2020">42</a></li>
+      <li><a href="../2020/week/43.html" title="week 43, 2020">43</a></li>
+      <li><a href="../2020/week/47.html" title="week 47, 2020">47</a></li>
+    </ul>
+  </dd>
+</dl>
+      </nav>
+      <footer>
+        Copyright &copy; 2020–2021 Mountaineerbr.
+        Pages generated with
+        <a
+          href="http://johnbokma.com/articles/tumblelog/"
+        >tumblelog 4.1.0</a>.
+
+
+	<!-- Google Analytics -->
+
+      </footer>
+    </div>
+  </body>
+</html>

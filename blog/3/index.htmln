@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.7.45">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS" href="../rss.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Alternative feed)" href="../rss_alt.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Podcast)" href="../rss_podcast.xml">
+<!-- metatags -->
+
+<title>02/sep/2020 #3 - Blog Design</title>
+<link rel="canonical" href=
+"https://mountaineerbr.github.io/blog/3/">
+<meta name="description" content=
+"Concepts and ideas for the layout of of my personal website. That is rather a hard decision to make..">
+<meta name="keywords" content=
+"personal website, design, desenho, blueprint, decision-making, decisão, plano, plan, writings, opinion, opinião, communication, other blogs, outros blogs, decision, decisão">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+<meta name="resource-type" content="document">
+<meta name="author" content="jsn">
+<meta name="distribution" content="global">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<link rel="shortcut icon" href="../../favicon.ico" type=
+"image/x-icon">
+<style>
+        /* Microformat style */
+        .dt-published
+        {
+                font-size: 1.1em;
+        }
+
+</style>
+</head>
+<body>
+<header>
+<div class="w3-bar w3-amber">
+<nav class="navbar"><a class="w3-bar-item w3-left" href=
+"../../">Home</a> <a class="w3-bar-item w3-left" href="../">Post
+index</a> <!-- navitem -->
+<a class="w3-bar-item w3-right" href="../4/">Next</a> <a class=
+"w3-bar-item w3-right" href="../2/">Previous</a></nav>
+</div>
+</header>
+<!-- FEED -->
+<a href="../rss.xml"><img class="postfeed" src="../gfx/pic_rss.gif"
+alt="RSS Logo" width="36" height="14"></a>
+<main class="h-feed" style="clear:both;">
+<p>by <span class="p-author">Mountaineerbr</span></p>
+<!-- article -->
+
+<article class="h-entry">
+<header>
+<h1 class="p-name" id="3">#3 - Blog Design</h1>
+<time class="dt-published" datetime="2020-09-02">02/sep/2020</time>
+<br>
+</header>
+<!-- <div lang="pt" class="p-summary"></div><br> -->
+
+<p>I am reading a lot of HTML code from other personal
+blogs/websites.. I am seeing all those blogs I collected over the
+years in a new perspective. Some of these blogs are from people
+with information technology backgrounds, and yet they seem to use
+<em>Jekyll</em> or some other layout programmes, such as
+<em>WordPress</em> to generate pages. See <a hreflang="pt" href=
+"https://aurelio.net/blog/">Aurelio Jargas' website</a>. Aurelio is
+using <em>Jekyll</em> now, however it was possible to find a
+<a hreflang="pt" href=
+"http://web.archive.org/web/19970531231058/http://www.brasmidia.com/dumbs/">
+very early webpage</a> of his Brazilian music group called
+<cite>DUMBS</cite> written, presumably, by himself. The webpage
+seems to have started with a simple, cool design (and one picture
+of the band!), which was soon after buried under a lot of litter
+(gifs, pictures), which would leave important information out of
+sight. Sometime later, Aurelio writes in the website logs that the
+page was slow to load, too! We can compare with the <a hreflang=
+"pt" href="https://aurelio.net/dumbs/">music band final website</a>
+he maintains as memoir of good times to this date.</p>
+
+<p>There is no convincing me any of these programmes end up being
+easier to learn and use than to make your own webpages with good
+HTML and CSS code. The principle still ought to be a clean website
+with good content is superior than busy and heavy websites.</p>
+
+<p>It is clear that if a website grows, it starts to getting harder
+to maintain the pages. However, CSS style sheets may prove very
+handy for changing formatting of a series of posts. While HTML
+structures the text, CSS will style it.
+<br>
+Not everything can be done with CSS but I reckon much can be done
+without need of a complete rewrite of the website. Plus,
+<em>sed</em> can be very useful in changing whole sections of HTML
+documents. <em>Bash</em> may not be the most recommended language
+for maintenance of a very large website, perhaps, however
+<em>bash</em> is already <a type="text/plain" href=
+"../res/script1.txt">helping me</a> with compiling the <a href=
+"../cat.html">All posts</a> page. Every blog post has got its own
+manually-crafted HTML page, with many logical tags which may serve
+to present this same content in different ways for different
+people, for example, for the visually impaired or the people in the
+future, whenever in time.</p>
+
+<p>Aurelio's writing style can be funny and that keeps the reader
+interested. I shall try to keep this website light-spirited,
+too..</p>
+
+<p>For now, I cannot grow this website too much without further
+defining and deciding on its basic structure. For that, I may even
+make some drawings on paper and try to implement that structure in
+HTML code..</p>
+</article>
+</main>
+
+<footer>
+<hr class="sep">
+<!-- Google Analytics -->
+<!--
+- - - - Copyright ©2021 JSN.
+ - - -  Verbatim copying and distribution of this entire article is
+- - - - permitted in any medium, provided this notice is preserved.
+-->
+</footer>
+</body>
+</html>

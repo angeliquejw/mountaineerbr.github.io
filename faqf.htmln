@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>FAQF -- Perguntas Frequentes, Respostas Filosóficas</title>
+<meta name="resource-type" content="document">
+<meta name="description" content="Perguntas frequentes, respostas filosóficas; frequently asked questions, philosophical answers">
+<meta name="keywords" content="respostas, answers, biólogo">
+
+<meta name="distribution" content="global">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+
+</head>
+
+<body>
+
+<header>
+	<nav class="navbar">
+		<ul>
+			<li><a href="../">Home</a></li>
+		</ul>
+	</nav>
+
+	<div>
+		<h1 class="hometitle">
+		Perguntas Frequentes,
+		<br>
+		Respostas Filosóficas
+		</h1>
+
+		<h2 class="homedesc">
+		Frequently Asked Questions,
+		Philosophical Answers
+		</h2>
+	</div>
+	
+</header>
+
+<main>
+
+	<dl>
+	<dt>Quem é você?</dt>
+	<dd>Um grão de areia na praia do Universo.
+	A visão do ser humano mudou depois da primeira foto do planeta
+	Terra vista no espaço. Carl Sagan foi um dos que alertaram para
+	mudança na consciência humana iminente naquela época. A Terra
+	pode parecer frágil, porém não devemos nos esquecer da
+	fotografia maior: a Terra ao lado do Sol, ao lado da Lua,
+	dos outros planetas. Inseridos na Via Láctea, estamos sujeitos
+	à influência de todos eles e portanto, somos <em>produto</em>
+	de todos eles.
+	</dd>
+
+	<dt>O que é Vida?</dt>
+	<dd>
+	Complicado dizer pois Vida não é uma entidade constante e
+	fácil de ser definida, ela pode ser referida como um
+	cristal, como uma única célula, como um organismo,
+	como uma espécie ou como algo absoluto universal,
+	ignorando-se (simplificando-se)
+	todas as pequenas variantes do mesmo.
+	</dd>
+
+	<dt>Qual o significado da Vida?</dt>
+	<dd>42</dd>
+
+	<dt>Qual o significado da Vida?</dt>
+	<dd>
+	Não sei se há significado. A Vida é não é muito especial. É claro,
+	a vida é mais especial e muito mais rara do que os cristais minerais.
+	Porém, aqui mesmo no nosso sistema Solar, há vida em vários
+	outros lugares além da Terra. Podemos citar sem medo de errar:
+	Marte, Europa (lua de Júpiter), Encedalus e Titan (luas de Saturno).
+	E com certeza em muitos outros planetas em outras galáxias
+	pois o universo é homegêneo (pergunte a um físico!).
+	Aqui, cito Schrodinger no livro <cite><strong>What is Life?</strong></cite>:
+	<q>não há limites entre o animado e o inanimado. As mesmas leis
+	da física e da química física se sustentam tanto dentro do corpo
+	vivo quanto fora dele</q>. O Schrodinger já alertava que
+	<q>no tribunal, senta-se lá ao lado dos juízes um assessor
+	sem jurisprudência, ou seja, nosso próprio e pequeno ego que
+	acha desagradável se passar por um autômato</q>.
+	<br>
+	Schrodinger
+	<a href="https://quantumlifescience.wordpress.com/2014/04/10/do-electrons-think-erwin-schrodinger-bbc-1949/">(a)</a>
+	<a href="https://fedora.phaidra.univie.ac.at/fedora/get/o:168238/bdef:Asset/view">(b)</a>.
+	</dd>
+
+	<dt>Qual o sentido da Vida?</dt>
+	<dd>Se considerarmos <q>sentido</q> no contexto de um
+	<strong>vetor da física</strong>,
+	a vida parece ter sentido definido! Pelo menos o elemento
+	carbono parece se cristalizar de formas cada vez mais complexas
+	e delicadas ao longo do tempo..
+	Mas esse sentido vetorial parece
+	se reverter em alguns momentos, por exemplo em eventos de extinção..
+	De maneira biológico e genérica, talvez o sentido da vida
+	seja fazer parte de algo maior do que uma vida individual.
+	<br>
+	Recomendo ver o filme do
+	<a href="https://www.youtube.com/watch?v=rFgul6rwNbQ">Ted Nelson, Slocum Furlow (1959)</a>
+	. Este filme é uma sátira da vida na universidade.
+	Os alunos parecem bonecos de ventríloco falando, as tramas dos
+	alunos que ocorrem na sala de aula enquanto os professores
+	ministram aulas monótonas..
+	No final do vídeo, após fazer amor com uma garota, Slocum tem um
+	<span lang="en"><i>insight</i></span>
+	sobre
+	<strong>o significado</strong> da vida
+	(<span lang="en"><i>meaning of life</i></span>).
+	</dd>
+	
+
+	</dl>
+
+
+</main>
+
+
+<footer>
+
+	<!-- Google Analytics -->
+
+</footer>
+
+</body>
+</html>
+
+

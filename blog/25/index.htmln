@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for Linux version 5.7.45">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS" href="../rss.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Alternative feed)" href="../rss_alt.xml">
+<link rel="alternate" type="application/rss+xml" title=
+"Biology Blogger RSS (Podcast)" href="../rss_podcast.xml">
+<!-- metatags -->
+
+<title>26/feb/2021 #25 - Podcast #4 - Ban, Sending</title>
+<link rel="canonical" href=
+"https://mountaineerbr.github.io/blog/25/">
+<meta name="description" content=
+"Notes for podcast episode number 4. Topics range from Bitcoin to being banned from FreeBSD forums `environmentalists', sending curriculum vitae copies and a shell RSS feeds for my website. Hopefully I can spare more topics than needed and pick the best ones..">
+<meta name="keywords" content=
+"topics, scripts, tópicos, bitcoin, volunteer work, trabalho voluntário, work, trabalho, confissões de biólogo, confessions of a biologist, nasa perseverance rover, commentaries, comentários, astronomy, astronomia, personal update">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+<meta name="resource-type" content="document">
+<meta name="author" content="jsn">
+<meta name="distribution" content="global">
+<meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+<link rel="shortcut icon" href="../../favicon.ico" type=
+"image/x-icon">
+<style>
+        /* Microformat style */
+        .dt-published
+        {
+                font-size: 1.1em;
+        }
+
+</style>
+</head>
+<body>
+<header>
+<div class="w3-bar w3-amber">
+<nav class="navbar"><a class="w3-bar-item w3-left" href=
+"../../">Home</a> <a class="w3-bar-item w3-left" href="../">Post
+index</a> <!-- navitem -->
+<a class="w3-bar-item w3-right" href="../26/">Next</a> <a class=
+"w3-bar-item w3-right" href="../24/">Previous</a></nav>
+</div>
+</header>
+<!-- FEED -->
+<a href="../rss.xml"><img class="postfeed" src="../gfx/pic_rss.gif"
+alt="RSS Logo" width="36" height="14"></a>
+<main class="h-feed" style="clear:both;">
+<p>by <span class="p-author">Mountaineerbr</span></p>
+<!-- article -->
+
+<article class="h-entry">
+<header>
+<h1 class="p-name" id="25">#25 - Podcast #4 - Ban, Sending
+<abbr title="Curriculum Vitae">CVs</abbr> and <abbr title=
+"Poor Man's Webmaster Tools">PMWMT</abbr></h1>
+<time class="dt-published" datetime="2021-02-26">26/feb/2021</time>
+<br>
+</header>
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+
+<div lang="pt" class="p-summary">
+<p>Separando alguns tópicos para o podcast. Espero conseguir
+separar mais tópicos que o necessário, escolher os melhores para
+ver se conseguimos parar o podcast por volta dos 40min..</p>
+
+<p><strong>Tentarei gravar o podcast hoje ainda.. Depois faremos o
+processamento de áudio pelo aplicativo <em>Dolby On</em> do
+Android, criaremos o <em lang="en">artwork</em> para o feed (com
+LibreOffice Impress ou Inkscape) e também para o YouTube com o
+<code>ffmpeg</code>..</strong>
+</p>
+</div>
+
+<br>
+<!-- MAIN TEXT  -->
+
+<p>Some of the topics I am thinking about for this podcast
+recording. I may skip some of the smaller topics as the podcast
+should stop at around the 40min mark, hopefully.</p>
+
+<p><strong>I will try and record the podcast today. Then, need
+processing the audio in an Android app named <a href=
+"https://play.google.com/store/apps/details?id=com.dolby.dolby234&hl=en&gl=US">
+Dolby On</a>, generating artworks for the podcast feed (with
+LibreOffice Impress or Inkscape) and for YouTube (with
+<code>ffmpeg</code>)</strong>..</p>
+
+<h2>Topics</h2>
+
+<ul>
+<li><strong>Intro:</strong>
+</li>
+
+<li>Bitcoin roller-coaster ride, would Satoshi Nakamoto <a href=
+"https://www.marketwatch.com/story/coinbase-ipo-5-things-to-know-about-the-u-s-cryptocurrency-exchange-11614290534">
+move or sell his bitcoin</a> when the price reaches 10M
+dollars?</li>
+
+<li>Sending CVs through e-mail and personally to some local
+companies</li>
+
+<li><strong>Main topics:</strong>
+</li>
+
+<li><a href="../23/">Banned from BSD Forums by Said
+Environmentalis</a>
+</li>
+
+<li><strong>Final:</strong>
+</li>
+
+<li>Introducing <a href="../22/">RSS Feeds</a> for my website
+content</li>
+
+<li>Personal website maintenance, repository and shell scripts
+(<q>A <a href=
+"https://web.archive.org/web/20160116102646/http://users.telenet.be/mydotcom/howto/ftp/ftp_script_linux.htm">
+poor man's way of doing things</a> is still a way to get things
+done</q> )</li>
+</ul>
+
+<h2>Podcast Directories</h2>
+
+<ul>
+<li><a href=
+"https://podcasts.apple.com/br/podcast/biology-blogger-podcast/id1555383585">
+iTunes</a>
+</li>
+
+<li><a href=
+"https://podcasts.google.com/feed/aHR0cHM6Ly9tb3VudGFpbmVlcmJyLmdpdGh1Yi5pby9ibG9nL3Jzc19wb2RjYXN0LnhtbA">
+Google Podcasts</a>
+</li>
+
+<li><a href=
+"https://music.amazon.com/podcasts/8688317b-ff12-4269-94f3-5f5df1f74c5f/Biology-Blogger-Podcast">
+Amazon Music</a>
+</li>
+
+<li><a href="https://www.deezer.com/en/show/2350292">Deezer</a>
+</li>
+
+<li><a href=
+"https://open.spotify.com/show/35MqDY3hWWKCack7Fpby55">Spotify</a>
+</li>
+
+<li><a href=
+"https://www.spreaker.com/show/biology-blogger">Spreaker</a>
+</li>
+
+<li><a href=
+"https://tunein.com/podcasts/Education-Podcasts/Biology-Blogger-p1411859/">
+TuneIn</a>
+</li>
+
+<li><a href=
+"https://www.stitcher.com/show/biology-blogger-podcast">Stitcher</a>
+</li>
+
+<li><a href="https://castbox.fm/channel/id3863404">Castbox</a>
+</li>
+
+<li><a href=
+"https://yourcast.jiosaavn.com/dashboard/podcast/61352">JioSaavn</a>
+</li>
+
+<li><a href=
+"https://www.podchaser.com/podcasts/biology-blogger-podcast-1603129">
+Podchaser</a>
+</li>
+
+<li><a href="https://blubrry.com/mountaineerbr/">Blubrry</a>
+</li>
+
+<li><a href=
+"https://www.digitalpodcast.com/feeds/99202-biology-blogger-podcast">
+Digital Podcast</a>
+</li>
+
+<li><a href="https://podcastaddict.com/podcast/3260236">Podcast
+Addict</a>
+</li>
+
+<li><a href="https://www.youtube.com/c/XGNUBio/videos">YouTube</a>
+</li>
+</ul>
+
+<h2>Notes</h2>
+
+<p>Unfortunately, <em>Soundcloud</em> does not fetch episodes from
+my custom XML feed so I am not available there..</p>
+
+<p>The scripts to generate my blog pages, sitemaps and rss feeds
+are rather complex at this point. I do not intend to update them
+very much more, rather I want to stabilise them so I can add
+content easily later. All processing is done using shell scripting
+and some blobs written in C, such as <code><a href=
+"https://www.w3.org/People/Raggett/tidy/">tidy</a></code>,
+<code><a href=
+"http://xmlstar.sourceforge.net/">xmlstarlet</a></code> and
+<code><a href="http://xmlsoft.org/xmllint.html">xmllint</a></code>.
+The scripts take about 40 seconds to process all pages of my blog.
+In order to make the scripts run a little faster, I could
+optionally keep cached files for pre-processed content which did
+not change.</p>
+
+<h2>Some More References</h2>
+
+<ul>
+<li><a href=
+"https://www.podcastinsights.com/podcast-distribution-guide/">Podcast
+Insights</a> article</li>
+
+<li lang="pt">Recomendação: <a hreflang="pt" href=
+"https://open.spotify.com/show/6TtVzHi5JJ7qWuGAZXMi8l">Biólogo
+Chato</a> (Spotify)</li>
+<!-- <li><a href=""></a></li> -->
+</ul>
+
+<h2>Saved for Next Episodes</h2>
+
+<ul>
+<li>I was available for <a href="../19/">volunteer work</a> against
+Covid but apparently they do not need it</li>
+
+<li>Offered volunteer work to private entities aligned with my
+ideals for no avail</li>
+
+<li>Looking for what a biologist can do, <a href=
+"../24/">Confessions</a></li>
+
+<li><a href=
+"https://www.outsideonline.com/1922711/raising-dead">Dave Shaw</a>
+history. This is such a fascinating story that could take a whole
+episode to tell so maybe I will just comment about that this
+time!</li>
+
+<li>Commentary on NASA's Perseverance rover descent and touchdown
+on Mars, was watching via <a hreflang="pt" href=
+"https://www.youtube.com/watch?v=2eva-zGUpTs">SpaceToday</a>
+YouTube channel (in Portuguese)</li>
+
+<li>Political commentary on covid and vaccines of our local
+govt</li>
+
+<li>Workout(less) update</li>
+</ul>
+
+<h2>Making-Of</h2>
+
+<p>After recording the podcast from a high cliff on the outskirts
+of my city and contemplating such beautiful country scenery, I
+reviewed the podcast recording and then watched some YouTube
+videos..</p>
+
+<p>When I finally decided to head back home and turned the engine
+key, the battery was dead.</p>
+
+<p>Mum's car has got an automatic start, therefore I cannot simply
+pop the clutch to get it rolling.</p>
+
+<p>Fortunately, the car has got insurance. I phoned up the
+insurance service and asked for an engine start help. They said it
+would take 75min for the help to reach me.</p>
+
+<p>I waited patiently at the car watching some YouTube films. I
+tried to start the engine a few times without success.</p>
+
+<p>The car has a terrible software system. A list of bad
+programming of this car model software is due. For example, when I
+turn the keys, the radio goes on at the same time as all the lights
+of the panel alongside the engine spark firing! Also, if I open and
+then close the car door, the radio and all the panel lights will
+light up for a moment like an init system is booting up.</p>
+
+<p>If battery is low, the <a href=
+"https://www.chevrolet.com.br/carros/novo-onix">ONIX-model car</a>
+software does not route energy preferentially for the engine to
+start.</p>
+
+<p>The insurance guy arose but we had a problem with the address I
+had given the insurance lady on the phone previously, so I had to
+update it by phone.</p>
+
+<p>The new phone attendant was very talkative and demanded
+confirmation of a lot of information and needed to talk to the
+insurance guy who was already standing besides me.</p>
+
+<p>The insurance woman on the phone was so suspicious and cautious
+that she took a long time. In the meantime, raining came.</p>
+
+<p>Raining got very strong, the insurance man got into his car and
+I got into mine but all windows were open.</p>
+
+<p>Finally, the insurance guy gave up talking to the insurance lady
+on the phone and got wet into the rain trying to charge my car
+battery.</p>
+
+<p>I was able to pull up the windows but a lot of water got into
+the car..</p>
+</article>
+</main>
+
+<footer>
+<hr class="sep">
+<!-- Google Analytics -->
+<!--
+- - - - Copyright ©2021 JSN.
+ - - -  Verbatim copying and distribution of this entire article is
+- - - - permitted in any medium, provided this notice is preserved.
+-->
+</footer>
+</body>
+</html>

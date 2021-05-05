@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+
+<!-- #	THIS IS A TEMPLATE DOCUMENT USED BY THE BLOG POSTING -->
+<!-- #	SYSTEM.  A SCRIPT WILL COMPILE THIS INTO -->
+<!-- #	FINISHED PAGES FOR PUBLICATION.  TEXT FROM <ARTICLE>, -->
+<!-- #	<HEADER> AND <HEAD> SECTIONS ARE SOURCED AND ARE -->
+<!-- #	MANDATORY (USE LOWERCASE TAGS). -->
+     
+     
+<!-- #	NOTE THE <HEADER> SECTION MUST CONTAIN ONE <H1> -->
+<!-- #	AND ONE <P> ONLY. -->
+     
+<!-- #	THE <HEAD> SECTION HOLDS VERY SPECIFIC METATAGS, -->
+<!-- #	SUCH AS KEY-WORDS AND CSS STYLESHEET REFERENCES, -->
+<!-- #	WHICH MUST BE ADDRESSED AT THE END OF EACH POST -->
+<!-- #	(SEE END OF PAGE). -->
+     
+<!-- #	SEE ALSO H-ENTRY and H-FEED MICROFORMATS AT -->
+<!-- #	<https://developer.mozilla.org/en-US/docs/Web/HTML/microformats> -->
+
+
+<article class="h-entry">
+
+<!-- # HEADER:  H1 TITLE +  TIME TIMESTAMP -->
+<header>
+	<h1 class="p-name" id="11">#11 - Blogs and Books</h1>
+	<time class="dt-published" datetime="2020-10-05">05/oct/2020</time>
+	
+	<br>
+</header>
+
+
+<!-- SUMMARY IN DIFFERENT LANGUAGE -->
+<div lang="pt" class="p-summary">
+<p>
+Tenho lido muitas notícias e visto vídeos porém tomam muito tempo que
+eu poderia estar usando para estudar algo mais produtivo:
+a lei ambiental brasileira!
+</p>
+
+<p>
+E <em>toda</em> ela, inclusive. Sabendo primeiro a lei seca, esse
+conhecimento abrirá portas de emprego tanto públicos como privados.
+</p>
+
+<p>
+Pretendo enquanto ler alguns blogs de biologia para me animar nas
+próximas semanas, vou me organizar, compilar as leis e
+começar a estudá-las com mais foco..
+</p>
+
+</div><br>
+
+
+<!-- MAIN TEXT  -->
+<p>
+Since this blog started, I have been searching for other biology blogs,
+web tips and such.
+Many blogs are seemingly abandoned or perhaps their authors could not
+keep up with posting frequency but nonetheless plan to update them later..
+It was possible to find many short blogs, which I tried to promptly
+read or skim through, and some longer ones, which will demand more time.
+</p>
+
+<p>
+Below is a short list of the blogs I want to take my time and
+explore in the following weeks.
+</p>
+
+<ul>
+	<li><a href="https://secretlifeofafieldbiologist.wordpress.com/">The Secret Life of a Field Biologist</a></li>
+	<li><a href="https://marineecologist.wordpress.com/">Confessions of a Marine Ecologist</a></li>
+	<li><a href="https://the-biologist-is-in.blogspot.com/">The Biologist Is In</a></li>
+	<li><a href="https://dispatchesfromthefield1.wordpress.com/">Dispatches from the Field</a></li>
+	<li><a href="https://scientistseessquirrel.wordpress.com/">Scientist Sees Squirrel</a></li>
+</ul>
+
+<p>
+*Update on 19th Dec 2020.
+Starting a list of podcast/vlogs as well:
+</p>
+
+	<ul>
+		<li>
+		<a href="https://www.youtube.com/channel/UCcFh3qnmZ2yKppq3NXYOjNg">Skeptics Night In</a>,
+		also on <a href="https://soundcloud.com/skepticsnightin">Sound Cloud</a>
+		</li>
+		<li>
+		Zac Amico's
+		<a href="https://gasdigitalnetwork.com/gdn-show-channels/the-real-ass-podcast/">The Real Ass Podcast</a>
+		and
+		<a href="https://gasdigitalnetwork.com/gdn-show-channels/zac-amicos-midnight-spook-show/">Midnight Spook Show</a>
+		</li>
+	</ul>
+
+<hr>
+<p>
+There are some books in bookshelves and in boxes to avoid
+their collecting dust. Most of my books are second-hand although there
+are a few which cost a lot. It took many years to grow my personal
+library. As I still have not read all of them, I have been avoiding
+to buy more books; now I try to download those books I want to keep.
+</p>
+
+<p>
+Until recently, I mostly read news sites, forums, tutorials websites,
+manuals or university-related papers on the internet,
+so I did not read a physical book from head to tail regularly lately..
+The problem is there is so much diverse types of text I read on the
+internet of which much is absolutely garbage, like for example politics.
+That can and should be avoided because that takes so much of my time.
+I will not digress much but I will only say YouTube videos
+have drawn a terrible token on me, too, time-wise..
+</p>
+
+<p>
+I want to change that, revert to spending my time reading and dreaming
+about how I could accomplish things eventually in the
+future with good company from the book author and their ideas flowing
+in my mind..
+
+Nothing better than to carefully choose a book for reading. There are
+so many good books to choose from written over millennia..
+Think about that!
+</p>
+
+<hr>
+<div style="text-align: center">
+  <a href="../gfx/books1.jpg"><img alt="Mostly philosophy books" src="../gfx/books1Thumb.jpg" width="113" height="150"></a>
+  <a href="../gfx/books2.jpg"><img alt="Some general books" src="../gfx/books2Thumb.jpg" width="113" height="150"></a>
+  <a href="../gfx/books3.jpg"><img alt="My working bookshelf" src="../gfx/books3Thumb.jpg" width="113" height="150"></a>
+
+<p>Fig. 1 Some of my books</p>
+</div>
+<!-- Resize the image if it is larger than the specified dimensions. -->
+<!-- This will automatically preserve the aspect ratio of the image too. -->
+<!-- for i in books[0-9].jpg ;do convert $i -resize 200x150\> ${i%.*}Thumb.jpg ;done -->
+<!-- https://guides.wp-bullet.com/batch-resize-images-using-linux-command-line-and-imagemagick/ -->
+<!-- OBS: prefer to use programme `thumb' -->
+<hr>
+
+
+<p>
+The most relevant literature I must take is also the most boring:
+environmental law. And <em>all</em> of Brazil environmental law is important.
+</p>
+
+<p>
+Since I got my master's degree, I got to know bitcoin and did not study
+environmental law very much.. Finance was a universe I was not familiar
+with. Indeed most of my initial investment capital was brutally scammed
+in the first months and only now, almost two years and a half later,
+is that I am barely on the green (up eight percent total)..
+But I cannot be too hard on myself as there was absolutely no one
+to help me learning crypto and finance in general and I was on my own.
+I reckon this enterprise will prove a lot more profitable over time
+and I will have got some sound money.
+</p>
+
+<p>
+That only will not make me rich. That is why I need focus on environmental
+law so I can try and get a good public gov't or private job position.
+<a title="Do you really want to be a generalist?" href="https://www.youtube.com/watch?v=rRhnqJQ3N6g">Ted Nelson talks about generalistimos</a>
+in one of his videos. His first advice is to know the law, specially
+if you want to be a consultant.
+</p>
+
+<p>
+So my plans are to keep on reading those biology blogs to get some
+inspiration instead of "news" or YouTube videos, compile and study
+all the environmental law. Not easy but that is what I need do.
+</p>
+
+<p>
+Also, this time of year until December is a great window for sending
+curriculum to private companies. I did that already soon after
+I got my master's degree and was unsuccessful but that is a good
+idea to try again (and again next year!).
+</p>
+
+
+
+</article>
+
+
+<!-- HEAD: SPECIFIC METATAGS -->
+<head>
+<meta name="description" content="References for some interesting blogs to explore, some photos of my books and my plans for studying environmental law and applying to public contests.">
+<meta name="keywords" content="environmental law, law, leis ambientais, leis, livros, blogs de biólogos, biology blogs, plans, planos, reading, leitura, informação, information">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+
+
+</head>
+

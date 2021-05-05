@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!-- <link rev="made" href="mailto:jamilbio20[[at]]gmail[[dot]]com"> -->
+
+<!--    THIS IS A TEMPLATE DOCUMENT USED BY THE BLOG POSTING -->
+<!--    SYSTEM.  A SCRIPT WILL COMPILE THIS INTO -->
+<!--    FINISHED PAGES FOR PUBLICATION.  TEXT FROM [ARTICLE], -->
+<!--    [HEADER] AND [HEAD] SECTIONS WILL BE INJECT IN FURTHER TEMPLATES, -->
+<!--    USE LOWERCASE TAGS. -->
+
+<!--    NOTE THE [HEADER] SECTION MUST CONTAIN ONE [H1] -->
+<!--    AND ONE [P] ONLY. -->
+
+<!--    THE [HEAD] SECTION HOLDS VERY SPECIFIC META TAGS, -->
+<!--    SUCH AS [KEYWORDS] AND CSS STYLE SHEET REFERENCES, -->
+<!--    WHICH MUST BE ADDRESSED AT THE END OF EACH POST -->
+<!--    (SEE END OF PAGE). -->
+
+<!--    SEE ALSO H-ENTRY and H-FEED MICROFORMATS AT -->
+<!--    <https://developer.mozilla.org/en-US/docs/Web/HTML/microformats> -->
+
+<!-- #  TO REMOVE A COMMENTARY WITHIN [ARTICLE], ADD # TO THE START OF IT -->
+
+<!-- ***************************************************************************** -->
+<!-- CREATE A NEW ENTRY WITH ``BLOG.SH -A'' TO HAVE DATE TIME UPDATE AUTOMATICALLY -->
+<!-- ***************************************************************************** -->
+
+<article class="h-entry">
+
+<header>
+	<h1 class="p-name" id="39">#39 - Not Quite Done Yet</h1>
+	<time class="dt-published" datetime="2021-04-24">24/apr/2021</time>
+	
+	<br>
+</header>
+
+
+<!-- SUMMARY IN ALTERNATIVE LANGUAGE -->
+<!-- <div lang="pt" class="p-summary"><p></p></div><br> -->
+
+
+<!-- MAIN TEXT  -->
+
+<p>I am really proud of my little blog system. I cannot just remove it
+from the public domain reach.
+The same feeling is not so strong about my YouTube Channel.</p>
+
+<p>In fact, with very little remorse I was able to remove that on Friday.
+Google (at least YouTube branch) cannot use my data and my subscribers data
+as they wish anymore.
+There were 258 subscribers to my YouTube channel and more than 130,
+many which I am proud to have recorded, some turned out to be lessons
+of didatics or lack of.. I made a copy of all of the videos with
+good <code><a href="https://wiki.archlinux.org/index.php/Youtube-dl">youtube-dl</a></code>
+and for my surprise, there was
+no more than 26GB of content. I know some YouTubers claim to have much more
+data for content but they must mean raw content shot locally,
+without edition and directly from the camera, not downloaded with:</p>
+
+<pre><code>url=https://www.youtube.com/channel/UCbjGrylVSBjPx02LRH7HCAA
+youtube-dl -f best -ciw -o "%(title)s.%(ext)s" --add-metadata -v "$url" |&amp; tee log.txt
+#https://askubuntu.com/questions/856911/using-youtube-dl-to-download-entire-youtube-channel</code></pre>
+
+<p>Unfortunatelly, I cannot host these videos on GitHub.
+Many videos are heavy and long, like 40min or even longer.
+I wish I could host them here, though.
+Luckily, the
+<a href="../podcast">podcast system</a> solves this problem,
+albeit with less content..</p>
+
+<p></p>
+
+<hr>
+<p>GitHub repos were made private, following a
+<a title="DT for the closer subscribers" href="https://www.youtube.com/c/DistroTube/videos">suggestion from DistroTube</a>
+some time ago..
+That is a relief for me. But know what,
+I will make <a href="../../repo">my own version of a repo</a> and share
+<em>static copies</em> of my public c files (dotfiles)
+and some other interesting stuff (mostly neutral things)
+that need sharing to complement my blog posts 
+here and keep those dedicated GitHub repos for <em>private use</em>.
+</p>
+
+<p>Just a note, this website is
+<a href="https://github.com/mountaineerbr/mountaineerbr.github.io">hosted in GitHub</a>,
+so you can check it over there, too..
+</p>
+
+
+<hr>
+<p>There are some more or less sensitive information I am removing
+from this website. When other people say they have got a <em>personnal website</em>,
+they don't usually mean a <em>public diary</em>, rather leave some
+(hopefully useful) information and ideas for other peple to reach.</p>
+
+<p>Things get complicated when it comes to employment. We don't
+mean to scare off potential employers.. Reconsidering what to post
+exatcly is a good idea. Very clear context should avoid some problems of interpretation, too.</p>
+
+<p>That said, the website structure is growing big and may seem
+like a complete mess for an outsider. One of my first intentions when
+building this website was that it had <strong>depth</strong> and
+there was a lot to learning shell scripting for developing
+a sort of suite of <em>poor man webmaster tools</em> to manage this website.
+Not too hard
+but it demands effort and time. I am sure anyone can make a dream website
+in details from scratch in under 9 months.
+That may seem like a long time but
+if you don't start, you will never get there.</p>
+
+<p>While I don't mind using HTML docs to keeping my personal annotations like
+<a href="https://www.youtube.com/c/XahLee/videos">Xah Lee</a>,
+it is also important that the useful information in this blog be accessible
+for me through any device over the internet. That is another reason
+why one should have one personal website: to keep himself organised
+and available reference-wise.
+</p>
+
+<hr>
+<p>There are some powerful and bad peple trying to get hold of me
+on personal grounds due to my
+confronting their dangerous research on Brazilian people. I ought to refrain
+from getting into details as a possible lawsuit may be involved.
+My accusation against them is very technical and to explain it would
+take a reasonable amount of time and writing.
+Wish me luck, time is my best friend.</p>
+
+<hr>
+<p>Considering what I wrote in previous posts, all this builds towards my
+<strong>freezing</strong>, rather than <em>removing</em>,
+this website from public domain.</p>
+
+<p>This does not mean I cannot eventually post here again but rather
+I mean to have multiple websites!
+That tastes like <strong>Freedom &amp; Independence</strong>!
+</p>
+
+
+</article>
+
+
+<!-- META TAGS -->
+<!-- OBS: [TITLE] TAG WILL BE A CLONE FROM [H1] -->
+<head>
+<meta name="description" content="I don't mean to be dramatic. I will leave some things up behind and try to move on..">
+<meta name="keywords" content="drama, maybe, notes, notas, liberdade, freedom, repo, own repo, tree, repositório, arquivos de configuração, c files, rc files, dotfiles, scripts, bin">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
+
+</head>
+
