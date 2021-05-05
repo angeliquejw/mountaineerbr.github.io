@@ -1,7 +1,7 @@
 <article class="h-entry">
 <header>
 <h1 class="p-name" id="37">#37 - Firefox on Mobile (Android)</h1>
-<time class="dt-published" datetime="2021-09-13">13/sep/2021</time><br></header>
+<time class="dt-published" datetime="2021-04-23">23/apr/2021</time><br></header>
 <p>Firefox for mobiles worked fine on my mobile phone, an Android 8.1. However, as time passed by, new Firefox (FF) updates made it behave in an unstable manner.</p>
 <p>New features were welcome, such as that which allowed to send URLs from my Desktop Firefox to my Mobile Firefox through my Firefox account. For a period of time, sending a tab would not take 10 or 20 seconds before hitting my mobile Firefox or vice-versa. But this feature soon degraded and now it takes hours or even a whole day..</p>
 <p>But that is fine really. There is another workflow for sharing URLs which I used for a long time, just fire up my e-mail console and send myself an e-mail with the URL.</p>

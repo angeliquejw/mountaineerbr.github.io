@@ -36,6 +36,733 @@
 
 		<!-- additemsfull -->
 	<item>
+		<title xml:lang="en">#36 - Firefox on NVIDIA Graphics Card</title>
+		<pubDate>Mon, 12 Apr 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/36/</link>
+		<dc:language>en</dc:language>
+		<category>performance/improvements/rapidez/melhorias/hack/dicas/tips/mozilla/webbrowser/navegador de internet/drivers/options/about:config/webrenderer</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">f5fdd86f-2f61-5ea8-b4a9-0841d912ab9b</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="36">#36 - Firefox on NVIDIA Graphics Card</h1>
+<time class="dt-published" datetime="2021-04-12">12/apr/2021</time><br></header>
+<p>Using the NVIDIA driver in Linux is quite difficult and it is not so straightforward because it varies depending on what application needs it. Mining Monero was not too difficult but the XMR miner used CUDA and that is another story.</p>
+<p>Configuring Firefox to use NVIDIA may be overwhelming option-wise because there are so many unstable outcomes when setting these experimental or unstable options.</p>
+<h2>NVDIA-related Drivers</h2>
+<p>Below is a listing of my NVIDIA-related packages on Arch. Packages with * are probably <em>required</em> for this to work, other packages are currently installed but may not be strictly necessary..</p>
+<ul>
+<li><code>nvidia</code>*</li>
+<li><code>nvidia-settings</code></li>
+<li><code>nvidia-utils</code>*</li>
+<li><code>mesa</code>*</li>
+<li><code>mesa-demos</code>*</li>
+<li><code>opencl-nvidia</code></li>
+<li><code>xorg-xrandr</code></li>
+<li><code>acpi</code>*</li>
+<li><code>acpi_call</code>*</li>
+<li><code>acpid</code>*</li>
+<li><code>bbswitch</code>*</li>
+<li><code>bumblebee</code>*</li>
+<li><code>primus</code></li>
+<li><code>primus_vk</code></li>
+</ul>
+<p>Most packages can be easily installed from the official repos, however others may be further configured to use.</p>
+<p>For example, <a title="Arch Wiki on Bumblebee config" href="https://wiki.archlinux.org/index.php/Bumblebee"><code>bumblebee</code> manual</a> (beware this is not compatible with <a href="https://wiki.archlinux.org/index.php/NVIDIA_Optimus#Available_methods">other methods for using NVIDIA</a>), requires the user to be in the <em>blumblebee</em> group with <code># gpasswd -a user bumblebee</code> and enabling/starting the service <code># systemctl enable bumblebeed.service</code>.</p>
+<p><code>bbswitch</code> will work well with <code>bulblebee</code> in switching the card ON and OFF when required, instead of leaving it ON.</p>
+<p>That is possible to check if the card state with some commands. Make sure to <code>reboot</code> after installing and configuring these driver packages so far.</p>
+<pre><code>% nvidia-smi
+[DETAILED CARD STATS] [..PAGED..]
+
+% cat /proc/acpi/bbswitch
+0000:01:00.0 ON
+
+% watch -d -t -n1 &#39;cat /proc/acpi/bbswitch&#39;
+0000:01:00.0 ON  [..PAGED..]
+
+# tee /proc/acpi/bbswitch &lt;&lt;&lt;OFF
+OFF
+
+# tee /proc/acpi/bbswitch &lt;&lt;&lt;ON
+ON</code></pre>
+<h2>Firefox Configuration</h2>
+<p>With those set, there are two important configurations to be done in Firefox Stable&#39;s <a href="about:config"><code>about:config</code></a>. The following was taken from Arch Wiki&#39;s <a href="https://wiki.archlinux.org/index.php/Firefox/Tweaks">Firefox#Tweaks</a> and <a href="https://wiki.archlinux.org/index.php/Talk:Firefox/Tweaks">Firefox#Talk</a>.</p>
+<p>In <code>about:config</code>, you may want to set one configuration at a time and test:</p>
+<ul>
+<li>Enable OpenGL compositor: <code>layers.acceleration.force-enabled = true</code>*</li>
+<li>Enable WebRender compositor: <code>gfx.webrender.all = true</code></li>
+</ul>
+<p>My current Firefox can run stably and smoothly (under XFCE and Picom) with only <code>layers.acceleration.force-enabled</code> set, as force enabling the webrender makes my Firefox very buggy and unstable..</p>
+<p>Alternative (or additionally, you will need testing) to messing with <code>about:config</code> options, Mozilla Firefox can read various environment variables as options.</p>
+<p>Below these variables are presented with verbose commentary. You can find more code commentary in my <a href="https://mountaineerbr.github.io/repo/scripts/firefox.sh">shell script launcher</a>.</p>
+<pre><code>#This content should be clarified
+#To enable WebRender on Firefox Stable:
+export MOZ_ACCELERATED=1        #same as:`layers.acceleration.force-enabled = true&#39;
+#export MOZ_WEBRENDER=1         #same as: `gfx.webrender.all = true&#39;
+#https://wiki.archlinux.org/index.php/Talk:Firefox/Tweaks
+
+#Enable OpenGL in `pvkrun&#39; and `primusrun&#39;
+#export LD_PRELOAD=/usr/lib/libGL.so
+#export ENABLE_PRIMUS_LAYER=1
+#https://github.com/felixdoerre/primus_vk
+#https://bugs.archlinux.org/task/65250
+#https://bbs.archlinux.org/viewtopic.php?id=252257
+#`layers.offmainthreadcomposition.enabled&#39; became on by defaults.
+#https://www.reddit.com/r/firefox/comments/4j0tzz/what_happened_to/
+
+#Do *not* set if using NVIDIA `primusrun&#39;
+export MOZ_OMTC_ENABLED=1
+export MOZ_USE_OMTC=1
+#https://gist.github.com/yuttie/de097d004499adb984bd</code></pre>
+<p>Remember to <code>export</code> your <em>environment variables</em>!</p>
+<p>As I said, you may need to try various combinations of options until Firefox is running smoothly, without artifacts, visible button icons and legible menu entries..</p>
+<h2>Performance test: <code>optirun</code>, <code>primusrun</code> and <code>pvkrun</code></h2>
+<p>That is probably a good idea to test which package will run faster. Check performance running either <code>glxgears -info</code>, <code>glxspheres64</code> or <code>glxspheres32</code> (the latter for 32 bit systems) from package <code>mesa-demos</code>.</p>
+<ul>
+<li><code>optirun [demo]</code></li>
+<li><code>optirun -b primus [demo]</code></li>
+<li><code>primusrun [demo]</code></li>
+<li><code>pvkrun [demo]</code></li>
+</ul>
+<p>I prefer to run <code>glxspheres64</code> because it prints the frame rate and buffer size. <code>primusrun</code> and <code>pvkrun</code> used to work a little better than <code>optirun</code> in the past for me, but as those are not working now I am using <code>optirun</code>..</p>
+<h2>Checking results</h2>
+<p>Current configuration can be checked at <a href="about:support"><code>about:support</code></a>.</p>
+<p>Follow instructions from <a href="https://wiki.archlinux.org/index.php/Firefox/Tweaks">Firefox#Tweaks</a> to check if options are enabled. You can also type <code>CTR+F</code> and search for <em>`Intel&#39;</em> to check whether Intel integrated graphics or <em>`Nvidia&#39;</em> driver is being used as renderer.</p>
+<p>Alternatively, some information can be retrieved from <a title="WebGL MAX parameters support" href="https://alteredqualia.com/tmp/webgl-maxparams-test/">test this website</a>.</p>
+<p>It is a little time consuming until you get yoru configuration working properly and maybe your system cannot support all features, but they will eventually come the official way and your driver may finally be white-listed for performance improvements by defaults.</p>
+<p>As for now, I find it best to <a href="https://mountaineerbr.github.io/repo/scripts/firefox.sh">launch Firefox with a shell script</a>. My Firefox launcher in XFCE dock and keyboard shortcut in <code>.xbindkeysrc</code> also points to the script.</p>
+<figure><img src="https://mountaineerbr.github.io/blog/gfx/Linus-Torvalds-Fuck-You-Nvidia.webp" alt="Linus Torwalds meme, Fuck You NVIDIA" width="600" height="339">
+<figcaption>Fig 1. At moments like these we like to remember <a href="https://www.theverge.com/2012/6/17/3092829/linus-torvalds-fuck-you-nvidia">Mr Torwalds wishes to NVIDIA..</a></figcaption>
+</figure>
+</article> ]]></description>
+	</item>
+	<item>
+		<title xml:lang="en">#35 - Removing Google Analytics</title>
+		<pubDate>Wed, 07 Apr 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/35/</link>
+		<dc:language>en</dc:language>
+		<category>vaccine/politics/try/tentativa/vaccination halt/suspensão da vacinação/car trip/family/vigagem de carro/família</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">08f0ea79-a116-5ffb-b320-44ac14e89185</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="35">#35 - Removing Google Analytics</h1>
+<time class="dt-published" datetime="2021-04-07">07/apr/2021</time><br></header>
+<p>Google Analytics is such naughty software. I can&#39;t bear it anymore.</p>
+<p>Some of the things that annoy me are the data presentation interface, which makes heavy use of java (I suppose and I don&#39;t much care). That is extremely slow to load and process the data.</p>
+<p>The interface is not very responsive when it is fully loaded, either. It has got a lot of options but most of them don&#39;t make a whole lot of sense to me.</p>
+<p>It is clear <strong><abbr title="Google Analytics">GA</abbr></strong> does not show the raw data and try to make some specifics obscure. As my website has got little traffic, I can see how badly GA tries to hide me the little data there actually was collected from users!</p>
+<p>The <abbr title="Comma Separated Value">CSV</abbr> spreadsheets are terrible, <abbr title="In My Humble Opinion">IMHO</abbr>.</p>
+<p>That is a sure thing GA first collects a whole lot of data from my visitors and only after processing that it shows me some of it in whatever representations GA thinks is better for their webmasters `<abbr title="users">useds</abbr>&#39;.</p>
+<p>Plus, its interface is very slow to load because it collects data from we, webmasters, as well! There is no limit for whatever garbage data they collect... If GA would only show me what GA sees...</p>
+<p>Once I tried a service called <em>matomo</em>, but was wary soon after reading its terms of use. And mind that the only statistics it showed me was a <strong>hit counter</strong>...</p>
+<p>If anyone knows of a <strong>clean, simpler and better service</strong>, <a href="../../contact/">please let me know</a>. Whatever a simple webmaster wants from simple statistics..</p>
+<p>I will remove GA scripts from my webpage in the following days. I am still deciding what method (<code>sed -i</code> or <a title="Perl Pie : Replace String in Files" href="http://perlpie.com/"><code>perl -pie</code></a>) and regular expression to use, or whether manually...</p>
+<p>As for now, you can check webpage sources, press [CTRL+U] in Firefox or Chrome.</p>
+<p>Besides adding GA to the &lt;FOOTER&gt; section of webpages (as opposed to Google recommendation to adding it to the &lt;HEADER&gt; section), I know <code>uBlock</code> can block GA scripts (at least partially) from loading.. GA scripts should not be one of the first things to load in the webpage or at all..</p>
+<p>More two bad factors in using these analytics: a) I don&#39;t know how many of these `<em>unique</em>&#39; users are not actually myself as I did not set filters to prevent that and b) there were at least three days with intense robot crawlings from various parts of the world. So I reckon most of the data available to me may be garbage at this point.</p>
+<h2>Google Analytics Data</h2>
+<p>So, before I just forget about GA, I am downlaoding some of their CSV files. Available data is about the same as that shown to me in GA web console.</p>
+<p>In the next table, that is the full data about <em>Location</em> of visitors since my website started using GA about 7 months ago, which is what mostly I wanted to know after the total hit count.</p>
+<p>This data appears to have robot attacks filtered out, so I will assume these are reasonable numbers.</p>
+<br>
+<table class="tablep35">
+<caption>Table 1. Google Analytics sumamry data for the period from 01 Sep 2020 to 08 Apr 2021.</caption>
+<tr>
+<th>Country</th>
+<th>Users</th>
+<th>New Users</th>
+<th>Sessions</th>
+</tr>
+<tr>
+<td>Brazil</td>
+<td>177</td>
+<td>177</td>
+<td>398</td>
+</tr>
+<tr>
+<td>United States</td>
+<td>146</td>
+<td>146</td>
+<td>231</td>
+</tr>
+<tr>
+<td>China</td>
+<td>145</td>
+<td>145</td>
+<td>259</td>
+</tr>
+<tr>
+<td>India</td>
+<td>73</td>
+<td>73</td>
+<td>136</td>
+</tr>
+<tr>
+<td>Germany</td>
+<td>46</td>
+<td>46</td>
+<td>76</td>
+</tr>
+<tr>
+<td>Nigeria</td>
+<td>46</td>
+<td>46</td>
+<td>82</td>
+</tr>
+<tr>
+<td>Japan</td>
+<td>45</td>
+<td>45</td>
+<td>72</td>
+</tr>
+<tr>
+<td>United Kingdom</td>
+<td>44</td>
+<td>44</td>
+<td>70</td>
+</tr>
+<tr>
+<td>Russia</td>
+<td>42</td>
+<td>42</td>
+<td>69</td>
+</tr>
+<tr>
+<td>(not set)</td>
+<td>50</td>
+<td>50</td>
+<td>80</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>1637</td>
+<td>1637</td>
+<td>2781</td>
+</tr>
+</table>
+<p>If reasonably correct with due reservations, I am quite pleased with the reach of my website for this period.</p>
+<p>But as Rob Willians from <a href="http://www.ratz.com/">Ratz</a> would say, <q>who cares about page views [in a personal website]?</q></p>
+<p>Besides GA not collecting data from me and my visitors, pages should load faster.</p>
+<p>I removed GA from HTML templates for the blog and podcast, recreated all blog pages and opted by purging the other few HTML files (about 13) manually, so I would not lose <em>vim undoes</em>..</p>
+<p>Github history (objects) of this website repo will also be removed..</p>
+<h2>Vaccine Frustration</h2>
+<p>Mum got vaccinated when her age group was eligible on Monday.</p>
+<p>Today, Wednesday, I tried to bring my aunt, who lives in a close city to my town, to vaccination because her age group would have become eligible.</p>
+<p>However, as I had last asked about vaccination on Monday and did not confirm the schedule on Tuesday (yesterday), it was only too late when we arrived at the vaccination center and discovered it had been suspended the previous day..</p>
+<p>Even though my aunt really does not live at town, she was born here and always lived at the area. As mum could prove her home is located at town, it all should be OK fr my aunt to have the vaccine, too..</p>
+<p>I take the blame for not phoning up the vaccination centre yesterday or even this morning before taking the highway trip.</p>
+<p>Politics is terrible in my country. That is mad to turn on the TV or the radio. Pandemics, vaccination and death are the main topics. The president is against lock down and restrictive measures. He confuses everybody! Occasionally some weird news about the president attending unimportant events..</p>
+<p>For example, the president does not say <strong lang="pt">pessoas</strong> (persons, citizens) cleanly but also mouths <strong lang="pt">pensões</strong> (pensions) when talking about the pandemics..</p>
+<p>I wonder what he is really at.</p>
+<p>Relative numbers about the pandemics and vaccination mark Brazil in bad positions internationally. I see the USA has got too many vaccines in comparison to the rest of the world in absolute numbers. That is not OK, either..</p>
+<p>This is a somewhat stressful and frustrating day.. I am having some beer..</p>
+<hr>
+<p><strong>PS</strong>: even though I removed all GA scripts from my webpages two days ago, today I was checking GA console and another bot attack was recorded yesterday (9 Apr), which I reckon is not possible..</p>
+<p>May that be Google injects <em>weyrd</em> numbers itself to confuse and obfuscate real data? It may be possible. I am glad about not using GA anymore..</p>
+<p>But that is also possible this last bot attack at least was performed on a <a title="We are at the WayBack Machine!" href="https://web.archive.org/web/2020*/https://mountaineerbr.github.io/">copy of my old website</a>.. Cannot discard this possibility.</p>
+<p><strong>PPS</strong>: Robots are really crazy, at least I feel like <em>something</em> does like my blog.. Once some good YouTube bots left comments. After I mistreated their comments (removed them), they gradually stopped commenting, so I am reasonably sure those were <em>good</em> YouTube bots..</p>
+<figure><a href="../gfx/GABots.png"><img src="https://mountaineerbr.github.io/blog/gfx/GABotsSmall.png" alt="Google Analytics screenshot of bot traffic." width="350" height="173"></a>
+<figcaption>Fig 1. Screenshot of Google Analytics overview console. Click on the image to see screenshot at original size.</figcaption>
+</figure>
+</article> ]]></description>
+	</item>
+	<item>
+		<title xml:lang="en">#34 - Bitcoin Graph Watch</title>
+		<pubDate>Sun, 04 Apr 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/34/</link>
+		<dc:language>en</dc:language>
+		<category>diversification/assets/bonds/stocks/cash/bitcoin/forecast/previsão/diversificação/títulos/ações/papel/dinheiro</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">e0daf23b-c599-5ac5-92b8-038447874a86</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="34">#34 - Bitcoin Graph Watch</h1>
+<time class="dt-published" datetime="2021-04-04">04/apr/2021</time><br></header>
+<div lang="pt" class="p-summary">
+<p>Produzi este gráfico com os índices da BLX e marcações de pontos de resistência de várias fontes. Penso em vender um pouco do meu hodl quando for a hora pois viso a diversificação de bens (eqüidade) líqüidos, como ações, títulos e <span lang="pt" title="grana, dinheiro vivo">cash</span>.</p>
+</div>
+<br>
+<p>Warning: this is not a financial recommendation. Please <abbr title="Do Your Own Research">DYOR</abbr>!!!</p>
+<p>Yellow bars are clones from the 2014 peak and red bars are from the 2017 peak. I aligned the previous peak of each of these points (2011 and 2014, respectively) to the BLX index candlestick graph.</p>
+<p>Horizontal lines I reckon I got from some issue of <a id="bloomberg" title="Bloomberg Crypto Outlook" href="https://www.bloomberg.com/professional/bloomberg-crypto-outlook/">Bloomber Crypto</a>. That is actually a <a href="1029441_Crypto-Mar2021Outlook.pdf">very good and dependable resource</a>. Bloomberg is always clear when sharing their data analysis of Bitcoin.</p>
+<p>I also set <a title="John Bollinger&#39;s twittr" href="https://twitter.com/bbands">Bollinger Bands</a>, as reccomended by <a title="YouTube channel Surfing The Market" hreflang="pt" href="https://www.youtube.com/channel/UC5oBF16le6GZ_EFSinjFu3w">Didi Aguiar</a> from <a hreflang="pt" href="https://www.dojistar.com.br/">DojiStar</a>, a Brazilian analyst. The green support line is a long-term trend line with the first point on September 2015 and the bottom of March 2020.</p>
+<p>I reckon we go up from here and I plan to start selling close to or at <a href="https://twitter.com/maxkeiser">Max Keiser</a> prediction of 220K Bitcoin this year.</p>
+<p>Just selling a portion of my hodl so I can further reinvest in other liquid assets such as <strong>stocks, bonds and cash</strong>. I am very interested about diversification of my <strong>equity</strong>, as <a href="https://homeytel.medium.com/">Ugly Old Goat</a> would say.</p>
+<p>This year, I started thinking about my retirement because it will take a long time to prepare for that, so better if I start doing something for it <abbr title="As Soon As Possible">ASAP</abbr>. There are some great videos of <a title="Understanding Retirement Accounts by Tyler Jenks" href="https://www.youtube.com/watch?v=5v-hJPbcwbQ">Tyler Jenks</a> on retirement which I will be watching again..</p>
+<p>There is also a great investor in Brazil who teaches a lot about a retirement wallets, the great <a title="ações garantem o futuro" hreflang="pt" href="https://www.youtube.com/channel/UC_Uv10ZCAPgsbTOOBzSKk1w">Luiz Barsi</a>.</p>
+<figure><a href="../gfx/btcgraph.png"><img src="https://mountaineerbr.github.io/blog/gfx/btcgraphSmall.png" alt="Bitcoin chart with markings" width="450" height="253"></a>
+<figcaption>Fig. 1 <a href="https://www.tradingview.com/chart/?symbol=BNC%3ABLX">BLX index graph</a> with marking I made some weeks ago, horizontal lines were extracted from march 2021 Bloomberg Crypto Outlook.</figcaption>
+</figure>
+<figure><img alt="Bloomberg BTC banner reproduction" src="https://mountaineerbr.github.io/blog/gfx/btcBloombergApr2021.png" width="882" height="99">
+<figcaption>Fig 2. Bloomberg Banner, April 2021 issue.</figcaption>
+</figure>
+</article> ]]></description>
+	</item>
+	<item>
+		<title xml:lang="en">#33 - Podcast #6 - More Tor Configs for Bitcoin Node and SSH</title>
+		<pubDate>Fri, 02 Apr 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/33/</link>
+		<dc:language>en</dc:language>
+		<category>ipv4/ipv6/onion/networking/configurations/configurações/clearnet/linux management/gerenciamento de sistema</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">44ad5177-5b7c-5cfd-a5d3-f6de24043aa9</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="33">#33 - Podcast #6 - More Tor Configs for Bitcoin Node and SSH</h1>
+<time class="dt-published" datetime="2021-04-02">02/apr/2021</time><br></header>
+<div lang="pt" class="p-summary">
+<p>Comentando sobre mais algumas configurações que fiz depois de gravar o último podcast sobre <code>bitcoind</code>. Pretendemos dominar as configurações necessárias para poder retransmitir dados para as redes <span lang="en"><em>clearnet</em></span> e <span lang="en&quot;"><em>onion</em></span> do bitcoin.</p>
+<p>Também falo sobre uma experiência curta colhendo soja em uma empresa privada, montando um servidorzinho em casa, usar acesso SSH em casa e mais.</p>
+</div>
+<br>
+<h2>Main Topic - More Tor, Router and Bitcoind Configuration</h2>
+<p>There are some more important tweaks to improve connectivity of <code>bitcoind</code> that I did not talk about in the last audiocast episode. That is because I learned more stuff after that recording which I reckon is worth telling my audiocast listeners and <a href="https://www.youtube.com/c/XGNUBio">subscribers on YouTube</a>.</p>
+<p>I will go through some more configs and comment on them. Basically, we want to build a node which can help synchronisation between <em>clearnet</em> and <em>onion</em> networks.</p>
+<p>Also, some more configs are needed to make your IPv4 and IPv6 addresses available to other nodes, so they can connect to your node. When properly configured, the node can <strong>listen</strong> to requests and <a href="../31/">listen to <strong>inbound connections</strong></a> to rebroadcast mempool transactions, transaction index, blocks, IP and Onion addresses, and so on..</p>
+<p>Personally, I use my bitcoin node for retrieving some transaction info and mempool info. I don&#39;t use that software as a wallet and my node does not do mining (obviously).</p>
+<p>Ultimately, we will make our node available only at the onioin network and keep it synchronised. If there is a need to broadcast own transactions or to help the networks, it is easy to change configs and start listening to other nodes instead of just receiving data.</p>
+<p>It is up to the user to choose what configs to set in order to run the node the way he wishes. My public dotfiles have got all options set to run on IPv4, IPv6 and Onion networks.</p>
+<h2>Secondary Topics</h2>
+<ul>
+<li>Father got his first vaccine shot</li>
+<li>My short experience manually harvesting soy for a private company</li>
+<li>...</li>
+<li>My cheap sweep transactions are <strong>still in the mempool after three weeks</strong>..</li>
+<li>Setting up a small server at home</li>
+<li>Fun with OpenSSH and Linux system management</li>
+</ul>
+<h2>References</h2>
+<ul>
+<li>Check my config files with the options described in the audiocast: <a href="../../repo/dotfiles/.bitcoin/bitcoin.conf"><code>bitcoin.conf</code></a> and <a href="https://mountaineerbr.github.io/repo/dotfiles/etc/tor/torrc"><code>torrc</code></a></li>
+<li><strong>Tor.md</strong>: <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/tor.md">Tor support in bitcoin</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/OpenSSH#Tips_and_tricks">OpenSSH tricks</a></li>
+<li><a href="https://www.youtube.com/watch?v=oSZxWmvrh5o">Tone Vays on the Mempool</a> (Andreas Antonopoulos videos on mempool are more technical but Tone&#39;s takes on the mempool in this video, not his guest, are really interesting, too)</li>
+</ul>
+<h2>ERRATUM</h2>
+<p>During the podcast, I messed up <em>inbound</em> and <em>outbound</em> connection names.. <strong>Outbound connections</strong> are connections your node initiates whereas <strong>inbound connections</strong> are initiated by other nodes when connecting to yours.</p>
+<hr>
+<p><strong>PS:</strong> Following Tone&#39;s advice of using fees no lower than 5 sat/vB, I set my sweep transaction fees to 6.1 and 6.2 sat/vB and within 24 hours they were included in the blockchain during the weekend! Finally, those sweeps are done.. Remember, I have been trying to sweep these wallets with very low fees for almost 4 weeks now..</p>
+</article> ]]></description>
+	</item>
+	<item>
+		<title xml:lang="en">#32 - First Vaccine Shot (Coronavac)</title>
+		<pubDate>Fri, 02 Apr 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/32/</link>
+		<dc:language>en</dc:language>
+		<category>immunisation/imunização/vacina/health/saúde/father/dad/day together/fun</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">c691c519-ecd6-5160-a7cb-01a2f4bbf34c</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="32">#32 - First Vaccine Shot (Coronavac)</h1>
+<time class="dt-published" datetime="2021-04-02">02/apr/2021</time><br></header>
+<div lang="pt" class="p-summary">
+<p>Levei meu pai para tomar a primeira dose de vacina na minha cidade. Também pegamos uma bula da vacina, a Coronavac do Butantan.</p>
+</div>
+<br>
+<p>Finally, the age group of my father was eligible to take a vaccine shot against Covid. Here in Brazil, most vaccines are from <a hreflang="pt" href="https://butantan.gov.br/instituto-butantan">Butantan Institute</a>. This is a good vaccine, not so powerful as Pfizer&#39;s and others but should be the safest of all. This vaccine is made with old and fully-tested technology.</p>
+<p>Father was rather anxious about this shot. He doesn&#39;t really live in the same town as I do but vaccines for his age group got here earlier so we arranged for him to get his shot here.</p>
+<p>That was a fun day. We were just a little worried he would be unable to get the shot but all went well.</p>
+<p>Father asked the nurse for a medicine leaflet of then Coronavac vaccine and she gave it to him. I took a photo of it.</p>
+<hr>
+<div style="text-align:center;"><a href="paiEuFile.jpg"><img alt="Waiting in queue" src="paiEuFileThumb.jpg" width="200" height="113"></a> <a href="paiVac.jpg"><img alt="Nurse preparing the shot" src="paiVacThumb.jpg" width="113" height="150"></a> <a href="paiVac2.jpg"><img alt="Nurse applying the shot" src="paiVac2Thumb.jpg" width="113" height="150"></a><br>
+<a href="coronavacFront.jpg"><img alt="Coronavac leaflet (Front)" src="coronavacFrontThumb.jpg" width="113" height="150"></a> <a href="coronavacBack.jpg"><img alt="Coronavac leaflet (Back)" src="coronavacBackThumb.jpg" width="113" height="150"></a>
+<p>Fig. 1 Waiting in the queue (number was 29), taking the shot and the vaccine leaflet.</p>
+</div>
+</article> ]]></description>
+	</item>
+	<item>
+		<title xml:lang="en">#31 - Arrgh! Internet Issues</title>
+		<pubDate>Fri, 26 Mar 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/31/</link>
+		<dc:language>en</dc:language>
+		<category>tumblelog/internet provider/provedor de internet/bad equipament/signal noise/packet loss/ping/perda de pacotes/ruído de sinal/microblog</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">ac811842-7e7e-51bd-a6e6-c893a252c226</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="31">#31 - Arrgh! Internet Issues</h1>
+<time class="dt-published" datetime="2021-03-26">26/mar/2021</time><br></header>
+<div lang="pt" class="p-summary">
+<p>Estava um pouco preocupado que minha brincadeira de configurar uma conexão com a rede do bitcoin pudesse ter atraído olhares de pares ruins, mas nada disso.</p>
+<p>Os problemas de internet que tenho sofrendo há duas semanas foram finalmente esclarecidos hoje quando um técnico do provedor de serviço de internet veio até minha casa. Não achou nada anormal com meu router. Falou que outro vizinho estava com o mesmo problema e que eles então iriam fazer manutenção em uma central do meu bairro. Mas os problemas ainda não acabaram..</p>
+</div>
+<br>
+<p>The internet service provider technician came to my home and checked my local connection and the modem and that was all fine.</p>
+<p>There was a huge problem going on with the neighbourhood internet for the past <em>two weeks</em> and only today I was let know about that!</p>
+<p>The problemas were a very slow internet connection, specially bas was the upload transmission, and <code>ping</code>ing from Linux Shell or even from the router itself (through the tools page), showed a 30% or more packet loss!</p>
+<p>I was a little worried when the technician asked to use my laptop to test internet speed and to log in to the router. Maybe he would start typing <em><a href="https://www.speedtest.net/">speedtest</a></em> for example, and Firefox would suggest him naughty websites starting with <em>suck..</em> and alike. I don&#39;t know why these sort of suggestions pop up sometimes but I told the guy to ignore anything unusual in my computer..</p>
+<p>After the guy finished checking the router, he said they would work on hardware maintenance in my area as another neighbour client of mine was having similar issues and noise was detected by another technician guy in one of their distribution equipment about my neighbourhood.</p>
+<p>I was <strong>a little preoccupied</strong> my messing with opening ports and granting access from bitcoin network had attracted attention from bad peers but, alas, that seems to have been just a regular a problem of the internet provider..</p>
+<p>The technician did reconfigure my router so now it has got a new <abbr title="Service Set Identification, wireless networks">SSID</abbr> and password. The administration login name and its password to access router settings, such as opening ports, also changed and these were not given to me and I forgot to ask. Even though internet speed is nominal now, I had to schedule another technical visit for tomorrow.. Hopefully that will be the last for a long time!</p>
+<hr>
+<p>On another note, I am messing about with a <a href="https://github.com/john-bokma/tumblelog">tumblelog</a> from John Bokma. It is really a nice micro blog generator and I am using it, with modifications, to present a <a href="../podcast/">stand-alone version of podcast episode index</a>.</p>
+<p>There is some work left to be done so I am not yet adding any links to it from other pages, but eventually there will be more hints to find it.</p>
+<hr>
+<p>Finally, internet is super fast and with the router administrator details in hand port forwarding could be enabled!</p>
+<br>
+<table style="margin:auto;">
+<caption>Table 1. Ssample of <code>bitcoind</code> connections. That is the output from <code>bitcoin-cli getpeerinfo</code>.</caption>
+<tr>
+<th>Software version</th>
+<th>Connection type</th>
+</tr>
+<tr>
+<td>/Satoshi:0.18.0/</td>
+<td>ipv4</td>
+</tr>
+<tr>
+<td>/Satoshi:0.18.1/</td>
+<td>onion</td>
+</tr>
+<tr>
+<td>/Satoshi:0.21.0/</td>
+<td>ipv4</td>
+</tr>
+<tr>
+<td>/Satoshi:0.20.1/</td>
+<td>ipv4</td>
+</tr>
+<tr>
+<td>/Satoshi:0.21.0/</td>
+<td>ipv4</td>
+</tr>
+<tr>
+<td>/Satoshi:0.21.0/</td>
+<td>ipv4</td>
+</tr>
+<tr>
+<td>/dsn.tm.kit.edu/bitcoin:0.9.99/</td>
+<td>ipv6</td>
+</tr>
+<tr>
+<td>/Satoshi:0.21.0/</td>
+<td>ipv4</td>
+</tr>
+<tr>
+<td>/Satoshi:0.20.1/</td>
+<td>ipv4</td>
+</tr>
+<tr>
+<td>/Satoshi:0.20.0/</td>
+<td>ipv4</td>
+</tr>
+<tr>
+<td>/dsn.tm.kit.edu/bitcoin:0.9.99/</td>
+<td>ipv6</td>
+</tr>
+<tr>
+<td>/bitnodes.io:0.2/</td>
+<td>ipv6</td>
+</tr>
+<tr>
+<td>/bitnodes.earn.com:0.1/</td>
+<td>ipv6</td>
+</tr>
+<tr>
+<td>/bitnodes.io:0.2/</td>
+<td>ipv6</td>
+</tr>
+<tr>
+<td>/Satoshi:0.19.1/</td>
+<td>ipv4</td>
+</tr>
+<tr>
+<td>/Satoshi:0.21.0/</td>
+<td>ipv6</td>
+</tr>
+<tr>
+<td>/nodes.multiven.io:0.1/</td>
+<td>ipv6</td>
+</tr>
+</table>
+<figure><img src="https://mountaineerbr.github.io/blog/gfx/bitcoind2.png" alt="Bitcoind screenshot" width="964" height="470">
+<figcaption>Fig. 1 Running <code>bitcoind</code> on <em>clearnet</em> and <em>onion</em> networks with inbound and outbound connections on IPv4 and IPv6. Most onion peers are running an inferior <code>bitcoind</code> versions (<a title="Bitcoin Core 0.21.0 no incoming peers over Tor" href="https://bitcointalk.org/index.php?topic=5309923.0">Tor v3 vs. v2 incompatibility</a>) so it may be a <a title="No inbound connections on my bitcoin full node with TOR" href="https://bitcoin.stackexchange.com/questions/90386/no-inbound-connections-on-my-bitcoin-full-node-with-tor">few days before inbound connections</a> are made with onion peers..</figcaption>
+</figure>
+</article> ]]></description>
+	</item>
+	<item>
+		<title xml:lang="en">#30 - Podcast #5 - Running a Bitcoin Full Node with Tor</title>
+		<pubDate>Sun, 21 Mar 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/30/</link>
+		<dc:language>en</dc:language>
+		<category>bitcoind/bitcoin daemon/networking/options/webbrowsers/navegadores</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">bad06c63-106d-5e4d-909a-e1e32ebbcb3c</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="30">#30 - Podcast #5 - Running a Bitcoin Full Node with Tor</h1>
+<time class="dt-published" datetime="2021-03-21">21/mar/2021</time><br></header>
+<div lang="pt" class="p-summary">
+<p>Notas gerais e dicas de montagem de um <em>nó de retransmissão completo</em> que também se conecta à <em>rede Tor</em>. Outros assuntos incluem algumas observações sobre navegadores de internet para o <span lang="en"><em>desktop</em></span> e para o <em>celular</em>, como o Firefox, Chrome e Opera.</p>
+</div>
+<br>
+<h2>Main topic - Bitcoin Full-relay Node</h2>
+<p>During my <em>hodling</em>, I did various transfers from bitcoin exchanges to private wallets, some of which are <em>legacy</em> type.</p>
+<p>That is not a bad idea to have some bitcoins (satoshis, that is) in legacy wallets because some services, for example some bitcoin exchanges, still do not work with <em>segwit</em> addresses..</p>
+<p>However, as <em>on-chain</em> transactions are getting expensive (Electrum suggests 8-30 sat/vB or more) to be added to a block quickly, I imagine that will be a heavy fee for <em>hodlers</em> to pay in the future, specially when the network is congested.. So I decided to <em>sweep</em> legacy wallets to segwit wallets, as advised by Andreas Antonopoulos.</p>
+<p>In order to broadcast cheap transactions (1-4 sat/virtualByte) to the bitcoin network, I needed to use my full node. I already had all the block and txindex synchronised but I had only tentatively set the defaults <code>8333 port</code> for outbound connections, which characterises a <em>full-relay node</em>.</p>
+<p>Not only that. To prevent one&#39;s IP from publicity in the bitcoin network, there is the <strong>Tor</strong> hidden service which can be activated. The Tor layer prevents most identification problems associated with broadcasting one own transactions and and IP+ports of a full-relay node with a technology named <em>security by obscurity</em>.</p>
+<p>Andreas Antonopoulos said those are not much of a problem because one cannot be sure a transaction was originated from a certain node or whether that node relayed them from another node or from the onion network, although there are means someone can use to identify users even under Tor (such as <a title="Bitcoin over Tor isn&#39;t a Good Idea" href="https://www.researchgate.net/publication/305053676_Bitcoin_over_Tor_isn&#39;t_a_Good_Idea">fingerprinting techniques</a>).</p>
+<p>I sincerely reckon my little node is not worth the trouble from these hackers.. I am setting up a slow-update <em>Manjaro Linux</em> system which does not come with open ports by defaults (sometimes, I run my node from an <em>Arch Linux</em> machine, too). A <em>Linux system</em> is much more secure than running a node in <em>Windows</em> which contain much exploitable code and is probably infested with virus and other malicious software..</p>
+<p><a title="Setting up a Tor hidden service" href="https://en.bitcoin.it/wiki/Setting_up_a_Tor_hidden_service">Setting a <em>Tor hidden service</em></a> is a little hurdle for someone who never set up it before but after all that is not too hard with <em>Bitcoin version 0.21</em>, specially.</p>
+<p>I added the following to <code>/etc/tor/torrc</code>: <code>ControlPort 9051</code>, <code>CookieAuthentication 1</code>, <code>CookieAuthFileGroupReadable 1</code> and <code>DataDirectoryGroupReadable 1</code>. Check <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/tor.md">this help page.</a></p>
+<p><em>Bitcoin version 0.21</em> <q><a title="0.21.0 Release Notes - Compatibility & P2P and network changes" href="https://bitcoincore.org/en/releases/0.21.0/">release adds support for Tor version 3 hidden services</a>, and gossiping them over the network to other peers using BIP155. Version 2 hidden services are still fully supported by Bitcoin Core, but the Tor network will start deprecating them in the coming months</q>.</p>
+<p>That is important to note because even if you set everything up correctly, <a title="Bitcoin Core 0.21.0 no incoming peers over Tor" href="https://bitcointalk.org/index.php?topic=5309923.0">there may be very few onion peers because they may not be using <em>Tor 3 services</em> yet</a>. Also, <a title="Bitcoin full nodes with IPv4 and IPv6 - Why most peers are on IPv4?" href="https://bitcointalk.org/index.php?topic=1347811">IPv6 peers are much more rare than IPv4 peers</a>, which is the large majority of peers.</p>
+<p>I will leave some generic config which works for me (<code>bitcoin.conf</code> and <code>/etc/tor/torrc</code>) at <a href="https://mountaineerbr.github.io/repo/dotfiles/.bitcoin/bitcoin.conf">my github repo</a>. In these files, there are general commentary and references for some config options, as well as setting up a hardware client in the router..</p>
+<p>A combination of settings may set the node to work dual-stack in <em>clearnet</em> (IPv4 and IPv6) <strong>and</strong> <em>onion</em> networks, which is a very important network synchronisation role which few nodes partake..</p>
+<p>The following steps are required:</p>
+<ol>
+<li>Install <code>bitcoind</code> (so-called <em>bitcoin core)</em> and fully sync the blockchain, transaction index etc..</li>
+<li>Configure router to redirect traffic from <code>port 8333</code> to your machine. This requires setting one&#39;s machine MAC address in the router <em>client list</em> and then forwarding of <code>port 8333</code> to the client.</li>
+<li>Setting <em>bitcoin.conf</em> and <em>.torrc</em> configs.</li>
+<li>Running <code>tor</code> daemon with the right configs</li>
+<li><code>bitcoind</code> fully synched and properly configured</li>
+<li>Be sure your router has got active firewall or/and install a operating system firewall such as <code><a href="https://wiki.archlinux.org/index.php/Uncomplicated_Firewall">ufw</a></code>. In some cases, installing a firewall in Linux may not be required, <em>DYOR</em>.</li>
+</ol>
+<p>Running a node does cost money: hardware, electricity and internet bandwidth. However a full node can run on cheap computers, such as <a href="https://blog.keys.casa/build-your-own-casa-node/">Casa nodes</a> with Raspberry Pi 4, bandwidth may be problem.</p>
+<p><code>bitcoind</code> option <code>maxconnections</code> controls the maximum number of inbound+outbound connections. <em>10 slots</em> of are reserved for <em>inbound connections</em> and <em>further connections</em> are <em>outbound slots</em> in a <em>maximum of 125 connections</em> by defaults.</p>
+<p>Nominally, my contracted speeds are <em>120 Mbit/s download</em> and <em>10 Mbit/s upload</em>, However, my connection seems slow and unstable these past few days.. I use to check connection speed with <a href="https://github.com/sivel/speedtest-cli"><code>speedtest</code></a>.</p>
+<p>Indeed, I just phoned up my internet provider and internet of home area is under general maintenance. That may explain why I was having horrible internet connection these days and that may not be related to running <code>bitcoind</code>. It does seem my home internet has got a slowdown, so I am checking that with the provider..</p>
+<p>However, a note is relevant. If one has got slow internet connection, he may choose to set <code>maxconnections</code> and/or <code>maxuploadtarget</code> to reasonable values.</p>
+<p>Someone may check IP addresses of network peers (<code>bitcoin-cli getpeerinfo</code>) against updated geolocation tables to have an idea where other connecting peer nodes are.</p>
+<p>Free IP Geolocation APIs</p>
+<ul>
+<li>MaxMind&#39;s Linux <code><a href="https://dev.maxmind.com/geoip/legacy/downloadable/">geoip</a></code> package.</li>
+<li><a href="https://mailfud.org/geoip-legacy/">Free updated GeoIP legacy databases</a>, may be used with <code>geoiplookup</code> but may be limited..</li>
+<li>Free <a href="https://ip-api.com/">IP Geolocation API</a></li>
+<li>Another free <a href="https://freegeoip.app/">IP Geolocation API</a></li>
+</ul>
+<h2>Secondary topics</h2>
+<ul>
+<li>Notices/news about this podcast season duration (about 6-8 episodes).</li>
+<li><a href="https://www.youtube.com/watch?v=cSpyBMhBmFE">Answer to a youtube video critique</a> which said my channel should be more like <a href="https://www.youtube.com/channel/UCSTlOTcyUmzvhQi6F8lFi5w">Atila Mariano&#39;s</a>..</li>
+<li>Comments on web browsers for desktops and mobile: Firefox, Chrome or Opera? Firefox is a great choice for desktop however both Firefox and Chrome suck on my Android and only Opera seems usable to me..</li>
+</ul>
+<h2>More references</h2>
+<ul>
+<li><a href="https://jochen-hoenicke.de/queue/#BTC%20(default%20mempool),24h,fee">Johoe&#39;s Bitcoin Mempool Statistics</a></li>
+<li>AA&#39;s <a href="https://www.youtube.com/watch?v=uo58zmyXqFY">Bitcoin Q&amp;A: Full Node and Home Network Security</a></li>
+<li>AA&#39;s <a href="https://www.youtube.com/watch?v=AXUfwvhr3lg">Running Your Own Bitcoin Node, Ethereum Node, Lightning Network Node</a></li>
+</ul>
+<hr>
+<p><strong>PS:</strong> internet connection problems arose at my house in the last week or so and therefore the podcast episode was uploaded earlier on YouTube than on my blog github repo.. I only was able to upload the podcast episode #5 (~77MB) using a university access point I have got access.</p>
+<p><strong>PPS:</strong> the original recording of this episode (m4a) got truncated (<q>Input buffer exhausted before END element found</q>). Maybe I forgot to press the END button or the recorder and just pressed PAUSE and closed the app.. I was able to check that with <code>ffprobe</code> which comes bundled with <code>ffmpeg</code>. So I recoded the stream to a new m4a audio file, which should play correctly on all devices now.. Sorry if your podcast has got the original copy instead of the recoded file!</p>
+</article> ]]></description>
+	</item>
+	<item>
+		<title xml:lang="en">#29 - Sweeping Bitcoin Wallets and Low Fees</title>
+		<pubDate>Wed, 17 Mar 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/29/</link>
+		<dc:language>en</dc:language>
+		<category>persistence/persistência/dicas/tips/bitcoin-daemon/bitcoind/server/full node/full-node/nodo/nodo inteiro/bitcoin</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">d3a3ba58-db9f-5b04-b96b-ce642f40ddd8</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="29">#29 - Sweeping Bitcoin Wallets and Low Fees</h1>
+<time class="dt-published" datetime="2021-03-17">17/mar/2021</time><br></header>
+<div lang="pt" class="p-summary">
+<p>Precisando fazer umas operações de varredura (<span lang="en">sweeps</span>) em umas carteiras e endereços antigos, achei alguns detalhes sobre o processo de transmissão das transação para os <span lang="en">mempools</span> através do meu nodo completo que compartilho aqui.</p>
+</div>
+<br>
+<p>There are some legacy bitcoin keys which produce vanity addresses, such as <q>1Bio*</q> made with <code>vanitygen</code> and some legacy wallets made with <code>Electrum</code> which needed to be swept to segwit addresses as transaction fees are doomed to get very high on the main chain as time goes on.</p>
+<p>Some time ago, Adreas Antonopoulos said in one of his lectures the best way to do that is to sweep the old wallets. Moving <em>utxos</em> to a single address will reduce the size of the following transactions but sweeping may generate a large transaction (in bytes) because it can contain <em>various unspent outputs</em>. That is why it is a good idea to do sweeps leisurely, with time at hand and aiming for low fees..</p>
+<p>I can sync my full node that lives in a USB hard drive with the network. I have got the <code>bitcoind</code> inbound port open to get other nodes to sync with me (including the <em>mempool</em>). I just don&#39;t mine nor use <code>bitcoind</code> with my wallets because I rather prefer <code>Electrum</code> to manage them.</p>
+<p>I have been trying to set sweeps with small transaction fees, such as 1-6 satoshi/Byte.</p>
+<h2>Notes on broadcasting transactions from my full node</h2>
+<p>As many of the readers may be aware, most <code>Electrum</code> mempools will not accept transactions with very low fees and their threshold is much higher than the minimum of 1sat/B as the default relay (broadcasting) fee.</p>
+<p>What the reader may not be aware of is about <em>the minimum mempool fee</em>: <q>The amount of system memory allocated for unconfirmed transactions is defined with the option <code>maxmempool</code>. <code>maxmempool</code> defaults to 300MB of RAM. Once the maxmempool-memory is fully used, the lowest-fee transactions are dropped from the nodes mempool and <code>mempoolminfee</code> is increased to reject lower-fee transactions</q> (by <a href="https://github.com/bitcoin/bitcoin/issues/11955">0xB10C</a>).</p>
+<p>Transactions may be dropped from the mempool just a few minutes after they are added or until 336 hours (two weeks) or after even longer.</p>
+<p>Andreas Antonopoulos said he can get <em>most</em> of his transactions through with 1sat/B fee, so I reckon he keeps broadcasting his transactions through his own node until they are taken in a block or he gives up.</p>
+<p>Andreas said that even though transactions marked with the flag <em>Replaceable By Fee</em> (RBF) are less dependable than non-flagged transactions, all of his transactions are marked as RBF. It should not really make much of a difference but if a transaction is not marked as RBF, <code>bitcoind</code> will not just double-spend the same <em>utxo</em> while the old transaction is in your local mempool and will throw out a broadcasting error, whereas RBF transactions are promptly double-spent and the older transaction (conflicting transaction) is removed from the local mempool by <code>bitcoind</code>.</p>
+<p><a title="Bitcoin Fees: What are RBF and CPFP? What to do if my bitcoin transaction gets stuck?!?" href="https://www.youtube.com/watch?v=zL9Nu39qft4&t=331s">Andreas also remarked</a> that <strong>RBF</strong> transactions may be replaced by the <strong>sender</strong>, while <em>Child Pays For Parent</em> (<strong>CPFP</strong>) transactions are made by the <strong>recipient</strong>.</p>
+<hr>
+<p>I decided to use <code>Electrum</code> to make and sign the sweep transactions and then broadcast them through my own node.</p>
+<p>The first time I messed with those sweep transactions, broadcasting a bunch of to my local mempool and soon <em>blockcypher</em> could detect them in various other mempools, too.</p>
+<p>After less than 24 hours, no transaction could be found in other mempools by <em>blockcypher</em>, but they still persisted at my local mempool.</p>
+<p>After restarting <code>bitcoind-daemon</code>, those old transactions were rebroadcasted from my local node and could be detected by <em>blockcypher</em> again. So if you don&#39;t want to rebroadcast old transactions accidentally, be sure to remove <code>mempool.dat</code> before <code>bitcoind</code> starts or setting option <code>persistmempool=0</code>. File <code>mempool.dat</code> is created by dumping mempool data from RAM when <code>bitcoind</code> exits..</p>
+<p>To keep rebroadcasting your own transactions, be sure to set a large enough value for <code>maxmempool</code> size so your transactions are not outside <code>mempoolminfee</code> range.</p>
+<p>I will keep trying some more experimentations with low transaction fees and broadcasting them from my own node to see how many, if any at all, will be confirmed in the following few days.. So far, only one transaction with feed ~6sat/B got to the blockchain, but that is higher than I want to pay for the other transactions..</p>
+<p><strong>Tip:</strong> if you are using the clipboard and dealing with <em>private keys</em>, beware not to paste one of them in a block explorer as I did.. Ideally, don&#39;t connect your computer to the internet while dealing with private keys. This avoids many problems.</p>
+<h2>More references</h2>
+<ul>
+<li><a href="https://bitcointalk.org/index.php?topic=5313115.0">Strategies to save off Bitcoin fees?</a>, see <strong>tranthidung</strong> commentary</li>
+<li><a href="https://bitcointalk.org/index.php?topic=5306306.0">Unconfirmed transaction</a></li>
+<li><a href="https://bitcointalk.org/index.php?topic=5304064.0">It is pointless if the BTC fees increases along with rise in BTC price!</a>, this is a long discussion and seems interesting..</li>
+</ul>
+</article> ]]></description>
+	</item>
+	<item>
+		<title xml:lang="en">#28 - Wrapping Up: What Happened, Afterall?</title>
+		<pubDate>Wed, 17 Mar 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/28/</link>
+		<dc:language>en</dc:language>
+		<category>analysis/análise/health/saúde/symptons/sintomas/recionalização/rationalisation/anxiety</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">8ace46a4-f32d-5974-8053-764a2fa60b94</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="28">#28 - Wrapping Up: What Happened, Afterall?</h1>
+<time class="dt-published" datetime="2021-03-17">17/mar/2021</time><br></header>
+<p>I have been thinking since I quit my experience job at that marvellous private company and finally came to tentatively putting the issue to rest.</p>
+<p>After talking to an older dear friend who is currently at the 3<sup>rd</sup> year of <em>agronomic engineering</em> and manages some of his family countryside properties, he told me I probably got dehydrated and felt bad because of that!</p>
+<p>Had I understood why I felt so bad during harvest, I could have arranged for better preparation for the following day.</p>
+<p>That is unfortunate I did not have the experience or a clear mind nor someone who could had given me tips on the issue that night while I was trying to think hard what had happened and whether it was better to quit (which is what happened!)..</p>
+<h2>What really happened to my body</h2>
+<dl>
+<dt>Anxiety</dt>
+<dd>One of the older technicians asked me whether I were anxious at lunch time. I reckon anxiety was mainly for: new experience, smoking even less, all other workers were, for one reason or another, different than me and I could not relate more than strictly necessary.</dd>
+<dt>Dehydration</dt>
+<dd>At some point, I was sure there was not enough water for everybody to drink <strong>freely</strong>, so I took the care to drink less often. Some time after, my supervisor talking to another worker said <q>drinking too much water dehydrates the body because one pees more</q>. That is not true at all, however it is close enough to truth to be funny. Water is a strong <strong>diuretic</strong> because one pees the more one drinks it, however one will only (perhaps) get more dehydrated than not in case of salt imbalance (too much salt being excreted) because of water excess, but I am not sure overall that would be worse than drinking too little water in the same period of time..</dd>
+<dt>Insolation/Heat Stroke</dt>
+<dd>I did use less than adequate sun screen was not using shades over my eyes, but I was heavily protected by a sun protection hat, gloves, long-sleeved shirt, jeans, and boots.. Heat was intense. I am sure I got a mild to moderate case of heat stroke at some point because I was confused for the rest of the day and part of the following day..</dd>
+<dt>Noise/Vibration Distraught</dt>
+<dd>I was not using the ear protection because I had forgotten it back at the hotel and I did not borrow it from someone on the field because I did not think it would be too bad for just one day. Guess I was wrong about that!</dd>
+</dl>
+<h2>Aggravating factors</h2>
+<ul>
+<li>Still a smoker, although smoking less than before</li>
+<li>Sedentary lifestyle, 4 years smoking heavily at the computer will require more than a few weeks of irregular walking to improve</li>
+</ul>
+<h2>What should I have done?</h2>
+<ol>
+<li>Take a large <strong>5-litre water bottle</strong> with me to that trip and to countryside fields so I could drink water freely</li>
+<li>Used the <strong>ear protection</strong> against noise</li>
+<li>Used the <strong>protection shades over normal glasses</strong> (which was at the hotel that day)</li>
+<li>Used <strong>more sun screen</strong></li>
+<li><strong>Worked slower</strong> and told my supervisor I could only work so fast</li>
+<li><strong>A couple of tips from a friend who lives in countryside</strong> and know it from old farm workers: <strong>freeze a PET bottle filled with water</strong> and carry that frozen PET the next day close to your body. You can also apply the PET with ice on your neck and face at rest times. At about midday, enough water must have melt and you can drink that cold water, then. <strong>Also,</strong> use a <strong>large straw hat</strong> and sun screen instead of that <span lang="pt"><em>Chapéu árabe</em></span>, which prevents air flow around the neck and head. Thanks, Bozelli!</li>
+</ol>
+<p>I <strong>actually did</strong> reckon my sedentary lifestyle and smoking habits would take their toll on my heart if I worked too hard, even though <strong>now</strong> I reckon I was just confused and overtought it all..</p>
+<p>One point which I am proud of is that I did not drink beer or any kind of alcohol during the work trip, whereas other workers all drank at night during the 3 days we spent together..</p>
+<br>
+<figure><a href="../gfx/touca_arabe.jpg"><img src="../gfx/touca_arabeThumb.webp" alt="protection hat against sun" width="150" height="150"></a> <a href="../gfx/chapeu_palha.webp"><img src="https://mountaineerbr.github.io/blog/gfx/chapeu_palhaThumb.webp" alt="protection hat against sun" width="150" height="150"></a>
+<figcaption>Fig. 1 <span title="" lang="pt">Chapéu árabe</span> (left), which is an Individual Protection Equipment to avoid heat strokes. Cloth layers around the neck may avoid some heat dissipation. <em>Straw hat</em> (right) protects against the sun and allows wind to blow on your face eficiently.</figcaption>
+</figure>
+</article> ]]></description>
+	</item>
+	<item>
+		<title xml:lang="en">#27 - Quick Notes on the First Job External Trip</title>
+		<pubDate>Sun, 14 Mar 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/27/</link>
+		<dc:language>en</dc:language>
+		<category>crop/trip/job/company/experience/hard working/breathless/sem fôlego/cultivo/plantação/viagem/empresa/experiência/trabalho duro</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">c77f3ad5-9203-5776-b360-49460956dd51</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="27">#27 - Quick Notes on the First Job External Trip</h1>
+<time class="dt-published" datetime="2021-03-14">14/mar/2021</time><br></header>
+<div lang="pt" class="p-summary">
+<p>Notas rápidas dos primeiros dias de uma viagem a trabalho em que deveria ser feita a colheita manual de várias plantações experimentais..</p>
+</div>
+<br>
+<p>I was set for a team of <em>external trip</em> about 300Km from the company headquarters. We would manually harvest a big area with many different soy technologies, as the company is focused on genetically engineering strains and will need collect all sorts of information from the soy beans to advance their research further. I should not be very specific about anything because of contractual terms, but will talk broadly because anyone minimally working in this agricultural field will know about these and other routine procedures..</p>
+<p>I was happy to do some hard work as the <em>human resources</em> woman had told me it would be.</p>
+<p>I was <strong>not</strong> wrong when we started pulling the plants and I said jokingly <q>that seemed to be the easiest part</q>!</p>
+<p>The hard part was carrying all those plants back to the truck and handing them over to the truck boys, so a machinery would process and have the material labeled.</p>
+<p>As I was the eldest novice, they would give me a little more hard work and, of course, I wanted to do all the hard working I could so not to leave a bad image..</p>
+<p>I had some terrible shortness of breathe, even thought about the possibility of passing out but kept working hard, sometimes I would just sit down on some straw material and catch my breath for a couple of minutes. That worked but I had to do it constantly, and resting 10 minutes was enough to feel comfortable even under the sun.</p>
+<p>I actually was working close to the machinery without the ear protection (I had forgotten it back in the hotel!), so the noise must have gotten into my brain.</p>
+<p>But also, as I <em>was</em> using a tight mask to avoid breathing dust and particles, coming from an extremely sedentary period of my life and still a smoker (although I am working on reducing and quitting it!), my body obviously would not handle 3 or 4 days of such a hard work.</p>
+<p>I sincerely thought I was a little more physically fit than I actually am right now..</p>
+<p>At the end of day, we were together talking and having some fun at the hotel and after everyone went to their quarters, I knocked on my supervisor door and told him to end the experience.</p>
+<p>In retrospective, I think I should have tried at least one more day without telling my supervisor anything and taking any decision, or should have warned him that I could only work so much instead of asking for the end of the experience period. It was a rather drastic decision and I was too nervous to think with due care and diligence but, then, maybe my performance could become <strong>shameful</strong> as time would wear on my strength..</p>
+<p>I was devastated to leave them without my effort. I arranged to work until lunch time the next day so they would still get some (small) help from me. My supervisor took good care of me and drove me all the way back (unfortunately, I could not simply take a bus back with my own money, which I did insist on many times).. He told and explained many precious things to me during the trip back, for which I am so grateful.</p>
+<p>So I am not sure what will happen next. In the worst case scenario, the company will end the contract in the next few days. In the best case, it will assign me a different kind of work which I am able to perform until the contract expires in about 3 weeks.</p>
+<p>Don&#39;t get me wrong. I liked to work there. I observed everyone and everything. Perhaps I haven&#39;t got an elephant memory but did learn a lot. I find their work really amazing and have got the greatest of respect for it. It will eventually generate soy which is cheaper, more productive and efficient for the farmer, and also more nutritious (more protein), cheaper and of higher quality for the end consumer.</p>
+<hr>
+<p>After thinking about it over, such a common expression in this field <a href="https://cropsciences.illinois.edu/research/crop-genetic-improvement/"><em>genetics</em></a> and <a href="https://www.luke.fi/en/natural-resources/agriculture/plant-improvement/"><em>plant improvement</em></a> is really just <em>genetics improvement</em> because you can not teach a plant how to use less water, for example. I reckon any distinction is not really necessary <em>unless</em> to (maybe) consider <a href="https://www.mdpi.com/2075-4655/4/4/25/htm">epigenetics heritage</a>.</p>
+<hr>
+<p><strong>PS:</strong> the company decided to end my experience contract due to the fact my supervisor could not find another department with a vacancy for me. <strong>Human resources</strong> woman was nice and said something like <q>maybe it will work out better next time/chance!</q>..</p>
+<p><strong>PPS:</strong> Here is an <em>excellent</em> video sample they sent to the harvest WhatsApp group on the second night.. After this, the younger agronomists became more talkative about women, dates, sex, massage houses and the sort.. <strong>Enjoy the best of countryside girls!</strong></p>
+<a title="WARNING: Discretion is advised!" href="../gfx/VID-20210312-WA0001.mp4"><img src="https://mountaineerbr.github.io/blog/gfx/Sirubico-Movie-Genre-Music.ico" alt="Movie icon"></a></article> ]]></description>
+	</item>
+	<item>
+		<title xml:lang="en">#26 - New Job</title>
+		<pubDate>Tue, 09 Mar 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/26/</link>
+		<dc:language>en</dc:language>
+		<category>biology/genetically modified organisms/biologia/organismos geneticamente modificados/new job/novo emprego/futuro/future/plans/planos</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">d55cc4fa-eed7-5bdb-840e-8490cab64ee1</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>
+<h1 class="p-name" id="26">#26 - New Job</h1>
+<time class="dt-published" datetime="2021-03-09">09/mar/2021</time><br></header>
+<div lang="pt" class="p-summary">
+<p>Falando um pouco do meu novo emprego em uma empresa de <strong>Organismos Geneticamente Modificados</strong>. Também, penso sobre a oportunidade de experiência deste emprego mas principalmente no meu futuro profissional..</p>
+</div>
+<br>
+<p>Over one month ago, I distributed curriculum copies to some of the largest companies nearby. Last week, I was contracted!</p>
+<p>Today was the first day in my new job. There were long lectures about what exactly we will be doing and work safety. The company works with <strong>Genetically Modified Organisms</strong> (GMO). That is a temporary contract and I will be harvesting soybeans from experimentation crop fields, which is a little more laborious and requires more care than common harvesting, as the soybeans will be further tested and interbred.</p>
+<p>We shall be using heavy machinery (harvesters) and, as it has been raining rather a lot in the last week, manual harvesting as well.</p>
+<p>This is a great entry level job for agronomists students and biologists involved with agriculture. A lot of heavy work. In fact, the minimum and necessary education degree is high school.</p>
+<p>I reckon I will be happy in the countryside for the duration of the contract (3 months at most) and gaining experience, however I am far from sure I want to keep working there in similar positions for many years to come. Or worse yet, to becoming an <em>executive</em>..</p>
+<p>I was very anxious last weekend mulling over thoughts of working in that company for the next 30 or 35 years until I get to retire, so there is some comfort in that this job is but temporary.</p>
+<p>Also, my dear friend, Bidia, told me that working an entire life in a company is something of the past, nowadays most jobs last 4, maximum of 5 years..</p>
+<br>
+<table style="margin-left: auto; margin-right: auto;">
+<caption>Table 1. Total profit calculation with discounts.</caption>
+<tr>
+<th style="text-align: left; padding: 0.5em;">Distance</th>
+<td style="text-align: right; padding: 0.5em;">29 miles</td>
+<td style="text-align: right; padding: 0.5em;">46Km</td>
+</tr>
+<tr>
+<th style="text-align: left; padding: 0.5em;">Raw Salary</th>
+<td style="text-align: right; padding: 0.5em;">$252</td>
+<td style="text-align: right; padding: 0.5em;">R$1463</td>
+</tr>
+<tr>
+<th style="text-align: left; padding: 0.5em;">Food Coupon</th>
+<td style="text-align: right; padding: 0.5em;">$49</td>
+<td style="text-align: right; padding: 0.5em;">R$283</td>
+</tr>
+<tr>
+<th style="text-align: left; padding: 0.5em;">Petrol+Oil</th>
+<td style="text-align: right; padding: 0.5em;">-$116</td>
+<td style="text-align: right; padding: 0.5em;">-R$676</td>
+</tr>
+<tr>
+<th style="text-align: left; padding: 0.5em;">Highway Toll</th>
+<td style="text-align: right; padding: 0.5em;">-$80</td>
+<td style="text-align: right; padding: 0.5em;">-R$468</td>
+</tr>
+<tr>
+<th style="text-align: left; padding: 0.5em;">Total Profit</th>
+<td style="text-align: right; padding: 0.5em;">$106</td>
+<td style="text-align: right; padding: 0.5em;">R$602</td>
+</tr>
+</table>
+<hr>
+<p>Even before receiving the job offer call last week, I had started considering seriously about my career as a biologist. I wrote en e-mail to an old technician fellow I met in 2008 when I started graduation to ask for some tips. He is a doctor biologist in limnology and was hired as a <em>de facto</em> <em>biologist</em> in university. Frossard used to work in pisciculture as a limnologist and after that university branch ended, he works <q>more or less like a librarian who works with fish instead of books</q> in a zoology museum.</p>
+<p>I wrote a very long e-mail and he wrote a long answer, which I read from start to end at least 3 times so far. He has got an incredible life history and I identified with many parts of it, such as enjoying university campus as though it were an amusement park and the fun of laboratory life..</p>
+<p>There is something he told me that may help to decide what profession or job you want for your life: <em>think about what you would have do in 10 years from now</em>..</p>
+<p>Not an easy task but hard thinking will eventually prove fruitful. I already have got one idea for starters: <em>a public job</em>.</p>
+<p>Thanks, dear Frossard!</p>
+<p>Out of the dozen public contests I tried (most of which while I was busy studying financial markets), there were some which deserve mentioning:</p>
+<ul>
+<li><span lang="pt"><em>Itaipú</em></span> (a very big hydroelectric energy supplier)</li>
+<li><span lang="pt"><em>Instituto Águas e Terras</em></span> (public state division which oversees land and water affairs)</li>
+<li><em>biology council</em> (however bureaucratic, a very large contest)</li>
+<li>Temporary positions as teacher in higher education and scientific institutes such as <em>IFSC</em> and <em>UTFPR</em></li>
+</ul>
+<p>There are some other public contests for which I am interested:</p>
+<ul>
+<li><em>IBAMA</em> (public regulator of environment and biology stuff),</li>
+<li><em>Funai</em> (promotes indigenous people health and property),</li>
+<li>and national parks.</li>
+<li>Universities and research institutes, maybe not as a teacher but biology technician.</li>
+</ul>
+<p>With the exception of the biology council, which is 100% a bureaucratic job, others mentioned above offer positions for people to be more in the field. Working in a national park or university seems specially appealing..</p>
+<p>As my mum was a public employee and had some good bonuses before going retired, a public position always seemed appealing for me.</p>
+<p>But that will be it for today.</p>
+</article> ]]></description>
+	</item>
+	<item>
 		<title xml:lang="en">#25 - Podcast #4 - Ban, Sending </title>
 		<pubDate>Fri, 26 Feb 2021 00:00:00 -0300</pubDate>
 		<link>https://mountaineerbr.github.io/blog/25/</link>

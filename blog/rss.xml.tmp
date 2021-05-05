@@ -32,6 +32,122 @@
     <!-- # IMPORTANT: keep [generator] as [item] elements will be appended after it -->
     <generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
     <item>
+      <title xml:lang="en">#36 - Firefox on NVIDIA Graphics Card</title>
+      <pubDate>Mon, 12 Apr 2021 00:00:00 -0300</pubDate>
+      <description>Configuring Firefox to use Nvidia card requires a lot of configuration and the outcome may be unstable. Patience and slow testing are essential to get a working configuration for the user system.</description>
+      <link>https://mountaineerbr.github.io/blog/36/</link>
+      <dc:language>en</dc:language>
+      <category>performance/improvements/rapidez/melhorias/hack/dicas/tips/mozilla/webbrowser/navegador de internet/drivers/options/about:config/webrenderer</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">7ade1ec0-d25e-5aa6-bea9-9a0313100543</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/Linus-Torvalds-Fuck-You-Nvidia.webp" length="16692" type="image/webp"/>
+    </item>
+    <item>
+      <title xml:lang="en">#35 - Removing Google Analytics</title>
+      <pubDate>Wed, 07 Apr 2021 00:00:00 -0300</pubDate>
+      <description>Planning to remove Google Analytics and some politics ramble..</description>
+      <link>https://mountaineerbr.github.io/blog/35/</link>
+      <dc:language>en</dc:language>
+      <category>vaccine/politics/try/tentativa/vaccination halt/suspensão da vacinação/car trip/family/vigagem de carro/família</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">631572fc-7583-5d70-a713-ea9847bb2904</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/GABotsSmall.png" length="24617" type="image/png"/>
+    </item>
+    <item>
+      <title xml:lang="en">#34 - Bitcoin Graph Watch</title>
+      <pubDate>Sun, 04 Apr 2021 00:00:00 -0300</pubDate>
+      <description>A graph with markings from various sources which I put together and my thinking about diversification of assets..</description>
+      <link>https://mountaineerbr.github.io/blog/34/</link>
+      <dc:language>en</dc:language>
+      <category>diversification/assets/bonds/stocks/cash/bitcoin/forecast/previsão/diversificação/títulos/ações/papel/dinheiro</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">55250cd2-4e41-566a-9461-f9de2855b30c</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/btcgraphSmall.png" length="63518" type="image/png"/>
+    </item>
+    <item>
+      <title xml:lang="en">#33 - Podcast #6 - More Tor Configs for Bitcoin Node and SSH</title>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 -0300</pubDate>
+      <description>Talk about IPv4, IPv6 and Onion networks, inbound and outbound connection types and how to help the network synchronising clearnet and onion networks. Also, I ramble a little about SSH (Secure Shell) to manage Unix systems at home.</description>
+      <link>https://mountaineerbr.github.io/blog/33/</link>
+      <dc:language>en</dc:language>
+      <category>ipv4/ipv6/onion/networking/configurations/configurações/clearnet/linux management/gerenciamento de sistema</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">214f524b-611e-5131-9f4e-550dbbf3292b</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#32 - First Vaccine Shot (Coronavac)</title>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 -0300</pubDate>
+      <description>Yesterday I took my father for him to have his first vaccine shot against Covid. It was a fun day.</description>
+      <link>https://mountaineerbr.github.io/blog/32/</link>
+      <dc:language>en</dc:language>
+      <category>immunisation/imunização/vacina/health/saúde/father/dad/day together/fun</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">7e65794a-a08b-5085-922d-6edca358d501</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#31 - Arrgh! Internet Issues</title>
+      <pubDate>Fri, 26 Mar 2021 00:00:00 -0300</pubDate>
+      <description>Internet problems started about two weeks ago and only today I was able to confirm the problem was outside my home: it was the internet provider distribution equipament in my area. Internet speed is normalised, however that is not the end of the problems, yet..</description>
+      <link>https://mountaineerbr.github.io/blog/31/</link>
+      <dc:language>en</dc:language>
+      <category>tumblelog/internet provider/provedor de internet/bad equipament/signal noise/packet loss/ping/perda de pacotes/ruído de sinal/microblog</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">416fc65b-14f4-59b1-83ff-211749b8d9cb</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/bitcoind2.png" length="23834" type="image/png"/>
+    </item>
+    <item>
+      <title xml:lang="en">#30 - Podcast #5 - Running a Bitcoin Full Node with Tor</title>
+      <pubDate>Sun, 21 Mar 2021 00:00:00 -0300</pubDate>
+      <description>Running a bitcoin full-relay node with Tor networking. Also, which web browser do I prefer for desktop and mobile systems: Firefox, Chrome or Opera? These are the subjects for the fifth episode of the podcast.</description>
+      <link>https://mountaineerbr.github.io/blog/30/</link>
+      <dc:language>en</dc:language>
+      <category>bitcoind/bitcoin daemon/networking/options/webbrowsers/navegadores</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">ade60ca8-1164-5842-9116-1098bfb0856f</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#29 - Sweeping Bitcoin Wallets and Low Fees</title>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 -0300</pubDate>
+      <description>Trying to broadcast own transactions with low fees has many a stand but is not generally a difficult process to understand. Practice and patience are required to get low-fee transactions included in the blockchain. Persistence is a key word in this pursue.</description>
+      <link>https://mountaineerbr.github.io/blog/29/</link>
+      <dc:language>en</dc:language>
+      <category>persistence/persistência/dicas/tips/bitcoin-daemon/bitcoind/server/full node/full-node/nodo/nodo inteiro/bitcoin</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">1388f85e-75b7-5157-a30b-3bfb47215140</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#28 - Wrapping Up: What Happened, Afterall?</title>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 -0300</pubDate>
+      <description>Evaluating the real factors that contributed for me feeling bad during the second harverst day on countryside fields with my work team.</description>
+      <link>https://mountaineerbr.github.io/blog/28/</link>
+      <dc:language>en</dc:language>
+      <category>analysis/análise/health/saúde/symptons/sintomas/recionalização/rationalisation/anxiety</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">bc3cd587-c3e6-57dc-bf8f-a11292879158</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/chapeu_palhaThumb.webp" length="1664" type="image/webp"/>
+    </item>
+    <item>
+      <title xml:lang="en">#27 - Quick Notes on the First Job External Trip</title>
+      <pubDate>Sun, 14 Mar 2021 00:00:00 -0300</pubDate>
+      <description>Some quick notes on the first days of my new job in which we travelled far away and harvested some experimental crops..</description>
+      <link>https://mountaineerbr.github.io/blog/27/</link>
+      <dc:language>en</dc:language>
+      <category>crop/trip/job/company/experience/hard working/breathless/sem fôlego/cultivo/plantação/viagem/empresa/experiência/trabalho duro</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">0e191746-01ba-5f43-8e56-94dffd0c586e</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/Sirubico-Movie-Genre-Music.ico" length="432254" type="image/ico"/>
+    </item>
+    <item>
+      <title xml:lang="en">#26 - New Job</title>
+      <pubDate>Tue, 09 Mar 2021 00:00:00 -0300</pubDate>
+      <description>A new job and a new future: what is my new job like and what I am thinking about for my future as a biologist.</description>
+      <link>https://mountaineerbr.github.io/blog/26/</link>
+      <dc:language>en</dc:language>
+      <category>biology/genetically modified organisms/biologia/organismos geneticamente modificados/new job/novo emprego/futuro/future/plans/planos</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">0318275f-68ed-54fc-be10-a3c3894d2c85</guid>
+    </item>
+    <item>
       <title xml:lang="en">#25 - Podcast #4 - Ban, Sending </title>
       <pubDate>Fri, 26 Feb 2021 00:00:00 -0300</pubDate>
       <description>Notes for podcast episode number 4. Topics range from Bitcoin to being banned from FreeBSD forums `environmentalists', sending curriculum vitae copies and a shell RSS feeds for my website. Hopefully I can spare more topics than needed and pick the best ones..</description>
