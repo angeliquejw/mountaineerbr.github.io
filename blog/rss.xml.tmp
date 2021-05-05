@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="css/style_rss_oreilly1.css"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <!--
+
+	  Hey!
+	  This web page is actually a data file that is meant to be
+	   read by RSS reader programmes.
+	  See https://mountaineerbr.github.io/blog to get to the human-
+	   readable page.
+
+	-->
+  <channel>
+    <lastBuildDate>2021-02-11</lastBuildDate>
+    <title>Biology Blogger</title>
+    <description>Current at XXXX.</description>
+    <link>https://mountaineerbr.github.io/blog/</link>
+    <language>en</language>
+    <category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
+    <webMaster>jamilbio20@gmail.com (JSN)</webMaster>
+    <atom:link href="https://mountaineerbr.github.io/blog/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <title>Biology Blogger</title>
+      <url>https://mountaineerbr.github.io/gfx/sherlockb_big.png</url>
+      <link>https://mountaineerbr.github.io/blog/</link>
+    </image>
+    <copyright>
+			Copyright ©2021 JSN.
+			Verbatim copying and distribution of this entire article is
+			permitted in any medium, provided this notice is preserved.
+		</copyright>
+    <!-- # IMPORTANT: keep [generator] as [item] elements will be appended after it -->
+    <generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
+    <item>
+      <title xml:lang="en">#25 - Podcast #4 - Ban, Sending </title>
+      <pubDate>Fri, 26 Feb 2021 00:00:00 -0300</pubDate>
+      <description>Notes for podcast episode number 4. Topics range from Bitcoin to being banned from FreeBSD forums `environmentalists', sending curriculum vitae copies and a shell RSS feeds for my website. Hopefully I can spare more topics than needed and pick the best ones..</description>
+      <link>https://mountaineerbr.github.io/blog/25/</link>
+      <dc:language>en</dc:language>
+      <category>topics/scripts/tópicos/bitcoin/volunteer work/trabalho voluntário/work/trabalho/confissões de biólogo/confessions of a biologist/nasa perseverance rover/commentaries/comentários/astronomy/astronomia/personal update</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">3af70684-e318-53f8-a9e4-f545ef34616e</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#24 - List of Science-Related Confessions</title>
+      <pubDate>Sat, 23 Jan 2021 00:00:00 -0300</pubDate>
+      <description>A list with interesting `confessions', mostly from biologists or science aficionados. That is a good way to get inspired and remember what biology is attractive for..</description>
+      <link>https://mountaineerbr.github.io/blog/24/</link>
+      <dc:language>en</dc:language>
+      <category>biology reports/confissões/histórias/stories/url list/links/lista de links/blogs</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">6b29059c-905f-5351-b242-2d13d9aab964</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#23 - Banned from BSD Forums by Said Environmentalists</title>
+      <pubDate>Tue, 23 Feb 2021 00:00:00 -0300</pubDate>
+      <description>Are the BSD people an alternative or are they just like everybody else? Here is a repost of my original reply to their `Environmentalist' thread which got me banned unfairly.</description>
+      <link>https://mountaineerbr.github.io/blog/23/</link>
+      <dc:language>en</dc:language>
+      <category>environment/system fine-tuning/BSD/unfairness/sun/environmental forcings/biologist against environmentalists/science/biology/meio ambiente/ajust fino de sistema/injustiça/sol/forças do meio ambiente/biólogo contra ambientalistas/biologia/ciência</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">3501e490-5cfc-53b6-9a79-c026bbde6795</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#22 - Website Improvements, Shell RSS Feed Generator</title>
+      <pubDate>Wed, 10 Feb 2021 00:00:00 -0300</pubDate>
+      <description>Working with website code, improvements and ideas for an RSS feed generator written in shell scripting. This post is very useful for adding references and organising notes as I carry out this little project for the website..</description>
+      <link>https://mountaineerbr.github.io/blog/22/</link>
+      <dc:language>en</dc:language>
+      <category>rss feed/xml/atom/posting system/sistema de postagem/notícias/news/ideas/shell scripting/poor man webmaster tools</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">26f6b3ba-8992-5afb-b36c-79395898164d</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#21 - Goals and Objectives for 2021</title>
+      <pubDate>Thu, 07 Jan 2021 00:00:00 -0300</pubDate>
+      <description>Reflexion on my (unpplaned) goals reached in 2020 and future plans.. Many expectations are made and trecherous roads ahead need heeding and courage if we are really to carry out our new objectives.</description>
+      <link>https://mountaineerbr.github.io/blog/21/</link>
+      <dc:language>en</dc:language>
+      <category>work/trabalho/vida/life/rotina/routine/intentions/intenções/expectation/expectativa/personal/pessoal/objetivos/metas/effort/esforço/2017/2018/2019/2020/2021/year-start goals/year-end goals/metas de fim de ano/metas de começo de ano/análise/auto-análise/analysis/autoanalysis</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">ae67df3b-e1f9-5549-b940-8b8453b7de82</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#20 - Generating Graphs of Covid19 Positivity Rate</title>
+      <pubDate>Thu, 24 Dec 2020 00:00:00 -0300</pubDate>
+      <description>Generating graphs for covid19 test positivity with data from Brazillian OpenSUS Data. SUS is the Brazilian public health system. Data is badly gathered and distributed with many holes but we were able to extract some useful data from that.</description>
+      <link>https://mountaineerbr.github.io/blog/20/</link>
+      <dc:language>en</dc:language>
+      <category>covid-19/covid19/Sars-CoV-2/graphs/gráficos/test positivity/statistics/pcr tests/quick tests/brazil/brazillian data/dados brasileiros/sus/susopendata/dados da saúde/health/sars/respiratory syndrome/síndrome respiratória</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">65529525-0fca-5628-a1e3-c89ee9c6ad66</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#19 - State Governor Response</title>
+      <pubDate>Wed, 25 Nov 2020 00:00:00 -0300</pubDate>
+      <description>After writing an e-mail about volunteer work to São Paulo State Governor, his particular secretary sent a `thanks' letter back to me. That was surprising and got my ego inflated. Unfortunately, the letter was all I eventually received.</description>
+      <link>https://mountaineerbr.github.io/blog/19/</link>
+      <dc:language>en</dc:language>
+      <category>e-mail/letter/carta/agradecimento/trabalho voluntário/volunteer work/thanks letter/governor/São Paulo/government/governo/decepção/disappointment/iludido/ilusão</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">542d2004-0229-567b-bd80-816cec9cbda1</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#18 - Removing Important Files with `rm -r *'</title>
+      <pubDate>Tue, 24 Nov 2020 00:00:00 -0300</pubDate>
+      <description>That is easy to misuse the `rm' command and lose all your important files. In this blog article, I tell a story of a series of unfortunate events with `rm', recursion and globs.. Hopefully we have got a backup!</description>
+      <link>https://mountaineerbr.github.io/blog/18/</link>
+      <dc:language>en</dc:language>
+      <category>accident/linux/shell/glob/acidente/losing files/perdendo arquivos/removing file/removendo arquivos/deletando tudo/removing everything/deleting everything/error/mistakes/trapalhadas/micos/story/estória/história/regret/arrependimento/noob stuff/aprendendo/learning</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">038ddee5-b549-58f0-a6fc-262952dba97b</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#17 - Podcast #3 - Auto Analysis, PIX Payments, Bitmex</title>
+      <pubDate>Sun, 22 Nov 2020 00:00:00 -0300</pubDate>
+      <description>Notes for the 2&lt;sup&gt;nd&lt;/sup&gt; episode of the podcast. Subjects are about self analysis, brazilian payment system PIX, bitcoin, cripto, Bitmex wallets and more.</description>
+      <link>https://mountaineerbr.github.io/blog/17/</link>
+      <dc:language>en</dc:language>
+      <category>podcast/crypto/cripto/bitmex/pix/pagamentos instantâneo/psicanálise/carteiras virtuais/dicas/tips/bitcoin/episódio</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">60cd2b4f-3255-5071-af3b-6363932e3068</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#16 - Biology for Cynics 0 - Saving the Wrong Species</title>
+      <pubDate>Sun, 15 Nov 2020 00:00:00 -0300</pubDate>
+      <description>The biologist casts doubt on biology basics. Hopefully you have lost the naïvité about biology.</description>
+      <link>https://mountaineerbr.github.io/blog/16/</link>
+      <dc:language>en</dc:language>
+      <category>teaching/class/basic science/notions/life/biology laws/Kuznets/protection of species/extinction/genesis/ensinar/classe/aula/ciência básica/cínicos/noções/céticos/skeptical/vida/leis da biologia/proteção de espécies/extinção/gênese/carbono/carbon/pollution/poluição/valor da vida/life value</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">4f0ce2e8-efb2-5b10-96a4-d4239f7bd78e</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#15 - Moved on</title>
+      <pubDate>Thu, 05 Nov 2020 00:00:00 -0300</pubDate>
+      <description>There are times when we go down the memory lane and get upset. After reviewing it, we must move on for our own health.</description>
+      <link>https://mountaineerbr.github.io/blog/15/</link>
+      <dc:language>en</dc:language>
+      <category>passado/past/psicologia/psychology</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">f90d65ca-036b-5e5b-ae46-3f68d1d67706</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#14 - Podcast Première and Episode #2 - </title>
+      <pubDate>Mon, 12 Oct 2020 00:00:00 -0300</pubDate>
+      <description>Planning of topics for the podcast première and also for the the second episode. Some of the subjects: Sir Attenborough, World Hunger, MOSAiC Expedition, Boy Plunger, Wallet and File Cryptography on Linux</description>
+      <link>https://mountaineerbr.github.io/blog/14/</link>
+      <dc:language>en</dc:language>
+      <category>environment/politics/meio ambiente/política/commentary/news/bbc/Prince William/Sir David Attenborough/Earthshot prize/bitcoin/cryptocurrency/podcast episode/us government/bitmex/bitfinex/encryption/keys/private keys/tips/dicas governo dos estados unidos/criptografia/criptomoedas</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">dea30a63-9091-54fa-b523-77bc24d1b4bc</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/btcprediction2020.png" length="168123" type="image/png"/>
+    </item>
+    <item>
+      <title xml:lang="en">#13 - Saving Bugs and Other Animals</title>
+      <pubDate>Sat, 10 Oct 2020 00:00:00 -0300</pubDate>
+      <description>How I save bugs and some tips for avoiding hitting animals while travelling through roads and highways.</description>
+      <link>https://mountaineerbr.github.io/blog/13/</link>
+      <dc:language>en</dc:language>
+      <category>animais/bugs/insetos/salvamento/dicas/estrada/road/highway</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">07b3b829-3f37-545a-8c5b-c30ac08c5703</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/micePATB.jpg" length="49115" type="image/jpg"/>
+    </item>
+    <item>
+      <title xml:lang="en">#12 - Spell Checking Programmes</title>
+      <pubDate>Thu, 08 Oct 2020 00:00:00 -0300</pubDate>
+      <description>Choosing amongst some CLI spell checker options for Linux.. When working with plain text files, we need them, even though Vim can use them, too.</description>
+      <link>https://mountaineerbr.github.io/blog/12/</link>
+      <dc:language>en</dc:language>
+      <category>aspell/hunspell/vim/linux/orthography/ortografia/correção/error correction/checagem/tutorial/errors ortográficos/mispelling/tips/tricks/dicas</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">3766dc98-6b60-53d9-b29b-ef661f7f62ae</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#11 - Blogs and Books</title>
+      <pubDate>Mon, 05 Oct 2020 00:00:00 -0300</pubDate>
+      <description>References for some interesting blogs to explore, some photos of my books and my plans for studying environmental law and applying to public contests.</description>
+      <link>https://mountaineerbr.github.io/blog/11/</link>
+      <dc:language>en</dc:language>
+      <category>environmental law/law/leis ambientais/leis/livros/blogs de biólogos/biology blogs/plans/planos/reading/leitura/informação/information</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">02986f02-32a3-514c-94fd-a7a7af031dde</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/books3Thumb.jpg" length="31198" type="image/jpg"/>
+    </item>
+    <item>
+      <title xml:lang="en">#10 - Flying Memphis Belle, a B-17 Air Fortress</title>
+      <pubDate>Mon, 28 Sep 2020 00:00:00 -0300</pubDate>
+      <description>Mr Walter tells us how it was to fly aboard Memphis Belle as a war photographer. Story time!</description>
+      <link>https://mountaineerbr.github.io/blog/10/</link>
+      <dc:language>en</dc:language>
+      <category>war tribute/military story/tibuto militar/in memorian/história militar/estados unidos da américa/blaacky/adventures/soldier/soldado/aventuras/honor/honour/honra/ar/céu/air/aircraft/aeronave</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">371c92c1-7ca3-5d06-9336-35fe572757a5</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#9 - What Causes Forest Fires?</title>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 -0300</pubDate>
+      <description>List of various possible causes of forest fires (natural or human-specific causes). The media only seems to think `humans' are to blame.</description>
+      <link>https://mountaineerbr.github.io/blog/9/</link>
+      <dc:language>en</dc:language>
+      <category>forest/fires/fire/environment/floresta/fogo/incêndio/meio ambiente/meio-ambiente/conservation/conservationism/conservação/conservacionismo/lista/list/causas/fogo florestal/</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">c3d96bc0-266d-5350-8b47-55432824cfd4</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/fire_triangle2.gif" length="5376" type="image/gif"/>
+    </item>
+    <item>
+      <title xml:lang="en">#8 - Good References, a Structure to Climb</title>
+      <pubDate>Sun, 13 Sep 2020 00:00:00 -0300</pubDate>
+      <description>Finding and selecting good people as references is hard. I try to keep the highest standards when it comes to choosing my idols, usually though we must take the best of any certain individual and make it our own.</description>
+      <link>https://mountaineerbr.github.io/blog/8/</link>
+      <dc:language>en</dc:language>
+      <category>references/scientists/referências/cientistas/achar referências/estrutural racional/rational structure/using other people work/building upon others/construindo em cima de gigantes</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">85ca30cc-ec9d-590b-94be-797eea7591e2</guid>
+    </item>
+    <item>
+      <title xml:lang="pt">#7 - CSS é Legal!</title>
+      <pubDate>Wed, 09 Sep 2020 00:00:00 -0300</pubDate>
+      <description>Having fun with CSS is a great way to dodge hangover. We would prefer not having a hangover but..</description>
+      <link>https://mountaineerbr.github.io/blog/7/</link>
+      <dc:language>pt</dc:language>
+      <category>validator/html/webmaster/gerenciamento/website formatting/site layout/management/estilo/style/formatação</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">9c3a84c3-cf23-58fd-ae71-6af593ca89a3</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/rebordosa.jpg" length="54032" type="image/jpg"/>
+    </item>
+    <item>
+      <title xml:lang="en">#6 - More Web Master Resources</title>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 -0300</pubDate>
+      <description>What a personal website can be useful for and how to manage it with shell scripting and some C blobs.</description>
+      <link>https://mountaineerbr.github.io/blog/6/</link>
+      <dc:language>en</dc:language>
+      <category>dicas/tips/validator/css/html/the guardian/alarmist news/webmaster/tools/bash/shell/ferramentas/gerenciamento/site/management</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">a0713bfc-bc17-5f87-9c69-bf4b8a04d1ce</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/vcss-blue.gif" length="1759" type="image/gif"/>
+    </item>
+    <item>
+      <title xml:lang="en">#5 - Using Poor Man's Web Master Tools</title>
+      <pubDate>Fri, 04 Sep 2020 00:00:00 -0300</pubDate>
+      <description>Thoughts on a Poor Man's Webmaster Tools (scripts) and web development hacks and the UNIX way of doing things.</description>
+      <link>https://mountaineerbr.github.io/blog/5/</link>
+      <dc:language>en</dc:language>
+      <category>tips/dicas/webmaster/tools/bash/shell/ferramentas/gerenciamento/site/management/status pages/development/poor man/homem pobre/cabra pobre</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">8c99e2aa-fc20-5e2f-b22c-bde16f21bdb7</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/logo_ssc.jpg" length="3319" type="image/jpg"/>
+    </item>
+    <item>
+      <title xml:lang="en">#4 - Podcast Idéia</title>
+      <pubDate>Wed, 02 Sep 2020 00:00:00 -0300</pubDate>
+      <description>Checking Luke Smith's website, I got the idea of a Podcast! But most episodes, if not all, shall be in Portuguese while I haven't got a big enough foreign audience and confidence to record in English.</description>
+      <link>https://mountaineerbr.github.io/blog/4/</link>
+      <dc:language>en</dc:language>
+      <category>podcast/ideia/idéia/transmissão de voz/voice transmission/voice/audio/áudio/radio/voz/opinion/opinião/communication/other blogs/outros blogs</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">2bf6a4af-0922-571a-b7d8-d13a781c2bff</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/tower.gif" length="4432" type="image/gif"/>
+    </item>
+    <item>
+      <title xml:lang="en">#3 - Blog Design</title>
+      <pubDate>Wed, 02 Sep 2020 00:00:00 -0300</pubDate>
+      <description>Concepts and ideas for the layout of of my personal website. That is rather a hard decision to make..</description>
+      <link>https://mountaineerbr.github.io/blog/3/</link>
+      <dc:language>en</dc:language>
+      <category>personal website/design/desenho/blueprint/decision-making/decisão/plano/plan/writings/opinion/opinião/communication/other blogs/outros blogs/decision/decisão</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">ebe927dc-f2d0-572d-ad3e-7ae226c6d5e1</guid>
+    </item>
+    <item>
+      <title xml:lang="en">#2 - English &amp; Português</title>
+      <pubDate>Mon, 31 Aug 2020 00:00:00 -0300</pubDate>
+      <description>I am wondering how to make a bilingual website. It is a little trick as I don't want to duplicate and translate everything..</description>
+      <link>https://mountaineerbr.github.io/blog/2/</link>
+      <dc:language>en</dc:language>
+      <category>espelho/mirror/august/agosto/decisions/decisão/plano/plan/health/saúde/japão/japan/meitoku gijuku/languages/línguas/inglês/english/português/portuguese/japanese/japonês/personal website/design/writings/opinion/opinião/text/texto/blog/communication/html/css/code/first-time/unix/internet/otsukaresama/compromise/balanço</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">7b130857-9d3e-5fb1-b431-3ac908309067</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/otsukaresama.jpg" length="184217" type="image/jpg"/>
+    </item>
+    <item>
+      <title xml:lang="en">#1 - Sync an HTML Blog!</title>
+      <pubDate>Fri, 28 Aug 2020 00:00:00 -0300</pubDate>
+      <description>Setting up an html webpage and the first blog post about it.</description>
+      <link>https://mountaineerbr.github.io/blog/1/</link>
+      <dc:language>en</dc:language>
+      <category>website design/site design/writings/opinion/opinião/text/texto/blog/communication/html/css/code/first-time/unix/internet/structure/skeleton</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">cf849aab-7c29-5464-9a55-893f89c8261f</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/html_how_to_meet_ladies.jpg" length="37204" type="image/jpg"/>
+    </item>
+    <item>
+      <title xml:lang="en">#0 - O Espelho (The Mirror)</title>
+      <pubDate>Fri, 30 Apr 2021 00:00:00 -0300</pubDate>
+      <description>This is an account of my experiences in Japan I wrote before going back to Brazil from Japan circa 2006. The text was republished by ShigeS on his trip website. As time went on, my original text was removed so I cloned the webpage to make it available over here.</description>
+      <link>https://mountaineerbr.github.io/blog/0/</link>
+      <dc:language>en</dc:language>
+      <category>experience/japan/japão/experiência/relato/report/youth/exchange/student/estudante/intercâmbio/bolsa de estudos/scholarship/meitoku gijuku</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">c3693624-3e89-5e68-b667-16a62b948e87</guid>
+    </item>
+  </channel>
+</rss>

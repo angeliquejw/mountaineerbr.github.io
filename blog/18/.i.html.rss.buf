@@ -25,7 +25,7 @@
 <p>I reckon I am distracted and indisciplined and can improve on these with some effort which I am willing to make. Habits..</p>
 <p>This is not the first time I mess up with <code>rm</code>. This is the second occasion I did a mistake just after someone draws my attention, but also on at least two other occasions there was nobody to distract me.</p>
 <p>I&#39;m writing this from a backup laptop with Manjaro which has got a complete local copy of official repositories and has not been updated over 10 months! 10 months of no headaches!</p>
-<figure><img src="https://mountaineerbr.github.io/blog/18/archLinuxInstall.png" width="800" height="600" alt="Downloading packages for Arch Linux installation in a live media.">
+<figure><img src="archLinuxInstall.png" width="800" height="600" alt="Downloading packages for Arch Linux installation in a live media.">
 <figcaption>Fig 1. The Ethernet port is bad so download of packages is extremely slow (~80 Kbps). Downloading only essential packages with <code>pacstrap</code>. At that point, I had no idea why downloads were so slow..</figcaption>
 </figure>
 <hr>
@@ -61,10 +61,10 @@
 <p>Other packages are required by my current hardware (Intel+NVIDIA).</p>
 <p>Most packages enable me with basic functionality for dealing with a lot of file types. For example, for <b>viewing PDF files</b>, I have got <code><b>xreader</b></code>, <code><b>xpdf</b></code>, <code><b>gv</b></code>, <code><b>pdfgrep</b></code> and <code><b>fbgs</b></code> (from <code>fbida</code> package collection), whereas <a title="Arch wiki on various pdf viewers and tools for multiple purposes" href="https://wiki.archlinux.org/index.php/PDF,_PS_and_DjVu#PostScript_tools">other PDF tools</a> I have also got <code><b>pdfarranger</b></code>, <code><b>pdfmixtool</b></code>, <code><b>pdftricks</b></code>, <code><b>pdfmod</b></code>, <code><b>poppler</b></code>, <code><b>pstotext</b></code> and <code><b>gs</b></code>.</p>
 <p>If a package is required by another package, it is <em>probably not</em> in the list, unless it means something to me..</p>
-<div style="text-align:center;padding:2em;"><a href="https://mountaineerbr.github.io/blog/18/archInstallPkgSuggestion.txt" onmouseover="this.style.backgroundColor=&#39;#006db9&#39;" onmouseout="this.style.backgroundColor=&#39;red&#39;" class="button button1" style="background:yellow; padding:0.2em; font-size:1.4em; border: 4px solid #4CAF50;">Complete Package List</a> </div>
+<div style="text-align:center;padding:2em;"><a href="archInstallPkgSuggestion.txt" onmouseover="this.style.backgroundColor=&#39;#006db9&#39;" onmouseout="this.style.backgroundColor=&#39;red&#39;" class="button button1" style="background:yellow; padding:0.2em; font-size:1.4em; border: 4px solid #4CAF50;">Complete Package List</a> </div>
 <p>This package list will be updated often.</p>
 <hr>
-<figure><img src="https://mountaineerbr.github.io/blog/18/issue_eg.png" width="715" height="199" alt="Preview of a custom /etc/issue .">
+<figure><img src="issue_eg.png" width="715" height="199" alt="Preview of a custom /etc/issue .">
 <figcaption>Fig 2. Custom <code>/etc/issue</code> template. See for example Arch forum&#39;s <a href="https://bbs.archlinux.org/viewtopic.php?id=50845">Artwork and Screenshots</a> thread , <a href="https://gist.github.com/andrevmatos/c50d8be1482fc57751964c348584a11e#file-issue">Andrevmatos&#39; repo</a>, Arch Wiki <a href="https://wiki.archlinux.org/index.php/Color_output_in_console">Color_output_in_console</a> and <a href="https://wiki.archlinux.org/index.php/ASCII_art">ASCII art</a> articles. Run code with <code>echo -e</code> to colour output preview.</figcaption>
 </figure>
 <p>I can confirm losing some more <em>important</em> files from within the last 3 months without a backup.. Hopefully I will be able to restore the missing information and files but that will take all day long tomorrow.</p>

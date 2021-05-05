@@ -9,11 +9,11 @@
 <h2>Experimental charts for Covid19 test <em>positivity</em></h2>
 <p>How many percentage points of test results are positive to Covid19? I could not find positivity charts around with long time series, so I decided to make some charts with Brazilian data. Below is my try for charting data from Paraná State reports.</p>
 <br>
-<figure><img src="https://mountaineerbr.github.io/blog/20/results_pr.png" alt="graph made with gnuplot" width="800" height="600">
+<figure><img src="results_pr.png" alt="graph made with gnuplot" width="800" height="600">
 <figcaption>Fig 1. Positivity graph from data of the state of Paraná. Y-axis for positivity percentage of total tests analysed, X-axis relative date. That is one state with the lowest positivity rate amongst all I could see with this analysis. Data ranges between 03/feb/2020 and 06/dec/2020.</figcaption>
 </figure>
 <br>
-<figure><img src="https://mountaineerbr.github.io/blog/20/results_pr_long.png" alt="wider graph, same as fig. 1" width="3200" height="800">
+<figure><img src="results_pr_long.png" alt="wider graph, same as fig. 1" width="3200" height="800">
 <figcaption>Fig 2. Same as fig. 1, but we see absolute dates in X-axis. I am <em>not</em> sure how to configure <code>gnuplot</code> to show fewer x-ticks and make them more readable, so that is why it is so wide..</figcaption>
 </figure>
 <p><strong>To see charts with data from all states, check <a href="https://github.com/mountaineerbr/coronaPlot/tree/master/SUSOPENDATA_2020-12-24">my corona virus repo</a>.</strong></p>

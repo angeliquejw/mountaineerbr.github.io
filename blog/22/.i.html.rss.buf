@@ -55,7 +55,7 @@
 <p>I reckon our <i>RSS feed</i> should stay compatible with standards this way but of course it will comply better over time as I adjust it..</p>
 <p>I am just not sure if only a brief <em>summary</em> of the blog article or the whole blog article should de added in the <i>RSS feed</i>. Luke Smith does that sloppily because he cannot use all <i>HTML</i> elements, just simple ones such as <code>&lt;p&gt;</code> and <code>&lt;em&gt;</code> according to <a href="https://www.w3.org/wiki/RssContent">this reference</a>, so lets see what sort of HTML he injects in his new feed..</p>
 <p>Note: Luke has just changed his <em>RSS feed</em> and is using <code>&lt;![[CDATA]]&gt;</code> now.. Indeed, he has been redesigning <a href="https://lukesmith.xyz/">his whole website</a> recently.</p>
-<figure><img src="https://mountaineerbr.github.io/blog/22/lukerss.png" alt="" width="505" height="267">
+<figure><img src="lukerss.png" alt="" width="505" height="267">
 <figcaption>Fig 1. Just like my own RSS feed, Luke&#39;s feed is also having some heavy design updates..</figcaption>
 </figure>
 <p>The <code>&lt;summary&gt;</code> tag <strong>is</strong> reserved for the blog posting system, however the way that is planned to be used is to <em>optionally</em> write a summary for each article in a <em>different language</em> other than the post itself (so content can reach a more different visitors that way, even if partially).</p>
