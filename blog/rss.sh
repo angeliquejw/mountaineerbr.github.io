@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # rss.sh -- BLOG RSS FEED SYSTEM
-# v0.3.11  apr/2021  mountaineerbr
+# v0.3.12  may/2021  mountaineerbr
 #                       |        _)                  |        
 #   ` \   _ \ |  |   \   _|  _` | |   \   -_)  -_)  _|_ \  _| 
 # _|_|_|\___/\_,_|_| _|\__|\__,_|_|_| _|\___|\___|_|_.__/_|   
@@ -361,39 +361,41 @@ do
 	then
 		unwrapf "$f" | sed -n '/<article/,/<\/article>/ p' >"$fbuf"
 		#fix relative references
-		changerefs="$( grep -nE "$p" "$fbuf" )"
-		p='(src|href)="'
-		while IFS=  read -r
-		do
-			#line number
-			l="$(cut -d: -f1 <<<"$REPLY" )"
-
-			#get line reference sources
-			while IFS=  read -r SRC
+		if changerefs="$( grep -nE "$p" "$fbuf" )"
+		then
+			p='(src|href)="'
+			while IFS=  read -r
 			do
-				#check that file is downwards path
-				if 
-					#try inserting probable downwards path to post
-					SRCCHANGE="$n/$SRC"
-					[[ -f "$SRCCHANGE" ]]
-				then
-					#feedback
-					((OPTV)) && eol='\n' || eol='\r'
-					printf "${eol}${CLR}>>>file: %s  line: %3d  src: %s " "${fbuf#$ROOT}" "$l" "$SRC" >&2
+				#line number
+				l="$(cut -d: -f1 <<<"$REPLY" )"
 
-					#insert downwards path to post
-					#also insert website blog address
-					SRCCHANGE="$ROOTBW/$SRCCHANGE"
+				#get line reference sources
+				while IFS=  read -r SRC
+				do
+					#check that file is downwards path
+					if 
+						#try inserting probable downwards path to post
+						SRCCHANGE="$n/$SRC"
+						[[ -f "$SRCCHANGE" ]]
+					then
+						#feedback
+						((OPTV)) && eol='\n' || eol='\r'
+						printf "${eol}${CLR}>>>file: %s  line: %3d  src: %s " "${fbuf#$ROOT}" "$l" "$SRC" >&2
 
-					#clean url
-					#remove implicit refs .. and .
-					SRCCHANGE="$( rmimpf "$SRCCHANGE" )"
+						#insert downwards path to post
+						#also insert website blog address
+						SRCCHANGE="$ROOTBW/$SRCCHANGE"
 
-					#change it
-					sed -i -E "${l}s,(${p})(${SRC}),\1${SRCCHANGE}," "$fbuf"
-				fi
-			done <<<"$( sed -n -E "s,.*${p}([^\"]*)\".*,\2,g p" <<<"$REPLY" )"
-		done <<<"$changerefs"
+						#clean url
+						#remove implicit refs .. and .
+						SRCCHANGE="$( rmimpf "$SRCCHANGE" )"
+
+						#change it
+						sed -i -E "${l}s,(${p})(${SRC}),\1${SRCCHANGE}," "$fbuf"
+					fi
+				done <<<"$( sed -n -E "s,.*${p}([^\"]*)\".*,\2,g p" <<<"$REPLY" )"
+			done <<<"$changerefs"
+		fi
 
 
 		#keep timestamps in sync

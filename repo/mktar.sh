@@ -1,5 +1,5 @@
 #!/bin/zsh
-# mountaineerbr  may/2021
+#  v0.4  may/2021  mountaineerbr
 # Make archive packages from directories
 # usage: mktar.sh [FILE]
 # by defaults, archives all dirs of $PWD
@@ -53,12 +53,13 @@ do
 	cksumfilenameold="$cksumfilename".cksum
 	cksumfilenamenew="$cksumfilename".new.cksum
 
-	#check checksum
 	[[ "$repo" = "${cksumroot##*/}" ]] && continue  #don't make tar of _cksum/
+
+	#check checksum
 	if ((SUMONLY))
 	then
 		#create a cksum file
-		cksumf "$repo" >"$cksumfilenameold"
+		cksumf "$repo" >"$cksumfilenamenew"
 		ret=(100)
 		print "$SN: cksum generated -- $repo" >&2
 		continue

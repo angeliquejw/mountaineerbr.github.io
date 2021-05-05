@@ -16,7 +16,7 @@
 	<channel>
 		<lastBuildDate>Sat, 27 Feb 2021 00:00:00 -0300</lastBuildDate>
 		<title>Biology Blogger (Alternative feed)</title>
-		<description>Current as of Sun, 02 May 2021 10:40:15 -0300.</description>
+		<description>Current as of Wed, 05 May 2021 17:32:02 -0300.</description>
 		<link>https://mountaineerbr.github.io/blog/</link>
 		<category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
 		<webMaster>jamilbio20@gmail.com (JSN)</webMaster>
@@ -303,7 +303,7 @@ youtube-dl -f best -ciw -o &quot;%(title)s.%(ext)s&quot; --add-metadata -v &quot
 		<description><![CDATA[ <article class="h-entry">
 <header>
 <h1 class="p-name" id="37">#37 - Firefox on Mobile (Android)</h1>
-<time class="dt-published" datetime="2021-09-13">13/sep/2021</time><br></header>
+<time class="dt-published" datetime="2021-04-23">23/apr/2021</time><br></header>
 <p>Firefox for mobiles worked fine on my mobile phone, an Android 8.1. However, as time passed by, new Firefox (FF) updates made it behave in an unstable manner.</p>
 <p>New features were welcome, such as that which allowed to send URLs from my Desktop Firefox to my Mobile Firefox through my Firefox account. For a period of time, sending a tab would not take 10 or 20 seconds before hitting my mobile Firefox or vice-versa. But this feature soon degraded and now it takes hours or even a whole day..</p>
 <p>But that is fine really. There is another workflow for sharing URLs which I used for a long time, just fire up my e-mail console and send myself an e-mail with the URL.</p>
@@ -573,7 +573,7 @@ export MOZ_USE_OMTC=1
 <br>
 <p>Warning: this is not a financial recommendation. Please <abbr title="Do Your Own Research">DYOR</abbr>!!!</p>
 <p>Yellow bars are clones from the 2014 peak and red bars are from the 2017 peak. I aligned the previous peak of each of these points (2011 and 2014, respectively) to the BLX index candlestick graph.</p>
-<p>Horizontal lines I reckon I got from some issue of <a id="bloomberg" title="Bloomberg Crypto Outlook" href="https://www.bloomberg.com/professional/bloomberg-crypto-outlook/">Bloomber Crypto</a>. That is actually a <a href="https://mountaineerbr.github.io/blog/34/1029441_Crypto-Mar2021Outlook.pdf">very good and dependable resource</a>. Bloomberg is always clear when sharing their data analysis of Bitcoin.</p>
+<p>Horizontal lines I reckon I got from some issue of <a id="bloomberg" title="Bloomberg Crypto Outlook" href="https://www.bloomberg.com/professional/bloomberg-crypto-outlook/">Bloomber Crypto</a>. That is actually a <a href="1029441_Crypto-Mar2021Outlook.pdf">very good and dependable resource</a>. Bloomberg is always clear when sharing their data analysis of Bitcoin.</p>
 <p>I also set <a title="John Bollinger&#39;s twittr" href="https://twitter.com/bbands">Bollinger Bands</a>, as reccomended by <a title="YouTube channel Surfing The Market" hreflang="pt" href="https://www.youtube.com/channel/UC5oBF16le6GZ_EFSinjFu3w">Didi Aguiar</a> from <a hreflang="pt" href="https://www.dojistar.com.br/">DojiStar</a>, a Brazilian analyst. The green support line is a long-term trend line with the first point on September 2015 and the bottom of March 2020.</p>
 <p>I reckon we go up from here and I plan to start selling close to or at <a href="https://twitter.com/maxkeiser">Max Keiser</a> prediction of 220K Bitcoin this year.</p>
 <p>Just selling a portion of my hodl so I can further reinvest in other liquid assets such as <strong>stocks, bonds and cash</strong>. I am very interested about diversification of my <strong>equity</strong>, as <a href="https://homeytel.medium.com/">Ugly Old Goat</a> would say.</p>
@@ -654,8 +654,8 @@ export MOZ_USE_OMTC=1
 <p>That was a fun day. We were just a little worried he would be unable to get the shot but all went well.</p>
 <p>Father asked the nurse for a medicine leaflet of then Coronavac vaccine and she gave it to him. I took a photo of it.</p>
 <hr>
-<div style="text-align:center;"><a href="paiEuFile.jpg"><img alt="Waiting in queue" src="paiEuFileThumb.jpg" width="200" height="113"></a> <a href="paiVac.jpg"><img alt="Nurse preparing the shot" src="paiVacThumb.jpg" width="113" height="150"></a> <a href="paiVac2.jpg"><img alt="Nurse applying the shot" src="https://mountaineerbr.github.io/blog/32/paiVac2Thumb.jpg" width="113" height="150"></a><br>
-<a href="coronavacFront.jpg"><img alt="Coronavac leaflet (Front)" src="coronavacFrontThumb.jpg" width="113" height="150"></a> <a href="coronavacBack.jpg"><img alt="Coronavac leaflet (Back)" src="https://mountaineerbr.github.io/blog/32/coronavacBackThumb.jpg" width="113" height="150"></a>
+<div style="text-align:center;"><a href="paiEuFile.jpg"><img alt="Waiting in queue" src="paiEuFileThumb.jpg" width="200" height="113"></a> <a href="paiVac.jpg"><img alt="Nurse preparing the shot" src="paiVacThumb.jpg" width="113" height="150"></a> <a href="paiVac2.jpg"><img alt="Nurse applying the shot" src="paiVac2Thumb.jpg" width="113" height="150"></a><br>
+<a href="coronavacFront.jpg"><img alt="Coronavac leaflet (Front)" src="coronavacFrontThumb.jpg" width="113" height="150"></a> <a href="coronavacBack.jpg"><img alt="Coronavac leaflet (Back)" src="coronavacBackThumb.jpg" width="113" height="150"></a>
 <p>Fig. 1 Waiting in the queue (number was 29), taking the shot and the vaccine leaflet.</p>
 </div>
 </article> ]]></description>
@@ -1286,7 +1286,7 @@ export MOZ_USE_OMTC=1
 <p>I reckon our <i>RSS feed</i> should stay compatible with standards this way but of course it will comply better over time as I adjust it..</p>
 <p>I am just not sure if only a brief <em>summary</em> of the blog article or the whole blog article should de added in the <i>RSS feed</i>. Luke Smith does that sloppily because he cannot use all <i>HTML</i> elements, just simple ones such as <code>&lt;p&gt;</code> and <code>&lt;em&gt;</code> according to <a href="https://www.w3.org/wiki/RssContent">this reference</a>, so lets see what sort of HTML he injects in his new feed..</p>
 <p>Note: Luke has just changed his <em>RSS feed</em> and is using <code>&lt;![[CDATA]]&gt;</code> now.. Indeed, he has been redesigning <a href="https://lukesmith.xyz/">his whole website</a> recently.</p>
-<figure><img src="https://mountaineerbr.github.io/blog/22/lukerss.png" alt="" width="505" height="267">
+<figure><img src="lukerss.png" alt="" width="505" height="267">
 <figcaption>Fig 1. Just like my own RSS feed, Luke&#39;s feed is also having some heavy design updates..</figcaption>
 </figure>
 <p>The <code>&lt;summary&gt;</code> tag <strong>is</strong> reserved for the blog posting system, however the way that is planned to be used is to <em>optionally</em> write a summary for each article in a <em>different language</em> other than the post itself (so content can reach a more different visitors that way, even if partially).</p>
@@ -1421,11 +1421,11 @@ export MOZ_USE_OMTC=1
 <h2>Experimental charts for Covid19 test <em>positivity</em></h2>
 <p>How many percentage points of test results are positive to Covid19? I could not find positivity charts around with long time series, so I decided to make some charts with Brazilian data. Below is my try for charting data from Paraná State reports.</p>
 <br>
-<figure><img src="https://mountaineerbr.github.io/blog/20/results_pr.png" alt="graph made with gnuplot" width="800" height="600">
+<figure><img src="results_pr.png" alt="graph made with gnuplot" width="800" height="600">
 <figcaption>Fig 1. Positivity graph from data of the state of Paraná. Y-axis for positivity percentage of total tests analysed, X-axis relative date. That is one state with the lowest positivity rate amongst all I could see with this analysis. Data ranges between 03/feb/2020 and 06/dec/2020.</figcaption>
 </figure>
 <br>
-<figure><img src="https://mountaineerbr.github.io/blog/20/results_pr_long.png" alt="wider graph, same as fig. 1" width="3200" height="800">
+<figure><img src="results_pr_long.png" alt="wider graph, same as fig. 1" width="3200" height="800">
 <figcaption>Fig 2. Same as fig. 1, but we see absolute dates in X-axis. I am <em>not</em> sure how to configure <code>gnuplot</code> to show fewer x-ticks and make them more readable, so that is why it is so wide..</figcaption>
 </figure>
 <p><strong>To see charts with data from all states, check <a href="https://github.com/mountaineerbr/coronaPlot/tree/master/SUSOPENDATA_2020-12-24">my corona virus repo</a>.</strong></p>
@@ -1488,7 +1488,7 @@ export MOZ_USE_OMTC=1
 <time class="dt-published" datetime="2020-11-25">25/nov/2020</time><br></header>
 <div lang="pt" class="p-summary">
 <p>Semana passada, depois de procurar concursos públicos na minha área de formação e ver que estão em baixa, decidi me oferecer a trabalhar voluntariamente no combate à Covid de um a dois meses. Especialmente, achei que poderia ser útil agora no final do ano, durante as datas comemorativas, visto que muito do pessoal deve tirar férias merecidas.</p>
-<p>Mandei <a hreflang="pt" href="https://mountaineerbr.github.io/blog/19/letter_volunteer.txt">uma carta</a> e currículo para várias instituições em São Paulo e algumas no Paraná. Claro, a princípio prefiro trabalhar voluntariamente nas maiores instituições. Recebi algumas respostas, inclusive uma surpreendente do Governador de São Paulo, João Doria.</p>
+<p>Mandei <a hreflang="pt" href="letter_volunteer.txt">uma carta</a> e currículo para várias instituições em São Paulo e algumas no Paraná. Claro, a princípio prefiro trabalhar voluntariamente nas maiores instituições. Recebi algumas respostas, inclusive uma surpreendente do Governador de São Paulo, João Doria.</p>
 </div>
 <br>
 <p>Last week I was searching for private companies to send in my <em>curriculum vitae</em>. I also checked for public service examinations for a position, however none was found on my area of training.</p>
@@ -1532,7 +1532,7 @@ export MOZ_USE_OMTC=1
 <p>Either I was becoming mad or he really did reply to me via that interview. That would not be so surprising, after all, politics read and hear from a lot of people and they cannot possibly reply to everyone directly. Maybe even unconsciously, he read my e-mail and replied to it somehow.. Humans have got some forms of communication that are not so obvious, but that is subject for another post.</p>
 <p>As I read through his answer and that was apparently good, I decided to take it for me, nonetheless.</p>
 <hr>
-<figure><img src="https://mountaineerbr.github.io/blog/19/letter_gov.png" width="642" height="650" alt="Letter from the State Governor personal secretary.">
+<figure><img src="letter_gov.png" width="642" height="650" alt="Letter from the State Governor personal secretary.">
 <figcaption>Fig 1. Letter sent by the Governor personal secretary with Govt stamps and even a letterhead symbol saying thanks for my being available.</figcaption>
 </figure>
 <hr>
@@ -1587,7 +1587,7 @@ export MOZ_USE_OMTC=1
 <p>I reckon I am distracted and indisciplined and can improve on these with some effort which I am willing to make. Habits..</p>
 <p>This is not the first time I mess up with <code>rm</code>. This is the second occasion I did a mistake just after someone draws my attention, but also on at least two other occasions there was nobody to distract me.</p>
 <p>I&#39;m writing this from a backup laptop with Manjaro which has got a complete local copy of official repositories and has not been updated over 10 months! 10 months of no headaches!</p>
-<figure><img src="https://mountaineerbr.github.io/blog/18/archLinuxInstall.png" width="800" height="600" alt="Downloading packages for Arch Linux installation in a live media.">
+<figure><img src="archLinuxInstall.png" width="800" height="600" alt="Downloading packages for Arch Linux installation in a live media.">
 <figcaption>Fig 1. The Ethernet port is bad so download of packages is extremely slow (~80 Kbps). Downloading only essential packages with <code>pacstrap</code>. At that point, I had no idea why downloads were so slow..</figcaption>
 </figure>
 <hr>
@@ -1623,10 +1623,10 @@ export MOZ_USE_OMTC=1
 <p>Other packages are required by my current hardware (Intel+NVIDIA).</p>
 <p>Most packages enable me with basic functionality for dealing with a lot of file types. For example, for <b>viewing PDF files</b>, I have got <code><b>xreader</b></code>, <code><b>xpdf</b></code>, <code><b>gv</b></code>, <code><b>pdfgrep</b></code> and <code><b>fbgs</b></code> (from <code>fbida</code> package collection), whereas <a title="Arch wiki on various pdf viewers and tools for multiple purposes" href="https://wiki.archlinux.org/index.php/PDF,_PS_and_DjVu#PostScript_tools">other PDF tools</a> I have also got <code><b>pdfarranger</b></code>, <code><b>pdfmixtool</b></code>, <code><b>pdftricks</b></code>, <code><b>pdfmod</b></code>, <code><b>poppler</b></code>, <code><b>pstotext</b></code> and <code><b>gs</b></code>.</p>
 <p>If a package is required by another package, it is <em>probably not</em> in the list, unless it means something to me..</p>
-<div style="text-align:center;padding:2em;"><a href="https://mountaineerbr.github.io/blog/18/archInstallPkgSuggestion.txt" onmouseover="this.style.backgroundColor=&#39;#006db9&#39;" onmouseout="this.style.backgroundColor=&#39;red&#39;" class="button button1" style="background:yellow; padding:0.2em; font-size:1.4em; border: 4px solid #4CAF50;">Complete Package List</a> </div>
+<div style="text-align:center;padding:2em;"><a href="archInstallPkgSuggestion.txt" onmouseover="this.style.backgroundColor=&#39;#006db9&#39;" onmouseout="this.style.backgroundColor=&#39;red&#39;" class="button button1" style="background:yellow; padding:0.2em; font-size:1.4em; border: 4px solid #4CAF50;">Complete Package List</a> </div>
 <p>This package list will be updated often.</p>
 <hr>
-<figure><img src="https://mountaineerbr.github.io/blog/18/issue_eg.png" width="715" height="199" alt="Preview of a custom /etc/issue .">
+<figure><img src="issue_eg.png" width="715" height="199" alt="Preview of a custom /etc/issue .">
 <figcaption>Fig 2. Custom <code>/etc/issue</code> template. See for example Arch forum&#39;s <a href="https://bbs.archlinux.org/viewtopic.php?id=50845">Artwork and Screenshots</a> thread , <a href="https://gist.github.com/andrevmatos/c50d8be1482fc57751964c348584a11e#file-issue">Andrevmatos&#39; repo</a>, Arch Wiki <a href="https://wiki.archlinux.org/index.php/Color_output_in_console">Color_output_in_console</a> and <a href="https://wiki.archlinux.org/index.php/ASCII_art">ASCII art</a> articles. Run code with <code>echo -e</code> to colour output preview.</figcaption>
 </figure>
 <p>I can confirm losing some more <em>important</em> files from within the last 3 months without a backup.. Hopefully I will be able to restore the missing information and files but that will take all day long tomorrow.</p>
@@ -1781,8 +1781,8 @@ vfcd()
 <h1 class="p-name" id="15">#15 - Moved on</h1>
 <time class="dt-published" datetime="2020-11-05">05/nov/2020</time><br></header>
 <br>
-<figure><img src="https://mountaineerbr.github.io/blog/15/hubbleExtremeDeepField1b_small.jpg" alt="Space with various visible galaxies" width="3000" height="2400">
-<figcaption>Fig 1. <q><a href="https://www.spacetelescope.org/science/deep_fields/">Hubble eXtreme Deep Field</a>. Thousands of galaxies are seen when Hubble pointed its camera to an unseemingly dark spot in the space. Local copy of <a href="https://mountaineerbr.github.io/blog/15/hubbleExtremeDeepField1b.jpg">image here</a>.</q> <small>(credit: Hubble Space Telescope)</small></figcaption>
+<figure><img src="hubbleExtremeDeepField1b_small.jpg" alt="Space with various visible galaxies" width="3000" height="2400">
+<figcaption>Fig 1. <q><a href="https://www.spacetelescope.org/science/deep_fields/">Hubble eXtreme Deep Field</a>. Thousands of galaxies are seen when Hubble pointed its camera to an unseemingly dark spot in the space. Local copy of <a href="hubbleExtremeDeepField1b.jpg">image here</a>.</q> <small>(credit: Hubble Space Telescope)</small></figcaption>
 </figure>
 </article> ]]></description>
 	</item>
@@ -2100,7 +2100,7 @@ set spellfile=~/.vim/spell/en.utf-8.add</code></pre>
 <p>Esta é uma história sobre algumas aventuras do Sr. Walter nos tempos da guerra em que completou missões perigosas. Alguma hora, traduziremos este texto para o português.</p>
 </div>
 <br>
-<figure><img src="https://mountaineerbr.github.io/blog/10/memphis-belle-1small.jpg" alt="Memphis Belle, probably during the War Bond Tour" width="495" height="360">
+<figure><img src="memphis-belle-1small.jpg" alt="Memphis Belle, probably during the War Bond Tour" width="495" height="360">
 <figcaption>Fig 1. Memphis Belle at the War Bond Tour. <small>(credit: <a href="https://www.aerosociety.com/events-calendar/memphis-belle-a-new-chapter/">Royal Aeronautical Society</a></small> )</figcaption>
 </figure>
 <p>Mr Walter &quot;Blaacky&quot; Schwartz is a USA citizen. The young American man studied and graduated as a photographic engineer at the United States Army request and cost. He was trained and refined his skills to do it right: press the shutter at the perfect timing and capture the moment of the strike. Although Mr Schwartz preferred not to reveal what institution he received training, he carries the name of at least one very famous camera maker company in his diploma.</p>
@@ -2193,9 +2193,9 @@ in memoriam of Walter Schwartz</pre>
 <li><a href="https://www.fs.fed.us/t-d/programs/fire/spark/html/74511201/74511201.html">Ignition time vs temperature for selected forest fuels</a></li>
 <li><a hreflang="pt" href="http://www.terrabrasilis.org.br/ecotecadigital/pdf/floresta-em-chamas-origens-impactos-e-prevencao-do-fogo-na-amazonia.pdf"><span lang="pt">Floresta em chamas</span></a> (I don&#39;t agree with their conclusions but there are some good material, such as historical material)</li>
 <li><a href="http://apostilas.cena.usp.br/moodle/pessenda/periodicos/internacionais/Pessenda%20et%20al.,%202004.pdf">Holocene fire and vegetation changes in southeastern Brazil asdeduced from fossil charcoal and soil carbon isotopes</a></li>
-<li><a hreflang="pt" href="https://www.jstor.org/stable/42871365">Aspectos ecológicos do fogo no cerrado. II - As queimadas e a dispersão de sementes em algumas espécies anemocóricas do estrato herbáceo-subarbustivo / <i>Ecological aspects of fire in the cerrado. II - Fire and seed dispersion in some anemochoric species of the herbaceous layer (1977)</i></a>, <a hreflang="pt" href="coutinho1977.pdf">another copy here</a> and <a hreflang="pt" href="https://mountaineerbr.github.io/blog/9/coutinho1981.pdf">also an extended version (1981)</a></li>
-<li><a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/1365-2664.12559">The need for a consistent fire policy for Cerrado conservation (2015)</a>, and also a copy <a href="https://mountaineerbr.github.io/blog/9/durigan2015.pdf">from here</a></li>
-<li><a href="http://www.rainfor.org/upload/publication-store/2018/Passos_et_al_savanna_turning_into_forest_2018.pdf">Savanna turning into forest: concerted vegetation changeat the ecotone between the Amazon and &quot;Cerrado&quot; biomes, 2018</a> (<a href="https://mountaineerbr.github.io/blog/9/passos2018.pdf">backup copy</a>)</li>
+<li><a hreflang="pt" href="https://www.jstor.org/stable/42871365">Aspectos ecológicos do fogo no cerrado. II - As queimadas e a dispersão de sementes em algumas espécies anemocóricas do estrato herbáceo-subarbustivo / <i>Ecological aspects of fire in the cerrado. II - Fire and seed dispersion in some anemochoric species of the herbaceous layer (1977)</i></a>, <a hreflang="pt" href="coutinho1977.pdf">another copy here</a> and <a hreflang="pt" href="coutinho1981.pdf">also an extended version (1981)</a></li>
+<li><a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/1365-2664.12559">The need for a consistent fire policy for Cerrado conservation (2015)</a>, and also a copy <a href="durigan2015.pdf">from here</a></li>
+<li><a href="http://www.rainfor.org/upload/publication-store/2018/Passos_et_al_savanna_turning_into_forest_2018.pdf">Savanna turning into forest: concerted vegetation changeat the ecotone between the Amazon and &quot;Cerrado&quot; biomes, 2018</a> (<a href="passos2018.pdf">backup copy</a>)</li>
 <li><a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2013JG002532">Spatial and temporal patterns of global burned area in response to anthropogenic and environmental factors: Reconstructing global fire history for the 20th and early 21st centuries, Yang et al 2014</a></li>
 <li><a hreflang="pt" href="https://veja.abril.com.br/blog/cacador-de-mitos/o-mito-do-ano-o-desmatamento-da-amazonia-provocou-a-seca-no-sudeste/">O mito do ano: &quot;o desmatamento da Amazônia provocou a seca no Sudeste&quot;</a></li>
 </ul>
@@ -2584,7 +2584,8 @@ I checked Dan&#39;s web tips website and he has got an analytics/statistics scri
 <h2>O Espelho (Íntegra)</h2>
 <br>
 <div class="foreword">
-<p><em>j s n</em> é um rapaz de 19 anos que veio ao Japão estudar em um internato, afim de aprender a língua japonesa e a cultura do país. Ficou 2 anos convivendo com outros jovens japoneses e muitas pessoas de outras nações e etnias. Nesse período descobriu muito sobre si mesmo e sobre a vida.</p>
+<p><em>j n</em> é um rapaz de 19 anos que veio ao Japão estudar em um internato, afim de aprender a língua japonesa e a cultura do país. Ficou 2 anos convivendo com outros jovens japoneses e muitas pessoas de outras nações e etnias. Nesse período descobriu muito sobre si mesmo e sobre a vida.</p>
+<p><em>j n</em> é um rapaz de 19 anos que veio ao Japão estudar em um internato, afim de aprender a língua japonesa e a cultura do país. Ficou 2 anos convivendo com outros jovens japoneses e muitas pessoas de outras nações e etnias. Nesse período descobriu muito sobre si mesmo e sobre a vida.</p>
 <p>Eu o encontrei por acaso em um de minhas andanças no <em>Flickr</em>, onde Jamil tem uma <a href="https://web.archive.org/web/20080124173216/http://flickr.com/photos/jamilsoni/"><strong>conta</strong></a> e muitas fotos bacanas (principalmente as tiradas durante o período que passou no Japão). Durante sua estadia aqui ele aprendeu muito sobre fotografia. Mandei um e-mail e acabamos nos tornando amigos, ele tem me dado umas dicas sobre a vida no Japão.</p>
 <p>Jamil, ou DJami-chan, escreveu um <a href="https://web.archive.org/web/20080124173216/http://shigues.wordpress.com/o-espelho-de-jamil/"><strong>texto</strong></a> sobre essa experiência. Um texto cheio de emoção contando sua experiência quase mágica na terra do sol nascente. Eu o li e não resisti em pedir sua autorização para compartilhá-lo com as pessoas que passam por esse blog. Acredito que seja de muita valia para quem quer um dia se aventurar pelo mundo, ainda mais por aqui, nos confins do planeta Terra.</p>
 <p>Tomei a liberdade de batizar o texto como &#8220;<em>O Espelho de Jamil</em>&#8220;, pois acredito que ele tenha escrito, meio que inconscientemente, contando a história para si mesmo. Alguém vê um grande talento para fotografia? Pô Jamil, continue postando novas fotos!</p>
@@ -2669,7 +2670,8 @@ Ninguém poderia comprar essa&#8230;</p>
 <p><span style="color:#808080;"><em>“Por que você vai para longe? Para que você possa voltar. Para que você possa ver o lugar de onde você veio com novos olhos e cores extras. E as pessoas lá te vêem diferente também. Voltar para onde se começou não é o mesmo que nunca se ter partido.”</em></span></p>
 <p class="authormeta">&nbsp;</p>
 <p class="authormeta">Vila do Espelho, Kochi, Japão. 30/09/2006.</p>
-<p class="authormeta"><strong>j s n</strong></p>
+<p class="authormeta"><strong>j n</strong></p>
+<p class="authormeta"><strong>j n</strong></p>
 <br>
 <p>Eu tive que reformular esse texto. O original foi feito no Macintosh do meu amigo Michael. Eu não conseguia colocar acentos e na época não sabia que não estava mais fluente no português. Eu sei que perde um pouco da graça, ler o texto assim, editado. Mas fiz isso para que ficasse mais fácil de ser entendido e mais prazeroso ao mesmo tempo.</p>
 <p>Quase 10 meses depois de ter escrito o original, minhas opiniões não mudaram. Fazia muito tempo que não relia este texto e lê-lo novamente me fez lembrar de muitas coisas que já tinham dado lugar a assuntos recentes. Este ano estou estudando bastante para o vestibular, quero fazer biologia, ou, sendo mais chique, ciências biológicas. Muita preocupação e ansiedade pelos resultados.</p>
@@ -2677,7 +2679,8 @@ Ninguém poderia comprar essa&#8230;</p>
 <p>Mas eu acho que dou um jeito.</p>
 <p class="authormeta">&nbsp;</p>
 <p class="authormeta"><em>Noite fria e chuvosa, Curitiba, Paraná, Brasil. 22/07/2007.</em></p>
-<p class="authormeta"><strong>j s n</strong></p>
+<p class="authormeta"><strong>j n</strong></p>
+<p class="authormeta"><strong>j n</strong></p>
 <p class="authormeta">&nbsp;</p>
 </div>
 </article> ]]></description>
