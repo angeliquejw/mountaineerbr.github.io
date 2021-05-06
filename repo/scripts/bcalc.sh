@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # bcalc.sh -- shell maths wrapper
-# v0.11.6  apr/2021  by mountaineerbr
+# v0.11.7  may/2021  by mountaineerbr
 
 #defaults
 
@@ -117,13 +117,13 @@ DECIMAL AND THOUSANDS SEPARATOR
 	Option -t prints thousands separator in result. It can be combined
 	with -., .
 
-	Set option -, if decimal separator of EXPRESSION is comma \`,' :
+	Set option -, if decimal separator of EXPRESSION input is comma \`,' :
 		
 		(input) 	    (input) 	    (output)
 		1.234.567,00 	--> 1234567.00 	--> 1234567,00
 
 
-	Set option -. if decimal separator of EXPRESSION is dot \`.' :
+	Set option -. if decimal separator of EXPRESSION input is dot \`.' :
 
 		(input) 	    (input) 	    (output)
 		1,234,567.00 	--> 1234567.00 	--> 1234567.00
@@ -133,6 +133,12 @@ DECIMAL AND THOUSANDS SEPARATOR
 
 		(input) 	    (output)
 		1234567.00 	--> 1,234,567.00
+
+
+	Strictly, setting \`-..' means to treat input with . (dot) as decimal
+	separator and to print output with . with decimal separator. Rather,
+	setting \`-.,' means input decimal separtor is . and to print output
+	with decimal separator , (comma).
 
 
 BASH BC STANDARD FUNCTIONS
@@ -704,11 +710,11 @@ do
 	case $opt in
 		,)
 			#clean and change input (and output) decimal separator
-			OPTDEC=,
+			OPTDEC+=,
 			;;
 		\.)
 			#clean and change input (and output) decimal separator
-			OPTDEC=.
+			OPTDEC+=.
 			;;
 		[0-9])
 			#scale, same as '-sNUM'
@@ -876,11 +882,11 @@ fi
 
 #change decimal separator of user input?
 #dot decimal separator
-if [[ "$OPTDEC" = \. ]]
+if [[ "$OPTDEC" = .* ]]
 then
 	EQ="${EQ//,}"
 #comman is decimal separator
-elif [[ "$OPTDEC" = , ]]
+elif [[ "$OPTDEC" = ,* ]]
 then
 	EQ="${EQ//.}"
 	EQ="${EQ//,/.}"
@@ -957,7 +963,7 @@ fi
 	RES+="    #${INDEX:-${VARINDEX[*]}}#"
 
 #change output decimal and thousands separators?
-if [[ "$OPTDEC" = , ]]
+if [[ "$OPTDEC" = *, ]]
 then tr ., ,. <<<"$RES"
 else echo "$RES"
 fi
