@@ -115,19 +115,20 @@ extract()
 	if [[ -f "$1" ]]
 	then
 		case "$1" in
-			*.tar.bz2) tar xvjf "$1"   ;;
-			*.tar.gz)  tar xvzf "$1"   ;;
-			*.bz2)     bunzip2 "$1"   ;;
-			*.rar)     unrar x "$1"   ;;
-			*.gz)      gunzip "$1"    ;;
-			*.tar)     tar xvf "$1"    ;;
-			*.tbz2)    tar xvjf "$1"   ;;
-			*.tgz)     tar xvzf "$1"   ;;
-			*.zip)     unzip "$1"     ;;
+			*.tar.bz2) tar xvjf "$1";;
+			*.tar.gz)  tar xvzf "$1";;
+			*.bz2)     bunzip2 "$1";;
+			*.rar)     unrar x "$1";;
+			*.gz)      gunzip "$1";;
+			*.tar)     tar xvf "$1";;
+			*.tbz2)    tar xvjf "$1";;
+			*.tgz)     tar xvzf "$1";;
+			*.zip)     unzip "$1";;
 			*.Z)       uncompress "$1";;
-			*.7z)      7z x "$1"      ;;
-			*.deb)     ar x "$1"      ;;
-			*.tar.*)   tar xvf "$1"   ;;
+			*.7z)      7z x "$1";;
+			*.deb)     ar x "$1";;
+			*.zstd)    zstd -d "$1";;
+			*.tar.*)   tar xvf "$1";;
 			*) echo "'$1' cannot be extracted via ex()" >&2;;
 		esac
 	else
@@ -774,7 +775,13 @@ thumblr()
 	do convert "$file" -resize $size\> "${file%.*}Thumb.${file##*.}"
 	done
 }
-#OBS: prefer to use programme `thumb' from imagemagick6
+#OBS: prefer to use programme `thumb' from imagemagickA6
+# Using FFMPEG to Extract a Thumbnail from a Video
+#{ ffmpeg -i InputFile.FLV -vframes 1 -an -s 400x222 -ss 30 OutputFile.jpg ;}
+#https://networking.ringofsaturn.com/Unix/extractthumbnail.php
+# Meaningful thumbnails for a Video using FFmpeg
+#{ ffmpeg -ss 3 -i input.mp4 -vf "select=gt(scene\,0.4)" -frames:v 5 -vsync vfr -vf fps=fps=1/600 out%02d.jpg ;}
+#https://superuser.com/questions/538112/meaningful-thumbnails-for-a-video-using-ffmpeg
 
 #alias gdca='git diff --cached' # diff between your staged file and the last commit
 #alias gdcc='git diff HEAD{,^}' # diff between your latest two commits
@@ -1024,7 +1031,7 @@ alias ...='cd ../../'
 #cd into my folders
 alias cda='cd ~/arq'
 alias cdb='cd ~/bak'
-alias cdc='cd ~/arq/Concursos_Publicos'
+alias cdc='cd ~/arq/concursos'
 alias cdd='cd ~/arq/docs'
 alias cdD='cd ~/Documents'
 alias cdm='cd ~/bin/markets'
@@ -2397,13 +2404,13 @@ ipgeo()
 #wifi pass key list (passwords)
 #requires root access
 #all conections
-wpsks()
+passkeys()
 {
 	su root -c "awk '/^(id|psk)=/' /etc/NetworkManager/system-connections/*"
 }
 
 #current wifi connection
-wpsk()
+passkey()
 {
 	local ssid="$( iw dev | awk '/ssid/ {print $2}' )"
 	[[ -z "$ssid" ]] && return 1
@@ -4122,6 +4129,38 @@ ast()
 	esac
 }
 
+#reduce pdf size
+reducepdf() {
+	gs -sDEVICE=pdfwrite \
+	-dCompatibilityLevel=1.4 \
+	-dPDFSETTINGS=/screen \
+	-dNOPAUSE \
+	-dQUIET \
+	-dBATCH \
+	-sOutputFile="${1%.pdf}_SMALL.pdf" \
+	"$1"
+}
+#The various tweaks to the -dPDFSETTINGS option are provided in the table below.
+#-dPDFSETTINGS Option	Description
+#-dPDFSETTINGS=/screen	Has a lower quality and smaller size. (72 dpi)
+#-dPDFSETTINGS=/ebook	Has a better quality, but has a slightly larger size (150 dpi)
+#-dPDFSETTINGS=/prepress	Output is of a higher size and quality (300 dpi)
+#-dPDFSETTINGS=/printer	Output is of a printer type quality (300 dpi)
+#-dPDFSETTINGS=/default	Selects the output which is useful for multiple purposes. Can cause large PDFS.
+#https://www.journaldev.com/34668/reduce-pdf-file-size-in-linux
+
+cloned()
+{
+	cd /home/jsn/www/mountaineerbr.github.io/about/espelho/older/web/20080320000646/http:/shigues.wordpress.com/o-espelho-de-jamil
+}
+
+#scale down mp4
+#{ ffmpeg -i Intro_do_Canal.mp4 -vcodec libx264 -crf 20  Intro_do_Canal_small.mp4 ;}
+#Note that lower CRF values correspond to higher bitrates, and hence produce higher quality videos.
+#{ ffmpeg -i Intro_do_Canal.mp4 -vf "scale=iw/1.8:ih/1.8" Intro_do_Canal_small.mp4 ;}
+#https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg
+
+#tail bitcoind log
+alias btct='tail -f /media/primary/blockchain/debug.log'
 
 # vi:filetype=sh
-
