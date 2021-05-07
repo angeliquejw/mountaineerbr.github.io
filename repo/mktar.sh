@@ -1,5 +1,5 @@
 #!/bin/zsh
-#  v0.4.1  may/2021  mountaineerbr
+#  v0.4.3  may/2021  mountaineerbr
 # Make archive packages from directories
 
 #script name
@@ -33,8 +33,8 @@ HELP="$SN -- Make archive packages from directories
 #checksum fun
 cksumf()
 {
-	#zsh glob (.) excludes directories
-	zargs -r -- "$1"/**(.) -- cksum --
+	#zsh glob (.) excludes directories and index.html files
+	zargs -r -- "$1"/**~*index.html(.) -- cksum --
 }
 
 
@@ -101,7 +101,7 @@ do
 	if ((SUMONLY))
 	then
 		#create a cksum file
-		cksumf "$repo" >"$cksumfilenamenew"
+		cksumf "$repo" >"$cksumfilenameold"
 		ret=(100)
 		print "$SN: cksum generated -- $repo" >&2
 		continue
