@@ -6,35 +6,20 @@ SCRIPT NAME | DESCRIPTION
 :-------------|:-----------
 __ala.sh__ | Arch Linux Archives (aka ALA) explorer and a pkg downloader
 __anta.sh__ | Explorador do site &lt;oantagonista.com&gt;; spider of the website &lt;oantagonista.com&gt;
-__archPkgCrossCheck.sh__ | Check which pkgs are required by other pkgs from the same list (arch linux)
 __bcalc.sh__ | Simple wrapper for Bash Bc that keeps a record of results; compatible with bash and z-shell
 __bcalc_ext.bc__ | *bcalc.sh* extensions for bash bc
 __cep.sh__ | Cep por Nome de Rua e Vice-Versa
 __conkykiller.sh__ | Start/restart conkies regularly to deal with terrible IO ops memory leaks.
-__corona_func.sh__ | Small shell function library for corona virus data manipulation; source to make functions available in your shell. not comprehensible to use; will not be updated
-__corona_tables.sh__ | Make some tables with funcs from corona_func.sh (used by coronaplotup.sh)
-__corona_notifyBR.sh__ | Shell functions to download data from SUS Flu Syndrome Notification System and calculate the positivity rate of covid19 tests (experimental)
-__coronaplot.sh__ | Script to fetch latest data and plot graphs of corona virus data from reuters and johns hopkins university
-__coronaplotup.sh__ | Automate sync'ing corona virus graphs and git repo
 __ctemp.sh__ | Convert amongst temperature units (Celsius, Fahrenheit and Kelvin)
 __ddate.sh__ | Calculate time ranges in different units; convert between human and UNIX time formats
-__diffcp.sh__ | Copy files from $SOURCE to $PWD when they differ (uses `diff`). Useful for updating files in a git repo from a source directory
 __faster_sh.txt__ | Tips for improving script performances, specific for some use cases, text document
 __firefox.sh__ | Set opengl environment vars and launch firefox with pvkrun or primusrun
 __grep.sh__ |  Grep files with shell built-ins
-__gs.sh__ | Sync a git repository in one go (git wrapper).. I actually use this
-__ibgepop.sh__ | População nacional/regional do Brasil pelo IBGE
-__index-of.sh__ | Try to download book files from &lt;index-of.co.uk/&gt;
 __inmet.sh__ | Download satellite images from Brazilian National Institute of Meteorology
-__sas.sh__ | Set multiple audio sinks for my system
 __skel.sh__ | My skel script and tips
-__ts.sh__ | Test my own scripts with repetitive commands (z-shell)
 __ug.sh__ | Light version of \`urlgrep.sh', almost as a proof-of-concept but more generous.
-__unt.sh__ | Unarchive and uncompress file types to stdout
 __urlgrep.sh__ | Grep full-text content from a URL list; useful for searching web history and bookmarks
 __wc.sh__ |  print line, word and character count for files with shell built-ins
-__zoomDown.sh__ | Emulate _super+mouse wheel_, translates to zooming in xfce4
-__zoomUp.sh__ | Emulate _super+mouse wheel_, translates to zooming in xfce4
 
 ---
 
@@ -73,7 +58,6 @@ SCRIPT NAME | DESCRIPTION
 __bitcoin.blk.sh__ | bitcoin block information and functions
 __bitcoin.hx.sh__ | create base58 address types from public key and WIF from private keys (shell function wrapper)
 __bitcoin.tx.sh__ |  parse transactions by hash or transaction json data
-__bitcoin.tx.ksh__ |  version ported from bash to ast ksh (script version v0.7.29k-); gains about 10-15% speed improvement over bash, experimental
 __bitcoin.zzz.parsedTxs.blk638200.txt__ | example of parsed transactions from block 638200
 __blockchair.btcoutputs.sh__ |  download blockchair output dump files systematically, see also [this repo](https://github.com/mountaineerbr/bitcoin-all-addresses)
 
