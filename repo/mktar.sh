@@ -1,10 +1,6 @@
 #!/bin/zsh
-#  v0.4  may/2021  mountaineerbr
+#  v0.4.1  may/2021  mountaineerbr
 # Make archive packages from directories
-# usage: mktar.sh [FILE]
-# by defaults, archives all dirs of $PWD
-# set $SUMONLY to update checksum only (exits with 100)
-# requires `cksum' package
 
 #script name
 SN="${0##*/}"
@@ -22,6 +18,18 @@ cksumroot="$pbaserepos/cksum.d"
 warningsize=94500  #(KB)
 maxsize=100500     #(KB)
 
+#help page
+HELP="$SN -- Make archive packages from directories
+	$SN [FILE]
+
+
+	Archives all dirs from \$PWD.
+
+	Set environment parameter \$SUMONLY to update/recreate
+	checksum cache files only (exits with 100).
+	
+	Requires \`cksum' package (because that is fast)."
+
 #checksum fun
 cksumf()
 {
@@ -31,6 +39,40 @@ cksumf()
 
 
 #start
+#parse options
+while getopts hvV c
+do
+	case $c in
+		h)
+			#help
+			echo "$HELP"
+			exit 0
+			;;
+		v)
+			#verbose
+			OPTV=1
+			;;
+		V)
+			#print script version
+			while IFS=  read -r
+			do
+				[[ "$REPLY" = \#\ v[0-9]* ]] && break
+			done < "$0"
+			echo "$REPLY"
+			exit 0
+			;;
+		\?)
+			exit 1
+			;;
+	esac
+done
+shift $(( OPTIND - 1 ))
+unset c
+
+
+
+
+
 set -e
 setopt extendedglob  
 setopt nullglob
