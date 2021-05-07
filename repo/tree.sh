@@ -1,5 +1,5 @@
 #!/bin/zsh
-# v0.3.3  mountaineerbr  apr/2021
+# v0.3.4  may/2021  mountaineerbr
 # Create pages for exploring directories and files
 # Requires `markdown' and `txt2html'.
 # <https://archlinux.org/packages/extra/x86_64/discount/>
@@ -51,7 +51,7 @@ treef()
 		--dirsfirst \
 		-C \
 		--charset utf-8 \
-		-I 'index.html|README.md|cksum.d' \
+		-I 'index.html|cksum.d' \
 		| sed -E \
 			-e 's/<h1/<h2/g ;s/<\/h1/<\/h2/g' \
 			-e 's|<a class="NORM" href=".">|<a class="NORM" href="..">..</a><br>\n&|' \
