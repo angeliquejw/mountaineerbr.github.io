@@ -217,7 +217,7 @@ endif
 mark 1 ~
 mark a ~/arq
 mark b ~/bak
-mark c ~/arq/Concursos_Publicos
+mark c ~/arq/concursos
 mark d ~/arq/docs
 mark D ~/Documents
 mark k ~/.config/conky/confs
@@ -660,7 +660,7 @@ filetype * vim
 
 
 " Highlight different filetypes
-highlight /^.*\.(mp3|ogg|oga|flac|m4a)$/ ctermfg=magenta
+highlight /^.*\.(mp3|ogg|oga|flac|m4a|mp4|wav)$/ ctermfg=magenta
 highlight /^.*\.(jpg|jpeg|png|gif|tiff|webp|bmp|svg|svgz)$/ ctermfg=yellow
 highlight /^.*\.(zip|gz|bz2|xz|tar|tgz|tbz2|7z|rar|iso|rpm|deb)$/ ctermfg=red
 
@@ -946,8 +946,8 @@ set grepprg=ag\ --smart-case\ --hidden\ --nofollow\ --heading\ --numbers\ %i\ %a
 " 	- , - other pane
 
 " Colorscheme adjustments
-highlight  CurrLine    cterm=underline,bold    ctermfg=087  ctermbg=red
-"highlight  OtherLine   cterm=none     ctermfg=cyan  ctermbg=236
+highlight  CurrLine    cterm=underline,bold    ctermfg=yellow  ctermbg=red
+highlight  OtherLine   cterm=none     ctermfg=red  ctermbg=236
 "highlight AuxWin cterm=bold,underline ctermfg=default ctermbg=default
 "highlight TopLine cterm=underline ctermfg=yellow ctermbg=234
 "highlight TopLineSel cterm=bold,underline ctermfg=yellow ctermbg=066

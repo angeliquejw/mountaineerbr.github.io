@@ -1098,16 +1098,18 @@ au BufRead,BufNewFile .rc set filetype=bash
 
 
 " Colour and other configs
-"source ~/.vimrc_additional 
-highlight ColorColumn ctermbg=DarkGray 
-"hi IncSearch cterm=NONE ctermfg=darkblue ctermbg=darkyellow
-"hi Search cterm=NONE ctermfg=white ctermbg=blue
-"hi IncSearch       guifg=#C4BE89 guibg=#000000
+":source ~/.vimrc
 
-"highlight colours
+"HIGHLIGHT COLOURS
+highlight ColorColumn ctermbg=DarkGray 
+hi IncSearch cterm=NONE ctermfg=darkyellow ctermbg=darkblue
+hi Search cterm=NONE ctermfg=darkblue ctermbg=darkyellow
+
 "GUI
 hi Search guibg=peru guifg=wheat
-"terminals
+"hi IncSearch       guifg=#C4BE89 guibg=#000000
+
+"TERMINALS
 "hi Search cterm=NONE ctermfg=grey ctermbg=blue
 hi Search cterm=NONE ctermfg=darkgrey
 
