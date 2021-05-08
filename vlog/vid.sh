@@ -1,6 +1,6 @@
 #!/bin/zsh
 # create a page with my videos
-# v0.1.3  may/2021  by mountaineerbr
+# v0.1.4  may/2021  by mountaineerbr
 
 # github limits file size to 100MB
 # requires ffmpeg, ffprobe and txt2html
@@ -149,7 +149,7 @@ do
 
 	<div class=\"w3-third\">
 	  <a title=\"Go to video page\" href=\"doc/${fname%.*}.html\">
-	  <img src=\"thumb/$img\" style=\"width:100%;min-height:200px\">
+	  <img src=\"thumb/$img\" style=\"width:100%;height:auto\">
 	  </a>
 	</div>
 	<div class=\"w3-twothird w3-container\">
