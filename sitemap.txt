@@ -3,7 +3,6 @@ https://mountaineerbr.github.io/about/
 https://mountaineerbr.github.io/about/cvsum.html
 https://mountaineerbr.github.io/blog/
 https://mountaineerbr.github.io/blog/0/
-https://mountaineerbr.github.io/blog/0/espelho.html
 https://mountaineerbr.github.io/blog/1/
 https://mountaineerbr.github.io/blog/2/
 https://mountaineerbr.github.io/blog/3/
@@ -63,10 +62,16 @@ https://mountaineerbr.github.io/podcast/about.html
 https://mountaineerbr.github.io/podcast/subscribe.html
 https://mountaineerbr.github.io/quotes.html
 https://mountaineerbr.github.io/repo/
+https://mountaineerbr.github.io/repo/conky/
+https://mountaineerbr.github.io/repo/dotfiles/
+https://mountaineerbr.github.io/repo/extra/
+https://mountaineerbr.github.io/repo/markets/
+https://mountaineerbr.github.io/repo/scripts/
 https://mountaineerbr.github.io/sitemap.html
 https://mountaineerbr.github.io/sitemap.txt
 https://mountaineerbr.github.io/sitemap.xml
 https://mountaineerbr.github.io/vlog/
+https://mountaineerbr.github.io/vlog/doc/
 https://mountaineerbr.github.io/vlog/doc/Arch_Updates_Mais_Dicas.html
 https://mountaineerbr.github.io/vlog/doc/Bitcoin_Em_Queda_Crash_Ao_Vivo.html
 https://mountaineerbr.github.io/vlog/doc/Bitcorn_10_000.html

@@ -1,6 +1,6 @@
 #!/bin/bash
 # sitemap.sh -- SITEMAP SYSTEM
-# v0.4.18  apr/2021  by mountaineerbr
+# v0.4.19  may/2021  by mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -20,6 +20,9 @@ ROOTBW="$ROOTW/blog"
 
 #find files with these extensions
 EXTENSIONS=( htm html php asp aspx jsp )
+#exts for `tree` (should be equivalent to $EXTENSIONS)
+EXTENSIONSTREE='*.htm|*.html|*.php|*.asp|*.aspx|*.jsp'
+
 #exclude patterns from the sitemaps
 EXARR=(
 	#valid pattern must run in `sed -E "s,PATTERN,,"`
@@ -40,7 +43,9 @@ EXARR=(
 	'.*/podcast/archive.*' 	#podcast files
 	'.*/podcast/tumblelog.*' 	#podcast files
 	'.*/blog/podcast/*' 	#old podcast files
-	'.*/repo/.*/.*' 		#podcast files
+	'.*/blog/[0-9]+/.+' 	#blog files from subdir
+	'.*/repo/.+/.+' 	#repo dirs
+	'.*/repo/cksum.d.*' 	#repo dirs
 	'.*/digg3.*' 		#espelho files
 	'.*/vlog/media/.*' 	#vlog files
 	'.*/vlog/thumb/.*' 	#vlog files
@@ -49,10 +54,8 @@ EXARR=(
 	'.*google.*' 		#google shit
 )
 
-#exts for `tree` (should be equivalent to $EXTENSIONS)
-EXTENSIONSTREE='*.htm|*.html|*.php|*.asp|*.aspx|*.jsp|sitemap.txt|rss.xml|rss_alt.xml|rss_podcast.xml'
 #exclude for `tree` (should be equivalent to $EXARR[@])
-EXTREE='[._]*|[a-z].html|[a-z]|index.html|bak|css|gfx|js|misc|res|PMWMT|business|archive|tumblelog|fool.html|google*|conky|dotfiles|extra|markets|scripts|digg3|thumb|media'
+EXTREE='[._]*|[a-z].html|[a-z]|index.html|bak|css|gfx|js|misc|res|PMWMT|business|archive|tumblelog|google*|conky|dotfiles|extra|markets|scripts|cksum.d|digg3|thumb|media|espelho.html|sitemap.xml|sitemap.html'
 
 #sitemap files
 #txt
