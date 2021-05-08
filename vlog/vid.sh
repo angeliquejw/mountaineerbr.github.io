@@ -1,6 +1,6 @@
 #!/bin/zsh
 # create a page with my videos
-# v0.1.4  may/2021  by mountaineerbr
+# v0.1.5  may/2021  by mountaineerbr
 
 # github limits file size to 100MB
 # requires ffmpeg, ffprobe and txt2html
@@ -125,17 +125,17 @@ do
 
 		#html code
 		#main video index
-		itemlow="; low-res: <a href=\"media/$lowfname\">${sizelow[1]}</a>"
+		itemlow="; lo-res: <a href=\"media/$lowfname\">${sizelow[1]}</a>"
 
 		#individual video doc
 		itemdoclow="
 		<tr>
- 		<th>File (low-res)</th>
+ 		<th>File Lo<wbr>Res</th>
 		<td><a href=\"../media/$lowfname\">$lowfname</a></td>
 		</tr>
 
 		<tr>
- 		<th>Size (low-res)</th>
+ 		<th>Size Lo<wbr>Res</th>
 		<td>${sizelow[1]}</td>
 		</tr>"
 
