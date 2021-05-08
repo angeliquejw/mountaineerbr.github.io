@@ -98,6 +98,11 @@ set background=dark
 "Color Scheme -- background settings above may interfere
 "colorscheme default 
 "colorscheme anotherdark
+colo inkpot
+"colo jellybeans
+"colo badwolf
+"colo palenight
+"
 "Note: Color schemes are located at
 " 	/usr/share/vim/vim81/colors/
 " 	/home/jsn/.vim/colors/
@@ -1101,9 +1106,9 @@ au BufRead,BufNewFile .rc set filetype=bash
 ":source ~/.vimrc
 
 "HIGHLIGHT COLOURS
-highlight ColorColumn ctermbg=DarkGray 
-hi IncSearch cterm=NONE ctermfg=darkyellow ctermbg=darkblue
-hi Search cterm=NONE ctermfg=darkblue ctermbg=darkyellow
+"highlight ColorColumn ctermbg=DarkGray 
+"hi IncSearch cterm=NONE ctermfg=darkyellow ctermbg=darkblue
+"hi Search cterm=NONE ctermfg=darkblue ctermbg=darkyellow
 
 "GUI
 hi Search guibg=peru guifg=wheat
@@ -1111,7 +1116,7 @@ hi Search guibg=peru guifg=wheat
 
 "TERMINALS
 "hi Search cterm=NONE ctermfg=grey ctermbg=blue
-hi Search cterm=NONE ctermfg=darkgrey
+"hi Search cterm=NONE ctermfg=darkgrey
 
 
 "Parentheses highlight plugins

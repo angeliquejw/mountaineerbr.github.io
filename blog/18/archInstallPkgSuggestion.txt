@@ -96,6 +96,8 @@ fontconfig
 freetype2
 fuse2
 fuse3
+geoip
+geoip-database
 ghostscript
 gimp
 git
@@ -215,7 +217,6 @@ xorg
 xorg-apps
 xorg-fonts-misc
 xorg-twm
-xorg-xrandr 	#NVIDIA
 xorg-xcalc
 xorg-xclock
 xorg-xedit
@@ -226,6 +227,7 @@ xorg-xinit
 xorg-xload
 xorg-xlsfonts
 xorg-xmag
+xorg-xrandr 	#NVIDIA
 xscreensaver
 xterm
 zbar
@@ -481,6 +483,7 @@ ubuntu-themes
 unimatrix-git
 vanitygen-git
 vifm-colors-git
+vim-badwolf
 vim-colorschemes
 vim-eunuch
 vlc-media-context
