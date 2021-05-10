@@ -382,23 +382,16 @@ set clipboard=unnamedplus
 
 "PRIMARY BUFFER ACCESS ------> *Use XTerm PRIMARY_copy/paste keys!*
 " Copy to PRIMARY
-"nnoremap <F7> "+y
+"nnoremap <F7> "*y
 " Paste from PRIMARY
-"nnoremap <F8> "+p
-"Note:Fn keys do not work in GVim visual mode!!!
-"Note:Gvim does not seem to use CUTBUFFER
-"  instead, uses SECONDARY by default when yanking
-"Note:I think that Vim uses CUTBUFFER, PRIMARY and SECONDARY
-" 	Selecting and y = CUTBUFFER
-" 	Only selecting = PRIMARY
-" 	Selecting and using XTerm defaults = SECONDARY
-" Registers:
-" 	* ( primary
+"nnoremap <F8> "*p
+"Registers:
+" 	* ( primary )
 " 	+ ( secondary )
-" To copy: 		To paste:
+" 	To copy: 	To paste:
 " 	"*y 		"*p
 "Ref: https://stackoverflow.com/questions/11489428/how-to-make-vim-paste-from-and-copy-to-systems-clipboard
-"
+"Ref: https://vim.fandom.com/wiki/Copy,_cut_and_paste
 
 
 " HISTORY AND UNDO
