@@ -111,6 +111,7 @@ gtk-doc
 gtk-engines
 gtk2
 gtk3
+gucharmap
 gv
 gvfs
 gvfs-mtp
@@ -251,6 +252,7 @@ asciidoc
 asciiquarium
 aspell-pt
 audacity
+awesome-terminal-fonts
 bbswitch 	#NVIDIA#OR#bbswitch-dkms
 bitcoin-cli
 bitcoin-daemon
