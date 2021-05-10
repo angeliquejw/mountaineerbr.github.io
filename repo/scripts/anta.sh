@@ -1,13 +1,13 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.14.19  apr/2021  by mountaineerbr
+# v0.14.21  may/2021  by mountaineerbr
 
 #padrões
 
 #intervalo de tempo entre reacessos opção -r:
 TEMPO=( 6m 2${RANDOM: -1} )  #240s
 #curl/wget connection-timeout
-TOUT=20
+TOUT=30
 #curl/wget retries
 RETRIES=2
 #tentativas do script
@@ -24,6 +24,9 @@ FLOOD=0.2
 
 #cat output instead of less pager by defaults
 OPTL=( cat )
+
+#date regex
+DREGEX='[0-3][0-9]\.[0-1][0-9]\.[1-2][0-9].*[0-2][0-9]:[0-5][0-9]'
 
 #Ref tapir art: http://www.ascii-art.de/ascii/t/tapir.txt
 HELP="Anta.sh -- Puxa os artigos de <oantagonista.com>
@@ -85,7 +88,7 @@ SINOPSE
 	endereço de todas as matérias.
 
 	Ainda, pode-se ajustar o tempo de 'timeout' e de retentativas
-	configurando-se algumas variáveis cabeça do códigofonte deste
+	configurando-se algumas variáveis cabeça do código-fonte deste
 	script.
 
 
@@ -234,9 +237,6 @@ AGENTS=('User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Tr
 #https://ascii.cl/htmlcodes.htm
 sedhtmlf() {
 	sed 	-e 's/<br[ \/]*>/&\n/g' \
-		-e 's/<\/div><\/span><p>/\n /g ; s/&quot;/"/g ; s/<\/time><div>/\n /g ; s/<\/time><\/span><p>/\n /g' \
-		-e 's/ga(".*//g ; s/window\._.*;//g ; s/<\/p><p class="paragraph-text.*<\/span><\/p><p>/\n/g' \
-		-e 's/<p>/&\n/g ; s/<br>/\n&/g ; s/<li>/\n&/g ; s/\(>[a-zA-Z.,-]*\)\(<\)/\1 \2/g' \
 		-e 's/<[^>]*>//g ; s/\r//g ; s/\xc2\xa0/ /g ; s/&nbsp;/ /g ; s/&mdash;/--/g' \
 		-e 's/&#32;/ /g ; s/&#33;/\!/g ; s/&#34;/\"/g ; s/&#35;/\#/g ; s/&#36;/$/g' \
 		-e 's/&#37;/%/g ; s/&#38;/\&/g' -e "s/&#39;/'/g" -e 's/&#40;/(/g ; s/&#41;/)/g' \
@@ -404,9 +404,9 @@ anta() {
 		#imprime a página e processa
 		#rm new line between <p> tags 
 		POSTS="$(
-			sed ':a;N;$!ba;s/<p>\s*\n\s*\n*\s*/<p>/g' <<<"$PAGE" |
-			sed ':a;N;$!ba;s/\n*\s*\n\s*<\/p>/<\/p>/g' |
-			grep -a 'id="post_[0-9]'
+			#sed ':a;N;$!ba;s/<p>\s*\n\s*\n*\s*/<p>/g' <<<"$PAGE" |
+			#sed ':a;N;$!ba;s/\n*\s*\n\s*<\/p>/<\/p>/g' |
+			<<<"$PAGE" grep -a 'id="post_[0-9]'
 			)"
 
 		#cópia de links
@@ -416,13 +416,15 @@ anta() {
 		tac <<< "$LINKS2"
 		printf '===\n'
 
-		sed 's/id="post_[0-9].*/&\n===/ ;s/>/&\n/g' <<<"$POSTS" |
-			sedhtmlf |
-			sed -E 	-e '/^\s*(COMPARTILHAR|SALVAR|LEIA AQUI|Ver mais)/ d' \
+		#process 
+		sed 's/id="post_[0-9].*/&\n===/ ;s/[^p]>/&\n/g' <<<"$POSTS" \
+			| sedhtmlf \
+			| sed -E \
+				-e '/^\s*(COMPARTILHAR|SALVAR|LEIA AQUI|Ver mais)/ d' \
 				-e '/gtag\("event/ d' \
-				-e 's/\.dot\{.*//' |
-			tac -rs'^===' |
-			awk NF
+				-e 's/\.dot\{.*//' \
+			| tac -rs'^===' \
+			| awk NF
 
 		#parar se foi especificado número de index de pg específica
 		(( ONLYONE )) && break
@@ -625,23 +627,6 @@ linksf() {
 	fi
 }
 
-# Test if cURL and Wget are available
-if command -v curl &>/dev/null
-then
-	YOURAPP=("curl --compressed -s --retry $RETRIES --connect-timeout $TOUT -L -b non-existing -H")
-fi
-
-if command -v wget &>/dev/null
-then
-	YOURAPP+=("wget -t$RETRIES -T$TOUT -qO- --header")
-fi
-
-if ((${#YOURAPP[@]}==0))
-then
-	echo 'anta.sh: erro: curl e/ou wget é necessário' >&2
-	exit 1
-fi
-
 ## Parse options
 while getopts :adfwhlp:rs:uv0123456789 opt
 do
@@ -707,15 +692,25 @@ if ((HELPOPT))
 then
 	echo "$HELP" | "${OPTL[@]}"
 	exit 0
+fi
+
+# Test if cURL and Wget are available
+if command -v curl &>/dev/null
+then YOURAPP=("curl --compressed -s --retry $RETRIES --max-time $TOUT -L -b non-existing -H")
+fi
+if command -v wget &>/dev/null
+then YOURAPP+=("wget -t$RETRIES -T$TOUT -qO- --header")
+fi
+if ((${#YOURAPP[@]}==0))
+then echo 'anta.sh: erro: curl e/ou wget é necessário' >&2 ;exit 1
+fi
+
 #-a use alternative servers, too?
-elif (( OPTALT ))
-then
-	SERVERS=( "${SERVERS[@]}" "${ALTSERVERS[@]}" )
+if (( OPTALT ))
+then SERVERS=( "${SERVERS[@]}" "${ALTSERVERS[@]}" )
 #opção de checagem ou realização da atualização do script
 elif ((UPOPT))
-then
-	updatef
-	exit
+then updatef ;exit
 fi
 
 #setar variáveis das próximas opções
