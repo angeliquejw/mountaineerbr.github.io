@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.6.15  apr/2021  by mountaineerbr
+# v0.6.16  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -1039,7 +1039,7 @@ mempoolf()
 			c=$(grep -c "^$i\." <<<"$mempool_raw") tt="$((tt+c))"
 			printf "%+*d/vB: %5d\n" "$((${#maxfee}+1))" "$i" "$c"
 		done
-		printf ">%*d: %5d\n" "${#maxfee}" "$maxfee" "$((wc-tt))"
+		printf ">%*d/vB: %5d\n" "${#maxfee}" "$maxfee" "$((wc-tt))"
 		} | pr -T$cols -w$width
 
 		echo -e "\nStatistics (sat/vB)"
