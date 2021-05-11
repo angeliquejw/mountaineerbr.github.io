@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.6.18  may/2021  by mountaineerbr
+# v0.6.19  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -1031,10 +1031,10 @@ mempoolf()
 		((width>24)) || width=72 cols=1
 
 		#print mempool tx fees
-		echo "Mempool Transaction Fees (sat/vB)"
-		((OPTV)) && echo "(columns are printed across rather than down)"
-		<<<"$mempool_raw" pr -aT$cols -w$width
-		echo
+		#echo "Mempool Transaction Fees (sat/vB)"
+		#((OPTV)) && echo "(columns are printed across rather than down)"
+		#<<<"$mempool_raw" pr -aT$cols -w$width
+		#echo
 
 		#tx number by fee
 		echo "Fee and Transaction Number (transactions per sat/vB)"
