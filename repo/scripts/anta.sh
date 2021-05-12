@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.15.1  may/2021  by mountaineerbr
+# v0.15.3  may/2021  by mountaineerbr
 
 #padrões
 
@@ -479,6 +479,7 @@ fulltf() {
 			| grep -aFv 'class="timer-icon' \
 			|sed -E 's/^#breadcrumbs.*}\s?//'
 	)"
+	grav="$( <<<"$PAGE" grep -cF '<div class="gravata' )"
 
 	#artigo
 	art="$(
@@ -537,7 +538,7 @@ fulltf() {
 	)"
 
 	#contar parágrafos
-	p="$(while read; do [[ -n "${REPLY// }" ]] || continue; ((n++)); done <<<"$art"; echo "$n")"
+	par="$(p=$grav ;while read; do [[ -n "${REPLY// }" ]] || continue; ((++p)); done <<<"$art"; echo "$p")"
 
 	{
 		#print header and add the number of paragraphs
@@ -545,7 +546,7 @@ fulltf() {
 		#print article
 		[[ "$COMP" != */tag/* ]] &&
 			sedhtmlf <<<"$cab" |
-			sed "/^[0-9][0-9]\.[0-9][0-9]\./ s/$/ [\$\$ $p]/"
+			sed "/^[0-9][0-9]\.[0-9][0-9]\./ s/$/ [\$\$ $par]\n/"
 
 		echo "$art"
 
