@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.14.21  may/2021  by mountaineerbr
+# v0.15  may/2021  by mountaineerbr
 
 #padrões
 
@@ -24,6 +24,10 @@ FLOOD=0.2
 
 #cat output instead of less pager by defaults
 OPTL=( cat )
+
+#update url
+#upurl=https://raw.githubusercontent.com/mountaineerbr/scripts/master/anta.sh
+upurl=https://raw.githubusercontent.com/mountaineerbr/mountaineerbr.github.io/master/repo/scripts/anta.sh
 
 #date regex
 DREGEX='[0-3][0-9]\.[0-1][0-9]\.[1-2][0-9].*[0-2][0-9]:[0-5][0-9]'
@@ -301,10 +305,8 @@ updatef() {
 		exit 1
 	fi
 
-	#download script
-	#url=https://raw.githubusercontent.com/mountaineerbr/scripts/master/anta.sh
-	url=https://raw.githubusercontent.com/mountaineerbr/mountaineerbr.github.io/master/repo/scripts/anta.sh
-	${YOURAPP[0]} "${AGENTS[0]}" "$url" >"$TMPFILE"
+	#download script from url
+	${YOURAPP[0]} "${AGENTS[0]}" "$upurl" >"$TMPFILE"
 
 	#check diff
 	if diff "$SCRIPT" "$TMPFILE" &>/dev/null; then
@@ -319,16 +321,18 @@ updatef() {
 		#is that a script or html error page?
 		if [[ "$HEADA" = "$HEADB" ]]; then
 			#only check or install?
-			if ((UPOPT>1)); then
+			if ((UPOPT>1))
+			then
 				install "$TMPFILE" "$SCRIPT"
 			else
-				printf 'anta.sh: aviso: atualização disponível\n'
-				printf "$url"
+				echo 'anta.sh: aviso: atualização disponível'
+				echo "$upurl"
 				false
 			fi
 		else
 			#print page with error
 			cat "$TMPFILE" 2>/dev/null
+			echo "$upurl"
 			false
 		fi
 	fi
@@ -369,10 +373,8 @@ puxarpgsf() {
 
 	# Check if it was succesfull at last or exit with error
 	if cerrf
-	then
-		return 0
-	else
-		return 1
+	then return 0
+	else return 1
 	fi
 }
 
@@ -456,23 +458,23 @@ fulltf() {
 	else
 		#puxa página do artigo texto integral
 		if ! puxarpgsf
-		then
-			printf '\nanta.sh: erro: acesso limitado -- %s  [%s]\n' "$COMP" "$SECONDS" 1>&2
-			exit 1
+		then printf '\nanta.sh: erro: acesso limitado -- %s  [%s]\n' "$COMP" "$SECONDS" 1>&2 ;exit 1
 		fi
 	fi
 
-	if (( D ))
-	then
-		echo "$PAGE"
-		exit 0
+	if (( DEBUG ))
+	then echo "$PAGE" ;exit 0
 	fi
 
 	#cabeçalho
 	cab="$( 
-		grep -aFe '="entry-title' -e 'entry-date published' -e '"entry-author' <<<"$PAGE" |
-			grep -aFv 'class="timer-icon' |
-			sed -E 's/^#breadcrumbs.*}\s?//'
+		<<<"$PAGE" grep -aF \
+			-e '="entry-title' \
+			-e 'entry-date published' \
+			-e '"entry-author' \
+			-e '<div class="gravata' \
+			| grep -aFv 'class="timer-icon' \
+			|sed -E 's/^#breadcrumbs.*}\s?//'
 	)"
 
 	#artigo
