@@ -1,6 +1,6 @@
 #!/bin/bash
 # cgk.sh -- coingecko.com api access
-# v0.16.7  apr/2021  by mountaineerbr
+# v0.16.8  may/2021  by mountaineerbr
 
 #defaults
 
@@ -721,6 +721,8 @@ trapf()
 	trap \  EXIT INT TERM
 
 	[[ -d "$TMPD" ]] && rm -rf "$TMPD"
+
+	exit 0
 }
 
 #-t ticker simple backup func
@@ -822,23 +824,20 @@ tickerf()
 {
 	#we don't use $3
 	if [[ "${3,,}" != usd ]]
-	then
-		echo "Warning: discarding -- $3" >&2
+	then echo "Warning: discarding -- $3" >&2
 	fi
 
 	## Trap temp cleaning functions
-	trap trapf EXIT INT TERM
+	trap trapf EXIT
+	trap 'exit 2' INT TERM
 	
 	# Test screen width
 	# if stdout is redirected; skip this
 	if [[ -t 1 ]]
 	then
 		if [[ "$( tput cols )" -lt 110 ]]
-		then
-			COLCONF=( -HEX,L_TRADE -TVOL,MARKET,SPD% )
-			warnf
-		else
-			COLCONF=( -TL_TRADE,EX,MARKET,VOL,SPD%,P_USD )
+		then COLCONF=( -HEX,L_TRADE -TVOL,MARKET,SPD% ) ;warnf
+		else COLCONF=( -TL_TRADE,EX,MARKET,VOL,SPD%,P_USD )
 		fi
 	fi
 
@@ -875,6 +874,9 @@ tickerf()
 		"${YOURAPP[@]}" "https://api.coingecko.com/api/v3/coins/${2,,}/tickers?page=${i}" |
 			jq -r '.tickers[]|"\(.base)/\(.target)=\(.last)=\(if .bid_ask_spread_percentage ==  null then "??" else .bid_ask_spread_percentage end)=\(.converted_last.btc)=\(.converted_last.usd)=\(.volume)=\(.market.identifier)=\(.market.name)=\(.last_traded_at)"' |
 			column -s= -et -N"MARKET,PRICE,SPD%,P_BTC,P_USD,VOL,EXID,EX,L_TRADE" ${COLCONF[@]}
+
+		#don't clog the server
+		((i%2)) && sleep 0.8 || sleep 1
 	done
 }
 
