@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.15  may/2021  by mountaineerbr
+# v0.15.1  may/2021  by mountaineerbr
 
 #padrões
 
@@ -96,11 +96,14 @@ SINOPSE
 	script.
 
 
-RSS FEED
+RSS FEEDS
+	RSS FEED
 	O site oferece um feed RSS de notícias (as últimas 15 notícias,
 	somente a descrição) pelo seguinte endereço:
-	
 	<https://www.oantagonista.com/feed/>
+
+	PODCAST FEED
+	<https://www.spreaker.com/show/o-antagonista>
 
 
 LIMITES DE ACESSO
