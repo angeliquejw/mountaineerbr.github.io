@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # bcalc.sh -- shell maths wrapper
-# v0.11.7  may/2021  by mountaineerbr
+# v0.11.8  may/2021  by mountaineerbr
 
 #defaults
 
@@ -869,7 +869,7 @@ then
 	do
 		#get $BCHOLD index
 		#substitute in equation by special var index
-		getresf "${eqvars[BZ]//[^0-9]}" "$EQ"
+		getresf "${eqvars[BZ]//[^0-9]}" "$EQ" || exit
 		[[ -n "${EQ:?$SN: err  -- equation is empty}" ]]
 	done
 	unset eqvars
