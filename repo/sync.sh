@@ -20,7 +20,7 @@ setopt extendedglob
 
 #try to autosync files from repos
 ##requires script `diffcp.sh"
-HOTRUN=1
+export HOTRUN=1
 cd "$ROOTR"/scripts && diffcp.sh  --  ~/bin  *.sh 
 cd "$ROOTR"/markets && diffcp.sh  --  ~/bin/markets  *.sh 
 cd "$ROOTR"/dotfiles && diffcp.sh  --  ~  .*(.) 
