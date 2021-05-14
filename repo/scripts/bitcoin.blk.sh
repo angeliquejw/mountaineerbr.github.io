@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7  may/2021  by mountaineerbr
+# v0.7.1  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -57,20 +57,25 @@ DESCRIPTION
 	or BLOCK_HEIGHT. If option -i is set, prints the block header
 	information and transaction hases. If option -ii is set, prints
 	only transaction hashes from block. If option -I is set, prints
-	json of all the block transactions.  Multiple block hashes or
+	json of all the block transactions. Multiple block hashes or
 	height numbers are allowed. If empty, fetches hash of best (last)
 	block. Negative integers refer to a block from the tip, i.e. -10,
 	see note on example (1.2).
+
+	Option -. prints block height number and -, prints block hash. Mul-
+	tiple block heights and hashes can be set as positional parameters.
+	Negative index from the tip is accepted. If no positional parameter
+	is given, fetches best block. Options -,. may be combined.
 
 	Option -m prints mempool transaction ids and -mm prints mempool
 	transactions with more information. Optionally, transaction ids
 	from the mempool are accepted as positional parameters. Option
 	-mmm prints the number of transactions, their fees and some stats.
 
-	To generate a list of block timestamps, one timestamp per line,
-	set option -t. Option -n prints block height hash after block
-	time separated by <TAB> control character. The defaults behaviour
-	is to get \`mediantime' of blocks. Set -tt to get \`time' of blocks
+	Option -t generates a list of block timestamps, one timestamp per
+	line. Set option -n to print block height hash after block time
+	separated by <TAB> control character. The defaults behaviour is
+	to print \`mediantime' of blocks. Set -tt to print \`time' of blocks
 	instead. Check reference at SEE ALSO for the distinction between
 	both.
 
@@ -81,17 +86,18 @@ DESCRIPTION
 	output afterwards, if needed; increasing NUM may only return modest
 	speed gains; defaults jobs=$JOBSDEF .
 
-	To find the block height immediately before or at a date set
-	option -d DATESTRING, in which DATESTRING is a string describing
-	a date understandable by the GNU date programme. Option -l changes
-	interpretation of input time;  set option -v to check target and
-	matched times.  If input date string is UNIX time, attach an
-	\`\`at'' sign to it, see usage example (3).
+	Option -d DATESTRING finds the block height immediately before or
+	at a date, in which DATESTRING is a string describing a date that
+	is understandable by the GNU date programme. Note that option -l
+	changes interpretation of input time as local time; set option -v
+	to check target and matched times. If input date string is UNIX
+	time, attach an \`\`at'' (@) sign to it, see usage example (3).
 
 	Option -d takes user input and tries to autocorrect it to a format
 	GNU date programme can understand. Check date interpretation ver-
-	bosely with options -vul . In case of a wrong modification to user
-	input, set -d multiple times to disable date auto correction.
+	bosely with option -v. In case of a wrong modification or inter-
+	pretation of user input, set -d multiple times to disable auto
+	correction.
 
 	Option -u prints time in human-readable format.
 
@@ -100,16 +106,11 @@ DESCRIPTION
 	Option -v enables verbose, set twice to more verbose.
 
 	Option -y will convert hex from a coinbase transaction to ascii
-	text.  The output will be filtered to print sequences that are
-	at least $STRMIN characters long, unless that returns empty, in which
+	text.  The output will be filtered to print sequences that are at
+	least $STRMIN characters long, unless that returns empty, in which
 	case there is decrement of one character until nought.  If nought
 	is reached, the raw byte output will be printed.  You may set
 	-yy to print raw byte output at once, see example (4).
-
-	Option -. prints block height number and -, prints block hash. Mul-
-	tiple block heights and hashes can be set as positional parameters.
-	Negative index from the tip is accepted. If no positional parameter
-	is given, fetches best block. Options -,. may be combined.
 
 
 ENVIRONMENT
@@ -233,18 +234,14 @@ USAGE EXAMPLES
 
 OPTIONS
 	Miscellaneous
-	-. [HASH|HEIGHT]
-		Print block height.
-	-, [HASH|HEIGHT]
-		Print block hash.
 	-b 	General blockchain, mempool, mining, network and rpc info.
-	-c CONFIGFILE
+	-c  CONFIGFILE
 		Path to bitcoin.conf or equivalent configuration file,
 		defaults=\"\$HOME/.bitcoin/bitcoin.conf\".
 	-e 	Print raw data when possible, debugging.
 	-h 	Print this help page.
-	-j NUM	Maximum simultaneos jobs, may print asynchronously,
-	        defaults=$JOBSDEF .
+	-j  NUM	Maximum simultaneos jobs, may print asynchronously,
+		defaults=$JOBSDEF .
 	-l 	Set local time instead of UTC time.
 	-u 	Print time in human-readable format.
 	-v	Enables verbose feedback, may set multiple time.
@@ -252,38 +249,37 @@ OPTIONS
 
 	Find block height at date
 	-d  DATESTRING
-		Find block height before or at time/date, check
-		target and matched time with -v .
+		Find block height before or at time/date, check target
+		and matched time with -v .
 	-dd DATESTRING
 		Same as -d, but disables autocorrection of user input
 		date format.
 
 	Timestamp list
 	-n 	Print block hash after block timestamp.
-	-t  [HASH..|HEIGHT..]
+	-t  [HASH|HEIGHT]
 		Generate a list of block mediantime timestamps.
-	-tt [HASH..|HEIGHT..]
+	-tt [HASH|HEIGHT]
 		Same as -t but uses block time instead.
 
 	Memory pool
 	-m 	Print mempool transaction ids.
-	-mm [TXID..]
-		Print mempool transactions with more info, 
-		if empty, process the whole mempool, same as -M .
-	-mmm 	Print the number of transactions, their fees and some stats.
+	-mm [TXID]
+		Print mempool transactions with more info, if empty,
+		process the whole mempool.
+	-mmm 	Print the number of transactions, their fees and some
+		stats, same as -M .
 
 	Block information
-	-i  [HASH..|HEIGHT..]
-		Block header information and transaction hases.
-	-ii [HASH..|HEIGHT..]
-		Block transaction hashes only.
-	-I [HASH..|HEIGHT..]
-		Prints raw json of all the block transactions. 
-	-y  [HASH..|HEIGHT..]
-		Decode coinbase hex to ascii text, print sequences
+	Options below accept [HASH|HEIGHT] as arguments.
+	-. 	Print block height.
+	-, 	Print block hash.
+	-i 	Block header information and transaction hases.
+	-ii 	Block transaction hashes only.
+	-I 	Prints raw json of all the block transactions. 
+	-y 	Decode coinbase hex to ascii text, print sequences
 		longer than $STRMIN chars only.
-	-yy [HASH..|HEIGHT..]
-		Same as -y but prints all bytes, same as -Y."
+	-yy 	Same as -y but prints all bytes, same as -Y ."
 
 
 #functions
@@ -1235,7 +1231,7 @@ do
 		M)
 			#full information of mempool yxs
 			#same as -mm
-			OPTMEMPOOL=2
+			OPTMEMPOOL=3
 			;;
 		m)
 			#mempool
