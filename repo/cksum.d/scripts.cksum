@@ -11,12 +11,13 @@
 1649831170 2172 scripts/conkykiller.sh
 3045100292 6674 scripts/ctemp.sh
 4172342053 18013 scripts/ddate.sh
+4294967295 0 scripts/diffcp.sh
 2106267865 9452 scripts/faster_sh.txt
 4088387512 2401 scripts/firefox.sh
 2524739493 8158 scripts/grep.sh
 1362369996 1856 scripts/inmet.sh
 2501997530 35149 scripts/LICENSE.txt
-2898869159 5373 scripts/README.md
+425958840 5456 scripts/README.md
 1963591902 2799 scripts/skel.sh
 659681420 10682 scripts/ts.sh
 130847352 2675 scripts/ug.sh
