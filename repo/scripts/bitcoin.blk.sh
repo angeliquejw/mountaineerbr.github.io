@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.3  may/2021  by mountaineerbr
+# v0.7.4  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -151,8 +151,8 @@ WARRANTY
 
 BUGS
 	Not a real bug but note that some maths are performed with package
-	\`jq', which uses double float values, thus for e.eg. 0.999999 is
-	actually 1.
+	\`jq', which uses double float values, thus for e.g. 0.999999 may
+	be actually 1.
 
 
 BLOCK REFERENCES
