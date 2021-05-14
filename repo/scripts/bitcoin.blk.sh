@@ -152,7 +152,7 @@ WARRANTY
 BUGS
 	Not a real bug but note that some maths are performed with package
 	\`jq', which uses double float values, thus for e.g. 0.999999 may
-	be actually 1.
+	actually be 1.
 
 
 BLOCK REFERENCES
