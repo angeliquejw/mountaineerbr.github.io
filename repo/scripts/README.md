@@ -26,16 +26,15 @@ __wc.sh__ |  print line, word and character count for files with shell built-ins
 
 ## BITCOIN-CLI WRAPPER AND BITCOIN-RELATED SCRIPTS
 
-These scripts wrap bitcoin-cli (bitcoind) and try to parse data;
-they are transaction-centred.
+These scripts wrap `bitcoin-cli' (bitcoind) and try to parse data.
+They are transaction-centred.
 
 _Make sure bitcoin-dameon is **fully synchonised**_, otherwise some
 functions may not work properly!
 
-___Tip___: to use bitcoin.tx.sh, have bitcoind set with
-transaction indexes (option 'txindex=1'),
-otherwise user must supply block id hash manually and
-still some vin transaction information is not going to be retrieved.
+___Tip___: have bitcoind set with transaction indexes (option 'txindex=1'),
+otherwise user must supply block id hash manually plus
+some vin transaction information is not going to be retrievable.
 
 Depends on `bitcoin-cli` _RPC_ call output.
 That is good as we can be dependable on a set of minimally-parsed data
@@ -47,10 +46,11 @@ functions embedded.
 
 The script `bitcoin.tx.sh`  will deliver better summary data than
 &lt;blockchain.com&gt; or &lt;blockchair&gt;. This script can return
-addresses from segwit and multisig transactions. The average
-time for parsing transactions until block height 667803 is about
-2 seconds with my i7, however that depends on the number of
-vins and vouts of each transaction. Parsing a few thousand transactions
+addresses from segwit and multisig transactions. Time to parse transactions
+will increase with transaction number. Most full blocks take between 11
+and 22 minutes to have all their transactions parsed, however
+transaction parsing really depends on the number of
+vins and vouts. Parsing a few thousand transactions
 seems quite feasible for personal use.
 
 
@@ -59,69 +59,31 @@ SCRIPT NAME | DESCRIPTION
 __bitcoin.blk.sh__ | bitcoin block information and functions
 __bitcoin.hx.sh__ | create base58 address types from public key and WIF from private keys (shell function wrapper)
 __bitcoin.tx.sh__ |  parse transactions by hash or transaction json data
-__bitcoin.zzz.parsedTxs.blk638200.txt__ | example of parsed transactions from block 638200
 __blockchair.btcoutputs.sh__ |  download blockchair output dump files systematically, see also [this repo](https://github.com/mountaineerbr/bitcoin-all-addresses)
+__zzz.bitcoin.parsedTxs.blk638200.txt__ | example of parsed transactions from block 638200
 
 ---
 
 ## USAGE EXAMPLES
 
-Tip: if bitcoind is set with transaction indexes (option `txindex=1`),
-that is _not_ necessary to supply block id hash with option `-b`.
-The following examples are more complicated than normal usage.
-
-_A._ Use bitcoin-cli to make an rpc-call and get transaction hashes from the memory pool; use jq to open the json array with transaction hashes; bitcoin.tx.sh will make further rpc-calls and parse each transaction data asynchronously; at the end, the script sorts buffers and writes a text file at $PWD:
-
-```bash
-bitcoin-cli getrawmempool  | jq -r '.[]' | bitcoin.tx.sh
-```
-
-_B._ Parse a single transaction; the last two commands should have the same outputs:
-
-```bash
-TRANSACTION_HASH=a8bb9571a0667d63eaaaa36f9de87675f0d430e13c916248ded1d13093a77561
-
-BLOCK_HEIGHT=638200
-
-BLOCK_HASH=$( bitcoin-cli getblockhash $BLOCK_HEIGHT )
-    
-bitcoin.tx.sh -b"$BLOCK_HASH" "$TRANSACTION_HASH"
-
-bitcoin-cli getrawtransaction "$TRANSACTION_HASH" true "$BLOCK_HASH" | bitcoin.tx.sh
-```
-    
-_C._ Parse the first 10 transactions from block height number 400000; no output to screen is written, wait until all transactions are parsed and then concatenated in the correct order; a file containing the resulting parsing is written to $PWD, or use options -o to write output to screen only (check script help page):
-
-```bash
-BLOCK_HASH=000000000000000004ec466ce4732fe6f1ed1cddc2ed4b328fff5224276e3f6f
-    
-bitcoin.blk.sh -ii 400000 | head | bitcoin.tx.sh -b"$BLOCK_HASH"
-```
+Check scripts help page with option -h.
 
 ---
 
 ## SEE ALSO
 
-[binfo.sh](../markets/binfo.sh)
+[binfo.sh](https://github.com/mountaineerbr/markets/blob/master/binfo.sh)
 is bitcoin blockchain explorer.
 
 There are many shell functions to get data from many API points
-at my [markets repo](../markets/)
+at my [markets repo](https://github.com/mountaineerbr/markets/)
 
-Grondilu's bitcoin-bash-tools: [bitcoin.sh](https://github.com/grondilu/bitcoin-bash-tools)
+Grondilu's [bitcoin-bash-tools](https://github.com/grondilu/bitcoin-bash-tools)
 
-Some `bitcoin-cli` scripts: https://github.com/kristapsk/bitcoin-scripts
-
----
-
-## MISCELLANEOUS
-
-Para um registro histórico em texto de o Antagonista, veja:
-
-For a large historical text record of the news website &lt;oantagonista.com&gt;,
-check my [scrape record](https://github.com/mountaineerbr/largeFiles/tree/master/oAntaRegistro).
+Kristapsk's [bitcoin scripts](https://github.com/kristapsk/bitcoin-scripts)
 
 ---
+
 
 > Please consider sending me a nickle!  = )
 >
