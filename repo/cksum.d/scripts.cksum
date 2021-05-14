@@ -5,7 +5,6 @@
 993166108 33812 scripts/bitcoin.blk.sh
 3153572479 25571 scripts/bitcoin.hx.sh
 2938331010 34820 scripts/bitcoin.tx.sh
-2538982636 23824 scripts/bitcoin.zzz.parsedTxs.blk638200.txt
 4026601335 6730 scripts/blockchair.btcoutputs.sh
 671873616 3960 scripts/cep.sh
 3780126040 2269 scripts/conkykiller.sh
@@ -22,3 +21,4 @@
 130847352 2675 scripts/ug.sh
 1092935750 22442 scripts/urlgrep.sh
 2183709641 9114 scripts/wc.sh
+2538982636 23824 scripts/zzz.bitcoin.parsedTxs.blk638200.txt

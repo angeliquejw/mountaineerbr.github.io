@@ -1,5 +1,5 @@
 #!/bin/zsh
-# v0.3.6  may/2021  mountaineerbr
+# v0.3.5  may/2021  mountaineerbr
 # Create pages for exploring directories and files
 # Requires `markdown' and `txt2html'.
 # <https://archlinux.org/packages/extra/x86_64/discount/>
@@ -39,7 +39,7 @@ treef()
 	pic='jpg|jpeg|png|gif|tiff|webp|bmp|svg|svgz|ico|svg|ppm|tga|tif|xbm|xcf|xpm|xspf|xwd'
 	media='mp3|ogg|oga|flac|m4a|mp4|aac|wma|anx|asf|au|axa|m2a|mid|midi|mpc|ogx|ra|ram|spx|wma|ac3'
 	doc='doc|docx|odt|xls|xlsx|odp|pptx|ppt|ods'
-	txt='txt|rtf|conf|md'
+	txt='txt|rtf|conf'  #maybe only .txt should be here
 	pdf=pdf
 	tree "$basePATH" \
 		-a \
