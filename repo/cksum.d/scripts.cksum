@@ -1,5 +1,5 @@
 698572322 38291 scripts/ala.sh
-3522194658 24274 scripts/anta.sh
+525221922 24271 scripts/anta.sh
 316668081 329702 scripts/bcalc_ext.bc
 245084247 24959 scripts/bcalc.sh
 200240336 31874 scripts/bitcoin.blk.sh
@@ -8,12 +8,12 @@
 2538982636 23824 scripts/bitcoin.zzz.parsedTxs.blk638200.txt
 4026601335 6730 scripts/blockchair.btcoutputs.sh
 671873616 3960 scripts/cep.sh
-1649831170 2172 scripts/conkykiller.sh
+3780126040 2269 scripts/conkykiller.sh
 3045100292 6674 scripts/ctemp.sh
 4172342053 18013 scripts/ddate.sh
-4294967295 0 scripts/diffcp.sh
+2833945062 2338 scripts/diffcp.sh
 2106267865 9452 scripts/faster_sh.txt
-4088387512 2401 scripts/firefox.sh
+3023162980 2432 scripts/firefox.sh
 2524739493 8158 scripts/grep.sh
 1362369996 1856 scripts/inmet.sh
 2501997530 35149 scripts/LICENSE.txt

@@ -21,11 +21,11 @@ setopt extendedglob
 #try to autosync files from repos
 ##requires script `diffcp.sh"
 export HOTRUN=1
-cd "$ROOTR"/scripts && diffcp.sh  --  ~/bin  *.sh 
-cd "$ROOTR"/markets && diffcp.sh  --  ~/bin/markets  *.sh 
-cd "$ROOTR"/dotfiles && diffcp.sh  --  ~  .*(.) 
-cd "$ROOTR"/dotfiles/.config/vifm && diffcp.sh  --  ~/.config/vifm  vifmrc
-cd "$ROOTR"/dotfiles/.newsboat && diffcp.sh  --  ~/.newsboat  urls
+cd "$ROOTR"/scripts && ~/bin/diffcp.sh  --  ~/bin  *.sh 
+cd "$ROOTR"/markets && ~/bin/diffcp.sh  --  ~/bin/markets  *.sh 
+cd "$ROOTR"/dotfiles && ~/bin/diffcp.sh  --  ~  .*(.) 
+cd "$ROOTR"/dotfiles/.config/vifm && ~/bin/diffcp.sh  --  ~/.config/vifm  vifmrc
+cd "$ROOTR"/dotfiles/.newsboat && ~/bin/diffcp.sh  --  ~/.newsboat  urls
 cd  "$ROOTR"
 
 

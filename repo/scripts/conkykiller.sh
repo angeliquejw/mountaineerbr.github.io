@@ -1,7 +1,7 @@
 #!/bin/bash
 # Restart conky regularly due to terrible memory leak with io ops
 # `xscreensaver' may interfere with restarting conky properly
-# v0.4.4  feb/2021  by mountaineerbr
+# v0.4.5  may/2021  by mountaineerbr
 
 # Alternatives: systemd timer, cron jobs
 # https://forums.freebsd.org/threads/is-conky-leaking-memory.24197/
@@ -63,7 +63,10 @@ do
 	fi
 
 	#kill conky
-	killall conky && sleep 2
+	killall conky
+
+	# Wait until the processes have been shut down
+	while pgrep -u $UID -x conky >/dev/null; do sleep 1; done
 	
 	#launch conkies
 	for c in "${CONFS[@]}"

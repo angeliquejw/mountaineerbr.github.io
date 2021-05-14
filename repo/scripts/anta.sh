@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.15.3  may/2021  by mountaineerbr
+# v0.15.4  may/2021  by mountaineerbr
 
 #padrões
 
@@ -26,8 +26,8 @@ FLOOD=0.2
 OPTL=( cat )
 
 #update url
-#upurl=https://raw.githubusercontent.com/mountaineerbr/scripts/master/anta.sh
-upurl=https://raw.githubusercontent.com/mountaineerbr/mountaineerbr.github.io/master/repo/scripts/anta.sh
+UPURL=https://raw.githubusercontent.com/mountaineerbr/scripts/master/anta.sh
+#<https://raw.githubusercontent.com/mountaineerbr/mountaineerbr.github.io/master/repo/scripts/anta.sh>#
 
 #date regex
 DREGEX='[0-3][0-9]\.[0-1][0-9]\.[1-2][0-9].*[0-2][0-9]:[0-5][0-9]'
@@ -309,7 +309,7 @@ updatef() {
 	fi
 
 	#download script from url
-	${YOURAPP[0]} "${AGENTS[0]}" "$upurl" >"$TMPFILE"
+	${YOURAPP[0]} "${AGENTS[0]}" "$UPURL" >"$TMPFILE"
 
 	#check diff
 	if diff "$SCRIPT" "$TMPFILE" &>/dev/null; then
@@ -329,13 +329,13 @@ updatef() {
 				install "$TMPFILE" "$SCRIPT"
 			else
 				echo 'anta.sh: aviso: atualização disponível'
-				echo "$upurl"
+				echo "$UPURL"
 				false
 			fi
 		else
 			#print page with error
 			cat "$TMPFILE" 2>/dev/null
-			echo "$upurl"
+			echo "$UPURL"
 			false
 		fi
 	fi

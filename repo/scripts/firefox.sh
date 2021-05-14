@@ -1,6 +1,7 @@
 #!/bin/bash
 # Start Web Browser with NVIDIA Graphics Card
 # 2021  by mountaineerbr
+command firefox & disown ;exit
 
 #user choice
 user="$1"
