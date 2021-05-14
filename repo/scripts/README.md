@@ -18,7 +18,7 @@ __firefox.sh__ | Set opengl environment vars and launch firefox with pvkrun or p
 __grep.sh__ |  Grep files with shell built-ins
 __inmet.sh__ | Download satellite images from Brazilian National Institute of Meteorology
 __skel.sh__ | My skel script and tips
-__ug.sh__ | Light version of \`urlgrep.sh', almost as a proof-of-concept but more generous.
+__ug.sh__ | Light version of `urlgrep.sh', almost as a proof-of-concept but more generous.
 __urlgrep.sh__ | Grep full-text content from a URL list; useful for searching web history and bookmarks
 __wc.sh__ |  print line, word and character count for files with shell built-ins
 
@@ -26,7 +26,7 @@ __wc.sh__ |  print line, word and character count for files with shell built-ins
 
 ## BITCOIN-CLI WRAPPER AND BITCOIN-RELATED SCRIPTS
 
-These scripts wrap `bitcoin-cli' (bitcoind) and try to parse data.
+These scripts wrap `bitcoin-cli` (bitcoind) and try to parse data.
 They are transaction-centred.
 
 _Make sure bitcoin-dameon is **fully synchonised**_, otherwise some
@@ -66,7 +66,7 @@ __zzz.bitcoin.parsedTxs.blk638200.txt__ | example of parsed transactions from bl
 
 ## USAGE EXAMPLES
 
-Check scripts help page with option -h.
+Check script help pages with option -h.
 
 ---
 
