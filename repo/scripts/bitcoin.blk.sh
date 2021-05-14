@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.6.19  may/2021  by mountaineerbr
+# v0.6.20  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -44,6 +44,7 @@ HELP="NAME
 
 
 SYNOPSIS
+	$SN [-.,] [BLOCK_HASH..|BLOCK_HEIGHT..]
 	$SN [-dd] [-luv] [-jNUM] [DATESTRING|@UNIXTIME]
 	$SN [-Iiiyy] [-lv] [-jNUM] [BLOCK_HASH..|BLOCK_HEIGHT..]
 	$SN -tt [-lnuv] [-jNUM] [BLOCK_HASH..|BLOCK_HEIGHT..]
@@ -58,8 +59,8 @@ DESCRIPTION
 	only transaction hashes from block. If option -I is set, prints
 	json of all the block transactions.  Multiple block hashes or
 	height numbers are allowed. If empty, fetches hash of best (last)
-	block. Negative integers refer to the best block minus it,
-	see example (1).
+	block. Negative integers refer to a block from the tip, i.e. -10,
+	see note on example (1.2).
 
 	Option -m prints mempool transaction ids and -mm prints mempool
 	transactions with more information. Optionally, transaction ids
@@ -106,12 +107,18 @@ DESCRIPTION
 	is reached, the raw byte output will be printed.  You may set
 	-yy to print raw byte output at once, see example (4).
 
+	Option -. prints block height number and -, prints block hash. Mul-
+	tiple block heights and hashes can be set as positional parameters.
+	Negative index from the tip is accepted. If no positional parameter
+	is given, fetches best block. Options -,. may be combined.
+
 
 ENVIRONMENT
 	BITCOINCONF
 		Path to bitcoin.conf or equivalent file with configs
 		such as RPC user and password, is overwritten by script
 		option -c, defaults=\"\$HOME/.bitcoin/bitcoin.conf\".
+
 	STRMIN  Sets mininum length to print sequences of characters
 		for options opt -y; alternatively, see usage example (4.3).
 
@@ -129,6 +136,7 @@ SEE ALSO
 	Median Time vs. Time of a Block
 	<https://github.com/bitcoin/bips/blob/master/bip-0113.mediawiki>
 	
+
 WARRANTY
 	Licensed under the gnu general public license 3 or better and
 	is distributed without support or bug corrections.
@@ -163,7 +171,8 @@ USAGE EXAMPLES
 
 
 	1.2) Negative index, the 10th, 11th and 12th block before best
-	     block (latest block):
+	     block (tip). Note that -- signals the end of script options,
+	     if any:
 
 	$ $SN -- -10 -11 -12
 
@@ -225,6 +234,10 @@ USAGE EXAMPLES
 
 OPTIONS
 	Miscellaneous
+	-. [HASH|HEIGHT]
+		Print block height.
+	-, [HASH|HEIGHT]
+		Print block hash.
 	-b 	General blockchain, mempool, mining, network and rpc info.
 	-c CONFIGFILE
 		Path to bitcoin.conf or equivalent configuration file,
@@ -831,6 +844,71 @@ heightatf()
 	fi
 }
 
+#print block hash and height
+gethashheightf()
+{
+	local arg blk_height blk_hash bestblk ret
+	typeset -a bestblk ret
+
+	#expand braces, ex '{1..10}'
+	for arg in $@
+	do
+		if [[ "$arg" =~ ^-[0-9]+ ]]
+		then
+			#negative integers (negative index)
+			#get best block hash and height
+			(( ${#bestblk[@]} )) || bestblk=( $( bestblkfun ) )
+			arg=$((bestblk[1] - ${arg#-}))
+		fi
+
+		#is block hash or height?
+		if ishashf $arg
+		then
+			blk_hash=$arg
+			if ((OPTDOT))
+			then
+				blk_height=$(bwrapper getblock $arg | jq -r '.height') || {
+					echo "invalid block hash/height -- $arg" >&2
+					ret+=(1) ;continue
+				}
+			fi
+		else
+			if ((OPTCOMMA))
+			then
+				blk_hash="$( bwrapper getblockhash $arg )" || {
+					echo "invalid block hash/height -- $arg" >&2
+					ret+=(1) ;continue
+				}
+			fi
+			blk_height=$arg
+		fi
+
+		#how to print?
+		((OPTDOT)) && printf '%s' $blk_height
+		((OPTCOMMA)) && printf "${OPTDOT+\t}%s" $blk_hash
+		printf \\n
+	done
+	
+	#get best block hash and height
+	(($#)) || { 
+		bestblk=( $( bestblkfun ) )
+		#how to print?
+		((OPTDOT)) && printf '%s' ${bestblk[1]}
+		((OPTCOMMA)) && printf "${OPTDOT+\t}%s" ${bestblk[0]}
+		printf \\n
+	}
+
+
+	#sum exit codes
+	return $(( ${ret[@]/%/+} 0 ))
+}
+
+#get best block hash and height
+bestblkfun()
+{
+	bwrapper getblockchaininfo | jq -er .bestblockhash,.blocks
+}
+
 #block information, transaction hashes or decode coinbase hex
 mainf()
 {
@@ -838,19 +916,21 @@ mainf()
 	local arg bestblk blocks ret
 	typeset -a blocks bestblk ret JOBS
 
+	#total number of arguments
+	TOTAL="$#"
+
 	#is there positional args from user?
-	if (( $# ))
+	if ((TOTAL))
 	then
 		#expand braces, ex '{1..10}'
 		for arg in $@
 		do
 			if [[ "$arg" =~ ^-[0-9]+ ]]
 			then
+				#negative integers
 				#get best block hash and height
 				(( ${#bestblk[@]} )) ||
-					bestblk=( $( bwrapper getblockchaininfo | jq -er .bestblockhash,.blocks ) ) || return
-
-				#negative integers
+					bestblk=( $( bestblkfun ) ) || return
 				blocks+=( $((bestblk[1] - ${arg#-})) )
 			else
 				#positive integers
@@ -861,14 +941,11 @@ mainf()
 		set -- "${blocks[@]}"
 	else
 		#get best block hash and height
-		bestblk=( $( bwrapper getblockchaininfo | jq -er .bestblockhash,.blocks ) ) || return
+		bestblk=( $( bestblkfun ) ) || return
 
 		echo "Best block height: ${bestblk[1]}" >&2
 		set -- "${bestblk[0]}"
 	fi
-
-	#total number of arguments
-	TOTAL="$#"
 
 	#multiple jobs?
 	if ((JOBSMAX>1))
@@ -1104,9 +1181,17 @@ timestamplistf()
 #start
 
 #parse script options
-while getopts bc:dehiIj:lMmntuvVyY opt
+while getopts .,bc:dehiIj:lMmntuvVyY opt
 do
 	case $opt in
+		\.)
+			#print best block height
+			OPTDOT=1
+			;;
+		\,)
+			#print best block hash
+			OPTCOMMA=1
+			;;
 		b)
 			#blockchain information
 			#mining information
@@ -1246,8 +1331,12 @@ TMPERR="/tmp/$$.errsignal.txt"
 trap cleanf EXIT
 
 #call option func
+#-,. print block hash and height
+if ((OPTDOT+OPTCOMMA))
+then
+	gethashheightf "$@"
 #-b blockchain information
-if (( OPTCHAIN ))
+elif (( OPTCHAIN ))
 then
 	blockchainf
 #-mm mempool
