@@ -39,7 +39,7 @@ treef()
 	pic='jpg|jpeg|png|gif|tiff|webp|bmp|svg|svgz|ico|svg|ppm|tga|tif|xbm|xcf|xpm|xspf|xwd'
 	media='mp3|ogg|oga|flac|m4a|mp4|aac|wma|anx|asf|au|axa|m2a|mid|midi|mpc|ogx|ra|ram|spx|wma|ac3'
 	doc='doc|docx|odt|xls|xlsx|odp|pptx|ppt|ods'
-	txt='txt|rtf|conf'  #maybe only .txt should be here
+	txt='txt|rtf|conf'  #.md#maybe only .txt should be here
 	pdf=pdf
 	tree "$basePATH" \
 		-a \

@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.1  may/2021  by mountaineerbr
+# v0.7.3  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -717,10 +717,10 @@ defaultf()
 			"Nonce___: \(.nonce)",
 			"Txs_____: \(.nTx)",
 			"Confirma: \(.confirmations)",
-			"*Height_: \(.height)",
-			"Weight__: \(.weight) WU\t \(.weight/4000) vKB",
 			"Size____: \(.size) B\t \(.size/1000) KB",
 			"Stripped: \(.strippedsize) B\t \(.strippedsize/1000) KB",
+			"Weight__: \(.weight) WU\t \(.weight/4000) vKB",
+			"Height__: \(.height)",
 			"MedianTi: \(.mediantime)\t \(.mediantime | '$HH' )",
 			"Time____: \(.time)\t \(.time | '$HH')"'
 		ret+=( $? )
