@@ -4150,11 +4150,6 @@ reducepdf() {
 #-dPDFSETTINGS=/default	Selects the output which is useful for multiple purposes. Can cause large PDFS.
 #https://www.journaldev.com/34668/reduce-pdf-file-size-in-linux
 
-cloned()
-{
-	cd /home/jsn/www/mountaineerbr.github.io/about/espelho/older/web/20080320000646/http:/shigues.wordpress.com/o-espelho-de-jamil
-}
-
 #scale down mp4
 #{ ffmpeg -i Intro_do_Canal.mp4 -vcodec libx264 -crf 20  Intro_do_Canal_small.mp4 ;}
 #Note that lower CRF values correspond to higher bitrates, and hence produce higher quality videos.
@@ -4163,5 +4158,16 @@ cloned()
 
 #tail bitcoind log
 alias btct='tail -f /media/primary/blockchain/debug.log'
+
+#check taproot signal window
+taproot()
+{
+	local b
+	b=( $(blk -- {${1:-683424}..$(blk -.)} | grep -e Vers_Hex  | tee >(wc -l) | grep -c '4$') )
+	print no_:$((b[2]-b[1]))\\nyes:$b[1]\\ntot:$b[2]\\nper:$((${b[1]}.0 / ${b[2]}))\\n
+}
+
+
+
 
 # vi:filetype=sh
