@@ -4166,6 +4166,7 @@ taproot()
 	b=( $(blk -v -- {683424..$(blk -.)} | grep -e Vers_Hex  | tee >(wc -l) | grep -c '4$') )
 	print \\nyes:$b[1]\\nno_:$((b[2]-b[1]))\\ntot:$b[2]\\nper:$((${b[1]}.0 / ${b[2]}))\\n
 }
+#https://taproot.watch/
 
 
 
