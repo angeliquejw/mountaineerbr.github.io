@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.6.20  may/2021  by mountaineerbr
+# v0.7  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -97,8 +97,7 @@ DESCRIPTION
 
 	Option -l sets local time instead of UTC time.
 
-	Option -v enables verbose, set twice to print more info of some
-	function.
+	Option -v enables verbose, set twice to more verbose.
 
 	Option -y will convert hex from a coinbase transaction to ascii
 	text.  The output will be filtered to print sequences that are
@@ -248,7 +247,7 @@ OPTIONS
 	        defaults=$JOBSDEF .
 	-l 	Set local time instead of UTC time.
 	-u 	Print time in human-readable format.
-	-v	Enables verbose feedback.
+	-v	Enables verbose feedback, may set multiple time.
 	-V 	Print script version.
 
 	Find block height at date
@@ -1028,8 +1027,8 @@ mainenginef()
 	
 	#feedback
 	#try to clear last feedback line
-	(( OPTVERBOSE )) &&
-		printf "${CLR}blk[%s/%s]: %s  %s \r" "$N" "$#" "$BLK_HEIGHT" "$BLK_HASH" >&2
+	((OPTVERBOSE==1)) && printf "${CLR}blk[%s/%s]: %s \r" "$N" "${TOTAL:-$N}" "${BLK_HEIGHT:-$BLK_HASH}" >&2
+	((OPTVERBOSE>1)) && printf "${CLR}blk[%s/%s]: %s  %s \r" "$N" "${TOTAL:-$N}" "$BLK_HEIGHT" "$BLK_HASH" >&2
 	
 	#sum exit codes
 	return $(( ${ret[@]/%/+} 0 ))
@@ -1301,7 +1300,7 @@ if [[ -e "$BITCOINCONF" ]]
 then
 	#warp bitcoin-cli
 	bwrapper() { bitcoin-cli -conf="$BITCOINCONF" "$@" ;}
-	((OPTVERBOSE)) && echo "$SN: -conf=\"${BITCOINCONF}\"" >&2
+	((OPTVERBOSE>1)) && echo "$SN: -conf=\"${BITCOINCONF}\"" >&2
 else
 	#warp bitcoin-cli
 	bwrapper() { bitcoin-cli "$@" ;}
@@ -1321,7 +1320,7 @@ JOBSMAX="${JOBSMAX:-$JOBSDEF}"
 #check minimum jobs
 if ((JOBSMAX < 1))
 then echo "$SN: err  -- at least one job required" >&2 ;exit 1
-else ((OPTVERBOSE)) && echo "$SN: jobs -- $JOBSMAX" >&2
+else ((OPTVERBOSE>1)) && echo "$SN: jobs -- $JOBSMAX" >&2
 fi
 	
 #error signal temp file
