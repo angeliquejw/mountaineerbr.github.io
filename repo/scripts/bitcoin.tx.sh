@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.29  apr/2021  by mountaineerbr
+# v0.7.30  apr/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq
 
@@ -675,9 +675,7 @@ parsef()
 			if (( OPTOUT ))
 			then
 				#clear last feedback line
-				(( OPTVERBOSE )) &&
-					printf "$CLR" >&2
-				
+				(( OPTVERBOSE )) && printf "$CLR" >&2
 				cat -- "$TMP4"
 			fi
 		else
@@ -1009,7 +1007,7 @@ cleanf() {
 	fi
 
 	#verbose feedback
-	(( OPTVERBOSE )) && 
+	((OPTVERBOSE)) && 
 		printf '>>>took %s seconds  (%s minutes)\n' "$SECONDS" "$(( SECONDS / 60 ))" >&2
 	
 	#sum exit codes from other funcs
@@ -1147,7 +1145,7 @@ JOBSMAX="${JOBSMAX:-$JOBSDEF}"
 #check minimum jobs
 if ((JOBSMAX < 1))
 then echo "$SN: err  -- at least one job required" >&2 ;exit 1
-else ((OPTVERBOSE)) && echo "$SN: jobs -- $JOBSMAX" >&2
+else ((OPTVERBOSE>1)) && echo "$SN: jobs -- $JOBSMAX" >&2
 fi
 
 #required packages
@@ -1169,7 +1167,7 @@ if [[ -e "$BITCOINCONF" ]]
 then
 	#warp bitcoin-cli
 	bwrapper() { bitcoin-cli -conf="$BITCOINCONF" "$@" ;}
-	((OPTVERBOSE)) && echo "$SN: -conf=\"${BITCOINCONF}\"" >&2
+	((OPTVERBOSE>1)) && echo "$SN: -conf=\"${BITCOINCONF}\"" >&2
 else
 	#warp bitcoin-cli
 	bwrapper() { bitcoin-cli "$@" ;}
@@ -1209,7 +1207,7 @@ then
 fi
 
 #feedback?
-(( OPTVERBOSE > 1)) &&
+((OPTVERBOSE>1)) &&
 	echo ">>>temporary directory -- $TMPD" >&2
 
 #local time?
@@ -1439,5 +1437,5 @@ fi
 wait
 
 #sanity newline
-(( OPTVERBOSE )) && echo >&2
+((OPTVERBOSE)) && echo >&2
 

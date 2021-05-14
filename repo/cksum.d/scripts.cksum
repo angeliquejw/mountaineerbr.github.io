@@ -4,7 +4,7 @@
 245084247 24959 scripts/bcalc.sh
 993166108 33812 scripts/bitcoin.blk.sh
 3153572479 25571 scripts/bitcoin.hx.sh
-4168792251 34833 scripts/bitcoin.tx.sh
+2938331010 34820 scripts/bitcoin.tx.sh
 2538982636 23824 scripts/bitcoin.zzz.parsedTxs.blk638200.txt
 4026601335 6730 scripts/blockchair.btcoutputs.sh
 671873616 3960 scripts/cep.sh
