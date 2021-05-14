@@ -70,7 +70,7 @@ __wexplorer.sh__ | get some data from <https://www.walletexplorer.com>; this scr
 __whalealert.sh__ | latest whale transactions from <whale-alert.io>; this is such a bad api, very limited, not even worth having written a script for this, free api key
 __yahooscrape.sh__ | scrape some yahoo! finance tickers
 
-For a large list of Yahoo! Finance symbols, [check my lists](../extra/yahooFinanceSymbols)
+For a large list of Yahoo! Finance symbols, [check my Yahoo! Finance scrapings](../extra/yahooFinanceSymbols)
 
 ---
 
