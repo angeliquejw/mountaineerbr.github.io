@@ -1,13 +1,12 @@
 #!/bin/zsh
 # copy files from SOURCE to $PWD when they differ
-# v0.3.6  may/2021  by mountaineerbr
-# KISS
+# v0.3.7  may/2021  by mountaineerbr
 
 #script name
 SN="${0##*/}"
 
 SYNOPSIS="NAME
-	$SN -- copy files from SOURCE to $PWD when they differ
+	$SN -- copy files from SOURCE to \$PWD when they differ
 
 
 SYNOPSIS
@@ -15,8 +14,8 @@ SYNOPSIS
 
 
 DESCRIPTION
-	Copy FILES from SOURCE_DIR to $PWD when they differ. The script
-	will only compare files that exist at $PWD with SOURCE_DIR.
+	Copy FILES from SOURCE_DIR to \$PWD when they differ. The script
+	will only compare files that exist at \$PWD with SOURCE_DIR.
 	
 	Useful for updating files in a git repo from a source directory.
 
