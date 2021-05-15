@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # grep.sh  --  grep with shell built-ins
-# v0.2.5l  jan/2021  by mountaineerbr
+# v0.3  may/2021  by mountaineerbr
 
 #todo
 #1.merge test functions that can be merged with (un)setting glob/anchor
@@ -20,7 +20,7 @@ COLOUR3='\e[1;31;40m' #BOLDRED
 COLOUR4='\e[3;32;40m' #GREEN
 NC='\e[m'
 
-#use start glob by defaults
+#star glob
 STAR=1
 
 #set fixed locale
@@ -39,12 +39,126 @@ SYNOPSIS
 	$SN [OPTION...] -e PATTERN ... [FILE...]
 
 
-	Use shell builtins to grep text. Reads from FILES or stdin.
-	Set multiple PATTERNS with option -e.
+	Reads from FILES or stdin.
+	By defaults, performs pattern matching with \`globs'.
+	Set option -E to use regular expressions instead.
 
-	Use the same syntax for describing PATTERN as the shell
-	built-in test command. Option -r enables regular expres-
-	sions instead of simple wild-cards.
+	Set multiple PATTERNS with -e.
+
+
+WILD-CARD VS GLOB VS REGEX
+
+
+
+   GLOBBING PATTERNS
+       The pattern arguments may contain any of the following special characters, which are a superset of those supported by  string
+       match:
+
+       ?         Matches any single character.
+
+       *         Matches any sequence of zero or more characters.
+
+       [chars]   Matches  any  single  character in chars. If chars contains a sequence of the form a-b then any character between a
+                 and b (inclusive) will match.
+
+       \x        Matches the character x.
+
+       {a,b,...} Matches any of the sub-patterns a, b, etc.
+
+
+
+REGULAR EXPRESSIONS
+       A  regular  expression  is  a  pattern  that  describes a set of strings.  Regular expressions are constructed analogously to
+       arithmetic expressions, by using various operators to combine smaller expressions.
+
+       grep understands three different versions of regular expression syntax: “basic” (BRE), “extended” (ERE)  and  “perl”  (PCRE).
+       In GNU grep there is no difference in available functionality between basic and extended syntaxes.  In other implementations,
+       basic regular expressions are less powerful.  The following description applies to extended regular expressions;  differences
+       for  basic regular expressions are summarized afterwards.  Perl-compatible regular expressions give additional functionality,
+       and are documented in pcresyntax(3) and pcrepattern(3), but work only if PCRE is available in the system.
+
+       The fundamental building blocks are the regular expressions that match a single character.  Most  characters,  including  all
+       letters  and digits, are regular expressions that match themselves.  Any meta-character with special meaning may be quoted by
+       preceding it with a backslash.
+
+       The period . matches any single character.  It is unspecified whether it matches an encoding error.
+
+   Character Classes and Bracket Expressions
+       A bracket expression is a list of characters enclosed by [ and ].  It matches any single character  in  that  list.   If  the
+       first  character  of  the  list  is  the  caret ^ then it matches any character not in the list; it is unspecified whether it
+       matches an encoding error.  For example, the regular expression [0123456789] matches any single digit.
+
+       Within a bracket expression, a range expression consists of two characters separated by a  hyphen.   It  matches  any  single
+       character  that  sorts  between  the two characters, inclusive, using the locale's collating sequence and character set.  For
+       example, in the default C locale, [a-d] is equivalent to [abcd].  Many locales sort characters in dictionary  order,  and  in
+       these  locales  [a-d] is typically not equivalent to [abcd]; it might be equivalent to [aBbCcDd], for example.  To obtain the
+       traditional interpretation of bracket expressions, you can use the C locale by setting the LC_ALL environment variable to the
+       value C.
+
+       Finally,  certain  named  classes  of characters are predefined within bracket expressions, as follows.  Their names are self
+       explanatory, and they are [:alnum:], [:alpha:], [:blank:], [:cntrl:], [:digit:], [:graph:], [:lower:], [:print:],  [:punct:],
+       [:space:],  [:upper:],  and  [:xdigit:].   For  example,  [[:alnum:]] means the character class of numbers and letters in the
+       current locale.  In the C locale and ASCII character set encoding, this is the same as [0-9A-Za-z].  (Note that the  brackets
+       in  these class names are part of the symbolic names, and must be included in addition to the brackets delimiting the bracket
+       expression.)  Most meta-characters lose their special meaning inside bracket expressions.  To include a literal  ]  place  it
+       first  in the list.  Similarly, to include a literal ^ place it anywhere but first.  Finally, to include a literal - place it
+       last.
+
+   Anchoring
+       The caret ^ and the dollar sign $ are meta-characters that respectively match the empty string at the beginning and end of  a
+       line.
+
+   The Backslash Character and Special Expressions
+       The  symbols  \<  and  \>  respectively match the empty string at the beginning and end of a word.  The symbol \b matches the
+       empty string at the edge of a word, and \B matches the empty string provided it's not at the edge of a word.  The  symbol  \w
+       is a synonym for [_[:alnum:]] and \W is a synonym for [^_[:alnum:]].
+
+   Repetition
+       A regular expression may be followed by one of several repetition operators:
+       ?      The preceding item is optional and matched at most once.
+       *      The preceding item will be matched zero or more times.
+       +      The preceding item will be matched one or more times.
+       {n}    The preceding item is matched exactly n times.
+       {n,}   The preceding item is matched n or more times.
+       {,m}   The preceding item is matched at most m times.  This is a GNU extension.
+       {n,m}  The preceding item is matched at least n times, but not more than m times.
+
+   Concatenation
+       Two  regular expressions may be concatenated; the resulting regular expression matches any string formed by concatenating two
+       substrings that respectively match the concatenated expressions.
+
+   Alternation
+       Two regular expressions may be joined by the infix operator |; the resulting regular expression matches any  string  matching
+       either alternate expression.
+
+   Precedence
+       Repetition  takes  precedence over concatenation, which in turn takes precedence over alternation.  A whole expression may be
+       enclosed in parentheses to override these precedence rules and form a subexpression.
+
+   Back-references and Subexpressions
+       The back-reference \n, where n is a single  digit,  matches  the  substring  previously  matched  by  the  nth  parenthesized
+       subexpression of the regular expression.
+
+   Basic vs Extended Regular Expressions
+       In basic regular expressions the meta-characters ?, +, {, |, (, and ) lose their special meaning; instead use the backslashed
+       versions \?, \+, \{, \|, \(, and \).
+
+
+
+
+[[:alpha:]] [[:alnum:]]
+
+
+in [[ = ]] [!x] and [^x] are the same
+not so in [[ =~ ]]
+
+
+SEE ALSO
+	man glob
+	man grep
+
+	A Brief Introduction to Regular Expressions
+	<https://tldp.org/LDP/abs/html/x17129.html>
 
 
 WARRANTY
@@ -67,26 +181,45 @@ BUGS
 
 
 OPTIONS
+	Pattern Syntax
+	-E, -r     Interpret PATTERNS as extended regular expressions.
+	-F 	   Interpret PATTERNS as fixed strings.
+
+	Matching Control
+	-e PATTERN Use PATTERN as the target string. If this option is
+		   used multiple times, search for all patterns given. 
+	-i, -y 	   Case insensitive match.
+	-ii 	   Same as -i but prints matched line in uppercase.
+	-v         Invert sense of matching, prints non-matching lines.
+	-x 	   Whole-line matching, select only matches that exactly
+		   match the whole line; this is like surrounding the
+		   pattern with ^ and $ in a regex.
+	-w
+
+
+	Miscellaneous
+	-h         Print this help page.
+	-V         Print script version.
+	-h, -H  conflicts with
+	
+
+	General Output Control
 	-c 	   Suppress normal output; instead print only a count
 		   of matching lines for each input file. With the -v
 		   option, count non-matching lines.
-	-e PATTERN Use PATTERN as the target string. If this option is
-		   used multiple times, search for all patterns given. 
-	-F 	   Interpret PATTERNS as fixed strings.
-	-h         Print this help page.
-	-i 	   Case insensitive match.
-	-ii 	   Same as -i but prints matched line in uppercase.
+
 	-k 	   Disable colour output.
 	-m NUM 	   Maximum NUM results to print.
+	-o
+	-q         Quiet, exit with zero on first match found.
+
+
+	Output Line Prefix Control
 	-n 	   Prefix each line of output with the line number
 		   within its input file.
-	-q         Quiet, exit with zero on first match found.
-	-r         Interpret PATTERNS as extended regular expressions.
-	-v         Invert sense of matching, prints non-matching lines.
-	-V         Print script version.
-	-x 	   Whole-line matching, select only matches that exactly
-		   match the whole line; this is like surrounding the
-		   pattern with ^ and $ in a regex."
+	-Z
+
+		   "
 
 
 #loop checking function

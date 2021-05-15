@@ -4,7 +4,7 @@
 245084247 24959 scripts/bcalc.sh
 3021401429 33815 scripts/bitcoin.blk.sh
 3153572479 25571 scripts/bitcoin.hx.sh
-3607540677 36666 scripts/bitcoin.tx.sh
+2402211222 36671 scripts/bitcoin.tx.sh
 4026601335 6730 scripts/blockchair.btcoutputs.sh
 671873616 3960 scripts/cep.sh
 3780126040 2269 scripts/conkykiller.sh
@@ -13,7 +13,7 @@
 3942100127 2334 scripts/diffcp.sh
 2106267865 9452 scripts/faster_sh.txt
 3023162980 2432 scripts/firefox.sh
-2524739493 8158 scripts/grep.sh
+1495212837 14630 scripts/grep.sh
 1362369996 1856 scripts/inmet.sh
 2501997530 35149 scripts/LICENSE.txt
 443217383 3761 scripts/README.md
