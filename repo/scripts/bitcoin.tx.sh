@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.30  apr/2021  by mountaineerbr
+# v0.8  may/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq
 
@@ -21,6 +21,13 @@ JOBSDEF=3   #hard defaults
 #is the number of independent api requests that can be processed in parallel.
 #in reality however there are many locks inside the product that means you 
 #won't see much performance benefit with a value above 2.
+
+#white paper
+#out file
+WPOUTFILE=bitcoin.pdf
+#whitepaper transaction hash and block hash
+WPTXID=54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713
+WPBLKHX=00000000000000ecbbff6bafb7efa2f7df05b227d5c73dca8f2635af32a2e949
 
 #timezone
 #defaults=UTC0
@@ -53,7 +60,7 @@ HELP="NAME
 SYNOPSIS
 	$SN  [-aklosvyy] [-jNUM] [-bBLOCK_HASH|HEIGHT] TRANSACTION_HASH..
 	$SN  [-aklosvyy] [-jNUM] \"TRANSACTION_HASH [BLOCK_HASH|HEIGHT]\"..
-	$SN  -hV
+	$SN  -hVw
 
 
 DESCRIPTION
@@ -93,6 +100,12 @@ DESCRIPTION
 	Option -v enables verbose, set -vv to print more feedback for
 	some functions.
 
+	Option -w will regenerate bitcoin white paper. Two methods are
+	available, either from the transaction itself (fast, -w) or from
+	the UTXO set (slow, -ww). An output PDF file will be created at
+	\$PWD, defaults=$WPOUTFILE. See section SEE ALSO for more
+	information.
+
 	Option -y will convert plain hex dump from a transaction to ASCII
 	text. The output will be filtered to print sequences that are at
 	least 20 characters long, unless that returns empty, in which case
@@ -128,8 +141,9 @@ SEE ALSO
 	transactions
 	<https://github.com/ragestack/blockchain-parser>
 
-
-BUGS
+	Bitcoin whitepaper in the blockchain
+	<https://bitcoinhackers.org/@jb55/105595146491662406>
+	<https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi/35970#35970>
 
 
 WARRANTY
@@ -216,12 +230,12 @@ OPTIONS
 		results file at ${CACHEDIR/$HOME/\~} .
 	-s 	Set stdin input is raw transaction json.
 	-V 	Print script version.
-	-v	Enables verbose feedback.
-	-vv	More verbose feedback for some functions.
+	-v	Enables verbose feedback, may set multiple times.
+	-w 	Regenerate bitcoin whitepaper, may set twice; outfile=$WPOUTFILE.
 	-y 	Decode transaction hex to ASCII, decrease minimum length
 		of sequences to print until match is found, otherwise
 		print all bytes.
-	-yy 	Same as -y but prints all bytes (shortcut: -Y)."
+	-yy 	Same as -y but prints all bytes, same as -Y."
 
 
 #!#bitcoin.sh snapshot with custom modifications
@@ -327,6 +341,42 @@ hexToAddress() {
 
 
 #original script funcs
+
+#get a bitcoin whitepaper pdf copy
+whitepaperf()
+{
+	#From the UTXO set (slow)
+	#bare multisig outputs that will never be spent
+	if ((OPTW>1))
+	then
+		for ((n=0;n<948;++n))
+		do
+			((OPTVERBOSE)) && printf 'utxo: %3d/%3d \r' $((n+1)) 948 >&2
+			bwrapper gettxout $WPTXID $n |
+				jq -r '.scriptPubKey.asm' |
+				awk '{ print $2 $3 $4 }'
+		done \
+		| tr -d '\n' \
+		| cut -c 17-368600 \
+		| xxd -r -p >"$WPOUTFILE"
+		
+		((OPTVERBOSE)) && echo >&2
+
+	#From blockchain transaction (defaults, fast)
+	else
+		bwrapper getrawtransaction $WPTXID 0 $WPBLKHX \
+		| sed 's/0100000000000000/\n/g' \
+		| tail -n +2 \
+		| cut -c7-136,139-268,271-400 \
+		| tr -d '\n' \
+		| cut -c17-368600 \
+		| xxd -p -r >"$WPOUTFILE"
+	fi
+
+	echo "$SN: file generated -- $WPOUTFILE" >&2
+}
+#https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi/35970#35970
+#https://bitcoinhackers.org/@jb55/105595146491662406
 
 #err signal
 errsigf()
@@ -1068,7 +1118,7 @@ trapf()
 #start
 
 #parse script options
-while getopts ab:c:ehj:losvVyY opt
+while getopts ab:c:ehj:losvVwyY opt
 do
 	case $opt in
 		a)
@@ -1120,6 +1170,10 @@ do
 			echo "$REPLY"
 			exit 0
 			;;
+		w)
+			#white paper copy
+			((++OPTW))
+			;;
 		Y)
 			#same as -yy, shortcut
 			#tx hex to ascii
@@ -1158,9 +1212,9 @@ done
 unset PKG
 
 #grondilu's bitcoin-bash-tools requirement
-if (( BASH_VERSINFO[0] < 4 ))
-then echo "$SN: this script requires bash version 4 or above" >&2 ;exit 1
-fi
+#if (( BASH_VERSINFO[0] < 4 ))
+#then echo "$SN: this script requires bash version 4 or above" >&2 ;exit 1
+#fi
 
 #set alternative bitcoin.conf path?
 if [[ -e "$BITCOINCONF" ]]
@@ -1178,6 +1232,12 @@ TMPERR="$TMPD/errsignal.txt"
 
 #$RET is an array with exit codes
 typeset -a RET TXFILES
+
+
+#call (some) opt functions
+if ((OPTW))
+then whitepaperf ;exit
+fi
 
 #traps
 trap cleanf EXIT
@@ -1207,8 +1267,7 @@ then
 fi
 
 #feedback?
-((OPTVERBOSE>1)) &&
-	echo ">>>temporary directory -- $TMPD" >&2
+((OPTVERBOSE>1)) && echo ">>>temporary directory -- $TMPD" >&2
 
 #local time?
 #human-readable time formats
@@ -1237,8 +1296,8 @@ then
 	fi
 fi
 
-#functions and loops
 
+#functions and loops
 #process arguments
 #if there are positional args
 if (( $# ))
