@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # grep.sh  --  grep with shell built-ins
-# v0.3  may/2021  by mountaineerbr
+# v0.3alpha  may/2021  by mountaineerbr
 
 #todo
 #1.merge test functions that can be merged with (un)setting glob/anchor
