@@ -183,6 +183,7 @@ rsync
 screen
 sound-theme-freedesktop
 stellarium
+strace
 testdisk
 thunderbird
 thunderbird-i18n-pt-br

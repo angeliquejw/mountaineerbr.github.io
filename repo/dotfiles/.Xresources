@@ -434,6 +434,13 @@ xterm.termName: xterm-256color
 !ensure locale is set to UTF8
 xterm.vt100.locale: true
 
+!set UTF8
+xterm*wideChars: true
+xterm*locale: true
+xterm*utf8: 1
+xterm*vt100Graphics: true
+!from zsh.sourceforge.net/FAQ/zshfaq05.html
+
 !extended window control
 xterm.vt100.allowWindowOps: true
 
@@ -549,6 +556,8 @@ xterm.vt100.internalBorder: 2
 
 !xterm fonts
 !for a font list, use 'xlsfonts'
+
+!Unicode is the character set, UTF-8 is an encoding of it, related to ISO 10646
 
 !default font:
 !xterm*font: -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
