@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # grep.sh  --  grep with shell built-ins
-# v0.3.1  may/2021  by mountaineerbr
+# v0.3.2  may/2021  by mountaineerbr
 
 #defaults
 #script name
@@ -30,6 +30,7 @@ DEFANCHORR=\$
 DEFANCHORWORD='[!a-zA-Z0-9_]'
 DEFANCHORWORDEL='(^|[^a-zA-Z0-9_])'
 DEFANCHORWORDER='([^a-zA-Z0-9_]|$)'
+ANCHORWORDELR='[^a-zA-Z0-9_]'
 
 #set fixed locale
 #export LC_NUMERIC=C
@@ -412,10 +413,18 @@ echoresultf()
 			#try to paint matches
 			chars=2  linex="$LINE"  linep="$LINE"
 			matchx="${BASH_REMATCH[0]:-$MATCH}"
+			((OPTW)) && {
+				matchx="${matchx#$ANCHORWORDELR}"
+				matchx="${matchx%$ANCHORWORDELR}"
+			}
 			linep="${linep//"$matchx"/"${COLOUR3}${matchx}${NC}"}"
 
 			while
 				matchx="${BASH_REMATCH[0]:-$MATCH}"
+				((OPTW)) && {
+					matchx="${matchx#$ANCHORWORDELR}"
+					matchx="${matchx%$ANCHORWORDELR}"
+				}
 				
 				((${#BASH_REMATCH[0]} > chars || ${#MATCH} > chars)) \
 				&& linex="${linex//"$matchx"}" \
