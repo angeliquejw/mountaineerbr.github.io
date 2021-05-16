@@ -402,7 +402,7 @@ echoresultf()
 	#print raw line if colour opt is not set
 	elif ((OPTV || OPTK==0))
 	then
-		#print raw line (defaults)
+		#print raw line
 		echo "$LINE"
 
 	#print colour match line
