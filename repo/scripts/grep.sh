@@ -362,8 +362,8 @@ OPTIONS
 	        Pattern to match.
 	-i, -y  Case insensitive match.
 	-v      Select non-matching lines.
-	-x      Match whole line only.
 	-w      Match whole words only.
+	-x      Match whole line only.
 
 	General Output Control
 	-c      Print only count of matching lines.
@@ -372,8 +372,8 @@ OPTIONS
 	-q      Quiet, exit with zero on first match found.
 
 	Output Line Prefix Control
-	-n      Add line number prefix to output.
 	-H      Toggle filename prefix printing behaviour.
+	-n      Add line number prefix to output.
 
 	Miscellaneous
 	-h      Print this help page.
