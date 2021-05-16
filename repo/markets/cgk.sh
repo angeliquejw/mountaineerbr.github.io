@@ -1,6 +1,6 @@
 #!/bin/bash
 # cgk.sh -- coingecko.com api access
-# v0.16.8  may/2021  by mountaineerbr
+# v0.16.9  may/2021  by mountaineerbr
 
 #defaults
 
@@ -1283,7 +1283,7 @@ fi
 
 #change .=- to ``bitcoin''
 [[ "$2" = [.=-] ]] && set -- "$1" bitcoin "$3"
-[[ "$3" = [.=-] ]] && set -- "$1" "$2" btc
+[[ "$3" = [.=-] ]] && set -- "$1" "$2" btc && SCL=8
 
 #set scale
 if [[ "$SCL" != 0 ]] && ! (( SCL ))
