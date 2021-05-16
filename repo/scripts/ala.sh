@@ -1,6 +1,6 @@
 #!/bin/bash
 # ala.sh -- arch linux archive explorer (search and download)
-# v0.14.5  may/2021  by castaway
+# v0.14.6  may/2021  by castaway
 
 #defaults
 #script name
@@ -13,14 +13,11 @@ DLFOLDER="$HOME/Downloads"
 TFOLDER="$HOME/.local/share/Trash/files"
 
 #default DATE or special repo
-#user may set $ALADATE
-#ALADATE=2020/07/01
 DEFALADATE=last
 
 #calculate size of the following repos
-#user may set $CALCREPOS
-#CALCREPOS=( community community-staging community-testing core extra gnome-unstable kde-unstable multilib multilib-staging multilib-testing staging testing )
 DEFCALCREPOS=( core extra community multilib )
+#CALCREPOS=( community community-staging community-testing core extra gnome-unstable kde-unstable multilib multilib-staging multilib-testing staging testing )
 
 ##default ala server
 #official ala archieve
