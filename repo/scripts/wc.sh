@@ -1,11 +1,12 @@
 #!/bin/bash
 #!/bin/zsh
 # wc.sh  --  print line, word and character count
-# v0.3.18  jan/2021  by mountaineerbr
+# v0.3.19  may/2021  by mountaineerbr
 
 #TODO: ask for help com.unix.shell or other groups about
-#the array splitting for counting words, line ~182
-#check man 3 pcrepattern
+#array splitting for counting words (line ~182), as
+#there must be a more efficient and cleaner way to do it.
+#check man 3 pcrepattern.
 
 #defaults
 #script name
@@ -13,7 +14,7 @@ SN="${0##*/}"
 
 #help page
 HELP="NAME
-	$SN -   print newline, word and byte counts for each file
+	$SN -   Print newline, word and byte counts for each file
 
 
 SYNOPSIS
@@ -27,12 +28,17 @@ SYNOPSIS
 
 	Newline bytes are used to detect and count lines. Null bytes
 	are ignored.
+	
+	This script uses shell builtins only and is compatible with bash
+	and zsh. There may be differences between interpreter results.
+	It is not supposed to compete with Grep, it is rather a tool
+	for studying Shell functions.
 
 
 ENVIRONMENT VARIABLES
 	The \$LANG and \$LC_ALL environment variables shall affect
-	the execution of $SN , which will determine values of locale
-	categories.
+	the execution of this script , which will determine values of
+	locale categories.
 
 
 WARRANTY
@@ -52,8 +58,6 @@ BUGS
 	
 	Expect Bash and Zsh to perform differently. Zsh performs slower
 	in this script.
-
-	Slower than GNU wc.
 
 
 OPTIONS
