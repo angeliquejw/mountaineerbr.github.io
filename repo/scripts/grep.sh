@@ -37,7 +37,7 @@ ANCHORWORDELR='[^a-zA-Z0-9_]'
 
 #help page
 HELP="NAME
-	$SN - grep with shell built-ins
+	$SN - Grep with shell built-ins
 
 
 SYNOPSIS
