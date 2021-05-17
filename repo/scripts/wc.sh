@@ -31,8 +31,8 @@ SYNOPSIS
 	
 	This script uses shell builtins only and is compatible with bash
 	and zsh. There may be differences between interpreter results.
-	It is not supposed to compete with Grep, it is rather a tool
-	for studying Shell functions.
+	It is not supposed to compete with Wc, it is rather a tool for
+	studying Shell functions.
 
 
 ENVIRONMENT VARIABLES
