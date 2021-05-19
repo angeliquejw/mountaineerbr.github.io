@@ -40,7 +40,7 @@ treef()
 	media='mp3|ogg|oga|flac|m4a|mp4|aac|wma|anx|asf|au|axa|m2a|mid|midi|mpc|ogx|ra|ram|spx|wma|ac3'
 	doc='doc|docx|odt|xls|xlsx|odp|pptx|ppt|ods'
 	txt='txt'
-	txt2='txt|rtf|conf|md'
+	txt2='rtf|conf|md'
 	pdf=pdf
 	tree "$basePATH" \
 		-a \
@@ -105,7 +105,7 @@ treef()
 	.media  { color: orange;}
 	.doc  { color: indianred;}
 	.txt  { color: crimson;}
-	.txt2  { color: pink;}
+	.txt2  { color: teal;}
 	.pdf  { color: white;  background-color: blue;}
 	.hidden  { background-color: azure;}
 	'
