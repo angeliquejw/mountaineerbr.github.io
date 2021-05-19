@@ -95,10 +95,11 @@ DESCRIPTION
 
 	By defaults, the script will keep a local cache of the available
 	currency ids from CoinGecko. That will avoid flooding the server
-	with requests of mostly static data and will improve script speed.
-	If you do not want to create/use cache files, set option -c. Run
-	script with option -C to force updating cache files. Note that
-	directory /tmp is cleaned on every boot, defaults=$CACHEDIR .
+	with requests of mostly static data (currency symbols and ids)
+	and will improve script speed. If you do not want to create/use
+	cache files, set option -c. Run script with option -C to force
+	updating cache files. Note that directory /tmp is cleaned on
+	every boot, defaults=$CACHEDIR .
 
 	Coingecko.com api rate limit is currently 100 requests/minute.
 	

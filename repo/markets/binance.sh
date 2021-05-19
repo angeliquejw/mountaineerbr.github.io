@@ -97,10 +97,11 @@ DESCRIPTION
 
 	By defaults, the script will keep a local cache of the available
 	currency ids from Binance. That will avoid flooding the server
-	with requests of mostly static data and will improve script speed.
-	If you do not want to create/use cache files, set option -e. Run
-	script with option -E to force updating cache files. Note that
-	directory /tmp is cleaned on every boot, defaults=$CACHEDIR .
+	with requests of mostly static data (currency symbols) and will
+	improve script speed. If you do not want to create/use cache
+	files, set option -e. Run script with option -E to force updating
+	cache files. Note that directory /tmp is cleaned on every boot,
+	defaults=$CACHEDIR .
 
 
 LIMITS ON WEBSOCKET
