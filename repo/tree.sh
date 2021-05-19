@@ -1,5 +1,5 @@
 #!/bin/zsh
-# v0.3.5  may/2021  mountaineerbr
+# v0.3.6  may/2021  mountaineerbr
 # Create pages for exploring directories and files
 # Requires `markdown' and `txt2html'.
 # <https://archlinux.org/packages/extra/x86_64/discount/>
@@ -12,7 +12,7 @@ SN="${0##*/}"
 treef()
 {
 	local baseHREF basePATH out title mdarray meta txtarray notes xtrastyles inject
-	local ext extt pic media doc txt pdf 
+	local ext extt pic media doc txt pdf map other
 	typeset -a mdarray txtarray
 	
 	baseHREF="$1"
@@ -81,7 +81,10 @@ treef()
 	then
 		inject="$(txt2html --extract --eight_bit_clean "${txtarray[1]}")"
 	fi
-	[[ -n "$inject" ]] && sed -i '/<body/ r /dev/stdin' "$out" <<<"$inject"
+	[[ -n "$inject" ]] && {
+		read -d: map other <<<"$(grep -n '^\s*</p>' "$out")"
+		sed -i "${map} r /dev/stdin" "$out" <<<"$inject"
+	}
 
 	#HTML CUSTOMISATION
 	#metatags

@@ -12,7 +12,8 @@
 
 ## SEE ALSO
 
-Check my [GitHub repo](https://github.com/mountaineerbr?tab=repositories).
+You may also want to check my
+[GitHub repo](https://github.com/mountaineerbr?tab=repositories).
 
 
 
