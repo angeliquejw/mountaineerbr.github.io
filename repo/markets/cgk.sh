@@ -1,6 +1,6 @@
 #!/bin/bash
 # cgk.sh -- coingecko.com api access
-# v0.17.2  may/2021  by mountaineerbr
+# v0.17.3  may/2021  by mountaineerbr
 
 #defaults
 
@@ -87,11 +87,11 @@ DESCRIPTION
 
 	Option -b is originally called the bank currency function. It is
 	now invoked automatically when needed, however setting it explic-
-	itly when appropriate improves script speed. It was first imple-
-	mented because of coingecko api restrictions. For example, it
-	does not offer rates for conversion between bank currencies and
-	metals, neither for some cryptocurrency pairs not officially
-	supported by any exchange, so we calculate those rate slocally.
+	itly when appropriate may improve speed. It was first implemented
+	because of coingecko api restrictions. For example, it does not
+	offer rates for conversion between bank currencies and metals,
+	neither for some cryptocurrency pairs not officially supported
+	by any exchange, so we calculate those rate slocally.
 
 	By defaults, the script will keep a local cache of the available
 	currency ids from CoinGecko. That will avoid flooding the server
