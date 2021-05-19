@@ -1,14 +1,14 @@
 #!/bin/bash
 # Binance.sh  --  Market data from Binance public APIs
-# v0.13 may/2021  by mountaineerbr
+# v0.13.1 may/2021  by mountaineerbr
 
 #defaults
 
 #data server
 WHICHB=com
 #com -- Malta
-#us -- US
-#je -- Malta (DEPRECATED)
+#us  -- US
+#je  -- Jersey (DEPRECATED)
 
 #scale, server defaults
 SCLDEFAULTS=16
@@ -76,7 +76,7 @@ DESCRIPTION
 	unless explicitly set with option -NUM, in which NUM is a natural
 	number (integer).
 
-	Option -o sets thousands separator in printing results.
+	Option -o sets thousands separator for printing results.
 
 	To keep trying to reconnect to the websocket automatically on
 	error or EOF, set option -a (only if using Websocat package).
@@ -233,7 +233,7 @@ yourappf()
 	url="${@: -1}" || return
 	tmpfile="$CACHEDIR/${url//[\/:]/}".cache
 
-	if ((OPTE==0)) 				#don't use cache at all  #|| [[ ! -d "$CACHEDIR" ]]
+	if ((OPTE==0)) 				#don't use cache at all
 	then "${YOURAPP[@]}" "$@" 
 	elif ((OPTE==1)) && [[ -e "$tmpfile" ]] 	#is there a cache file?
 	then cat "$tmpfile"
