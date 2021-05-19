@@ -1,6 +1,6 @@
 #!/bin/bash
 # ala.sh -- arch linux archive explorer (search and download)
-# v0.14.8  may/2021  by castaway
+# v0.14.9  may/2021  by castaway
 
 #defaults
 #script name
@@ -1395,7 +1395,7 @@ fi
 #is $ALANOCACHE env parameter set?
 ((ALANOCACHE)) && OPTL=2
 #make a cache folder
-((OPTL>1)) || [[ -d "$CACHEDIR" ]] || mkdir -v "$CACHEDIR" || exit
+((OPTL>1)) || [[ -d "$CACHEDIR" ]] || mkdir -- "$CACHEDIR" || OPTL=2
 
 #use a mirror address instead of archieve?
 #(experimental)
