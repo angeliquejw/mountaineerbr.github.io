@@ -1,6 +1,6 @@
 #!/bin/bash
 # cgk.sh -- coingecko.com api access
-# v0.17  may/2021  by mountaineerbr
+# v0.17.1  may/2021  by mountaineerbr
 
 #defaults
 
@@ -30,7 +30,7 @@ SN="${0##*/}"
 OPTC=1
 
 #cache directory
-#defaults=/tmp/ala.sh.d
+#defaults=/tmp/cgk.sh.cache
 CACHEDIR="${TMPDIR:-/tmp}/$SN".cache
 
 ## Manual and help

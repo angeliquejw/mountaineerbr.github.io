@@ -28,7 +28,7 @@ SN="${0##*/}"
 OPTE=1
 
 #cache directory
-#defaults=/tmp/ala.sh.d
+#defaults=/tmp/binance.sh.cache
 CACHEDIR="${TMPDIR:-/tmp}/$SN".cache
 
 HELP="NAME

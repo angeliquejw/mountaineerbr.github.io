@@ -1,6 +1,6 @@
 #!/bin/bash
 # ala.sh -- arch linux archive explorer (search and download)
-# v0.14.7  may/2021  by castaway
+# v0.14.8  may/2021  by castaway
 
 #defaults
 #script name
@@ -51,8 +51,8 @@ BURL3=http://archlinux.arkena.net/archive/iso
 MURLDEF=http://archlinux.c3sl.ufpr.br
 
 #cache directory
-#defaults=/tmp/ala.sh.d
-CACHEDIR="${TMPDIR:-/tmp}/$SN".d
+#defaults=/tmp/ala.sh.cache
+CACHEDIR="${TMPDIR:-/tmp}/$SN".cache
 
 #do not change the following
 #LC_NUMERIC=en_US.UTF-8
@@ -114,11 +114,10 @@ SYNOPSIS
 	If the script tries to interpret a PKGNAME as DATE, try seting
 	option -p.
 
-	Option -l applies to all options that downloads data with the 
+	Option -l applies to all options that download data with the 
 	exception of option -w. $SN will keep cache files at $CACHEDIR .
 	Option -l updates cached files and -ll or -L disable use of cache
-	altogether. Set environment \$ALANOCACHE to a value greater than
-	0 to disable cache dir and cache files altogether.
+	altogether.
 
 	The oficial <archive.archlinux.org> archive was started at end
 	of august 2013.
@@ -364,8 +363,8 @@ OPTIONS
 		      REPOS=( ${AUTOREPOS[*]} ).
 	-K  PKGNAME [DATE] [REPOS] [i686|x86_64]
 		      Same as -k but dumps more info.
-	-l 	      Don't use cached files (updates cache with fresh data).
-	-ll, -L	      Same as -l but doesn't keep any cache.
+	-l 	      Update cache files.
+	-ll, -L	      Don't keep any cache files.
 	-n 	      Arch Linux news feed.
 	-nn  [NUM]    Arch Linux news feed alternative, fetch NUM news
 		      articles; NUM is a natural number; defaults=6.
