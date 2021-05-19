@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.15.5  may/2021  by mountaineerbr
+# v0.15.6  may/2021  by mountaineerbr
 
 #padrões
 
@@ -20,7 +20,7 @@ LOGF=/tmp/anta.log
 SCRIPT="${BASH_SOURCE[0]}"
 #não inunde o servidor
 #espera entre chamadas (em segundos)
-FLOOD=0.2
+FLOOD=0.4
 
 #cat output instead of less pager by defaults
 OPTL=( cat )
@@ -273,14 +273,19 @@ getlinksf()
 # Check for errors
 cerrf()
 {
-	if grep -aFq -e 'Você será redirecionado para a página inicial' -e 'Page not found' <<< "$PAGE"; then
-		printf 'anta.sh: erro: página não encontrada -- %s\n' "$COMP" 1>&2
+	if grep -aFq -e 'Você será redirecionado para a página inicial' -e 'Page not found' <<< "$PAGE"
+	then
+		printf 'anta.sh: erro: página não encontrada -- %s\n' "$COMP" >&2
 		(( ROLLOPT )) && return 1 || exit 1
 	elif [[ -z "$PAGE" ]] || grep -aFiq -e 'has been limited' -e 'you were blocked' \
 		-e 'to restrict access' -e 'access denied' -e 'temporarily limited' \
-		-e 'you have been blocked' -e 'has been blocked' -e 'Error processing request' <<< "$PAGE"; then
-		return 1
-	elif ! grep -aq '[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]' <<< "$PAGE"; then
+		-e 'you have been blocked' -e 'has been blocked' -e 'Error processing request' <<< "$PAGE"
+	then
+		printf 'anta.sh: erro: acesso limitado ou página não encontrada -- %s\n' "$COMP" >&2
+		(( ROLLOPT )) && return 1 || exit 1
+	elif ! grep -aq '[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]' <<< "$PAGE"
+	then
+		printf 'anta.sh: erro: não parece ser artigo de <oantagonista> -- %s\n' "$COMP" >&2
 		return 1
 	fi
 
