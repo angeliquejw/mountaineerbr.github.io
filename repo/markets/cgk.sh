@@ -1,6 +1,6 @@
 #!/bin/bash
 # cgk.sh -- coingecko.com api access
-# v0.16.9  may/2021  by mountaineerbr
+# v0.17  may/2021  by mountaineerbr
 
 #defaults
 
@@ -14,28 +14,24 @@ DEFVSCUR=usd
 SCLDEFAULTS=16
 
 #timeout (seconds, curl/wget)
-TOUT=16
+TOUT=18
+
+#troy ounce to gram ratio
+TOZ=31.1034768
 
 #set number format
 export LC_NUMERIC=en_US.UTF-8
-#troy ounce to gram ratio
-TOZ=31.1034768
+
 #script name
 SN="${0##*/}"
 
-#coingecko resource files (optional)
-#use cache files? set to 0 to disable
+#cache of resource files (optional)
+#set to 0 to disable, defaults=1
 OPTC=1
-#expiration of cache files in seconds
-#set to 0 or unset to disable expiration
-#CGKEXPIRATION=259200  #(3 days)
+
 #cache directory
-USERCACHE=/tmp
-#USERCACHE="${XDG_CACHE_HOME:-$HOME/.cache}"
-#list of from_currencies  (cgk.sh.json)
-CGKTEMPLIST="$USERCACHE/$SN.json"
-#list of vs_currencies    (cgk.sh.0.json)
-CGKTEMPLIST0="$USERCACHE/$SN.0.json"
+#defaults=/tmp/ala.sh.d
+CACHEDIR="${TMPDIR:-/tmp}/$SN".cache
 
 ## Manual and help
 HELP_LINES="NAME
@@ -44,7 +40,7 @@ HELP_LINES="NAME
 
 
 SYNOPSIS
-	cgk.sh [-cgox] [-sNUM] [AMOUNT] FROM_CURRENCY [VS_CURRENCY]
+	cgk.sh [-gox] [-sNUM] [AMOUNT] FROM_CURRENCY [VS_CURRENCY]
 	cgk.sh -d CRYPTO
 	cgk.sh -ee [-pNUM]
 	cgk.sh -t CRYPTO [VS_CURRENCY]
@@ -101,9 +97,8 @@ DESCRIPTION
 	currency ids from CoinGecko. That will avoid flooding the server
 	with requests of mostly static data and will improve script speed.
 	If you do not want to create/use cache files, set option -c. Run
-	script with option -u to force updating cache files, otherwise
-	they will not be updated automatically unless \$CGKEXPIRATION is
-	set, see script head source code. Cache defaults=$USERCACHE .
+	script with option -C to force updating cache files. Note that
+	directory /tmp is cleaned on every boot, defaults=$CACHEDIR .
 
 	Coingecko.com api rate limit is currently 100 requests/minute.
 	
@@ -230,9 +225,9 @@ OPTIONS
 	-b 	  Bank currency function, force convertions between
 		  unofficially supported currency pairs; defaults=auto.
 	-c 	  Don't make or keep cache data (currency ids).
+	-C 	  Force update cache data from CoinGecko.
 	-h 	  Show this help.
 	-j 	  Debug; print raw data, usually json.
-	-u 	  Force update cache data from CoinGecko.
 	-v 	  Show this programme version.
 	Functions
 	-d CRYPTO
@@ -280,55 +275,23 @@ zar   xdr   xag	  xau
 
 
 ## Functions
-## Cache manager
-cachef()
+#cache files
+yourappf()
 {
-	local file url ret stamp0 stamp
-	file="$1" url="$2"
+	local url tmpfile
 
-	#check cache files availability
-	if ((OPTC)) && [[ -d "$USERCACHE" ]]
-	then
-		#if cache file exists
-		#if file stamp is less than expiration
-		if [[ -s "$file" ]] && {
-			(( CGKEXPIRATION==0)) || {
-			stamp0=$(date +%s) stamp=$(stat --printf='%Y\n' "$file") &&
-			(( stamp0 < (stamp+CGKEXPIRATION) ))
-			}
-		}
-		then cat "$file" ;return
-		elif "${YOURAPP[@]}" "$url" >"$file"
-		then cat "$file" ;return
-		fi
-	fi
- 	
-	#print to stdout (no cache)
-	"${YOURAPP[@]}" "$url"
-}
+	url="${@: -1}" || return
+	tmpfile="$CACHEDIR/${url//[\/:]/}".cache
 
-#update user cahe files
-cacheupf()
-{
-	local ret
-	#check cache files availability
-	if ((OPTC)) && [[ -d "$USERCACHE" ]]
-	then
-		#update cache files manually
-		echo 'Updating CoinGecko resource file(s) (JSON data)..' >&2
-		#update cache
-		echo "$CGKTEMPLIST" >&2
-		"${YOURAPP[@]}" "$COINLISTURL" >"$CGKTEMPLIST" ;ret+=( $? )
-		echo "$CGKTEMPLIST0" >&2
-		"${YOURAPP[@]}" "$COINLISTURL0" >"$CGKTEMPLIST0" ;ret+=( $? )
-	else
-		((OPTC)) || echo "$SN: err -- option -c is set" >&2
-		[[ -d "$USERCACHE" ]] || echo "$SN: user cache unavailable -- $USERCACHE" >&2
-		ret+=( 1 )
+	if ((OPTC==0)) 				#don't use cache at all  #|| [[ ! -d "$CACHEDIR" ]]
+	then "${YOURAPP[@]}" "$@" 
+	elif ((OPTC==1)) && [[ -e "$tmpfile" ]] 	#is there a cache file?
+	then cat "$tmpfile"
+	else "${YOURAPP[@]}" "$@" | tee "$tmpfile" 	#data will be copied as cache
 	fi
 
-	#sum exit codes
-	return $(( ${ret[@]/%/+} 0 ))
+	#timestamp
+	#{ stat --printf='%Y\n' [FILE] ;}
 }
 
 ## -m Market Cap function		
@@ -351,15 +314,13 @@ mcapf()
 	fi
 
 	# Get Data 
-	CGKGLOBAL="$TMPD/cgkglobal.json"
+	CGKGLOBAL="$CACHEDIR/cgkglobal.json"
 	"${YOURAPP3[@]}" "https://api.coingecko.com/api/v3/global" -H  "accept: application/json" >"$CGKGLOBAL"
 	VS_CUR=( $( jq -r '.data.total_market_cap|keys[]' "$CGKGLOBAL" ) )
 
 	# Print JSON?
 	if (( PJSON )) && (( DOMOPT || MCAP == 2 ))
-	then
-		cat "$CGKGLOBAL"
-		exit
+	then cat "$CGKGLOBAL" ;exit
 	fi
 
 	#option -mm
@@ -401,8 +362,8 @@ mcapf()
 	fi
 
  	#get more data
- 	MARKETGLOBAL="$TMPD/mktglobal.json"
- 	DEFIGLOBAL="$TMPD/defiglobal.json"
+ 	MARKETGLOBAL="$CACHEDIR/mktglobal.json"
+ 	DEFIGLOBAL="$CACHEDIR/defiglobal.json"
 	"${YOURAPP3[@]}" "https://api.coingecko.com/api/v3/coins/markets?vs_currency=${1,,}&order=market_cap_desc&per_page=10&page=1&sparkline=false" >"$MARKETGLOBAL"
 	"${YOURAPP3[@]}" "https://api.coingecko.com/api/v3/global/decentralized_finance_defi" >"$DEFIGLOBAL"
 
@@ -516,7 +477,7 @@ exf()
 	# -ee Show Exchange list
 	if [[ "${EXOPT}" -eq 2 ]]
 	then
-		ELIST="$TMPD/elist.json"
+		ELIST="$CACHEDIR/elist.json"
 		"${YOURAPP[@]}" "https://api.coingecko.com/api/v3/exchanges/list" >"$ELIST"
 
 		# Print JSON?
@@ -603,7 +564,7 @@ bankf()
 	fi
 	
 	# Get CoinGecko JSON
-	CGKRATERAW="$TMPD/cgkrateraw.json"
+	CGKRATERAW="$CACHEDIR/cgkrateraw.json"
 	"${YOURAPP[@]}" "https://api.coingecko.com/api/v3/simple/$URI" >"$CGKRATERAW"
 
 	# Print JSON?
@@ -697,14 +658,12 @@ bankf()
 histf()
 {
 	#get data
-	data="$TMPD/data.json"
+	data="$CACHEDIR/data.json"
 	"${YOURAPP3[@]}" "https://www.coingecko.com/price_charts/export/${2,,}/${3,,}.csv" >"$data"
 	
 	#print raw CSV data?
 	if (( PJSON )) || (( OPTHIST > 1 ))
-	then
-		cat "$data"
-		exit
+	then cat "$data" ;exit
 	fi
 
 	#make a table
@@ -720,7 +679,7 @@ trapf()
 	#unset trap
 	trap \  EXIT INT TERM
 
-	[[ -d "$TMPD" ]] && rm -rf "$TMPD"
+	[[ -d "$CACHEDIR" ]] && rm -f "$CACHEDIR"/*.json
 
 	exit 0
 }
@@ -737,9 +696,7 @@ tickersimplefb()
 
 	# Print JSON?
 	if (( PJSON ))
-	then
-		echo "$data"
-		exit
+	then echo "$data" ;exit
 	fi
 	
 	#process
@@ -747,14 +704,11 @@ tickersimplefb()
 		grep -vie 'http.*://' -e 'Additional information' |
 		#user has w3m?
 		if command -v w3m &>/dev/null
-		then
-			w3m -dump -T text/html
+		then w3m -dump -T text/html
 		elif command -v elinks &>/dev/null
-		then
-			elinks -dump
+		then elinks -dump
 		elif command -v lynx &>/dev/null
-		then
-			lynx -force_html -stdin -dump
+		then lynx -force_html -stdin -dump
 		else
 			sed 's/<[^>]*>//g' |
 			sed -r '/^ *\S/!b; N; /\n *$/!b; N; /\S *$/!b; s/\n *\n/\n/' |
@@ -884,8 +838,8 @@ tickerf()
 listsf() 
 {
 	local FCLISTS VSCLISTS COLCONF
-	FCLISTS="$( cachef "$CGKTEMPLIST" "$COINLISTURL" )"
-	VSCLISTS="$( cachef "$CGKTEMPLIST0" "$COINLISTURL0" )"
+	FCLISTS="$( yourappf "$COINLISTURL" )"
+	VSCLISTS="$( yourappf "$COINLISTURL0" )"
 
 	# Print JSON?
 	if (( PJSON ))
@@ -919,7 +873,7 @@ clistf()
 	if [[ ! -e "$CGKTEMPLIST1" ]]
 	then
 		# Retrieve list from CGK
-		cachef "$CGKTEMPLIST" "$COINLISTURL" |
+		yourappf "$COINLISTURL" |
 			jq -r '[.[] | { key: .symbol, value: .id } ] | from_entries' >"$CGKTEMPLIST1" || exit
 	fi
 }
@@ -930,7 +884,7 @@ tolistf()
 	# Check if there is a list or create one
 	if [[ ! -e "$CGKTEMPLIST2" ]]
 	then
-		cachef "$CGKTEMPLIST0" "$COINLISTURL0" |
+		yourappf "$COINLISTURL0" |
 			jq -r '.[]' >"$CGKTEMPLIST2" || exit
 	fi
 }
@@ -1089,9 +1043,7 @@ mainf()
 		
 		#print json?
 		if (( PJSON ))
-		then
-			echo "${rate}"
-			exit
+		then echo "${rate}" ;exit
 		fi
 	
 		rate="$( jq -r '."'${2,,}'"."'${3,,}'"' <<< "${rate}" | sed 's/e/*10^/g' )"
@@ -1111,7 +1063,7 @@ mainf()
 
 
 # Parse options
-while getopts 0123456789bcdegxhHljmop:s:tuv opt
+while getopts 0123456789bCcdegxhHljmop:s:tv opt
 do
 	case ${opt} in
 		[0-9] )
@@ -1121,6 +1073,10 @@ do
 		b )
 			## Activate the Bank currency function
 			BANK=1
+			;;
+		C )
+			## update user cache files
+			OPTC=2
 			;;
 		c )
 			## Dont use cache files
@@ -1182,13 +1138,9 @@ do
 			# Tickers
 			(( TOPT )) && TOPT=2 || TOPT=1
 			;;
-		u )
-			## update user cache files
-			OPTU=1
-			;;
 		v )
 			# Version of Script
-			head "${0}" | grep -e '# v'
+			grep -m1 '# v' "$0"
 			exit 0
 			;;
 		x )
@@ -1228,39 +1180,28 @@ else
 fi
 unset UAG
 
-#make temp dir (at /tmp)
-TMPD="$( mktemp -d )" || exit
-CGKTEMPLIST1="$TMPD/cgklist1.json"
-CGKTEMPLIST2="$TMPD/cgklist2.json"
+#make a cache folder
+((OPTC>1)) || [[ -d "$CACHEDIR" ]] || mkdir "$CACHEDIR" || unset OPTC
+CGKTEMPLIST1="$CACHEDIR/cgklist1.json.cache"
+CGKTEMPLIST2="$CACHEDIR/cgklist2.json.cache"
 
 #set exports
-export CGKTEMPLIST CGKTEMPLIST0 CGKTEMPLIST1 CGKTEMPLIST2 CGKRATERAW OPTC TMPD BANKSKIP CGKEXPIRATION
+export CGKTEMPLIST1 CGKTEMPLIST2 CGKRATERAW OPTC CACHEDIR BANKSKIP CGKEXPIRATION COINLISTURL COINLISTURL0
 
 ## Trap temp cleaning functions
 trap trapf EXIT INT TERM
 
 
 # Call opt function
+#market ticker
 if (( MCAP ))
-then
-	#market ticker
-	mcapf "${@}"
-	exit
+then mcapf "${@}" ;exit
+#list exchanges
 elif (( EXOPT ))
-then
-	#list exchanges
-	exf
-	exit
+then exf          ;exit
+#list currencies
 elif (( LOPT ))
-then
-	#list currencies
-	listsf
-	exit
-elif (( OPTU ))
-then
-	#update user cahe files
-	cacheupf
-	exit
+then listsf       ;exit
 fi
 
 # Set equation arguments
@@ -1319,21 +1260,17 @@ set -- "$1" "$(changevscf "$2")" "$(changetocf "$3")"
 curcheckf "$@"
 
 ## Call opt functions
+#historical prices
 if (( OPTHIST ))
-then
-	#historical prices
-	histf "$@"
+then histf "$@"
+#complete ticker from all exchanges
 elif (( TOPT == 2 ))
-then
-	#complete ticker from all exchanges
-	tickerf "${@}"
+then tickerf "${@}"
+#simple ticker
 elif (( TOPT == 1 ))
-then
-	#simple ticker
-	tickersimplef "$@" || tickersimplefb "$@"
-else
-	#default option
-	#currency conversion
-	mainf "$@"
+then tickersimplef "$@" || tickersimplefb "$@"
+#default option
+#currency conversion
+else mainf "$@"
 fi
 

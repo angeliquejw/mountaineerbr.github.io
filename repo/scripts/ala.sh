@@ -1,6 +1,6 @@
 #!/bin/bash
 # ala.sh -- arch linux archive explorer (search and download)
-# v0.14.6  may/2021  by castaway
+# v0.14.7  may/2021  by castaway
 
 #defaults
 #script name
@@ -196,11 +196,11 @@ ENVIRONMENT
 		Set with value greater than 0 to not use cache at all.
 		this inhibits creation of cache directory at $CACHEDIR .
 
-	\$CACREPOS
-		Set with REPO names. It is used in option -c to calculate
-		repo sizes. It may be easier to just pass multiple REPO
-		names to option -c for the calculation. See usage example (3).
-		Defaults to ${DEFCALCREPOS[*]} .
+	\$CALCREPOS
+		Set with REPO names separated by space. It is used in
+		option -c to calculate repo sizes. It may be easier to
+		just pass multiple REPO names to option -c for the calc-
+		ulation. See usage example (3). Defaults to ${DEFCALCREPOS[*]} .
 
 	\$MURL
 		Experimental. Not all functions will work.
@@ -432,17 +432,6 @@ consolidatepf()
 	echo "$p"
 }
 
-#exit cleaning
-#cleanf()
-#{
-#	trap \   EXIT HUP INT
-#
-#	#browser links temp file?
-#	[[ -f "$browsertmp" ]] && rm -- "$browsertmp"
-#
-#	exit
-#}
-
 #check/set cli browser
 checkwbrowserf()
 {
@@ -462,11 +451,6 @@ checkwbrowserf()
 		#don't remove reference links?
 		(( FEEDOPT )) || extraflag=( -no-references ) 
 		WBROWSER=( elinks -dump "${extraflag[@]}" )
-	#elif command -v links
-	#then
-	#	trap cleanf EXIT HUP INT
-	#	browsertmp="$(mktemp)"
-	#	WBROWSER=( links -force-html -dump "$browsertmp" )
 	else
 		WBROWSER=( "${WBROWSERDEF[@]}" )
 		return 1
@@ -496,19 +480,14 @@ dateunixfhelper()
 
 	#defaults
 	if date -d"$str" "$fmt"
-	then
-		return 0
+	then return 0
 	#some unusual date input formats
-	elif
-		str2="$( sed -En "s:([0-9]{1,4})(${seprm})([a-zA-Z]{3,}|[0-9]{1,2})(${seprm})([0-9]{1,4}):\1${sep}\3${sep}\5:p" <<<"$str" )" &&
-		[[ -n "$str2" ]] && date -d"$str2" "$fmt"
-	then
-		return 0
-	elif
-		str2="$( sed -En "s:([0-9]{1,4})(${seprm})([a-zA-Z]{3,}|[0-9]{1,2})(${seprm})([0-9]{1,4}):\5${sep}\3${sep}\1:p" <<<"$str" )" &&
-		[[ -n "$str2" ]] && date -d"$str2" "$fmt"
-	then
-		return 0
+	elif str2="$( sed -En "s:([0-9]{1,4})(${seprm})([a-zA-Z]{3,}|[0-9]{1,2})(${seprm})([0-9]{1,4}):\1${sep}\3${sep}\5:p" <<<"$str" )" \
+		&& [[ -n "$str2" ]] && date -d"$str2" "$fmt"
+	then return 0
+	elif str2="$( sed -En "s:([0-9]{1,4})(${seprm})([a-zA-Z]{3,}|[0-9]{1,2})(${seprm})([0-9]{1,4}):\5${sep}\3${sep}\1:p" <<<"$str" )" \
+		&& [[ -n "$str2" ]] && date -d"$str2" "$fmt"
+	then return 0
 	fi
 	
 	return 1
@@ -834,8 +813,8 @@ infodumpf() {
 	checktarf
 	
 	#remove autocomplete operator
-	if [[ "$*" = *..* ]]; then
-		set -- "${@//../ }"
+	if [[ "$*" = *..* ]]
+	then set -- "${@//../ }"
 	fi
 
 	#is $MURL set (experimental)?
@@ -843,10 +822,8 @@ infodumpf() {
 	if [[ "$INFOOPTARG" =~ ^/?($VALIDREPOS) ]]
 	then
 		if [[ -z "$MURL" ]]
-		then
-			set -- "$DEFALADATE" "$INFOOPTARG" "$@"
-		else
-			set -- "$@" "$INFOOPTARG"
+		then set -- "$DEFALADATE" "$INFOOPTARG" "$@"
+		else set -- "$@" "$INFOOPTARG"
 		fi
 
 		INFOOPTARG='*'
@@ -878,8 +855,7 @@ infodumpf() {
 	done
 
 	#check DATE format
-	if
-		date="$( checkdatef "$@" 2>/dev/null )"
+	if date="$( checkdatef "$@" 2>/dev/null )"
 	then
 		set -- "${date:-$@}"
 	else
@@ -1013,7 +989,7 @@ searchf() {
 	[[ "$1" =~ ^/?($VALIDREPOS) ]] && set -- "$DEFALADATE" "$@"
 	
 	#remove all /
-	[[ "$1" != / ]] && set --  $( tr / \  <<<"${*}" )
+	[[ "$1" != / ]] && set --  $(tr / \  <<<"${*}")
 
 	#get last args
 	pos=1
@@ -1221,11 +1197,9 @@ feedfb()
 
 	#n of articles to print
 	if [[ "$1" = [mM][aA][xX]* ]]
-	then
-		articles=50
+	then articles=50
 	elif [[ "$1" =~ ^[0-9]+$ ]]
-	then
-		articles="$1"
+	then articles="$1"
 	fi
 
 	#get page and links
@@ -1448,49 +1422,38 @@ fi
 #call opt functions
 #news feed
 if (( FEEDOPT == 1 ))
-then
-	feedf
+then feedf
 elif (( FEEDOPT > 1 ))
-then
-	feedfb "$@"
+then feedfb "$@"
 #user repositories
 elif (( USERREPOOPT ))
-then
-	userrepof
+then userrepof
 #list repo all pkgs
 elif (( ALLOPT )) || [[ "$MURL$ISOOPT$1" = . ]]
-then
-	allf
+then allf
 #last update and sync timestamps
 elif (( LUPOPT ))
-then
-	lupf "${@}"
+then lupf "${@}"
+#download a package
 elif (( WOPT ))
-then
-	alad "${@}"
+then alad "${@}"
+#calc repo sizes
 elif (( COPT ))
 then
-	#there is no need to calc iso repo sizes
+	#there is no need to calc ``iso'' repo sizes
 	if (( ISOOPT ))
-	then
-		printf '%s: err -- refused\n' "$SN" >&2
-		exit 1
-	else
-		calcf "${@}"
+	then printf '%s: err -- refused\n' "$SN" >&2 ;exit 1
+	else calcf "${@}"
 	fi
 #-k dump pkg info only
 #also automatically set if last arg matches .db
 elif ((INFOOPT))
-then
-	infodumpf "$@"
+then infodumpf "$@"
 #default opt
 else
 	#parse operator 
 	[[ "$*" = .. ]] && set -- "$DEFALADATE" "$@"
 	
-	#copy input so far
-	#ARGS=( "$@" )
-
 	#set args for opt functions
 	#check repo sizes opt -c
 	(( COPT )) && set -- "${@:1:3}"

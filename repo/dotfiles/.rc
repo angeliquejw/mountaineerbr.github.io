@@ -734,36 +734,36 @@ gaddr()
 #my website
 #update contents
 #and sync to github
-WWW()
-{
-	cd "$HOME/www/mountaineerbr.github.io" || return
-	"$HOME/www/mountaineerbr.github.io/portal.sh" "$@" && gitup
-}
+#WWW()
+#{
+#	cd "$HOME/www/mountaineerbr.github.io" || return
+#	"$HOME/www/mountaineerbr.github.io/portal.sh" "$@" && gitup
+#}
 
 #creat blog entry
-bloga() { ~/www/mountaineerbr.github.io/blog/blog.sh -a ;}
+#bloga() { ~/www/mountaineerbr.github.io/blog/blog.sh -a ;}
 
 #process audio for podcast (personal website)
-fblog()
-{
-	local buffer out
-	buffer=a.mp3
-	out=o.flv
-
-	#check file extension
-	[[ "${1##*.}" = m4a ]] || return
-
-	ffmpeg -i "$1" -c:a libmp3lame -b:a 64k "$buffer" &&
-	ffmpeg -i "$buffer" -filter_complex \
-	"[0:a]avectorscope=s=320x258,pad=636:360[vs]; \
-	 [0:a]showspectrum=mode=separate:color=intensity:scale=cbrt:s=320x259[ss]; \
-	 [0:a]showwaves=s=640x101:mode=line[sw]; \
-	 [vs][ss]overlay=w[bg]; \
-	 [bg][sw]overlay=0:H-h,drawtext=fontfile=/usr/share/fonts/TTF/Vera.ttf:fontcolor=white:x=10:y=10:text='Podcast '[out]" \
-	-map "[out]" -map 0:a -c:v libx264 -preset fast -crf 19 -c:a copy "$out"
-
-	printf '%s\n' '' files: "$buffer" "$out"
-}
+#fblog()
+#{
+#	local buffer out
+#	buffer=a.mp3
+#	out=o.flv
+#
+#	#check file extension
+#	[[ "${1##*.}" = m4a ]] || return
+#
+#	ffmpeg -i "$1" -c:a libmp3lame -b:a 64k "$buffer" &&
+#	ffmpeg -i "$buffer" -filter_complex \
+#	"[0:a]avectorscope=s=320x258,pad=636:360[vs]; \
+#	 [0:a]showspectrum=mode=separate:color=intensity:scale=cbrt:s=320x259[ss]; \
+#	 [0:a]showwaves=s=640x101:mode=line[sw]; \
+#	 [vs][ss]overlay=w[bg]; \
+#	 [bg][sw]overlay=0:H-h,drawtext=fontfile=/usr/share/fonts/TTF/Vera.ttf:fontcolor=white:x=10:y=10:text='Podcast '[out]" \
+#	-map "[out]" -map 0:a -c:v libx264 -preset fast -crf 19 -c:a copy "$out"
+#
+#	printf '%s\n' '' files: "$buffer" "$out"
+#}
 
 #Resize the image if it is larger than the specified dimensions.
 #This will automatically preserve the aspect ratio of the image too.
