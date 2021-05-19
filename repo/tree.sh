@@ -1,5 +1,5 @@
 #!/bin/zsh
-# v0.3.6  may/2021  mountaineerbr
+# v0.3.7  may/2021  mountaineerbr
 # Create pages for exploring directories and files
 # Requires `markdown' and `txt2html'.
 # <https://archlinux.org/packages/extra/x86_64/discount/>
@@ -12,7 +12,7 @@ SN="${0##*/}"
 treef()
 {
 	local baseHREF basePATH out title mdarray meta txtarray notes xtrastyles inject
-	local ext extt pic media doc txt pdf map other
+	local ext extt pic media doc txt txt2 pdf map other
 	typeset -a mdarray txtarray
 	
 	baseHREF="$1"
@@ -39,7 +39,8 @@ treef()
 	pic='jpg|jpeg|png|gif|tiff|webp|bmp|svg|svgz|ico|svg|ppm|tga|tif|xbm|xcf|xpm|xspf|xwd'
 	media='mp3|ogg|oga|flac|m4a|mp4|aac|wma|anx|asf|au|axa|m2a|mid|midi|mpc|ogx|ra|ram|spx|wma|ac3'
 	doc='doc|docx|odt|xls|xlsx|odp|pptx|ppt|ods'
-	txt='txt|rtf|conf'  #.md#maybe only .txt should be here
+	txt='txt'
+	txt2='txt|rtf|conf|md'
 	pdf=pdf
 	tree "$basePATH" \
 		-a \
@@ -51,7 +52,7 @@ treef()
 		--dirsfirst \
 		-C \
 		--charset utf-8 \
-		-I 'index.html|cksum.d' \
+		-I 'index.html|cksum.d|mktar.sh|tree.sh|sync.sh' \
 		| sed -E \
 			-e 's/<h1/<h2/g ;s/<\/h1/<\/h2/g' \
 			-e 's|<a class="NORM" href=".">|<a class="NORM" href="..">..</a><br>\n&|' \
@@ -61,6 +62,7 @@ treef()
 			-e "/\.($media)\">/I s|class=\"[^\"]*\"|class=\"media\"|I" \
 			-e "/\.($doc)\">/I s|class=\"[^\"]*\"|class=\"doc\"|I" \
 			-e "/\.($txt)\">/I s|class=\"[^\"]*\"|class=\"txt\"|I" \
+			-e "/\.($txt2)\">/I s|class=\"[^\"]*\"|class=\"txt2\"|I" \
 			-e "/\/\.[^\"]+\">/I s|class=\"[^\"]*\"|class=\"hidden\"|I" \
 			-e "/\.($pdf)\">/I s|class=\"[^\"]*\"|class=\"pdf\"|I" \
 			>"$out"
@@ -82,7 +84,7 @@ treef()
 		inject="$(txt2html --extract --eight_bit_clean "${txtarray[1]}")"
 	fi
 	[[ -n "$inject" ]] && {
-		read -d: map other <<<"$(grep -n '^\s*</p>' "$out")"
+		read -d: map other <<<"$(grep -n -m1 '^\s*</p>' "$out")"
 		sed -i "${map} r /dev/stdin" "$out" <<<"$inject"
 	}
 
@@ -103,6 +105,7 @@ treef()
 	.media  { color: orange;}
 	.doc  { color: indianred;}
 	.txt  { color: crimson;}
+	.txt2  { color: pink;}
 	.pdf  { color: white;  background-color: blue;}
 	.hidden  { background-color: azure;}
 	'

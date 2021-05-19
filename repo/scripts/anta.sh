@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.15.7  may/2021  by mountaineerbr
+# v0.15.9  may/2021  by mountaineerbr
 
 #padrões
 
@@ -264,9 +264,8 @@ sedhtmlf() {
 #get post (article) links
 getlinksf()
 {
-	grep -aE 'id="post_[0-9]' |
-	sed 's|>|&\n|g' |
-	sed -nE "s|.*href=['\" ]([^'\"#]+)['\" ] title.*|\1| p" |
+	sed -nE '/id="post_[0-9]/p ; s|>|&\n|g' |
+	sed -nE "s|.*href=['\"]([^'\"#]+)['\"] title.*|\1| p" |
 	uniq
 }
 
@@ -528,7 +527,7 @@ fulltf() {
 	#get link references
 	hrefs=( $(
 		sed 's|>|&\n|g' <<<"$art" |
-			sed -nE "s|.*href=['\" ]([^'\"]+)['\" ].*|\1| p" |
+			sed -nE "s|.*href=['\"]([^'\"]+)['\"].*|\1| p" |
 			nl | sort -k2 | uniq -f 1 | 
 			sort -n | cut -f2 | #grep -avF /tag/ |
 			sed -e "/twitter\.com\// s/\?[^\'\"]*//g"
