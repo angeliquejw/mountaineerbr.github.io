@@ -1,6 +1,6 @@
 #!/bin/bash
 # ala.sh -- arch linux archive explorer (search and download)
-# v0.14.9  may/2021  by castaway
+# v0.14.11  may/2021  by castaway
 
 #defaults
 #script name
@@ -84,11 +84,11 @@ SYNOPSIS
 	$SN  [-2d] [-cc]  [DATE] [REPOS]
 	$SN  [-2d] -i     [DATE|URLPATH]
 	$SN  [-2d] [-kK]  [PKGNAME|'*'|'.'] [DATE] [REPOS] [i686|x86_64]
-	$SN  [-2d] -u     [DATE]..
+	$SN  [-2d] -u     [DATES]
 	$SN  [-2]  -w     PKGNAME-VER-x86_64.pkg.tar.xz
 	$SN  [-2]  -wi    URLPATH/FILE.EXT
 	$SN  -nn          [NUM]
-	$SN  -hnov
+	$SN  -hov
 
 	
 	The Arch Linux Archives (aka ALA) stores official repositor
@@ -115,9 +115,8 @@ SYNOPSIS
 	option -p.
 
 	Option -l applies to all options that download data with the 
-	exception of option -w. $SN will keep cache files at $CACHEDIR .
-	Option -l updates cached files and -ll or -L disable use of cache
-	altogether.
+	exception of -w. Option -l updates cached files and -ll or -L
+	disable use of cache altogether; cache directory=$CACHEDIR .
 
 	The oficial <archive.archlinux.org> archive was started at end
 	of august 2013.
@@ -346,37 +345,38 @@ USAGE EXAMPLES
 
 
 OPTIONS
-	-2 	      Use Arkena's server (slow, sometimes down).
-	-3 	      Custom server; simple mirror URL may be set (experimental);
-	-a 	      List all packages and versions from server.
+	Miscellaneous
+	-2 	   Use Arkena's server (slow, sometimes down).
+	-3 	   Custom server; simple mirror URL may be set (experimental);
+	-d 	   Disable date checking and auto correction.
+	-h 	   Show this help page.
+	-l 	   Update cache files.
+	-ll, -L	   Don't keep any cache files.
+	-p 	   Hint first positional parameter is PKGNAME.
+	-v 	   Print script version.
+	Extra Functions
+	-n 	   Arch Linux news feed.
+	-nn [NUM]  Arch Linux news feed alternative, fetch NUM news.
+	-o 	   List unofficial user repos.
+	Functions
+	-a 	   List all packages and versions from server.
 	-c  [DATE] [REPOS]
-		      Calculate REPOS sizes from DATE; sizes taken from webpage;
-		      defaults DATE=$DEFALADATE, REPOS=( ${AUTOREPOS[*]} ).
+		   Calculate REPOS sizes from DATE; file sizes from webpage;
+		   defaults DATE=$DEFALADATE, REPOS=( ${AUTOREPOS[*]} ).
 	-cc [DATE] [REPOS]
-		      Same as -c but sizes are calculated from db.tar.gz file,
-		      (experimental).
-	-d 	      Disable date checking and automatic correction.
-	-h 	      Show this help page.
-	-i  DATE      Use the ISO archives.
+		   Same as -c but file sizes are from db.tar.gz (experimental).
+	-i  DATE   Use the ISO archives.
 	-k  PKGNAME [DATE] [REPOS] [i686|x86_64]
-		      Dump information of packages; defaults DATE=$DEFALADATE ,
-		      REPOS=( ${AUTOREPOS[*]} ).
+		   Dump information of packages; defaults DATE=$DEFALADATE ,
+		   REPOS=( ${AUTOREPOS[*]} ).
 	-K  PKGNAME [DATE] [REPOS] [i686|x86_64]
-		      Same as -k but dumps more info.
-	-l 	      Update cache files.
-	-ll, -L	      Don't keep any cache files.
-	-n 	      Arch Linux news feed.
-	-nn  [NUM]    Arch Linux news feed alternative, fetch NUM news
-		      articles; NUM is a natural number; defaults=6.
-	-o 	      List unofficial user repos.
-	-p 	      Hint first positional parameter is PKGNAME.
-	-u   [DATE]..
-		      Check update and sync times of a DATE repo.
-	-v 	      Print script version.
-	-w   PKGNAME-VER-x86_64.pkg.tar.xz
-		      Download one package and accompanying .sig file.
-	-wi  URLPATH/FILE.ext
-		      Download one file from the iso repo."
+		   Same as -k but dumps more info.
+	-u, -s [DATES] 
+		   Print update and sync times of a DATE repo.
+	-w  PKGNAME-VER-x86_64.pkg.tar.xz
+		   Download one package and accompanying .sig file.
+	-wi URLPATH/FILE.ext
+		   Download one file from the iso repo."
 
 #pkgs with similar fuctionalities, however they are not ala explorers:
 #ref: powerpill: https://bbs.archlinux.org/viewtopic.php?id=110136

@@ -1,6 +1,6 @@
 #!/bin/bash
 # cgk.sh -- coingecko.com api access
-# v0.17.1  may/2021  by mountaineerbr
+# v0.17.2  may/2021  by mountaineerbr
 
 #defaults
 
@@ -43,10 +43,10 @@ SYNOPSIS
 	cgk.sh [-gox] [-sNUM] [AMOUNT] FROM_CURRENCY [VS_CURRENCY]
 	cgk.sh -d CRYPTO
 	cgk.sh -ee [-pNUM]
+	cgk.sh -HH CRYPTO [VS_CURRENCY]
 	cgk.sh -t CRYPTO [VS_CURRENCY]
 	cgk.sh -tt [-pNUM] [CRYPTO]
 	cgk.sh -mm [VS_CURRENCY]
-	cgk.sh -HH CRYPTO [VS_CURRENCY]
 	cgk.sh [-hluv]
 
 
@@ -221,7 +221,8 @@ OPTIONS
 	-g 	  Use grams instead of troy ounces (precious metals only).
 	-o 	  Print thousands separator in results (comma).
 	-s NUM    Scale setting (decimal plates); defaults=${SCLDEFAULTS}.
-	-x 	  Use satoshis instead of bitcoins (sat = 1/100,000,000 btc).
+	-x 	  Use Satoshi instead of Bitcoin (sat = 1/100,000,000 btc);
+		  this affects input AMOUNT and output.
 	Miscellaneous
 	-b 	  Bank currency function, force convertions between
 		  unofficially supported currency pairs; defaults=auto.
@@ -229,23 +230,21 @@ OPTIONS
 	-C 	  Force update cache data from CoinGecko.
 	-h 	  Show this help.
 	-j 	  Debug; print raw data, usually json.
-	-v 	  Show this programme version.
-	Functions
-	-d CRYPTO
-		  Dominance of cryptos; a single crypto is optional
-		  (amongst top 10 only); also check option -m.
-	-e 	  Exchange information; set number of pages with -p.
-	-ee	  Print a list of exchange names and IDs only.
-
-	-H CRYPTO [VS_CURRENCY]
-		  Historical prices (time series); twice to print csv.
 	-l 	  List supported currencies.
-	-m [VS_CURRENCY]
-		  Market ticker; a vs_currency may be supplied; check
-		  option -mm; defaults=USD+others.
 	-mm 	  List supported VS_CURRENCIES for options -m and -t .
 	-p NUM	  Pages to retrieve (max 100 results/page); use with
 		  options -ett; defaults=auto.
+	-v 	  Print script version.
+	Functions
+	-d CRYPTO Dominance of cryptos; a single crypto is optional
+		  (amongst top 10 only); also check option -m.
+	-e 	  Exchange information; set number of pages with -p.
+	-ee	  Print a list of exchange names and IDs only.
+	-HH CRYPTO [VS_CURRENCY]
+		  Historical prices (time series); twice to print CSV.
+	-m [VS_CURRENCY]
+		  Market ticker; a vs_currency may be supplied; check
+		  option -mm; defaults=USD+others.
 	-t CRYPTO [VS_CURRENCY]
 		  Simple ticker; general informatioin of CRYPTO.
 	-tt [CRYPTO]
