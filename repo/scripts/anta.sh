@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.15.17  may/2021  by mountaineerbr
+# v0.15.18  may/2021  by mountaineerbr
 
 #padrões
 
@@ -598,7 +598,7 @@ linksf() {
 			PAGINAS=0
 			COMP="${i,,}"
 			COMP="${COMP/https:\/\/www.oantagonista.com}"
-			fulltf
+			fulltf ;ret+=($?)
 		done
 	else
 		# Get Links from initial pages
@@ -642,9 +642,9 @@ linksf() {
 		#hora que terminou tarefa
 		(( ROLLOPT )) && PRINTT="(${TEMPO[*]})"
 		printf '>Puxado em %s  %s [%s]\n' "$(date -R)" "$PRINTT" "$SECONDS"
-
-		return $(( ${ret[@]/%/+} 0 ))
 	fi
+	
+	return $(( ${ret[@]/%/+} 0 ))
 }
 
 ## Parse options
@@ -799,7 +799,7 @@ fi
 
 		#loop forever
 		#then set to always get first page
-		PAGINAS=1
+		[[ "$PAGINAS" = 0 ]] || PAGINAS=1
 		XAGAIN=780
 		AGAIN="$XAGAIN"
 		while :
@@ -811,7 +811,9 @@ fi
 				then linksf || break
 				else anta || break
 				fi
+				
 				sleep "${TEMPO[@]}"
+				[[ "$PAGINAS" = 0 ]] && PAGINAS=1
 			done
 
 			#grand retry timer
