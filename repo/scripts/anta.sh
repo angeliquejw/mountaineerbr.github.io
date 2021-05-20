@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.15.15  may/2021  by mountaineerbr
+# v0.15.17  may/2021  by mountaineerbr
 
 #padrões
 
@@ -485,7 +485,8 @@ fulltf() {
 			-e '"entry-author' \
 			-e '<div class="gravata' \
 			| grep -aFv 'class="timer-icon' \
-			|sed -E 's/^#breadcrumbs.*}\s?//'
+			|sed -E -e 's/^#breadcrumbs.*}\s?//' \
+			-e 's/.*<div class="gravata.*/[&]\n\n/'
 	)"
 	grav="$( <<<"$PAGE" grep -cF '<div class="gravata' )"
 
