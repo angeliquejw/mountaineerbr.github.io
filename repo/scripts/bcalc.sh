@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # bcalc.sh -- shell maths wrapper
-# v0.12.2  may/2021  by mountaineerbr
+# v0.12.3  may/2021  by mountaineerbr
 
 #defaults
 #script path
@@ -115,24 +115,24 @@ DESCRIPTION
 
 
 DECIMAL AND THOUSANDS SEPARATOR
-	Decimal separator defaults to a dot \`.'. User can manually set
-	-. for defining dot as decimal separator ot -, to set comma as
-	decimal separator (for input and output). Beware that some bash
-	bc and zsh functions may use comma as operators.
+	Decimal separator defaults to a dot (.). User can manually set
+	-. for defining dot as decimal separator ot -, to set (,) comma
+	as decimal separator (for input and output). Beware that some
+	bash bc and zsh functions may use comma as operators.
 
 	Option -t prints thousands separator in result. Note that there
 	is an important limitation with option -t : result numbers cannot
-	exceed 20 decimal digits worth of length in bash and 16 digits
+	exceed 20 decimal plates worth of length in bash and 16 digits
 	in zshell. This option can be combined with -., .
 
 
-	Set option -, if decimal separator of EXPRESSION input is comma \`,' :
+	Set option -, if decimal separator of EXPRESSION input is comma (,) :
 		
 		(input) 	    (input) 	    (output)
 		1.234.567,00 	--> 1234567.00 	--> 1234567,00
 
 
-	Set option -. if decimal separator of EXPRESSION input is dot \`.' :
+	Set option -. if decimal separator of EXPRESSION input is dot (.) :
 
 		(input) 	    (input) 	    (output)
 		1,234,567.00 	--> 1234567.00 	--> 1234567.00
@@ -144,10 +144,10 @@ DECIMAL AND THOUSANDS SEPARATOR
 		1234567.00 	--> 1,234,567.00
 
 
-	Strictly, setting \`-..' means to treat input with . (dot) as
+	Strictly, setting \`-..' means to treat input with (.) dot as
 	decimal separator and to print output with . with decimal sep-
 	arator. Rather, setting \`-.,' means input decimal separtor is .
-	and to print output with decimal separator , (comma).
+	and to print output with decimal separator (,) comma.
 
 
 BASH BC STANDARD FUNCTIONS
@@ -385,7 +385,7 @@ WARRANTY
 BUGS
 	Bash and Zsh have got decimal precision limits in their builtin
 	maths and/or \`printf' function (option -t). Scale should not
-	exceed 20 decimal digits worth of length in bash and 16 digits
+	exceed 20 decimal plates worth of length in bash and 16 digits
 	in Zsh.
 
 	Multiline input will skip output format settings defined with
@@ -464,9 +464,9 @@ OPTIONS
 	-e, -c 	  Load bc extensions/zsh mathfunc.
 	-ee, -cc  Print bc extensions (bash bc).
 	Input and Output Formatting
+	Formatting
 	-, 	  Set input/output decimal separator as (,) comma.
 	-. 	  Set input/output decimal separator as (.) dot.
-	Output Formatting
 	-NUM 	  Shortcut for scale setting, same as -sNUM.
 	-s NUM	  Set scale (decimal plates).
 	-t, -o 	  Thousand delimiter in result."

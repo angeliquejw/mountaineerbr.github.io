@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.15.11  may/2021  by mountaineerbr
+# v0.15.13  may/2021  by mountaineerbr
 
 #padrões
 
@@ -402,7 +402,7 @@ anta() {
 		COMP="/pagina/${i}/"
 		if ! puxarpgsf; then
 			printf '\nanta.sh: erro -- acesso limitado  [%s]\n' "$SECONDS" 1>&2
-			(( ROLLOPT )) || exit 1
+			return 1
 		fi
 
 		if (( D ))  #debug
@@ -414,9 +414,9 @@ anta() {
 		#imprime a página e processa
 		#rm new line between <p> tags 
 		POSTS="$(
-			#sed ':a;N;$!ba;s/<p>\s*\n\s*\n*\s*/<p>/g' <<<"$PAGE" |
-			#sed ':a;N;$!ba;s/\n*\s*\n\s*<\/p>/<\/p>/g' |
-			<<<"$PAGE" grep -a 'id="post_[0-9]'
+			sed ':a;N;$!ba;s/<p>\s*\n\s*\n*\s*/<p>/g' <<<"$PAGE" \
+			| sed ':a;N;$!ba;s/\n*\s*\n\s*<\/p>/<\/p>/g' \
+			| grep -a 'id="post_[0-9]'
 			)"
 
 		#cópia de links
@@ -466,7 +466,9 @@ fulltf() {
 	else
 		#puxa página do artigo texto integral
 		if ! puxarpgsf
-		then printf '\nanta.sh: erro: acesso limitado -- %s  [%s]\n' "$COMP" "$SECONDS" 1>&2 ;exit 1
+		then
+			printf '\nanta.sh: erro: acesso limitado -- %s  [%s]\n' "$COMP" "$SECONDS" >&2
+			return 1
 		fi
 	fi
 
@@ -619,7 +621,7 @@ linksf() {
 				[[ "${LINKSBUFFER[*]}" = *"$COMP"* ]] && continue
 				LINKSBUFFER+=( "$COMP" )
 
-				fulltf
+				fulltf || return 1
 
 				#dont flood the server
 				sleep "$FLOOD"
@@ -756,12 +758,13 @@ fi
 			then
 				#indicies de pgs como arg posicionais
 				for PAGINAS in "$@"
-				do linksf
+				do linksf ;RET=($?)
 				done
 			else
 				#opção padrão, puxar primeira pg e sair
 				#ou -NUM
 				linksf "$@"
+				RET=($?)
 			fi
 		else
 			#só os resumos das matérias das pgs iniciais
@@ -770,12 +773,13 @@ fi
 			then
 				#indicies de pgs como arg posicionais
 				for PAGINAS in "$@"
-				do anta
+				do anta ;RET=($?)
 				done
 			else
 				#opção padrão, puxar primeira pg e sair
 				#ou -NUM
 				anta
+				RET=($?)
 			fi
 		fi
 	fi
@@ -813,4 +817,6 @@ fi
 	fi
 #use Less pager or Cat ouput?
 } | "${OPTL[@]}"
+
+exit $(( ${RET[@]/%/+} 0 ))
 
