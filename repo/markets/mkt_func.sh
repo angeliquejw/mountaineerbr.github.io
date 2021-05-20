@@ -693,9 +693,9 @@ rate()
 
 
 #
-##loss/gain reciprocal or symetrical ratio
-##usage: loss [+-]10[%]
-##usage: if input is a negative number, reads as gain
+#loss/gain reciprocal or symetrical ratio
+#usage: loss [+-]NUM[%]
+#usage: NUM is an integer and if negative reads as gain
 #loss()
 #{
 #	local u g
@@ -703,7 +703,7 @@ rate()
 #
 #	#check for invalid notations
 #	if [[ "$u" = *[a-zA-Z]* || "$u" != *[0-9]* || ! "${u/[,.-]*}" =~ ^.?.?$ ]]
-#	then echo error >&2 ;return 1 
+#	then echo -n 'err\nusage: loss [+-]NUM[%]' >&2 ;return 1 
 #	fi
 #
 #	#use zshell maths or bash bc?
@@ -717,8 +717,8 @@ rate()
 #	else printf '%4s: %7.4f %%\n' loss $u gain $g
 #	fi
 #}
-##fausto botelho: https://www.youtube.com/watch?v=yY7d6gOIynU
-##formula: 100/(100-loss)
+#fausto botelho: https://www.youtube.com/watch?v=yY7d6gOIynU
+#formula: 100/(100-loss)
 
 
 #fun with <datahub.io>
