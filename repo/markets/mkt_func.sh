@@ -712,8 +712,8 @@ loss()
 	fi
 
 	if [[ "$u" = -* ]]
-	then printf '%4s: %.4f %%\n' gain ${u#-} loss ${g#-}
-	else printf '%4s: %.4f %%\n' loss $u gain $g
+	then printf '%4s: %2.4f %%\n' gain ${u#-} loss ${g#-}
+	else printf '%4s: %2.4f %%\n' loss $u gain $g
 	fi
 }
 #fausto botelho: https://www.youtube.com/watch?v=yY7d6gOIynU
