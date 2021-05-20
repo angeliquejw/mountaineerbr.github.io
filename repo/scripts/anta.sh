@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.15.13  may/2021  by mountaineerbr
+# v0.15.15  may/2021  by mountaineerbr
 
 #padrões
 
@@ -264,10 +264,10 @@ sedhtmlf() {
 #get post (article) links
 getlinksf()
 {
-	grep -aE 'id="post_[0-9]' |
-	sed 's|>|&\n|g' |
-	sed -nE "s|.*href=['\"]([^'\"#]+)['\"] title.*|\1| p" |
-	uniq
+	grep -aE 'id="post_[0-9]' \
+	| sed 's|>|&\n|g' \
+	| sed -nE "s|.*href=['\"]([^'\"#]+)['\"] title.*|\1| p" \
+	| uniq
 }
 
 # Check for errors
@@ -414,9 +414,9 @@ anta() {
 		#imprime a página e processa
 		#rm new line between <p> tags 
 		POSTS="$(
-			sed ':a;N;$!ba;s/<p>\s*\n\s*\n*\s*/<p>/g' <<<"$PAGE" \
-			| sed ':a;N;$!ba;s/\n*\s*\n\s*<\/p>/<\/p>/g' \
-			| grep -a 'id="post_[0-9]'
+			#sed ':a;N;$!ba;s/<p>\s*\n\s*\n*\s*/<p>/g' <<<"$PAGE" \
+			#| sed ':a;N;$!ba;s/\n*\s*\n\s*<\/p>/<\/p>/g' \
+			grep -a 'id="post_[0-9]' <<<"$PAGE"
 			)"
 
 		#cópia de links
@@ -433,6 +433,7 @@ anta() {
 				-e '/^\s*(COMPARTILHAR|SALVAR|LEIA AQUI|Ver mais)/ d' \
 				-e '/gtag\("event/ d' \
 				-e 's/\.dot\{.*//' \
+				-e 's/^.live-html.*//' \
 			| tac -rs'^===' \
 			| awk NF
 
@@ -582,6 +583,9 @@ fulltf() {
 # Puxar links das páginas iniciais
 # e puxar artigos completos
 linksf() {
+	local ret
+	typeset -a ret
+
 	#timer de tempo execução de tarefa
 	SECONDS=0
 	# Check for user-suppplied links
@@ -621,7 +625,7 @@ linksf() {
 				[[ "${LINKSBUFFER[*]}" = *"$COMP"* ]] && continue
 				LINKSBUFFER+=( "$COMP" )
 
-				fulltf || return 1
+				fulltf || { ret+=(1) ;continue ;}
 
 				#dont flood the server
 				sleep "$FLOOD"
@@ -637,6 +641,8 @@ linksf() {
 		#hora que terminou tarefa
 		(( ROLLOPT )) && PRINTT="(${TEMPO[*]})"
 		printf '>Puxado em %s  %s [%s]\n' "$(date -R)" "$PRINTT" "$SECONDS"
+
+		return $(( ${ret[@]/%/+} 0 ))
 	fi
 }
 
@@ -699,13 +705,14 @@ do
 done
 shift $((OPTIND -1))
 
-
 #chamar algumas opções
+#ajuda
 if ((HELPOPT))
-then
-	echo "$HELP" | "${OPTL[@]}"
-	exit 0
+then echo "$HELP" | "${OPTL[@]}" ;exit 0
 fi
+
+#set variables
+typeset -a RET
 
 # Test if cURL and Wget are available
 if command -v curl &>/dev/null
@@ -758,13 +765,13 @@ fi
 			then
 				#indicies de pgs como arg posicionais
 				for PAGINAS in "$@"
-				do linksf ;RET=($?)
+				do linksf ;RET+=($?)
 				done
 			else
 				#opção padrão, puxar primeira pg e sair
 				#ou -NUM
 				linksf "$@"
-				RET=($?)
+				RET+=($?)
 			fi
 		else
 			#só os resumos das matérias das pgs iniciais
@@ -773,13 +780,13 @@ fi
 			then
 				#indicies de pgs como arg posicionais
 				for PAGINAS in "$@"
-				do anta ;RET=($?)
+				do anta ;RET+=($?)
 				done
 			else
 				#opção padrão, puxar primeira pg e sair
 				#ou -NUM
 				anta
-				RET=($?)
+				RET+=($?)
 			fi
 		fi
 	fi
