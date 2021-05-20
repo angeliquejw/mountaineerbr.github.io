@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # bcalc.sh -- shell maths wrapper
-# v0.12.3  may/2021  by mountaineerbr
+# v0.12.4  may/2021  by mountaineerbr
 
 #defaults
 #script path
@@ -456,7 +456,7 @@ OPTIONS
 	Record File
 	-f 	  Disable use of record file.
 	-n TEXT	  Add note to the last entry/result.
-	-r 	  Print last ${BCRECTAIL} lines.
+	-r NUM	  Print last NUM lines, defaults=${BCRECTAIL}.
 	-rr 	  Print entire record file.
 	-R 	  Edit with \$VISUAL or \$EDITOR; defaults=vi.
 	-u 	  Update result index.
