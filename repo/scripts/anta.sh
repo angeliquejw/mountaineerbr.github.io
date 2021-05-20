@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.15.18  may/2021  by mountaineerbr
+# v0.15.19  may/2021  by mountaineerbr
 
 #padrões
 
@@ -799,9 +799,9 @@ fi
 
 		#loop forever
 		#then set to always get first page
-		[[ "$PAGINAS" = 0 ]] || PAGINAS=1
 		XAGAIN=780
 		AGAIN="$XAGAIN"
+		[[ "$PAGINAS" = 0 ]] || PAGINAS=1
 		while :
 		do
 			# Loop para puxar as notícias
