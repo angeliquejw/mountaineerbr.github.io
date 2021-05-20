@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # bcalc.sh -- shell maths wrapper
-# v0.12  may/2021  by mountaineerbr
+# v0.12.2  may/2021  by mountaineerbr
 
 #defaults
 #script path
@@ -122,8 +122,8 @@ DECIMAL AND THOUSANDS SEPARATOR
 
 	Option -t prints thousands separator in result. Note that there
 	is an important limitation with option -t : result numbers cannot
-	exceed 20 digits worth of length in bash and 16 digits in zshell.
-	This option can be combined with -., .
+	exceed 20 decimal digits worth of length in bash and 16 digits
+	in zshell. This option can be combined with -., .
 
 
 	Set option -, if decimal separator of EXPRESSION input is comma \`,' :
@@ -383,8 +383,10 @@ WARRANTY
 
 	  
 BUGS
-	Bash and Zsh have got number length limits their builtin maths
-	can handle when format printing with \`printf' (option -t).
+	Bash and Zsh have got decimal precision limits in their builtin
+	maths and/or \`printf' function (option -t). Scale should not
+	exceed 20 decimal digits worth of length in bash and 16 digits
+	in Zsh.
 
 	Multiline input will skip output format settings defined with
 	script options when using bash bc. Zsh cannot handle multiline.
@@ -661,7 +663,7 @@ recfilef()
 		cat >>"$BCRECFILE" <<-!
 		## $( date "+%FT%T%Z" )
 		## { $eq }
-		$res 	#${INDEX}#
+		$res 	${INDELL}${INDEX}${INDELR}
 		!
 	#if result is the same as last result
 	elif [[ -n "$OPTV" && "${res}" != "${eqlast[-1]}" ]]
