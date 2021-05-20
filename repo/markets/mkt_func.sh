@@ -693,43 +693,31 @@ rate()
 
 
 #loss/gain reciprocal or symetrical ratio
-#usage: loss 10
-#usage: loss 10%
+#usage: loss [+-]10[%]
+#usage: if input is a negative number, reads as gain
 loss()
 {
-	local u q l r f g
-	u="${1%\%}"
+	local u g
+	u=${1%\%} u="${u#+}"
 
 	#check for invalid notations
-	if [[ "$u" = *[a-zA-Z]* ]] ||
-		[[ "$u" != *[0-9]* ]] ||
-		[[ ! "${u/[,.-]*}" =~ ^.?.?$ ]]
-	then
-		echo error >&2
-		return 1 
+	if [[ "$u" = *[a-zA-Z]* || "$u" != *[0-9]* || ! "${u/[,.-]*}" =~ ^.?.?$ ]]
+	then echo error >&2 ;return 1 
 	fi
-
-	printf 'loss: %.4f %%\n' "$u"
 
 	#use zshell maths or bash bc?
 	if ((ZSH_VERSION))
-	then
-		float u rr
-		q=$(( u / 100 ))
-		l=$(( 1 - ( q ) ))
-		r=$(( 1 * l ))
-		f=$(( ( 1 / r ) - 1 ))
-		g=$(( f * 100 ))
-	else
-		q=$( bc <<< "scale=16; $u / 100" )
-		l=$( bc <<< "scale=16; 1 - ( $q )" )
-		r=$( bc <<< "scale=16; 1 * $l" )
-		f=$( bc <<< "scale=16; ( 1 / $r ) - 1" )
-		g=$( bc <<< "scale=16; $f * 100" )
+	then float u ;g=$(( ( (1 / (1 - (u / 100) ) ) - 1) * 100))
+	else g=$( bc <<<"scale=16; ( (1 / (1 - ($u / 100) ) ) - 1) * 100" )
 	fi
-	
-	printf ' win: %.4f %%\n' "$g"
+
+	if [[ "$u" = -* ]]
+	then printf '%4s: %.4f %%\n' gain ${u#-} loss ${g#-}
+	else printf '%4s: %.4f %%\n' loss $u gain $g
+	fi
 }
+#fausto botelho: https://www.youtube.com/watch?v=yY7d6gOIynU
+#formula: 100/(100-loss)
 
 
 #fun with <datahub.io>
