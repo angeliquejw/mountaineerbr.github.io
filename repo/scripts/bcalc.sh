@@ -1,10 +1,9 @@
 #!/bin/bash
 #!/bin/zsh
 # bcalc.sh -- shell maths wrapper
-# v0.11.8  may/2021  by mountaineerbr
+# v0.12  may/2021  by mountaineerbr
 
 #defaults
-
 #script path
 SCRIPT="$0"
 #script name
@@ -14,17 +13,17 @@ SN="${0##*/}"
 #comment it out to disable
 #defaults="$HOME/.bcalc_record"
 BCRECFILE="$HOME/.bcalc_record"
-#extensions file
-#if not under $PATH, may need setting full path
+
+#extensions file, set full path if not under $PATH
 #defaults=bcalc_ext.bc
-EXTFNAME="${SN%.sh}_ext.bc"
+EXTFNAME="${SN%.sh}"_ext.bc
 
 #special variables to hold last result
 #requires record file
 BCHOLD='ans|res'
 
 #scale
-BCSCALE=20
+BCSCALE=16
 
 #option -r
 #number of last lines of record file
@@ -41,6 +40,14 @@ export BC_LINE_LENGTH
 #newer bash bc accepts 0 to disable multiline results
 #alternatively, set a large value, e.g. 10000
 
+#possible index delimiters
+INDEL='<#%\\@/=>'
+INDELR='%'  #right
+INDELL='%'  #left
+
+#word archors
+WORDANCHOR='[^a-zA-Z0-9_]'
+
 #man page
 HELP_LINES="NAME
 	$SN -- shell maths wrapper
@@ -53,69 +60,71 @@ SYNOPSIS
 
 
 DESCRIPTION
-	$SN wraps the powerful Bash calculator (bc) with its maths
-	library or Zshell maths evaluation and adds some useful features.
-	EXPRESSIONS should preferably be one-liners and may need escaping.
+	$SN wraps Bash calculator (bc) and Zshell maths evaluation and
+	adds some useful features.
+
+	Input EXPRESSION should preferably be one-liner and may need
+	escaping.
 
 	A record file (a history) is stored at \`${BCRECFILE}'.
-	To disable the record file, set script option -f or comment out
-	variable \$BCRECFILE in the script head source code.
+	To disable the record file, set script option -f.
 
 	If a record file is available, special variables can be used to
-	retrieve results from former operation. These variables will be
-	replaced before maths evaluation. For example, \`res' or \`res0'
-	will be changed to the last result, however \`res1' and so forth
-	will be changed to the specified result index, in this case 1.
-	Defaults variables \`${BCHOLD//|/\' and \'}'. Update the record file index
-	with option -u.
+	retrieve results from former operations. These variables are re-
+	placed before maths evaluation. For example, \`${BCHOLD##*|}' or \`${BCHOLD##*|}0'
+	will be changed to the last result, however \`${BCHOLD##*|}1' and so forth
+	will be changed to the specified result index. Check results index
+	with option -v. Update the record file index with option -u.
+	Defaults special variables \`${BCHOLD//|/\' and \'}'.
 
-	If no EXPRESSION is given, read stdin from pipe or wait for user
-	input. Press <CTRL+D> to send the EOF signal and flush user input.
-	If no user input is given, prints last result of record file.
+	If no EXPRESSION is given and stdin is not free, reads stdin as
+	input, otherwise prints last result from record file. If record
+	file cannot be used then ask for user input, in which case press-
+	ing <CTRL+D> sends the EOF signal and flush user input.
 
-	Scale can be set with -sNUM with a maximum precision of 20
-	digits in bash and 16 digits in zshell. User may set scale in
-	bash bc via \`scale=NUM ; [EXPRESSION]' syntax before user
-	EXPRESSION, in which NUM is an integer.
+	Scale can be set with -sNUM. User may set scale in bash bc via
+	\`scale=NUM ; [EXPRESSION]' syntax before user EXPRESSION, in
+	which NUM is an integer.
 
-	In bash bc, number of decimal plates (scale) of floating point
-	numbers is dependent on user input for all operations except
-	division. However, script defaults scale to $BCSCALE if none
-	given with option -s .
+	In bash bc, decimal plates (scale) of floating point numbers is
+	dependent on user input for all operations except division. How-
+	ever, script defaults scale to ${BCSCALE}.
 
 	In zshell maths, floating point evaluation is performed auto-
-	matically depending on user input. Note that \`3' is an interger
-	while \`3.' is a floating point number. This script defaults
-	to setting results to an internal double-precision floating point
-	representation (double C type), hence expression \`3/4' evaluates
-	to \`.75' rather than \`0'. Also note that results will be converted
-	back to the closest decimal notation from the internal double-
-	point.
+	matically depending on user input. Note that \`3' is an integer
+	while \`3.' is a floating point number. Zsh keeps an internal
+	double-precision floating point representation (double C type)
+	of numbers, hence expression \`3/4' evaluates to \`.75' rather
+	than \`0'. Also note that results will be converted back to the
+	closest decimal notation from the internal double-point.
 
 	Trailing zeroes will be trimmed unless extensions option -e
-	is set, in which case output/result is printed in raw format.
+	is set, in which case result is printed in raw format.
 
 	Option -e loads bash bc extension file or zshell mathfunc module.
 	Bash bc is more powerful. For example, bash bc accepts setting
 	variables in the begining of EXPRESSION, while zshell maths does
 	not. Bash bc has more extensions developed by the community over
 	the years. See their respective description sections below. The
-	defaults extension file is located at the same path as $SN
-	and must be named ${EXTFILE}.
+	defaults extension file should be located at the same path as
+	$SN and named ${EXTFILE}.
 
-	Multiline input will skip output format settings defined with
-	script options when using bash bc. Zsh cannot handle multiline.
-	Multiline resuts are not appended in the record file.
+	Multiline input will skip result format defined with script opt-
+	ions when using bash bc. Zsh cannot handle multiline. Multiline
+	resuts are not appended to the record file.
 
 
 DECIMAL AND THOUSANDS SEPARATOR
-	Decimal separator defaults to a dot \`.', however user can manually
-	enforce if a dot or a comma is the decimal separator (for input
-	and output). Beware that some bash bc and zsh functions may need
-	comma as operators.
+	Decimal separator defaults to a dot \`.'. User can manually set
+	-. for defining dot as decimal separator ot -, to set comma as
+	decimal separator (for input and output). Beware that some bash
+	bc and zsh functions may use comma as operators.
 
-	Option -t prints thousands separator in result. It can be combined
-	with -., .
+	Option -t prints thousands separator in result. Note that there
+	is an important limitation with option -t : result numbers cannot
+	exceed 20 digits worth of length in bash and 16 digits in zshell.
+	This option can be combined with -., .
+
 
 	Set option -, if decimal separator of EXPRESSION input is comma \`,' :
 		
@@ -135,16 +144,16 @@ DECIMAL AND THOUSANDS SEPARATOR
 		1234567.00 	--> 1,234,567.00
 
 
-	Strictly, setting \`-..' means to treat input with . (dot) as decimal
-	separator and to print output with . with decimal separator. Rather,
-	setting \`-.,' means input decimal separtor is . and to print output
-	with decimal separator , (comma).
+	Strictly, setting \`-..' means to treat input with . (dot) as
+	decimal separator and to print output with . with decimal sep-
+	arator. Rather, setting \`-.,' means input decimal separtor is .
+	and to print output with decimal separator , (comma).
 
 
 BASH BC STANDARD FUNCTIONS
-	There are a few functions provided in bc enabled by defaults.
-	These are user-defined and standard functions. They all appear
-	as \"name(parameters)\". The standard functions are:
+	There are a few functions provided in bc enabled by defaults
+	named user-defined and standard functions. They appear as
+	\"name(parameters)\". The standard functions are:
 	
 	length ( expression )
 	    The value of the length function is the number of significant
@@ -176,7 +185,7 @@ BASH BC STANDARD FUNCTIONS
 
 BASH BC MATH LIBRARY
 	Option -e will load bash bc builtin math library, which contain
-	more function, as well as external extensions.
+	more functions, as well as external extensions.
 	
 	Be aware that the accuracy of indeed many a function written in
 	bc is directly affected by the value of the scale variable. 
@@ -200,8 +209,8 @@ BASH BC EXTENSIONS
 	Option -e will load further bc funtions after mathblib. The de-
 	faults extension file define scientific constants such as Avogadro
 	number, Planck constant, the proton rest mass, pi, as well as extra
-	math functions such as \`ln(x)' (natural log) and \`log(x)' (base 10).
-	Run the script with option -ee to print extensions file.
+	math functions such as \`ln(x)' (natural log) and \`log(x)' (base
+	10). Run the script with option -ee to print extensions file.
 
 	Phodd's libraries contain sizeable comments explaining exactly
 	what the file is, what it does and what each of the functions do.
@@ -229,10 +238,10 @@ BASH BC EXTENSIONS
 
 	References:
 
-		<http://x-bc.sourceforge.net/scientific_constants.bc>
-		<http://x-bc.sourceforge.net/extensions.bc>
-		<http://phodd.net/gnu-bc/>
-		<http://www.pixelbeat.org/scripts/bc>
+	<http://x-bc.sourceforge.net/scientific_constants.bc>
+	<http://x-bc.sourceforge.net/extensions.bc>
+	<http://phodd.net/gnu-bc/>
+	<http://www.pixelbeat.org/scripts/bc>
 
 
 ZSHELL MATHFUNC MODULE
@@ -314,9 +323,9 @@ ALIASES
 	There are two interesting functions for using with pure bash bc
 	interactively. Function (I) is really useful.
 
-		(I)  function c() { bc -l <<< \"\$*\" ;}
+		(I) 	function c() { bc -l <<< \"\$*\" ;}
 
-		(II) alias c=\"bc -l <<<'\"
+		(II) 	alias c=\"bc -l <<<'\"
 
 
 	In (II) user must type a \"'\" end quote mark after expression
@@ -327,7 +336,7 @@ ALIASES
 	tions to avoid quoting expression. To alias this script, add to
 	~/.zshrc:
 
-		(III)  alias c='noglob /path/to/$SN'
+		(III) 	alias c='noglob /path/to/$SN'
 
 
 	Use pure zsh maths evaluation built-in and zcalc; a calculator
@@ -336,30 +345,30 @@ ALIASES
 	mula and prints it out. Typeset for fixed-point decimal notation
 	of 10 decimal plates. To load zcalc execute \`autoload -Uz zcalc'.
 
-		(IV)   alias c='noglob calcMain'
-		      function calcMain() { (
+		(IV) 	alias c='noglob calcMain'
+			function calcMain() { (
 				setopt forcefloat
 				typeset -F 10 exp
 				exp=\"\$*\"
 				print \"\$exp\"
 			) ;}
 		
-		(V) alias c='noglob zcalc -f -e'
+		(V) 	alias c='noglob zcalc -f -e'
 
 
 DEFAULTS
 	Script defaults are define in the head source code.
 
-	Set special variables to change for previous results in the
-	record file with variable \`\$BCHOLD'.
 
-	Set the record file path with variable \`\$BCRECFILE'. If file
-	does not exist, it will be initialised. To disable using a
-	record file, just comment it out or set as blank.
+	\$BCHOLD=\"$BCHOLD\"
+		Special variable names that will be changed to results
+		from record file index. Multiple variable names can be
+		set separated by | .
 
-	Defaults:
-		\$BCHOLD=\"$BCHOLD\"
-		\$BCRECFILE=\"$BCREC\"
+	\$BCRECFILE=\"$BCRECFILE\"
+		Record (history) file path. If file does not exist, it
+		will be initialised. To disable using a record file,
+		comment it out or set as blank.
 
 
 WARRANTY
@@ -374,6 +383,9 @@ WARRANTY
 
 	  
 BUGS
+	Bash and Zsh have got number length limits their builtin maths
+	can handle when format printing with \`printf' (option -t).
+
 	Multiline input will skip output format settings defined with
 	script options when using bash bc. Zsh cannot handle multiline.
 
@@ -433,38 +445,36 @@ USAGE EXAMPLES
 	
 
 OPTIONS
-	Record file
-	-f 	Do not use a record file.
-	-n TEXT	Add note to the last entry in record file.
-	-r 	print last ${BCRECTAIL} lines.
-	-rr 	Print entire record file.
-	-R 	Edit record file with \$VISUAL or \$EDITOR;vdefaults=vi.
-	-u 	Update result index.
-	Extensions
-	-e 	Load bc extensions/zsh mathfunc, unformatted output.
-	-ee 	Print bc extensions (bash bc only).
-	Output formatting
-	-NUM 	Shortcut for scale setting, same as -sNUM.
-	-s NUM	Set scale (decimal plates).
-	-t 	Thousand delimiter in result, same as -o.
 	Miscellaneous
-	-, 	Set decimal separator as (,) and remove dots from user
-		input.
-	-. 	Set decimal separator as (.) and remove commas from
-		user input.
-	-b 	Run script with bash interpreter.
-	-z 	Run script with zsh interpreter.
-	-h 	Show this help page.
-	-v 	Verbose output, may set multiple times.
-	-V 	Print script interpreter and version."
+	-b 	  Run script with bash interpreter.
+	-z 	  Run script with zsh interpreter.
+	-h 	  Show this help page.
+	-v 	  Verbose output, may set multiple times.
+	-V 	  Print script interpreter and version.
+	Record File
+	-f 	  Disable use of record file.
+	-n TEXT	  Add note to the last entry/result.
+	-r 	  Print last ${BCRECTAIL} lines.
+	-rr 	  Print entire record file.
+	-R 	  Edit with \$VISUAL or \$EDITOR; defaults=vi.
+	-u 	  Update result index.
+	Extensions
+	-e, -c 	  Load bc extensions/zsh mathfunc.
+	-ee, -cc  Print bc extensions (bash bc).
+	Input and Output Formatting
+	-, 	  Set input/output decimal separator as (,) comma.
+	-. 	  Set input/output decimal separator as (.) dot.
+	Output Formatting
+	-NUM 	  Shortcut for scale setting, same as -sNUM.
+	-s NUM	  Set scale (decimal plates).
+	-t, -o 	  Thousand delimiter in result."
 
 
 #functions
-
 #check for multiline input
 checklinef()
 {
-	local eq line
+	local eq line REPLY
 	eq="$1"
 	line=0
 
@@ -562,9 +572,9 @@ getresf()
 	else index="$(lastindexf)" || return 1
 	fi
 
-	#get result
-	res="$(sed -nE "s/(.*)#+\s*${index}#+\s*$/\1/ p" "$BCRECFILE")"
-	res="${res//[$'\t' ]}"  #get rid of empty spaces
+	#get result, remove empty spaces
+	res="$(sed -nE "s/(.*)[${INDEL}]+\s*${index}[${INDEL}]+\s*$/\1/ p" "$BCRECFILE")"
+	res="${res//[$'\t' ]}"
 
 	#check $res and substitute in equation
 	if [[ -z "$res" ]]
@@ -618,7 +628,7 @@ precff()
 	then command "${VISUAL:-${EDITOR:-vi}}" "$BCRECFILE"
 	#print record file tail
 	elif ((OPTP==1))
-	then tail -n"${BCRECTAIL:-10}" "$BCRECFILE"
+	then tail -n"${1:-${BCRECTAIL:-10}}" "$BCRECFILE"
 	#print entire record file
 	elif ((OPTP))
 	then cat "$BCRECFILE"
@@ -631,21 +641,21 @@ recfilef()
 	#WARNING: $INDEX is used elsewhere
 	local eq eqlast line res ret
 	typeset -a eqlast
-	eq="$1"
-	res="$2"
+	eq="${1//[$'\t' ]}"
+	res="${2//[$'\t' ]}"
 
 	#grep last expression in history
 	while read line
-	do eqlast+=( "$line" )
-	done <<< "$( tail "$BCRECFILE" | sed -n 's/^## { \(.*\) }\s*$/\1/p' )"
+	do eqlast+=( "${line//[$'\t' ]}" )
+	done <<<"$(tail -- "$BCRECFILE" | sed -n 's/^## { \(.*\) }\s*$/\1/p')"
 
 	#check record for last equation duplicates
-	if [[ "${eq//[$'\t' ]}" != "${eqlast[-1]//[$'\t' ]}" ]]
+	if [[ "${eq}" != "${eqlast[-1]}" 
+		&& "${eq}${BCHOLDUSED+@}" != "${res}@" ]]
 	then
 		ret=0
 		#get last result and add one
-		INDEX="$(lastindexf)"
-		INDEX="$((INDEX+1))" 2>/dev/null
+		INDEX="$(($(lastindexf) + 1))" 2>/dev/null
 
 		#append timestamp, equation and result
 		cat >>"$BCRECFILE" <<-!
@@ -653,6 +663,11 @@ recfilef()
 		## { $eq }
 		$res 	#${INDEX}#
 		!
+	#if result is the same as last result
+	elif [[ -n "$OPTV" && "${res}" != "${eqlast[-1]}" ]]
+	then
+		#get last result index
+		INDEX="$(lastindexf)"
 	fi
 
 	return "${ret:-1}"
@@ -663,7 +678,8 @@ updateindexf()
 {
 	local i index lnum map maplength sedeq batch REPLY
 
-	map=( $(grep -nv -e '^[>#]' -e '^\s*$' -ve '\\[\s\t]*$' "$BCRECFILE" | cut -d: -f1) )
+	#map lines that don't start with either >#, are not empty lines or have line break \
+	map=( $(grep -nv -e '^[>#]' -e '^\s*$' -e '\\[\s\t]*$' "$BCRECFILE" | cut -d: -f1) )
 	maplength="${#map[@]}"
 	maplength="${#maplength}"
 	batch=280
@@ -671,7 +687,8 @@ updateindexf()
 	for lnum in "${map[@]}"
 	do
 		((++i))
-		sedeq="${sedeq}${sedeq+ ;}${lnum}s/[\t\s]*(#+[0-9 ]*#+\s*)?$/\t#${i}#/"
+		sedeq="${sedeq}${sedeq+ ;}${lnum}s/[\t\s]*([${INDEL}]+[0-9 ]*[${INDEL}]+\s*)?$/\t${INDELL}${i}${INDELR}/"
+		#index delimiter may be any of $INDEL
 
 		#feedback 
 		printf 'results: %*d/%*d  \r' "${#maplength}" "$i" "${#maplength}" "${#map[@]}" >&2
@@ -698,7 +715,7 @@ lastindexf()
 	local ids
 	typeset -a ids
 
-	ids=( $( sed -nE '/^[^#>]/ s/.*#+\s*([0-9]+)#+\s*$/\1/p' "$BCRECFILE") )
+	ids=( $( sed -nE "/^[^#>]/ s/.*[${INDEL}]+\s*([0-9]+)[${INDEL}]+\s*$/\1/p" "$BCRECFILE") )
 	[[ -n "${ids[-1]}" ]] 2>/dev/null || return 1
 	echo "${ids[-1]}"
 }
@@ -784,8 +801,8 @@ do
 			;;
 		\?)
 			#is that punctuation?
-			PASS='!?"#$%&@[]\\^_`{|}~(),.-/:<=>'
-			if [[ "$OPTARG" = ["$PASS"]* ]]
+			PUNC='?"#$%&@[]\\^_`{|}~(),.-/:<=>'
+			if [[ "$OPTARG" = [!"$PUNC"]* ]]
 			then
 				((OPTV)) && echo "$SN: err  -- try escaping EXPRESSION" >&2
 
@@ -801,22 +818,32 @@ do
 done
 shift $(( --OPTIND ))
 
-#bash or zsh arrays?
+#set shell options
+#bash and zsh arrays
 BZ="${ZSH_VERSION+1}${BASH_VERSION+0}"
 
 #check if there is any positional arguments
 if (($#))
 then
 	EQ="$*"
-#stdin input, only if some opts are not set
-elif (( OPTN + OPTP + OPTU == 0))
+#stdin input, only if some opts are not set and stdin is not free
+elif ((OPTN+OPTP+OPTU==0))
 then
-	#capture user input or pipe (one line)
-	#<ctrl-d> = EOF
-	[[ -t 0 ]] && ((OPTV)) && echo "$SN: flush user input with Ctrl+D" >&2
-	
-	#EQ="${EQ:-"$( read ;echo "$REPLY" )"}"
-	EQ="${EQ:-"$(</dev/stdin)"}"
+	#if stdin not free, capture user input; <ctrl-d> = EOF
+	#or from pipe (one line)
+	if [[ ! -t 0 ]]
+	then
+		EQ="$(</dev/stdin)"
+	#if there is no $BCRECFILE set, ask for user input
+	elif [[ -z "$BCRECFILE" ]]
+	then
+		((OPTV)) && echo "$SN: flush user input with Ctrl+D" >&2
+		EQ="$(</dev/stdin)"
+		EQ="${EQ:?$SN: err  -- user input required}"
+	else
+		#
+		EQLASTREC=1
+	fi
 fi
 
 #copy original value
@@ -824,7 +851,7 @@ fi
 EQ_ORIG="$EQ"
 EQ="${EQ%;}"
 #is input a simple request of special variable? eg. "res3900"
-SIMPLEVAREQ="$( grep -Ec "^\s*(${BCHOLD:-#*#*})[0-9]*\s*$" <<<"$EQ_ORIG" )"
+[[ "$EQ" =~ ^\s*(${BCHOLD:-@%@%})[0-9]*\s*$ ]] && SIMPLEVAREQ=1
 
 #use result record file?
 if [[ -n "$BCRECFILE" ]]
@@ -833,14 +860,15 @@ then
 	#init if it does not exist
 	if [[ ! -e "$BCRECFILE" ]]
 	then
-		echo -e "## ${SN^^} RECORD\n" >> "$BCRECFILE" || exit 1
+		echo -e "## ${SN} Record\n" >> "$BCRECFILE" || exit 1
 		echo "$SN: record file init -- $BCRECFILE" >&2
-	fi
-	#check if it exists on disk
-	if [[ ! -e "$BCRECFILE" ]]
-	then
-		echo "$SN: err  -- cannot create record file -- $BCRECFILE" >&2
-		exit 1
+
+		#check if it exists on disk
+		if [[ ! -e "$BCRECFILE" ]]
+		then
+			echo "$SN: err  -- cannot create record file -- $BCRECFILE" >&2
+			exit 1
+		fi
 	fi
 
 	#call some opt functions
@@ -852,7 +880,7 @@ then
 	elif (( OPTP ))
 	then
 		#print or edit record file
-		precff
+		precff "$@"
 		exit
 	elif (( OPTU ))
 	then
@@ -865,16 +893,22 @@ then
 	#or use last entry if $EQ is empty
 	while
 		EQ="${EQ:-${BCHOLD##*|}}"
-		eqvars=( $(grep -oE "\<(${BCHOLD:-#*#*})([0-9]*)\>" <<<"$EQ") )
+		[[ "$EQ" =~ (^|$WORDANCHOR)(${BCHOLD:-@%@%})[0-9]*($WORDANCHOR|$) ]]
 	do
+		eqvar="${BASH_REMATCH[BZ]:-$MATCH}"
+		eqvar="${eqvar#$WORDANCHOR}"
+		eqvar="${eqvar%$WORDANCHOR}"
 		#get $BCHOLD index
-		#substitute in equation by special var index
-		getresf "${eqvars[BZ]//[^0-9]}" "$EQ" || exit
+		#substitute special var in $EQ and set $VARINDEX
+		getresf "${eqvar//[^0-9]}" "$EQ" || exit
+
 		[[ -n "${EQ:?$SN: err  -- equation is empty}" ]]
+		((++BCHOLDUSED))
 	done
-	unset eqvars
+	unset eqvar
 #error handling for some options
-elif ((OPTN+OPTP+OPTU)) || grep -qE "\<(${BCHOLD:-#*#*})([0-9]*)\>" <<<"$EQ"
+elif ((OPTN+OPTP+OPTU)) ||
+	[[ "$EQ" =~ (^|$WORDANCHOR)(${BCHOLD:-@%@%})[0-9]*($WORDANCHOR|$) ]]
 then
 	echo "$SN: err  -- record file is required" >&2
 	exit 1
@@ -893,11 +927,12 @@ then
 fi
 
 #did input change?
-((OPTV && SIMPLEVAREQ==0)) && [[ "$EQ" != "$EQ_ORIG" ]] &&
-	echo "input change -- $EQ" >&2
+((OPTV && SIMPLEVAREQ==0)) \
+&& [[ "$EQ" != "$EQ_ORIG" ]] \
+&& echo "input change -- $EQ" >&2
 
 #check for bad input (dots and commas)
-#for ex: '1.2.', '1,2,', '1.2,3.',  ',.,'  
+#for ex: 1.2. 1,2, 1.2,3.  ,.,  
 if [[
 	"$EQ" =~ [0-9]*[.][0-9]*[.] ||
 	"$EQ" =~ [0-9]*[,][0-9]*[,] ||
@@ -905,7 +940,7 @@ if [[
 	"$EQ" =~ [0-9]*[,][0-9]*[.][0-9]*[,] 
 ]]
 then
-	#just print a waning
+	#print a warning
 	echo "warning: possible excess of decimal separators  -- $EQ" >&2
 fi
 
@@ -917,28 +952,35 @@ checklinef "$EQ" || MULTILINE=1
 RES="$(calcf "$EQ")" || exit
 
 #print to record file?
-#don't try this with multiline input
-#don't record duplicate results from special variables 
-if [[ -n "$BCRECFILE" ]] &&
-	((MULTILINE+SIMPLEVAREQ==0))
-then
-	recfilef "$EQ" "$RES"
+#dont try this with multiline input
+#dont record duplicate results from special variables 
+if [[ -n "$BCRECFILE" ]] && ((MULTILINE+SIMPLEVAREQ+EQLASTREC==0))
+then recfilef "$EQ" "$RES"
 fi
 
 #format and print result
 #raw if opt -c is set
-if [[ -z "$OPTS$OPTT" && -n "$OPTC" ]] ||
-	((MULTILINE))
+if [[ -z "$OPTT" && -n "$OPTC$OPTS" ]] || ((MULTILINE))
 then
 	#raw output
 	RES="$RES"
 
 #if scale -s[NUM] or thousand separator -t is set
-elif [[ -n "$OPTS$OPTT" ]]
+elif [[ -n "$OPTT" ]]
 then
-	#user-set scale; thousand separator
-	RES="$(printf "%${OPTT}.*f\n" "${OPTS:-2}" "$RES")"
-	#printf honours LANG and LC_NUMERIC for floating point number format
+	#check shell number length limits for printf and internal maths
+	if [[
+		( -n "$BASH_VERSION" && "$OPTS" -gt 20 )
+		|| ( -n "$ZSH_VERSION" && "$OPTS" -gt 16 )
+	]]
+	then
+		echo "$SN: error  -- scale out of range for option -t"
+		RES="$RES"  RET=1
+	else
+		#user-set scale; thousand separator
+		RES="$(printf "%${OPTT}.*f\n" "${OPTS:-2}" "$RES")"
+		#printf honours LANG and LC_NUMERIC for floating point number format
+	fi
 
 #bash hack to remove tailing zeroes
 elif [[ -z "$ZSH_VERSION" ]]  #&& ((MULTILINE==0))
@@ -952,6 +994,7 @@ then
 		trunc($RES)
 		!
 	)"
+
 else
 	#trim traling zeroes with sed
 	RES="$(sed '/\./ s/\.\{0,1\}0\{1,\}$//' <<<"$RES")"
@@ -959,12 +1002,15 @@ else
 fi
 
 #print special variable index, too?
-((OPTV)) && ((${INDEX:-${VARINDEX[BZ]}})) &&
-	RES+="    #${INDEX:-${VARINDEX[*]}}#"
+((OPTV)) \
+&& ((${INDEX:-${VARINDEX[BZ]}})) \
+&& RES+="	 #${INDEX:-${VARINDEX[*]}}#"
 
 #change output decimal and thousands separators?
 if [[ "$OPTDEC" = *, ]]
 then tr ., ,. <<<"$RES"
 else echo "$RES"
 fi
+
+exit "${RET:-0}"
 

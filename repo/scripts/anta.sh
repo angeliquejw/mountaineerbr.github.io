@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.15.9  may/2021  by mountaineerbr
+# v0.15.11  may/2021  by mountaineerbr
 
 #padrões
 
@@ -264,7 +264,8 @@ sedhtmlf() {
 #get post (article) links
 getlinksf()
 {
-	sed -nE '/id="post_[0-9]/p ; s|>|&\n|g' |
+	grep -aE 'id="post_[0-9]' |
+	sed 's|>|&\n|g' |
 	sed -nE "s|.*href=['\"]([^'\"#]+)['\"] title.*|\1| p" |
 	uniq
 }
