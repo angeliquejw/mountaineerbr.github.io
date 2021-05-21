@@ -741,7 +741,7 @@ gaddr()
 #}
 
 #creat blog entry
-bloga() { ~/www/mountaineerbr.github.io/blog/blog.sh -a ;}
+#bloga() { ~/www/mountaineerbr.github.io/blog/blog.sh -a ;}
 
 #process audio for podcast (personal website)
 #fblog()

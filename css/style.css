@@ -235,11 +235,34 @@ q
 }
 
 
+/* this column is a table */
 .c4
 {
 	/* background-color: lightsteelblue; */
 	background-color: powderblue;
 }
+
+/* this column is a list */
+.c5
+{
+	/* background-color: lightsteelblue; */
+	background-color: chartreuse;
+	text-align: center;
+	font-size: 1.1em;
+}
+.c5 ul li { list-style-type: none; margin: .2em; }
+
+.c5 :link { color: orangered; font-weight:bold;}
+.c5 :visited { color: slategray; }
+.c5 a:link:hover { color: crimson; }
+.c5 a:link:hover, a:visited:hover
+{
+	font-style: italic;
+	text-shadow: 2px 2px 9px floralwhite;
+} 
+
+
+
 
 /* arredonda -- from Theo Donde */
 .colborder
