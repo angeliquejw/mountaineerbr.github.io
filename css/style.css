@@ -208,7 +208,7 @@ q
 
 	/* Set full-width to expand the whole page */
 	max-width: 100%;
-	padding-top: 0em;
+	padding-top: 1em;
 	margin: 1em;
 	margin-top: 0em;
 
@@ -217,6 +217,7 @@ q
 	hyphens: auto;
 }
 
+/* colour 0 */
 /* for the fool column */
 .c0
 {
@@ -224,38 +225,46 @@ q
 	/* firebrick; */
 }
 
+/* colour 1 */
 .c1
 {
 	background-color: pink;
 }
 
+/* colour 3 */
 .c3
 {
 	background-color: lemonchiffon;
 }
 
 
-/* this column is a table */
+/* colour 4 */
 .c4
 {
 	/* background-color: lightsteelblue; */
 	background-color: powderblue;
 }
 
-/* this column is a list */
+/* colour 5 */
 .c5
 {
 	/* background-color: lightsteelblue; */
 	background-color: chartreuse;
+}
+
+
+/* this column is a list  at links.html */
+.col5
+{
 	text-align: center;
 	font-size: 1.1em;
 }
-.c5 ul li { list-style-type: none; margin: .2em; }
+.col5 ul li { list-style-type: none; margin: .2em; }
 
-.c5 :link { color: orangered; font-weight:bold;}
-.c5 :visited { color: slategray; }
-.c5 a:link:hover { color: crimson; }
-.c5 a:link:hover, a:visited:hover
+.col5 :link { color: orangered; font-weight:bold;}
+.col5 :visited { color: slategray; }
+.col5 a:link:hover { color: crimson; }
+.col5 a:link:hover, a:visited:hover
 {
 	font-style: italic;
 	text-shadow: 2px 2px 9px floralwhite;
