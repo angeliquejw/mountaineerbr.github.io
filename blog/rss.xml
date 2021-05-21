@@ -11,9 +11,9 @@
 
 	-->
   <channel>
-    <lastBuildDate>Sat, 27 Feb 2021 00:00:00 -0300</lastBuildDate>
+    <lastBuildDate>Fri, 21 May 2021 00:00:00 -0300</lastBuildDate>
     <title>Biology Blogger</title>
-    <description>Current as of Thu, 20 May 2021 17:08:34 -0300.</description>
+    <description>Current as of Fri, 21 May 2021 18:06:31 -0300.</description>
     <link>https://mountaineerbr.github.io/blog/</link>
     <language>en</language>
     <category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
@@ -32,6 +32,16 @@
     <!-- # IMPORTANT: keep [generator] as [item] elements will be appended after it -->
     <generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
     <item>
+      <title xml:lang="en">#43 - Former YouTube Subscription List</title>
+      <pubDate>Fri, 21 May 2021 00:00:00 -0300</pubDate>
+      <description>Backup of my secondary YouTube account subscriptions containing channel names.</description>
+      <link>https://mountaineerbr.github.io/blog/43/</link>
+      <dc:language>en</dc:language>
+      <category>backup/list/references/channels/names/nomes/referências/canáis/lista</category>
+      <author>jamilbio20@gmail.com (JSN)</author>
+      <guid isPermaLink="false">0f45bfe8-e1f6-5315-b2f5-267706ae96be</guid>
+    </item>
+    <item>
       <title xml:lang="en">#42 - Podcast #7 - Season Finale - Freedom, Focus and Mushrooms</title>
       <pubDate>Sat, 27 Feb 2021 00:00:00 -0300</pubDate>
       <description>Some final thoughts and notes about this podcast season. I will talk about removing YouTube channel, pausing my website development and trying to focus on other things. Topics will vary, such as bitcoin, crypto and biology.</description>
@@ -40,6 +50,7 @@
       <category>final/biology/crypto/refocus/life/season/temporada/mudança/change/clima/climate</category>
       <author>jamilbio20@gmail.com (JSN)</author>
       <guid isPermaLink="false">0b7db8a1-8784-5111-84e1-cc8aa87f9c6f</guid>
+      <enclosure url="https://mountaineerbr.github.io/blog/gfx/ventania.webp" length="33088" type="image/webp"/>
     </item>
     <item>
       <title xml:lang="en">#41 - Overview on My Blogging Systems</title>

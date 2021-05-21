@@ -45,6 +45,7 @@ https://mountaineerbr.github.io/blog/39/
 https://mountaineerbr.github.io/blog/40/
 https://mountaineerbr.github.io/blog/41/
 https://mountaineerbr.github.io/blog/42/
+https://mountaineerbr.github.io/blog/43/
 https://mountaineerbr.github.io/blog/cat.html
 https://mountaineerbr.github.io/blog/rss.xml
 https://mountaineerbr.github.io/blog/rss_alt.xml

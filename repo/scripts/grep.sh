@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # grep.sh  --  grep with shell built-ins
-# v0.3.2  may/2021  by mountaineerbr
+# v0.3.3  may/2021  by mountaineerbr
 
 #defaults
 #script name
@@ -49,13 +49,17 @@ DESCRIPTION
 	Read FILES or stdin and performs pattern matching. Set multiple
 	PATTERNS with -e. When a line matches a pattern that is printed.
 
-	By defaults, interpret PATTERN as an extended POSIX regex.
+	By defaults, interpret PATTERN as POSIX BASIC REGEX. Please note
+	that operators for EXTENDED REGEX need backslash escaping to be
+	activated, otherwise they have got no special meaning. For example 
+	'\\(foo\\|bar\\)' and 'baz.\\{1,5\\}'.
 
-	Set option -g for extended globbing syntax (PATTERNS will be
+	Set option -g for EXTENDED GLOBBING syntax (PATTERNS will be
 	treated as globs). Option -g adds star globs around *PATTERN*
 	whereas -gg does not add these automatically and is functionally
 	the same as -gx. With Zsh, -G enables KSH_GLOB and also sets -g
-	once.
+	once. Extended glob operators are active by defaults. Quote char-
+	acters with backslash to treat them as literals when needed.
 
 	This script uses shell builtins only and is compatible with bash
 	and zsh. There may be differences between interpreter results.
@@ -67,7 +71,9 @@ REGULAR EXPRESSIONS
 	A  regular expression is a pattern that describes a set of strings.
 	When it is used, the string to the is considered a POSIX extended
 	regular expression and matched accordingly (using the POSIX regcomp
-	and regexec interfaces usually described in regex(3)). 
+	and regexec interfaces usually described in regex(3)). Note that
+	blackslash quoting is required to activate operators such as
+	'\\(foo\\|bar\\)' and 'baz.\\{1,5\\}'.
 
 	The fundamental building blocks are the regular expressions that
 	match a single character. Most characters, including all letters
@@ -107,12 +113,13 @@ REGULAR EXPRESSIONS
 
 
 	NOTES
-	Although not a supported special expression, the symbol \w is a
-	synonym for [_[:alnum:]] (which is supported), and \W is a synonym
-	for [^_[:alnum:]].
+	Although NOT a supported special expression, the symbol \w is a
+	synonym for [_[:alnum:]] which can be used instead, and \W is a
+	synonym for [^_[:alnum:]].
 
 
 	REPETITION
+	Note that these operators need backslash \\ quoting to be activated.
 	A regular expression may be followed by one of several repetition
 	operators:
 
