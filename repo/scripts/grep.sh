@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # grep.sh  --  grep with shell built-ins
-# v0.3.5  may/2021  by mountaineerbr
+# v0.3.6  may/2021  by mountaineerbr
 
 #defaults
 #script name
@@ -554,7 +554,7 @@ testglobwf()
 while getopts @cEe:FgGHhiyKkm:nPqrvVxwz c
 do
 	case $c in
-		@|G)
+		@)
 			#globbing pattern matching
 			#enables KSH_GLOB in zsh
 			OPTAT=1
@@ -581,6 +581,10 @@ do
 			#fixed strings
 			OPTF=1
 			unset OPTG OPTAT OPTE OPTP
+			;;
+		G)
+			#same as -gg
+			OPTG=2
 			;;
 		g)
 			#globbing pattern matching
