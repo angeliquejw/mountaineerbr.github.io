@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # grep.sh  --  grep with shell built-ins
-# v0.3.4  may/2021  by mountaineerbr
+# v0.3.5  may/2021  by mountaineerbr
 
 #defaults
 #script name
@@ -51,10 +51,10 @@ DESCRIPTION
 
 	Set option -g for EXTENDED GLOBBING syntax of PATTERNS. Option
 	-g adds star globs around *PATTERN* whereas -gg does not add
-	these automatically and is functionally the same as -gx. With Zsh,
-	-G enables KSH_GLOB and also sets -g once. Extended glob operators
-	are active by defaults. Quote characters with backslash to treat
-	them as literals when needed.
+	these automatically and is functionally the same as -gx. Option
+	-@ enables KSH_GLOB in Zsh and also sets -g once. Extended glob
+	operators are active by defaults. Quote characters with backslash
+	to treat them as literals when needed.
 
 	Set option -P to interpret PATTERNS as Perl-compatible regular
 	expressions. This option requires zsh/pcre module.
@@ -355,12 +355,12 @@ BUGS
 
 OPTIONS
 	Pattern Syntax
+	-@      Enable Ksh extended glob operators in Zsh and set -g.
 	-E, -r  Interpret PATTERNS as extended regex (ERE).
 	-F      Interpret PATTERNS as fixed strings.
 	-g      Interpret PATTERNS as globbing strings.
-	-gg     Bare glob test, same as -g but no glob stars are added
-	        around PATTERN automatically (functionally same as -gx).
-	-G      Sets -g and enables Ksh extended glob operators in Zsh.
+	-gg     Bare glob test, same as -g but no glob stars around PATTERN
+		are added automatically (functionally same as -gx).
 	-P 	Interpret PATTERNS as Perl-compatible regex (PCRE);
 		requires zsh/pcre module.
 
@@ -551,9 +551,16 @@ testglobwf()
 }
 
 #parse options
-while getopts cEe:FgGHhiyKkm:nPqrvVxwz c
+while getopts @cEe:FgGHhiyKkm:nPqrvVxwz c
 do
 	case $c in
+		@|G)
+			#globbing pattern matching
+			#enables KSH_GLOB in zsh
+			OPTAT=1
+			((OPTG)) || OPTG=1
+			unset OPTF OPTE OPTP
+			;;
 		c)
 			#count matched lines
 			OPTC=1
@@ -561,7 +568,7 @@ do
 		E|r)
 			#extended regex
 			OPTE=1
-			unset OPTG OPTGG OPTF
+			unset OPTG OPTAT OPTF
 			;;
 		e)
 			#search arguments
@@ -573,14 +580,7 @@ do
 		F)
 			#fixed strings
 			OPTF=1
-			unset OPTG OPTGG OPTE OPTP
-			;;
-		G)
-			#globbing pattern matching
-			#enables KSH_GLOB in zsh
-			OPTGG=1
-			((OPTG)) || ((++OPTG))
-			unset OPTF OPTE OPTP
+			unset OPTG OPTAT OPTE OPTP
 			;;
 		g)
 			#globbing pattern matching
@@ -620,7 +620,7 @@ do
 			#PCRE
 			OPTE=1
 			OPTP=1
-			unset OPTG OPTGG OPTF
+			unset OPTG OPTAT OPTF
 			;;
 		q)
 			#quiet
@@ -669,7 +669,7 @@ if ((ZSH_VERSION))
 then
 	#set zsh opts
 	setopt GLOBSUBST EXTENDED_GLOB 
-	((OPTGG)) && setopt KSH_GLOB
+	((OPTAT)) && setopt KSH_GLOB
 	((OPTP)) && setopt RE_MATCH_PCRE
 else 
 	#set bash opts
