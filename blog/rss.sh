@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # rss.sh -- BLOG RSS FEED SYSTEM
-# v0.3.12  may/2021  mountaineerbr
+# v0.3.13  may/2021  mountaineerbr
 #                       |        _)                  |        
 #   ` \   _ \ |  |   \   _|  _` | |   \   -_)  -_)  _|_ \  _| 
 # _|_|_|\___/\_,_|_| _|\__|\__,_|_|_| _|\___|\___|_|_.__/_|   
@@ -22,7 +22,8 @@ ROOTB="$ROOT/blog"
 ROOTBW="$ROOTW/blog"
 
 #raw postfile name
-RAWPOST_FNAME="i.html"
+RAWPOST_FNAME="i"
+#for i.html or i.md
 
 #template files
 TEMPLATE_FEED="$ROOTB/r.xml"
@@ -245,10 +246,12 @@ shift $(( OPTIND - 1 ))
 unset c
 
 #check for pkgs
-for pkg in xmlstarlet uuidgen curl tidy
+for pkg in xmlstarlet uuidgen curl tidy markdown
 do
 	if ! command -v "$pkg" &>/dev/null
-	then echo "$SN: err: package missing -- $pkg" >&2 ;exit 1
+	then
+		echo "$SN: err: package missing -- $pkg" >&2
+		[[ "$pkg" = markdown ]] || exit 1
 	fi
 done
 unset pkg
@@ -280,8 +283,9 @@ typeset -a POSTFILES
 while IFS=  read
 do
 	POSTFILES+=( "$REPLY" )
-done <<< "$( printf '%s\n' [0-9]*/"$RAWPOST_FNAME" | sort -n )"
+done <<< "$( printf '%s\n' [0-9]*/"$RAWPOST_FNAME".(html|md) | sort -n )"
 unset REPLY
+#BASH# use: "$RAWPOST_FNAME".@(html|md)
 
 #check directory array is not empty
 (( ${#POSTFILES[@]} )) || exit 1
@@ -303,7 +307,14 @@ do
 	printf "${eol}${CLR}>>>%4d/%4d  %s  " "$n" "${#POSTFILES[@]}" "$f"  >&2
 
 	#unwrapped html
-	unwrapped="$( unwrapf "$f")"
+	if [[ "$f" = *.md ]]
+	then
+		#if raw text is mardown
+		unwrapped="$(markdown "$f" | unwrapf)"
+	else
+		#raw text is markup
+		unwrapped="$(unwrapf "$f")"
+	fi
 
 	#author (e-mail address)
 	auth="jamilbio20@gmail.com (JSN)"
@@ -319,7 +330,7 @@ do
 	DTPUB="$( date -R -d"$DTPUB" )" || echo -e "\a$SN: warning: cannot get publication date -- $f" >&2
 
 	#link
-	link="${ROOTBW#/}/${f/${RAWPOST_FNAME}}"
+	link="${ROOTBW#/}/${f/${RAWPOST_FNAME}.(html|md)}"
 	link="$( escf "$link" )"
 
 	#post language
@@ -359,7 +370,9 @@ do
 		[[ ! -e "$fbuf" ]] || 		#no buffer for cat.html
 		(( stamp1 != stamp2 )) 		#i.html and index.html mod time differs
 	then
-		unwrapf "$f" | sed -n '/<article/,/<\/article>/ p' >"$fbuf"
+		#generate buffer file
+		<<<"$unwrapped" sed -n '/<article/,/<\/article>/ p' >"$fbuf"
+
 		#fix relative references
 		if changerefs="$( grep -nE "$p" "$fbuf" )"
 		then
@@ -467,8 +480,8 @@ do
 		"$TEMP_TARGET_FEED"
 
 	#add enclosure?
-	(( encsize[1] )) &&
-		xmlstarlet ed -L  \
+	(( encsize[1] )) \
+		&& xmlstarlet ed -L  \
 		-s "//item[1]" -t elem -n enclosure -v ""  \
 		-a "//item[1]/enclosure" -t attr -n url -v "$enc" \
 		-a "//item[1]/enclosure" -t attr -n length -v "${encsize[1]:-10}" \

@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.5  apr/2021  mountaineerbr
+# v0.6.6  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -24,10 +24,11 @@ ROOTBW="$ROOTW/blog"
 #template files
 TEMPLATE_POST="$ROOTB/p.html"
 TEMPLATE_CAT="$ROOTB/c.html"
-TEMPLATE_CREAT="$ROOTB/a"  #directory template
+TEMPLATE_POSTDIR="$ROOTB/a"  #post directory template
 
 #raw postfile name
-RAWPOST_FNAME="i.html"
+RAWPOST_FNAME="i"
+#for i.html or i.md
 
 #set targets
 #post titles
@@ -67,29 +68,16 @@ SYNOPSIS
 DESCRIPTION
 	This script manages the blog page of my website.
 
-	Executing functions:
-		0)  Preparation; check template files, set variable names
-			and paths, temp files.
-		1)  Compile individual post pages, prepare buffers
-			for cat.html; make page <TITLE> from the source
-			<H1> tag and compile post index.html from sources
-			and templates.
-		2)  Prepare more buffers for cat.html; fix relative paths
-			of source references.
-		3)  Make post title list.
-		4)  Update blog post titles in /blog/index.html.
-		5)  Update blog post titles in homepage /index.html; only
-			ten most recent posts, also fixes references to
-			post pages under /blog/ .
-		6)  Miscellaneous tasks; clean up, final checks and
-			warnings.
+	Option -a creates a new post from template directory, defaults
+	template dir=$TEMPLATE_POSTDIR .
 
+	Write text inside <ARTICLE> tags of ${RAWPOST_FNAME}.html or ${RAWPOST_FNAME}.md . In ${RAWPOST_FNAME}.md,
+	text will be pre-compiled into HTML with \`markdown' package.
 
-	UPPERCASE tags will not be processed by this script, so you
-	may use uppercase tags to write examples in inside <PRE> tags,
-	etc.
+	UPPERCASE tags within <ARTICLE> will are not processed, so you
+	may use uppercase tags to write examples inside <PRE> tags, etc.
 
-	Tags <LINK> and <SCRIPT> in the head section of $RAWPOST_FNAME files
+	Tags <LINK> and <SCRIPT> in the head section of ${RAWPOST_FNAME}.html files
 	will be checked and added to cat.html head.
 
 	Keep java scripts in the /blog/js/ directory, so they can be
@@ -100,42 +88,54 @@ DESCRIPTION
 	warnings do not cause problems but may need or not be addressed
 	sometime in the future. Log file at ${LOGFILE} .
 
-	We are using package \`tidy' so many would be errors for processing
-	are no more, for example, important tags such as description do
-	not need be in a single line anymore.
-
-	Tidy will tidy up the final generated pages, unless option -i is set.
-
-	Option -a will create a new post from template directory,
-	defaults template dir=$TEMPLATE_CREAT .
+	\`Tidy' corrects many errors and can format the markup in a defined
+	way to further processing. For example, writings tag descriptions
+	in multiple lines is not  a problem. In order to not tidy up gen-
+	erated pages, set option -i.
 
 	Inspired by the Poor Man Wemaster Tools from the Silly Software
 	Company.
 
 
+EXECUTING FUNCTIONS
+	0)  Preparation; check template files, set variable names and
+	    paths, temp files.
+	1)  Compile individual post pages, prepare buffers for cat.html;
+	    make page <TITLE> from the source <H1> tag and compile post
+	    index.html from sources and templates.
+	2)  Prepare more buffers for cat.html; fix relative paths of
+	    source references.
+	3)  Make post title list.
+	4)  Update blog post titles in /blog/index.html.
+	5)  Update blog post titles in homepage /index.html; only ten
+	    most recent posts, also fixes references to post pages under
+	    /blog/ .
+	6)  Miscellaneous tasks; clean up, final checks and warnings.
+
+
 DIRECTORY AND FILE STRUCTURE
-	Blog post directories start with a number /[0-9]* . The post
-	directory must hold an $RAWPOST_FNAME file, which is a clone from
-	template which will hold the author raw text for the post
-	within <ARTICLE> tags as well as additional metatags at the
-	<HEAD> section, such as . Filepath ex: blogRootDir/1/$RAWPOST_FNAME
+	Blog post directories start with a number /[0-9]+ inside de blog
+	root directory. The post directory must hold an ${RAWPOST_FNAME}.html file, which
+	is a clone from the template directory $TEMPLATE_POSTDIR .
+	As mentioned, author should write raw post text inside <ARTICLE>
+	tags. 
 
-	$RAWPOST_FNAME files are processed/compiled to generate index.html
-	files at the same directory as their post source. A copy of
-	the articles are prepared (source attributes are fixed, etc)
-	for concatenation at a later stage.
+	${RAWPOST_FNAME}.html files are processed/compiled to generate index.html
+	files at the same directory as ${RAWPOST_FNAME}.html . Buffer files are 
+	created with the right attributes and necessary href changes for
+	concatenation to $TARGET_CAT at a later stage.
 
-	The script timestamps generated files and checks last modified
-	date against source files and only re-process them if they
-	differ or buffer files from last run are missing, which speeds
-	re-running the script.
+	Timestamps are checked for the last modification date against
+	raw post files and buffer files and only re-process them if they
+	differ or buffer files are missing. This greatly improves speeds.
 
-	Previously generated files are replaced with new ones.
+	Previously generated files and buffers are overwritten with updated
+	markup.
 
 
 ENVIRONMENT
-	VISUAL 		New posts created with -a will be edited with text
-			editor set in \$VISUAL, otehrwise uses vim.
+	VISUAL 	 New posts created with -a will be edited with text
+		editor set in \$VISUAL, otherwise uses \`vim'.
 
 
 REFERENCES
@@ -148,7 +148,7 @@ REFERENCES
 	Slackjeff's hacktuite
 	<https://github.com/slackjeff/hacktuite>
 
-	More
+	Miscellaneous
 	<https://unix.stackexchange.com/questions/502230/how-to-apply-sed-if-it-contains-one-string-but-not-another/502233>
 
 
@@ -172,13 +172,12 @@ BUGS
 
 OPTIONS
 	-a [TITLE]
-		Creates a new post from template, optionally add TITLE.
+		Creates a new post from template, TITLE may be an argument.
 	-f 	Force recompile post index.html files.
 	-h 	Help page.
 	-i 	Do not use tidy up generated pages.
-	-t 	Update mod time of $RAWPOST_FNAME and the new index.html with
-		old index.html timestamp; this avoids sitemap.xml up-
-		dating blog page timestamps.
+	-t 	Update mod time of ${RAWPOST_FNAME}.(html|md) and the new index.html
+		with old timestamp; this avoids updating file timestamps.
 	-v 	Verbose mode, debug; log file=${LOGFILE} .
 	-V 	Script version."
 
@@ -228,18 +227,19 @@ cleanf()
 #create a new post from template dir
 creatf()
 {
-	local tgt tgti postn stamp1 stamp2 var title templdir desc keywords
-
-	templdir="$TEMPLATE_CREAT" templdir="${templdir%/}/"
-	((LASTP)) || { print "$SN: cannot get last post index -- $LASTP" >&2 ;return 1 ;}
+	local tgt tgti postn stamp1 stamp2 var title templdir desc keywords marktype REPLY
+	templdir="$TEMPLATE_POSTDIR" templdir="${templdir%/}/"
 	[[ -d "$templdir" ]] || { print "$SN: template dir not found -- $templdir" >&2 ;return 1 ;}
-	postn=$((LASTP+1)) || return
-	tgt="${templdir%/a/}" tgt="${tgt}/$postn"
-	tgti="${tgt}/i.html"
-	stamp1="$(date +%Y-%m-%d)" stamp2="$(date +%d/%b/%Y)"
-	title="$*" ;[[ -z "$title" ]] && { echo "Type a post TITLE (optional):" >&2 ;vared -c title ;}
-	[[ -z "$desc" ]] && { echo "Type a post DESCRIPTION (optional):" >&2 ;vared -c desc ;}
-	[[ -z "$keywords" ]] && { echo "Type post KEYWORDS, use comma for multiple (optional):" >&2 ;vared -c keywords ;}
+	((LASTP)) || { print "$SN: cannot get last post index -- $LASTP" >&2 ;return 1 ;}
+	postn=$((LASTP+1))  stamp1="$(date +%Y-%m-%d)"  stamp2="$(date +%d/%b/%Y)" || return 1
+
+	title="$*" ;[[ -z "$title" ]] && { echo "Post TITLE:" >&2 ;vared -c title ;}
+	[[ -z "$desc" ]] && { echo "Post DESCRIPTION:" >&2 ;vared -c desc ;}
+	[[ -z "$keywords" ]] && { echo "Post KEYWORDS (use comma for multiple):" >&2 ;vared -c keywords ;}
+
+	tgt="${templdir%/*/}" tgt="${tgt}/$postn"
+	read -q "?Write in \`\`markdown''? y/N: " && marktype=md  ;print
+	tgti="${tgt}/${RAWPOST_FNAME}.${marktype:-html}"
 
 	#check all required vars are set
 	for var in postn tgt tgti stamp1 stamp2
@@ -248,17 +248,20 @@ creatf()
 
 	#copy template and rename new directory with post number
 	cp -vr "$templdir" "$tgt"
+	#is markdown? change extension from raw post template from .html to .md
+	[[ "$marktype" = md && -e "${tgti%.md}.html" ]] && {
+		mv -- "${tgti%.md}.html" "$tgti"
+		sed -i 's|<!-- MAIN TEXT.*|&\n<!-- MARKDOWN -->|' "$tgti"
+	}
 
 	#update post id, post #number and TITLE in in i.html
 	((OPTV)) && echo "$SN: update post id, #NUM, TITLE, DESCRIPTION and KEYWORDS -- $tgti" >&2
-	if [[ -n "$title" ]]
-	then sed -i -E "s/id=\"[0-9?]*\">#[^<]*/id=\"$postn\">#$postn - $title/" "$tgti"
-	else sed -i -E "s/id=\"[0-9?]*\">#[0-9?]*/id=\"$postn\">#$postn/" "$tgti"
-	fi
-	[[ -n "$desc" ]] &&
-		sed -i -E "/name=\"description/ s/(content=\")([^\"]*)/\1$desc/" "$tgti"
-	[[ -n "$keywords" ]] &&
-		sed -i -E "/name=\"keywords/ s/(content=\")([^\"]*)/\1$keywords/" "$tgti"
+	sed -i -E "s/.*<h1.*id=\"[0-9?]*\">#[^<]*/id=\"$postn\">#$postn${title+ - $title}/" "$tgti"
+
+	[[ -n "$desc" ]] \
+		&& sed -i -E "/name=\"description/ s/(content=\")([^\"]*)/\1$desc/" "$tgti"
+	[[ -n "$keywords" ]] \
+		&& sed -i -E "/name=\"keywords/ s/(content=\")([^\"]*)/\1$keywords/" "$tgti"
 
 	#update date in i.html
 	((OPTV)) && echo "$SN: update time stamps -- $tgti" >&2
@@ -403,10 +406,12 @@ shift $(( OPTIND - 1 ))
 unset c
 
 #check for pkgs
-for pkg in tidy
+for pkg in tidy markdown
 do
 	if ! command -v "$pkg" &>/dev/null
-	then echo "$SN: err: package missing -- $pkg" >&2 ;exit 1
+	then
+		echo "$SN: err: package missing -- $pkg" >&2
+		[[ "$pkg" = markdown ]] || exit 1
 	fi
 done
 unset pkg
@@ -415,7 +420,7 @@ unset pkg
 #PART ZERO
 #preparation
 
-if (( ZSH_VERSION ))
+if ((ZSH_VERSION))
 then
 	#zsh is a little faster
 	setopt PIPE_FAIL KSH_ZERO_SUBSCRIPT
@@ -431,7 +436,7 @@ set -e
 trap cleanf HUP INT TERM EXIT
 
 #generic buffer temp file
-TMP="$( mktemp )"
+TMP="$(mktemp)"
 
 #remove existing warning log file
 [[ -e "$LOGFILE" ]] && rm -- "$LOGFILE"
@@ -457,8 +462,9 @@ typeset -a POSTFILES
 while IFS=  read
 do
 	POSTFILES+=( "$REPLY" )
-done <<< "$( printf '%s\n' [0-9]*/"$RAWPOST_FNAME" | sort -nr )"
+done <<< "$( printf '%s\n' [0-9]*/"$RAWPOST_FNAME".(html|md) | sort -nr )"
 unset REPLY
+#BASH# use: "$RAWPOST_FNAME".@(html|md)
 
 #check directory array is not empty
 (( ${#POSTFILES[@]} )) || exit 1
@@ -482,11 +488,11 @@ do
 	#PART ONE
 	#make post html pages from templates
 	#set post index.html path
-	targetpost="${f/$RAWPOST_FNAME/index.html}"
+	targetpost="${f/$RAWPOST_FNAME.(html|md)/index.html}"
 	#partial/buffer file
-	TEMP_TARGETPOST="${f/$RAWPOST_FNAME/.index.html.part}"
+	TEMP_TARGETPOST="${f/$RAWPOST_FNAME.(html|md)/.index.html.part}"
 	#cat.html-specific
-	TEMP_TARGETCAT="${f/$RAWPOST_FNAME/.index.html.cat}"
+	TEMP_TARGETCAT="${f/$RAWPOST_FNAME.(html|md)/.index.html.cat}"
 
 	#array with buffer files for cat.html
 	CATFILES+=( "$TEMP_TARGETCAT" )
@@ -499,18 +505,26 @@ do
 		stamp1=( $( stat --printf='%Y\n' "$f") )  #i.html
 		[[ -f "$targetpost" ]] && stamp2=( $( stat --printf='%Y\n' "$targetpost") ) #old index.html
 
-		(( OPTF )) || 			#option -f
+		((OPTF)) || 			#option -f
 		[[ ! -f "$TEMP_TARGETCAT" ]] || #no buffer for cat.html
 		[[ ! -f "$targetpost" ]] || 	#no target post index.html
-		(( stamp1 != stamp2 )) || 	#i.html and index.html mod time differs
-		{ (( n < LASTP )) && ! grep -q 'w3-bar-item.*>Next<' "$targetpost" ;} #has the post got the NEXT nav button yet?
+		((stamp1 != stamp2)) || 	#i.html and index.html mod time differs
+		{ ((n < LASTP)) && ! grep -q 'w3-bar-item.*>Next<' "$targetpost" ;} #has the post got the NEXT nav button yet?
 	then
 		#feedback
 		((OPTV)) && eol='\n' || eol='\r'
 		printf "${eol}${CLR}>>>%3d/%3d  %s " "$n" "${#POSTFILES[@]}" "$f" >&2
 
 		#get unwrapped content
-		unwrapped="$(unwrapf "$f")"
+		#if raw text is mardown
+		if [[ "$f" = *.md ]]
+		then
+			fhtmltemp="${f/.md}.html"
+			markdown "$f">"$fhtmltemp"
+		fi
+		
+		#raw text is markup
+		unwrapped="$(unwrapf "${fhtmltemp:-$f}")"
 
 		#add title and meta tags to buffer file
 		sed -n '/<head>/,/<\/head>/ p' "$f" |
@@ -524,16 +538,22 @@ do
 			"$TEMP_TARGETPOST" <<<"$canonical"
 
 		#make and entry title tag from article>header>h1+time
-		title="$( <<<"$unwrapped" sed -nE '/<header>/,/<\/header>/ s|.*h1[^>]*>([^<]*)<.*|\1| p' )"
-		time="$( <<<"$unwrapped" sed -nE '/<header>/,/<\/header>/ s|.*<time[^>]*>([^<]*)<.*|\1| p' )"
+		title="$(<<<"$unwrapped" sed -nE '/<header>/,/<\/header>/ s|.*h1[^>]*>([^<]*)<.*|\1| p')"
+		time="$(<<<"$unwrapped" sed -nE '/<header>/,/<\/header>/ s|.*<time[^>]*>([^<]*)<.*|\1| p')"
 		sed -i '/<!-- metatags -->/ r /dev/stdin' \
 			"$TEMP_TARGETPOST" <<<"<title>$time $title</title>"
 
 		#add article and create final html page
-		sed -n '/<article/,/<\/article>/ p' "$f" |
+		sed -n '/<article/,/<\/article>/ p' "${fhtmltemp:-$f}" |
 			sed '/<!-- article -->/ r /dev/stdin' \
 			"$TEMP_TARGETPOST" >"$targetpost"
 		#https://stackoverflow.com/questions/46423572/append-a-file-in-the-middle-of-another-file-in-bash
+
+		#remove temp html file generated from md
+		[[ -e "$fhtmltemp" ]] && {
+			rm -- "$fhtmltemp"
+			unset fhtmltemp
+		}
 
 		#add navigation items
 		(( n == ${#POSTFILES[@]} )) ||
