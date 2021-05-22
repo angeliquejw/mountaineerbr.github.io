@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.6  may/2021  mountaineerbr
+# v0.6.7  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -519,12 +519,12 @@ do
 		#if raw text is mardown
 		if [[ "$f" = *.md ]]
 		then
-			fhtmltemp="${f/.md}.html"
-			markdown "$f">"$fhtmltemp"
+			fbufferhtml="${f/.md}.buffer.html"
+			markdown "$f">"$fbufferhtml"
 		fi
 		
 		#raw text is markup
-		unwrapped="$(unwrapf "${fhtmltemp:-$f}")"
+		unwrapped="$(unwrapf "${fbufferhtml:-$f}")"
 
 		#add title and meta tags to buffer file
 		sed -n '/<head>/,/<\/head>/ p' "$f" |
@@ -544,15 +544,15 @@ do
 			"$TEMP_TARGETPOST" <<<"<title>$time $title</title>"
 
 		#add article and create final html page
-		sed -n '/<article/,/<\/article>/ p' "${fhtmltemp:-$f}" |
+		sed -n '/<article/,/<\/article>/ p' "${fbufferhtml:-$f}" |
 			sed '/<!-- article -->/ r /dev/stdin' \
 			"$TEMP_TARGETPOST" >"$targetpost"
 		#https://stackoverflow.com/questions/46423572/append-a-file-in-the-middle-of-another-file-in-bash
 
 		#remove temp html file generated from md
-		[[ -e "$fhtmltemp" ]] && {
-			rm -- "$fhtmltemp"
-			unset fhtmltemp
+		[[ -e "$fbufferhtml" ]] && {
+			rm -- "$fbufferhtml"
+			unset fbufferhtml
 		}
 
 		#add navigation items
