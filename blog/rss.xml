@@ -11,9 +11,9 @@
 
 	-->
   <channel>
-    <lastBuildDate>Sat, 22 May 2021 00:00:00 -0300</lastBuildDate>
+    <lastBuildDate>Fri, 21 May 2021 00:00:00 -0300</lastBuildDate>
     <title>Biology Blogger</title>
-    <description>Current as of Sat, 22 May 2021 13:57:43 -0300.</description>
+    <description>Current as of Sat, 22 May 2021 13:58:08 -0300.</description>
     <link>https://mountaineerbr.github.io/blog/</link>
     <language>en</language>
     <category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
@@ -31,16 +31,6 @@
 		</copyright>
     <!-- # IMPORTANT: keep [generator] as [item] elements will be appended after it -->
     <generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
-    <item>
-      <title xml:lang="en">err  -- please report to jamilbio20@gmail.com (JSN)</title>
-      <pubDate>Sat, 22 May 2021 00:00:00 -0300</pubDate>
-      <description>aaaa</description>
-      <link>https://mountaineerbr.github.io/blog/44/</link>
-      <dc:language>en</dc:language>
-      <category>aaaa</category>
-      <author>jamilbio20@gmail.com (JSN)</author>
-      <guid isPermaLink="false">d519c67a-f679-5a76-abbc-6cf078ef264b</guid>
-    </item>
     <item>
       <title xml:lang="en">#43 - Former YouTube Subscription List</title>
       <pubDate>Fri, 21 May 2021 00:00:00 -0300</pubDate>
