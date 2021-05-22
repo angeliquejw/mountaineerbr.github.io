@@ -362,6 +362,8 @@ do
 	if
 		#buffer filename (as dotfile)
 		fbuf="${f/${f##*\/}/.${f##*\/}}.rss.buf"
+		#fbuf="${f%${f##*/}}.${${f##*/}%.*}.buf.rss.${f##*.}"
+
 		#get post i.html and index.html modification timestamps
 		stamp1=( $( stat --printf='%Y\n' "$f") )  #i.html
 		[[ -e "$fbuf" ]] && stamp2=( $( stat --printf='%Y\n' "$fbuf") ) #processed buffer

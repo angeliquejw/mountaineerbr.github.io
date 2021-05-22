@@ -14,9 +14,9 @@
 	-->
 
 	<channel>
-		<lastBuildDate>Fri, 21 May 2021 00:00:00 -0300</lastBuildDate>
+		<lastBuildDate>Sat, 22 May 2021 00:00:00 -0300</lastBuildDate>
 		<title>Biology Blogger (Alternative feed)</title>
-		<description>Current as of Sat, 22 May 2021 13:26:40 -0300.</description>
+		<description>Current as of Sat, 22 May 2021 13:57:43 -0300.</description>
 		<link>https://mountaineerbr.github.io/blog/</link>
 		<category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
 		<webMaster>jamilbio20@gmail.com (JSN)</webMaster>
@@ -35,6 +35,21 @@
 		<generator>A Poor Man's Own RSS Generator in Shell Scripting</generator>
 
 		<!-- additemsfull -->
+	<item>
+		<title xml:lang="en">err  -- please report to jamilbio20@gmail.com (JSN)</title>
+		<pubDate>Sat, 22 May 2021 00:00:00 -0300</pubDate>
+		<link>https://mountaineerbr.github.io/blog/44/</link>
+		<dc:language>en</dc:language>
+		<category>aaaa</category>
+		<author>jamilbio20@gmail.com (JSN)</author>
+		<guid isPermaLink="false">f8434bdc-e9e4-5765-9671-d7ffe6d95719</guid>
+		<description><![CDATA[ <article class="h-entry">
+<header>id=&ldquo;44&rdquo;&gt;#44 - aaa <time class="dt-published" datetime="2021-05-22">22/may/2021</time>
+<pre><code>&lt;br&gt;
+</code></pre></header>
+<h2>hereeeeeeeeeeeeeeeeee</h2>
+</article> ]]></description>
+	</item>
 	<item>
 		<title xml:lang="en">#43 - Former YouTube Subscription List</title>
 		<pubDate>Fri, 21 May 2021 00:00:00 -0300</pubDate>
