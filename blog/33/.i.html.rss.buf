@@ -3,7 +3,7 @@
 <h1 class="p-name" id="33">#33 - Podcast #6 - More Tor Configs for Bitcoin Node and SSH</h1>
 <time class="dt-published" datetime="2021-04-02">02/apr/2021</time><br></header>
 <div lang="pt" class="p-summary">
-<p>Comentando sobre mais algumas configurações que fiz depois de gravar o último podcast sobre <code>bitcoind</code>. Pretendemos dominar as configurações necessárias para poder retransmitir dados para as redes <span lang="en"><em>clearnet</em></span> e <span lang="en&quot;"><em>onion</em></span> do bitcoin.</p>
+<p>Comentando sobre mais algumas configurações que fiz depois de gravar o último podcast sobre <code>bitcoind</code>. Pretendemos dominar as configurações necessárias para poder retransmitir dados para as redes <span lang="en"><em>clearnet</em></span> e <span lang="en"><em>onion</em></span> do bitcoin.</p>
 <p>Também falo sobre uma experiência curta colhendo soja em uma empresa privada, montando um servidorzinho em casa, usar acesso SSH em casa e mais.</p>
 </div>
 <br>

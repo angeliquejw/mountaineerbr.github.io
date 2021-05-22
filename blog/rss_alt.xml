@@ -16,7 +16,7 @@
 	<channel>
 		<lastBuildDate>Fri, 21 May 2021 00:00:00 -0300</lastBuildDate>
 		<title>Biology Blogger (Alternative feed)</title>
-		<description>Current as of Fri, 21 May 2021 23:26:10 -0300.</description>
+		<description>Current as of Sat, 22 May 2021 08:30:12 -0300.</description>
 		<link>https://mountaineerbr.github.io/blog/</link>
 		<category>Science/Biology/Technology/UNIX/Linux/Personal/Biologia/Ciência/Tecnologia/Pessoal</category>
 		<webMaster>jamilbio20@gmail.com (JSN)</webMaster>
@@ -621,7 +621,7 @@ export MOZ_USE_OMTC=1
 <h1 class="p-name" id="33">#33 - Podcast #6 - More Tor Configs for Bitcoin Node and SSH</h1>
 <time class="dt-published" datetime="2021-04-02">02/apr/2021</time><br></header>
 <div lang="pt" class="p-summary">
-<p>Comentando sobre mais algumas configurações que fiz depois de gravar o último podcast sobre <code>bitcoind</code>. Pretendemos dominar as configurações necessárias para poder retransmitir dados para as redes <span lang="en"><em>clearnet</em></span> e <span lang="en&quot;"><em>onion</em></span> do bitcoin.</p>
+<p>Comentando sobre mais algumas configurações que fiz depois de gravar o último podcast sobre <code>bitcoind</code>. Pretendemos dominar as configurações necessárias para poder retransmitir dados para as redes <span lang="en"><em>clearnet</em></span> e <span lang="en"><em>onion</em></span> do bitcoin.</p>
 <p>Também falo sobre uma experiência curta colhendo soja em uma empresa privada, montando um servidorzinho em casa, usar acesso SSH em casa e mais.</p>
 </div>
 <br>
@@ -1365,11 +1365,11 @@ export MOZ_USE_OMTC=1
 <li><a href="http://ln.hixie.ch/?start=1610654145&count=1">Hixie&#39;s Natural Log</a>, however beware he has got some <a href="http://ln.hixie.ch/?start=1023537036&count=1">nasty ideas about eugenics</a> (which he calls <q>Humanitarian eugenics</q> 💀💀💀 <em>~laughings~</em>) I have seen other people with poor understanding of biology and natural selection law as well, <a href="https://lukesmith.xyz/articles/causes.html">including Luke Smith</a>. <strong>Be warned</strong>.</li>
 <li><a href="https://www.nngroup.com/articles/deep-linking-is-good-linking/">Deep Linking</a></li>
 <li>Berners-Lee&#39;s <a href="https://www.potaroo.net/ietf/all-ids/draft-ietf-iiir-html-00.txt">draft-ietf-iiir-html-00.txt</a></li>
+</ul>
 <ul>
 <li><a href="https://blog.simplecast.com/our-favorite-rss-feed-validator-tools/">Our Favorite RSS Feed Validator Tools</a></li>
 <li><a href="https://castfeedvalidator.com/">Cast Feed Validator</a></li>
 <li><a href="https://podba.se/validate/">PodBase Validator</a></li>
-</ul>
 </ul>
 </article> ]]></description>
 	</item>
@@ -2219,9 +2219,8 @@ in memoriam of Walter Schwartz</pre>
 <li><a href="http://www.rainfor.org/upload/publication-store/2018/Passos_et_al_savanna_turning_into_forest_2018.pdf">Savanna turning into forest: concerted vegetation changeat the ecotone between the Amazon and &quot;Cerrado&quot; biomes, 2018</a> (<a href="passos2018.pdf">backup copy</a>)</li>
 <li><a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2013JG002532">Spatial and temporal patterns of global burned area in response to anthropogenic and environmental factors: Reconstructing global fire history for the 20th and early 21st centuries, Yang et al 2014</a></li>
 <li><a hreflang="pt" href="https://veja.abril.com.br/blog/cacador-de-mitos/o-mito-do-ano-o-desmatamento-da-amazonia-provocou-a-seca-no-sudeste/">O mito do ano: &quot;o desmatamento da Amazônia provocou a seca no Sudeste&quot;</a></li>
-</ul>
-<ul>
 <li><a href="https://www.nps.gov/yell/planyourvisit/upload/full-2.pdf">Yellowstone in the afterglow: Lessons from the fires. National Park Service</a></li>
+</ul>
 <h2>Interesting quotes</h2>
 <blockquote lang="pt" cite="http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/prodes/pdfs/Prodes1989.pdf">Deve-se distinguir claramente a diferença entre uso da terra e desmatamento. Todo desmatamento é uma forma de uso da terra, mas nem todo uso da terra é um desmatamento. Deve-se portanto, quantificar separadamente uso da terra e desmatamento. As áreas agrícolas (uso da terra) fora da região do domínìo da floresta tropical úmida que ocorre nas regiões de savana (cerrado, campos cerrados) dos estados periféricos da Amazônia Legal (Mato Grosso, Tocantins, Pará, Maranhão) não devem ser consideradas como áreas desmatadas e não o foram neste relatório. [..]
 <footer>--<a href="http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/prodes/pdfs/Prodes1989.pdf">Relatório do PRODES 1989</a></footer>
@@ -2237,7 +2236,6 @@ in memoriam of Walter Schwartz</pre>
 <img src="https://mountaineerbr.github.io/blog/gfx/fire_triangle2.gif" alt="fire triangle schematics" width="444" height="275">
 <figcaption>Fig 1. This triangle is used throughout many booklets about fire, and it draws attention the fact that is composed of only three (essential) parts: oxidizer, heat and fuel. <small>(credit: <a href="https://www.sc.edu/ehs/training/Fire/01_triangle.htm">University of South Carolina</a>)</small></figcaption>
 </figure>
-</ul>
 </article> ]]></description>
 	</item>
 	<item>
