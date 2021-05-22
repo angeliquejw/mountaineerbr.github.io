@@ -27,7 +27,7 @@ time
 /* full/formatted name of the person or organization */
 .p-name
 {
-	font-style: bold;
+	font-weight: bold;
 }
 
 /* post titles within a list */

@@ -87,7 +87,8 @@ body
 	margin: 0 auto 0 auto;
 	/* text-align: center; */
 	/* font-size: 1.0em; */
-	padding: auto 0.8em auto 0.8em;
+	padding-right: 0.8em;
+	padding-left: 0.8em;
 }
 
 h2
@@ -253,7 +254,7 @@ q
 }
 
 
-/* this column is a list  at links.html */
+/* this column is a list at links.html */
 .col5
 {
 	text-align: center;
