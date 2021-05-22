@@ -260,9 +260,9 @@ creatf()
 	sed -i -E "s/.*<h1.*id=\"[0-9?]*\">#[^<]*/id=\"$postn\">#$postn${title+ - ${title//\//\\/}}/" "$tgti"
 
 	[[ -n "$desc" ]] \
-		&& sed -i -E "/name=\"description/ s/(content=\")([^\"]*)/\1$desc/" "$tgti"
+		&& sed -i -E "/name=\"description/ s/(content=\")([^\"]*)/\1${desc//\//\\/}/" "$tgti"
 	[[ -n "$keywords" ]] \
-		&& sed -i -E "/name=\"keywords/ s/(content=\")([^\"]*)/\1$keywords/" "$tgti"
+		&& sed -i -E "/name=\"keywords/ s/(content=\")([^\"]*)/\1${keywords//\//\\/}/" "$tgti"
 
 	#update date in i.html
 	((OPTV)) && echo "$SN: update time stamps -- $tgti" >&2
@@ -272,7 +272,7 @@ creatf()
 	((OPTV)) && echo "$SN: post editor -- ${VISUAL:-vim}" >&2
 	"${VISUAL:-vim}" "$tgti"
 	
-	echo "post: $tgti" >&2
+	echo "Post: $tgti" >&2
 }
 
 #simple html filter
