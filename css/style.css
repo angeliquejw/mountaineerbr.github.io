@@ -163,7 +163,7 @@ q
 	margin-top: 0.8em;
 }
 
-#quotes dt
+#quotes dl dt
 {
 	font-family: initial;
 }
@@ -180,7 +180,6 @@ q
 /* The Clearfix: Force an Element To Self-Clear its Children */
 .group:after
 {
-	clear: both;
 	content: "";
 	display: table;
 	clear: both;
@@ -484,7 +483,6 @@ p[lang="pt"]
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 0.8em;
 	transition-duration: 0.16s;
 	cursor: pointer;
 	font-family: ArialB, "Arial Black", Gadget, sans-serif;
