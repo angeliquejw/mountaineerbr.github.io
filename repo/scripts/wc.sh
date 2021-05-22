@@ -1,11 +1,11 @@
 #!/bin/bash
 #!/bin/zsh
 # wc.sh  --  print line, word and character count
-# v0.3.19  may/2021  by mountaineerbr
+# v0.4  may/2021  by mountaineerbr
 
-#TODO: ask for help com.unix.shell or other groups about
-#array splitting for counting words (line ~182), as
-#there must be a more efficient and cleaner way to do it.
+#TODO: ask for
+#maybe help from com.unix.shell or usenet
+#array splitting for counting words should be improved for efficiency
 #check man 3 pcrepattern.
 
 #defaults
@@ -18,21 +18,25 @@ HELP="NAME
 
 
 SYNOPSIS
-	$SN [-clLmw] FILE..
+	$SN [-aclLmw] FILE..
 	$SN [-hv]
 
 
-	Use shell builtins to print line, word, byte and character
-	counts from FILES or stdin input. It can also print the
-	maximum display width (longest line).
+	Use shell builtins to print line, word, byte and character counts
+	from FILES or stdin input. It can also print the maximum display
+	width (longest line).
 
-	Newline bytes are used to detect and count lines. Null bytes
-	are ignored.
+	Newline bytes are used to detect and count lines. Null bytes are
+	ignored.
 	
 	This script uses shell builtins only and is compatible with bash
 	and zsh. There may be differences between interpreter results.
 	It is not supposed to compete with Wc, it is rather a tool for
 	studying Shell functions.
+
+	Options -a sets an alternative method for counting lines, words,
+	byte and charcters. It is slower but requires less memory if run
+	with large files.
 
 
 ENVIRONMENT VARIABLES
@@ -61,6 +65,7 @@ BUGS
 
 
 OPTIONS
+	-a 	   Alternate method with -clmw (slower).
 	-c 	   Count bytes.
 	-h 	   Print this help page.
 	-L 	   Print the maximum display width.
@@ -83,10 +88,10 @@ echoresulthelperf()
 #print results
 printresultf()
 {
-	local r
+	local p
 
-	r="$(printf "$fmtstring" "${results[@]}" "${FILE%/dev/stdin}")"
-	echo "${r% }"
+	p="$(printf "$fmtstring" "${results[@]}" "${FILE%/dev/stdin}")"
+	echo "${p% }"
 }
 
 saveresultf()
@@ -99,38 +104,33 @@ saveresultf()
 
 	#find the longest numeric string in results
 	for r in ${results[@]} $linestotal $wordstotal $charstotal $bytestotal
-	do
-		(( ${#r} > n )) && n=${#r}
+	do ((${#r} > n)) && n=${#r}
 	done
 
 	#compose a printf formatting string
 	#try to comply with gnu guidelines?
-	if (( fields > 1 )) &&
-		(( FILENUM < 1 ))
-	then
-		min_width=7
-		(( n < min_width )) && n=$min_width
+	if ((fields > 1 && FILENUM < 1))
+	then min_width=7 ;((n < min_width)) && n=$min_width
 	fi
 
 	strdecimal="%${n}d "
 	for ((f=1 ;f<(fields+1) ;++f))  #one more field for filename
-	do
-		fmtstring="${fmtstring}${strdecimal}"
+	do fmtstring="${fmtstring}${strdecimal}"
 	done
 	fmtstring="${fmtstring}%s\n"
 
 	#save partially formatted result for printing later
 	if [[ -n "$resultsall" ]]
 	then
+		filesall=( "${filesall[@]}" "$FILE" )
 		resultsall="${resultsall}
 ${results[*]}"
-		filesall=( "${filesall[@]}" "$FILE" )
 	else
-		resultsall="${results[*]}"
 		filesall=( "$FILE" )
+		resultsall="${results[*]}"
 	fi
 
-	unset lines words chars bytes min_width longest FILE
+	unset lines words chars bytes min_width longest FILE nl 
 	unset r f m results opts fields strdecimal
 }
 #https://github.com/coreutils/coreutils/blob/master/src/wc.c
@@ -140,6 +140,9 @@ mainmaxf()
 {
 	local buffer
 		
+	#read file to stdin
+	exec 0< "$1"
+
 	#loop through document
 	while IFS=  read -r buffer ||
 		[[ -n "$buffer" ]]
@@ -152,13 +155,89 @@ mainmaxf()
 	done
 	#GNU wc -L gives the width of the widest line in its input by
 	#using wcwidth(3) to determine the width of characters.
+
+	#add to total (file totals)
+	(( longest > longesttotal )) && longesttotal="$longest"
 }
 
-#count attributes
+#main, count file attributes
+#this method requires more RAM than mainaltf()
 mainf()
 {
-	local buffer nl w
+	local w buffer nl MAPFILE
 		
+	#read file into vector
+	buffer="$(<"$1")"
+
+	#read file into array
+	((OPTL)) && {
+		if ((ZSH_VERSION))
+		then MAPFILE=( ${(ps:\n:)"$(<${(b)1})"} )
+		else mapfile -t <"$1"
+		fi
+		nl=${#MAPFILE[@]}
+	}
+
+
+	#count lines
+	(( OPTL )) && {
+		lines=$nl
+		(( linestotal = linestotal + lines ))
+	}
+
+	#count bytes, new line is one byte
+	(( OPTC )) && {
+		(( bytes = 1 + ${#buffer} ))
+		(( bytestotal = bytestotal + bytes ))
+	}
+
+
+	#count words
+	(( OPTW )) && {
+		#change $LANG $LC_ALL to user original (zsh)
+		(( ZSH_VERSION )) && LANG="$ORIGLANG" LC_ALL="$ORIGLCAL"
+		
+		#remove non-breaking spaces
+		#and carriage returns
+		#one at a time, very slow
+		w=( ${buffer//$'\u00a0'/ } ) 	#nbsp
+		w=( ${w[*]//$'\u2007'/ } ) 	#figure space
+		w=( ${w[*]//$'\u202f'/ } ) 	#narrow nbsp
+		w=( ${w[*]//$'\u2060'/ } ) 	#word joiner
+		w=( ${w[*]//$'\u2009'/ } ) 	#thin space
+		#w=( ${w[*]//$'\u2002'/ } ) 	#en space
+		#w=( ${w[*]//$'\u2003'/ } ) 	#em space
+		w=( ${w[*]//$'\f'/ } ) 		#page feed ^L
+		w=( ${w[*]//$'\r'/ } ) 		#carriage return
+		(( words = words + ${#w[@]} ))
+		(( wordstotal = wordstotal + words ))
+	}
+
+	#count characters
+	(( OPTM )) && {
+		#change $LANG $LC_ALL to user original (bash zsh)
+		(( OPTW && ZSH_VERSION )) || LANG="$ORIGLANG" LC_ALL="$ORIGLCAL"
+		
+		(( chars = chars + 1 + ${#buffer} ))
+		(( charstotal = charstotal + chars ))
+	}
+
+
+	#revert $LANG $LC_ALL
+	if (( ( OPTW && ZSH_VERSION ) || OPTM ))
+	then LANG=C  LC_ALL=C
+	fi
+}
+
+#alternative method to count, line by line (slower)
+#this should be very similar to mainf()
+mainaltf()
+{
+	local buffer w nl
+		
+	#read file to stdin
+	exec 0< "$1"
+	
 	#loop through document
 	while 
 		nl=1
@@ -203,11 +282,16 @@ mainf()
 
 
 		#revert $LANG $LC_ALL
-		if (( OPTW && ZSH_VERSION )) || (( OPTM ))
-		then
-			LANG=C  LC_ALL=C
+		if (( ( OPTW && ZSH_VERSION ) || OPTM ))
+		then LANG=C  LC_ALL=C
 		fi
 	done
+
+	#add to totals
+	(( OPTL )) && (( linestotal = linestotal + lines ))
+	(( OPTW )) && (( wordstotal = wordstotal + words ))
+	(( OPTM )) && (( charstotal = charstotal + chars ))
+	(( OPTC )) && (( bytestotal = bytestotal + bytes ))
 }
 ##non-breaking spaces from gnu wc source code:
 ##$'\u00a0'$'\u2007'$'\u202f'$'\u2060'
@@ -240,10 +324,15 @@ mainf()
 ##strict mode, check null chars: while IFS=  read -r -d ''
 ##https://stackoverflow.com/questions/36313562/how-to-redirect-stdin-to-file-in-bash
 
+
 #parse options
-while getopts chLlmwvz c
+while getopts achLlmwvz c
 do
 	case $c in
+		a)
+			#use alternative method
+			OPTA=1
+			;;
 		c)
 			#count bytes
 			(( ++OPTC ))
@@ -299,95 +388,75 @@ unset c  #OPTIND OPTERR
 #save number of positional arguments
 #if none left at this point, input
 #is probably from /dev/stdin
-FILENUM="$#"
+FILENUM=$#
 
 #save original (user) values $LANG $LC_ALL
-ORIGLANG="$LANG" ORIGLCAL="$LC_ALL"
+ORIGLANG=$LANG ORIGLCAL=$LC_ALL
 
 #following params affects shell speed 
 #(and GNU tools behaviour in general)
 export POSIXLY_CORRECT=y
-(( ZSH_VERSION )) || set -o posix
 (( OPTMAX )) || LANG=C  LC_ALL=C
 
 #consolidate options
 if (( OPTMAX ))
-then
-	unset OPTM OPTC OPTL OPTW
+then unset OPTM OPTC OPTL OPTW
 elif [[ -z "$OPTM$OPTC$OPTL$OPTW" ]]
-then
-	(( ++OPTC ))
-	(( ++OPTL ))
-	(( ++OPTW ))
+then (( ++OPTC )) ;(( ++OPTL )) ;(( ++OPTW ))
 fi
 
 #bash or zsh?
 if (( ZSH_VERSION ))
 then
-	#unset shell globbing
-	#zsh doesn't perform filename
-	#generation upon command substitution.
-
 	#set automatic word split
 	#array index start at nought
 	setopt  SH_WORD_SPLIT  KSH_ZERO_SUBSCRIPT
+
+	#shell array index
+	BZ=1
 else
 	#unset shell globbing
-	set -f
+	#conform to posix
+	set -f -o posix
+	
+	#shell array index
+	BZ=0
 fi
 
 #is stdin free?
-if [[ -t 0 ]]
-then
-	#is there any user argument?
-	if (( FILENUM < 1 ))
-	then
-		echo "$SN: err  -- input (FILE or stdin) required" >&2
-		exit 1
-	fi
+#is there any user argument?
+if ((FILENUM == 0)) && [[ -t 0 ]]
+then echo "$SN: err  -- input (FILE or stdin) required" >&2 ;exit 1
 fi
+
+#set tests to mainf()
+if ((OPTMAX))
+then mainf() { mainmaxf "$@" ;}
+elif ((OPTA))
+then mainf() { mainaltf "$@" ;}
+fi
+
 
 #loop through files
 #save partially formatted result and add values to totals
 for FILE in "${@:-/dev/stdin}"
 do
 	#is it a file or stdin?
-	if (( FILENUM ))
+	#check if that is a file (even if that is a fifo)
+	if ((FILENUM)) && [[ ! -e "$FILE" ]]
 	then
-		#check if that is a file (even if that is a fifo)
-		if [[ -e "$FILE" ]]
-		then
-			#read file to stdin
-			exec 0< "$FILE"
-		else
-			echo "$SN: no such file -- $FILE" >&2
-			continue
-		fi
+		echo "$SN: no such file -- $FILE" >&2
+		continue
 	fi
 
 	#call main function
-	if (( OPTMAX ))
-	then
-		mainmaxf
-
-		#add to total
-		(( longest > longesttotal )) && longesttotal="$longest"
-	else
-		mainf
-
-		#add to total
-		(( OPTL )) && (( linestotal = linestotal + lines ))
-		(( OPTW )) && (( wordstotal = wordstotal + words ))
-		(( OPTM )) && (( charstotal = charstotal + chars ))
-		(( OPTC )) && (( bytestotal = bytestotal + bytes ))
-	fi
+	mainf "$FILE"
 
 	saveresultf
 done
 
 #print individual results
-i=0
-(( ZSH_VERSION )) && i=1
+i=$BZ
 while read
 do
 	#is there any result?
@@ -408,17 +477,12 @@ then
 	
 	#define printing variables
 	if (( OPTMAX ))
-	then
-		results=( $longesttotal )
-	else
-		results=( $linestotal $wordstotal $bytestotal $charstotal )
+	then results=( $longesttotal )
+	else results=( $linestotal $wordstotal $bytestotal $charstotal )
 	fi
 
 	printresultf
 fi
 
 exit "${EXITCODE:-0}"
-
-# modeline
-# vim:filetype=bash
 

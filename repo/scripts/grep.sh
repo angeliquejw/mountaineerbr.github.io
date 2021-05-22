@@ -1,16 +1,11 @@
 #!/bin/bash
 #!/bin/zsh
 # grep.sh  --  grep with shell built-ins
-# v0.3.3  may/2021  by mountaineerbr
+# v0.3.4  may/2021  by mountaineerbr
 
 #defaults
 #script name
 SN="${0##*/}"
-
-#pattern matching
-#extended regex
-#defaults=1
-OPTE=1
 
 #match colour
 #defaults=1
@@ -49,17 +44,20 @@ DESCRIPTION
 	Read FILES or stdin and performs pattern matching. Set multiple
 	PATTERNS with -e. When a line matches a pattern that is printed.
 
-	By defaults, interpret PATTERN as POSIX BASIC REGEX. Please note
-	that operators for EXTENDED REGEX need backslash escaping to be
-	activated, otherwise they have got no special meaning. For example 
-	'\\(foo\\|bar\\)' and 'baz.\\{1,5\\}'.
+	By defaults, interpret PATTERN as POSIX EXTENDED REGEX. Please
+	note that some operators for EXTENDED REGEX need backslash escap-
+	ing to activate, otherwise they have got no special meaning. Quot-
+	ing example: '\\(foo\\|bar\\)' and 'baz.\\{1,5\\}'.
 
-	Set option -g for EXTENDED GLOBBING syntax (PATTERNS will be
-	treated as globs). Option -g adds star globs around *PATTERN*
-	whereas -gg does not add these automatically and is functionally
-	the same as -gx. With Zsh, -G enables KSH_GLOB and also sets -g
-	once. Extended glob operators are active by defaults. Quote char-
-	acters with backslash to treat them as literals when needed.
+	Set option -g for EXTENDED GLOBBING syntax of PATTERNS. Option
+	-g adds star globs around *PATTERN* whereas -gg does not add
+	these automatically and is functionally the same as -gx. With Zsh,
+	-G enables KSH_GLOB and also sets -g once. Extended glob operators
+	are active by defaults. Quote characters with backslash to treat
+	them as literals when needed.
+
+	Set option -P to interpret PATTERNS as Perl-compatible regular
+	expressions. This option requires zsh/pcre module.
 
 	This script uses shell builtins only and is compatible with bash
 	and zsh. There may be differences between interpreter results.
@@ -357,12 +355,14 @@ BUGS
 
 OPTIONS
 	Pattern Syntax
-	-E, -r  Interpret PATTERNS as extended regular expressions.
+	-E, -r  Interpret PATTERNS as extended regex (ERE).
 	-F      Interpret PATTERNS as fixed strings.
 	-g      Interpret PATTERNS as globbing strings.
 	-gg     Bare glob test, same as -g but no glob stars are added
 	        around PATTERN automatically (functionally same as -gx).
 	-G      Sets -g and enables Ksh extended glob operators in Zsh.
+	-P 	Interpret PATTERNS as Perl-compatible regex (PCRE);
+		requires zsh/pcre module.
 
 	Matching Control
 	-e PATTERN
@@ -414,35 +414,9 @@ echoresultf()
 
 	#print colour match line
 	else
-		#regex test
-		if ((OPTE))
-		then
-			#try to paint matches
-			chars=2  linex="$LINE"  linep="$LINE"
-			matchx="${BASH_REMATCH[0]:-$MATCH}"
-			((OPTW)) && {
-				matchx="${matchx#$ANCHORWORDELR}"
-				matchx="${matchx%$ANCHORWORDELR}"
-			}
-			linep="${linep//"$matchx"/"${COLOUR3}${matchx}${NC}"}"
-
-			while
-				matchx="${BASH_REMATCH[0]:-$MATCH}"
-				((OPTW)) && {
-					matchx="${matchx#$ANCHORWORDELR}"
-					matchx="${matchx%$ANCHORWORDELR}"
-				}
-				
-				((${#BASH_REMATCH[0]} > chars || ${#MATCH} > chars)) \
-				&& linex="${linex//"$matchx"}" \
-				&& [[ -n "$linex" ]] \
-				&& STRING="$linex" testf
-			do
-				linep="${linep//"$matchx"/"${COLOUR3}${matchx}${NC}"}"
-			done
-		
 		#globbing test
-		else
+		if ((OPTG))
+		then
 			#try to paint matches
 			linep="$LINE"
 			linexr="${linep##*$PATTERN}"  #line right
@@ -480,6 +454,33 @@ echoresultf()
 					linep="${linep%$linexr}${NC}${linexr}"
 				fi
 			fi
+
+		#regex test
+		else
+			#try to paint matches
+			chars=2  linex="$LINE"  linep="$LINE"
+			matchx="${BASH_REMATCH[0]:-$MATCH}"
+			((OPTW)) && {
+				matchx="${matchx#$ANCHORWORDELR}"
+				matchx="${matchx%$ANCHORWORDELR}"
+			}
+			linep="${linep//"$matchx"/"${COLOUR3}${matchx}${NC}"}"
+
+			while
+				matchx="${BASH_REMATCH[0]:-$MATCH}"
+				((OPTW)) && {
+					matchx="${matchx#$ANCHORWORDELR}"
+					matchx="${matchx%$ANCHORWORDELR}"
+				}
+				
+				((${#BASH_REMATCH[0]} > chars || ${#MATCH} > chars)) \
+				&& linex="${linex//"$matchx"}" \
+				&& [[ -n "$linex" ]] \
+				&& STRING="$linex" testf
+			do
+				linep="${linep//"$matchx"/"${COLOUR3}${matchx}${NC}"}"
+			done
+		
 		fi
 
 		#print coloured line
@@ -535,13 +536,13 @@ testregexf()
 }
 
 #extended globbing test
-testdeff()
+testglobf()
 {
 	[[ "$STRING" = ${STAR}${PATTERN}${STAR} ]]
 }
 
 #extended globbing test + -w
-testdefwf()
+testglobwf()
 {
 	[[ "$STRING" = ${STAR}${ANCHORWORD}${PATTERN}${ANCHORWORD}${STAR}
 	|| "$STRING" = ${PATTERN}${ANCHORWORD}${STAR}
@@ -550,7 +551,7 @@ testdefwf()
 }
 
 #parse options
-while getopts cEe:FgGHhiyKkm:nqrvVxwz c
+while getopts cEe:FgGHhiyKkm:nPqrvVxwz c
 do
 	case $c in
 		c)
@@ -560,7 +561,7 @@ do
 		E|r)
 			#extended regex
 			OPTE=1
-			unset OPTG
+			unset OPTG OPTGG OPTF
 			;;
 		e)
 			#search arguments
@@ -572,18 +573,19 @@ do
 		F)
 			#fixed strings
 			OPTF=1
+			unset OPTG OPTGG OPTE OPTP
 			;;
 		G)
 			#globbing pattern matching
 			#enables KSH_GLOB in zsh
 			OPTGG=1
-			((OPTG)) || OPTG=1
-			unset OPTE
+			((OPTG)) || ((++OPTG))
+			unset OPTF OPTE OPTP
 			;;
 		g)
 			#globbing pattern matching
 			((++OPTG))
-			unset OPTE
+			unset OPTF OPTE OPTP
 			;;
 		H)
 			#toggle print filename
@@ -613,6 +615,12 @@ do
 		n)
 			#print match line number
 			OPTN=1
+			;;
+		P)
+			#PCRE
+			OPTE=1
+			OPTP=1
+			unset OPTG OPTGG OPTF
 			;;
 		q)
 			#quiet
@@ -658,8 +666,18 @@ unset c
 
 #shell options
 if ((ZSH_VERSION))
-then setopt GLOBSUBST EXTENDED_GLOB ;((OPTGG)) && setopt KSH_GLOB
-else shopt -s extglob
+then
+	#set zsh opts
+	setopt GLOBSUBST EXTENDED_GLOB 
+	((OPTGG)) && setopt KSH_GLOB
+	((OPTP)) && setopt RE_MATCH_PCRE
+else 
+	#set bash opts
+	shopt -s extglob
+	((OPTP)) && {
+		echo "$SN: err  -- option -P requires Zsh" >&2
+		exit 1
+	}
 fi
 
 #set star globs around *PATTERN* by defaults (globbing test only)
@@ -690,22 +708,21 @@ fi
 }
 
 #declare test function
-#-E regex test
-if ((OPTE)) 
+#-g globbing test + -w
+if ((OPTG && OPTW))
 then
 	#invert matches?
-	eval "testf() { ${OPTV+!} testregexf ;}"
+	eval "testf() { ${OPTV+!} testglobwf ;}"
 
-#globbing test + -w
-elif ((OPTW))
+#-g globbing test
+elif ((OPTG))
 then
 	#invert matches?
-	eval "testf() { ${OPTV+!} testdefwf ;}"
-
-#globbing test
+	eval "testf() { ${OPTV+!} testglobf ;}"
+#-E regex test (defaults)
 else
 	#invert matches?
-	eval "testf() { ${OPTV+!} testdeff ;}"
+	eval "testf() { ${OPTV+!} testregexf ;}"
 	
 fi
 
