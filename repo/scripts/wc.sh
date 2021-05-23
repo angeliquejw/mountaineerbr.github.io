@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # wc.sh  --  print line, word and character count
-# v0.4  may/2021  by mountaineerbr
+# v0.4.2  may/2021  by mountaineerbr
 
 #TODO: ask for
 #maybe help from com.unix.shell or usenet
@@ -18,7 +18,7 @@ HELP="NAME
 
 
 SYNOPSIS
-	$SN [-aclLmw] FILE..
+	$SN [-clLmw] FILE..
 	$SN [-hv]
 
 
@@ -35,14 +35,15 @@ SYNOPSIS
 	studying Shell functions.
 
 	Options -a sets an alternative method for counting lines, words,
-	byte and charcters. It is slower but requires less memory if run
-	with large files.
+	byte and characters. It is faster but requires more memory and
+	does not detect when a string ends with null bytes, so new line
+	bytes are always assumed. This interferes with option -c, see
+	section BUGS below.
 
 
 ENVIRONMENT VARIABLES
-	The \$LANG and \$LC_ALL environment variables shall affect
-	the execution of this script , which will determine values of
-	locale categories.
+	LANG and LC_ALL environment variables determine values of locale
+	categories and shall affect the execution of shell builtins.
 
 
 WARRANTY
@@ -63,9 +64,14 @@ BUGS
 	Expect Bash and Zsh to perform differently. Zsh performs slower
 	in this script.
 
+	Option -a alternate method for counting cannot detect whether
+	string or file ends with null bytes and new line bytes are assumed
+	to exist. Strings without new line bytes are not counted correctly
+	when options -a and -c (byte count) are set.
+
 
 OPTIONS
-	-a 	   Alternate method with -clmw (slower).
+	-a 	   Alternate method with -clmw (experimental).
 	-c 	   Count bytes.
 	-h 	   Print this help page.
 	-L 	   Print the maximum display width.
@@ -160,34 +166,31 @@ mainmaxf()
 	(( longest > longesttotal )) && longesttotal="$longest"
 }
 
-#main, count file attributes
-#this method requires more RAM than mainaltf()
-mainf()
+#alternative method (faster)
+#this method requires more memory than mainf()
+mainaltf()
 {
 	local w buffer nl MAPFILE
 		
 	#read file into vector
 	buffer="$(<"$1")"
 
+	#count lines
 	#read file into array
 	((OPTL)) && {
 		if ((ZSH_VERSION))
-		then MAPFILE=( ${(ps:\n:)"$(<${(b)1})"} )
-		else mapfile -t <"$1"
+		then MAPFILE=( ${(ps:\n:)"$buffer"} )
+		else mapfile -t <<<"$buffer"
 		fi
-		nl=${#MAPFILE[@]}
-	}
-
-
-	#count lines
-	(( OPTL )) && {
-		lines=$nl
-		(( linestotal = linestotal + lines ))
+		(( linestotal = linestotal + ${#MAPFILE[@]} ))
 	}
 
 	#count bytes, new line is one byte
 	(( OPTC )) && {
-		(( bytes = 1 + ${#buffer} ))
+		#is there a new line at end of string/file?
+		#BUG: CANNOT KNOW WHETHER THERE AREN'T NEWLINE BYTES!
+		nl=1
+		(( bytes = nl + ${#buffer} ))
 		(( bytestotal = bytestotal + bytes ))
 	}
 
@@ -218,7 +221,7 @@ mainf()
 		#change $LANG $LC_ALL to user original (bash zsh)
 		(( OPTW && ZSH_VERSION )) || LANG="$ORIGLANG" LC_ALL="$ORIGLCAL"
 		
-		(( chars = chars + 1 + ${#buffer} ))
+		(( chars = chars + ${#buffer} ))
 		(( charstotal = charstotal + chars ))
 	}
 
@@ -229,9 +232,8 @@ mainf()
 	fi
 }
 
-#alternative method to count, line by line (slower)
-#this should be very similar to mainf()
-mainaltf()
+#count file attributes
+mainf()
 {
 	local buffer w nl
 		
@@ -242,8 +244,9 @@ mainaltf()
 	while 
 		nl=1
 		IFS=  read -r buffer || {
-		[[ -n "$buffer" ]] && nl=  #no newline bytes detected but line is non-empty
-	}
+			#no newline bytes detected but line is non-empty
+			[[ -n "$buffer" ]] && nl=
+		}
 	do
 		#count lines
 		(( OPTL )) && (( lines = lines + nl ))
@@ -277,7 +280,7 @@ mainaltf()
 			#change $LANG $LC_ALL to user original (bash zsh)
 			(( OPTW && ZSH_VERSION )) || LANG="$ORIGLANG" LC_ALL="$ORIGLCAL"
 			
-			(( chars = chars + nl + ${#buffer} ))
+			(( chars = chars + ${#buffer} ))
 		}
 
 
@@ -428,6 +431,9 @@ fi
 if ((FILENUM == 0)) && [[ -t 0 ]]
 then echo "$SN: err  -- input (FILE or stdin) required" >&2 ;exit 1
 fi
+
+#warnings
+((OPTA && OPTC)) && echo "$SN: warning -- cannot detect null bytes, new line bytes are assumed" >&2
 
 #set tests to mainf()
 if ((OPTMAX))
