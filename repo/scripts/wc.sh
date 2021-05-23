@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # wc.sh  --  print line, word and character count
-# v0.4.2  may/2021  by mountaineerbr
+# v0.4.4  may/2021  by mountaineerbr
 
 #TODO: ask for
 #maybe help from com.unix.shell or usenet
@@ -37,7 +37,7 @@ SYNOPSIS
 	Options -a sets an alternative method for counting lines, words,
 	byte and characters. It is faster but requires more memory and
 	does not detect when a string ends with null bytes, so new line
-	bytes are always assumed. This interferes with option -c, see
+	bytes are always assumed. This interferes with options -cl, see
 	section BUGS below.
 
 
@@ -67,7 +67,7 @@ BUGS
 	Option -a alternate method for counting cannot detect whether
 	string or file ends with null bytes and new line bytes are assumed
 	to exist. Strings without new line bytes are not counted correctly
-	when options -a and -c (byte count) are set.
+	when options -a and -c (byte count) or -l (line count) are set.
 
 
 OPTIONS
@@ -433,7 +433,7 @@ then echo "$SN: err  -- input (FILE or stdin) required" >&2 ;exit 1
 fi
 
 #warnings
-((OPTA && OPTC)) && echo "$SN: warning -- cannot detect null bytes, new line bytes are assumed" >&2
+((OPTA && OPTC+OPTL)) && echo "$SN: warning -- cannot detect null-ending lines" >&2
 
 #set tests to mainf()
 if ((OPTMAX))
