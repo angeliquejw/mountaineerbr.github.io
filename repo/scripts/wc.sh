@@ -1,10 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # wc.sh  --  print line, word and character count
-# v0.4.5  may/2021  by mountaineerbr
-
-#TODO: array splitting for counting words should be improved
-#for efficiency, but see Wheeler*
+# v0.4.10  may/2021  by mountaineerbr
 
 #defaults
 #script name
@@ -31,12 +28,6 @@ SYNOPSIS
 	and zsh. There may be differences between interpreter results.
 	It is not supposed to compete with Wc, it is rather a tool for
 	studying Shell functions.
-
-	Options -a sets an alternative method for counting lines, words,
-	byte and characters. It is faster but requires more memory and
-	does not detect when a string ends with null bytes, so new line
-	bytes are always assumed. This interferes with options -cl, see
-	section BUGS below.
 
 
 ENVIRONMENT VARIABLES
@@ -68,14 +59,8 @@ BUGS
 	Expect Bash and Zsh to perform differently. Zsh performs slower
 	in this script.
 
-	Option -a alternate method for counting cannot detect whether
-	string or file ends with null bytes and new line bytes are assumed
-	to exist. Strings without new line bytes are not counted correctly
-	when options -a and -c (byte count) or -l (line count) are set.
-
 
 OPTIONS
-	-a 	   Alternate method with -clmw (experimental).
 	-c 	   Count bytes.
 	-h 	   Print this help page.
 	-L 	   Print the maximum display width.
@@ -170,72 +155,7 @@ mainmaxf()
 	(( longest > longesttotal )) && longesttotal="$longest"
 }
 
-#alternative method (faster)
-#this method requires more memory than mainf()
-mainaltf()
-{
-	local w buffer nl MAPFILE
-		
-	#read file into vector
-	buffer="$(<"$1")"
-
-	#count lines
-	#read file into array
-	((OPTL)) && {
-		if ((ZSH_VERSION))
-		then MAPFILE=( ${(ps:\n:)"$buffer"} )
-		else mapfile -t <<<"$buffer"
-		fi
-		(( linestotal = linestotal + ${#MAPFILE[@]} ))
-	}
-
-	#count bytes, new line is one byte
-	(( OPTC )) && {
-		#is there a new line at end of string/file?
-		#BUG: CANNOT KNOW WHETHER THERE AREN'T NEWLINE BYTES!
-		nl=1
-		(( bytes = nl + ${#buffer} ))
-		(( bytestotal = bytestotal + bytes ))
-	}
-
-
-	#count words
-	(( OPTW )) && {
-		#change $LANG $LC_ALL to user original (zsh)
-		(( ZSH_VERSION )) && LANG="$ORIGLANG" LC_ALL="$ORIGLCAL"
-		
-		#remove non-breaking spaces
-		#and carriage returns
-		#one at a time, very slow
-		w=( ${buffer//$'\u00a0'/ } ) 	#nbsp
-		w=( ${w[*]//$'\u2007'/ } ) 	#figure space
-		w=( ${w[*]//$'\u202f'/ } ) 	#narrow nbsp
-		w=( ${w[*]//$'\u2060'/ } ) 	#word joiner
-		w=( ${w[*]//$'\u2009'/ } ) 	#thin space
-		#w=( ${w[*]//$'\u2002'/ } ) 	#en space
-		#w=( ${w[*]//$'\u2003'/ } ) 	#em space
-		w=( ${w[*]//$'\f'/ } ) 		#page feed ^L
-		w=( ${w[*]//$'\r'/ } ) 		#carriage return
-		(( words = words + ${#w[@]} ))
-		(( wordstotal = wordstotal + words ))
-	}
-
-	#count characters
-	(( OPTM )) && {
-		#change $LANG $LC_ALL to user original (bash zsh)
-		(( OPTW && ZSH_VERSION )) || LANG="$ORIGLANG" LC_ALL="$ORIGLCAL"
-		
-		(( chars = chars + ${#buffer} ))
-		(( charstotal = charstotal + chars ))
-	}
-
-
-	#revert $LANG $LC_ALL
-	if (( ( OPTW && ZSH_VERSION ) || OPTM ))
-	then LANG=C  LC_ALL=C
-	fi
-}
-
+#main functions
 #count file attributes
 mainf()
 {
@@ -266,16 +186,7 @@ mainf()
 			
 			#remove non-breaking spaces
 			#and carriage returns
-			#one at a time, very slow
-			w=( ${buffer//$'\u00a0'/ } ) 	#nbsp
-			w=( ${w[*]//$'\u2007'/ } ) 	#figure space
-			w=( ${w[*]//$'\u202f'/ } ) 	#narrow nbsp
-			w=( ${w[*]//$'\u2060'/ } ) 	#word joiner
-			w=( ${w[*]//$'\u2009'/ } ) 	#thin space
-			#w=( ${w[*]//$'\u2002'/ } ) 	#en space
-			#w=( ${w[*]//$'\u2003'/ } ) 	#em space
-			w=( ${w[*]//$'\f'/ } ) 		#page feed ^L
-			w=( ${w[*]//$'\r'/ } ) 		#carriage return
+			IFS=$' \t\n\f\r'  w=( $buffer )  IFS=$' \t\n'
 			(( words = words + ${#w[@]} ))
 		}
 
@@ -302,15 +213,10 @@ mainf()
 }
 ##non-breaking spaces from gnu wc source code:
 ##$'\u00a0'$'\u2007'$'\u202f'$'\u2060'
-#0020 = space
-#00a0 = nbsp
-#202f = narrow nbsp
-#2002 = en-space
-#2003 = em-space
-#2007 = figure space
-#2009 = thin space
-#2060 = word joiner
-#000a = form feed, also \f
+#0020 = space        #2002 = en-space      #2009 = thin space
+#00a0 = nbsp         #2003 = em-space      #2060 = word joiner
+#202f = narrow nbsp  #2007 = figure space  #000a = form feed, also \f
+##was using: \u00a0 \u2007 \u202f \u2060 \u2009 \u2002 \u2003 \f \r
 ##spaces: https://www.compart.com/en/unicode/search?q=space#characters
 ##&nbsp; &thinsp; &ensp; and &emsp;
 #In ASCII, &#09; is a TAB
@@ -331,15 +237,19 @@ mainf()
 ##strict mode, check null chars: while IFS=  read -r -d ''
 ##https://stackoverflow.com/questions/36313562/how-to-redirect-stdin-to-file-in-bash
 
+#notes on alternative method
+#it should be faster if we can process the whole file at once.
+#however, we cannot detect new line bytes directly (as opposed to null)
+#and this info is needed for counting lines and bytes correctly.
+#requires more memory.
+##MAPFILE=( ${(ps:\n:)"$(<${(b)1})"} )
+##mapfile -t <<<"$buffer"
+
 
 #parse options
-while getopts achLlmwvz c
+while getopts chLlmwvz c
 do
 	case $c in
-		a)
-			#use alternative method
-			OPTA=1
-			;;
 		c)
 			#count bytes
 			(( ++OPTC ))
@@ -370,11 +280,9 @@ do
 			while read
 			do
 				if [[ "$REPLY" = \#\ v* ]]
-				then
-					echo "$REPLY"
-					exit 0
+				then echo "$REPLY" ;exit 0
 				fi
-			done < "$0"
+			done <"$0"
 			;;
 		z)
 			#run this script with zshell
