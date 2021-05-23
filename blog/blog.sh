@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.8  may/2021  mountaineerbr
+# v0.6.9  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -460,11 +460,9 @@ unset t
 echo "$SN: generate an array with raw post paths.." >&2
 #make an array with raw post filepaths
 typeset -a POSTFILES
-while IFS=  read
-do
-	POSTFILES+=( "$REPLY" )
-done <<< "$( printf '%s\n' [0-9]*/"$RAWPOST_FNAME".(html|md) | sort -nr )"
-unset REPLY
+IFS="${IFS# }"
+POSTFILES=( $( printf '%s\n' [0-9]*/"$RAWPOST_FNAME".(html|md) | sort -nr ) )
+IFS=$' \t\n'
 #BASH# use: "$RAWPOST_FNAME".@(html|md)
 
 #check directory array is not empty

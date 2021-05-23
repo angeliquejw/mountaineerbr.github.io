@@ -1,12 +1,10 @@
 #!/bin/bash
 #!/bin/zsh
 # wc.sh  --  print line, word and character count
-# v0.4.4  may/2021  by mountaineerbr
+# v0.4.5  may/2021  by mountaineerbr
 
-#TODO: ask for
-#maybe help from com.unix.shell or usenet
-#array splitting for counting words should be improved for efficiency
-#check man 3 pcrepattern.
+#TODO: array splitting for counting words should be improved
+#for efficiency, but see Wheeler*
 
 #defaults
 #script name
@@ -44,6 +42,12 @@ SYNOPSIS
 ENVIRONMENT VARIABLES
 	LANG and LC_ALL environment variables determine values of locale
 	categories and shall affect the execution of shell builtins.
+
+
+SEE ALSO
+	WHEELER, Fixing Unix/Linux/POSIX Filenames: Control Characters
+	(such as Newline), Leading Dashes, and Other Problems
+	<https://dwheeler.com/essays/fixing-unix-linux-filenames.html>	
 
 
 WARRANTY
