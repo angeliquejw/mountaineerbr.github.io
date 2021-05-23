@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # wc.sh  --  print line, word and character count
-# v0.4.10  may/2021  by mountaineerbr
+# v0.4.13  may/2021  by mountaineerbr
 
 #defaults
 #script name
@@ -54,10 +54,12 @@ WARRANTY
 
 BUGS
 	There may be count differences for some files when compared
-	to GNU wc, mainly files with binary data.
+	to GNU wc, mostly files with binary data.
 	
-	Expect Bash and Zsh to perform differently. Zsh performs slower
-	in this script.
+	Expect Bash and Zsh to perform differently.
+
+	While not a true bug, counting words is the slowest function
+	which may be improved in the future.
 
 
 OPTIONS
@@ -183,10 +185,23 @@ mainf()
 		(( OPTW )) && {
 			#change $LANG $LC_ALL to user original (zsh)
 			(( ZSH_VERSION )) && LANG="$ORIGLANG" LC_ALL="$ORIGLCAL"
-			
+	
 			#remove non-breaking spaces
 			#and carriage returns
-			IFS=$' \t\n\f\r'  w=( $buffer )  IFS=$' \t\n'
+
+			#experimental, fast but not as accurate
+			#IFS=$' \t\n\f\r'  w=( $buffer )  IFS=$' \t\n'
+
+			#break one space type at a time, very slow
+			w=( ${buffer//$'\u00a0'/ } ) 	#nbsp
+			w=( ${w[*]//$'\u2007'/ } ) 	#figure space
+			w=( ${w[*]//$'\u202f'/ } ) 	#narrow nbsp
+			w=( ${w[*]//$'\u2060'/ } ) 	#word joiner
+			w=( ${w[*]//$'\u2009'/ } ) 	#thin space
+			#w=( ${w[*]//$'\u2002'/ } ) 	#en space
+			#w=( ${w[*]//$'\u2003'/ } ) 	#em space
+			w=( ${w[*]//$'\f'/ } ) 		#page feed ^L
+			w=( ${w[*]//$'\r'/ } ) 		#carriage return
 			(( words = words + ${#w[@]} ))
 		}
 
@@ -216,7 +231,6 @@ mainf()
 #0020 = space        #2002 = en-space      #2009 = thin space
 #00a0 = nbsp         #2003 = em-space      #2060 = word joiner
 #202f = narrow nbsp  #2007 = figure space  #000a = form feed, also \f
-##was using: \u00a0 \u2007 \u202f \u2060 \u2009 \u2002 \u2003 \f \r
 ##spaces: https://www.compart.com/en/unicode/search?q=space#characters
 ##&nbsp; &thinsp; &ensp; and &emsp;
 #In ASCII, &#09; is a TAB
@@ -237,7 +251,7 @@ mainf()
 ##strict mode, check null chars: while IFS=  read -r -d ''
 ##https://stackoverflow.com/questions/36313562/how-to-redirect-stdin-to-file-in-bash
 
-#notes on alternative method
+#notes on an alternative method
 #it should be faster if we can process the whole file at once.
 #however, we cannot detect new line bytes directly (as opposed to null)
 #and this info is needed for counting lines and bytes correctly.

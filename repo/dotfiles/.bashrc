@@ -79,6 +79,15 @@ PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 #http://web.archive.org/web/20090815205011/http://www.cuberick.com/2008/11/update-bash-history-in-realtime.html
 #help history
 
+
+#globs will ignore filenames with control characters, leading dashes,
+#or begin with a ".", as well as traditional hidden files (names beginning
+#with "."), yet accept reasonable patterns (including those beginning with
+#"./" and "../" and even multiple "../")
+#GLOBIGNORE=`printf '.[!/.]*:..[!/]*:*/.[!/.]*:*/..[!/]*:*[\001-\037\177]*:-*'`
+#https://dwheeler.com/essays/fixing-unix-linux-filenames.html
+
+
 #SHell OPTions
 
 #glob
