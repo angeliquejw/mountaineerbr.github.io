@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16  may/2021  by mountaineerbr
+# v0.16.1  may/2021  by mountaineerbr
 
 #padrões
 
@@ -264,9 +264,9 @@ sedhtmlf() {
 #get post (article) links
 getlinksf()
 {
-	grep -aE 'id="post_[0-9]' \
+	grep -aE -e 'id="post_[0-9]' -e "href=['\"]https://www.oantagonista.com/despertador/['\"]+['\"]" \
 	| sed 's|>|&\n|g' \
-	| sed -nE "s|.*href=['\"]([^'\"#]+)['\"] title.*|\1| p" \
+	| sed -nE "s|.*href=['\"]([^'\"#]+)['\"].*(title\|h2).*|\1| p" \
 	| uniq
 }
 
@@ -413,9 +413,9 @@ anta() {
 
 		#imprime a página e processa
 		#rm new line between <p> tags 
-		if ((PAGINAS<=1))
-		then POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/event_label":\s*"p[0-9]+c[0-9]+".*<\/script><\/div>/  { \|<article.*|,\|</article| p }' )"
-		else  POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/id="mais-lidas/ p' | sed -n '\|<article.*|,\|</article| p' | sed  '$d' )"
+		if ((PAGINAS<2))
+		then POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/event_label":\s*"p[0-9]+c[0-9]+".*<\/script><\/div>/  { /<article.*/,/(<\/article|<\/h2><\/a>)/ p }' )"
+		else POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/id="mais-lidas/ p' | sed  '$d' | sed -n '/<article.*/,/<\/article/ p' )" 
 		fi
 		#POSTS="$( <<<"$PAGE" sed -nE '\|<div class="postmeta|,\|</div| p' )"
 		#sed ':a;N;$!ba;s/<p>\s*\n\s*\n*\s*/<p>/g' <<<"$PAGE" \
@@ -428,7 +428,7 @@ anta() {
 
 		#print links
 		tac <<< "$LINKS2"
-		printf '===\n'
+		echo '==='
 
 		#process 
 		sed 's/[^pagm]>/&\n/g ;s/<\/article[^>]*>/&\n===/g' <<<"$POSTS" \
@@ -439,6 +439,10 @@ anta() {
 				-e '/^window.*taboola/ d' \
 				-e 's/\.dot\{.*//' \
 				-e 's/^.live-html.*//' \
+				-e '/^Mais lidas\s*$/ d' \
+				-e '/^var.*_comscore/ d' \
+				-e '/^Voltar para página/ d' \
+				-e '/^Ir para página/ d' \
 			| tac -r -s'^===' \
 			| awk NF
 
