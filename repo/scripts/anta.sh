@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.3  may/2021  by mountaineerbr
+# v0.16.4  may/2021  by mountaineerbr
 
 #padrões
 
@@ -274,19 +274,21 @@ getlinksf()
 # Check for errors
 cerrf()
 {
-	if grep -aFq -e 'Você será redirecionado para a página inicial' -e 'Page not found' <<< "$PAGE"
+	NOTFOUND=
+	if grep -aiq -e 'Você será redirecionado para a página inicial' -e 'Page not found' -e 'p.gina n.o encontrada' -e 'Error processing request' <<< "$PAGE" >&2
 	then
-		printf 'anta.sh: erro: página não encontrada -- %s\n' "$COMP" >&2
-		(( ROLLOPT )) && return 1 || exit 1
+		printf 'anta.sh: erro: página não encontrada -- %s\n' "$COMP"
+		export NOTFOUND=1
+		return 0
 	elif [[ -z "$PAGE" ]] || grep -aFiq -e 'has been limited' -e 'you were blocked' \
 		-e 'to restrict access' -e 'access denied' -e 'temporarily limited' \
-		-e 'you have been blocked' -e 'has been blocked' -e 'Error processing request' <<< "$PAGE"
+		-e 'you have been blocked' -e 'has been blocked' <<< "$PAGE" >&2
 	then
-		printf 'anta.sh: erro: acesso limitado ou página não encontrada -- %s\n' "$COMP" >&2
-		(( ROLLOPT )) && return 1 || exit 1
-	elif ! grep -aq '[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]' <<< "$PAGE"
+		printf 'anta.sh: erro: acesso limitado ou página não encontrada -- %s\n' "$COMP"
+		return 1
+	elif ! grep -aq '[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]' <<< "$PAGE" >&2
 	then
-		printf 'anta.sh: erro: não parece ser artigo de <oantagonista> -- %s\n' "$COMP" >&2
+		printf 'anta.sh: erro: não parece ser artigo de <oantagonista> -- %s\n' "$COMP"
 		return 1
 	fi
 
@@ -410,6 +412,8 @@ anta() {
 		then
 			echo "$PAGE"
 			exit 0
+		#page not found?
+		elif ((NOTFOUND)); then return 0
 		fi
 
 		#imprime a página e processa
@@ -485,6 +489,8 @@ fulltf() {
 
 	if (( DEBUG ))
 	then echo "$PAGE" ;exit 0
+	#page not found?
+	elif ((NOTFOUND)); then return 0
 	fi
 
 	#cabeçalho
@@ -715,6 +721,8 @@ do
 	esac
 done
 shift $((OPTIND -1))
+typeset -a RET
+export RET
 
 #chamar algumas opções
 #ajuda
