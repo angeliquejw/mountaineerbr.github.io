@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.5  may/2021  by mountaineerbr
+# v0.16.6  may/2021  by mountaineerbr
 
 #padrões
 
@@ -282,7 +282,7 @@ cerrf()
 		printf 'anta.sh: erro: página não encontrada -- %s\n' "$COMP"
 		NOTFOUND=1
 		return 0
-	elif [[ -z "$PAGE" ]] || grep -aFiq -e 'has been limited' -e 'you were blocked' \
+	elif [[ -z "${PAGE// }" ]] || grep -aFiq -e 'has been limited' -e 'you were blocked' \
 		-e 'to restrict access' -e 'access denied' -e 'temporarily limited' \
 		-e 'you have been blocked' -e 'has been blocked' <<< "$PAGE" >&2
 	then
