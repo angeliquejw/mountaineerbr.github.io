@@ -1,5 +1,5 @@
 #!/bin/zsh
-# v0.3.7  may/2021  mountaineerbr
+# v0.3.8  may/2021  mountaineerbr
 # Create pages for exploring directories and files
 # Requires `markdown' and `txt2html'.
 # <https://archlinux.org/packages/extra/x86_64/discount/>
@@ -142,7 +142,9 @@ hbase=.  #relative paths
 for dir in . **/(D)
 do
 	dir="${dir%/}"
-	treef "$hbase" "$dir" "$dir/index.html"
+	treef "$hbase" "$dir" "$dir/index.html" &
 done
 unset dir
+
+wait
 
