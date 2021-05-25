@@ -28,11 +28,12 @@ set -e
 #cd "$ROOTB"/
 
 #update blog pages
-"$ROOTB"/blog.sh
+"$ROOTB"/blog.sh &
 print
 
 #generate the blog rss feed
-"$ROOTB"/rss.sh
+"$ROOTB"/rss.sh &
 print
 
+wait
 

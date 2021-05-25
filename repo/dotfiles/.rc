@@ -734,11 +734,11 @@ gaddr()
 #my website
 #update contents
 #and sync to github
-#WWW()
-#{
-#	cd "$HOME/www/mountaineerbr.github.io" || return
-#	"$HOME/www/mountaineerbr.github.io/portal.sh" "$@" && gitup
-#}
+WWW()
+{
+	cd "$HOME/www/mountaineerbr.github.io" || return
+	"$HOME/www/mountaineerbr.github.io/portal.sh" "$@" && gitup
+}
 
 #creat blog entry
 #bloga() { ~/www/mountaineerbr.github.io/blog/blog.sh -a ;}
