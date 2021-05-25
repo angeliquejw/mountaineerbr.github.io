@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.2  may/2021  by mountaineerbr
+# v0.16.3  may/2021  by mountaineerbr
 
 #padrões
 
@@ -264,9 +264,9 @@ sedhtmlf() {
 #get post (article) links
 getlinksf()
 {
-	grep -aE -e 'id="post_[0-9]' \
-	| sed 's|>|&\n|g' \
-	| sed -nE "s|.*href=['\"]([^'\"#]+)['\"].*(title\|h2).*|\1| p" \
+	grep -a -e 'id="post_[0-9]' \
+	| sed 's|a>|&\n|g' \
+	| sed -nE "s|.*href=['\"]([^'\"#]+)['\"!?&*.,; ].*(title\|h2).*|\1| p" \
 	| uniq
 }
 #-e "href=['\"]https://www.oantagonista.com/despertador/['\"]+['\"]" \
