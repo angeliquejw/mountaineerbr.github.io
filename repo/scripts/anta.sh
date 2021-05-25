@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.15.19  may/2021  by mountaineerbr
+# v0.16  may/2021  by mountaineerbr
 
 #padrões
 
@@ -413,11 +413,15 @@ anta() {
 
 		#imprime a página e processa
 		#rm new line between <p> tags 
-		POSTS="$(
-			#sed ':a;N;$!ba;s/<p>\s*\n\s*\n*\s*/<p>/g' <<<"$PAGE" \
-			#| sed ':a;N;$!ba;s/\n*\s*\n\s*<\/p>/<\/p>/g' \
-			grep -a 'id="post_[0-9]' <<<"$PAGE"
-			)"
+		if ((PAGINAS<=1))
+		then POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/event_label":\s*"p[0-9]+c[0-9]+".*<\/script><\/div>/  { \|<article.*|,\|</article| p }' )"
+		else  POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/id="mais-lidas/ p' | sed -n '\|<article.*|,\|</article| p' | sed  '$d' )"
+		fi
+		#POSTS="$( <<<"$PAGE" sed -nE '\|<div class="postmeta|,\|</div| p' )"
+		#sed ':a;N;$!ba;s/<p>\s*\n\s*\n*\s*/<p>/g' <<<"$PAGE" \
+		#| sed ':a;N;$!ba;s/\n*\s*\n\s*<\/p>/<\/p>/g' \
+		#grep -a 'id="post_[0-9]' <<<"$PAGE"
+		#| sed 's/>/&\n/ g'
 
 		#cópia de links
 		LINKS2="$( getlinksf <<<"$PAGE" )"
@@ -427,14 +431,15 @@ anta() {
 		printf '===\n'
 
 		#process 
-		sed 's/id="post_[0-9].*/&\n===/ ;s/[^p]>/&\n/g' <<<"$POSTS" \
+		sed 's/[^pagm]>/&\n/g ;s/<\/article[^>]*>/&\n===/g' <<<"$POSTS" \
 			| sedhtmlf \
 			| sed -E \
 				-e '/^\s*(COMPARTILHAR|SALVAR|LEIA AQUI|Ver mais)/ d' \
 				-e '/gtag\("event/ d' \
+				-e '/^window.*taboola/ d' \
 				-e 's/\.dot\{.*//' \
 				-e 's/^.live-html.*//' \
-			| tac -rs'^===' \
+			| tac -r -s'^===' \
 			| awk NF
 
 		#parar se foi especificado número de index de pg específica
