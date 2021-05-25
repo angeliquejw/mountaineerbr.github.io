@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.4  may/2021  by mountaineerbr
+# v0.16.5  may/2021  by mountaineerbr
 
 #padrões
 
@@ -275,10 +275,12 @@ getlinksf()
 cerrf()
 {
 	NOTFOUND=
-	if grep -aiq -e 'Você será redirecionado para a página inicial' -e 'Page not found' -e 'p.gina n.o encontrada' -e 'Error processing request' <<< "$PAGE" >&2
+	if grep -aiq -e 'Você será redirecionado para a página inicial' \
+		     -e 'Page not found' -e 'p.gina n.o encontrada' \
+		     -e 'Error processing request' <<< "$PAGE" >&2
 	then
 		printf 'anta.sh: erro: página não encontrada -- %s\n' "$COMP"
-		export NOTFOUND=1
+		NOTFOUND=1
 		return 0
 	elif [[ -z "$PAGE" ]] || grep -aFiq -e 'has been limited' -e 'you were blocked' \
 		-e 'to restrict access' -e 'access denied' -e 'temporarily limited' \
@@ -289,7 +291,8 @@ cerrf()
 	elif ! grep -aq '[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]' <<< "$PAGE" >&2
 	then
 		printf 'anta.sh: erro: não parece ser artigo de <oantagonista> -- %s\n' "$COMP"
-		return 1
+		NOTFOUND=1
+		return 0
 	fi
 
 	return 0
