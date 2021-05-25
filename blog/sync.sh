@@ -23,17 +23,21 @@ ROOTBW="$ROOTW/blog"
 
 
 #run
-set -e
+set -e  #!#
 #cd into webpage $ROOT
 #cd "$ROOTB"/
+#!#IMPORTANT: REMOVE COPROCESS OPERATOR (&) FOR DEBUGGING
+
 
 #update blog pages
-"$ROOTB"/blog.sh &
+"$ROOTB"/blog.sh  &
 print
 
 #generate the blog rss feed
-"$ROOTB"/rss.sh &
+"$ROOTB"/rss.sh  &
 print
 
+
+#wait for all coprocesses to exit
 wait
 

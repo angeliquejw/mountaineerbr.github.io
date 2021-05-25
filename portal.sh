@@ -1,6 +1,6 @@
 #!/bin/zsh
 # portal.sh -- SYNC MY WEBSITE
-# v0.1.12  apr/2021  by mountaineerbr
+# v0.1.13  apr/2021  by mountaineerbr
 
 #    #  ####  #    # #    # #####   ##   # #    # ###### ###### #####  #####  #####  
 ##  ## #    # #    # ##   #   #    #  #  # ##   # #      #      #    # #    # #    # 
@@ -26,27 +26,52 @@ CLR='\033[2K'
 #start
 
 #exit on error
-set -e
+set -e  #!#
 #cd into webpage $ROOT
 cd "$ROOT"
-
+#!#IMPORTANT: REMOVE COPROCESS OPERATOR (&) FOR DEBUGGING
 
 
 #PART ONE
 #update blog
 #generate blog pages, and blog rss feeds
-blog/sync.sh "$@" &
+blog/sync.sh "$@"  &
 print
 
 
 #PART TWO
 #generate the podcast rss feed
-podcast/podcast.sh &
+podcast/podcast.sh  &
 print
 
 
-wait
 #PART THREE
+#add newest link and quote items
+./linksq.sh  &
+print
+
+
+#PART FOUR
+##make repo tree pages
+cd repo
+./sync.sh  &
+cd -
+print
+
+
+#PART FIVE
+##make video vlog pages
+#cd vlog
+#./vid.sh
+#cd -
+#print
+
+
+
+#wait for all coprocesses to exit
+wait
+
+#PART LAST
 #update sitemaps
 #bash PMWMT/zzsitemap1.sh
 #bash PMWMT/zzsitemap2.sh
@@ -54,28 +79,4 @@ wait
 ./sitemaps.sh
 print
 
-
-
-#PART FOUR
-#add newest link and quote items
-./linksq.sh &
-print
-
-
-#PART FIVE
-##make repo tree pages
-cd repo
-./sync.sh &
-cd -
-print
-
-
-#PART SIX
-##make video vlog pages
-#cd vlog
-#./vid.sh
-#cd -
-#print
-
-wait
 
