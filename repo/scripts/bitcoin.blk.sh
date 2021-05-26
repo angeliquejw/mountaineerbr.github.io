@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.6  may/2021  by mountaineerbr
+# v0.7.7  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -17,6 +17,10 @@ SEP='\t'
 #of characters, opt -y
 #defaults=20
 STRMIN="${STRMIN:-20}"
+
+#meditan time for options -dt
+#comment out to get block time instead
+OPTMEDTIME=median
 
 #maximum simultaneous asynchronous jobs
 #defaults=1
@@ -46,9 +50,9 @@ HELP="NAME
 
 SYNOPSIS
 	$SN [-.,] [BLOCK_HASH..|BLOCK_HEIGHT..]
-	$SN [-dd] [-luv] [-jNUM] [DATESTRING|@UNIXTIME]
+	$SN [-dd] [-luvx] [-jNUM] [DATESTRING|@UNIXTIME]
 	$SN [-Iiiyy] [-lv] [-jNUM] [BLOCK_HASH..|BLOCK_HEIGHT..]
-	$SN -tt [-lnuv] [-jNUM] [BLOCK_HASH..|BLOCK_HEIGHT..]
+	$SN -t [-lnuvx] [-jNUM] [BLOCK_HASH..|BLOCK_HEIGHT..]
 	$SN -mmm [-lv] [-jNUM] [TRANSACTION_ID..]
 	$SN [-bhV]
 
@@ -78,7 +82,7 @@ DESCRIPTION
 	Option -t generates a list of block timestamps, one timestamp per
 	line. Set option -n to print block height hash besides block time
 	separated by <TAB> control character. The defaults behaviour is
-	to print \`mediantime' of blocks. Set -tt to print \`time' of blocks
+	to print \`mediantime' of blocks. Set -x to print \`time' of blocks
 	instead. Check reference at SEE ALSO for the distinction between
 	both.
 
@@ -245,44 +249,42 @@ OPTIONS
 	-h 	Print this help page.
 	-j  NUM	Maximum simultaneos jobs, may print asynchronously,
 		defaults=$JOBSDEF .
-	-l 	Set local time instead of UTC time.
-	-u 	Print time in human-readable format.
-	-v	Enables verbose feedback, may set multiple time.
+	-l 	Set \`local time' instead of \`UTC time'.
+	-u 	Print time in human-readable format, may set multiple times.
+	-v	Enables verbose feedback, may set multiple times.
 	-V 	Print script version.
+	-x 	Set block \`time' instead of \`mediantime'.
 
 	Find block height at date
 	-d  DATESTRING
-		Find block height before or at time/date, check target
-		and matched time with -v .
-	-dd DATESTRING
-		Same as -d, but disables autocorrection of user input
-		date format.
+		Find block height before or at time/date; set -dd to dis-
+		able autocorrection of user input date formats; see also
+		options -lvx.
 
 	Timestamp list
 	-n 	Print block hash besides block timestamp.
 	-t  [HASH|HEIGHT]
-		Generate a list of block mediantime timestamps.
-	-tt [HASH|HEIGHT]
-		Same as -t but uses block time instead.
+		Generate a list of block mediantime timestamps; see also
+		option -lx.
 
 	Memory pool
 	-m 	Print mempool transaction ids.
 	-mm [TXID]
 		Print mempool transactions with more info, if empty,
 		process the whole mempool.
-	-mmm 	Print the number of transactions, their fees and some
-		stats, same as -M .
+	-mmm, -M
+		Print number of transactions, fees and more stats.
 
 	Block information
-	Options below accept [HASH|HEIGHT] as arguments.
+	Options below accept [HASH..|HEIGHT..] as arguments.
 	-. 	Print block height.
 	-, 	Print block hash.
-	-i 	Block header information and transaction hases.
-	-ii 	Block transaction hashes only.
-	-I 	Prints raw json of all the block transactions. 
-	-y 	Decode coinbase hex to ascii text, print sequences
+	-i 	Header information and transaction hases.
+	-ii 	Transaction hashes only.
+	-I 	Prints raw JSON of all block transactions. 
+	-y 	Decode coinbase HEX to ASCII text and print sequences
 		longer than $STRMIN chars only.
-	-yy 	Same as -y but prints all bytes, same as -Y ."
+	-yy, -Y	Same as -y but prints all bytes."
 
 
 #functions
@@ -782,7 +784,7 @@ heightatf()
 		(( HEIGHTMIN = HEIGHTLAST - HEIGHTDELTA ))
 		
 		BLK_INFO_LAST=( "${BLK_INFO[@]}" )
-		BLK_INFO=( $( bwrapper getblockheader "$( bwrapper getblockhash "$HEIGHTMIN" )" | jq -r .time,.hash ) )
+		BLK_INFO=( $( bwrapper getblockheader "$( bwrapper getblockhash "$HEIGHTMIN" )" | jq -r .${OPTMEDTIME}time,.hash ) )
 		HEIGHTTIME="${BLK_INFO[0]}"
 		HEIGHTDELTA="${HEIGHTDELTA#-}"
 	
@@ -1165,10 +1167,7 @@ timestamplistf()
 	#print block hash, too?
 	(( OPTN )) && NN="${SEP}${BLK_HASH}"
 
-	if ((OPTTIMESTAMP>1))
-	then jq -er "\"\( .time | ${HH:-.})${NN}\"" <<<"$HEADER"
-	else jq -er "\"\( .mediantime | ${HH:-.})${NN}\"" <<<"$HEADER"
-	fi
+	jq -er "\"\( .${OPTMEDTIME}time | ${HH:-.})${NN}\"" <<<"$HEADER"
 	ret+=( $? )
 	
 	#print simple feedback to stderr?
@@ -1183,7 +1182,7 @@ timestamplistf()
 #start
 
 #parse script options
-while getopts .,bc:dehiIj:lMmntuvVyY opt
+while getopts .,bc:dehiIj:lMmntuvVxyY opt
 do
 	case $opt in
 		\.)
@@ -1267,6 +1266,11 @@ do
 			done < "$0"
 			echo "$REPLY"
 			exit 0
+			;;
+		x)
+			#use block mediantime instead of block time
+			#opts -dt
+			unset OPTMEDTIME
 			;;
 		Y)
 			#same as -yy, shortcut
