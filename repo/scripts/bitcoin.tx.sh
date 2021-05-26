@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.1  may/2021  by mountaineerbr
+# v0.8.2  may/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq
 
@@ -316,15 +316,6 @@ checksum() {
     openssl dgst -sha256 -binary |
     unpack |
     head -c 8
-}
-
-checkBitcoinAddress() {
-    if [[ "$1" =~ ^[$(IFS= ; echo "${base58[*]}")]+$ ]]
-    then
-        local h="$(decodeBase58 "$1")"
-        checksum "${h:0:-8}" | grep -qi "^${h:${#h}-8}$"
-    else return 2
-    fi
 }
 
 hash160() {
@@ -1272,7 +1263,7 @@ fi
 #local time?
 #human-readable time formats
 #set jq arguments for time format printing
-if [[ "${TZ^^}" =~ ^(UTC0?|GMT)$ ]]
+if [[ "${TZ^^}" = +(UTC0|UTC-0|UTC|GMT) ]]
 then HH='strftime("%Y-%m-%dT%H:%M:%SZ")'
 else HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")'
 fi

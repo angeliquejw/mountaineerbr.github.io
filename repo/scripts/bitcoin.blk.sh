@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.4  may/2021  by mountaineerbr
+# v0.7.5  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -19,7 +19,8 @@ SEP='\t'
 STRMIN="${STRMIN:-20}"
 
 #maximum simultaneous asynchronous jobs
-JOBSDEF=1   #hard-coded
+#defaults=1
+JOBSDEF=1
 
 #timezone
 #defaults=UTC0
@@ -60,12 +61,14 @@ DESCRIPTION
 	json of all the block transactions. Multiple block hashes or
 	height numbers are allowed. If empty, fetches hash of best (last)
 	block. Negative integers refer to a block from the tip, i.e. -10,
-	see note on example (1.2).
+	see note on example (1.2). Setting a . (dot) as positional param-
+	eter is understood as best block.
 
-	Option -. prints block height number and -, prints block hash. Mul-
-	tiple block heights and hashes can be set as positional parameters.
-	Negative index from the tip is accepted. If no positional parameter
-	is given, fetches best block. Options -,. may be combined.
+	Option -. (dot) prints block height and -, (comma) prints block
+	hash. Multiple block heights and hashes may be set as positional
+	parameters. Negative index from the tip is accepted. If no pos-
+	itional parameter is given, fetches best block. Options -,. may
+	be combined.
 
 	Option -m prints mempool transaction ids and -mm prints mempool
 	transactions with more information. Optionally, transaction ids
@@ -73,7 +76,7 @@ DESCRIPTION
 	-mmm prints the number of transactions, their fees and some stats.
 
 	Option -t generates a list of block timestamps, one timestamp per
-	line. Set option -n to print block height hash after block time
+	line. Set option -n to print block height hash besides block time
 	separated by <TAB> control character. The defaults behaviour is
 	to print \`mediantime' of blocks. Set -tt to print \`time' of blocks
 	instead. Check reference at SEE ALSO for the distinction between
@@ -82,9 +85,9 @@ DESCRIPTION
 	To speed up processing of some options, setting maximum number of
 	asynchronous jobs with option -jNUM is allowed, in which case NUM
 	must be an integer or \`max'; asynchronous jobs may print in dif-
-	ferent order from input request, so consider manually sorting the
-	output afterwards, if needed; increasing NUM may only return modest
-	speed gains; defaults jobs=$JOBSDEF .
+	ferent order from input request; consider manually sorting output
+	afterwards, if needed; increasing NUM may only return modest speed
+	gains; defaults jobs=$JOBSDEF .
 
 	Option -d DATESTRING finds the block height immediately before or
 	at a date, in which DATESTRING is a string describing a date that
@@ -256,7 +259,7 @@ OPTIONS
 		date format.
 
 	Timestamp list
-	-n 	Print block hash after block timestamp.
+	-n 	Print block hash besides block timestamp.
 	-t  [HASH|HEIGHT]
 		Generate a list of block mediantime timestamps.
 	-tt [HASH|HEIGHT]
@@ -461,11 +464,7 @@ ishashf()
 }
 
 #blockchain general information
-
-
-	#blockchain information
-	#mempool information
-	#network information
+#mempool, network information
 blockchainf()
 {
 	local chain_info forknames key mining_info mempool_info
@@ -848,10 +847,10 @@ gethashheightf()
 	#expand braces, ex '{1..10}'
 	for arg in $@
 	do
-		if [[ "$arg" =~ ^-[0-9]+ ]]
+		#is negative index?
+		if [[ "$arg" = -+([0-9]) ]]
 		then
-			#negative integers (negative index)
-			#get best block hash and height
+			#get best block hash and height, set [bestblock - index]
 			(( ${#bestblk[@]} )) || bestblk=( $( bestblkfun ) )
 			arg=$((bestblk[1] - ${arg#-}))
 		fi
@@ -920,12 +919,16 @@ mainf()
 		#expand braces, ex '{1..10}'
 		for arg in $@
 		do
-			if [[ "$arg" =~ ^-[0-9]+ ]]
+			if [[ "$arg" = +(.|,|)@(.|,|) ]]
+			then
+				#get bets block hash from ., operators
+				(( ${#bestblk[@]} )) || bestblk=( $( bestblkfun ) ) || return
+				blocks+=( ${bestblk[0]} )
+			elif [[ "$arg" = -+([0-9]) ]]
 			then
 				#negative integers
 				#get best block hash and height
-				(( ${#bestblk[@]} )) ||
-					bestblk=( $( bestblkfun ) ) || return
+				(( ${#bestblk[@]} )) || bestblk=( $( bestblkfun ) ) || return
 				blocks+=( $((bestblk[1] - ${arg#-})) )
 			else
 				#positive integers
@@ -935,7 +938,7 @@ mainf()
 		done
 		set -- "${blocks[@]}"
 	else
-		#get best block hash and height
+		#get best block hash
 		bestblk=( $( bestblkfun ) ) || return
 
 		echo "Best block height: ${bestblk[1]}" >&2
@@ -1305,7 +1308,7 @@ fi
 #local time?
 #human-readable time formats
 #set jq arguments for time format printing
-if [[ "${TZ^^}" =~ ^(UTC0?|GMT)$ ]]
+if [[ "${TZ^^}" = +(UTC0|UTC-0|UTC|GMT) ]]
 then HH='strftime("%Y-%m-%dT%H:%M:%SZ")'
 else HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")'
 fi
