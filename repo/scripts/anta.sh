@@ -452,11 +452,11 @@ anta() {
 		#imprime a página e processa
 		#rm new line between <p> tags 
 		POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/id="mais-lidas[^-]/ p' | sed  '$d' | sed -n '/<article.*/,/<\/article/ p' )" 
+		#POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/event_label":\s*"p[0-9]+c[0-9]+".*<\/script><\/div>/  { /<article.*/,/(<\/article|<\/h2><\/a>)/ p }' )"
 		#POSTS="$( <<<"$PAGE" sed -nE '\|<div class="postmeta|,\|</div| p' )"
 		#sed ':a;N;$!ba;s/<p>\s*\n\s*\n*\s*/<p>/g' <<<"$PAGE" \
 		#| sed ':a;N;$!ba;s/\n*\s*\n\s*<\/p>/<\/p>/g' \
 		#grep -a 'id="post_[0-9]' <<<"$PAGE"
-		#| sed 's/>/&\n/ g'
 
 		#continue if $OLDPOSTS and $POSTS are the same (-r OPTION)
 		if ((ROLLOPT)) && [[ "$POSTS" = "$OLDPOSTS" ]]
