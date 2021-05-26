@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.12  may/2021  by mountaineerbr
+# v0.16.13  may/2021  by mountaineerbr
 
 #padrões
 
@@ -485,13 +485,6 @@ anta() {
 					-e '/^Ir para página/ d' \
 				| tac -r -s'^===' \
 				| awk NF
-
-			if [[ -n "$SUBJECT" ]]
-			then
-
-				:
-			else :
-			fi
 		fi
 		OLDPOSTS="$POSTS"
 		
