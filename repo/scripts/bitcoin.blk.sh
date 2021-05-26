@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.9  may/2021  by mountaineerbr
+# v0.7.10  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -772,9 +772,8 @@ heightatf()
 	HEIGHTMIN="$HEIGHTSTART"
 	
 	#check times
-	#genesis: 1231006505
-	#block 1: 1231469665
-	if (( TARGETTIME > $( date +%s ) )) || (( TARGETTIME < 1231469665 ))
+	#genesis: 1231006505  #block 1: 1231469665
+	if (( TARGETTIME > $(date +%s) )) || (( TARGETTIME < 1231006505 ))
 	then echo "$SN: DATE out of range -- @${TARGETTIME} $(date -R -d@$TARGETTIME)" >&2 ;return 1
 	fi
 	
