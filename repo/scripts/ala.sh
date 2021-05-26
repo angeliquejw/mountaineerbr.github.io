@@ -1,6 +1,6 @@
 #!/bin/bash
 # ala.sh -- arch linux archive explorer (search and download)
-# v0.14.11  may/2021  by castaway
+# v0.14.12  may/2021  by castaway
 
 #defaults
 #script name
@@ -69,6 +69,10 @@ export LC_NUMERIC
 
 #sed html filtering
 WBROWSERDEF=(sed -e 's/<[^>]*>//g' -e 's/\&gt;/>/g ;s/\&lt;/</g ;s/&nbsp;/ /g' -e 's/\r//g')
+
+#user agent
+#chrome on windows 10
+UAG='user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
 
 #script name
 SN="${0##*/}"
@@ -1161,7 +1165,7 @@ feedf() {
 	local NEWSPAGE SIGNAL
 
 	#get feed and process
-	NEWSPAGE="$( yourappf 2 'http://www.archlinux.org/feeds/news/' )"
+	NEWSPAGE="$( yourappf 2 --header "$UAG" 'http://www.archlinux.org/feeds/news/' )"
 
 	#check for error
 	SIGNAL="$?"
@@ -1209,7 +1213,7 @@ feedfb()
 	for ((p=1 ;p<=pnum ;p++))
 	do
 		page="$page
-		$( yourappf 2 --header 'user-agent: Mozilla/5.0 Gecko' "https://www.archlinux.org/news/?page=$p" 2>/dev/null )"
+		$( yourappf 2 --header "$UAG" "https://www.archlinux.org/news/?page=$p" 2>/dev/null )"
 	done
 
 	#grep only links
@@ -1245,7 +1249,7 @@ feedfb()
 		#print simple feedback to stderr
 		[[ -t 1 ]] || printf '>>>%s/%s\r' "$counter" "$articles" >&2
 
-		yourappf 3 --header 'user-agent: Mozilla/5.0 Gecko' "$l" |
+		yourappf 3 --header "$UAG" "$l" |
 			sed -n '/itemprop="headline/,/id="footer/ p' |
 				"${WBROWSER[@]}"
 
