@@ -91,7 +91,7 @@ SINOPSE
 	ser acionada setando-se o primeiro argumento posicional com
 	tag/[ASSUNTO] ou um dos seguintes ASSUNTOS: ${SUBLIST[*]/%/, }.
 	Esta opção aceita a opção -[p]NUM ou ÍNDICES das páginas iniciais
-	da categoria e também opção -f, veja exemplo de uso (7) para mais
+	por assuntos e também opção -f, veja exemplo de uso (7) para mais
 	informações.
 
 	Use a opção -a para habilitar o uso de servidores alternativos,
