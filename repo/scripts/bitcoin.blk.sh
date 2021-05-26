@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.5  may/2021  by mountaineerbr
+# v0.7.6  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -732,9 +732,13 @@ defaultf()
 #find a block at timestamp
 heightatf()
 {
-	local HEIGHTDELTA HEIGHTLAST HEIGHTMAX HEIGHTMIN HEIGHTMINLAST HEIGHTSTART HEIGHTTIMELAST TARGETTIME INPUT
+	local HEIGHTDELTA HEIGHTLAST HEIGHTMAX HEIGHTMIN HEIGHTMINLAST \
+		HEIGHTSTART HEIGHTTIMELAST TARGETTIME INPUT TIME DATEOPT
 
 	INPUT="$*"
+
+	#human readable opt
+	((OPTHUMAN>1)) && DATEOPT='-Iseconds' || DATEOPT='-R'
 
 	#check if there is any user input
 	if [[ -z "$INPUT" ]]
@@ -765,7 +769,7 @@ heightatf()
 	#genesis: 1231006505
 	#block 1: 1231469665
 	if (( TARGETTIME > $( date +%s ) )) || (( TARGETTIME < 1231469665 ))
-	then echo "$SN: DATE seems out of range -- $TARGETTIME" >&2 ;return 1
+	then echo "$SN: DATE out of range -- @${TARGETTIME} $(date -R -d@$TARGETTIME)" >&2 ;return 1
 	fi
 	
 	#loop
@@ -786,8 +790,8 @@ heightatf()
 		if (( OPTVERBOSE ))
 		then
 			TIME="$HEIGHTTIME"
-			(( OPTHUMAN )) && TIME="$( date -Iseconds -d@"$HEIGHTTIME" )"
-			printf '%s: %*d  %s: %s\n' height 6 $HEIGHTMIN date $TIME >&2
+			(( OPTHUMAN )) && TIME="$( date $DATEOPT -d@"$HEIGHTTIME" )"
+			printf '%s: %*d  %s: %s\n' height 6 $HEIGHTMIN date "$TIME" >&2
 		fi
 	
 		if (( HEIGHTTIME == TARGETTIME ))
@@ -828,8 +832,8 @@ heightatf()
 	then
 		cat <<-!
 
-		Target_Time: $TARGETTIME  $( date -Iseconds -d@"$TARGETTIME" )
-		Match__Time: $HEIGHTTIMELAST  $( date -Iseconds -d@"$HEIGHTTIMELAST" )
+		Target_Time: $TARGETTIME  $( date $DATEOPT -d@"$TARGETTIME" )
+		Match__Time: $HEIGHTTIMELAST  $( date $DATEOPT -d@"$HEIGHTTIMELAST" )
 		Block__Hash: ${BLK_INFO_LAST[1]}
 		BlockHeight: $HEIGHTMINLAST
 		!
@@ -1250,7 +1254,7 @@ do
 			;;
 		u)
 			#convert unix->human time
-			OPTHUMAN=1
+			((++OPTHUMAN))
 			;;
 		v)
 			#feedback
