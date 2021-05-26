@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.13  may/2021  by mountaineerbr
+# v0.16.14  may/2021  by mountaineerbr
 
 #padrões
 
@@ -775,9 +775,17 @@ fi
 #lista de assuntos/categorias
 [[ "${1//\/}" = podcast ]] && set -- videos "${@:2}"
 if [[ \ "${SUBLIST[*]}"\  = *\ "${1//\/}"\ * ]]
-then SUBJECT=/"${1//\/}" ;shift
-elif [[ "${1#/}" = tag/* ]]
-then SUBJECT=/"${1#/}"  SUBJECT="${SUBJECT%/}" ;shift
+then
+	echo 'anta.sh: assunto detectado' >&2
+	SUBJECT=/"${1//\/}" ;shift
+elif [[ "${1#/}" = tag/?* ]]
+then
+	echo 'anta.sh: tag/assunto detectado' >&2
+	SUBJECT=/"${1#/}"  SUBJECT="${SUBJECT%/}" ;shift
+elif [[ "${1#/}" = tag*(/) ]]
+then
+	echo "anta.sh: tag/ requer um ASSUNTO" >&2
+	exit 1
 fi
 
 #setar variáveis das próximas opções
