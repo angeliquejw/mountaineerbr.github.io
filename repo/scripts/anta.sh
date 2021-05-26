@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.16  may/2021  by mountaineerbr
+# v0.16.17  may/2021  by mountaineerbr
 
 #padrões
 
@@ -33,7 +33,7 @@ UPURL=https://raw.githubusercontent.com/mountaineerbr/scripts/master/anta.sh
 DREGEX='[0-3][0-9]\.[0-1][0-9]\.[1-2][0-9].*[0-2][0-9]:[0-5][0-9]'
 
 #assuntos/categorias
-SUBLIST=(brasil cultura economia eleicoes2020 entretenimento especial mundo sociedade videos tudo-sobre opiniao despertador)
+SUBLIST=(brasil cultura economia eleicoes2020 entretenimento especial mundo sociedade reuniao-de-pauta videos tudo-sobre tv opiniao despertador)
 #tag
 
 #Ref tapir art: http://www.ascii-art.de/ascii/t/tapir.txt
