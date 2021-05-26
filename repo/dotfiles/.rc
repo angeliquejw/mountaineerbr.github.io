@@ -739,6 +739,11 @@ WWW()
 	cd "$HOME/www/mountaineerbr.github.io" || return
 	"$HOME/www/mountaineerbr.github.io/portal.sh" "$@" && gitup
 }
+WWR()
+{
+	cd "$HOME/www/mountaineerbr.github.io/repo" || return
+	./sync.sh "$@" && gitup
+}
 
 #creat blog entry
 #bloga() { ~/www/mountaineerbr.github.io/blog/blog.sh -a ;}

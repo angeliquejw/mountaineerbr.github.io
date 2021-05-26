@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.14  may/2021  by mountaineerbr
+# v0.16.15  may/2021  by mountaineerbr
 
 #padrões
 
@@ -384,7 +384,7 @@ updatef() {
 #tamanho: até ~2020 =~ 650KB; mar/2020 = 34KB, compressed 8.7KB
 puxarpgsf() {
 	#skip if $COMP is only numbers
-	[[ "$COMP" =~ ^[0-9,.]+$ ]] && return 0
+	[[ "$COMP" = +([0-9,.]) ]] && return 0
 	# Se for só uma página inicial, acesse site sem 'pagina=1' (evita bloqueios)
 	(( PAGINAS == 1 )) && [[ -z "$FULLOPT" ]] && COMP='/'
 
@@ -778,11 +778,11 @@ if [[ \ "${SUBLIST[*]}"\  = *\ "${1//\/}"\ * ]]
 then
 	echo 'anta.sh: assunto detectado' >&2
 	SUBJECT=/"${1//\/}" ;shift
-elif [[ "${1#/}" = tag/?* ]]
+elif [[ "$1" = *(/)tag/?* ]]
 then
 	echo 'anta.sh: tag/assunto detectado' >&2
 	SUBJECT=/"${1#/}"  SUBJECT="${SUBJECT%/}" ;shift
-elif [[ "${1#/}" = tag*(/) ]]
+elif [[ "$1" = *(/)tag*(/) ]]
 then
 	echo "anta.sh: tag/ requer um ASSUNTO" >&2
 	exit 1
@@ -795,7 +795,7 @@ if [[ "$*" = */* ]]; then
 	FULLOPT=1
 	unset ROLLOPT
 #pegar só uma página por número
-elif [[ "$*" =~ ^[0-9\ ]+$ ]]; then
+elif [[ "$*" = +([0-9\ ]) ]]; then
 	echo 'anta.sh: índice detectado' >&2
 	ONLYONE=1
 	#unset ROLLOPT
