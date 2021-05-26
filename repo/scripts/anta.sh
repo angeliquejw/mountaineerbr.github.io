@@ -214,7 +214,7 @@ EXEMPLOS DE USO
 				       #inicial número 12500
 
 		$ anta.sh {10..5}      #da página 10 até a página 5
-		$ anta.sh 10 9 8 7 6 5 #idem
+		$ anta.sh 10 9 8 7 6 5
 		
 
 	( 7 ) Puxar páginas as primeiras 3 páginas iniciais por categoria;
@@ -223,7 +223,9 @@ EXEMPLOS DE USO
 		$ anta.sh -3 brasil
 		$ anta.sh brasil 3 2 1
 
-		$ anta.sh -3f despertador
+		$ anta.sh -3f tag/retrospectiva-2020
+
+		$ anta.sh -3fl despertador
 		                        
 
 OPÇÕES
@@ -572,7 +574,7 @@ fulltf() {
 		sed 's|>|&\n|g' <<<"$art" |
 			sed -nE "s|.*href=['\"]([^'\"]+)['\"].*|\1| p" |
 			nl | sort -k2 | uniq -f 1 | 
-			sort -n | cut -f2 | #grep -avF /tag/ |
+			sort -n | cut -f2 |
 			sed -e "/twitter\.com\// s/\?[^\'\"]*//g"
 	) )
 	
@@ -591,9 +593,7 @@ fulltf() {
 		#print header and add the number of paragraphs
 		printf '\033[2K====        \n'
 		#print article
-		[[ "$COMP" != */tag/* ]] &&
-			sedhtmlf <<<"$cab" |
-			sed "/^[0-9][0-9]\.[0-9][0-9]\./ s/$/ [\$\$ $par]\n/"
+		sedhtmlf <<<"$cab" | sed "/^[0-9][0-9]\.[0-9][0-9]\./ s/$/ [\$\$ $par]\n/"
 
 		echo "$art"
 
