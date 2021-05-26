@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.9  may/2021  by mountaineerbr
+# v0.16.11  may/2021  by mountaineerbr
 
 #padrões
 
@@ -32,6 +32,10 @@ UPURL=https://raw.githubusercontent.com/mountaineerbr/scripts/master/anta.sh
 #date regex
 DREGEX='[0-3][0-9]\.[0-1][0-9]\.[1-2][0-9].*[0-2][0-9]:[0-5][0-9]'
 
+#assuntos/categorias
+SUBLIST=(brasil cultura economia eleicoes2020 entretenimento mundo sociedade videos tudo-sobre opiniao despertador)
+#tag
+
 #Ref tapir art: http://www.ascii-art.de/ascii/t/tapir.txt
 HELP="Anta.sh -- Puxa os artigos de <oantagonista.com>
 
@@ -49,6 +53,7 @@ SINOPSE
 	anta.sh  [-afl] [ÍNDICE..|URL..]
 	anta.sh  [-afl] [-sNUM|-pNUM]
 	anta.sh  [-afl] -r [-sNUM]
+	anta.sh  [-afl] [CATEGORIA] [ÍNDICE..]
 	anta.sh  [-huuv]
 
 
@@ -81,6 +86,12 @@ SINOPSE
 	do se utiliza a opção -r , são o intervalo de tempo entre reaces-
 	sos. Nos demais modos, será impresso entre colchetes o tempo de
 	realização da tarefa em segundos.
+
+	Uma outra opção para puxar os links por assuntos/categorias pode
+	ser acionada setando-se o primeiro argumento posicional com tag/
+	ou um dos seguintes assuntos: ${SUBLIST[*]/%/, }.
+	Esta opção aceita a opção -[p]NUM ou ÍNDICES das páginas iniciais
+	da categoria, e também opção -f, veja exemplo de uso (7).
 
 	Use a opção -a para habilitar o uso de servidores alternativos,
 	caso observe consecutivos erros ou seja bloqueado pelo limite
@@ -206,6 +217,15 @@ EXEMPLOS DE USO
 		$ anta.sh 10 9 8 7 6 5 #idem
 		
 
+	( 7 ) Puxar páginas as primeiras 3 páginas iniciais por categoria;
+	      opção -f para puxar os artigos completos pode ser habilitada:
+
+		$ anta.sh -3 brasil
+		$ anta.sh brasil 3 2 1
+
+		$ anta.sh -3f despertador
+		                        
+
 OPÇÕES
 	-NUM 	  Mesmo que opção -pNUM .
 	-a 	  Usar servidores alternativos.
@@ -221,6 +241,7 @@ OPÇÕES
 	-u 	  Checar por atualização do script.
 	-uu 	  Atualização do script.
 	-v 	  Mostra a versão do script."
+
 
 #Orign servers
 SERVERS=(www.oantagonista.com)
@@ -367,7 +388,7 @@ puxarpgsf() {
 		#puxar a página
 		#PAGE="$( ${YOURAPP[${RANDOM} % ${#YOURAPP[@]}]}  "${AGENTS[${RANDOM} % ${#AGENTS[@]}]}" "${SERVERS[${RANDOM} % ${#SERVERS[@]}]}/${COMP#/}" )"
 		#make sure to get links from original server
-		PAGE="$( ${YOURAPP[${RANDOM} % ${#YOURAPP[@]}]}  "${AGENTS[${RANDOM} % ${#AGENTS[@]}]}" "${SERVERS[0]}/${COMP#/}" )"
+		PAGE="$( ${YOURAPP[${RANDOM} % ${#YOURAPP[@]}]}  "${AGENTS[${RANDOM} % ${#AGENTS[@]}]}" "${SERVERS[0]}${SUBJECT}/${COMP#/}" )"
 
 		#debug, código da página
 		(( DEBUG )) && printf -- '>>> PAGE\n%s\n\n' "$PAGE" >> "$LOGF"
@@ -423,10 +444,7 @@ anta() {
 
 		#imprime a página e processa
 		#rm new line between <p> tags 
-		if ((PAGINAS<2))
-		then POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/event_label":\s*"p[0-9]+c[0-9]+".*<\/script><\/div>/  { /<article.*/,/(<\/article|<\/h2><\/a>)/ p }' )"
-		else POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/id="mais-lidas/ p' | sed  '$d' | sed -n '/<article.*/,/<\/article/ p' )" 
-		fi
+		POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/id="mais-lidas[^-]/ p' | sed  '$d' | sed -n '/<article.*/,/<\/article/ p' )" 
 		#POSTS="$( <<<"$PAGE" sed -nE '\|<div class="postmeta|,\|</div| p' )"
 		#sed ':a;N;$!ba;s/<p>\s*\n\s*\n*\s*/<p>/g' <<<"$PAGE" \
 		#| sed ':a;N;$!ba;s/\n*\s*\n\s*<\/p>/<\/p>/g' \
@@ -460,6 +478,13 @@ anta() {
 					-e '/^Ir para página/ d' \
 				| tac -r -s'^===' \
 				| awk NF
+
+			if [[ -n "$SUBJECT" ]]
+			then
+
+				:
+			else :
+			fi
 		fi
 		OLDPOSTS="$POSTS"
 		
@@ -521,24 +546,9 @@ fulltf() {
 	#artigo
 	art="$(
 		#processa página
-		#is podcast?
-		if [[ "$COMP" = */podcast/* ]]
-		then
-			#grep only description line
-			##grep 'entry-text-post">.*<p>' <<< "$PAGE"
-			sed -n '/^\s*<p>/p' <<< "$PAGE"
-
-		#is antagonista tag page?
-		elif [[ "$COMP" = */tag/* ]]
-		then
-			grep -a 'class="post_header"><a href=' <<< "$PAGE"
-
-		else
-			#get all lines with <p>
-			sed -n 's/<p>/\n&/gp' <<< "$PAGE" |
-				sed -n 's/<\/p>/\n&/gp'
-
-		fi |
+		#get all lines with <p>
+		<<<"$PAGE" sed -n 's/<p>/\n&/gp' |
+			sed -n 's/<\/p>/\n&/gp' |
 			sed -e '/>Leia também[<:]/d' \
 			    -e 's/>Assine a <strong>Crusoé<.*/>/' \
 			    -e '/id="comentarios"/,$ d' \
@@ -762,6 +772,14 @@ then SERVERS=( "${SERVERS[@]}" "${ALTSERVERS[@]}" )
 #opção de checagem ou realização da atualização do script
 elif ((UPOPT))
 then updatef ;exit
+fi
+
+#lista de assuntos/categorias
+[[ "${1//\/}" = podcast ]] && set -- videos "${@:2}"
+if [[ \ "${SUBLIST[*]}"\  = *\ "${1//\/}"\ * ]]
+then SUBJECT=/"${1//\/}" ;shift
+elif [[ "${1#/}" = tag/* ]]
+then SUBJECT=/"${1#/}"  SUBJECT="${SUBJECT%/}" ;shift
 fi
 
 #setar variáveis das próximas opções
