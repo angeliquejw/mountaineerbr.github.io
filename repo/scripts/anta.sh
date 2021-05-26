@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.15  may/2021  by mountaineerbr
+# v0.16.16  may/2021  by mountaineerbr
 
 #padrões
 
@@ -33,7 +33,7 @@ UPURL=https://raw.githubusercontent.com/mountaineerbr/scripts/master/anta.sh
 DREGEX='[0-3][0-9]\.[0-1][0-9]\.[1-2][0-9].*[0-2][0-9]:[0-5][0-9]'
 
 #assuntos/categorias
-SUBLIST=(brasil cultura economia eleicoes2020 entretenimento mundo sociedade videos tudo-sobre opiniao despertador)
+SUBLIST=(brasil cultura economia eleicoes2020 entretenimento especial mundo sociedade videos tudo-sobre opiniao despertador)
 #tag
 
 #Ref tapir art: http://www.ascii-art.de/ascii/t/tapir.txt
@@ -451,7 +451,7 @@ anta() {
 
 		#imprime a página e processa
 		#rm new line between <p> tags 
-		POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/id="mais-lidas[^-]/ p' | sed  '$d' | sed -n '/<article.*/,/<\/article/ p' )" 
+		POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/id="mais-lidas"/ p' | sed  '$d' | sed -n '/<article.*/,/<\/article/ p' )"
 		#POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/event_label":\s*"p[0-9]+c[0-9]+".*<\/script><\/div>/  { /<article.*/,/(<\/article|<\/h2><\/a>)/ p }' )"
 		#POSTS="$( <<<"$PAGE" sed -nE '\|<div class="postmeta|,\|</div| p' )"
 		#sed ':a;N;$!ba;s/<p>\s*\n\s*\n*\s*/<p>/g' <<<"$PAGE" \
