@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.8  may/2021  by mountaineerbr
+# v0.7.9  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -61,8 +61,8 @@ DESCRIPTION
 	json of all the block transactions. Multiple block hashes or
 	height numbers are allowed. If empty, fetches hash of best (last)
 	block. Negative integers refer to a block from the tip, i.e. -10,
-	see note on example (1.2). Setting a . (dot) as positional param-
-	eter is understood as best block.
+	10-, .10 or 10. ,see note on example (1.2). Setting a . (dot) as
+	positional parameter is understood as best block.
 
 	Option -. (dot) prints block height and -, (comma) prints block
 	hash. Multiple block heights and hashes may be set as positional
@@ -176,8 +176,12 @@ USAGE EXAMPLES
 
 
 	1.2) Negative index, the 10th, 11th and 12th block before best
-	     block (tip). Note that -- signals the end of script options,
-	     if any:
+	     block (blockchain tip); use either minus or dot sign; do
+	     note that -- signals the end of script options, if any:
+
+	$ $SN 10- 11- 12-
+
+	$ $SN 10. 11. 12.
 
 	$ $SN -- -10 -11 -12
 
@@ -228,6 +232,8 @@ USAGE EXAMPLES
 	     usage of brace expansion and negative relative block height):
 	
 	$ $SN -y -- -{0..9}
+
+	$ $SN -y .{0..9}
 
 
 	4.3) Some other usage examples with package \`strings':
@@ -851,12 +857,12 @@ gethashheightf()
 	#expand braces, ex '{1..10}'
 	for arg in $@
 	do
-		#is negative index?
-		if [[ "$arg" = -+([0-9]) ]]
+		#is negative index? 
+		if [[ "$arg" = @(+([.,-])+([0-9])*([.,-])|*([.,-])+([0-9])+([.,-])) ]]
 		then
 			#get best block hash and height, set [bestblock - index]
 			(( ${#bestblk[@]} )) || bestblk=( $( bestblkfun ) )
-			arg=$((bestblk[1] - ${arg#-}))
+			arg=$((bestblk[1] - ${arg//[.,-]}))
 		fi
 
 		#is block hash or height?
@@ -920,20 +926,21 @@ mainf()
 	#is there positional args from user?
 	if ((TOTAL))
 	then
-		#expand braces, ex '{1..10}'
+		#let braces expand, ex '{1..10}'
 		for arg in $@
 		do
-			if [[ "$arg" = +(.|,|)@(.|,|) ]]
+			#if argument is . or , , get best block
+			if [[ "$arg" = +(.|,)@(.|,) ]]
 			then
 				#get bets block hash from ., operators
 				(( ${#bestblk[@]} )) || bestblk=( $( bestblkfun ) ) || return
 				blocks+=( ${bestblk[0]} )
-			elif [[ "$arg" = -+([0-9]) ]]
+			elif [[ "$arg" = @(+([.,-])+([0-9])*([.,-])|*([.,-])+([0-9])+([.,-])) ]]
 			then
-				#negative integers
+				#negative integers (block from the tip)
 				#get best block hash and height
 				(( ${#bestblk[@]} )) || bestblk=( $( bestblkfun ) ) || return
-				blocks+=( $((bestblk[1] - ${arg#-})) )
+				blocks+=( $((bestblk[1] - ${arg//[.,-]})) )
 			else
 				#positive integers
 				#block hashes
