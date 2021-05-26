@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.8  may/2021  by mountaineerbr
+# v0.16.9  may/2021  by mountaineerbr
 
 #padrões
 
@@ -416,7 +416,9 @@ anta() {
 			echo "$PAGE"
 			exit 0
 		#page not found?
-		elif ((NOTFOUND)); then return 0
+		elif ((NOTFOUND))
+		then
+			return 0
 		fi
 
 		#imprime a página e processa
@@ -431,29 +433,36 @@ anta() {
 		#grep -a 'id="post_[0-9]' <<<"$PAGE"
 		#| sed 's/>/&\n/ g'
 
-		#cópia de links
-		LINKS2="$( getlinksf <<<"$PAGE" )"
+		#continue if $OLDPOSTS and $POSTS are the same (-r OPTION)
+		if ((ROLLOPT)) && [[ "$POSTS" = "$OLDPOSTS" ]]
+		then :
+		#process posts
+		else
+			#cópia de links
+			LINKS2="$( getlinksf <<<"$PAGE" )"
 
-		#print links
-		tac <<< "$LINKS2"
-		echo '==='
+			#print links
+			tac <<< "$LINKS2"
+			echo '==='
 
-		#process 
-		sed 's/[^pagm]>/&\n/g ;s/<\/article[^>]*>/&\n===/g' <<<"$POSTS" \
-			| sedhtmlf \
-			| sed -E \
-				-e '/^\s*(COMPARTILHAR|SALVAR|LEIA AQUI|Ver mais)/ d' \
-				-e '/gtag\("event/ d' \
-				-e '/^window.*taboola/ d' \
-				-e 's/\.dot\{.*//' \
-				-e 's/^.live-html.*//' \
-				-e '/^Mais lidas\s*$/ d' \
-				-e '/^var.*_comscore/ d' \
-				-e '/^Voltar para página/ d' \
-				-e '/^Ir para página/ d' \
-			| tac -r -s'^===' \
-			| awk NF
-
+			#process 
+			sed 's/[^pagm]>/&\n/g ;s/<\/article[^>]*>/&\n===/g' <<<"$POSTS" \
+				| sedhtmlf \
+				| sed -E \
+					-e '/^\s*(COMPARTILHAR|SALVAR|LEIA AQUI|Ver mais)/ d' \
+					-e '/gtag\("event/ d' \
+					-e '/^window.*taboola/ d' \
+					-e 's/\.dot\{.*//' \
+					-e 's/^.live-html.*//' \
+					-e '/^Mais lidas\s*$/ d' \
+					-e '/^var.*_comscore/ d' \
+					-e '/^Voltar para página/ d' \
+					-e '/^Ir para página/ d' \
+				| tac -r -s'^===' \
+				| awk NF
+		fi
+		OLDPOSTS="$POSTS"
+		
 		#parar se foi especificado número de index de pg específica
 		(( ONLYONE )) && break
 
