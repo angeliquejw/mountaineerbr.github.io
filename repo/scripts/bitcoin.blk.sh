@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.7  may/2021  by mountaineerbr
+# v0.7.8  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -17,10 +17,6 @@ SEP='\t'
 #of characters, opt -y
 #defaults=20
 STRMIN="${STRMIN:-20}"
-
-#meditan time for options -dt
-#comment out to get block time instead
-OPTMEDTIME=median
 
 #maximum simultaneous asynchronous jobs
 #defaults=1
@@ -82,9 +78,8 @@ DESCRIPTION
 	Option -t generates a list of block timestamps, one timestamp per
 	line. Set option -n to print block height hash besides block time
 	separated by <TAB> control character. The defaults behaviour is
-	to print \`mediantime' of blocks. Set -x to print \`time' of blocks
-	instead. Check reference at SEE ALSO for the distinction between
-	both.
+	to print block \`time'; set -x to print \`mediantime' instead.
+	Check reference at SEE ALSO for the distinction between both.
 
 	To speed up processing of some options, setting maximum number of
 	asynchronous jobs with option -jNUM is allowed, in which case NUM
@@ -96,19 +91,22 @@ DESCRIPTION
 	Option -d DATESTRING finds the block height immediately before or
 	at a date, in which DATESTRING is a string describing a date that
 	is understandable by the GNU date programme. Note that option -l
-	changes interpretation of input time as local time; set option -v
-	to check target and matched times. If input date string is UNIX
-	time, attach an \`\`at'' (@) sign to it, see usage example (3).
+	changes interpretation of input time as local time; by defaults,
+	compare block \`times'; set -x to compare block \`mediantimes';
+	set option -v to check target and matched times. If input string
+	is UNIX time, attach an \`\`at'' (@) sign to it, see usage example
+	(3).
 
 	Option -d takes user input and tries to autocorrect it to a format
 	GNU date programme can understand. Check date interpretation ver-
-	bosely with option -v. In case of a wrong modification or inter-
-	pretation of user input, set -d multiple times to disable auto
-	correction.
+	bosely with option -v. Some autocorrection of user input date for-
+	mats is performed; if needed, set -d twice to disable autocorrec-
+	tion.
 
 	Option -u prints time in human-readable format.
 
-	Option -l sets local time instead of UTC time.
+	Option -l sets local time instead of UTC time; this affects how
+	DATESTRING from user input is interpreted, too.
 
 	Option -v enables verbose, set twice to more verbose.
 
@@ -117,7 +115,7 @@ DESCRIPTION
 	least $STRMIN characters long, unless that returns empty, in which
 	case there is decrement of one character until nought.  If nought
 	is reached, the raw byte output will be printed.  You may set
-	-yy to print raw byte output at once, see example (4).
+	-yy to print raw byte output, see example (4).
 
 
 ENVIRONMENT
@@ -253,7 +251,7 @@ OPTIONS
 	-u 	Print time in human-readable format, may set multiple times.
 	-v	Enables verbose feedback, may set multiple times.
 	-V 	Print script version.
-	-x 	Set block \`time' instead of \`mediantime'.
+	-x 	Set block \`mediantime' instead of \`time'.
 
 	Find block height at date
 	-d  DATESTRING
@@ -265,7 +263,7 @@ OPTIONS
 	-n 	Print block hash besides block timestamp.
 	-t  [HASH|HEIGHT]
 		Generate a list of block mediantime timestamps; see also
-		option -lx.
+		options -lx.
 
 	Memory pool
 	-m 	Print mempool transaction ids.
@@ -1270,7 +1268,7 @@ do
 		x)
 			#use block mediantime instead of block time
 			#opts -dt
-			unset OPTMEDTIME
+			OPTMEDTIME=median
 			;;
 		Y)
 			#same as -yy, shortcut
