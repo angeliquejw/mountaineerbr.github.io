@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.11  may/2021  by mountaineerbr
+# v0.16.12  may/2021  by mountaineerbr
 
 #padrões
 
@@ -53,7 +53,7 @@ SINOPSE
 	anta.sh  [-afl] [ÍNDICE..|URL..]
 	anta.sh  [-afl] [-sNUM|-pNUM]
 	anta.sh  [-afl] -r [-sNUM]
-	anta.sh  [-afl] [CATEGORIA] [ÍNDICE..]
+	anta.sh  [-afl] [ASSUNTO] [ÍNDICE..]
 	anta.sh  [-huuv]
 
 
@@ -87,11 +87,12 @@ SINOPSE
 	sos. Nos demais modos, será impresso entre colchetes o tempo de
 	realização da tarefa em segundos.
 
-	Uma outra opção para puxar os links por assuntos/categorias pode
-	ser acionada setando-se o primeiro argumento posicional com tag/
-	ou um dos seguintes assuntos: ${SUBLIST[*]/%/, }.
+	Uma outra opção para puxar os links por ASSUNTOS/categorias pode
+	ser acionada setando-se o primeiro argumento posicional com
+	tag/[ASSUNTO] ou um dos seguintes ASSUNTOS: ${SUBLIST[*]/%/, }.
 	Esta opção aceita a opção -[p]NUM ou ÍNDICES das páginas iniciais
-	da categoria, e também opção -f, veja exemplo de uso (7).
+	da categoria e também opção -f, veja exemplo de uso (7) para mais
+	informações.
 
 	Use a opção -a para habilitar o uso de servidores alternativos,
 	caso observe consecutivos erros ou seja bloqueado pelo limite
@@ -223,9 +224,13 @@ EXEMPLOS DE USO
 		$ anta.sh -3 brasil
 		$ anta.sh brasil 3 2 1
 
-		$ anta.sh -3f tag/retrospectiva-2020
+		$ anta.sh -3f despertador
 
-		$ anta.sh -3fl despertador
+
+	      Pode-se usar tag/[ASSUNTO] em que ASSUNTO pode ser: ciencia,
+	      educacao, rio, saopaulo, lula, pt, bitcoin e mais.
+
+		$ anta.sh -3f tag/retrospectiva-2020
 		                        
 
 OPÇÕES
