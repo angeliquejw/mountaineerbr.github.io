@@ -419,14 +419,9 @@ unset pkg
 #PART ZERO
 #preparation
 
-if ((ZSH_VERSION))
-then
-	#zsh is a little faster
-	setopt PIPE_FAIL KSH_ZERO_SUBSCRIPT NULLGLOB
-else
-	#bash
-	shopt -o pipefail nullglob
-fi
+#shell options
+setopt PIPE_FAIL KSH_ZERO_SUBSCRIPT NULLGLOB
+#bash:shopt -o pipefail nullglob
 
 #exit on any error
 set -e
