@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.9  may/2021  mountaineerbr
+# v0.6.10  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -190,8 +190,6 @@ cleanf()
 
 	#PART LAST
 	#clean up
-	#set nullglob
-	(( ZSH_VERSION )) && setopt nullglob || shopt -s nullglob
 
 	#clean up
 	for r in \
@@ -424,10 +422,10 @@ unset pkg
 if ((ZSH_VERSION))
 then
 	#zsh is a little faster
-	setopt PIPE_FAIL KSH_ZERO_SUBSCRIPT
+	setopt PIPE_FAIL KSH_ZERO_SUBSCRIPT NULLGLOB
 else
 	#bash
-	shopt -o pipefail
+	shopt -o pipefail nullglob
 fi
 
 #exit on any error
