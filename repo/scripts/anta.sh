@@ -360,7 +360,7 @@ updatef() {
 			fi
 		else
 			#print page with error
-			cat "$TMPFILE"
+			[[ -e "$TMPFILE" ]] && cat "$TMPFILE"
 			echo "$UPURL"
 			false
 		fi
