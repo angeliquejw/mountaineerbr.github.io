@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.11  may/2021  mountaineerbr
+# v0.6.12  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -256,7 +256,7 @@ creatf()
 
 	#update post id, post #number and TITLE in in i.html
 	((OPTV)) && echo "$SN: update post id, #NUM, TITLE, DESCRIPTION and KEYWORDS -- $tgti" >&2
-	sed -i -E "s/.*<h1.*id=\"[0-9?]*\">#[^<]*/id=\"$postn\">#$postn${title+ - ${title//\//\\/}}/" "$tgti"
+	sed -i -E "s/(.*<h1.*)id=\"[0-9?]*\">#[^<]*/\1id=\"$postn\">#$postn${title+ - ${title//\//\\/}}/" "$tgti"
 
 	[[ -n "$desc" ]] \
 		&& sed -i -E "/name=\"description/ s/(content=\")([^\"]*)/\1${desc//\//\\/}/" "$tgti"
