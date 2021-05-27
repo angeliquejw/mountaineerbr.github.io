@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.17  may/2021  by mountaineerbr
+# v0.16.19  may/2021  by mountaineerbr
 
 #padrões
 
@@ -236,7 +236,6 @@ EXEMPLOS DE USO
 OPÇÕES
 	-NUM 	  Mesmo que opção -pNUM .
 	-a 	  Usar servidores alternativos.
-	-d 	  Debug, registra em /tmp/anta.log e anta.linksf.log .
 	-f [ÍNDICE..|URL..]
 		  Texto integral dos artigos das páginas iniciais.
 	-h 	  Mostra esta ajuda.
@@ -295,7 +294,8 @@ getlinksf()
 	grep -a -e 'id="post_[0-9]' \
 	| sed 's|a>|&\n|g' \
 	| sed -nE "s|.*href=['\"]([^'\"#]+)['\"!?&*.,; ].*(title\|h2).*|\1| p" \
-	| uniq
+	| nl | sort -k2 | uniq -f 1 \
+	| sort -n | cut -f2
 }
 #-e "href=['\"]https://www.oantagonista.com/despertador/['\"]+['\"]" \
 
@@ -307,18 +307,18 @@ cerrf()
 		     -e 'Page not found' -e 'p.gina n.o encontrada' \
 		     -e 'Error processing request' <<< "$PAGE" >&2
 	then
-		printf 'anta.sh: erro: página não encontrada -- %s\n' "$COMP"
+		printf 'anta.sh: erro: página não encontrada -- %s\n' "$COMP" >&2
 		NOTFOUND=1
 		return 0
 	elif [[ -z "$PAGE" ]] || grep -aFiq -e 'has been limited' -e 'you were blocked' \
 		-e 'to restrict access' -e 'access denied' -e 'temporarily limited' \
 		-e 'you have been blocked' -e 'has been blocked' <<< "$PAGE" >&2
 	then
-		printf 'anta.sh: erro: acesso limitado ou página não encontrada -- %s\n' "$COMP"
+		printf 'anta.sh: erro: acesso limitado ou página não encontrada -- %s\n' "$COMP" >&2
 		return 1
 	elif ! grep -aq '[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]' <<< "$PAGE" >&2
 	then
-		printf 'anta.sh: erro: não parece ser artigo de <oantagonista> -- %s\n' "$COMP"
+		printf 'anta.sh: erro: não parece ser artigo de <oantagonista> -- %s\n' "$COMP" >&2
 		NOTFOUND=1
 		return 0
 	fi
@@ -326,26 +326,13 @@ cerrf()
 	return 0
 }
 
+
 # Cheque por update
 updatef() {
-	TMPFILE="$( mktemp )"
-
-	#clean up subfunction
-	cleanf() { 
-		#disable trap
-		trap \  EXIT SIGTERM SIGINT
-		[[ -f "$TMPFILE" ]] && rm -f "$TMPFILE"
-		exit
-	}
-
 	#trap exit
-	trap cleanf EXIT SIGTERM SIGINT
+	trap updatecleanf EXIT TERM INT
 	
-	#check for pkg diff
-	if ! command -v diff &>/dev/null; then
-		printf 'anta.sh: erro -- pacote diff é necessário\n' >&2
-		exit 1
-	fi
+	TMPFILE="$( mktemp )"
 
 	#download script from url
 	${YOURAPP[0]} "${AGENTS[0]}" "$UPURL" >"$TMPFILE"
@@ -373,15 +360,22 @@ updatef() {
 			fi
 		else
 			#print page with error
-			cat "$TMPFILE" 2>/dev/null
+			cat "$TMPFILE"
 			echo "$UPURL"
 			false
 		fi
 	fi
 }
+#update clean up
+updatecleanf() { 
+	#disable trap
+	trap \  EXIT TERM INT
+	[[ -f "$TMPFILE" ]] && rm "$TMPFILE"
+	exit
+}
 
 # Puxar páginas iniciais e testar por erros;
-#tamanho: até ~2020 =~ 650KB; mar/2020 = 34KB, compressed 8.7KB
+#tamanho: até ~2020 =~ 650KB; mar/2020 = 34KB, compressed 8.7KB; may/2021 = 372KB
 puxarpgsf() {
 	#skip if $COMP is only numbers
 	[[ "$COMP" = +([0-9,.]) ]] && return 0
@@ -397,17 +391,11 @@ puxarpgsf() {
 		#make sure to get links from original server
 		PAGE="$( ${YOURAPP[${RANDOM} % ${#YOURAPP[@]}]}  "${AGENTS[${RANDOM} % ${#AGENTS[@]}]}" "${SERVERS[0]}${SUBJECT}/${COMP#/}" )"
 
-		#debug, código da página
-		(( DEBUG )) && printf -- '>>> PAGE\n%s\n\n' "$PAGE" >> "$LOGF"
-
 		#erro?
 		cerrf && return 0
 
 		#havendo erro, chamar curl mais uma vez
 		printf '\ranta.sh: tentativa %s\n' "$N" 1>&2
-
-		#debug, n tentativas
-		(( DEBUG )) && printf -- '>>> Tentativa: %s\n' "$N" >> "$LOGF"
 
 		sleep "$SLEEP"
 		(( SLEEP = SLEEP + 2 )) 
@@ -429,9 +417,6 @@ anta() {
 		#barra de acompanhamento
 		printf '\r\033[2KPágina %s/%s\r' "$i" "$PAGINAS" 1>&2
 
-		#debug, ref das páginas baixadas
-		(( DEBUG )) && printf -- '>>> Página: %s / %s\n\n' "$i" "$PAGINAS" >> "$LOGF"
-
 		#puxar a página
 		COMP="/pagina/${i}/"
 		if ! puxarpgsf; then
@@ -450,7 +435,6 @@ anta() {
 		fi
 
 		#imprime a página e processa
-		#rm new line between <p> tags 
 		POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/id="mais-lidas"/ p' | sed  '$d' | sed -n '/<article.*/,/<\/article/ p' )"
 		#POSTS="$( <<<"$PAGE" sed -nE '/<div id="p[0-9]+"/,/event_label":\s*"p[0-9]+c[0-9]+".*<\/script><\/div>/  { /<article.*/,/(<\/article|<\/h2><\/a>)/ p }' )"
 		#POSTS="$( <<<"$PAGE" sed -nE '\|<div class="postmeta|,\|</div| p' )"
@@ -501,7 +485,7 @@ anta() {
 }
 #also works: grep -F -B13 '<p>' <<<"$PAGE" | sedhtmlf | awk NF
 #for the FEED, check
-#curl "https://www.oantagonista.com/feed/" | grep -Ee '<title>|<pubDate>|<link>' -e '^<p>[^<]+</p>' | awk NF | sed 's/.*<title>.*/\n\n\n&/' | sedhtmlf | sed -E ':a; N; $!ba; :b; s/([^\n])\n\n([^\n])/\1\n\2/g; tb'
+#https://www.oantagonista.com/feed/
 
 # -f Artigos inteiros
 fulltf() {
@@ -524,11 +508,8 @@ fulltf() {
 		fi
 	fi
 
-	if (( DEBUG ))
-	then echo "$PAGE" ;exit 0
 	#page not found?
-	elif ((NOTFOUND)); then return 0
-	fi
+	((NOTFOUND)) && return 0
 
 	#cabeçalho
 	cab="$( 
@@ -546,10 +527,18 @@ fulltf() {
 	#artigo
 	art="$(
 		#processa página
+
+		#processa página
 		#get all lines with <p>
-		<<<"$PAGE" sed -n 's/<p>/\n&/gp' |
-			sed -n 's/<\/p>/\n&/gp' |
-			sed -e '/>Leia também[<:]/d' \
+		if [[ "$COMP" = */podcast/* ]]
+		then
+			#if podcast grep only description line
+			##grep 'entry-text-post">.*<p>' <<< "$PAGE"
+			<<<"$PAGE" sed -n '/^\s*<p>/p'
+		else
+			#get all lines with <p> for all other pages
+			<<<"$PAGE" sed -n 's/<p>/\n&/gp' | sed -n 's/<\/p>/\n&/gp'
+		fi | sed -e '/>Leia também[<:]/d' \
 			    -e 's/>Assine a <strong>Crusoé<.*/>/' \
 			    -e '/id="comentarios"/,$ d' \
 			    -e '/>LEIA MAIS</d' \
@@ -569,11 +558,11 @@ fulltf() {
 	
 	#get link references
 	hrefs=( $(
-		sed 's|>|&\n|g' <<<"$art" |
-			sed -nE "s|.*href=['\"]([^'\"]+)['\"].*|\1| p" |
-			nl | sort -k2 | uniq -f 1 | 
-			sort -n | cut -f2 |
-			sed -e "/twitter\.com\// s/\?[^\'\"]*//g"
+		sed 's|a>|&\n|g' <<<"$art" \
+			| sed -nE "s|.*href=['\"]([^'\"]+)['\"].*|\1| p" \
+			| nl | sort -k2 | uniq -f 1 \
+			| sort -n | cut -f2 \
+			| sed -e "/twitter\.com\// s/\?[^\'\"]*//g"
 	) )
 	
 	#remove html tags, more processing of article
@@ -607,12 +596,6 @@ fulltf() {
 
 	return 0
 }
-#try not to break html processing at
-#www.oantagonista.com/brasil/como-votou-cada-deputado-no-destaque-da-facada-em-paulo-guedes/
-#https://www.oantagonista.com/frases-da-semana/as-frases-da-semana-em-que-o-ministro-interino-da-saude-rezou/
-#https://www.oantagonista.com/podcast/podcast-viva-la-muerte/
-#https://www.oantagonista.com/brasil/o-stf-esta-disposto-a-ajudar-davi-alcolumbre/
-
 #article index number?
 #https://www.oantagonista.com/brasil/399950/
 #https://www.oantagonista.com/brasil/bolsonarista-preso-ontem-e-apontado-como-financiador-de-acampamentos/
@@ -652,9 +635,6 @@ linksf() {
 			#pega links para artigos integrais
 			LINKS="$( getlinksf <<<"$PAGE" )"
 
-			#debug, dump links
-			(( DEBUG )) && printf -- '>>> Links:\n%s\n\n' "$LINKS" >> "$LOGF"
-
 			#crawl each link
 			while read COMP
 			do
@@ -684,7 +664,7 @@ linksf() {
 }
 
 ## Parse options
-while getopts :adfwhlp:rs:uv0123456789 opt
+while getopts :afwhlp:rs:uv0123456789 opt
 do
 	case $opt in
 		[0-9])
@@ -694,11 +674,6 @@ do
 		a)
 			#use alternative servers
 			OPTALT=1
-			;;
-		d)
-			# Debugging, manter dump de dados
-			DEBUG=1
-			printf '>>> Date: %s\n\n' "$(date -R)" >> "$LOGF"
 			;;
 		f|w)
 			# Textos completos (Full text)
