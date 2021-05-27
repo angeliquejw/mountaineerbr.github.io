@@ -1,7 +1,7 @@
 #!/bin/zsh
-# vim:ft=sh
+# vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.10  may/2021  mountaineerbr
+# v0.6.11  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -228,7 +228,8 @@ creatf()
 	local tgt tgti postn stamp1 stamp2 var title templdir desc keywords marktype REPLY
 	templdir="$TEMPLATE_POSTDIR" templdir="${templdir%/}/"
 	[[ -d "$templdir" ]] || { print "$SN: template dir not found -- $templdir" >&2 ;return 1 ;}
-	((LASTP)) || { print "$SN: cannot get last post index -- $LASTP" >&2 ;return 1 ;}
+	[[ -z "$LASTP" ]] && LASTP=0
+	((LASTP>=0)) || { print "$SN: cannot get last post index -- $LASTP" >&2 ;return 1 ;}
 	postn=$((LASTP+1))  stamp1="$(date +%Y-%m-%d)"  stamp2="$(date +%d/%b/%Y)" || return 1
 
 	print "\nNote: use HTML entities for special characters such as <>&\"" >&2
@@ -458,11 +459,6 @@ POSTFILES=( $( printf '%s\n' [0-9]*/"$RAWPOST_FNAME".(html|md) | sort -nr ) )
 IFS=$' \t\n'
 #BASH# use: "$RAWPOST_FNAME".@(html|md)
 
-#check directory array is not empty
-(( ${#POSTFILES[@]} )) || exit 1
-
-
-
 echo "$SN: compile index.html files for individual posts.." >&2
 #set vars
 LASTP="${POSTFILES[0]%/*}" 	#last post number
@@ -470,10 +466,15 @@ LASTP="$( basename "$LASTP" )"  #last post number
 n="$LASTP" 			#post counter (starts from last post number)
 m=1 				#first post number
 
+
 #-a function: create new post only?
 if ((OPTA))
 then creatf "$@" ;exit
 fi
+
+
+#check directory array is not empty
+(( ${#POSTFILES[@]} )) || exit 1
 
 for f in "${POSTFILES[@]}"
 do
