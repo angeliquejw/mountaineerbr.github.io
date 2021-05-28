@@ -433,7 +433,7 @@ shift $(( OPTIND - 1 ))
 unset c
 
 #check for pkgs
-for pkg in tidy markdown  #perl
+for pkg in tidy markdown
 do
 	if ! command -v "$pkg" &>/dev/null
 	then
