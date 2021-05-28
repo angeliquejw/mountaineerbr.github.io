@@ -364,7 +364,7 @@ do
 
 	#escape entities for urls
 	#change local root to website root
-	URL="$( escf "${REPLY/$ROOT/$ROOTW}" )"
+	URL="$( escf "${REPLY/"$ROOT"/"$ROOTW"}" )"
 
 	#last modification date
 	if [[ -e "$REPLY" ]]
