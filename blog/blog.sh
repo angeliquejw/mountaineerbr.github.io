@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.12  may/2021  mountaineerbr
+# v0.6.14  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -221,6 +221,29 @@ cleanf()
 	exit "${code:-0}"
 }
 
+#entity escaping
+escf()
+{
+	local input
+	input="$1"
+
+	#escape to entity names
+
+	input="$( perl -e "use CGI qw(escapeHTML); print escapeHTML(\"$input\n\");" )" ||
+		{
+			input="${1//&/&amp;}" 	 	#ampersand
+			input="${input//\'/&apos;}"	#less-than
+			input="${input//\"/&quot;}"	#greater-than
+			input="${input//>/&gt;}" 	#apostrophe
+			input="${input//</&lt;}" 	#quotation
+		}
+
+	input="${input//©/&\#xA9;}" 	#copyright
+	input="${input//℗/&\#x2117;}" 	#sound recording copyright
+	input="${input//™/&\#x2122;}" 	#TM trademark
+
+	echo "$input"
+}
 
 #create a new post from template dir
 creatf()
@@ -232,10 +255,16 @@ creatf()
 	((LASTP>=0)) || { print "$SN: cannot get last post index -- $LASTP" >&2 ;return 1 ;}
 	postn=$((LASTP+1))  stamp1="$(date +%Y-%m-%d)"  stamp2="$(date +%d/%b/%Y)" || return 1
 
-	print "\nNote: use HTML entities for special characters such as <>&\"" >&2
 	title="$*" ;[[ -z "$title" ]] && { echo "Post TITLE:" >&2 ;vared -c title ;}
 	[[ -z "$desc" ]] && { echo "Post DESCRIPTION:" >&2 ;vared -c desc ;}
 	[[ -z "$keywords" ]] && { echo "Post KEYWORDS (use comma for multiple):" >&2 ;vared -c keywords ;}
+
+	#escape html entities
+	title="$(escf "$title")"  desc="$(escf "$desc")"  keywords="$(escf "$keywords")"
+	#escape special chars for sed
+	titlesed="${title//\//\\/}"  titlesed="${titlesed//&/\\&}"
+	descsed="${desc//\//\\/}"  descsed="${descsed//&/\\&}"
+	keywordssed="${keywords//\//\\/}"  keywordssed="${keywordssed//&/\\&}"
 
 	tgt="${templdir%/*/}" tgt="${tgt}/$postn"
 	read -q "?Write in \`\`markdown''? y/N: " && marktype=md  ;print
@@ -256,12 +285,12 @@ creatf()
 
 	#update post id, post #number and TITLE in in i.html
 	((OPTV)) && echo "$SN: update post id, #NUM, TITLE, DESCRIPTION and KEYWORDS -- $tgti" >&2
-	sed -i -E "s/(.*<h1.*)id=\"[0-9?]*\">#[^<]*/\1id=\"$postn\">#$postn${title+ - ${title//\//\\/}}/" "$tgti"
+	sed -i -E "s/(.*<h1.*)id=\"[0-9?]*\">#[^<]*/\1id=\"$postn\">#$postn $titlesed/" "$tgti"
 
 	[[ -n "$desc" ]] \
-		&& sed -i -E "/name=\"description/ s/(content=\")([^\"]*)/\1${desc//\//\\/}/" "$tgti"
+		&& sed -i -E "/name=\"description/ s/(content=\")([^\"]*)/\1$descsed/" "$tgti"
 	[[ -n "$keywords" ]] \
-		&& sed -i -E "/name=\"keywords/ s/(content=\")([^\"]*)/\1${keywords//\//\\/}/" "$tgti"
+		&& sed -i -E "/name=\"keywords/ s/(content=\")([^\"]*)/\1$keywordssed/" "$tgti"
 
 	#update date in i.html
 	((OPTV)) && echo "$SN: update time stamps -- $tgti" >&2
@@ -406,7 +435,7 @@ shift $(( OPTIND - 1 ))
 unset c
 
 #check for pkgs
-for pkg in tidy markdown
+for pkg in tidy markdown  #perl
 do
 	if ! command -v "$pkg" &>/dev/null
 	then

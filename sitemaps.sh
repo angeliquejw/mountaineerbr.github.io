@@ -1,6 +1,6 @@
 #!/bin/bash
 # sitemap.sh -- SITEMAP SYSTEM
-# v0.4.19  may/2021  by mountaineerbr
+# v0.4.20  may/2021  by mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -192,21 +192,21 @@ OPTIONS
 #functions
 
 #entity escaping
-#and change local path to site url
 escf()
 {
 	local input
 	input="$1"
 
-	#change local root to website root
-	input="${input/"$ROOT"/"$ROOTW"}"
-
 	#escape to entity names
-	input="${input//&/&amp;}" 	#ampersand
-	input="${input//\'/&apos;}"	#less-than
-	input="${input//\"/&quot;}"	#greater-than
-	input="${input//>/&gt;}" 	#apostrophe
-	input="${input//</&lt;}" 	#quotation
+
+	input="$( perl -e "use CGI qw(escapeHTML); print escapeHTML(\"$input\n\");" )" ||
+		{
+			input="${1//&/&amp;}" 	 	#ampersand
+			input="${input//\'/&apos;}"	#less-than
+			input="${input//\"/&quot;}"	#greater-than
+			input="${input//>/&gt;}" 	#apostrophe
+			input="${input//</&lt;}" 	#quotation
+		}
 
 	input="${input//©/&\#xA9;}" 	#copyright
 	input="${input//℗/&\#x2117;}" 	#sound recording copyright
@@ -362,8 +362,9 @@ do
 	((OPTV)) && eol='\n' || eol='\r'
 	printf "${eol}${CLR}>>>%4d/%4d  %s  " "$n" "$TOTAL" "$REPLY"  >&2
 
-	#escape urls
-	URL="$( escf "$REPLY" )"
+	#escape entities for urls
+	#change local root to website root
+	URL="$( escf "${REPLY/$ROOT/$ROOTW}" )"
 
 	#last modification date
 	if [[ -e "$REPLY" ]]

@@ -736,8 +736,8 @@ gaddr()
 #and sync to github
 WWW()
 {
-	cd "$HOME/www/mountaineerbr.github.io" || return
-	"$HOME/www/mountaineerbr.github.io/portal.sh" "$@" && gitup
+	cd "$HOME/www/bionota.github.io" || return
+	"$HOME/www/bionota.github.io/sync.sh" "$@" && gitup
 }
 WWR()
 {
@@ -746,7 +746,7 @@ WWR()
 }
 
 #creat blog entry
-#bloga() { ~/www/mountaineerbr.github.io/blog/blog.sh -a ;}
+bloga() { ~/www/bionota.github.io/blog.sh -a ;}
 
 #process audio for podcast (personal website)
 #fblog()
@@ -2474,6 +2474,9 @@ codepoint()
 		echo ""; # newline
 	fi;
 }
+
+#escape html entities
+#{ perl -e 'use CGI qw(escapeHTML); print escapeHTML("<hello>\n");' ;}
 
 #print a list of html entities
 htmlentities()
