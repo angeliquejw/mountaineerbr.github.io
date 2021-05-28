@@ -229,14 +229,12 @@ escf()
 
 	#escape to entity names
 
-	input="$( perl -e "use CGI qw(escapeHTML); print escapeHTML(\"$input\n\");" )" ||
-		{
-			input="${1//&/&amp;}" 	 	#ampersand
-			input="${input//\'/&apos;}"	#less-than
-			input="${input//\"/&quot;}"	#greater-than
-			input="${input//>/&gt;}" 	#apostrophe
-			input="${input//</&lt;}" 	#quotation
-		}
+	#input="$( perl -e "use CGI qw(escapeHTML); print escapeHTML(\"$input\n\");" )"
+	input="${input//&/&amp;}" 	#ampersand
+	input="${input//\'/&apos;}"	#less-than
+	input="${input//\"/&quot;}"	#greater-than
+	input="${input//>/&gt;}" 	#apostrophe
+	input="${input//</&lt;}" 	#quotation
 
 	input="${input//©/&\#xA9;}" 	#copyright
 	input="${input//℗/&\#x2117;}" 	#sound recording copyright
