@@ -152,7 +152,7 @@ There is no guarantee this analysis is sufficient.
 </p>
 
 <p>You can check the script with some functions to process the data
-at my <a href="../repo/scripts/corona_notifyBR.sh">sub repo</a>
+at my <a href="../../repo/scripts/corona_notifyBR.sh">sub repo</a>
 for covid test positivity studies.
 </p>
 

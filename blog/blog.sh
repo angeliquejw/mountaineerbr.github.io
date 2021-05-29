@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.18  may/2021  mountaineerbr
+# v0.6.19  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -31,9 +31,9 @@ RAWPOST_FNAME="i.html"
 
 #set targets
 #post titles
-TARGET_TITLES="$ROOTB/titles.txt" 		#this is the full postlist
-TARGET_TITLES_HOME="$ROOTB/titles.homepage.txt"	#this is the lastest 10 posts list
-TARGET_TITLES_PLAIN="$ROOTB/titles.plain.txt" 	#index table for own use
+TARGET_TITLES="$ROOTB/titles.ht" 		#this is the full postlist
+TARGET_TITLES_HOME="$ROOTB/titles.homepage.ht"	#this is the lastest 10 posts list
+TARGET_TITLES_PLAIN="$ROOTB/titles.txt" 	#index table for own use
 TARGET_TITLES_TEMP="${TARGET_TITLES}.new" 	#buffer
 #all posts
 TARGET_CAT="$ROOTB/cat.html"
@@ -539,8 +539,6 @@ do
 		
 		#get unwrapped content
 		unwrapped="$(unwrapf "$f")"
-		#obs: instead of using tidy to unwrap lines,
-		#obs: one could use xmllint and xPath or XQuery
 
 		#add title and meta tags to buffer file
 		sed -n '/<head>/,/<\/head>/ p' "$f" |
@@ -674,8 +672,8 @@ do
 	#grep the post title
 	#make the post title list item
 	t="${f%\/*}\/"
-	pname="$( grep -Fm1 '<h1' "$f" | sed "s|<h1|<a href=\"$t\"| ;s|</h1|</a|" )"
-	dtpub="$( grep -Fm1 '<time' "$f")"
+	pname="$(<<<"$unwrapped" grep -Fm1 '<h1' | sed "s|<h1|<a href=\"$t\"| ;s|</h1|</a|" )"
+	dtpub="$(<<<"$unwrapped" grep -Fm1 '<time')"
 
 	echo "<li>${dtpub} ${pname}</li>" >>"$TARGET_TITLES_TEMP"
 	#sed ';s|</time>|&<br>|'
