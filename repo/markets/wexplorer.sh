@@ -1,6 +1,6 @@
 #!/bin/zsh
 #walletexplorer.com wrapper
-# v0.2  by mountaineerbr
+# v0.2.1  by mountaineerbr
 
 HELP="walletexplorer.com wrapper
 usage: wexplorer a [address|walletid] [csv]
@@ -12,6 +12,8 @@ options:
 	t - check a transaction
 very slow api. w3m and gunzip are required.
 <https://www.walletexplorer.com>"
+
+SLEEP=1.6
 
 sedwidf()
 {
@@ -96,7 +98,7 @@ then
 	for n in $( seq 2 "$pagen" )
 	do
 		w3m -dump_source "https://www.walletexplorer.com/wallet/$wid${comp2}&page=${n}"
-		sleep 1
+		sleep $SLEEP
 	done
 
 	exit 0
@@ -136,7 +138,7 @@ then
 		export comp pagen
 
 		"$0" "$1" "$2" #|| break
-		sleep 1
+		sleep $SLEEP
 	done
 fi
 		

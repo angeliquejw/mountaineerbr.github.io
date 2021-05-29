@@ -220,6 +220,7 @@ mark b ~/bak
 mark c ~/arq/concursos
 mark d ~/arq/docs
 mark D ~/Documents
+mark e ~/www/bionota.github.io
 mark k ~/.config/conky/confs
 mark m ~/bin/markets
 mark M /media

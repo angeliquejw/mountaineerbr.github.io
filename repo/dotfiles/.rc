@@ -1039,6 +1039,7 @@ alias cdb='cd ~/bak'
 alias cdc='cd ~/arq/concursos'
 alias cdd='cd ~/arq/docs'
 alias cdD='cd ~/Documents'
+alias cde='cd ~/www/bionota.github.io/'
 alias cdm='cd ~/bin/markets'
 alias cdM='cd /media ;[[ -n "$(/bin/ls)" ]] || cd /run/media'
 alias cdq='cd ~/www/mountaineerbr.github.io/'
@@ -4109,6 +4110,20 @@ tmr() { (
 #format list in three columns
 #{ pr -aT3 ;}
 #{ paste - - - ;}
+
+#remove leading & trailing whitespace
+#space characters include: tab, newline, vertical tab, form feed, carriage return, and space.
+trim()
+{
+	local var="$*"
+	# remove leading whitespace characters
+	var="${var#"${var%%[![:space:]]*}"}"
+	# remove trailing whitespace characters
+	var="${var%"${var##*[![:space:]]}"}"   
+	printf '%s' "$var"
+}
+#compatible with all posix shells
+#https://web.archive.org/web/20121022051228/http://codesnippets.joyent.com/posts/show/1816
 
 #simple http server
 #Python 2
