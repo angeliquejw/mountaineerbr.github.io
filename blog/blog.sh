@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.14  may/2021  mountaineerbr
+# v0.6.17  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -27,8 +27,7 @@ TEMPLATE_CAT="$ROOTB/c.html"
 TEMPLATE_POSTDIR="$ROOTB/a"  #post directory template
 
 #raw postfile name
-RAWPOST_FNAME="i"
-#for i.html or i.md
+RAWPOST_FNAME="i.html"
 
 #set targets
 #post titles
@@ -71,13 +70,12 @@ DESCRIPTION
 	Option -a creates a new post from template directory, defaults
 	template dir=$TEMPLATE_POSTDIR .
 
-	Write text inside <ARTICLE> tags of ${RAWPOST_FNAME}.html or ${RAWPOST_FNAME}.md . In ${RAWPOST_FNAME}.md,
-	text will be pre-compiled into HTML with \`markdown' package.
+	Write text inside <ARTICLE> tags of $RAWPOST_FNAME .
 
 	UPPERCASE tags within <ARTICLE> will are not processed, so you
 	may use uppercase tags to write examples inside <PRE> tags, etc.
 
-	Tags <LINK> and <SCRIPT> in the head section of ${RAWPOST_FNAME}.html files
+	Tags <LINK> and <SCRIPT> in the head section of $RAWPOST_FNAME files
 	will be checked and added to cat.html head.
 
 	Keep java scripts in the /blog/js/ directory, so they can be
@@ -86,7 +84,7 @@ DESCRIPTION
 
 	The script will check for some errors and warnings. Some of the
 	warnings do not cause problems but may need or not be addressed
-	sometime in the future. Log file at ${LOGFILE} .
+	sometime in the future. Log file at $LOGFILE .
 
 	\`Tidy' corrects many errors and can format the markup in a defined
 	way to further processing. For example, writings tag descriptions
@@ -115,13 +113,13 @@ EXECUTING FUNCTIONS
 
 DIRECTORY AND FILE STRUCTURE
 	Blog post directories start with a number /[0-9]+ inside de blog
-	root directory. The post directory must hold an ${RAWPOST_FNAME}.html file, which
+	root directory. The post directory must hold an $RAWPOST_FNAME file, which
 	is a clone from the template directory $TEMPLATE_POSTDIR .
 	As mentioned, author should write raw post text inside <ARTICLE>
 	tags. 
 
-	${RAWPOST_FNAME}.html files are processed/compiled to generate index.html
-	files at the same directory as ${RAWPOST_FNAME}.html . Buffer files are 
+	$RAWPOST_FNAME files are processed/compiled to generate index.html
+	files at the same directory as $RAWPOST_FNAME . Buffer files are 
 	created with the right attributes and necessary href changes for
 	concatenation to $TARGET_CAT at a later stage.
 
@@ -176,9 +174,9 @@ OPTIONS
 	-f 	Force recompile post index.html files.
 	-h 	Help page.
 	-i 	Do not use tidy up generated pages.
-	-t 	Update mod time of ${RAWPOST_FNAME}.(html|md) and the new index.html
+	-t 	Update mod time of $RAWPOST_FNAME and the new index.html
 		with old timestamp; this avoids updating file timestamps.
-	-v 	Verbose mode, debug; log file=${LOGFILE} .
+	-v 	Verbose mode, debug; log file=$LOGFILE .
 	-V 	Script version."
 
 
@@ -246,7 +244,7 @@ escf()
 #create a new post from template dir
 creatf()
 {
-	local tgt tgti postn stamp1 stamp2 var title templdir desc keywords marktype REPLY
+	local tgt tgti postn stamp1 stamp2 var title templdir desc keywords REPLY
 	templdir="$TEMPLATE_POSTDIR" templdir="${templdir%/}/"
 	[[ -d "$templdir" ]] || { print "$SN: template dir not found -- $templdir" >&2 ;return 1 ;}
 	[[ -z "$LASTP" ]] && LASTP=0
@@ -265,8 +263,7 @@ creatf()
 	keywordssed="${keywords//\//\\/}"  keywordssed="${keywordssed//&/\\&}"
 
 	tgt="${templdir%/*/}" tgt="${tgt}/$postn"
-	read -q "?Write in \`\`markdown''? y/N: " && marktype=md  ;print
-	tgti="${tgt}/${RAWPOST_FNAME}.${marktype:-html}"
+	tgti="${tgt}/$RAWPOST_FNAME"
 
 	#check all required vars are set
 	for var in postn tgt tgti stamp1 stamp2
@@ -275,11 +272,6 @@ creatf()
 
 	#copy template and rename new directory with post number
 	cp -vr "$templdir" "$tgt"
-	#is markdown? change extension from raw post template from .html to .md
-	[[ "$marktype" = md && -e "${tgti%.md}.html" ]] && {
-		mv -- "${tgti%.md}.html" "$tgti"
-		sed -i 's|<!-- MAIN TEXT.*|&\n<!-- MARKDOWN -->|' "$tgti"
-	}
 
 	#update post id, post #number and TITLE in in i.html
 	((OPTV)) && echo "$SN: update post id, #NUM, TITLE, DESCRIPTION and KEYWORDS -- $tgti" >&2
@@ -317,6 +309,17 @@ rmimpf()
 		-e 's|[^/]+/\.\./|| ;s|^\./|| ;s|/\./|/|' \
 		-e 's|[^/]+/\.\./|| ;s|^\./|| ;s|/\./|/|' \
 		<<<"$*"
+}
+
+#use xmllint to extract data
+xmllintf()
+{
+    xmllint \
+        --nowarning \
+        --html \
+        --noblanks \
+        --xpath \
+        "$@"  2>/dev/null
 }
 
 #unwrap html lines
@@ -433,12 +436,11 @@ shift $(( OPTIND - 1 ))
 unset c
 
 #check for pkgs
-for pkg in tidy markdown
+for pkg in tidy
 do
 	if ! command -v "$pkg" &>/dev/null
 	then
 		echo "$SN: err: package missing -- $pkg" >&2
-		[[ "$pkg" = markdown ]] || exit 1
 	fi
 done
 unset pkg
@@ -482,12 +484,11 @@ echo "$SN: generate an array with raw post paths.." >&2
 #make an array with raw post filepaths
 typeset -a POSTFILES
 IFS="${IFS# }"
-POSTFILES=( $( printf '%s\n' [0-9]*/"$RAWPOST_FNAME".(html|md) | sort -nr ) )
+POSTFILES=( $( printf '%s\n' [0-9]*/"$RAWPOST_FNAME" | sort -nr ) )
 IFS=$' \t\n'
-#BASH# use: "$RAWPOST_FNAME".@(html|md)
 
-echo "$SN: compile index.html files for individual posts.." >&2
-#set vars
+
+#set some vars
 LASTP="${POSTFILES[0]%/*}" 	#last post number
 LASTP="$( basename "$LASTP" )"  #last post number
 n="$LASTP" 			#post counter (starts from last post number)
@@ -503,16 +504,17 @@ fi
 #check directory array is not empty
 (( ${#POSTFILES[@]} )) || exit 1
 
+echo "$SN: compile index.html files for individual posts.." >&2
 for f in "${POSTFILES[@]}"
 do
 	#PART ONE
 	#make post html pages from templates
 	#set post index.html path
-	targetpost="${f/$RAWPOST_FNAME.(html|md)/index.html}"
+	targetpost="${f/$RAWPOST_FNAME/index.html}"
 	#partial/buffer file
-	TEMP_TARGETPOST="${f/$RAWPOST_FNAME.(html|md)/.index.html.part}"
+	TEMP_TARGETPOST="${f/$RAWPOST_FNAME/.index.html.part}"
 	#cat.html-specific
-	TEMP_TARGETCAT="${f/$RAWPOST_FNAME.(html|md)/.index.html.cat}"
+	TEMP_TARGETCAT="${f/$RAWPOST_FNAME/.index.html.cat}"
 
 	#array with buffer files for cat.html
 	CATFILES+=( "$TEMP_TARGETCAT" )
@@ -534,17 +536,11 @@ do
 		#feedback
 		((OPTV)) && eol='\n' || eol='\r'
 		printf "${eol}${CLR}>>>%3d/%3d  %s " "$n" "${#POSTFILES[@]}" "$f" >&2
-
-		#get unwrapped content
-		#if raw text is mardown
-		if [[ "$f" = *.md ]]
-		then
-			fbufferhtml="${f/.md}.buffer.html"
-			markdown "$f">"$fbufferhtml"
-		fi
 		
-		#raw text is markup
-		unwrapped="$(unwrapf "${fbufferhtml:-$f}")"
+		#get unwrapped content
+		unwrapped="$(unwrapf "$f")"
+		#obs: instead of using tidy to unwrap lines,
+		#obs: one could use xmllint and xPath or XQuery
 
 		#add title and meta tags to buffer file
 		sed -n '/<head>/,/<\/head>/ p' "$f" |
@@ -558,22 +554,16 @@ do
 			"$TEMP_TARGETPOST" <<<"$canonical"
 
 		#make and entry title tag from article>header>h1+time
-		title="$(<<<"$unwrapped" sed -nE '/<header>/,/<\/header>/ s|.*h1[^>]*>([^<]*)<.*|\1| p')"
+		title="$(<<<"$unwrapped" sed -nE '/<header>/,/<\/header>/ s|.*<h1[^>]*>([^<]*)<.*|\1| p')"
 		time="$(<<<"$unwrapped" sed -nE '/<header>/,/<\/header>/ s|.*<time[^>]*>([^<]*)<.*|\1| p')"
 		sed -i '/<!-- metatags -->/ r /dev/stdin' \
 			"$TEMP_TARGETPOST" <<<"<title>$time $title</title>"
 
 		#add article and create final html page
-		sed -n '/<article/,/<\/article>/ p' "${fbufferhtml:-$f}" |
+		sed -n '/<article/,/<\/article>/ p' "$f" |
 			sed '/<!-- article -->/ r /dev/stdin' \
 			"$TEMP_TARGETPOST" >"$targetpost"
 		#https://stackoverflow.com/questions/46423572/append-a-file-in-the-middle-of-another-file-in-bash
-
-		#remove temp html file generated from md
-		[[ -e "$fbufferhtml" ]] && {
-			rm -- "$fbufferhtml"
-			unset fbufferhtml
-		}
 
 		#add navigation items
 		(( n == ${#POSTFILES[@]} )) ||
