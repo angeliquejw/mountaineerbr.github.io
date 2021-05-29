@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.17  may/2021  mountaineerbr
+# v0.6.18  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -70,7 +70,7 @@ DESCRIPTION
 	Option -a creates a new post from template directory, defaults
 	template dir=$TEMPLATE_POSTDIR .
 
-	Write text inside <ARTICLE> tags of $RAWPOST_FNAME .
+	Author should write HTML text inside <ARTICLE> tags of $RAWPOST_FNAME .
 
 	UPPERCASE tags within <ARTICLE> will are not processed, so you
 	may use uppercase tags to write examples inside <PRE> tags, etc.
