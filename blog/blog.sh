@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.19  may/2021  mountaineerbr
+# v0.6.20  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -672,8 +672,8 @@ do
 	#grep the post title
 	#make the post title list item
 	t="${f%\/*}\/"
-	pname="$(<<<"$unwrapped" grep -Fm1 '<h1' | sed "s|<h1|<a href=\"$t\"| ;s|</h1|</a|" )"
-	dtpub="$(<<<"$unwrapped" grep -Fm1 '<time')"
+	pname="$(<<<"$unwrapped" grep -Fm1 '<h1' | sed "s|.*<h1|<a href=\"$t\"| ;s|</h1>.*|</a>|" )"
+	dtpub="$(<<<"$unwrapped" grep -Fm1 '<time' | sed -nE 's/.*(<time.*<\/time>).*/\1/p')"
 
 	echo "<li>${dtpub} ${pname}</li>" >>"$TARGET_TITLES_TEMP"
 	#sed ';s|</time>|&<br>|'
