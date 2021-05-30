@@ -16,7 +16,8 @@ __diffcp.sh__ | Copy files from SOURCE dir to $PWD when they differ (uses `diff`
 __faster_sh.txt__ | Tips for improving script performances, specific for some use cases, text document
 __firefox.sh__ | Set opengl environment vars and launch firefox with pvkrun or primusrun
 __grep.sh__ |  Grep files with shell built-ins
-__inmet.sh__ | Download satellite images from Brazilian National Institute of Meteorology
+__inmet.sh__ | Download satellite images from Brazilian Instituto Nacional de Meteorologia
+__ipmet.sh__ | Download radar images from Brazilian Instituto de Pesquisas Meteorológicas (UNESP)
 __skel.sh__ | My skel script and tips
 __ug.sh__ | Light version of `urlgrep.sh', almost as a proof-of-concept but more generous.
 __urlgrep.sh__ | Grep full-text content from a URL list; useful for searching web history and bookmarks
@@ -56,11 +57,11 @@ seems quite feasible for personal use.
 
 SCRIPT NAME | DESCRIPTION
 :-------------|:-----------
-__bitcoin.blk.sh__ | bitcoin block information and functions
-__bitcoin.hx.sh__ | create base58 address types from public key and WIF from private keys
-__bitcoin.tx.sh__ |  parse transactions by hash or transaction json data
-__blockchair.btcoutputs.sh__ |  download blockchair output dump files systematically, see also [this repo](https://github.com/mountaineerbr/bitcoin-all-addresses)
-__zzz.bitcoin.parsedTxs..__ | example of parsed transactions from block 638200
+__bitcoin.blk.sh__ | Bitcoin block information and functions
+__bitcoin.hx.sh__ | Create base58 address types from public key and WIF from private keys
+__bitcoin.tx.sh__ |  Parse transactions by hash or transaction json data
+__blockchair.btcoutputs.sh__ |  Download blockchair output dump files systematically, see also [this repo](https://github.com/mountaineerbr/bitcoin-all-addresses)
+__zzz.bitcoin.parsedTxs..__ | Example of parsed transactions from block 638200
 
 ---
 
