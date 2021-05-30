@@ -737,16 +737,16 @@ gaddr()
 WWW()
 {
 	cd "$HOME/www/bionota.github.io" || return
-	"$HOME/www/bionota.github.io/sync.sh" "$@" && gitup
+	"$HOME/www/bionota.github.io/portal.sh" "$@" && gitup
 }
-WWR()
-{
-	cd "$HOME/www/mountaineerbr.github.io/repo" || return
-	./sync.sh "$@" && gitup
-}
+#WWR()
+#{
+#	cd "$HOME/www/mountaineerbr.github.io/repo" || return
+#	./sync.sh "$@" && gitup
+#}
 
 #creat blog entry
-bloga() { ~/www/bionota.github.io/blog.sh -a ;}
+bloga() { ~/www/bionota.github.io/blog.sh -a "$@" ;}
 
 #process audio for podcast (personal website)
 #fblog()
@@ -2097,55 +2097,6 @@ urldecode()
 #{ primusrun /usr/lib/firefox/firefox ;}
 #primus_vk
 #'nvidia-smi' to check gpu load
-
-#imagem de radar ipmet
-#https://www.ipmetradar.com.br/2imagemRadar.php
-ipmet()
-{
-	local baseurl referer data name imgviewer info time tempdir tempfile
-
-	imgviewer=( feh )
-	tempdir=/tmp/ipmet_radar
-	baseurl=https://www.ipmetradar.com.br/ipmet_html/radar
-	referer=Referer:https://www.ipmetradar.com.br/2imagemRadar.php
-
-	#create dir if it does not exist
-	[[ -d "$tempdir" ]] || mkdir -pv "$tempdir" || return
-
-	data="$( curl "$baseurl/2carga_img.php" --compressed )"
-	name="$( sed -nE 's/.*(nova.jpg\?[0-9]+).*/\1/p' <<<"$data" )"
-	info="$( sed -nE 's/.*(Imagem Composta dos Radares.*)<.*/\1/p' <<<"$data" )"
-	time="$( grep -Eo '[0-9]+/[0-9]+/[0-9: ]+$' <<<"$info" )"
-	tempfile="$tempdir/ipmet_${time//[\/\ ]/_}.jpg"
-
-	#if file does not exist already
-	#download new image to file
-	if [[ ! -f "$tempfile" ]]
-	then curl "$baseurl/$name" --compressed -H "$referer" -o "$tempfile"
-	fi
-
-	#are we calling from the ``ipmetloop'' function?
-	#record pid, else open image with feh
-	if (( loopf ))
-	then echo -e "pid:\t$$\t$(date -Isec)" >> "$tempdir/loop_pids.txt"
-	else ( "${imgviewer[@]}" "$tempfile" & )
-	fi
-
-	cat <<-!
-
-	$info
-	tempfile at -- $tempfile
-	!
-}
-#loop ipmet
-#send to bg if needed
-ipmetloop()
-{
-	local loopf
-	while true
-	do loopf=1 ipmet ;sleep 6m
-	done
-}
 
 #weather forecast
 #requires the script 'ansiweather'

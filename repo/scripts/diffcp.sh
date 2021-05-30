@@ -1,6 +1,6 @@
 #!/bin/zsh
 # copy files from SOURCE to $PWD when they differ
-# v0.3.7  may/2021  by mountaineerbr
+# v0.3.8  may/2021  by mountaineerbr
 
 #script name
 SN="${0##*/}"
@@ -68,11 +68,13 @@ shift $((OPTIND - 1))
 
 #check $1 (SOURCE_DIR) is a directory
 SOURCE="$1"
+SOURCE="${SOURCE%/}"
 
 #target directory
 #defaults to $PWD
 #TARGET="${TARGET:-$PWD}"
 TARGET="$PWD"
+TARGET="${TARGET%/}"
 
 
 [[ -d "$SOURCE" ]] || {
