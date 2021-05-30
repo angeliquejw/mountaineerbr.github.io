@@ -11,6 +11,10 @@ TEMPDIR=/tmp/ipmet_radar
 #tempo entre conexões
 SLEEP=6m
 
+#keep track of process
+PIDFILE="${TEMPDIR%/}/ipmet.pid"
+#defaults=/tmp/ipmet_radar/ipmet.pid
+
 #url parameters
 BASEURL=https://www.ipmetradar.com.br/ipmet_html/radar
 REFERER=Referer:https://www.ipmetradar.com.br/2imagemRadar.php
@@ -28,7 +32,7 @@ cache: $TEMPDIR"
 #https://www.ipmetradar.com.br/2imagemRadar.php
 ipmetf()
 {
-	local data name info time
+	local data name info time ret
 
 	#create dir if it does not exist
 	[[ -d "$TEMPDIR" ]] || mkdir -pv "$TEMPDIR" || return
@@ -42,11 +46,13 @@ ipmetf()
 	#if file does not exist already
 	#download new image to file
 	if [[ ! -e "$TEMPFILE" ]]
-	then curl -L --compressed --header "$REFERER" "$BASEURL/$name" -o "$TEMPFILE"
+	then curl -L --compressed --header "$REFERER" "$BASEURL/$name" -o "$TEMPFILE" ;ret=$?
 	fi
 
 	echo "$info"
 	echo "$TEMPFILE"
+
+	return ${ret:-0}
 }
 
 #trap function
@@ -74,12 +80,11 @@ unset c
 if ((OPTLOOP))
 then
 	trap trapf INT TERM
-	echo -e "pid:\t$$\t$(date -Isec)" | tee -a "${TEMPDIR%/}/loop_pids.txt"
+	<<<"$$" tee "$pidfile"
 	while true
-	do ipmetf ;sleep $SLEEP
+	do ipmetf || break ;sleep $SLEEP
 	done
 else
-	ipmetf
-	( "${IMGVIEWER[@]}" "$TEMPFILE" & )
+	ipmetf && ( "${IMGVIEWER[@]}" "$TEMPFILE" & )
 fi
 
