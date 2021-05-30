@@ -1,15 +1,16 @@
 #!/bin/bash
+# v0.3.1
 # imagens de radar do ipmet
-#Instituto de Pesquisas Meteorológicas (UNESP)
+# Instituto de Pesquisas Meteorológicas (UNESP)
 
 #image viewer
 IMGVIEWER=( feh )
 
-#temp dir
-TEMPDIR=/tmp/ipmet_radar
-
 #tempo entre conexões
 SLEEP=6m
+
+#temp dir
+TEMPDIR=/tmp/ipmet_radar
 
 #keep track of process
 PIDFILE="${TEMPDIR%/}/ipmet.pid"
@@ -80,7 +81,7 @@ unset c
 if ((OPTLOOP))
 then
 	trap trapf INT TERM
-	<<<"$$" tee "$pidfile"
+	<<<"$$" tee "$PIDFILE"
 	while true
 	do ipmetf || break ;sleep $SLEEP
 	done
