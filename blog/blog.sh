@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.24  may/2021  mountaineerbr
+# v0.6.23  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -489,7 +489,7 @@ echo "$SN: generate an array with raw post paths.." >&2
 typeset -a POSTFILES
 IFS="${IFS# }"
 POSTFILES=( $( printf '%s\n' [0-9]*/"$RAWPOST_FNAME" | sort -nr ) )
-IFS="$' \t\n'"
+IFS=$' \t\n'
 
 
 #set some vars
