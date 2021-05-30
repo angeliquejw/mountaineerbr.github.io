@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.21  may/2021  mountaineerbr
+# v0.6.22  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -672,13 +672,11 @@ do
 	#make the post title list item
 	t="${f%\/*}\/"
 	pname="$(
-		{ [[ -n "$unwrapped" ]] && echo "$unwrapped" || unwrapf "$f" ;} |
-		grep -Fm1 '<h1' |
+		<<<"${unwrapped:-"$(unwrapf "$f")"}" grep -Fm1 '<h1' |
 		sed "s|.*<h1|<a href=\"$t\"| ;s|</h1>.*|</a>|"
 	)"
 	dtpub="$(
-		{ [[ -n "$unwrapped" ]] && echo "$unwrapped" || unwrapf "$f" ;} |
-		grep -Fm1 '<time' |
+		<<<"${unwrapped:-"$(unwrapf "$f")"}" grep -Fm1 '<time' |
 		sed -nE 's/.*(<time.*<\/time>).*/\1/p'
 	)"
 
