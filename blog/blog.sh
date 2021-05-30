@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.20  may/2021  mountaineerbr
+# v0.6.21  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -49,6 +49,10 @@ OPTI=1
 #log file
 LOGFILE="$ROOTB/$SN.log.txt"
 TIDY_ERRFILE="$ROOTB/$SN.log.tidy.txt"
+
+#tags for part three
+TAGPZ='<!-- postlist -->'
+TAGPX='<!-- postlistX -->'
 
 #clear everything on the line
 CLR='\033[2K'
@@ -536,7 +540,7 @@ do
 		#feedback
 		((OPTV)) && eol='\n' || eol='\r'
 		printf "${eol}${CLR}>>>%3d/%3d  %s " "$n" "${#POSTFILES[@]}" "$f" >&2
-		
+
 		#get unwrapped content
 		unwrapped="$(unwrapf "$f")"
 
@@ -570,7 +574,6 @@ do
 			prev="<a class=\"w3-bar-item w3-right\" href=\"../$((n-1))/\">Previous</a>"
 
 		sed -i "s|<!-- navitem -->|&\n${next}\n${prev}|" "$targetpost"
-		unset next prev
 
 
 		#check all required vars are set
@@ -593,7 +596,6 @@ do
 
 			!
 		fi
-		unset p q
 
 		#get rid of some comments
 		sed -i '/^\s*<!--\s*#.*-->/ d' "$targetpost"
@@ -666,14 +668,19 @@ do
 	#make a post title list
 	#the resulting file can be used by other scripts
 	#depends on part one
-	TAGPZ='<!-- postlist -->'
-	TAGPX='<!-- postlistX -->'
 
-	#grep the post title
 	#make the post title list item
 	t="${f%\/*}\/"
-	pname="$(<<<"$unwrapped" grep -Fm1 '<h1' | sed "s|.*<h1|<a href=\"$t\"| ;s|</h1>.*|</a>|" )"
-	dtpub="$(<<<"$unwrapped" grep -Fm1 '<time' | sed -nE 's/.*(<time.*<\/time>).*/\1/p')"
+	pname="$(
+		{ [[ -n "$unwrapped" ]] && echo "$unwrapped" || unwrapf "$f" ;} |
+		grep -Fm1 '<h1' |
+		sed "s|.*<h1|<a href=\"$t\"| ;s|</h1>.*|</a>|"
+	)"
+	dtpub="$(
+		{ [[ -n "$unwrapped" ]] && echo "$unwrapped" || unwrapf "$f" ;} |
+		grep -Fm1 '<time' |
+		sed -nE 's/.*(<time.*<\/time>).*/\1/p'
+	)"
 
 	echo "<li>${dtpub} ${pname}</li>" >>"$TARGET_TITLES_TEMP"
 	#sed ';s|</time>|&<br>|'
@@ -681,12 +688,14 @@ do
 	#counter
 	((--n)) || true
 
+	#keep environment clean
+	unset f l p q t
+	unset targetpost stamp1 stamp2 unwrapped canonical title time next prev pname dtpub navitem var
+	unset TEMP_TARGETPOST TEMP_TARGETCAT SRCCHANGE SRC REPLY
 done
 echo >&2
 #keep environment clean
-unset canonical dtpub linerefs targetpost next prev pname stamp1 stamp2 navitem unwrapped var
-unset TEMP_TARGETPOST TEMP_TARGETCAT REPLY SRCCHANGE SRC PRE LASTP
-unset f l m n p q r rr t
+unset m n
 
 
 #PART THREE (REMAINING..)
