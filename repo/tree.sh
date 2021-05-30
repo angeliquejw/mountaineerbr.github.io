@@ -1,5 +1,5 @@
 #!/bin/zsh
-# v0.3.8  may/2021  mountaineerbr
+# v0.3.9  may/2021  mountaineerbr
 # Create pages for exploring directories and files
 # Requires `markdown' and `txt2html'.
 # <https://archlinux.org/packages/extra/x86_64/discount/>
@@ -53,7 +53,9 @@ treef()
 		-C \
 		--charset utf-8 \
 		-I 'index.html|cksum.d|mktar.sh|tree.sh|sync.sh' \
+		| sed -e 's/.*<p class="VERSION">.*/<!-- NOTICE -->\n&/' \
 		| sed -E \
+			-e '/<p class="VERSION">/,/<\/p>/ d' \
 			-e 's/<h1/<h2/g ;s/<\/h1/<\/h2/g' \
 			-e 's|<a class="NORM" href=".">|<a class="NORM" href="..">..</a><br>\n&|' \
 			-e "s|\.($ext)<|.\1(📦)<|I" \
@@ -110,10 +112,10 @@ treef()
 	.hidden  { background-color: azure;}
 	'
 	#notes
-	notes='To download all files from a directory, try:
-	<!-- wget -r --no-parent --reject "index.html*" [URL]/ -->
+	notes='<p>To download all files from a directory, try:
+	<!-- wget -r -np -R "index.html*" [URL]/ -->
 	<code>wget -r -np [URL]/</code><br>
-	That is a shame GitHub limits file size to 100MB.<hr>
+	That is a shame GitHub limits file size to 100MB.</p><hr>
 	'
 	
 	#add meta tags
@@ -121,7 +123,7 @@ treef()
 	#add extra styles
 	sed -i '/<style.*/ r /dev/stdin' "$out" <<<"$xtrastyles"
 	#inject notes
-	sed -i '/<p class="VERSION"/ r /dev/stdin' "$out" <<<"$notes"
+	sed -i '/<!-- NOTICE -->/ r /dev/stdin' "$out" <<<"$notes"
 
 }
 
