@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.22  may/2021  mountaineerbr
+# v0.6.23  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -528,8 +528,8 @@ do
 	#MUST KEEP BUFFER FILES FOR CAT.HTML AT CLEAN UP..
 	if
 		#get post i.html and index.html modification timestamps
-		stamp1=( $( stat --printf='%Y\n' "$f") )  #i.html
-		[[ -f "$targetpost" ]] && stamp2=( $( stat --printf='%Y\n' "$targetpost") ) #old index.html
+		stamp1="$(stat --printf='%Y\n' "$f")"  #i.html
+		[[ -f "$targetpost" ]] && stamp2="$(stat --printf='%Y\n' "$targetpost")" #old index.html
 
 		((OPTF)) || 			#option -f
 		[[ ! -f "$TEMP_TARGETCAT" ]] || #no buffer for cat.html
