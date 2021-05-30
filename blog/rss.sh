@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=sh
 # rss.sh -- BLOG RSS FEED SYSTEM
-# v0.3.13  may/2021  mountaineerbr
+# v0.3.14  may/2021  mountaineerbr
 #                       |        _)                  |        
 #   ` \   _ \ |  |   \   _|  _` | |   \   -_)  -_)  _|_ \  _| 
 # _|_|_|\___/\_,_|_| _|\__|\__,_|_|_| _|\___|\___|_|_.__/_|   
@@ -34,6 +34,15 @@ TEMP_TARGET_FEED="${TARGET_FEED}.tmp"
 TEMPLATE_FEED_ALT="$ROOTB/r_alt.xml"
 TARGET_FEED_ALT="$ROOTB/rss_alt.xml"
 TEMP_TARGET_FEED_ALT="${TARGET_FEED}_alt.tmp"
+
+#default author
+DEFAUTH=mountaineerbr
+
+#default category
+DEFCAT=science
+
+#default language
+DEFLANG=en
 
 #clear everything on the line
 CLR='\033[2K'
@@ -335,7 +344,7 @@ do
 
 	#post language
 	lang="$( <<<"$unwrapped" sed -nE "s|<article\s*lang=\"([^\"]*)\".*|\1| p" )"
-	lang="${lang:-en}"
+	lang="${lang:-$DEFLANG}"
 
 	#unique identifier
 	#can be a permalink or a 16 byte string
@@ -350,7 +359,7 @@ do
 	catg="${catg// ,/,}"
 	catg="${catg//,//}"
 	catg="$( escf "$catg" )"
-	catg="${catg:-science}"
+	catg="${catg:-$DEFCAT}"
 
 	#descriptions
 	#MAIN FEED
@@ -470,13 +479,13 @@ do
 	xmlstarlet ed -L  \
 		-a "//generator" -t elem -n item -v ""  \
 		-s "//item[1]" -t elem -n title -v "${pname:-$unavailablerep}" \
-		-s "//item[1]/title" -t attr -n xml:lang -v "${lang:-en}" \
+		-s "//item[1]/title" -t attr -n xml:lang -v "${lang:-$DEFLANG}" \
 		-s "//item[1]" -t elem -n pubDate -v "${DTPUB:-$unavailable}" \
 		-s "//item[1]" -t elem -n description -v "${desc:-$unavailablerep}" \
 		-s "//item[1]" -t elem -n link -v "${link:-$ROOTBW}" \
-		-s "//item[1]" -t elem -n dc:language -v "${lang:-en}" \
+		-s "//item[1]" -t elem -n dc:language -v "${lang:-$DEFLANG}" \
 		-s "//item[1]" -t elem -n category -v "${catg:-$unavailable}" \
-		-s "//item[1]" -t elem -n author -v "${auth:-mountaineerbr}" \
+		-s "//item[1]" -t elem -n author -v "${auth:-$DEFAUTH}" \
 		-s "//item[1]" -t elem -n guid -v "${guid:-$unavailable}" \
 		-a "//item[1]/guid" -t attr -n isPermaLink -v false \
 		"$TEMP_TARGET_FEED"
@@ -495,12 +504,12 @@ do
 	#ALTERNATIVE FEED
 	#use shell tools for complex RSS document
 	itemalt="	<item>
-		<title xml:lang=\"${lang:-en}\">${pname:-$unavailablerep}</title>
+		<title xml:lang=\"${lang:-$DEFLANG}\">${pname:-$unavailablerep}</title>
 		<pubDate>${DTPUB:-$unavailable}</pubDate>
 		<link>${link:-$ROOTBW}</link>
-		<dc:language>${lang:-en}</dc:language>
+		<dc:language>${lang:-$DEFLANG}</dc:language>
 		<category>${catg:-$unavailable}</category>
-		<author>${auth:-mountaineerbr}</author>
+		<author>${auth:-$DEFAUTH}</author>
 		<guid isPermaLink=\"false\">${guidalt:-$unavailable}</guid>
 		<description><![CDATA[ ${descalt:-$unavailablerep} ]]></description>
 	</item>"
