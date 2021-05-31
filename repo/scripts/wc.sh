@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # wc.sh  --  print line, word and character count
-# v0.5  may/2021  by mountaineerbr
+# v0.5.1  may/2021  by mountaineerbr
 
 #defaults
 #script name
@@ -90,10 +90,7 @@ echoresulthelperf()
 #print results
 printresultf()
 {
-	local p
-
-	p="$(printf "$fmtstring" "${results[@]}" "${FILE%/dev/stdin}")"
-	echo "${p% }"
+	printf "$fmtstring" "${results[@]}" "${FILE%/dev/stdin}"
 }
 
 saveresultf()
@@ -119,7 +116,12 @@ saveresultf()
 	for ((f=1 ;f<(fields+1) ;++f))  #one more field for filename
 	do fmtstring="${fmtstring}${strdecimal}"
 	done
-	fmtstring="${fmtstring}%s\n"
+
+	#add filename field (/dev/stdin fix)
+	if ((FILENUM))
+	then fmtstring="${fmtstring}%s\n"
+	else fmtstring="${fmtstring% }%s\n"
+	fi
 
 	#save partially formatted result for printing later
 	if [[ -n "$resultsall" ]]
