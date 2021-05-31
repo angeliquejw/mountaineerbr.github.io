@@ -13,7 +13,7 @@
 2987631255 2376 scripts/diffcp.sh
 2106267865 9452 scripts/faster_sh.txt
 3023162980 2432 scripts/firefox.sh
-3064035916 21303 scripts/grep.sh
+3730906151 21248 scripts/grep.sh
 1362369996 1856 scripts/inmet.sh
 2294414358 1995 scripts/ipmet.sh
 2501997530 35149 scripts/LICENSE.txt
@@ -21,5 +21,5 @@
 1963591902 2799 scripts/skel.sh
 130847352 2675 scripts/ug.sh
 1092935750 22442 scripts/urlgrep.sh
-3332902285 9943 scripts/wc.sh
+3838357133 9510 scripts/wc.sh
 2538982636 23824 scripts/zzz.bitcoin.parsedTxs.blk638200.txt

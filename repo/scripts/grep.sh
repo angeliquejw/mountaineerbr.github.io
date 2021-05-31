@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # grep.sh  --  grep with shell built-ins
-# v0.3.6  may/2021  by mountaineerbr
+# v0.3.7  may/2021  by mountaineerbr
 
 #defaults
 #script name
@@ -60,9 +60,8 @@ DESCRIPTION
 	expressions. This option requires zsh/pcre module.
 
 	This script uses shell builtins only and is compatible with bash
-	and zsh. There may be differences between interpreter results.
-	It is not supposed to compete with Grep, it is rather a tool
-	for studying Shell functions.
+	and zsh. It is not supposed to compete with Grep, it is rather a
+	tool for studying Shell functions.
 
 
 REGULAR EXPRESSIONS

@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # wc.sh  --  print line, word and character count
-# v0.4.13  may/2021  by mountaineerbr
+# v0.5  may/2021  by mountaineerbr
 
 #defaults
 #script name
@@ -25,9 +25,14 @@ SYNOPSIS
 	ignored.
 	
 	This script uses shell builtins only and is compatible with bash
-	and zsh. There may be differences between interpreter results.
-	It is not supposed to compete with Wc, it is rather a tool for
-	studying Shell functions.
+	and zsh.
+
+	GNU wc, AST wc and Busybox wc perform word counting differently.
+	This script run with Bash or Zsh count words more similarly to
+	GNU and AST wc implementations.
+
+	This script is not supposed to compete with Wc, it is rather a
+	tool for studying Shell functions.
 
 
 ENVIRONMENT VARIABLES
@@ -36,6 +41,10 @@ ENVIRONMENT VARIABLES
 
 
 SEE ALSO
+	Remove leading & trailing whitespace from a Bash variable
+	<https://web.archive.org/web/20121022051228/http://codesnippets.joyent.com/posts/show/1816>
+
+
 	WHEELER, Fixing Unix/Linux/POSIX Filenames: Control Characters
 	(such as Newline), Leading Dashes, and Other Problems
 	<https://dwheeler.com/essays/fixing-unix-linux-filenames.html>	
@@ -53,14 +62,10 @@ WARRANTY
 
 
 BUGS
-	There may be count differences for some files when compared
-	to GNU wc, mostly files with binary data.
+	There may be count differences for some files when compared to
+	other wc implementations, mostly files with binary or invalid
+	data.
 	
-	Expect Bash and Zsh to perform differently.
-
-	While not a true bug, counting words is the slowest function
-	which may be improved in the future.
-
 
 OPTIONS
 	-c 	   Count bytes.
@@ -161,7 +166,7 @@ mainmaxf()
 #count file attributes
 mainf()
 {
-	local buffer w nl
+	local buffer m w nl
 		
 	#read file to stdin
 	exec 0< "$1"
@@ -183,41 +188,21 @@ mainf()
 
 		#count words
 		(( OPTW )) && {
-			#change $LANG $LC_ALL to user original (zsh)
-			(( ZSH_VERSION )) && LANG="$ORIGLANG" LC_ALL="$ORIGLCAL"
-	
-			#remove non-breaking spaces
-			#and carriage returns
+			#break at spaces and non-breaking spaces
+			IFS=$' \t\r\n\v\f'  w=( $buffer )  IFS=$' \t\n'
 
-			#experimental, fast but not as accurate
-			#IFS=$' \t\n\f\r'  w=( $buffer )  IFS=$' \t\n'
-
-			#break one space type at a time, very slow
-			w=( ${buffer//$'\u00a0'/ } ) 	#nbsp
-			w=( ${w[*]//$'\u2007'/ } ) 	#figure space
-			w=( ${w[*]//$'\u202f'/ } ) 	#narrow nbsp
-			w=( ${w[*]//$'\u2060'/ } ) 	#word joiner
-			w=( ${w[*]//$'\u2009'/ } ) 	#thin space
-			#w=( ${w[*]//$'\u2002'/ } ) 	#en space
-			#w=( ${w[*]//$'\u2003'/ } ) 	#em space
-			w=( ${w[*]//$'\f'/ } ) 		#page feed ^L
-			w=( ${w[*]//$'\r'/ } ) 		#carriage return
 			(( words = words + ${#w[@]} ))
 		}
 
 		#count characters
 		(( OPTM )) && {
-			#change $LANG $LC_ALL to user original (bash zsh)
-			(( OPTW && ZSH_VERSION )) || LANG="$ORIGLANG" LC_ALL="$ORIGLCAL"
-			
-			(( chars = chars + ${#buffer} ))
+			#set $LANG $LC_ALL to user original
+			#revert $LANG $LC_ALL to C (faster)
+			LANG="$ORIGLANG" LC_ALL="$ORIGLC_ALL"  m=${#buffer}  LANG=C LC_ALL=C
+
+			(( chars = chars + m + nl ))
 		}
 
-
-		#revert $LANG $LC_ALL
-		if (( ( OPTW && ZSH_VERSION ) || OPTM ))
-		then LANG=C  LC_ALL=C
-		fi
 	done
 
 	#add to totals
@@ -226,12 +211,14 @@ mainf()
 	(( OPTM )) && (( charstotal = charstotal + chars ))
 	(( OPTC )) && (( bytestotal = bytestotal + bytes ))
 }
+#NOTES
+#[[:space:]] = [ \t\r\n\v\f]
 ##non-breaking spaces from gnu wc source code:
 ##$'\u00a0'$'\u2007'$'\u202f'$'\u2060'
 #0020 = space        #2002 = en-space      #2009 = thin space
 #00a0 = nbsp         #2003 = em-space      #2060 = word joiner
 #202f = narrow nbsp  #2007 = figure space  #000a = form feed, also \f
-##spaces: https://www.compart.com/en/unicode/search?q=space#characters
+##https://www.compart.com/en/unicode/search?q=space#characters
 ##&nbsp; &thinsp; &ensp; and &emsp;
 #In ASCII, &#09; is a TAB
 #LFD key, typing C-j will produce the desired character (same as Enter)
@@ -239,8 +226,8 @@ mainf()
 ##length without reading the file. Thus, they do not need the read permission
 ##and their performance does not depend on the file's length. wc actually
 ##opens the file and usually reads it, making it perform much worse on large
-##files. But GNU coreutils wc optimizes when only byte count of a regular file
-##is wanted: it uses fstat and lseek syscalls to get the count. – Palec
+##files. But GNU coreutils wc optimizes when only byte count of a regular
+##file is wanted: it uses fstat and lseek syscalls to get the count. – Palec
 ##https://stackoverflow.com/questions/9195493/unix-find-average-file-size
 #https://lists.gnu.org/archive/html/bug-bash/2016-09/msg00015.html
 #https://stackoverflow.com/questions/46163678/get-rid-of-warning-command-substitution-ignored-null-byte-in-input
@@ -250,14 +237,13 @@ mainf()
 #ipc#https://stackoverflow.com/questions/17368067/length-of-string-in-bash
 ##strict mode, check null chars: while IFS=  read -r -d ''
 ##https://stackoverflow.com/questions/36313562/how-to-redirect-stdin-to-file-in-bash
-
-#notes on an alternative method
+#notes on even another alternative method
 #it should be faster if we can process the whole file at once.
 #however, we cannot detect new line bytes directly (as opposed to null)
 #and this info is needed for counting lines and bytes correctly.
-#requires more memory.
-##MAPFILE=( ${(ps:\n:)"$(<${(b)1})"} )
-##mapfile -t <<<"$buffer"
+#requires more memory as we load one whole file at a time.
+#zsh#MAPFILE=( ${(ps:\n:)"$(<${(b)1})"} )
+#bash#mapfile -t <<<"$buffer"
 
 
 #parse options
@@ -320,7 +306,7 @@ unset c  #OPTIND OPTERR
 FILENUM=$#
 
 #save original (user) values $LANG $LC_ALL
-ORIGLANG=$LANG ORIGLCAL=$LC_ALL
+ORIGLANG=$LANG  ORIGLC_ALL=$LC_ALL
 
 #following params affects shell speed 
 #(and GNU tools behaviour in general)
