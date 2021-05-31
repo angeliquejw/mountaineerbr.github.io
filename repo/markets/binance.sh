@@ -1,6 +1,6 @@
 #!/bin/bash
 # Binance.sh  --  Market data from Binance public APIs
-# v0.13.2 may/2021  by mountaineerbr
+# v0.13.3 may/2021  by mountaineerbr
 
 #defaults
 
@@ -39,7 +39,7 @@ SYNOPSIS
 	$SN [-NUM] [-ouv] [AMOUNT] MARKET
 	$SN [-NUM] -n [-ov] [AMOUNT] FROM_CURRENCY TO_CURRENCY
 	$SN [-NUM] [-istw] [-aruX] [-oz] MARKET
-	$SN [-bbc] [-u] [LEVELS|LIMIT] MARKET
+	$SN [-bbc] [-Bu] [LEVELS|LIMIT] MARKET
 	$SN [-hlV]
 
 	Get the latest data from Binance markets from public APIs. This
@@ -204,6 +204,7 @@ OPTIONS
 	-X 	   Set Wscat instead of Websocat package for websockets.
 
 	Functions
+	-B 	   Set update speed to 1000ms with option -b, defaults=100ms.
 	-b  [LEVELS] MARKET
 		   Order book depth; valid limits 5, 10 and 20; defaults=20.
 	-bb [LEVELS] MARKET
@@ -532,7 +533,7 @@ bookdf() {
 	fi
 
 	#set addr
-	ADDR="$WSSADD${2,,}${3,,}@depth${1}@100ms"
+	ADDR="$WSSADD${2,,}${3,,}@depth${1}@${BBOPT:-100}ms"
 
 	#print raw data for debug?
 	if (( DOPT ))
@@ -691,7 +692,7 @@ lcoinsf() {
 
 
 #parse options
-while getopts 1234567890abcdEeofhjlnistuvVwrXz opt
+while getopts 1234567890abBcdEeofhjlnistuvVwrXz opt
 do
 	case $opt in
 		[0-9]) #scale setting
@@ -702,6 +703,10 @@ do
 			;;
 		b) #order book depth view
 			(( BOPT )) && BOPT=2 ||	BOPT=1
+			;;
+		B)
+			#order book depth update speed
+			BBOPT=1000
 			;;
 		c) #price in columns
 			COPT=1
