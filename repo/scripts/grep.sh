@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # grep.sh  --  grep with shell built-ins
-# v0.4.1  may/2021  by mountaineerbr
+# v0.4.4  may/2021  by mountaineerbr
 
 #defaults
 #script name
@@ -383,8 +383,9 @@ OPTIONS
 	-q      Quiet, exit with zero on first match found.
 
 	Output Line Prefix Control
-	-H      Toggle filename prefix printing behaviour.
-	-n      Add line number prefix to output.
+	-n      Add line number prefix of matched lines.
+	-t      Suppress file name prefix for each matched line.
+	-T      Print file name for each match.
 
 	Miscellaneous
 	-h      Print this help page.
@@ -408,7 +409,7 @@ echoresultf()
 
 	#print inverted match lines
 	#print raw line if colour opt is not set
-	elif ((OPTV || OPTK==0 || ( OPTI<2 && OPTG==1 ) ))
+	elif ((OPTV || OPTK==0 || ( OPTG && OPTI<2 ) ))
 	then
 		#print raw line
 		echo "$LINE"
@@ -580,7 +581,7 @@ testglobwf()
 }
 
 #parse options
-while getopts @cEe:FgGHhiyKkm:nPqrvVxwz c
+while getopts @cEe:FgGHhiyKkm:nPqrtTvVxwz c
 do
 	case $c in
 		@)
@@ -660,6 +661,14 @@ do
 			#quiet
 			OPTQ=1
 			;;
+		t)
+			#do not print file name
+			OPTT=2
+			;;
+		T)
+			#print file name
+			OPTT=1
+			;;
 		v)
 			#invert match
 			OPTV=1
@@ -711,8 +720,18 @@ else
 	}
 fi
 
+#colour (paint matches)?
+if [[ "$OPTK" -lt 2 && ( "$OPTK" -eq 0 || ! -t 1 ) ]]
+then unset COLOUR1 COLOUR2 COLOUR3 COLOUR4 NC OPTK
+fi
+
+#echoresultf printf string
+STRFILE="${COLOUR1}%s${COLOUR2}:${NC}"
+#-n line number colour
+STRLNUM="${COLOUR4}%s${COLOUR2}:${NC}"
+
 #hack -ii print matched line in uppercase (with -g)
-((OPTI>1 && OPTG)) && typeset -u PATTERN LINE
+((OPTI>1 && OPTK && OPTG)) && typeset -u PATTERN LINE
 
 #set star globs around *PATTERN* by defaults (globbing test only)
 ((OPTG>1)) || STAR=$DEFSTAR
@@ -763,9 +782,8 @@ do
 		fi
 	elif (($#>1))
 	then
-		RET=2
+		RET=2  MULTIFILES=1
 		echo "$SN: no such file -- ${@: -1}" >&2
-		((${#FILEAR[@]})) && PRINTFNAME=1
 	else
 		break
 	fi
@@ -773,20 +791,21 @@ do
 done
 
 #is there any file? is stdin free?
-if ((${#FILEAR[@]}==0)) && [[ -t 0 ]]
+if [[ "${#FILEAR[@]}" -eq 0 && -t 0 ]]
 then echo "$SN: err  -- input required" >&2 ;exit ${RET:-1}
 fi
 
-#more than one file?
-((${#FILEAR[@]} > 1)) && PRINTFNAME=1
+#more than one file, or at least one file skipped (RET=2)?
+((${#FILEAR[@]} > 1 || ( RET==2 && ${#FILEAR[@]} ) )) && PRINTFNAME=1
 
-#toggle printing file name
-((OPTH)) && {
-	if ((PRINTFNAME))
-	then PRINTFNAME=0
-	else PRINTFNAME=1
-	fi
-}
+#file name printing
+if ((OPTT==1))      #-t print filename
+then PRINTFNAME=1
+elif ((OPTT==2))    #-T no filename
+then PRINTFNAME=0
+elif ((OPTH))       #-H toggle default behaviour
+then ((PRINTFNAME)) && PRINTFNAME=0 || PRINTFNAME=1
+fi
 
 #check positional arguments
 ((${#PATTERNARPRE[@]}==0)) && {
@@ -826,16 +845,6 @@ else
 		fi
 	done
 fi
-
-#colour (paint matches)?
-if [[ "$OPTK" -lt 2 && ( "$OPTK" -eq 0 || ! -t 1 ) ]]
-then unset COLOUR1 COLOUR2 COLOUR3 COLOUR4 NC
-fi
-
-#echoresultf printf string
-STRFILE="${COLOUR1}%s${COLOUR2}:${NC}"
-#-n line number colour
-STRLNUM="${COLOUR4}%s${COLOUR2}:${NC}"
 
 #loop through files
 for FILE in "${FILEAR[@]:-/dev/stdin}"
