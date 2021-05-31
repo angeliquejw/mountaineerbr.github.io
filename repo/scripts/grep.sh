@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # grep.sh  --  grep with shell built-ins
-# v0.3.7  may/2021  by mountaineerbr
+# v0.3.9  may/2021  by mountaineerbr
 
 #defaults
 #script name
@@ -27,6 +27,10 @@ DEFANCHORWORDEL='(^|[^a-zA-Z0-9_])'
 DEFANCHORWORDER='([^a-zA-Z0-9_]|$)'
 ANCHORWORDELR='[^a-zA-Z0-9_]'
 
+#minimum length of matches (chars)
+#allowed to be painted in regex mode
+REGEXMINLEN=2
+
 #set fixed locale
 #export LC_NUMERIC=C
 
@@ -42,7 +46,7 @@ SYNOPSIS
 
 DESCRIPTION
 	Read FILES or stdin and performs pattern matching. Set multiple
-	PATTERNS with -e. When a line matches a pattern that is printed.
+	PATTERNS with -e. A line is printed when that matches a pattern.
 
 	By defaults, interpret PATTERN as POSIX EXTENDED REGEX. Please
 	note that some operators for EXTENDED REGEX need backslash escap-
@@ -59,9 +63,9 @@ DESCRIPTION
 	Set option -P to interpret PATTERNS as Perl-compatible regular
 	expressions. This option requires zsh/pcre module.
 
-	This script uses shell builtins only and is compatible with bash
-	and zsh. It is not supposed to compete with Grep, it is rather a
-	tool for studying Shell functions.
+	This script uses shell builtins only and is compatible with Bash
+	and Zshell. It is not supposed to compete with Grep, it is rather
+	a tool for studying Shell functions.
 
 
 REGULAR EXPRESSIONS
@@ -342,14 +346,13 @@ WARRANTY
 
 
 BUGS
-	Option -k will colour the line between matches when using the
-	glob pattern syntax.
-	
-	Option -k may not colour all matches or may colour matches
-	incompletely.
+	Option -k may not paint all matches or may paint matches incom-
+	pletely. For example, with -g, only the outermost two matches of
+	each line will be painted; with -E, very short matches (less or
+	equal to $REGEXMINLEN chars) may skip painting.
 
-	Option -k may interpret some backspace-escaped strings from
-	input.
+	Option -k may expand some backspace-escaped strings from input,
+	such as escaped colour code sequences and \\n.
 
 
 OPTIONS
@@ -386,11 +389,10 @@ OPTIONS
 	-V      Print script version."
 
 
-#loop checking function
 #print line
 echoresultf()
 {
-	local linep linex linexr linexl linexm matchx
+	local linep linex linexr linexl linexm matchx firstpass linexrs linexls matcha matchb
 	
 	#print filename (multiple files)
 	((PRINTFNAME)) && printf "$STRFILE" "$FILE"
@@ -411,15 +413,18 @@ echoresultf()
 		#print raw line
 		echo "$LINE"
 
-	#print colour match line
+	#paint matches in line
 	else
 		#globbing test
 		if ((OPTG))
 		then
 			#try to paint matches
 			linep="$LINE"
-			linexr="${linep##*$PATTERN}"  #line right
-			linexl="${linep%%$PATTERN*}"  #line left
+			linexr="${linep##*$PATTERN}"  #line right long
+			linexl="${linep%%$PATTERN*}"  #line left long
+			linexrs="${linep#*$PATTERN}"  #line right short
+			linexls="${linep%$PATTERN*}"  #line left short
+
 			
 			#is whole-line a match?
 			if [[ -z "$linexr$linexl" ]]
@@ -436,34 +441,58 @@ echoresultf()
 				if ((ZSH_VERSION))
 				then
 					#zsh escaping
-					linexm="${linep#${(b)linexl}}"
-					linexm="${linexm%${(b)linexr}}"  #line middle
+					#one or more matches?
+					if [[ "$linexls" != "$linexl" ]]
+					then
+						#paint the two outermost matches
+						linexm="${linep#${(b)linexl}}"
+						linexm="${linexm%${(b)linexr}}"    #line middle
 
-					linep="${linexl}${COLOUR3}${linep#${(b)linexl}}"
-					linep="${linep%${(b)linexr}}${NC}${linexr}"
+						matchb="${linexm#${(b)linexls#${(b)linexl}}}"
+						matcha="${linexm%${(b)linexrs%${(b)linexr}}}"
+
+						linexmm="${linexm#${(b)matcha}}"
+						linexmm="${linexmm%${(b)matchb}}"  #line middle middle
+
+						linep="$linexl$COLOUR3$matcha$NC$linexmm$COLOUR3$matchb$NC$linexr"
+					else
+						#paint a single match
+						linep="${linexl}${COLOUR3}${linep#${(b)linexl}}"
+						linep="${linep%${(b)linexr}}${NC}${linexr}"
+					fi
 				else
 					#bash escaping
 					linexr="${linexr//\\/\\\\}"
 					linexl="${linexl//\\/\\\\}"
+					linexrs="${linexrs//\\/\\\\}"
+					linexls="${linexls//\\/\\\\}"
+				
+					#one or more matches?
+					if [[ "$linexls" != "$linexl" ]]
+					then
+						#paint the two outermost matches
+						linexm="${linep#$linexl}"
+						linexm="${linexm%$linexr}"    #line middle
 
-					linexm="${linep#$linexl}"
-					linexm="${linexm%$linexr}"       #line middle
+						matchb="${linexm#${linexls#$linexl}}"
+						matcha="${linexm%${linexrs%$linexr}}"
 
-					linep="${linexl}${COLOUR3}${linep#$linexl}"
-					linep="${linep%$linexr}${NC}${linexr}"
+						linexmm="${linexm#$matcha}"
+						linexmm="${linexmm%$matchb}"  #line middle middle
+
+						linep="$linexl$COLOUR3$matcha$NC$linexmm$COLOUR3$matchb$NC$linexr"
+					else
+						#paint a single match
+						linep="${linexl}${COLOUR3}${linep#$linexl}"
+						linep="${linep%$linexr}${NC}${linexr}"
+					fi
 				fi
 			fi
 
 		#regex test
 		else
-			#try to paint matches
-			chars=2  linex="$LINE"  linep="$LINE"
-			matchx="${BASH_REMATCH[0]:-$MATCH}"
-			((OPTW)) && {
-				matchx="${matchx#$ANCHORWORDELR}"
-				matchx="${matchx%$ANCHORWORDELR}"
-			}
-			linep="${linep//"$matchx"/"${COLOUR3}${matchx}${NC}"}"
+			#try to paint all matches
+			linex="$LINE"  linep="$LINE"  firstpass=1
 
 			while
 				matchx="${BASH_REMATCH[0]:-$MATCH}"
@@ -472,12 +501,15 @@ echoresultf()
 					matchx="${matchx%$ANCHORWORDELR}"
 				}
 				
-				((${#BASH_REMATCH[0]} > chars || ${#MATCH} > chars)) \
-				&& linex="${linex//"$matchx"}" \
-				&& [[ -n "$linex" ]] \
-				&& STRING="$linex" testf
+				((firstpass)) || {
+					((${#BASH_REMATCH[0]} > REGEXMINLEN || ${#MATCH} > REGEXMINLEN)) \
+					&& linex="${linex//"$matchx"}" \
+					&& [[ -n "$linex" ]] \
+					&& STRING="$linex" testf
+				}
 			do
 				linep="${linep//"$matchx"/"${COLOUR3}${matchx}${NC}"}"
+				unset firstpass
 			done
 		
 		fi
