@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.2  may/2021  by mountaineerbr
+# v0.8.3  may/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq
 
@@ -1049,7 +1049,7 @@ cleanf() {
 
 	#verbose feedback
 	((OPTVERBOSE)) && 
-		printf '>>>took %s seconds  (%s minutes)\n' "$SECONDS" "$(( SECONDS / 60 ))" >&2
+		printf '>>>took %s seconds  (%s min)\n' "$SECONDS" "$(( SECONDS / 60 ))" >&2
 	
 	#sum exit codes from other funcs
 	exit $(( ${RET[@]/%/+} 0 ))

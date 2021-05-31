@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.10  may/2021  by mountaineerbr
+# v0.7.11  may/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -313,7 +313,7 @@ cleanf() {
 	fi
 	#verbose feedback
 	(( OPTVERBOSE )) && 
-		printf '>>>took %s seconds  (%s minutes)\n' "$SECONDS" "$(( SECONDS / 60 ))" >&2
+		printf '>>>took %s seconds  (%s min)\n' "$SECONDS" "$(( SECONDS / 60 ))" >&2
 	
 	#sum exit codes from other funcs
 	exit $(( ${RET[@]/%/+} 0 ))
@@ -670,7 +670,7 @@ defaultf()
 		if [[ "$BLK_HASH" != "$GENBLK_HASH" ]]
 		then
 			<<< "$blk_stat" jq -r '"",
-				"--------",
+				"===========",
 				"Block status",
 				"Height__: \(.height)",
 				"Avg_Fee_: \(.avgfee) sat/KB \t \(.avgfee/1000) sat/B",
