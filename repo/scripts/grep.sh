@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # grep.sh  --  grep with shell built-ins
-# v0.4  may/2021  by mountaineerbr
+# v0.4.1  may/2021  by mountaineerbr
 
 #defaults
 #script name
@@ -65,6 +65,9 @@ DESCRIPTION
 	This script uses shell builtins only and is compatible with Bash
 	and Zshell. It is not supposed to compete with Grep, it is rather
 	a tool for studying Shell functions.
+
+	Below are some relevant sections from various man pages and other
+	sources.
 
 
 REGULAR EXPRESSIONS
@@ -346,9 +349,9 @@ WARRANTY
 
 BUGS
 	Option -k may paint only some matches or may paint matches incom-
-	pletely. For example, with -g, only the outermost two matches of
-	each line may be painted; with -E, very short matches (less or
-	equal to $REGEXMINLEN chars) may skip painting.
+	pletely; with -g, only the outermost two matches of each line may
+	be painted; with -gi painting is disabled; with -E, very short
+	matches (less or equal to $REGEXMINLEN chars) may skip painting.
 
 	Option -k may expand some backspace-escaped strings from input,
 	such as escaped colour code sequences and \\n.
@@ -357,7 +360,7 @@ BUGS
 OPTIONS
 	Pattern Syntax
 	-@      Enable Ksh extended glob operators in Zsh and set -g.
-	-E, -r  Interpret PATTERNS as extended regex (ERE).
+	-E, -r  Interpret PATTERNS as extended regex (ERE) (defaults).
 	-F      Interpret PATTERNS as fixed strings.
 	-g      Interpret PATTERNS as globbing strings.
 	-gg     Bare glob test, same as -g but no glob stars around PATTERN
@@ -396,18 +399,16 @@ echoresultf()
 	#print filename (multiple files)
 	((PRINTFNAME)) && printf "$STRFILE" "$FILE"
 	#print line number
-	((OPTN)) && printf "$STRLNUM" "$lnum"
+	((OPTN)) && printf "$STRLNUM" "$LNUM"
 	
 	#-c print match count?
 	if ((OPTC))
 	then
-		echo "${linematch:-0}"
-		unset linematch
-		return 0
+		echo "${LINEMATCH:-0}"
 
 	#print inverted match lines
 	#print raw line if colour opt is not set
-	elif ((OPTV || OPTK==0))
+	elif ((OPTV || OPTK==0 || ( OPTI<2 && OPTG==1 ) ))
 	then
 		#print raw line
 		echo "$LINE"
@@ -528,7 +529,7 @@ mainf()
 		STRING="$LINE"
 
 		#count line numbers
-		(( ++lnum ))
+		(( ++LNUM ))
 
 		#loop through PATTERNS
 		for PATTERN in "${PATTERNAR[@]}"
@@ -536,8 +537,9 @@ mainf()
 			#test for a match in line
 			testf || continue
 
-			#count lines with matches
-			(( ++linematch ))
+			#count lines with matches, total matches
+			(( ++LINEMATCH && ++TOTMATCHES )) ;RET=${RET:-0}
+
 			#-c only count matched lines
 			(( OPTC )) && continue
 			
@@ -548,15 +550,12 @@ mainf()
 			echoresultf
 
 			#-m max results set?
-			((MAXMATCH && linematch == MAXMATCH)) && {
-				exitsig=0  linematch=  
-				return
-			}
+			((MAXMATCH && LINEMATCH == MAXMATCH)) && break 2
 		done
 	done
 
-	#set proper exit code
-	(( linematch )) && exitsig=0
+	#return code
+	#((LINEMATCH))
 }
 
 #posix extended regex test
@@ -632,6 +631,7 @@ do
 			;;
 		i|y)
 			#case-insensitive search
+			#hack -ii print matched line in uppercase (with -g)
 			((++OPTI))
 			;;
 		K)
@@ -701,36 +701,28 @@ unset c
 if ((ZSH_VERSION))
 then
 	#set zsh opts
-	setopt GLOBSUBST EXTENDED_GLOB 
-	((OPTAT)) && setopt KSH_GLOB
-	((OPTP)) && setopt RE_MATCH_PCRE
+	setopt GLOBSUBST EXTENDED_GLOB ${OPTAT+KSH_GLOB} ${OPTP+RE_MATCH_PCRE} ${OPTI+NOCASE_MATCH}
 else 
 	#set bash opts
-	shopt -s extglob
+	shopt -s extglob ${OPTI+nocasematch}
 	((OPTP)) && {
 		echo "$SN: err  -- option -P requires Zsh" >&2
 		exit 1
 	}
 fi
 
+#hack -ii print matched line in uppercase (with -g)
+((OPTI>1 && OPTG)) && typeset -u PATTERN LINE
+
 #set star globs around *PATTERN* by defaults (globbing test only)
 ((OPTG>1)) || STAR=$DEFSTAR
 
-#case insensitive
-((OPTI)) && {
-	if ((ZSH_VERSION))
-	then setopt nocase_match
-	else shopt -s nocasematch
-	fi
-}
-
 #whole line match
 ((OPTX)) && {
-	unset STAR
-
 	#whole-line match
 	ANCHORL=$DEFANCHORL
 	ANCHORR=$DEFANCHORR
+	unset STAR
 }
 
 #whole word match
@@ -769,15 +761,20 @@ do
 		then FILEAR=("${@: -1}" "${FILEAR[@]}")
 		else FILEAR=("${@: -1}")
 		fi
-		set -- "${@:1:$(($# - 1))}"
+	elif (($#>1))
+	then
+		RET=2
+		echo "$SN: no such file -- ${@: -1}" >&2
+		((${#FILEAR[@]})) && PRINTFNAME=1
 	else
 		break
 	fi
+	set -- "${@:1:$(($# - 1))}"
 done
 
 #is there any file? is stdin free?
 if ((${#FILEAR[@]}==0)) && [[ -t 0 ]]
-then echo "$SN: err  -- input required" >&2 ;exit 1
+then echo "$SN: err  -- input required" >&2 ;exit ${RET:-1}
 fi
 
 #more than one file?
@@ -793,17 +790,17 @@ fi
 
 #check positional arguments
 ((${#PATTERNARPRE[@]}==0)) && {
-	if (($#==1))
+	if (($#>0))
 	then PATTERNARPRE=("$1") ;shift
 	elif (($#==0))
-	then echo "$SN: err  -- PATTERN required" >&2 ;exit 1
+	then echo "$SN: err  -- PATTERN required" >&2 ;exit ${RET:-1}
 	fi
 }
 
 #there should not be anything left
 #as positional parameters by now
 if (($#))
-then echo "$SN: err: no such file -- ${@: -1}" >&2 ;exit 1
+then echo "$SN: err: not a file -- ${@: -1}" >&2 ;set ;RET=2
 fi
 
 #quote patterns 
@@ -831,7 +828,7 @@ else
 fi
 
 #colour (paint matches)?
-if ((OPTK<2)) && { ((OPTK==0)) || [[ ! -t 1 ]] ;}
+if [[ "$OPTK" -lt 2 && ( "$OPTK" -eq 0 || ! -t 1 ) ]]
 then unset COLOUR1 COLOUR2 COLOUR3 COLOUR4 NC
 fi
 
@@ -848,9 +845,10 @@ do
 	
 	#-c only print matched line count?
 	((OPTC)) && echoresultf
+
 	#unset count line numbers
-	unset lnum
+	unset LNUM LINEMATCH
 done
 
-exit "${exitsig:-1}"
+exit ${RET:-1}
 
