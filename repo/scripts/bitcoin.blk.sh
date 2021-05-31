@@ -670,7 +670,7 @@ defaultf()
 		if [[ "$BLK_HASH" != "$GENBLK_HASH" ]]
 		then
 			<<< "$blk_stat" jq -r '"",
-				"===========",
+				"============",
 				"Block status",
 				"Height__: \(.height)",
 				"Avg_Fee_: \(.avgfee) sat/KB \t \(.avgfee/1000) sat/B",
