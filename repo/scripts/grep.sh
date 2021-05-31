@@ -1,15 +1,11 @@
 #!/bin/bash
 #!/bin/zsh
 # grep.sh  --  grep with shell built-ins
-# v0.3.9  may/2021  by mountaineerbr
+# v0.4  may/2021  by mountaineerbr
 
 #defaults
 #script name
 SN="${0##*/}"
-
-#match colour
-#defaults=1
-OPTK=1
 
 #colours
 COLOUR1='\e[3;35;40m'  #PURPLE
@@ -62,6 +58,9 @@ DESCRIPTION
 
 	Set option -P to interpret PATTERNS as Perl-compatible regular
 	expressions. This option requires zsh/pcre module.
+
+	Set option -k to paint matches if output is not redirected (auto-
+	matically detected) or set -kk to force.
 
 	This script uses shell builtins only and is compatible with Bash
 	and Zshell. It is not supposed to compete with Grep, it is rather
@@ -346,9 +345,9 @@ WARRANTY
 
 
 BUGS
-	Option -k may not paint all matches or may paint matches incom-
+	Option -k may paint only some matches or may paint matches incom-
 	pletely. For example, with -g, only the outermost two matches of
-	each line will be painted; with -E, very short matches (less or
+	each line may be painted; with -E, very short matches (less or
 	equal to $REGEXMINLEN chars) may skip painting.
 
 	Option -k may expand some backspace-escaped strings from input,
@@ -376,7 +375,7 @@ OPTIONS
 
 	General Output Control
 	-c      Print only count of matching lines.
-	-k      Disable colour output, set twice to force.
+	-k      Colorise output (auto), set twice to force.
 	-m NUM  Maximum NUM results to print.
 	-q      Quiet, exit with zero on first match found.
 
@@ -640,8 +639,8 @@ do
 			OPTK=2
 			;;
 		k)
-			#no colour
-			OPTK=0
+			#paint matches
+			((++OPTK))
 			;;
 		m)
 			#max results
@@ -667,7 +666,6 @@ do
 			;;
 		V)
 			#script version
-			#"$0" -m1 -k '# v' "$0"
 			while read
 			do
 				if [[ "$REPLY" = \#\ v* ]]
@@ -832,7 +830,7 @@ else
 	done
 fi
 
-#colour?
+#colour (paint matches)?
 if ((OPTK<2)) && { ((OPTK==0)) || [[ ! -t 1 ]] ;}
 then unset COLOUR1 COLOUR2 COLOUR3 COLOUR4 NC
 fi
