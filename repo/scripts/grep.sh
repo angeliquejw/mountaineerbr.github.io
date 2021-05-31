@@ -782,7 +782,7 @@ do
 		fi
 	elif (($#>1))
 	then
-		RET=2  MULTIFILES=1
+		RET=2
 		echo "$SN: no such file -- ${@: -1}" >&2
 	else
 		break
@@ -795,7 +795,7 @@ if [[ "${#FILEAR[@]}" -eq 0 && -t 0 ]]
 then echo "$SN: err  -- input required" >&2 ;exit ${RET:-1}
 fi
 
-#more than one file, or at least one file skipped (RET=2)?
+#more than one file, or at least one file skipped (RET=2) above?
 ((${#FILEAR[@]} > 1 || ( RET==2 && ${#FILEAR[@]} ) )) && PRINTFNAME=1
 
 #file name printing
