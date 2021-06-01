@@ -584,7 +584,6 @@ do
 		#https://unix.stackexchange.com/questions/68035/foo-and-zsh
 
 		#log if there are more than a single ref source per line
-		#only a warning
 		#p='(src|href)="'
 		#if q="$( grep -EHn -i "${p}.*${p}" "$f" )"
 		#then
