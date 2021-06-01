@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.23  may/2021  mountaineerbr
+# v0.6.24  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -271,7 +271,7 @@ creatf()
 
 	#check all required vars are set
 	for var in postn tgt tgti stamp1 stamp2
-	do [[ -z "${(P)var}" ]] && echo -e "\n\a$SN: unset var -- $var" >&2 | tee "$LOGFILE" && return 1
+	do [[ -z "${(P)var}" ]] && echo -e "\n\a$SN: var unset -- $var" >&2 | tee "$LOGFILE" && return 1
 	done
 
 	#copy template and rename new directory with post number
@@ -559,7 +559,7 @@ do
 		title="$(<<<"$unwrapped" sed -nE '/<header>/,/<\/header>/ s|.*<h1[^>]*>([^<]*)<.*|\1| p')"
 		time="$(<<<"$unwrapped" sed -nE '/<header>/,/<\/header>/ s|.*<time[^>]*>([^<]*)<.*|\1| p')"
 		sed -i '/<!-- metatags -->/ r /dev/stdin' \
-			"$TEMP_TARGETPOST" <<<"<title>$time $title</title>"
+			"$TEMP_TARGETPOST" <<<"<title>$title - $time</title>"
 
 		#add article and create final html page
 		sed -n '/<article/,/<\/article>/ p' "$f" |
@@ -578,24 +578,24 @@ do
 
 		#check all required vars are set
 		for var in unwrapped canonical title time
-		do [[ -z "${(P)var}" ]] && echo -e "\n\a$SN: unset var -- $var" >&2 | tee "$LOGFILE"
+		do [[ -z "${(P)var}" ]] && echo -e "\n\a$SN: var unset -- $var" >&2 | tee "$LOGFILE"
 		done
 		#bash parameter indirection: "${!var}"
 		#https://unix.stackexchange.com/questions/68035/foo-and-zsh
 
 		#log if there are more than a single ref source per line
 		#only a warning
-		p='(src|href)="'
-		if q="$( grep -EHn -i "${p}.*${p}" "$f" )"
-		then
-			cat >>"$LOGFILE" <<-!
-			===
-			File -- $f
-			Warning -- more than one reference per line
-			$q
-
-			!
-		fi
+		#p='(src|href)="'
+		#if q="$( grep -EHn -i "${p}.*${p}" "$f" )"
+		#then
+		#	cat >>"$LOGFILE" <<-!
+		#	===
+		#	File -- $f
+		#	Warning -- more than one reference per line
+		#	$q
+		#
+		#	!
+		#fi
 
 		#get rid of some comments
 		sed -i '/^\s*<!--\s*#.*-->/ d' "$targetpost"

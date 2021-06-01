@@ -407,6 +407,7 @@ xreader
 xsel
 youtube-dl
 zsh-completions
+zsh-lovers
 zsh-syntax-highlighting
 
 )
