@@ -16,36 +16,7 @@
 <meta property="og:title" content="Biology Blogger Video Log">
 <meta property="og:image" content="https://www.mountaineerbr.github.io/vlog/thumb/Repos_do_Arch_Linux_Archive_ALA_e_Downgrade_de_Pacotes_no_Pacman.jpg">
 <meta property="og:description" content="*UPDATE: As funções de bash viraram um script completo. Baixe em:
-https://github.com/mountaineerbr/scripts/blob/master/ala.sh
-
-Se você quiser um script em Python (porém é mais devagar que o meu script de Bash), veja o pacote &quot;agetpkg&quot;, disponível no AUR:
-https://aur.archlinux.org/packages/agetpkg/
-https://github.com/seblu/agetpkg
-
-Mostrando como se usa as funções que criei para explorar e baixar um pacote de versão mais antiga dos repositórios dos Arquivos do Arch Linux ( ALA ) pelo Terminal ( Bash ).
-Site do ALA: https://archive.archlinux.org/
-
-Basicamente, usamos o cURL para puxar alguma página do ALA, e depois passamos um filtro do Sed para tirar marcações de HTML, que retirei da referência abaixo:
-# Ref: https://stackoverflow.com/questions/17845056/removing-all-html-tags-from-a-webpage
-
-Primeiro. pesquise pelas versões de um pacote disponíveis.
-Por exemplo:
-
-$ ala.sh
-$ ala.sh f
-$ ala.sh firefox
-
-Depois de escolher a versão do pacote .tar.xz , fazer o download (para pasta ~/Downloads) com:
-
-$ ala.sh -d firefox-66.0.5-1-x86_64.pkg.tar.xz
-
-Irá fazer o download do arquivo de assinatura, que você pode ou não querer verificar/importar assinaturas, e o pacote binário para fazer a instalação ou downgrade com o Pacman.
-Se você tiver uma versão mais atual já instada, deve fazer um downgrade com a opção &quot;-U&quot;..
-Por exemplo:
-
-$ sudo pacman -U ~/Downloads/firefox-66.0.5-1-x86_64.pkg.tar.xz
-
-Rode com &quot;-h&quot; para modo de uso (em inglês).">
+https://github.com/mountaineerbr/scripts/blo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image:alt" content="Video thumbnail">
 <!-- https://ogp.me/ -->

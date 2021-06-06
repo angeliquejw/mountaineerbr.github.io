@@ -1,6 +1,6 @@
 #!/bin/zsh
 # create a page with my videos
-# v0.1.7  jun/2021  by mountaineerbr
+# v0.1.8  jun/2021  by mountaineerbr
 
 # github limits file size to 100MB
 # requires ffmpeg, ffprobe and txt2html
@@ -92,13 +92,13 @@ do
 		sed -n '/^\s*[Cc]omment/,/^\s*[Dd]escription/ p' <<<"$probe" |
 		sed -E 's/^\s*([Cc]omment)?[: ]*// ;/^\s*[Dd]escription[: ]*/d'
 		)"
-	commog="${comm//[\"“”]/&quot;}"
+	commog="${comm//[\"“”]/&quot;}"  commog="${commog:0:110}"
 	
 	desc="$(
 		sed -n '/^\s*[Dd]escription/,/^\s*[Dd]uration/ p' <<<"$probe" |
 		sed -E 's/^\s*([Dd]escription)?[: ]*// ;/^\s*[Dd]uration[: ]*/d ;4,$d'
 		)"
-	descog="${desc//[\"“”]/&quot;}"
+	descog="${desc//[\"“”]/&quot;}"  descog="${descog:0:110}"
 
 	commhtml="$( txt2html --extract --eight_bit_clean <<<"$comm" )"
 	#deschtml="$( txt2html --extract --eight_bit_clean <<<"$desc" )"
