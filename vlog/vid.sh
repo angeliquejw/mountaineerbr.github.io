@@ -1,6 +1,6 @@
 #!/bin/zsh
 # create a page with my videos
-# v0.1.6  jun/2021  by mountaineerbr
+# v0.1.7  jun/2021  by mountaineerbr
 
 # github limits file size to 100MB
 # requires ffmpeg, ffprobe and txt2html
@@ -75,6 +75,7 @@ do
 
 	#self-referencing canonical url
 	canonical="<link rel=\"canonical\" href=\"${ROOTVW%/}/doc/${fname%.*}.html\">"
+	canonicalog="${ROOTVW%/}/doc/${fname%.*}.html"
 
 	size=( $(du -h -- "$filepath") )
 	probe="$(ffprobe "$filepath" 2>&1)"
@@ -185,7 +186,7 @@ do
 		<meta name="distribution" content="global">
 		<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
 
-		<meta property="og:url" content="${canonical}">
+		<meta property="og:url" content="${canonicalog}">
 		<meta property="og:type" content="blog">
 		<meta property="og:title" content="Biology Blogger Video Log">
 		<meta property="og:image" content="${thumbrelurldocog:-https://mountaineerbr.github.io/gfx/16_to_9.gif}">
@@ -275,7 +276,7 @@ do
 
 	#clean environment!
 	unset filepath fname size probe title date comm desc commog descog deschtml commhtml
-	unset dur itemdocpath canonical img lowpath lowfname sizelow lowurl
+	unset dur itemdocpath canonical canonicalog img lowpath lowfname sizelow lowurl
 	unset itemlow itemdoclow item videorelurldoc thumbrelurldoc thumbrelurldocog
 done
 
