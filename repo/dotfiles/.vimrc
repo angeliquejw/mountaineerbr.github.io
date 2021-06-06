@@ -778,27 +778,34 @@ map <F6> <C-e>:sleep 3800m<CR>j<F6>
 "https://www.reddit.com/r/vim/comments/72kfsn/leader_suggestions/
 
 
+
 " INDEX OF LEADER 0
-"	\f	:find in dirs path
-"	\]	Blank line below
-"	\[	Blank line above
-"	\whs	Whitespace-trim document
-"	\t	Capitalise Line As In A Title
-" 	\s	Opens a shell
+"	\dust  Remove shell dust such as ${var} --> $var
+"	\c     Replace word under cursor (down)
+"	\C     Replace word under cursor (up)
+"	\ci    Replace word under cursor, case insensitive (down)
+"	\Ci    Replace word under cursor case insensitive (up)
+"	\ca    Replace all
+"	\f     :find in dirs path
+"	\]     Blank line below
+"	\[     Blank line above
+"	\t     Capitalise Line As In A Title
+" 	\s     Open shell prompt
+"	\whs   Trim whitespace in document
 
 
 "Use :find to search in selected dirs in path
 noremap <Leader>f :find
 
 
-" Blank Line Insertion ( above or below )
+" Blank Line Insertion (above and below)
 nnoremap <leader>] mjo<Esc>`j
 inoremap <localleader>] <Esc>mjo<C-o>`j
 nnoremap <leader>[ mkO<Esc>`k
 inoremap <localleader>[ <Esc>mkO<C-o>`k
 
 
-" Search & Replace ( <Leader>c and <Leader>C )
+" Search & Replace
 " Change word under cursor one at a time (CASE INSENSITIVE)
 nnoremap <Leader>c *``cgn
 nnoremap <Leader>C #``cgN
@@ -816,7 +823,7 @@ nnoremap <Leader>Ci ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
 "https://www.reddit.com/r/vim/comments/2p6jqr/quick_replace_useful_refactoring_and_editing_tool/
 
 
-" Replace All ( <Leader>ca )
+" Replace All
 noremap <Leader>ca :%r/\<<C-r><C-w>\>//g<Left><Left>
 "https://vim.fandom.com/wiki/Search_and_replace_the_word_under_the_cursor
 
@@ -825,8 +832,10 @@ noremap <Leader>ca :%r/\<<C-r><C-w>\>//g<Left><Left>
 " check :help case
 nnoremap <Leader>t :silent s/\v<(.)(\w*)/\u\1\L\2/g<cr>
 
+
 " Go to shell
 nnoremap <Leader>s :shell<cr>
+
 
 " Trim every superfluous whitespace from the end of every line in the current
 "file. Do it now and bring the cursor back to where we started.
@@ -839,9 +848,12 @@ nnoremap <Leader>whs :let _save_pos=getpos(".") <Bar>
     \ :call setpos('.', _save_pos)<Bar>
     \ :unlet _save_pos<CR><CR>
 
+
 "Remove bash variable dust when possible ${VAR} --> $VAR
 "from cursor to end of file
 nnoremap <Leader>dust :,$s/${\([^@*\[\]}%#^/,:]\+\)}\\|${\([*@0-9]\+\)}/$\1\2/gc
+
+
 
 " MAPLEADER 1 ( CUSTOM LEADER ) < = >
 ""map = <cleader1>

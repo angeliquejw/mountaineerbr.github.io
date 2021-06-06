@@ -231,7 +231,7 @@ mark t /tmp
 mark T ~/tmp
 mark v ~/Documents/Videos
 mark w ~/Downloads
-mark W ~/www/mountaineerbr
+mark W ~/www
 
 " ------------------------------------------------------------------------------
 
