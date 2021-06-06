@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.24  may/2021  mountaineerbr
+# v0.6.26  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -551,6 +551,7 @@ do
 			"$TEMPLATE_POST" >"$TEMP_TARGETPOST"
 
 		#add self-referencing canonical url
+		canonicalog="${ROOTBW%/}/$n/"
 		canonical="<link rel=\"canonical\" href=\"${ROOTBW%/}/$n/\">"
 		sed -i '/<!-- metatags -->/ r /dev/stdin' \
 			"$TEMP_TARGETPOST" <<<"$canonical"
@@ -560,6 +561,9 @@ do
 		time="$(<<<"$unwrapped" sed -nE '/<header>/,/<\/header>/ s|.*<time[^>]*>([^<]*)<.*|\1| p')"
 		sed -i '/<!-- metatags -->/ r /dev/stdin' \
 			"$TEMP_TARGETPOST" <<<"<title>$title - $time</title>"
+
+		#get description for open graph object
+		descog="$(<<<"$unwrapped" sed -nE 's|.*<meta\s*name="description"\s*content="([^"]*)".*|\1| p')"
 
 		#add article and create final html page
 		sed -n '/<article/,/<\/article>/ p' "$f" |
@@ -577,7 +581,7 @@ do
 
 
 		#check all required vars are set
-		for var in unwrapped canonical title time
+		for var in unwrapped canonical title time descog canonicalog
 		do [[ -z "${(P)var}" ]] && echo -e "\n\a$SN: var unset -- $var" >&2 | tee "$LOGFILE"
 		done
 		#bash parameter indirection: "${!var}"
@@ -596,8 +600,22 @@ do
 		#	!
 		#fi
 
+		#open graph tags (references must be absolute urls)
+		ogtags="    <meta property=\"og:url\" content=\"${canonicalog}\">
+    <meta property=\"og:type\" content=\"blog\">
+    <meta property=\"og:title\" content=\"${title}\">
+    <meta property=\"og:image\" content=\"${ROOTW%/}/gfx/bg11bg.png\">
+    <meta property=\"og:description\" content=\"${descog}\">
+    <meta name=\"twitter:card\" content=\"summary\">
+    <meta name=\"twitter:image:alt\" content=\"Mushrooms, leaves and sticks\">"
+    		#add og tags
+		sed -i '/<!-- opengraph -->/ r /dev/stdin' \
+			"$targetpost" <<<"$ogtags"
+
+
 		#get rid of some comments
 		sed -i '/^\s*<!--\s*#.*-->/ d' "$targetpost"
+
 
 
 
@@ -687,7 +705,7 @@ do
 
 	#keep environment clean
 	unset f l p q t
-	unset targetpost stamp1 stamp2 unwrapped canonical title time next prev pname dtpub navitem var
+	unset targetpost stamp1 stamp2 unwrapped canonical title time next prev pname dtpub navitem var ogtags canonicalog descog
 	unset TEMP_TARGETPOST TEMP_TARGETCAT SRCCHANGE SRC REPLY
 done
 echo >&2
