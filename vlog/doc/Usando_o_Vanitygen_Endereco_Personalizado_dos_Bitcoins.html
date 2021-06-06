@@ -11,6 +11,61 @@
 <meta name="distribution" content="global">
 <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
 
+<meta property="og:url" content="<link rel="canonical" href="https://www.mountaineerbr.github.io/vlog/doc/Usando_o_Vanitygen_Endereco_Personalizado_dos_Bitcoins.html">">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Biology Blogger Video Log">
+<meta property="og:image" content="https://www.mountaineerbr.github.io/vlog/thumb/Usando_o_Vanitygen_Endereco_Personalizado_dos_Bitcoins.jpg">
+<meta property="og:description" content="Vanitygen é um gerador de endereço de bitcoin personalizado de linha de comando.
+Se você está cansado dos endereços aleatórios e enigmáticos gerados pelos clientes regulares de bitcoin, pode usar o vanitygen para criar um endereço mais personalizado. Como alternativa, o vanitygen pode ser usado para gerar endereços aleatórios 
+Ref: https://en.bitcoin.it/wiki/Vanitygen
+
+Página do Github:
+https://github.com/samr7/vanitygen
+
+No Arch, Manjaro, etc, disponível no AUR.
+
+Instalar no Debian e afins:
+https://github.com/samr7/vanitygen/wiki/Installation
+
+Binários pro Windows:
+https://allprivatekeys.com/vanity-address
+
+Fork mais atualizado (Vanitygen-plus):
+https://github.com/exploitagency/vanitygen-plus
+
+Para rodar, execute digitando o número 1 seguido de um palavra/padrão da sua escolha.
+
+$ vanitygen 1Boat
+
+Para gerar endereços aleatórios, coloque só o número 1.
+
+$ vanitygen   1
+
+Endereço com uma expressão específica:
+
+$ vanitygen   1YTB
+
+Endereço com padrão específico, insensível a maiúsculas/minúsculas:
+
+$ vanitygen   -i   1ytb
+
+Para gerar endereço com uma expressão em qualquer posição, use a opção &quot;-r&quot;:
+
+$ vanitygen -r [bB]oat
+
+OBS: &quot;[bB]&quot; é uma expressão regular do Perl que indica que naquela posição pode ser &quot;b&quot; ou &quot;B&quot;, já que a opção &quot;-i&quot; do Vanitygen não pode ser usada com a opção &quot;-r&quot;.
+
+Lembrando que demora o quanto mais longo for o padrão a ser procurado.
+Também, algumas letras específicas podem demorar mais que outras.
+
+MAIS EXEMPLOS DE USO: https://www.youtube.com/watch?v=a7Gq8ZMs-dc&t=1s
+
+
+Meu GitHub :https://github.com/mountaineerbr/markets">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image:alt" content="Video thumbnail">
+<!-- https://ogp.me/ -->
+
 </head>
 <body id="doc">
 <div class="w3-container w3-teal">

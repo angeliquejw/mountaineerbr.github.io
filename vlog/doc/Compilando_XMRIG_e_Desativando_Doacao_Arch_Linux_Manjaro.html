@@ -11,6 +11,95 @@
 <meta name="distribution" content="global">
 <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
 
+<meta property="og:url" content="<link rel="canonical" href="https://www.mountaineerbr.github.io/vlog/doc/Compilando_XMRIG_e_Desativando_Doacao_Arch_Linux_Manjaro.html">">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Biology Blogger Video Log">
+<meta property="og:image" content="https://www.mountaineerbr.github.io/vlog/thumb/Compilando_XMRIG_e_Desativando_Doacao_Arch_Linux_Manjaro.jpg">
+<meta property="og:description" content="Aqui vai o hack! Zerando a doação automática pros devs do XMR-Stak no Manjaro ou Arch Linux.
+
+Esclarencendo um Hack do último video ( https://www.youtube.com/watch?v=lpS4rCIcobw&t=1594s ), que parecia funcionar, mas que com o tempo os Logs do minerador acusaram que a cada 100 minutos minerando para mim, o minerador ainda se conectava ao 'Dev Pool
+
+Aqui vai o Hack Quente, feito pelo 'yaourt'. Aproveitamos e já estamos instalando a versão mais recente disponível do xmr-stak-git 2.4.4 !!
+
+Tutorial completo disponível no meu GitHub:
+https://github.com/mountaineerbr/extra/tree/master/tutorials
+
+2e INSTALANDO COM HACK 0% DE DOAÇÃO PELO YAOURT:
+
+Testado com a versão mais recente atualizada do XMR-stak--git v2.4.4
+
+Para realizarmos todas as modificações pelo programa do yaourt, vamos precisar de um editor de texto de interface de linha que leia os arquivos de PKGBUILD dos repositórios do AUR. 
+
+Os PKGBUILD são arquivos que contém instruções para o yaourt de onde puxar os códigos-fonte (no caso xmr-stak, puxam do git-hub) e qual compiladores usar, entre outras coisas. No tutorial do vídeo novo que fiz no youtube e que deixo o link abaixo, v
+
+Porém, acredito que as modificações no PKGBUILD também poderão ser realizadas com um editor de texto gráfico, como o Mousepad ou um outro da sua distribuição, contanto que em determinado momento do começo da preparação da instalação do xmr-st
+
+/tmp/yaourt-tmp/nome_usuário
+
+Começando a instalação pelo yaourt:
+
+$ yaourt -S xmr-stak-git
+
+Quando ele perguntar:
+
+== Edit PKGBUILD ? (Y/n) (&quot;A&quot; to abort)
+== ------------------------------------
+==
+Digite &quot;y&quot;
+
+Na próxima pergunta:
+
+== Edit PKGBUILD with: 
+Digite ‘nano’ ou ‘vim’ - ou qual você achar melhor de usar!
+
+Uma vez dentro do PKGBUILD, basta deletar o sinal de jogo-da-velha '#' (sustenido) do bloco a seguir:
+
+prepare() {
+cd &quot;$srcdir/xmr-stak&quot;
+#patch -p1 -i ../no-donate.patch
+}
+
+Salve; no nano, aperte Crt+O e depois Enter; depois, Ctr+X para sair do editor e voltar ao yaourt;
+
+Antes de sair do nano, se precisar atualizar a versao do compilador de C e C++ para uma versão mais recente do que a que está especificada no PKGBUILD, mude no bloco a seguir gcc-6' para 'gcc-7' e 'gcc++-6' para 'gcc++-7':
+
+
+build() {
+cd &quot;$srcdir/xmr-stak&quot;
+CC=/bin/gcc-6 CXX=/bin/g++-6 cmake .
+make
+}
+
+Salve e saio do PKGBUILD e volte para o yaourt; o yaourt vai te apresentar as dependências para se construir o xmr-stak, e vai te perguntar:
+
+== Continue building xmr-stak-git ? (Y/n)
+== --------------------------------------
+==
+Digite ‘y’
+
+No final, o yaourt vai fazer mais umas perguntas:
+
+== Exporting xmr-stak-git to diretório_em_seu_sistema
+(sudo) password for nome_usuário:
+Digite sua senha de sudoer
+
+E, finalmente, em:
+
+== Continue installing xmr-stak_cpu ? (Y/n)
+== (v)iew package contents (c)heck package with namcap
+== ---------------------------------------------------
+==
+Digite ‘y’
+
+E, pronto! Agota te garanto que usamos o no-donate.patch dos próprios developers da maneira correta e o minerdor só vai minerar para sua pool.
+
+
+Tutorial completo disponível no meu GitHub:
+https://github.com/mountaineerbr/extra/tree/master/tutorials">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image:alt" content="Video thumbnail">
+<!-- https://ogp.me/ -->
+
 </head>
 <body id="doc">
 <div class="w3-container w3-teal">

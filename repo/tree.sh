@@ -1,5 +1,5 @@
 #!/bin/zsh
-# v0.3.9  may/2021  mountaineerbr
+# v0.3.10  jun/2021  mountaineerbr
 # Create pages for exploring directories and files
 # Requires `markdown' and `txt2html'.
 # <https://archlinux.org/packages/extra/x86_64/discount/>
@@ -93,7 +93,18 @@ treef()
 	#HTML CUSTOMISATION
 	#metatags
 	meta='<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- <meta property="og:url" content="https://mountaineerbr.github.io/repo/"> -->
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Biology Blogger Repo">
+	<meta property="og:image" content="https://mountaineerbr.github.io/gfx/bg5.jpg">
+	<meta property="og:description" content="Check my repos with shell scripts, dotfiles and extra content.">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:image:alt" content="Repeating pattern image">
+	<!-- https://ogp.me/ -->
 	'
+
+
 	#extra styles
 	xtrastyles='h1 { text-transform: uppercase; } 
 	img {

@@ -1,6 +1,6 @@
 #!/bin/zsh
 # create a page with my videos
-# v0.1.5  may/2021  by mountaineerbr
+# v0.1.6  jun/2021  by mountaineerbr
 
 # github limits file size to 100MB
 # requires ffmpeg, ffprobe and txt2html
@@ -91,10 +91,14 @@ do
 		sed -n '/^\s*[Cc]omment/,/^\s*[Dd]escription/ p' <<<"$probe" |
 		sed -E 's/^\s*([Cc]omment)?[: ]*// ;/^\s*[Dd]escription[: ]*/d'
 		)"
+	commog="${comm//[\"“”]/&quot;}"
+	
 	desc="$(
 		sed -n '/^\s*[Dd]escription/,/^\s*[Dd]uration/ p' <<<"$probe" |
 		sed -E 's/^\s*([Dd]escription)?[: ]*// ;/^\s*[Dd]uration[: ]*/d ;4,$d'
 		)"
+	descog="${desc//[\"“”]/&quot;}"
+
 	commhtml="$( txt2html --extract --eight_bit_clean <<<"$comm" )"
 	#deschtml="$( txt2html --extract --eight_bit_clean <<<"$desc" )"
 	
@@ -112,6 +116,7 @@ do
 	#relative url paths to video files (individual video doc page)
 	videorelurldoc="../media/$fname"
 	thumbrelurldoc="../thumb/$img"
+	thumbrelurldocog="${ROOTVW%/}/thumb/$img"
 
 	
 	#low res version?
@@ -179,6 +184,15 @@ do
 
 		<meta name="distribution" content="global">
 		<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+
+		<meta property="og:url" content="${canonical}">
+		<meta property="og:type" content="blog">
+		<meta property="og:title" content="Biology Blogger Video Log">
+		<meta property="og:image" content="${thumbrelurldocog:-https://mountaineerbr.github.io/gfx/16_to_9.gif}">
+		<meta property="og:description" content="${commog:-$descog}">
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:image:alt" content="Video thumbnail">
+		<!-- https://ogp.me/ -->
 
 	</head>
 	<body id="doc">
@@ -260,9 +274,9 @@ do
 
 
 	#clean environment!
-	unset filepath fname size probe title date  comm desc deschtml commhtml
+	unset filepath fname size probe title date comm desc commog descog deschtml commhtml
 	unset dur itemdocpath canonical img lowpath lowfname sizelow lowurl
-	unset itemlow itemdoclow item videorelurldoc thumbrelurldoc
+	unset itemlow itemdoclow item videorelurldoc thumbrelurldoc thumbrelurldocog
 done
 
 #add number of videos
