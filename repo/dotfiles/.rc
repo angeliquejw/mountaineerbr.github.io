@@ -683,9 +683,6 @@ rc()
 #git diff HEAD versionHash [file]
 #https://stackoverflow.com/questions/3338126/how-do-i-diff-the-same-file-between-two-different-commits-on-the-same-branch
 
-#git push force
-#{ git push --force ;}
-
 #git add file
 gadd()
 {
@@ -792,12 +789,20 @@ thumblr()
 #alias gdcc='git diff HEAD{,^}' # diff between your latest two commits
 #https://stackoverflow.com/questions/1191282/how-to-see-the-changes-between-two-commits-without-commits-in-between
 
+#Git credentials
+#{ git config --local user.name [username] ;}
+#{ git config --local user.email [email] ;}
+#{ git push ;}  #will ask to update password
+#{ git config --local credential.helper ;}
+#{ git config --local --unset user.password ;}
+#
+
 #reset/refresh cloned repo
 gres() 
 {
 	git fetch --all &&
-	git reset --hard "${1:-origin/master}" &&
-	git clean -f -d -x
+	git reset --hard "${1:-origin/master}"
+	#git clean -f -d -x
 }
 #use a commit hash or 'HEAD^' to revert to last commit
 #https://stackoverflow.com/questions/4327708/git-reset-hard-head-leaves-untracked-files-behind/4327720
@@ -961,8 +966,7 @@ gk()
 #quit like vim
 q()
 {
-	echo '[bye..]' >&2
-	sleep 0.4
+	echo '[bye..]'
 	exit 0
 }
 
@@ -1042,14 +1046,14 @@ alias cdD='cd ~/Documents'
 alias cde='cd ~/www/bionota.github.io/'
 alias cdm='cd ~/bin/markets'
 alias cdM='cd /media ;[[ -n "$(/bin/ls)" ]] || cd /run/media'
+alias cdmedia=cdM
 alias cdq='cd ~/www/mountaineerbr.github.io/'
 alias cdQ='cd ~/www/mountaineerbr.github.io/blog'
 alias cds='cd ~/bin'
 alias cdt='cd /tmp'
 alias cdT='cd ~/tmp'
-alias cdu='cd /media/secondaryNtfs/usenet || cd /usenet || cd /home/usenet'
 alias cdw='cd ~/Downloads'
-alias cdW='cd ~/www/mountaineerbr'
+alias cdW='cd ~/www'
 
 #make dir and change dir to it - GRML has one mkcd function
 #mkcd() { mkdir "$1" && cd "$1" ;}
@@ -1120,6 +1124,10 @@ OZ=28.349523125
 #gram to troy ounce ratio for precious metals
 TOZ=31.1034768  #also? 31.1034807
 #https://goldprice.com/troy-ounce-vs-ounce/
+
+#AST bin
+AST="/usr/local/ast/arch/linux.i386-64/bin"
+#https://github.com/att/ast/
 
 #emulate ksh with zsh
 #use 'emulate -L ksh' for scripts
@@ -1569,7 +1577,6 @@ alldist()
 #usage: freeopt 'grep'  #beware grep option -NUM exists!
 freeopt()
 {
-	man "$1" |& grep -qFo -e '-NUM' -e '-[0-9]' && echo -- '-NUM is taken' ||
 		sort <(man "$1" |& grep -oE -e '-[0-9],\s?' | tr -d ', -') <(printf '%s\n' {0..9}) | uniq -u
 	sort <(man "$1" |& grep -oE -e '-[a-z],?\s' | tr -d ', -') <(printf '%s\n' {a..z}) | uniq -u
 	sort <(man "$1" |& grep -oE -e '-[A-Z],?\s' | tr -d ', -') <(printf '%s\n' {A..Z}) | uniq -u
@@ -2084,6 +2091,14 @@ urldecode()
 #x='a%20%25%e3%81%82';printf "${x//\%/\\x}"
 #In zsh ${x//%/a} adds a to the end but ${x//\%/a} replaces % with a.
 #https://unix.stackexchange.com/questions/159253/decoding-url-encoding-percent-encoding
+
+#submit sitemap to google
+#usage: gsitemap "https://your.website.com/sitemap.xml"
+gsitemap()
+{
+	curl -L "http://www.google.com/webmasters/tools/ping?sitemap=$(urlencode "$1")"
+}
+#https://developers.google.com/search/docs/guides/submit-URLs?utm_source=wmx&utm_medium=deprecation-pane&utm_content=submit-url
 
 #firefox with nvidia
 #{
@@ -4133,8 +4148,8 @@ alias btct='tail -f /media/primary/blockchain/debug.log'
 taproot()
 {
 	local b
-	b=( $(blk -v -- {${1:-683424}..$(blk -.)} | grep -e Vers_Hex  | tee >(wc -l) | grep -c '4$') )
-	print \\nyes:$b[1]\\nno_:$((b[2]-b[1]))\\ntot:$b[2]\\nper:$((${b[1]}.0 / ${b[2]}))\\n
+	b=( $(blk -vj4 -- {${1:-685440}..$(blk -.)} | grep -e Vers_Hex  | tee >(wc -l) | grep -c '4$') )
+	print \\nyes__: $b[1]\\nno___: $((b[2]-b[1]))\\ntotal: $b[2]\\nleft_: $((2016 - b[2]))\\nperct: $((${b[1]}.0 / ${b[2]}))\\n
 }
 #https://taproot.watch/
 

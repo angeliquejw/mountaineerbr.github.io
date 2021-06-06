@@ -1,14 +1,13 @@
 "
 " ~/.vimrc
-"               ,                 .__    
+"               ,                 .__
 "._ _  _ . .._ -+- _.*._  _  _ ._.[__)._.
-"[ | )(_)(_|[ ) | (_]|[ )(/,(/,[  [__)[  
+"[ | )(_)(_|[ ) | (_]|[ )(/,(/,[  [__)[
 
 " This initializes Vim for new users (as opposed to traditional Vi users)
 "source $VIMRUNTIME/defaults.vim
- 
-"defaults.vim -- i picked some configs
-"in arch linux, at /usr/share/vim/vim82/defaults.vim
+"in arch linux at /usr/share/vim/vim82/defaults.vim
+" PICK START
 
 "set ttimeout		" time out for key codes
 "set ttimeoutlen=100	" wait up to 100ms after Esc for special key
@@ -27,8 +26,7 @@ let sh_minlines = 500
 " Show @@@ in the last line if it is truncated.
 set display=truncate
 
-" Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
-" confusing.
+" Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it confusing.
 set nrformats-=octal
 
 " Only do this part when Vim was compiled with the +eval feature.
@@ -40,7 +38,7 @@ if 1
   " Also load indent files, to automatically do language-dependent indenting.
   " Revert with ":filetype off".
   "filetype plugin indent on
-  "see:https://vim.fandom.com/wiki/Indenting_source_code
+  "See: https://vim.fandom.com/wiki/Indenting_source_code
   "
   " Use the indent of the previous line for a newly created line
   "set cindent
@@ -48,7 +46,7 @@ if 1
   set autoindent
   "smartindent and cindent might interfere with file type based
   "indentation, and should never be used in conjunction with it.
-  
+
   " Line will continue visually indented (same amount of space as the
   " beginning of that line), thus preserving horizontal blocks of text
   "set breakindent
@@ -89,14 +87,14 @@ if has('langmap') && exists('+langremap')
   set nolangremap
 endif
 
-"defaults.vim pick end
+"defaults.vim PICK END
 
 
 " Set Vim colours, either for dark or light backgrounds
-set background=dark 
+set background=dark
 
 "Color Scheme -- background settings above may interfere
-"colorscheme default 
+"colorscheme default
 "colorscheme anotherdark
 colo inkpot
 "colo jellybeans
@@ -123,7 +121,7 @@ set t_ti= t_te=
 "but screen keeps separate scrollback buffers for each one. Just use C-a ESC
 "or C-a [ to enter copy mode. One other reason for that behaviour will be the
 "setting of the terminal TERM for each user.TUI applcations like vim and less
-"tailor their behaviour to whatever the terminal that they find themselves 
+"tailor their behaviour to whatever the terminal that they find themselves
 "talking to is capable of.
 "Ref:https://serverfault.com/questions/270103/gnu-screen-clearing-on-vim-less-etc-exit
 "
@@ -132,7 +130,7 @@ set t_ti= t_te=
 func LessInitFunc()
 	set nocursorcolumn nocursorline
 	set colorcolumn=0
-	"autocmd VimEnter * AnsiEsc 
+	"autocmd VimEnter * AnsiEsc
 endfunc
 "colorscheme?
 "set t_ti= t_te=
@@ -171,7 +169,7 @@ set number
 "
 " Set how many spaces will be preallocated to show line numbers
 set numberwidth=5
-"
+
 
 " Cursor Lines
 " Line
@@ -188,13 +186,16 @@ set colorcolumn=72,77
 
 " Tab and indent options
 "
-" set display width of tab; 1 tab = x space with                                                           
-"set tabstop=2
-" transform tab to x space (x is tabstop)                                                               
+" set display width of tab; 1 tab = x space with
+set tabstop=4
+"
+" transform tab to x spaces (x is tabstop); on pressing tab, insert 4 spaces
 "set expandtab
+"
 " auto indent; new line with number of space at the beginning same as previous
 "set autoindent
-" number of space append to lines when type >>
+"
+" when indenting with '>', use 4 spaces width
 "set shiftwidth=2
 "https://stackoverflow.com/questions/1878974/redefine-tab-as-4-spaces/38461002
 
@@ -202,21 +203,20 @@ set colorcolumn=72,77
 set listchars=tab:>-,trail:·,eol:$
 " kai hendry: set list listchars=nbsp:¬,tab:»·,trail:·,extends:>
 "All: set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-"Enable:
-"set list
+"Enable: set list
 
 " Scroll Offset
 " Minimum number of screen lines that you would like above and below
 " the cursor. This option applies to all commands, including searching.
 set scrolloff=4
-"
+
 " Incremental search, show results as you type
 set incsearch
-"
+
 " Ignore case when searching
 set ignorecase
-"
-" When searching try to be smart about cases 
+
+" When searching try to be smart about cases
 "Obs:Needs ignorecase on!
 set smartcase
 
@@ -224,15 +224,12 @@ set smartcase
 set shortmess+=I
 
 " Set Menu for completion
-"( Default: set )
 set wildmenu
 
 " Set Wild Menu mode
-"( Default: not set )
 set wildmode=longest,list,full
 
 " Set Wild to not list files with certain patterns
-"( Default: not set )
 "set wildignorecase=
 
 " Highlight Switching
@@ -246,7 +243,7 @@ endif
 
 
 " Matching brakets
-set showmatch 
+set showmatch
 "Note: Show matching brackets when text indicator is over them
 "
 " Matching brakets blink duration
@@ -271,26 +268,26 @@ set showcmd
 " Auto-reload File
 set autoread
 "Note: When a file has been detected to have been changed outside of Vim and
-" it has not been changed inside of Vim, automatically read it again.
-" When the file has been deleted this is not done
+"it has not been changed inside of Vim, automatically read it again. When the
+"file has been deleted this is not done
 
 
 " Vim has the ability to make use of the mouse,
-" but it only works for certain terminals 
+" but it only works for certain terminals
 "For XTerm, set mouse=a ; for xfce4-terminal use nothing or mouse=v
 set mouse=a
 "set mouse=v
-" Ref: https://superuser.com/questions/436890/cant-copy-to-clipboard-from-vim
+"Ref: https://superuser.com/questions/436890/cant-copy-to-clipboard-from-vim
 
 "Pasting from clipboard turns newlines into ^M (ctrl-m)
-"TIP: use :%s/\r//g 
+"Tip: :%s/\r//g
 "https://stackoverflow.com/questions/5843495/what-does-m-character-mean-in-vim
 
 " Confirmation messages
-""set confirm
+"set confirm
 "Note: Certain operations that would normally fail because of unsaved
-" changes to a buffer, e.g. ":q" and ":e", instead raise a dialog
-" asking if you wish to save the current file(s)
+"changes to a buffer, e.g. ":q" and ":e", instead raise a dialog
+"asking if you wish to save the current file(s)
 
 
 "spelling check
@@ -304,12 +301,10 @@ set spellfile=~/.vim/spell/en.utf-8.add
 
 "turn non spellcheck
 "set spell
-":setlocal spell
-":setlocal spell spelllang=en_us
+"setlocal spell
+"setlocal spell spelllang=en_us
 "see also: :help spell-quickstart
 "https://www.linux.com/training-tutorials/using-spell-checking-vim/
-
-
 
 " Searcheable Dirs list
 set path+=~/.config/**,~/.cache/**,~/.fonts/**,~/.themes/**,~/.vim/**,**
@@ -317,15 +312,15 @@ set path+=~/.config/**,~/.cache/**,~/.fonts/**,~/.themes/**,~/.vim/**,**
 
 
 " WRAPPING
-"
-"
+
+
 " Allow Wrap
 set wrap
 " Side-scrolling if NOWRAP
 set sidescroll=5
 "Note: Sidescrolling n chars at a time
-"
-"
+
+
 " HARD WRAPPING
 " Wrap margin ( Effectively puts a <EOL> at wrappping!)
 "set wrapmargin=1
@@ -333,7 +328,7 @@ set sidescroll=5
 " "hi-NonText ctermfg=Blue" at your favorite theme: Default is Blue
 "
 " Add <EOL> at specified line width
-" (Default: disabled, nought) 
+" (Default: disabled, nought)
 set textwidth=0
 " cc=+1  " highlight column after 'textwidth'
 "hi ColorColumn ctermbg=Blue
@@ -342,8 +337,8 @@ set textwidth=0
 " Extra margin to the left
 " (Causes textwidth to wrap more!)
 "set foldcolumn=1
-"
-"
+
+
 " SOFT WRAPPING
 " Wrap long lines at a character in 'breakat' rather than at the last
 " character that fits on the screen. Unlike 'wrapmargin' and 'textwidth',
@@ -352,7 +347,8 @@ set linebreak
 " String to put at the start of lines that have been wrapped
 "set showbreak=+++
 " Display Invisible Chars (but disables soft wrapping)
-"
+
+
 " Previous/Next line movement
 " ( Default: set whichwrap=b,s )
 set whichwrap=b,s,<,>,[,],h,l
@@ -363,7 +359,7 @@ set whichwrap=b,s,<,>,[,],h,l
 " cursor to the end of previous line. <Space> key moves
 " from the end of a line to the start of the next one
 " in normal and editor modes
-"
+
 "If you want to keep your existing textwidth settings for most lines in your
 "file, but not have Vim automatically reformat when typing on existing lines:
 set formatoptions-=t
@@ -403,24 +399,23 @@ set clipboard=unnamedplus
 " Default is 50; max 10000
 set history=6000
 "Notes: There are five separate history tables:
-"- one for ':' commands                                                          
-"- one for search strings                                                        
-"- one for expressions                                                           
-"- one for input lines, typed for the input() function.                          
-"- one for debug mode commands                                                   
-"Notes:                                                                          
-"- When you enter a command-line that is exactly the same as an older one, the   
-"  old one is removed (to avoid repeated commands moving older commands out of   
-"  the history).                                                                 
-"- Only commands that are typed are remembered.  Ones that completely come from  
-"  mappings are not put in the history.                                          
-"- All searches are put in the search history, including the ones that come      
-"  from commands like "*" and "#".  But for a mapping, only the last search is   
-"  remembered (to avoid that long mappings trash the history). 
+"- one for ':' commands
+"- one for search strings
+"- one for expressions
+"- one for input lines, typed for the input() function.
+"- one for debug mode commands
+"Notes:
+"- When you enter a command-line that is exactly the same as an older one, the
+"  old one is removed (to avoid repeated commands moving older commands out of
+"  the history).
+"- Only commands that are typed are remembered.  Ones that completely come from
+"  mappings are not put in the history.
+"- All searches are put in the search history, including the ones that come
+"  from commands like "*" and "#".  But for a mapping, only the last search is
+"  remembered (to avoid that long mappings trash the history).
 "
 "
 " Undo history
-" ( Default Set)
 set undofile
 " Undo levels
 " ( Default: 1000 for Unix )
@@ -428,38 +423,38 @@ set undolevels=3000
 " Undofile dir
 " ( Default: saved at same location as the editing file )
 set undodir=~/.vim/undoes
-"
+
 
 
 " BACKUP
-"
+
 " Set Backup
 set backup
-"
+
 "Backup dir
 set backupdir=~/.vim/bak
-"
+
 "Make a backup before overwriting a file.
 set writebackup
-"
+
 " How Vim handles its renaming and moving of files
 " Make a copy of the file and overwrite the original one
 set backupcopy=yes
 " Note: Slower but better than to rename and move file
-"
+
 " Keep first version
 "set patchmode=.orig
-"
+
 " Backup extension (don't set if BufWritepre is set for backup)
 "set backupext=~
 " Otherwise, meaningful backup name, ex: filename@2015-04-05.14:59
 " Same as incremental backups ( a new backup file every minute )
 au BufWritePre * let &bex = '.bak' . strftime("%F.%Hh%Mm")
 "https://gist.github.com/nepsilon/1c998cd95907ef5d2d29
-"
+
 " Skip patchmode file when pattern matches
 "set backupskip [pattern]
-"
+
 "To limit the width of text to 72 characters in Mutt
 au BufRead /tmp/mutt-* set tw=72
 
@@ -467,13 +462,13 @@ au BufRead /tmp/mutt-* set tw=72
 " SWAP FILES
 " Set cache directory
 set directory=~/.vim/swap
-"recover swap files with 'vim -r file.swp'
+"Note: recover swap files with 'vim -r file.swp'
 
 
 " FILEINFO
 " Fileinfo Configuration
 set viminfo=%,'400,n~/.vim/viminfo
-" Note: Example:
+"Example:
 "set viminfo=%,<800,'10,/50,:100,h,f0,n~/.vim/cache/.viminfo
 "            | |    |   |   |    | |  + viminfo file path
 "            | |    |   |   |    | + file marks 0-9,A-Z 0=NOT stored
@@ -484,7 +479,7 @@ set viminfo=%,'400,n~/.vim/viminfo
 "            | + lines saved each register (old name for <, vi6.2)
 "            + save/restore buffer list
 "
-" The viminfo file is used to store: 
+" The viminfo file is used to store:
 "    The command line history.
 "    The search string history.
 "    The input-line history.
@@ -495,11 +490,11 @@ set viminfo=%,'400,n~/.vim/viminfo
 "    The buffer list.
 "    Global variables.
 "
-" Note: To check all options available, within vim :help options
-" Refs:
+"Note: To check all options available, within vim :help options
+"Refs:
 "https://stackoverflow.com/questions/23012391/how-and-where-is-my-viminfo-option-set
 "https://vi.stackexchange.com/questions/14357/moving-viminfo-file-to-vim-dir
-" About viminfo creation:
+"About viminfo creation:
 "https://bugzilla.redhat.com/show_bug.cgi?id=193150
 "https://unix.stackexchange.com/questions/59155/why-is-vi-apparently-broken-viminfo-error-e576-and-how-can-i-fix-it
 "https://renenyffenegger.ch/notes/development/vim/editing/viminfo/index
@@ -507,7 +502,7 @@ set viminfo=%,'400,n~/.vim/viminfo
 
 
 " COMMANDS & FUNCTIONS
-"
+
 "Edit .Vimrc
 command Vrc !vim ~/.vimrc
 "Edit .ViFMrc
@@ -518,7 +513,7 @@ command Xrc !vim ~/.Xresources
 command Brc !vim ~/.bashrc
 
 " Browse recent docs with scratch buffer
-command Brosb :new +setl\ buftype=nofile | 
+command Brosb :new +setl\ buftype=nofile |
 	\ 0put =v:oldfiles | execute 'g/^/m0' |
 	\ nnoremap <buffer> <CR> :e <C-r>=getline('.')<CR><CR>
 "Note: For full height, set :99new
@@ -526,16 +521,16 @@ command Brosb :new +setl\ buftype=nofile |
 
 " Select a Range of Lines instead of entering Visual Mode
 command! -range Vis normal! <line1>GV<line2>G
-" Ex:  :10,12Vis
+"Ex:  :10,12Vis
 " https://unix.stackexchange.com/questions/43381/select-lines-using-ranges-in-vim
 
-" Sudo saves the file with :W 
+" Sudo saves the file with :W
 " ( Useful for handling the permission-denied error )
-command Sw w !sudo tee % > /dev/null 
+command Sw w !sudo tee % > /dev/null
 " Should have the same effect as:
 "command! SudoWrite w !sudo tee > /dev/null %
 "https://www.reddit.com/r/vim/comments/8k4p6v/what_are_your_best_mappings/
-" Note: Compare SudoWrite and SudoEdit in plug-in vim-eunuch
+"Note: Compare SudoWrite and SudoEdit in plug-in vim-eunuch
 
 " Super TAB
 " Install vim-supertab OR use the following function
@@ -563,26 +558,25 @@ command Sw w !sudo tee % > /dev/null
 "
 "inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 "
-" Ref: Function: https://vim.fandom.com/wiki/Smart_mapping_for_tab_completion
-" Ref: vim-supertab: https://github.com/ervandew/supertab
-"
+"Ref: Function: https://vim.fandom.com/wiki/Smart_mapping_for_tab_completion
+"Ref: vim-supertab: https://github.com/ervandew/supertab
+
 
 " :w!!
 " write the file when you accidentally opened it without the right (root) privileges
 "cmap w!! w !sudo tee % > /dev/null
-" Ref: https://github.com/charnley/dotfiles/blob/master/vimrc
+"Ref: https://github.com/charnley/dotfiles/blob/master/vimrc
 
 " Ignore whitespace diff mode
 "if &diff
 "    " diff mode
 "    set diffopt+=iwhite
 "endif
-" Check: https://github.com/charnley/dotfiles/blob/master/vimrc
+"Check: https://github.com/charnley/dotfiles/blob/master/vimrc
 "
 " diff context lines around changes
 ":set diffopt+=context:0
-"
-"
+
 
 
 " PLUG - INS
@@ -612,19 +606,19 @@ command Sw w !sudo tee % > /dev/null
 " the following setting means you can just press Tab instead
 let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 "https://vim.fandom.com/wiki/Omni_completion_popup_menu
-
+"
 "or:https://stackoverflow.com/questions/7722177/how-do-i-map-ctrl-x-ctrl-o-to-ctrl-space-in-terminal-vim
 "inoremap <leader>, <C-x><C-o>
-
+"
 " INSTANT COMPLETION
 "imap <Leader><Tab> <C-X><C-F>
-" NOW WE CAN:
+" NOW WE CAN
 "	- Hit tab to :find by partial match
 "	- Use * at the beginning or end of string to make it fuzzy
 " THINGS TO CONSIDER
 " 	- :b lets you autocomplete any open buffer
 "https://www.youtube.com/watch?v=XA2WjJbmmoM
-"
+
 
 
 " KEYBINDINGS
@@ -633,7 +627,7 @@ let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 " 	   vmap = for
 " 	   |------ visual(vmap) and
 " 	   |------ select mode(xmap)
-" 
+"
 " :map and :noremap are recursive and non-recursive versions
 " of the various mapping commands. What that means is that if you do:
 "	:map j gg
@@ -653,24 +647,24 @@ let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 "
 "Note: In insert mode, <C-o> allows you to execute normal mode commands
 "without leaving insert mode.
-"
+
 
 
 " MISC KEYBINDDINGS
-" 
+
 " One-stroke type ":" for cmd
 noremap ; :
 "https://vim.fandom.com/wiki/Map_semicolon_to_colon
-"
-"
+
+
 " Autocorrect writing two colons
 noremap :: :
-"
-"
+
+
 " If you happen to press twice...
 noremap :; :
-"
-"
+
+
 " Exits
 "Prefer to use ZZ or ZQ
 " Bash-like Quit
@@ -682,15 +676,15 @@ noremap :Q  :q
 noremap ;Q  :q
 noremap :Wq :wq
 noremap ;Wq :wq
-"
-"
+
+
 " Go to same line position within a wrapped line
 noremap <Up>   gk
 noremap <Down> gj
 inoremap <Up>   <C-o>gk
 inoremap <Down> <C-o>gj
-"
-"
+
+
 " Alternative <ESC>
 " Don't leave keyboard to ESC
 " *Press and hold these keys*
@@ -703,70 +697,72 @@ cnoremap jj <Esc>
 "imap jj <ESC>
 " One user says: mapping jj to <esc> is a must have for me.
 " It should be a default
-"
-"
+
+
 " Quickly executing throw-away macros with q register
 nnoremap Q @q
-"
-"
+
+
 " Escape spaces in command-mode by pressing space twice
 "cnoremap <space><space> \<space>
 "
 
+
 " CONTROL & SHIFT KEYS
-"
-"
+
+
 " INDEX FOR CONTROL & UPPERCASE LETTERS ( SHIFT )
 " 	C-Home 		Go to Top of document
 " 	C-End 		Go to End of document
-" 	
-"
+
+
 " Control + Home/End go to Top/Bottom of file
 noremap <C-Home> gg
 noremap <C-End> G
 inoremap <C-Home> gg
-inoremap <C-End> G  
+inoremap <C-End> G
 "https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
 "https://vim.fandom.com/wiki/Moving_around
 "
 
 
 " FUNCTION KEYS
-"
+
 " INDEX OF Fn KEYS
-"	<F1>	Recent files 
+"	<F1>	Recent files
 "	<F2>	Toggle Line Numbers
-"	<F3>	
+"	<F3>
 "	<F4>
 "	<F5>
 "	<F6>	Auto-Scroll
-"	<F7> 	
-"	<F8> 	
-"	<F9>	
-"	<F10>	
-"	<F11>	
-"	<F12>	
+"	<F7>
+"	<F8>
+"	<F9>
+"	<F10>
+"	<F11>
+"	<F12>
 "Note:Fn keys do not work in GVim visual mode!!!
 "
 "	<> 	Copy to PRIMARY (check set clipboard )
 "	<> 	Paste from PRIMARY ( idem )
 "
+
 " Recent Files
 noremap <F1> :browse oldfiles<CR>
 "Note: You can use '0, '1, '2, ... '9 to jump amongst recent files
 "To set shortcuts for recent files :h c_#<
 "E.g. :edit #<1 will open last file
-"If you want to use 0-9 as marks for navigation,do not mark them manually 
+"If you want to use 0-9 as marks for navigation,do not mark them manually
 "After finding your query, press q or ESC and filenumber to edit it
-"
-"
+
+
 " Line Numbers Toggle
 noremap <F2> :set number! number?<CR>
 "Note: Or nnoremap <F2> :set nonumber!<CR>
 "The last cmd will report state "number" or "nonumer"
 "https://stackoverflow.com/questions/762515/vim-remap-key-to-toggle-line-numbering
-"
-"
+
+
 " Auto-scrolling (Default: 3800m = 3.8 seconds)
 map <F6> <C-e>:sleep 3800m<CR>j<F6>
 "Note: Use CTR-C to stop
@@ -777,97 +773,95 @@ map <F6> <C-e>:sleep 3800m<CR>j<F6>
 
 " MAPLEADER 0 ( Built-in )
 " ( Default set to \ )
-""let mapleader = "," 
-" Suggestions: - , \ "\\" ç " " "\<Space>\<Space>"
+"let mapleader = "\"
+"Suggestions: - , \ "\\" ç " " "\<Space>\<Space>"
 "https://www.reddit.com/r/vim/comments/72kfsn/leader_suggestions/
-"
-"
+
+
 " INDEX OF LEADER 0
-"	\f	:find in dirs path 
+"	\f	:find in dirs path
 "	\]	Blank line below
-"	\[	Blank line above 	
+"	\[	Blank line above
 "	\whs	Whitespace-trim document
 "	\t	Capitalise Line As In A Title
 " 	\s	Opens a shell
-"	
-"
-" Use :find to search in selected dirs in path
-noremap <Leader>f :find 
-"
-"
+
+
+"Use :find to search in selected dirs in path
+noremap <Leader>f :find
+
+
 " Blank Line Insertion ( above or below )
 nnoremap <leader>] mjo<Esc>`j
 inoremap <localleader>] <Esc>mjo<C-o>`j
 nnoremap <leader>[ mkO<Esc>`k
 inoremap <localleader>[ <Esc>mkO<C-o>`k
-"
-"
+
+
 " Search & Replace ( <Leader>c and <Leader>C )
 " Change word under cursor one at a time (CASE INSENSITIVE)
 nnoremap <Leader>c *``cgn
-nnoremap <Leader>C #``cgN 
+nnoremap <Leader>C #``cgN
 "Note: Replaces the word under cursor for whatever you want; after that,
 " you can keep pressing . and it will keep substituting all the instances
 " of the original word (ala multiple cursors). To skip, escape editor mode
 " and use "n"" (as you would in a normal search). Restart at new match to
 " replace.
-"Note:The second mapping goes the other way around: substitutes upwards.
 "https://www.reddit.com/r/vim/comments/8k4p6v/what_are_your_best_mappings/
-"
-"
+
+
 " CASE-SENSITIVE VERSION ( <Leader>ci and <Leader>Ci )
-nnoremap <Leader>cs /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
-nnoremap <Leader>Cs ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
+nnoremap <Leader>ci /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
+nnoremap <Leader>Ci ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
 "https://www.reddit.com/r/vim/comments/2p6jqr/quick_replace_useful_refactoring_and_editing_tool/
-"
-"
+
+
 " Replace All ( <Leader>ca )
 noremap <Leader>ca :%r/\<<C-r><C-w>\>//g<Left><Left>
-"Note: Place cursor on top of a word and Type "\r" to activate;
-" then type your word, escape back to normal and press Enter
 "https://vim.fandom.com/wiki/Search_and_replace_the_word_under_the_cursor
-"
-"
+
+
 " Convert line to "Title Case" (capitalize first letter of each word)
-nnoremap <Leader>t :silent s/\<\(\w\)\(\S*\)/\u\1\L\2/g<cr>
-"Note:Does not work as in (word 
-"
+" check :help case
+nnoremap <Leader>t :silent s/\v<(.)(\w*)/\u\1\L\2/g<cr>
+
+" Go to shell
 nnoremap <Leader>s :shell<cr>
-"
+
 " Trim every superfluous whitespace from the end of every line in the current
 "file. Do it now and bring the cursor back to where we started.
-nnoremap <Leader>whs :let _save_pos=getpos(".") <Bar> 
-    \ :let _s=@/ <Bar> 
-    \ :%s/\s\+$//e <Bar> 
-    \ :let @/=_s <Bar> 
-    \ :nohl <Bar> 
-    \ :unlet _s<Bar> 
-    \ :call setpos('.', _save_pos)<Bar> 
-    \ :unlet _save_pos<CR><CR> 
-"
+nnoremap <Leader>whs :let _save_pos=getpos(".") <Bar>
+    \ :let _s=@/ <Bar>
+    \ :%s/\s\+$//e <Bar>
+    \ :let @/=_s <Bar>
+    \ :nohl <Bar>
+    \ :unlet _s<Bar>
+    \ :call setpos('.', _save_pos)<Bar>
+    \ :unlet _save_pos<CR><CR>
+
 "Remove bash variable dust when possible ${VAR} --> $VAR
 "from cursor to end of file
-nnoremap <Leader>bdust :,$s/${\([^@*\[\]}%#^/,:]\+\)}\\|${\([*@0-9]\+\)}/$\1\2/gc
+nnoremap <Leader>dust :,$s/${\([^@*\[\]}%#^/,:]\+\)}\\|${\([*@0-9]\+\)}/$\1\2/gc
 
 " MAPLEADER 1 ( CUSTOM LEADER ) < = >
 ""map = <cleader1>
 " Note: In normal mode, type == to automatically indent the current line
 " according to your indentation settings. This command can be used with a
 " count. The = command does the same, but for motions, text objects and
-" visual selections. 
+" visual selections.
 " Escape spaces in command-mode by pressing space twice
 "cnoremap <space><space> \<space>
-"
-"
+
+
 " INDEX OF CLEADER 1
-" 	== 	:resize +2 	
-" 	== 	:resize +2 	
-" 	=+ 	:resize -2 
-" 	=_ 	:resize -2 
-"
-"
+" 	== 	:resize +2
+" 	== 	:resize +2
+" 	=+ 	:resize -2
+" 	=_ 	:resize -2
+
+
 " WINDOW SPLITTING
-" 
+
 " Split and Edit New File
 ""nmap <cleader1>n :new<CR>
 ""nmap <cleader1>N :vnew<CR>
@@ -875,7 +869,7 @@ nnoremap <Leader>bdust :,$s/${\([^@*\[\]}%#^/,:]\+\)}\\|${\([*@0-9]\+\)}/$\1\2/g
 "Split with Fn keys
 ""nmap <cleader1>s :split <CR>
 ""nmap <cleader1>S :vsplit <CR>
-"
+
 " NAVIGATION in Split Screens
 ""nnoremap <cleader1>j <C-W><C-J>
 ""nnoremap <cleader1>k <C-W><C-K>
@@ -885,26 +879,26 @@ nnoremap <Leader>bdust :,$s/${\([^@*\[\]}%#^/,:]\+\)}\\|${\([*@0-9]\+\)}/$\1\2/g
 "nnoremap <C-K> <C-W><C-K>
 "nnoremap <C-L> <C-W><C-L>
 "nnoremap <C-H> <C-W><C-H>
-"
-"
+
+
 " WINDOW RESIZING
-"
+
 " Make Windows (almost) equal size
 ""nmap <cleader1><CR> <C-W>=
-"
+
 " Horizontal
 ""nmap <cleader1>= :resize +2 <CR>
 ""nmap <cleader1>- :resize -2 <CR>
 "nmap <F10> :resize +4 <CR>
 "nmap <F9> :resize -4 <CR>
-"
+
 " Vertical
 " Note: Use CAPSLOCK to access + and _ more easily
 ""nmap <cleader1>+ :vertical:resize +2 <CR>
 ""nmap <cleader1>_ :vertical:resize -2 <CR>
 "nmap <F12> :vertical resize +4 <CR>
 "nmap <F11> :vertical resize -4 <CR>
-"
+
 " Horizontal & Vertical
 " Works when Xresources XTerm.vt100.metaSendsEscape:False (Default)
 "nmap ½ :resize +2 <CR>
@@ -924,11 +918,11 @@ nnoremap <Leader>bdust :,$s/${\([^@*\[\]}%#^/,:]\+\)}\\|${\([*@0-9]\+\)}/$\1\2/g
 " VIM KEYS AND UNUSED KEYS
 "
 " Legend: 'n' - not used in stock Vim
-"        'y' - used in stock Vim
-"        's' - synonym for something in stock Vim
-"        'c' - key that continues, i.e. waits for another key; if 'showcmd' is
-"              set, these are generally the cases where partial commands appear
-"              on the status bar
+"         'y' - used in stock Vim
+"         's' - synonym for something in stock Vim
+"         'c' - key that continues, i.e. waits for another key; if 'showcmd' is
+"               set, these are generally the cases where partial commands appear
+"               on the status bar
 "
 "The table assumes 'insertmode' and 'allowrevins' are not set.
 "
@@ -1077,8 +1071,6 @@ nnoremap <Leader>bdust :,$s/${\([^@*\[\]}%#^/,:]\+\)}\\|${\([*@0-9]\+\)}/$\1\2/g
 "Ref: https://vim.fandom.com/wiki/Unused_keys
 "
 "
-"
-"
 "Ref: Good vimrc: https://github.com/thoughtbot/dotfiles/blob/master/vimrc
 
 
@@ -1099,7 +1091,7 @@ au BufRead,BufNewFile .rc set filetype=bash
 ":source ~/.vimrc
 
 "HIGHLIGHT COLOURS
-"highlight ColorColumn ctermbg=DarkGray 
+"highlight ColorColumn ctermbg=DarkGray
 "hi IncSearch cterm=NONE ctermfg=darkyellow ctermbg=darkblue
 "hi Search cterm=NONE ctermfg=darkblue ctermbg=darkyellow
 
@@ -1196,8 +1188,7 @@ let g:user_emmet_leader_key=','
 
 
 "netrw
-"
-"toggle view type with 'i'
+"Note: toggle view type with 'i'
 "
 "NERDtree like setup
 "
