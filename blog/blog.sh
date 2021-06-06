@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim:ft=bash
 # blog.sh -- BLOG POSTING SYSTEM
-# v0.6.26  may/2021  mountaineerbr
+# v0.6.27  may/2021  mountaineerbr
 #   __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ /  ____
 #  /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _ \/ __/
 # /_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /_.__/_/   
@@ -42,6 +42,12 @@ TARGET_BLOGIND="$ROOTB/index.html"
 
 #target home page index.html
 TARGET_HOME="$ROOT/index.html"
+
+
+#open graph default image
+IMGOGDEF="${ROOTW%/}/gfx/bg11bg.png"
+IMGOGALTDEF="Mushrooms, leaves and sticks"
+
 
 #tidy up post and cat.html
 OPTI=1
@@ -601,13 +607,20 @@ do
 		#fi
 
 		#open graph tags (references must be absolute urls)
+		if imgogmap=( $(<<<"$unwrapped" grep -Fn '<img ' | cut -f1 -d:) )
+		then
+			imgogalt="$(<<<"$unwrapped" sed -En "${imgogmap[1]}s|.*\<img .*alt=\"([^\"]*)\".*|\1| p")"
+			imgogsrc="$(<<<"$unwrapped" sed -En "${imgogmap[1]}s|.*\<img .*src=\"([^\"]*)\".*|\1| p")"
+			imgogsrc="$(rmimpf "${ROOTBW%/}/$n/$imgogsrc")"
+		fi
+
 		ogtags="    <meta property=\"og:url\" content=\"${canonicalog}\">
     <meta property=\"og:type\" content=\"blog\">
     <meta property=\"og:title\" content=\"${title}\">
-    <meta property=\"og:image\" content=\"${ROOTW%/}/gfx/bg11bg.png\">
+    <meta property=\"og:image\" content=\"${imgogsrc:-$IMGOGDEF}\">
     <meta property=\"og:description\" content=\"${descog}\">
     <meta name=\"twitter:card\" content=\"summary\">
-    <meta name=\"twitter:image:alt\" content=\"Mushrooms, leaves and sticks\">"
+    <meta name=\"twitter:image:alt\" content=\"${imgogalt:-$IMGOGALTDEF}\">"
     		#add og tags
 		sed -i '/<!-- opengraph -->/ r /dev/stdin' \
 			"$targetpost" <<<"$ogtags"
@@ -705,7 +718,8 @@ do
 
 	#keep environment clean
 	unset f l p q t
-	unset targetpost stamp1 stamp2 unwrapped canonical title time next prev pname dtpub navitem var ogtags canonicalog descog
+	unset ogtags canonicalog descog imgogmap imgogalt imgogsrc
+	unset targetpost stamp1 stamp2 unwrapped canonical title time next prev pname dtpub navitem var
 	unset TEMP_TARGETPOST TEMP_TARGETCAT SRCCHANGE SRC REPLY
 done
 echo >&2
