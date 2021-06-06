@@ -30,7 +30,7 @@ set -e  #!#
 
 
 #update blog pages
-"$ROOTB"/blog.sh  &
+"$ROOTB"/blog.sh "$@"  &
 print
 
 #generate the blog rss feed

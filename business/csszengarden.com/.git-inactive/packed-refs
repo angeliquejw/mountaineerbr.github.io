@@ -1,6 +1,0 @@
-# pack-refs with: peeled fully-peeled sorted 
-0e0dcb5cb17e226ff5f1a41fbbe47e10c5155cec refs/remotes/origin/214
-e3f4a139e76237dce4c2f6ae81c535c67bf1cce7 refs/remotes/origin/220
-2c776cfb3c838801060ec49c8958857859a91991 refs/remotes/origin/aria
-b064606eb927bb5907e4fe41d641d61769a04b80 refs/remotes/origin/master
-b804d902a0c4616e2857c633c25115c18a1e696a refs/remotes/origin/restore-legacy

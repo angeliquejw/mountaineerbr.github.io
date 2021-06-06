@@ -1,6 +1,0 @@
-*.map
-*.php
-*.log
-.htaccess
-.gitignore.swo
-npm-debug.log
