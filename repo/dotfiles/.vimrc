@@ -501,6 +501,13 @@ set viminfo=%,'400,n~/.vim/viminfo
 "
 
 
+" MISCELLANEOUS
+
+" Do not redraw screen in the middlw of macro (makes them complete faster)
+set lazyredraw
+"https://www.hillelwayne.com/post/intermediate-vim/
+
+
 " COMMANDS & FUNCTIONS
 
 "Edit .Vimrc
@@ -892,10 +899,10 @@ nnoremap <Leader>dust :,$s/${\([^@*\[\]}%#^/,:]\+\)}\\|${\([*@0-9]\+\)}/$\1\2/gc
 ""nnoremap <cleader1>k <C-W><C-K>
 ""nnoremap <cleader1>l <C-W><C-L>
 ""nnoremap <cleader1>h <C-W><C-H>
-"nnoremap <C-J> <C-W><C-J>
-"nnoremap <C-K> <C-W><C-K>
-"nnoremap <C-L> <C-W><C-L>
-"nnoremap <C-H> <C-W><C-H>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 
 " WINDOW RESIZING
