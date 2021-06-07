@@ -417,7 +417,6 @@ alias visudo='sudo /usr/bin/visudo'
 sdh()
 {
 	echo '[halt]' >&2
-	sleep 1
 	sudo systemctl poweroff
 	#sudo poweroff
 	#sudo halt -p
@@ -429,7 +428,6 @@ sdh()
 sdr()
 {
 	echo '[reboot]' >&2
-	sleep 1
 	sudo systemctl reboot
 	#sudo reboot
 	#sudo halt --reboot
@@ -440,13 +438,12 @@ sdr()
 #xfce4 logout
 out()
 {
-	if ps aux | grep \[x\]fce4-session | grep -q \^$( whoami )
+	if ps aux | grep \[x\]fce4-session | grep -q "^$(whoami)"
 	then
 		if [[ -n "$TMUX" ]]
 		then
 			echo 'xfce4-session-logout --logout --fast' >"$__TMUXSIG"
 			echo '[quit tmux and logout]' >&2
-			sleep 1
 			exit
 		else
 			/usr/bin/xfce4-session-logout --logout --fast
@@ -819,23 +816,18 @@ grmlast()
 #https://gist.github.com/CrookedNumber/8964442
 
 #git clone
+#usage: gc REPO
+#usage: gc USER REPO
 gc()
 {
-	#if no args, print usage
-	if [[ -z "$*" ]]
-	then
-		cat <<-! >&2
-		gc: clone a git repo
-		usage: gc REPO
-		usage: gc USER REPO
-		!
-		return 1
-	fi
+	local defuser=mountaineerbr
 
-	set -- "${@#/}"
-	set -- "${@%/}"
-	(( ${#@} - 1 )) || set -- '' "$1" 
-	git clone "https://github.com/${1:-mountaineerbr}/$2"
+	#if no args, print usage
+	[[ -n "$*" ]] || return
+
+	set -- "${@#/}" ;set -- "${@%/}"
+	((${#@} == 1)) && set -- '' "$1" 
+	git clone "https://github.com/${1:-$defuser}/$2"
 
 	cd "$2" || return
 	echo -e "\n$PWD"
@@ -902,8 +894,7 @@ gd()
 	#set positional parameters (default user, repo etc if empty..)
 	(( ${#@} - 1 )) || set -- "${3:-$defuser}" "${2:-$defrepo}" "$1"
 	(( ${#@} - 2 )) || set -- "${3:-$defuser}" "$1" "$2"
-	set -- ${@%/}
-	set -- ${@#/}
+	set -- ${@%/} ;set -- ${@#/}
 
 	#set url
 	url="https://raw.githubusercontent.com/$1/$2/master/$3"
@@ -939,19 +930,17 @@ gk()
 	[[ -n "$BASH_VERSION" ]] && shopt -s nullglob dotglob globstar
 
 	#get filename from user input
-	file="${3:-${2:-$1}}"
-	file="${file%/}"
-	file=${file##*/}
+	file="${3:-${2:-$1}}"  file="${file%/}"  file=${file##*/}
 	
 	#use func gd() to download file from repo
 	gd "$@" |
 		if [[ -e "$file" ]]
 		then
 			#$file is at current local dir
-			tee >( cksum -- - "$file" >&2 )
+			tee >(cksum -- - "$file" >&2)
 		else
 			#$file is down local dir hierarch
-			tee >( cksum -- - **/"$file" >&2 2>/dev/null )
+			tee >(cksum -- - **/"$file" >&2 2>/dev/null)
 		fi
 	)
 }
@@ -1449,7 +1438,7 @@ ubuntu()
 			xenial ) vv='16.04 LTS';;
 			bionic ) vv='18.04 LTS';;
 			cosmic ) vv='18.10';;
-			disco  ) vv='19.04';;  #removed from repo
+			disco  ) vv='19.04';;  #removed from server
 			eoan   ) vv='19.10';;
 			focal  ) vv='20.04 LTS';;
 			groovy ) vv='20.10';;
@@ -2187,6 +2176,35 @@ _wf3helperf()
 	jq -er '.results[0].geometry[]' <<<"$data" 2>/dev/null
 }
 
+#meteorologisk institutt norway
+#usage: sunrise [CITY NAME|[LAT] [LON]] [DATE] [DAYS] [HEIGHT] [OFFSET]
+sunrise()
+{
+	local arg lat lon date days height offset location n
+
+	#use location name function if 
+	for arg in "$@"
+	do [[ "$arg" != *[0-9]* ]] && location="$location $arg"  n=$((n+1)) || break
+	done
+	if [[ -n "$location" ]] &&
+		location="$( _wf3helperf "${location% }" )"
+	then
+		shift -- $n
+		set -- "$location" "${@:1}"
+	fi
+
+	#set parameters
+	set -- $(tr , \  <<<"$*")
+	lat="$1" lon="$2"
+	date="$( date -d${3:-now} +%Y-%m-%d )"
+	[[ -n "$4" ]] && days="&days=$4"
+	[[ -n "$5" ]] && height="&height=$5"
+	offset="${6:-$( date +%Z:00 )}"
+
+	curl -L "https://api.met.no/weatherapi/sunrise/2.0/.json?lat=$lat&lon=$lon&date=$date$days$height&offset=$offset" |
+		jq
+}
+
 #weather forecast (previsão do tempo)
 #and moon fase forecast
 #type :help to see options summary
@@ -2223,33 +2241,6 @@ gps2()
 		jq '.[]'
 }
 
-
-#meteorologisk institutt norway
-sunrise()
-{
-	local lat lon date days height offset
-	
-	if [[ -z "$*" ]]
-	then
-		echo "usage: sunrise [CITY_NAME|[LAT] [LON]] [DATE] [DAYS] [HEIGHT] [OFFSET]" >&2
-		return 1
-	#use location name function if possible
-	elif [[ "$1" = *[a-zA-Z]* ]] && set -- $( _wf3helperf "$1" ) "${@:2}"
-	then
-		sunrise "$@" || return 1
-		return 0
-	fi
-
-	#set parameters
-	set -- $( tr , \  <<< "$*" )
-	lat="$1" lon="$2"
-	date="$( date -d${3:-now} +%Y-%m-%d )"
-	[[ -n "$4" ]] && days="&days=$4"
-	[[ -n "$5" ]] && height="&height=$5"
-	offset="${6:-$( date +%Z:00 )}"
-
-	curl -L "https://api.met.no/weatherapi/sunrise/2.0/.json?lat=$lat&lon=$lon&date=$date$days$height&offset=$offset" | jq
-}
 
 #ascii world
 aworld()
