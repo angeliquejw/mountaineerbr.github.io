@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.17  jun/2021  by mountaineerbr
+# v0.7.19  jun/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -80,6 +80,7 @@ DESCRIPTION
 	separated by <TAB> control character. The defaults behaviour is
 	to print block \`time'; set -x to print \`mediantime' instead.
 	Check reference at SEE ALSO for the distinction between both.
+	To print time in human-readable formats, see options -uu.
 
 	To speed up processing of some options, setting maximum number of
 	asynchronous jobs with option -jNUM is allowed, in which case NUM
@@ -103,11 +104,11 @@ DESCRIPTION
 	mats is performed; if needed, set -d twice to disable autocorrec-
 	tion.
 
-	Option -u prints time in human-readable format RFC 5322 and -uu
-	prints in ISO 8601.
-
 	Option -l sets local time instead of UTC time; this affects how
 	DATESTRING from user input is interpreted, too.
+
+	Option -u prints time in human-readable format ISO 8601 and -uu
+	prints in RFC 5322.
 
 	Option -v enables verbose, set twice to more verbose.
 
@@ -187,17 +188,17 @@ USAGE EXAMPLES
 	$ $SN -- -10 -11 -12
 
 
-	2.1) Generate a list of timestamps from block 0 to 1000,
+	2.1) Generate a list of timestamps (block time) from block 0 to 1000,
 	     defaults to one job at most, output is ordered.
 
 	$ $SN -t {0..1000}
 	
 
-	2.2) Generate a list of timestamps from block 0 to 1000, set
-	     max jobs to 4; faster but prints asynchronously, so we
-	     will sort output numerically.
+	2.2) Generate a list of timestamps (mediantime) from block 0 to 1000,
+	     set max jobs to 4; faster but prints asynchronously, so we will
+	     sort output numerically.
 
-	$ $SN -t -j4 {0..1000} | tee | sort -n
+	$ $SN -tx -j4 {0..1000} | tee | sort -n
 
 
 	3) Find a block at or immediately before a date and time.
@@ -210,15 +211,15 @@ USAGE EXAMPLES
 
 	3.2) Verbose with human-readable time formats
 	
-	$ $SN -duv '12-mar-2020 10:00'
+	$ $SN -duuv '12-mar-2020 10:00'
 	
 	
 	3.3) Local time instead of UTC0 (GMT)
 	
-	$ $SN -dvl '12 mar 2020 10:00:00'
+	$ $SN -duuvl '12 mar 2020 10:00:00'
 
 	
-	3.4) Local time, relative
+	3.4) Local time
 	
 	$ $SN -dl 'yesterday 9:00pm'
 
@@ -255,7 +256,7 @@ OPTIONS
 	-j  NUM	Maximum simultaneos jobs, may print asynchronously,
 		defaults=$JOBSDEF .
 	-l 	Set \`local time' instead of \`UTC time'.
-	-u 	Print time in human-readable format RFC5322, twice for ISO8601.
+	-u 	Print time in ISO8601 format, set twice for RFC5322.
 	-v	Enables verbose feedback, may set multiple times.
 	-V 	Print script version.
 	-x 	Set block \`mediantime' instead of \`time'.
@@ -264,13 +265,13 @@ OPTIONS
 	-d  DATESTRING
 		Find block height before or at time/date; set -dd to dis-
 		able autocorrection of user input date formats; see also
-		options -lvx.
+		options -luuvx.
 
 	Timestamp list
 	-n 	Print block hash besides block timestamp.
 	-t  [HASH|HEIGHT]
-		Generate a list of block mediantime timestamps; see also
-		options -lx.
+		Generate a list of block \`time' timestamps; see also
+		options -luux.
 
 	Memory pool
 	-m 	Print mempool transaction ids.
@@ -619,7 +620,7 @@ blockchainf()
   		"BestBlk_: \(.bestblockhash)",
   		"ChainWrk: \(.chainwork)",
   		"Difficul: \(.difficulty)",
-  		"MedianTi: \(.mediantime)\t \(.mediantime | '$HH' )"'
+  		"MedianTi: \(.mediantime)\t \(.mediantime | '"$HH"' )"'
 	ret+=( $? )
 
 	}  #2>/dev/null
@@ -705,8 +706,8 @@ defaultf()
 		"Stripped: \(.strippedsize //empty) B\t \((.strippedsize //empty)/1000) KB",
 		"Weight__: \(.weight //empty) WU\t \((.weight //empty)/4000) vKB",
 		"Height__: \(.height)",
-		"MedianTi: \(.mediantime)\t \(.mediantime | '$HH' )",
-		"Time____: \(.time)\t \(.time | '$HH')"'
+		"MedianTi: \(.mediantime)\t \(.mediantime | '"$HH"' )",
+		"Time____: \(.time)\t \(.time | '"$HH"')"'
 	ret+=( $? )
 
 	#sum exit codes
@@ -722,7 +723,7 @@ heightatf()
 	INPUT="$*"
 
 	#human readable opt
-	((OPTHUMAN>1)) && DATEOPT='-Iseconds' || DATEOPT='-R'
+	((OPTHUMAN>1)) && DATEOPT='-R' || DATEOPT='-Iseconds'
 
 	#check if there is any user input
 	if [[ -z "$INPUT" ]]
@@ -1068,7 +1069,7 @@ mempoolf()
 				"TxId+Wit: \(.wtxid)",
 				"DependOn: \(.depends[] // empty)",
 				"SpentBy_: \(.spentby[] // empty)",
-				"Time____: \(.time)\t \(.time | '$HH' )",
+				"Time____: \(.time)\t \(.time | '"$HH"' )",
 				"UnbroadC: \(if .unbroadcast == true then "unbroadcasted" else empty end)",
 				"BIP125Rp: \(.["bip125-replaceable"] | if . == true then "replaceable" else "not-replaceable" end)",
 				"Height__: \(.height)",
@@ -1234,7 +1235,7 @@ do
 			((++OPTTIMESTAMP))
 			;;
 		u)
-			#convert unix->human time
+			#human-readable time formats
 			((++OPTHUMAN))
 			;;
 		v)
@@ -1299,8 +1300,8 @@ fi
 #human-readable time formats
 #set jq arguments for time format printing
 if [[ "${TZ^^}" = +(UTC0|UTC-0|UTC|GMT) ]]
-then ((OPTHUMAN>1)) && HH='strftime("%Y-%m-%dT%H:%M:%SZ")' || HH='strftime("%a, %d %b %Y %T Z")'
-else ((OPTHUMAN>1)) && HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")' || HH='strflocaltime("%a, %d %b %Y %T %Z")'
+then HH='strftime("%Y-%m-%dT%H:%M:%SZ")' ;((OPTHUMAN>1)) && HH='strftime("%a, %d %b %Y %T Z")'
+else HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")' ;((OPTHUMAN>1)) && HH='strflocaltime("%a, %d %b %Y %T %Z")'
 fi
 
 #consolidate $JOBSMAX

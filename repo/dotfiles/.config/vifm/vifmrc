@@ -13,17 +13,11 @@
 
 
 " Sample configuration file for vifm (last updated: 21 January, 2018)
-" You can edit this file by hand.
-" The " character at the beginning of a line comments out the line.
-" Blank lines are ignored.
-" The basic format for each item is shown with an example.
-
 " ------------------------------------------------------------------------------
 
 " Command used to edit files in various contexts.  The default is vim.
 " If you would like to use another vi clone such as Elvis or Vile
 " you will need to change this setting.
-
 set vicmd=vim
 " set vicmd=elvis\ -G\ termcap
 " set vicmd=vile
@@ -32,7 +26,6 @@ set vicmd=vim
 " standard utilities like `cp`.  While using `cp` and alike is a more universal
 " solution, it's also much slower when processing large amounts of files and
 " doesn't support progress measuring.
-
 set syscalls
 
 " Trash Directory
@@ -41,14 +34,12 @@ set syscalls
 " files by deleting them and then using p to put the file in the new location.
 " I recommend not changing this until you are familiar with vifm.
 " This probably shouldn't be an option.
-
 set trash
 
 " Trash Directories
 set trashdir+=$HOME/.local/share/Trash/files
 " Defaults Dirs for *nix
 "set trashdir+=%r/.vifm-Trash-%u,$VIFM/Trash,%r/.vifm-Trash
-
 
 " This is how many directories to store in the directory history.
 " Maximum number of stored items in all histories
@@ -127,15 +118,14 @@ set title
 " u  - use Unicode characters in the TUI (Unicode ellipsis instead of "...")
 " v - vary width of middle border to equalize view sizes.
 set tuioptions=puv
-" Default "psv"
+"Default: psv
 
 " Ignore case in search patterns unless
 " it contains at least one uppercase letter
 set ignorecase
 set smartcase
 
-" Wrap "Searches"
-"(Default: true)
+" Wrap searches
 set wrapscan
 " Do not Wrap by Default in Quick View
 set nowrap
@@ -144,7 +134,6 @@ set nowrap
 " p - always ignore case of paths during completion
 " P - always match case of paths during completion
 set caseoptions=p
-
 
 " Delete operations require confirmation
 "(Default: delete,permdelete)
@@ -183,7 +172,7 @@ screen!
 " rather than by lines. Default is none set
 set lsoptions=transposed
 
-"  Miller View Configuration
+" Miller View Configuration
 " Size  specifies  ratios of columns.  Each ratio is in the range
 " from 0 to 100 and values are adjusted to fit the  limits.
 " Example 1
@@ -200,14 +189,13 @@ set milleroptions=lsize:1,csize:2
 set incsearch
 
 " Try to leave some space from cursor to upper/lower border in lists
-
 set scrolloff=5
 
 " Don't do too many requests to slow file systems
-
 if !has('win')
     set slowfs=curlftpfs
 endif
+
 
 " ------------------------------------------------------------------------------
 
@@ -289,7 +277,7 @@ command! togglesort
 	 \ |    echo 'Defaults view, iNAME'
          \ |endif
 " https://q2a.vifm.info/78/how-can-i-toggle-between-two-sorting-states?show=79#a79
-"ORIGINAL CODE:
+"Original code:
 "command! togglesort
 "         \ :if &sort == '-size,+name'
 " 	  \ | 	set viewcolumns=-{name}.,12{}. 
@@ -536,7 +524,6 @@ filetype *.xz
        \ file-roller %c &
 fileviewer *.xz xz --list %c
 
-
 " Rar2FsMount and rar archives
 filetype {*.rar},<application/x-rar>
 	\ {View with File Roller - needs X}
@@ -596,8 +583,8 @@ filetype * vim
 " -------------------------------------------------------
 
 
-" Classify
-" Using charset of font "xos4 Terminus"
+" CLASSIFY
+" Using charset of font 'xos4 Terminus'
 "(Default)
 "set classify=":dir:/"
 "ジァミール ≫ -- My name in Japanese!
@@ -660,7 +647,7 @@ filetype * vim
 " -------------------------------------------------------
 
 
-" Highlight different filetypes
+" HIGHLIGHT DIFFERENT FILETYPES
 highlight /^.*\.(mp3|ogg|oga|flac|m4a|mp4|wav)$/ ctermfg=magenta
 highlight /^.*\.(jpg|jpeg|png|gif|tiff|webp|bmp|svg|svgz)$/ ctermfg=yellow
 highlight /^.*\.(zip|gz|bz2|xz|tar|tgz|tbz2|7z|rar|iso|rpm|deb)$/ ctermfg=red
@@ -767,7 +754,8 @@ set statusline="%-t%=||%u:%-g %10E %d %{&sort} "
 "https://github.com/vifm/vifm/blob/master/TODO
 
 " Start shell in current directory
-nnoremap s :shell<cr>
+" "!" suppresses spawning dedicated window of terminal multiplexer
+nnoremap s :shell!<cr>
 
 " Display sorting dialog
 nnoremap S :sort<cr>
@@ -831,7 +819,6 @@ nmap :Wq :wq
 nmap ;Wq :wq
 
 
-
 " BINDDINGS WITH LEADER ,
 
 " Execute command togglesort
@@ -869,7 +856,7 @@ noremap ,e :tree! <cr>
 
 
 
-" FUNCTION ( FN ) KEYS BINDDINGS
+" FUNCTION (FN) KEYS BINDDINGS
 
 " Example of standard two-panel file managers mappings
 "nnoremap <f3> :!less %f<cr>
@@ -880,11 +867,11 @@ noremap ,e :tree! <cr>
 "nnoremap <f8> :delete<cr>
 
 " Midnight commander alike mappings
-" Open current directory in the other pane
+" Open current directory in the other pane (alt+i)
 nnoremap <a-i> :sync<cr>
-" Open directory under cursor in the other pane
+" Open directory under cursor in the other pane (alt+o)
 nnoremap <a-o> :sync %c<cr>
-" Swap panes
+" Swap panes (ctrl+u)
 nnoremap <c-u> <c-w>x
 
 " Use keybinding F3 by the developer for this function!!!
@@ -897,9 +884,6 @@ nnoremap <c-u> <c-w>x
 "qnoremap x q:vsplit<cr>
 " above is a workaroung
 " https://q2a.vifm.info/31/visual-mode-how-to-fill-the-whole-screen?show=31#q31
-
-
-
 
 
 " ------------------------------------------------------------------------------

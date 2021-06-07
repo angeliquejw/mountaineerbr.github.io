@@ -1697,6 +1697,10 @@ sin()
 #	date -d"$*" +%s 2>/dev/null || date -Iseconds -d@"$*"
 #}
 
+#Serialization, time formats
+#RFC 5322: strftime({"%a, %d %b %Y %T %z"}, var.time);
+#ISO 8601: strftime({"%Y-%m-%dT%H:%M:%SZ"}, var.time);
+
 #my script ddate.sh
 alias D='ddate.sh'
 

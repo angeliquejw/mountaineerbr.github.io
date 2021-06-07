@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.4  jun/2021  by mountaineerbr
+# v0.8.5  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq
 
@@ -58,8 +58,8 @@ HELP="NAME
 
 
 SYNOPSIS
-	$SN  [-aklosvyy] [-jNUM] [-bBLOCK_HASH|HEIGHT] TRANSACTION_HASH..
-	$SN  [-aklosvyy] [-jNUM] \"TRANSACTION_HASH [BLOCK_HASH|HEIGHT]\"..
+	$SN  [-aklosuvyy] [-jNUM] [-bBLOCK_HASH|HEIGHT] TRANSACTION_HASH..
+	$SN  [-aklosuvyy] [-jNUM] \"TRANSACTION_HASH [BLOCK_HASH|HEIGHT]\"..
 	$SN  -hVww
 
 
@@ -96,6 +96,9 @@ DESCRIPTION
 	outputs from asynchronous jobs, use -oj1 .
 
 	Option -l sets local time instead of UTC time.
+
+	Option -u prints time in human-readable format RFC 5322 instead
+	of the defaults ISO 8601.
 
 	Option -v enables verbose, set -vv to print more feedback for
 	some functions.
@@ -216,26 +219,34 @@ USAGE EXAMPLES
 
 
 OPTIONS
-	-a 	Do not try to compress addresses (print assembly).
+	Miscellaneous
+	-a  Do not try to compress addresses (print assembly).
 	-b BLOCK_HASH
-		Set block hash containing transactions.
+	    Set block hash containing transactions.
 	-c CONFIGFILE
-		Path to bitcoin.conf or equivalent configuration file,
-		defaults=\"\$HOME/.bitcoin/bitcoin.conf\".
-	-e 	Print raw data when possible, debugging.
-	-h 	Print this help page.
+	    Path to bitcoin.conf or equivalent configuration file,
+	    defaults=\"\$HOME/.bitcoin/bitcoin.conf\".
+	-e  Print raw data when possible, debugging.
+	-h  Print this help page.
+	-s  Set stdin input is raw transaction json.
+	-V  Print script version.
+	-v  Enables verbose feedback, may set multiple times.
+
+	Job control
 	-j NUM 	Maximum number of simultaneous jobs, defaults=${JOBSDEF} .
-	-l 	Sets local time instead of UTC time.
-	-o 	Send to stdout while processing, inhibits creation of
-		results file at ${CACHEDIR/$HOME/\~} .
-	-s 	Set stdin input is raw transaction json.
-	-V 	Print script version.
-	-v	Enables verbose feedback, may set multiple times.
-	-w 	Regenerate bitcoin whitepaper, may set twice; outfile=$WPOUTFILE.
-	-y 	Decode transaction hex to ASCII, decrease minimum length
-		of sequences to print until match is found, otherwise
-		print all bytes.
-	-yy 	Same as -y but prints all bytes, same as -Y."
+
+	Output and format control
+	-l  Sets local time instead of UTC time.
+	-o  Send to stdout while processing, inhibits creation of
+	    results file at ${CACHEDIR/$HOME/\~} .
+	-u  Print time in RFC5322 instead of ISO8601.
+
+	Functions
+	-w  Regenerate bitcoin whitepaper, may set twice; outfile=$WPOUTFILE.
+	-y  Decode transaction hex to ASCII, decrease minimum length
+	    of sequences to print until match is found, otherwise
+	    print all bytes.
+	-yy Same as -y but prints all bytes, same as -Y."
 
 
 #!#bitcoin.sh snapshot with custom modifications
@@ -572,8 +583,8 @@ mainf()
 		"Tx_Id___: \(.txid)",
 		"Hash____: \(.hash // empty)",
 		"Blk_Hash: \(.blockhash // empty)",
-		"Time____: \(.time // empty)\t \(.time | '$HH' )",
-		"Blk_Time: \(.blocktime // empty)\t \(.blocktime | '$HH' )",
+		"Time____: \(.time // empty)\t \(.time | '"$HH"' )",
+		"Blk_Time: \(.blocktime // empty)\t \(.blocktime | '"$HH"' )",
 		"LockTime: \(.locktime)",
 		"Version_: \(.version)",
 		"Confirma: \(.confirmations // empty)",
@@ -1109,7 +1120,7 @@ trapf()
 #start
 
 #parse script options
-while getopts ab:c:ehj:losvVwyY opt
+while getopts ab:c:ehj:losuvVwyY opt
 do
 	case $opt in
 		a)
@@ -1151,6 +1162,10 @@ do
 		s)
 			#set stdin is json data (user explict)
 			OPTS=1
+			;;
+		u)
+			#human-readable time formats
+			((++OPTHUMAN))
 			;;
 		v)
 			#feedback
@@ -1265,8 +1280,8 @@ fi
 #human-readable time formats
 #set jq arguments for time format printing
 if [[ "${TZ^^}" = +(UTC0|UTC-0|UTC|GMT) ]]
-then HH='strftime("%Y-%m-%dT%H:%M:%SZ")'
-else HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")'
+then HH='strftime("%Y-%m-%dT%H:%M:%SZ")' ;((OPTHUMAN)) && HH='strftime("%a, %d %b %Y %T Z")'
+else HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")' ;((OPTHUMAN)) && HH='strflocaltime("%a, %d %b %Y %T %Z")'
 fi
 
 #do some basic checking

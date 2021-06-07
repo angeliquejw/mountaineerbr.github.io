@@ -15,11 +15,11 @@
 3825887311 10421 dotfiles/.nanorc
 569270430 11836 dotfiles/.nanorc_PORTUGUES
 1447373044 7661 dotfiles/.profile
-3922217413 111199 dotfiles/.rc
+1810394513 111339 dotfiles/.rc
 4051183497 1620 dotfiles/README.md
 2461603420 2922 dotfiles/.screenrc
 61693290 4501 dotfiles/.tmux.conf
-1079217149 37833 dotfiles/.vimrc
+2288070222 38132 dotfiles/.vimrc
 2345475779 949 dotfiles/.vimrc_manpager
 3323049999 6288 dotfiles/.xbindkeysrc
 3406132362 1660 dotfiles/.xinitrc
@@ -27,6 +27,6 @@
 1324702177 27136 dotfiles/.Xresources
 4134632826 934 dotfiles/.xserverrc
 917351820 662 dotfiles/.zshenv
-3246524168 20403 dotfiles/.zshrc
+822061826 20417 dotfiles/.zshrc
 3275105833 4077 dotfiles/.zshrc_fromAlad
 1852282111 125945 dotfiles/.zshrc_from_GRML.old

@@ -790,6 +790,7 @@ map <F6> <C-e>:sleep 3800m<CR>j<F6>
 "	\]     Blank line below
 "	\[     Blank line above
 "	\t     Capitalise Line As In A Title
+"	\T     Capitalise Line As In a Title
 " 	\s     Open shell prompt
 "	\whs   Trim whitespace in document
 
@@ -831,6 +832,10 @@ noremap <Leader>ca :%r/\<<C-r><C-w>\>//g<Left><Left>
 " Convert line to "Title Case" (capitalize first letter of each word)
 " check :help case
 nnoremap <Leader>t :silent s/\v<(.)(\w*)/\u\1\L\2/g<cr>
+" The following will skip single-letter words and words with uppercase letters.
+" It also accounts for non-english latin characters.
+nnoremap <Leader>T :s/\v\C<([a-zà-ý])([a-zà-ý]+)>/\u\1\L\2/g<cr>
+"https://vim.fandom.com/wiki/Switching_case_of_characters
 
 
 " Go to shell
