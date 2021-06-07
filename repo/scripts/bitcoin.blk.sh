@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.15  jun/2021  by mountaineerbr
+# v0.7.16  jun/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -1298,8 +1298,8 @@ fi
 #human-readable time formats
 #set jq arguments for time format printing
 if [[ "${TZ^^}" = +(UTC0|UTC-0|UTC|GMT) ]]
-then HH='strftime("%Y-%m-%dT%H:%M:%SZ")'
-else HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")'
+then ((OPTHUMAN>1)) && HH='strftime("%a, %d %b %Y %T Z")' || HH='strftime("%Y-%m-%dT%H:%M:%SZ")'
+else ((OPTHUMAN>1)) && HH='strflocaltime("%a, %d %b %Y %T %Z")' || HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")'
 fi
 
 #consolidate $JOBSMAX
