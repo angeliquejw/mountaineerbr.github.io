@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.16  jun/2021  by mountaineerbr
+# v0.7.17  jun/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -103,7 +103,8 @@ DESCRIPTION
 	mats is performed; if needed, set -d twice to disable autocorrec-
 	tion.
 
-	Option -u prints time in human-readable format.
+	Option -u prints time in human-readable format RFC 5322 and -uu
+	prints in ISO 8601.
 
 	Option -l sets local time instead of UTC time; this affects how
 	DATESTRING from user input is interpreted, too.
@@ -254,7 +255,7 @@ OPTIONS
 	-j  NUM	Maximum simultaneos jobs, may print asynchronously,
 		defaults=$JOBSDEF .
 	-l 	Set \`local time' instead of \`UTC time'.
-	-u 	Print time in human-readable format, may set multiple times.
+	-u 	Print time in human-readable format RFC5322, twice for ISO8601.
 	-v	Enables verbose feedback, may set multiple times.
 	-V 	Print script version.
 	-x 	Set block \`mediantime' instead of \`time'.
@@ -1298,8 +1299,8 @@ fi
 #human-readable time formats
 #set jq arguments for time format printing
 if [[ "${TZ^^}" = +(UTC0|UTC-0|UTC|GMT) ]]
-then ((OPTHUMAN>1)) && HH='strftime("%a, %d %b %Y %T Z")' || HH='strftime("%Y-%m-%dT%H:%M:%SZ")'
-else ((OPTHUMAN>1)) && HH='strflocaltime("%a, %d %b %Y %T %Z")' || HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")'
+then ((OPTHUMAN>1)) && HH='strftime("%Y-%m-%dT%H:%M:%SZ")' || HH='strftime("%a, %d %b %Y %T Z")'
+else ((OPTHUMAN>1)) && HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")' || HH='strflocaltime("%a, %d %b %Y %T %Z")'
 fi
 
 #consolidate $JOBSMAX
