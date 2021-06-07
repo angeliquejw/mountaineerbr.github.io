@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.18.1  feb/2021  by mountaineerbr
+# v0.18.2  jun/2021  by mountaineerbr
 
 #defaults
 #colours (comment out to disable)
@@ -55,9 +55,7 @@ HELP="NAME
 
 SYNOPSIS
 	$SN [-jNUM] [-akt] -- [GREP-OPTION..] PATTERN [URLFILE]
-	
 	$SN [-jNUM] [-akt] -- [GREP-OPTION..] -e PATTERNS ... [URLFILE]
-	
 	$SN [-hv]
 
 
@@ -66,61 +64,51 @@ SYNOPSIS
 
 
 DESCRIPTION
-	The script will read a URL list from stdin or a file with one
-	URL per line. If given, the URL file must be the last positional
-	argument.
-
-	Webpages will be downloaded and their copy and of their grep re-
-	sults are kept at a temporary directory.
+	The script will read a URL list from stdin or file with one URL
+	per line.
 
 	When a match is found, result is dumped to the screen as soon as
-	possible, however due to the asynchronous nature of the process,
-	output to screen from different may interleave.
+	possible. Due to the asynchronous nature of the processes, output
+	to screen from different jobs may interleave.
 
-	On exit or abortion, the script will concatenate and write grep
-	results to a file at ${CACHEDIR/$HOME/\~} .
+	To run grep on pdf, tar and other compressed files set option -a
+	or --text (treat binary data as text). GNU grep and lynx may throw
+	a warning when it goes through binary files.
 
-	To keep downloaded full webpage and other buffer files, set
-	option -k. Temporary directory defaults=${TMPD} .
+	It is important to make a distinction between script-reserved
+	and grep options. Script-reserved options must be set before any
+	grep option, otherwise the script may parse them improperly. A
+	--  signals the end of script options and disables further script-
+	specific option processing. Any arguments after the -- are treated
+	as grep options/arguments.
+	
+	HTML will be processed/filtered by a terminal web browser. Envi-
+	ronment \$BROWSER is read. If that is not set the script will
+	check for elinks, links, lynx or w3m, otherwise sed is executed
+	to remove HTML tags. To disable html filters, use option -t or
+	set \$BROWSER to cat.
 
-	To run grep on pdf, tar and other compressed files set option
-	-a or --text (treat binary data as text). GNU grep and lynx may
-	throw a warning when it goes through binary files.
+	On exit or abortion, the script will concatenate and write results
+	to a file at ${CACHEDIR/$HOME/\~} .
+
+	A copy of webpages and grep results are kept at a temporary dir-
+	ectory. To keep fully downloaded webpages and other buffer files,
+	set option -k. Temporary directory defaults=${TMPD} .
 
 	Jobs (subprocesses) for downloading data are launched asynchro-
-	nously. Each job will download data from a URL and grep text in-
-	dependently. As such, internet may jam and system slow down de-
-	pending on your contracted internet bandwidth and CPU power. You
-	should try and adjust the maximum number of background jobs with
-	option -jNUM (increase it if you bandwidth allows it), in which
-	NUM is an integer, defaults=${JOBSDEF} .
-
-	HTML will be processed/filtered by a terminal web browser.
-	Environment \$BROWSER is read. If that is not set the script
-	will check for elinks, links, lynx or w3m, otherwise sed is
-	executed to remove HTML tags. To disable html filters, use
-	option -t or set \$BROWSER to cat.
-
-	It is important to make a distinction between script-reserved and
-	grep options. Script-reserved options must be set before any grep
-	option, otherwise the script may parse them improperly. A  -- 
-	signals the end of script options and disables further script-
-	specific option processing. Any arguments after the -- are treat-
-	ed as grep options/arguments.
-	
-	If option '--colour=never' is given or stdout is redirected,
-	colour output of grep and script feedback will be disabled.
-
-	The final curl/wget and grep syntaxes and other important set-
-	tings will be printed before search starts.
+	nously. Each job will download data from a URL and grep text 
+	independently. As such, internet may jam and system slow down
+	depending on your contracted internet bandwidth and CPU power.
+	You should try and adjust the maximum number of background jobs
+	with option -jNUM, in which NUM is an integer, defaults=${JOBSDEF} .
 
 	The script checks minimally for url structure validity. Empty
-	strings or strings with only blanks will be skipped. URLs
-	starting with any of the following will be ignored as well:
+	strings or strings with only blanks will be skipped. URLs starting
+	with any of the following will be ignored as well:
 	${IGNORE//|/:, }: .
 
-	Take you time to carefully plan your search ahead and choose
-	a list of URLs carefully. You may also decide to keep downloaded
+	Take you time to carefully plan your search ahead and choose a
+	list of URLs carefully. You may also decide to keep downloaded
 	temporary files (option -k) to redo searches manually.
 
 	Reaccessing the same urls repeateadly in a short period of time
@@ -134,29 +122,32 @@ ENVIRONMENT
 
 	The number of retries upon a temporary error, connection timeout
 	and the maximum time for the whole operation can be adjusted set-
-	ting variables \$RETRIES, \$TOCONNECT and \$TOMAX,
-	respectively, to appropriate integer values and exporting them
-	before running the script. Alternatively, set script environment
-	by prefixing the script command with parameter assignments, see
-	usage example(4).
+	ting variables \$RETRIES, \$TOCONNECT and \$TOMAX, respectively,
+	to appropriate integer values and exporting them before running
+	the script. Alternatively, set script environment by prefixing
+	the script command with parameter assignments, see usage example(4).
 
-	\$JOBSMAX controls the maximum number of background jobs, that
-	is the equivalent of option '-jNUM'.
+	\$JOBSMAX
+			Controls the maximum number of background jobs,
+			that is the equivalent of option '-jNUM'.
 
-	\$RETRIES sets a number of retries if a transient error is re-
-	turned when curl or wget tries to perform a transfer. Note that
-	curl and wget differ in their default values (curl no retries,
-	wget three retries).
+	\$RETRIES
+			Sets a number of retries if a transient error is
+			returned when curl or wget tries to perform a
+			transfer. Note that curl and wget differ in their
+			default values (curl no retries, wget three retries).
 
-	\$TOCONNECT limits the connection phase only, so if connec-
-	tion occurs within the given period it will continue, while
-	\$TOMAX sets maximum time in seconds that the whole operation
-	is allowed to take. This is useful for preventing your batch
-	jobs from hanging for hours due to slow networks or links going
-	down.
+	\$TOCONNECT
+			Limits the connection phase only, so if connection
+			occurs within the given period it will continue,
+			while \$TOMAX sets maximum time in seconds that
+			the whole operation is allowed to take. This is
+			useful for preventing your batch jobs from hanging
+			for hours due to slow networks or links going down.
 	
-	\$BROSWER sets the browser to process HTML; if none set, the
-	script will set a browser automatically.
+	\$BROSWER
+			Sets the browser to process HTML; if none set,
+			the script will set a browser automatically.
 
 
 	#maximum asynchronous jobs
@@ -179,9 +170,9 @@ URL LISTS
 	GRAPHICAL INTERFACE
 
 	Use webbrowser bookmarks/history managers to create URL lists.
-	Open  the manager, select all URLs of interest, copy and paste
+	Open the manager, select all URLs of interest, copy and paste
 	them into a new plain text file, one URL per line and save it.
-	There are webbrowser utilities like 'CopyTabTitleUrl' by toshi.
+	There are web browser utilities like 'CopyTabTitleUrl' by toshi.
 	
 	Firefox
 		Menu > Libraries > Bookmarks > Show All Bookmarks
@@ -199,7 +190,7 @@ URL LISTS
 
 	TERMINAL
 
-	Close webbrowsers before reading '.sqlite' databases or make a
+	Close webbrowsers before reading '.sqlite' databases or make a 
 	copy to use them. The following commands may require adjusting
 	the path to the databases if the star glob does not work.
 
