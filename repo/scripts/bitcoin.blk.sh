@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.19  jun/2021  by mountaineerbr
+# v0.8  jun/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -908,7 +908,7 @@ mainf()
 		for arg in $@
 		do
 			#if argument is . or , , get best block
-			if [[ "$arg" = +(.|,)@(.|,) ]]
+			if [[ "$arg" = +(.|,) ]]
 			then
 				#get bets block hash from ., operators
 				(( ${#bestblk[@]} )) || bestblk=( $( bestblkfun ) ) || return
@@ -1300,7 +1300,7 @@ fi
 #human-readable time formats
 #set jq arguments for time format printing
 if [[ "${TZ^^}" = +(UTC0|UTC-0|UTC|GMT) ]]
-then HH='strftime("%Y-%m-%dT%H:%M:%SZ")' ;((OPTHUMAN>1)) && HH='strftime("%a, %d %b %Y %T Z")'
+then HH='strftime("%Y-%m-%dT%H:%M:%SZ")' ;((OPTHUMAN>1)) && HH='strftime("%a, %d %b %Y %T +00")'
 else HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")' ;((OPTHUMAN>1)) && HH='strflocaltime("%a, %d %b %Y %T %Z")'
 fi
 

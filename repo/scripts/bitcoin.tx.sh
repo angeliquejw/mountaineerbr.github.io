@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.5  jun/2021  by mountaineerbr
+# v0.8.6  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq
 
@@ -1280,7 +1280,7 @@ fi
 #human-readable time formats
 #set jq arguments for time format printing
 if [[ "${TZ^^}" = +(UTC0|UTC-0|UTC|GMT) ]]
-then HH='strftime("%Y-%m-%dT%H:%M:%SZ")' ;((OPTHUMAN)) && HH='strftime("%a, %d %b %Y %T Z")'
+then HH='strftime("%Y-%m-%dT%H:%M:%SZ")' ;((OPTHUMAN)) && HH='strftime("%a, %d %b %Y %T +00")'
 else HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")' ;((OPTHUMAN)) && HH='strflocaltime("%a, %d %b %Y %T %Z")'
 fi
 
