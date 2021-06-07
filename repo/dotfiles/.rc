@@ -815,24 +815,6 @@ grmlast()
 }
 #https://gist.github.com/CrookedNumber/8964442
 
-#git clone
-#usage: gc REPO
-#usage: gc USER REPO
-gc()
-{
-	local defuser=mountaineerbr
-
-	#if no args, print usage
-	[[ -n "$*" ]] || return
-
-	set -- "${@#/}" ;set -- "${@%/}"
-	((${#@} == 1)) && set -- '' "$1" 
-	git clone "https://github.com/${1:-$defuser}/$2"
-
-	cd "$2" || return
-	echo -e "\n$PWD"
-}
-
 #switching between branches in a repository you already have
 #overwrite a file with a version of that file from another revision
 #checkout to a particular status of a particular file
@@ -945,6 +927,23 @@ gk()
 	)
 }
 
+#git clone
+#usage: gc REPO
+#usage: gc USER REPO
+gc()
+{
+	local defuser=mountaineerbr
+
+	#if no args, print usage
+	[[ -n "$*" ]] || return
+
+	set -- "${@#/}" ;set -- "${@%/}"
+	((${#@} == 1)) && set -- '' "$1" 
+	git clone "https://github.com/${1:-$defuser}/$2"
+
+	cd "$2" || return
+	echo -e "\n$PWD"
+}
 
 #functions and aliases
 #declare -f
@@ -4092,7 +4091,7 @@ alias btct='tail -f /media/primary/blockchain/debug.log'
 taproot()
 {
 	local b
-	b=( $(blk -vj4 -- {${1:-685440}..$(blk -.)} | grep -e Vers_Hex  | tee >(wc -l) | grep -c '4$') )
+	b=( $(blk -vjauto -- {${1:-685440}..$(blk -.)} | grep -e Vers_Hex  | tee >(wc -l) | grep -c '4$') )
 	print \\nyes__: $b[1]\\nno___: $((b[2]-b[1]))\\ntotal: $b[2]\\nleft_: $((2016 - b[2]))\\nperct: $((${b[1]}.0 / ${b[2]}))\\n
 }
 #https://taproot.watch/

@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.3  may/2021  by mountaineerbr
+# v0.8.4  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq
 
@@ -88,7 +88,7 @@ DESCRIPTION
 	
 	Set option -jNUM in which NUM is an integer and sets the maximum
 	number of simultaneous background jobs, in which case NUM must be
-	an integer or \`max'. Environment variable \$JOBSMAX is read,
+	an integer or \`auto'. Environment variable \$JOBSMAX is read,
 	defaults=${JOBSDEF} .
 
 	Beware of mixed job outputs with optoin -o if more than one trans-
@@ -1135,7 +1135,10 @@ do
 			;;
 		j)
 			#max jobs in background
-			JOBSMAX="$OPTARG"
+			if [[ "$OPTARG" = [Aa][Uu][Tt][Oo]* ]]
+			then JOBSMAX=$(nproc)
+			else JOBSMAX="$OPTARG"
+			fi
 			;;
 		l)
 			#local time for humans
@@ -1184,9 +1187,7 @@ shift $(( OPTIND - 1 ))
 unset opt
 
 #consolidate user-set max jobs
-#consolidate $JOBSMAX
 JOBSMAX="${JOBSMAX:-$JOBSDEF}"
-[[ "$JOBSMAX" = [Mm][Aa][Xx] ]] && JOBSMAX=$(nproc)
 #check minimum jobs
 if ((JOBSMAX < 1))
 then echo "$SN: err  -- at least one job required" >&2 ;exit 1

@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.14  jun/2021  by mountaineerbr
+# v0.7.15  jun/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -83,7 +83,7 @@ DESCRIPTION
 
 	To speed up processing of some options, setting maximum number of
 	asynchronous jobs with option -jNUM is allowed, in which case NUM
-	must be an integer or \`max'; asynchronous jobs may print in dif-
+	must be an integer or \`auto'; asynchronous jobs may print in dif-
 	ferent order from input request; consider manually sorting output
 	afterwards, if needed; increasing NUM may only return modest speed
 	gains; defaults jobs=$JOBSDEF .
@@ -1206,7 +1206,10 @@ do
 			;;
 		j)
 			#maximum number of jobs
-			JOBSMAX="$OPTARG"
+			if [[ "$OPTARG" = [Aa][Uu][Tt][Oo]* ]]
+			then JOBSMAX=$(nproc)
+			else JOBSMAX="$OPTARG"
+			fi
 			;;
 		l)
 			#local time for humans
@@ -1301,7 +1304,6 @@ fi
 
 #consolidate $JOBSMAX
 JOBSMAX="${JOBSMAX:-$JOBSDEF}"
-[[ "$JOBSMAX" = [Mm][Aa][Xx] ]] && JOBSMAX=$(nproc)
 #check minimum jobs
 if ((JOBSMAX < 1))
 then echo "$SN: err  -- at least one job required" >&2 ;exit 1
