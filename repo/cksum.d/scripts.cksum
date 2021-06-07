@@ -2,7 +2,7 @@
 2397160934 25819 scripts/anta.sh
 316668081 329702 scripts/bcalc_ext.bc
 3546067067 26333 scripts/bcalc.sh
-2949071668 34540 scripts/bitcoin.blk.sh
+4133998460 34350 scripts/bitcoin.blk.sh
 3153572479 25571 scripts/bitcoin.hx.sh
 3175457370 36461 scripts/bitcoin.tx.sh
 4026601335 6730 scripts/blockchair.btcoutputs.sh

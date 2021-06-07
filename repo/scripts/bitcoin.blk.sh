@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.11  may/2021  by mountaineerbr
+# v0.7.14  jun/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -54,15 +54,15 @@ SYNOPSIS
 
 
 DESCRIPTION
-	The default function is to print block information of BLOCK_HASH
-	or BLOCK_HEIGHT. If option -i is set, prints the block header
-	information and transaction hases. If option -ii is set, prints
-	only transaction hashes from block. If option -I is set, prints
-	json of all the block transactions. Multiple block hashes or
-	height numbers are allowed. If empty, fetches hash of best (last)
-	block. Negative integers refer to a block from the tip, i.e. -10,
-	10-, .10 or 10. ,see note on example (1.2). Setting a . (dot) as
-	positional parameter is understood as best block.
+	By defaults, print header block information of BLOCK_HASH or BLOCK_
+	HEIGHT. If option -i is set, prints more block information and stats.
+	If option -ii is set, prints only transaction hashes from blocks.
+	If option -I is set, prints json of all transactions from blocks.
+
+	Multiple block hashes or height numbers are allowed. If empty,
+	fetches hash of best (last) block. Negative integers refer to blocks
+	from the tip, i.e. -10, 10-, .10 or 10. ,see note on example (1.2).
+	Setting a . (dot) as positional parameter is understood as best block.
 
 	Option -. (dot) prints block height and -, (comma) prints block
 	hash. Multiple block heights and hashes may be set as positional
@@ -283,8 +283,8 @@ OPTIONS
 	Options below accept [HASH..|HEIGHT..] as arguments.
 	-. 	Print block height.
 	-, 	Print block hash.
-	-i 	Header information and transaction hases.
-	-ii 	Transaction hashes only.
+	-i 	Header information and stats.
+	-ii Transaction hashes.
 	-I 	Prints raw JSON of all block transactions. 
 	-y 	Decode coinbase HEX to ASCII text and print sequences
 		longer than $STRMIN chars only.
@@ -409,17 +409,6 @@ deccoinbf()
 	ret+=( $? )
 	#or: .vin[].hex
 	
-	#debug? print raw data
-	if (( DEBUGOPT ))
-	then
-		echo "$BLK"
-		echo "$BLKSTAT"
-		echo "$rawtx"
-		echo "$txhex"
-		echo "$coinb"
-		return
-	fi
-
 	#verbose?
 	(( OPTVERBOSE )) &&
 		echo -ne "--------\nBLK_: $BLK_HASH\nTXID: $coinb\nHEX_: $txhex\nASCI: "
@@ -458,6 +447,10 @@ deccoinbf()
 	#sum exit codes
 	return $(( ${ret[@]/%/+} 0 ))
 }
+#https://bitcoin.stackexchange.com/questions/90684/how-to-decode-a-coinbase-transaction
+#you can just print every string in the blockchain database directly
+#{ strings -n 20 blk0000.dat ;}
+#https://bitcoin.stackexchange.com/questions/18/how-can-one-embed-custom-data-in-block-headers
 
 #is block hash or height?
 ishashf()
@@ -628,7 +621,7 @@ blockchainf()
   		"MedianTi: \(.mediantime)\t \(.mediantime | '$HH' )"'
 	ret+=( $? )
 
-	} #2>/dev/null
+	}  #2>/dev/null
 
 	#sum exit codes
 	return $(( ${ret[@]/%/+} 0 ))
@@ -640,96 +633,80 @@ defaultf()
 	local blk_stat ret
 	typeset -a ret
 
-	#get block stats, too
-	if (( OPTI < 2 )) && [[ "$BLK_HASH" != "$GENBLK_HASH" ]]
-	then blk_stat="$( bwrapper getblockstats \""$BLK_HASH"\" )"
-	fi
-
-	#debug? print raw data
-	if (( DEBUGOPT ))
-	then
-		echo "$BLK"
-		echo "$blk_stat"
-		echo "$BLK_HASH"
-		echo "$BLK_HEIGHT"
-		return
-	fi
-
-	#header?
-	(( OPTI == 1 )) &&
-		printf '\n\n%s\n%s\n' '--------' Transactions
 	#print transaction hashes
-	if (( OPTI ))
-	then jq -r '.tx[]' <<<"$BLK" || return
+	if ((OPTI > 1))
+	then 
+		((OPTI == 3)) && echo -e "\n============\nTransactions"
+		jq -r '.tx[]' <<<"$BLK"
+		((OPTI == 3)) && echo "--------"
+		((OPTI>=1000 || OPTI==2)) && return
+	else
+		echo -e "\n============"
+	fi
+
+	#stats opt -- is target other block than genesis block?
+	if [[ "$OPTI" = [31] && "$BLK_HASH" != "$GENBLK_HASH" ]]
+	then
+		blk_stat="$( bwrapper getblockstats \""$BLK_HASH"\" )"
+		<<<"$blk_stat" jq -r '"Block status",
+			"Height__: \(.height)",
+			"Avg_Fee_: \(.avgfee) sat/KB \t \(.avgfee/1000) sat/B",
+			"Med_Fee_: \(.medianfee) sat/KB\t \(.medianfee/1000) sat/B",
+			"Min_Fee_: \(.minfee) sat/KB\t \(.minfee/1000) sat/B",
+			"Max_Fee_: \(.maxfee) sat/KB\t \(.maxfee/1000) sat/B",
+			"--------",
+			"Transaction Fee Rates",
+			"AvgFeeRt: \(.avgfeerate) sat/vB",
+			"MinFeeRt: \(.minfeerate) sat/vB",
+			"MaxFeeRt: \(.maxfeerate) sat/vB",
+			"FeeRtPct: \(.feerate_percentiles | tostring ) sat/vB",
+			"--------",
+			"Segwit transactions",
+			"Segw_Txs: \(.swtxs)",
+			"SwTotWgt: \(.swtotal_weight) WU",
+			"SwTotSiz: \(.swtotal_size) B\t \(.swtotal_size/1000) KB",
+			"--------",
+			"Transaction status",
+			"AvgTxSiz: \(.avgtxsize) B\t \(.avgtxsize/1000) KB",
+			"MedTxSiz: \(.mediantxsize) B\t \(.mediantxsize/1000) KB",
+			"MinTxSiz: \(.mintxsize) B\t \(.mintxsize/1000) KB",
+			"MaxTxSiz: \(.maxtxsize) B\t \(.maxtxsize/1000) KB",
+			"--------",
+			"Txs_In__: \(.ins)",
+			"Txs_Out_: \(.outs)",
+			"Utxo_Inc: \(.utxo_increase)",
+			"UtxoSizI: \(.utxo_size_inc)",
+			"--------",
+			"TotalWgt: \(.total_weight) WU",
+			"TotalSiz: \(.total_size) B\t \(.total_size/1000) KB",
+			"TotalOut: \(.total_out)\t \(.total_out/100000000) BTC",
+			"Subsidy_: \(.subsidy)\t \(.subsidy/100000000) BTC",
+			"TotalFee: \(.totalfee)\t \(.totalfee/100000000) BTC",
+			"--------"'
+		ret+=( $? )
 	fi
 
 	#print block information
-	if (( OPTI < 2 ))
-	then
-		#is target other block than genesis block?
-		if [[ "$BLK_HASH" != "$GENBLK_HASH" ]]
-		then
-			<<< "$blk_stat" jq -r '"",
-				"============",
-				"Block status",
-				"Height__: \(.height)",
-				"Avg_Fee_: \(.avgfee) sat/KB \t \(.avgfee/1000) sat/B",
-				"Med_Fee_: \(.medianfee) sat/KB\t \(.medianfee/1000) sat/B",
-				"Min_Fee_: \(.minfee) sat/KB\t \(.minfee/1000) sat/B",
-				"Max_Fee_: \(.maxfee) sat/KB\t \(.maxfee/1000) sat/B",
-				"--------",
-				"Transaction Fee Rates",
-				"AvgFeeRt: \(.avgfeerate) sat/vB",
-				"MinFeeRt: \(.minfeerate) sat/vB",
-				"MaxFeeRt: \(.maxfeerate) sat/vB",
-				"FeeRtPct: \(.feerate_percentiles | tostring ) sat/vB",
-				"--------",
-				"Segwit transactions",
-				"Segw_Txs: \(.swtxs)",
-				"SwTotWgt: \(.swtotal_weight) WU",
-				"SwTotSiz: \(.swtotal_size) B\t \(.swtotal_size/1000) KB",
-				"--------",
-				"Transaction status",
-				"AvgTxSiz: \(.avgtxsize) B\t \(.avgtxsize/1000) KB",
-				"MedTxSiz: \(.mediantxsize) B\t \(.mediantxsize/1000) KB",
-				"MinTxSiz: \(.mintxsize) B\t \(.mintxsize/1000) KB",
-				"MaxTxSiz: \(.maxtxsize) B\t \(.maxtxsize/1000) KB",
-				"--------",
-				"Txs_In__: \(.ins)",
-				"Txs_Out_: \(.outs)",
-				"Utxo_Inc: \(.utxo_increase)",
-				"UtxoSizI: \(.utxo_size_inc)",
-				"--------",
-				"TotalWgt: \(.total_weight) WU",
-				"TotalSiz: \(.total_size) B\t \(.total_size/1000) KB",
-				"TotalOut: \(.total_out)\t \(.total_out/100000000) BTC",
-				"Subsidy_: \(.subsidy)\t \(.subsidy/100000000) BTC",
-				"TotalFee: \(.totalfee)\t \(.totalfee/100000000) BTC"'
-			ret+=( $? )
-		fi
-
-		<<< "$BLK" jq -r '"--------",
-			"Block information",
-			"Hash____: \(.hash)",
-			"MrklRoot: \(.merkleroot)",
-			"PrevBlkH: \(.previousblockhash)",
-			"NextBlkH: \(.nextblockhash // empty)",
-			"Chainwrk: \(.chainwork)",
-			"Difficul: \(.difficulty)",
-			"Version_: \(.version)",
-			"Vers_Hex: \(.versionHex)",
-			"Bits____: \(.bits)",
-			"Nonce___: \(.nonce)",
-			"Txs_____: \(.nTx)",
-			"Confirma: \(.confirmations)",
-			"Size____: \(.size) B\t \(.size/1000) KB",
-			"Stripped: \(.strippedsize) B\t \(.strippedsize/1000) KB",
-			"Weight__: \(.weight) WU\t \(.weight/4000) vKB",
-			"Height__: \(.height)",
-			"MedianTi: \(.mediantime)\t \(.mediantime | '$HH' )",
-			"Time____: \(.time)\t \(.time | '$HH')"'
-		ret+=( $? )
-	fi
+	<<<"$BLK" jq -r '"Block information",
+		"Hash____: \(.hash)",
+		"MrklRoot: \(.merkleroot)",
+		"PrevBlkH: \(.previousblockhash)",
+		"NextBlkH: \(.nextblockhash // empty)",
+		"Chainwrk: \(.chainwork)",
+		"Difficul: \(.difficulty)",
+		"Version_: \(.version)",
+		"Vers_Hex: \(.versionHex)",
+		"Bits____: \(.bits)",
+		"Nonce___: \(.nonce)",
+		"Txs_____: \(.nTx)",
+		"Confirma: \(.confirmations)",
+		"Size____: \(.size //empty) B\t \((.size //empty)/1000) KB",
+		"Stripped: \(.strippedsize //empty) B\t \((.strippedsize //empty)/1000) KB",
+		"Weight__: \(.weight //empty) WU\t \((.weight //empty)/4000) vKB",
+		"Height__: \(.height)",
+		"MedianTi: \(.mediantime)\t \(.mediantime | '$HH' )",
+		"Time____: \(.time)\t \(.time | '$HH')"'
+	ret+=( $? )
 
 	#sum exit codes
 	return $(( ${ret[@]/%/+} 0 ))
@@ -1002,16 +979,29 @@ mainenginef()
 
 	#get block info
 	#is target other block than genesis block?
-	if [[ "$BLK_HASH" = "$GENBLK_HASH" ]] || ((OPTI==1000))
+	if [[ "$OPTI" -ge 1000 || ( "$BLK_HASH" = "$GENBLK_HASH" && -n "$OPTI" ) ]]
 	then
 		#all block transaction json
 		#genesis block with tx info
 		BLK="$( bwrapper getblock "$BLK_HASH" 2 )"
 	else
 		#common block tx info
-		BLK="$( bwrapper getblock "$BLK_HASH" true )"
+		if ((OPTASCII + OPTI))
+		then BLK="$( bwrapper getblock "$BLK_HASH" true )"        #full block
+		else BLK="$( bwrapper getblockheader "$BLK_HASH" true )"  #only header
+		fi
 	fi
 	ret+=( $? )
+
+	#debug? print raw data
+	if ((DEBUGOPT))
+	then
+		echo "$BLK"
+		echo "$BLK_HASH"
+		echo "$BLK_HEIGHT"
+		echo '$blk_stat, $rawtx, $txhex and $coinb are defined later in their respective functions' >&2
+		return
+	fi
 	
 	#call opt functions
 	if (( OPTTIMESTAMP ))
@@ -1022,10 +1012,6 @@ mainenginef()
 	then
 		#decode coinbase HEX
 		deccoinbf
-		#https://bitcoin.stackexchange.com/questions/90684/how-to-decode-a-coinbase-transaction
-		#you can just print every string in the blockchain database directly
-		#{ strings -n 20 blk0000.dat ;}
-		#https://bitcoin.stackexchange.com/questions/18/how-can-one-embed-custom-data-in-block-headers
 	else
 		#default option
 		#general block information and block transactions
@@ -1150,28 +1136,16 @@ mempoolf()
 #-t generate timestamp list
 timestamplistf()
 {
-	local HEADER NN ret
+	local nn ret
 	typeset -a ret
 
 	#print in human-readable format?
 	(( OPTHUMAN )) || unset HH
 	
-	#get json data
-	HEADER="$( bwrapper getblockheader "$BLK_HASH" )"
-	ret+=( $? )
-
-	#debug? print raw data
-	if (( DEBUGOPT ))
-	then
-		echo "$HEADER"
-		echo "$BLK_HASH"
-		exit 0
-	fi
-
 	#print block hash, too?
-	(( OPTN )) && NN="${SEP}${BLK_HASH}"
+	(( OPTN )) && nn="${SEP}${BLK_HASH}"
 
-	jq -er "\"\( .${OPTMEDTIME}time | ${HH:-.})${NN}\"" <<<"$HEADER"
+	jq -er "\"\( .${OPTMEDTIME}time | ${HH:-.})${nn}\"" <<<"$BLK"
 	ret+=( $? )
 	
 	#print simple feedback to stderr?
@@ -1223,7 +1197,7 @@ do
 			exit 0
 			;;
 		I)
-			#all block transaction json
+			#json of all all block transactions
 			OPTI=1000
 			;;
 		i)
