@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.14  jun/2021  by mountaineerbr
+# v0.8.18  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq
 
@@ -541,7 +541,7 @@ mainf()
 			#get addrs
 			#also sets $tmp10sum
 			echo -e "$header\n  Addresses"
-			if ! vinf
+			if ! vinf "$TMP"
 			then
 				echo '    skipping address..'
 				#set err signal
@@ -582,7 +582,7 @@ mainf()
 
 			echo -e "$header\n  Addresses"
 			#get addrs
-			if ! voutf
+			if ! voutf "$TMP"
 			then
 				echo '    skip..'
 				errsigf 1
@@ -608,7 +608,7 @@ mainf()
 	{
 
 	#general info
-	jq -r --arg optf 0 "\"\",$JQTXINFO" "$@" "$TMP"
+	jq -r "\"\",$JQTXINFO" "$TMP"
 	
 	#sum vouts
 	#load values from file
@@ -714,7 +714,7 @@ mainfastf()
 
 	else
 		#dumps only basic info
-		jq -r --arg optf 0 '"",
+		jq -r '"",
 			"--------",
 			'"$JQTXINFO" "$@"
 
@@ -893,7 +893,8 @@ selasmf()
 #old code, tested a lot, avoid changing it, cannot retest all fallbacks again
 voutf()
 {
-	local ADDR ASM TYPE pubKeyAddr pubKeyAsm pubKeyType
+	local ADDR ASM TYPE pubKeyAddr pubKeyAsm pubKeyType TMP
+	TMP="$1"
 
 	#set variables for address processing
 	#that is risky to set them all at once, but faster
@@ -959,8 +960,9 @@ voutf()
 #for when bitcoind is not set with txind=1
 vinf()
 {
-	local TMP2 txid ret retsum
+	local TMP TMP2 txid ret retsum
 	typeset -a txid ret
+	TMP="$1"
 	
 	#go back to previous transaction to get some data..
 	txid=( $( 
@@ -984,12 +986,12 @@ vinf()
 	elif bwrapper getrawtransaction "${txid[0]}" true >"$TMP2"
 	then
 		jq -r --arg index "${txid[-1]}" '.vout[( $index | tonumber)] // empty | "  Number_: \(.n )\tValue__: \(.value )"' "$TMP2"
-		TMP="$TMP2" index="${txid[-1]}" voutf
+		index="${txid[-1]}" voutf "$TMP2" 
 	else
 		#backup func
 		#if bitcoind txindex is not set,
 		#this func may still parse some addresses..
-		vinbakf && return
+		vinbakf "$TMP" && return
 	fi
 	#get exit code
 	ret+=( $? )
@@ -1018,6 +1020,7 @@ vinf()
 #this func may still process some addresses..
 vinbakf()
 {
+	local TMP="$1"
 	if ADDR=( $( jq -er --arg index "$index" '.vin[( $index | tonumber)].scriptPubKey.addresses? | .[]?' "$TMP" ) ) &&
 		seladdrf
 	then
@@ -1340,8 +1343,9 @@ else HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")' ;((OPTHUMAN)) && HH='strflocaltim
 fi
 
 #jq script block for parsing txs
+((OPTFAST > 2)) && JQTXHEX='"Hex_____: \(if ($optf | tonumber) > 2 then (.hex // empty) else empty end)",'
 JQTXINFO='"Transaction information",
-			"Hex_____: \(if ($optf | tonumber) > 2 then (.hex // empty) else empty end)",
+			'"$JQTXHEX"'
 			"Tx_Id___: \(.txid)",
 			"Hash____: \(.hash // empty)",
 			"Blk_Hash: \(.blockhash // empty)",
