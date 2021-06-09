@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.20  jun/2021  by mountaineerbr
+# v0.8.21  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -435,14 +435,14 @@ hexasciif()
 		#read file $TMP3 or get json from bitcoin-cli
 		{ [[ -e "$TMP3" ]] && data="$(<"$TMP3")" ;} ||
 			data="$( bwrapper getrawtransaction "$TXID" true ${BLOCK_HASH_LOOP:-${BLK_HASH}} )"
-		hex="$( jq -er '.hex? // empty' <<<"$data" )" &&
+		hex="$( jq -er '.hex // empty' <<<"$data" )" &&
 		[[ -n "$hex" ]]
 	then
 		#verbose?
 		if (( OPTVERBOSE ))
 		then
 			#is coinbase tx?
-			iscoinb="$( jq -r '.vin[0] | (.coinbase | if . == null then empty else "(coinbase transaction)\\n" end)' <<<"$data" )"
+			iscoinb="$( jq -r '.vin[0] | if .coinbase then "(coinbase transaction)\\n" else empty end' <<<"$data" )"
 			echo -ne "--------\n${iscoinb}TXID: ${TXID}\nHEX_: $hex\nASCI: "
 		#debug? print raw data
 		elif (( DEBUGOPT ))
@@ -686,7 +686,7 @@ mainfastf()
 					.vin[] // empty |
 					(
 							"  TxIndex_: \(.txid // "coinbase")",
-							"  Sequence: \(.sequence)\tVoutNum_: \(.vout // "")",
+							"  Sequence: \(.sequence)\tVoutNum: \(.vout // "")",
 							(
 								.scriptSig |
 									"  ScSigTyp: \(.type // empty)",
@@ -703,7 +703,7 @@ mainfastf()
 						"  Number__: \(.n )\tValue__: \(.value )",
 						(
 						.scriptPubKey |
-							"  PKeyType: \(.type // empty)\(.reqSigs | if . then "\tReqSigs_: \(.)" else "" end)",
+							"  PKeyType: \(.type // empty)\(if .reqSigs then "\tReqSigs: \(.reqSigs)" else "" end)",
 							"  PKeyAddr: \(.addresses? | .[]? // empty)",
 							"  PKeyAsm_: \( if ($optf | tonumber) > 2 then (.asm // empty) else empty end )",
 							""
@@ -901,7 +901,7 @@ voutf()
 	#the following shell arrays or variables will be set:
 	#$pubKeyAddr, $pubKeyAsm and $pubKeyType
 	eval "$( 
-		jq -r --arg index "$index" '.vout[( $index | tonumber)].scriptPubKey |
+		jq -r --arg index "$index" '.vout[($index | tonumber)].scriptPubKey |
 			(
 				"pubKeyAddr=( \( .addresses? | .[]? // empty ) )",
 				"pubKeyAsm=( \( .asm? // empty ) )",
@@ -967,10 +967,10 @@ vinf()
 	#go back to previous transaction to get some data..
 	txid=( $( 
 		jq -er --arg index "$index" \
-		'.vin[( $index | tonumber)] |
+		'.vin[($index | tonumber)] |
 			.txid,
 			.vout,
-			(.coinbase | if . == null then empty else "coinbase" end)' \
+			(if .coinbase then "coinbase" else empty end)' \
 			"$TMP"
 	) ) || return 1
 	
@@ -985,7 +985,7 @@ vinf()
 	#get previous transaction
 	elif bwrapper getrawtransaction "${txid[0]}" true >"$TMP2"
 	then
-		jq -r --arg index "${txid[-1]}" '.vout[( $index | tonumber)] // empty | "  Number_: \(.n )\tValue__: \(.value )"' "$TMP2"
+		jq -r --arg index "${txid[-1]}" '.vout[($index | tonumber)] // empty | "  Number_: \(.n )\tValue__: \(.value )"' "$TMP2"
 		index="${txid[-1]}" voutf "$TMP2" 
 	else
 		#backup func
@@ -1021,13 +1021,13 @@ vinf()
 vinbakf()
 {
 	local TMP="$1"
-	if ADDR=( $( jq -er --arg index "$index" '.vin[( $index | tonumber)].scriptPubKey.addresses? | .[]?' "$TMP" ) ) &&
+	if ADDR=( $( jq -er --arg index "$index" '.vin[($index | tonumber)].scriptPubKey.addresses? | .[]?' "$TMP" ) ) &&
 		seladdrf
 	then
 		#1#
 		printf '    %s\n' "${ADDR[@]}"
 
-	elif ASM=( $( jq -er --arg index "$index" '.vin[( $index | tonumber)].scriptPubKey.asm? // empty' "$TMP" ) ) &&
+	elif ASM=( $( jq -er --arg index "$index" '.vin[($index | tonumber)].scriptPubKey.asm? // empty' "$TMP" ) ) &&
 		selasmf "${ASM[@]}"
 	then
 		#if option -a (don't try to compress address) is set, print raw
@@ -1041,7 +1041,7 @@ vinbakf()
 		fi
 	
 	#others
-	elif ASM=( $( jq -er --arg index "$index" '.vin[( $index | tonumber)].scriptSig.asm? // empty' "$TMP" ) ) &&
+	elif ASM=( $( jq -er --arg index "$index" '.vin[($index | tonumber)].scriptSig.asm? // empty' "$TMP" ) ) &&
 		ASMSSIG=( ${ASM[@]} ) && selasmf "${ASM[@]}"
 	then
 		#note: there must be a more realiable way checking if first asm string is 0
@@ -1349,9 +1349,9 @@ JQTXINFO='"Transaction information",
 			"Tx_Id___: \(.txid)",
 			"Hash____: \(.hash // empty)",
 			"Blk_Hash: \(.blockhash // empty)",
-			"InActCha: \( if .in_active_chain == true then "True" else empty end)",
 			"Time____: \(.time // empty)\t \((.time // empty) | '"$HH"' )",
 			"Blk_Time: \(.blocktime // empty)\t \((.blocktime // empty)| '"$HH"' )",
+			"InActCha: \( if .in_active_chain then .in_active_chain else empty end)",
 			"LockTime: \(.locktime)",
 			"Version_: \(.version)",
 			"Confirma: \(.confirmations // empty)",
@@ -1475,7 +1475,7 @@ then
 				jq -er ".${TXAR}[${COUNTER}] // empty" "$TMPSTDIN" | mainfastf
 			else
 				#ids in array
-				TXIDARRAY=( $(jq -r ".${TXAR}[]|.txid? // empty" "$TMPSTDIN" ) )
+				TXIDARRAY=( $(jq -r ".${TXAR}[]|.txid // empty" "$TMPSTDIN" ) )
 				#get number of txs in array
 				L="${#TXIDARRAY[@]}"
 				#"number" length for printing feedback
