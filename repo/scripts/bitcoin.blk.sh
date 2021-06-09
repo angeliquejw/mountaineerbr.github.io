@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8  jun/2021  by mountaineerbr
+# v0.8.3  jun/2021  by mountaineerbr
 # bitcoin block information and functions
 
 #script name
@@ -47,48 +47,56 @@ HELP="NAME
 SYNOPSIS
 	$SN [-.,] [BLOCK_HASH..|BLOCK_HEIGHT..]
 	$SN [-dd] [-luvx] [-jNUM] [DATESTRING|@UNIXTIME]
-	$SN [-Iiiyy] [-lv] [-jNUM] [BLOCK_HASH..|BLOCK_HEIGHT..]
+	$SN [-giiyy] [-lv] [-jNUM] [BLOCK_HASH..|BLOCK_HEIGHT..]
 	$SN -t [-lnuvx] [-jNUM] [BLOCK_HASH..|BLOCK_HEIGHT..]
 	$SN -mmm [-lv] [-jNUM] [TRANSACTION_ID..]
 	$SN [-bhV]
 
 
 DESCRIPTION
-	By defaults, print header block information of BLOCK_HASH or BLOCK_
-	HEIGHT. If option -i is set, prints more block information and stats.
-	If option -ii is set, prints only transaction hashes from blocks.
-	If option -I is set, prints json of all transactions from blocks.
+	By defaults, print header block information of BLOCK_HASH or
+	BLOCK_HEIGHT. If option -i is set, prints more block information
+	and stats. If option -ii is set, prints only transaction hashes
+	from blocks. If option -g is set, prints json of all transactions
+	from blocks.
 
 	Multiple block hashes or height numbers are allowed. If empty,
-	fetches hash of best (last) block. Negative integers refer to blocks
-	from the tip, i.e. -10, 10-, .10 or 10. ,see note on example (1.2).
-	Setting a . (dot) as positional parameter is understood as best block.
+	fetches hash of best (last) block. Negative integers refer to
+	blocks from the tip (e.g. -10, 10-, .10 or 10.), see note on exam-
+	ple (1.2). Positional parameters with a . (dot) refer to the tip.
 
-	Option -. (dot) prints block height and -, (comma) prints block
-	hash. Multiple block heights and hashes may be set as positional
-	parameters. Negative index from the tip is accepted. If no pos-
-	itional parameter is given, fetches best block. Options -,. may
-	be combined.
+	Option -. (dot option) prints block height and -, (comma option)
+	prints block hash. Multiple block heights and hashes may be set as
+	positional parameters. Negative index from the tip is accepted. If
+	no positional parameter is given, fetches best block. Options -,.
+	may be combined.
 
-	Option -m prints mempool transaction ids and -mm prints mempool
-	transactions with more information. Optionally, transaction ids
-	from the mempool are accepted as positional parameters. Option
-	-mmm prints the number of transactions, their fees and some stats.
 
-	Option -t generates a list of block timestamps, one timestamp per
-	line. Set option -n to print block height hash besides block time
-	separated by <TAB> control character. The defaults behaviour is
-	to print block \`time'; set -x to print \`mediantime' instead.
-	Check reference at SEE ALSO for the distinction between both.
-	To print time in human-readable formats, see options -uu.
+	General Options
+	Option -c CONFIGFILE sets the configuration file path (bitcoin.conf)
+	if that is in a custom location other than defaults, see also
+	section ENVIRONMENT.
 
+	Option -l sets local time instead of UTC time; this affects how
+	DATESTRING from user input is interpreted, too.
+
+	Option -u prints time in human-readable format ISO 8601 and -uu
+	prints in RFC 5322.
+
+	Option -v enables verbose, set twice to more verbose.
+
+
+	Job Control
 	To speed up processing of some options, setting maximum number of
 	asynchronous jobs with option -jNUM is allowed, in which case NUM
-	must be an integer or \`auto'; asynchronous jobs may print in dif-
-	ferent order from input request; consider manually sorting output
-	afterwards, if needed; increasing NUM may only return modest speed
-	gains; defaults jobs=$JOBSDEF .
+	must be an integer or \`auto'; increasing NUM may only return modest
+	speed gains; defaults jobs=$JOBSDEF .
 
+	Beware that functions may print asynchronously and mix output. To
+	avoid that, set -j1 .
+
+
+	Find Block at Date
 	Option -d DATESTRING finds the block height immediately before or
 	at a date, in which DATESTRING is a string describing a date that
 	is understandable by the GNU date programme. Note that option -l
@@ -104,13 +112,26 @@ DESCRIPTION
 	mats is performed; if needed, set -d twice to disable autocorrec-
 	tion.
 
-	Option -l sets local time instead of UTC time; this affects how
-	DATESTRING from user input is interpreted, too.
 
-	Option -u prints time in human-readable format ISO 8601 and -uu
-	prints in RFC 5322.
+	Block Timestamp List
+	Option -t generates a list of block timestamps, one timestamp per
+	line. Set option -n to print block height hash besides block time
+	separated by <TAB> control character. The defaults behaviour is
+	to print block \`time'; set -x to print \`mediantime' instead.
+	Check reference at SEE ALSO for the distinction between both.
+	To print time in human-readable formats, see options -uu.
 
-	Option -v enables verbose, set twice to more verbose.
+
+	Mempool Information
+	Option -m prints mempool transaction ids and -mm prints mempool
+	transactions with more information. Optionally, transaction ids
+	from the mempool are accepted as positional parameters. Option
+	-mmm prints the number of transactions, their fees and some stats.
+
+
+	Other Functions
+	Option -b prints various blockchain, network and some other infor-
+	mation and statistics.
 
 	Option -y will convert hex from a coinbase transaction to ascii
 	text.  The output will be filtered to print sequences that are at
@@ -158,8 +179,8 @@ WARRANTY
 
 BUGS
 	Not a real bug but note that some maths are performed with package
-	\`jq', which uses double float values, thus for e.g. 0.999999 may
-	actually be 1.
+	\`jq', which uses double float values, thus 0.999999 may actually
+	be 1 round.
 
 
 BLOCK REFERENCES
@@ -245,35 +266,40 @@ USAGE EXAMPLES
 	$ strings -n 20 blk00003.dat  #decode the whole block file
 
 
+	5) Parse all transactions from best block; note that bitcoin.tx.sh
+	   is a companion suite script from the same author:
+
+	$ $SN -g | bitcoin.tx.sh -ff    #fast, less tx info
+	
+	$ $SN -ii | bitcoin.tx.sh       #slow, detailed tx info 
+
+
 OPTIONS
 	Miscellaneous
-	-b 	General blockchain, mempool, mining, network and rpc info.
+	-e 	Debugging.
+	-h 	Print this help page.
+	-v	Verbose, may set multiple times.
+	-V 	Print script version.
+
+	General
 	-c  CONFIGFILE
 		Path to bitcoin.conf or equivalent configuration file,
 		defaults=\"\$HOME/.bitcoin/bitcoin.conf\".
-	-e 	Print raw data when possible, debugging.
-	-h 	Print this help page.
-	-j  NUM	Maximum simultaneos jobs, may print asynchronously,
-		defaults=$JOBSDEF .
 	-l 	Set \`local time' instead of \`UTC time'.
 	-u 	Print time in ISO8601 format, set twice for RFC5322.
-	-v	Enables verbose feedback, may set multiple times.
-	-V 	Print script version.
 	-x 	Set block \`mediantime' instead of \`time'.
 
-	Find block height at date
-	-d  DATESTRING
-		Find block height before or at time/date; set -dd to dis-
-		able autocorrection of user input date formats; see also
-		options -luuvx.
+	Job Control
+	-j  NUM	Maximum simultaneos jobs, may print asynchronously,
+		defaults=$JOBSDEF .
 
-	Timestamp list
+	Timestamp List
 	-n 	Print block hash besides block timestamp.
 	-t  [HASH|HEIGHT]
 		Generate a list of block \`time' timestamps; see also
 		options -luux.
 
-	Memory pool
+	Memory Pool
 	-m 	Print mempool transaction ids.
 	-mm [TXID]
 		Print mempool transactions with more info, if empty,
@@ -281,13 +307,22 @@ OPTIONS
 	-mmm, -M
 		Print number of transactions, fees and more stats.
 
-	Block information
-	Options below accept [HASH..|HEIGHT..] as arguments.
+	Find Block at Date
+	-d  DATESTRING
+		Find block height before or at time/date, see also options
+		-luuvx.
+	-dd Disable autocorrection of user input; only set this if -d
+		misbehaves.
+
+	Blockchain Information
+	-b 	General blockchain, mempool, mining, network and rpc info.
+
+	Block Information
 	-. 	Print block height.
 	-, 	Print block hash.
+	-g 	Prints raw JSON of all block transactions. 
 	-i 	Header information and stats.
-	-ii Transaction hashes.
-	-I 	Prints raw JSON of all block transactions. 
+	-ii	Transaction hashes.
 	-y 	Decode coinbase HEX to ASCII text and print sequences
 		longer than $STRMIN chars only.
 	-yy, -Y	Same as -y but prints all bytes."
@@ -299,7 +334,7 @@ OPTIONS
 errsigf()
 {
 	local sig="${1:-1}"
-	{ echo "$sig" >>"$TMPERR" ;} 2>/dev/null
+	echo "$sig" >>"$TMPERR"
 }
 
 #clean temp files
@@ -620,7 +655,7 @@ blockchainf()
   		"BestBlk_: \(.bestblockhash)",
   		"ChainWrk: \(.chainwork)",
   		"Difficul: \(.difficulty)",
-  		"MedianTi: \(.mediantime)\t \(.mediantime | '"$HH"' )"'
+  		"MedianTi: \(.mediantime // empty)\t \((.mediantime // empty) | '"$HH"' )"'
 	ret+=( $? )
 
 	}  #2>/dev/null
@@ -706,8 +741,8 @@ defaultf()
 		"Stripped: \(.strippedsize //empty) B\t \((.strippedsize //empty)/1000) KB",
 		"Weight__: \(.weight //empty) WU\t \((.weight //empty)/4000) vKB",
 		"Height__: \(.height)",
-		"MedianTi: \(.mediantime)\t \(.mediantime | '"$HH"' )",
-		"Time____: \(.time)\t \(.time | '"$HH"')"'
+		"MedianTi: \(.mediantime // empty)\t \((.mediantime // empty) | '"$HH"' )",
+		"Time____: \(.time // empty)\t \((.time // empty)| '"$HH"')"'
 	ret+=( $? )
 
 	#sum exit codes
@@ -1069,7 +1104,7 @@ mempoolf()
 				"TxId+Wit: \(.wtxid)",
 				"DependOn: \(.depends[] // empty)",
 				"SpentBy_: \(.spentby[] // empty)",
-				"Time____: \(.time)\t \(.time | '"$HH"' )",
+				"Time____: \(.time // empty)\t \((.time // empty)| '"$HH"' )",
 				"UnbroadC: \(if .unbroadcast == true then "unbroadcasted" else empty end)",
 				"BIP125Rp: \(.["bip125-replaceable"] | if . == true then "replaceable" else "not-replaceable" end)",
 				"Height__: \(.height)",
@@ -1162,7 +1197,7 @@ timestamplistf()
 #start
 
 #parse script options
-while getopts .,bc:dehiIj:lMmntuvVxyY opt
+while getopts .,bc:deghij:lMmntuvVxyY opt
 do
 	case $opt in
 		\.)
@@ -1193,14 +1228,14 @@ do
 			#debug? print raw data
 			DEBUGOPT=1
 			;;
+		g)
+			#json of all all block transactions
+			OPTI=1000
+			;;
 		h)
 			#help page
 			echo "$HELP"
 			exit 0
-			;;
-		I)
-			#json of all all block transactions
-			OPTI=1000
 			;;
 		i)
 			#block information option
@@ -1275,6 +1310,11 @@ done
 shift $(( OPTIND - 1 ))
 unset opt
 
+#typeset vars
+typeset -a RET
+
+#error signal temp file
+TMPERR="${TMPDIR:-/tmp}/$$.errsig.txt"
 
 #required packages
 for PKG in bitcoin-cli jq tee
@@ -1300,7 +1340,7 @@ fi
 #human-readable time formats
 #set jq arguments for time format printing
 if [[ "${TZ^^}" = +(UTC0|UTC-0|UTC|GMT) ]]
-then HH='strftime("%Y-%m-%dT%H:%M:%SZ")' ;((OPTHUMAN>1)) && HH='strftime("%a, %d %b %Y %T +00")'
+then HH='strftime("%Y-%m-%dT%H:%M:%SZ")'       ;((OPTHUMAN>1)) && HH='strftime("%a, %d %b %Y %T +00")'
 else HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")' ;((OPTHUMAN>1)) && HH='strflocaltime("%a, %d %b %Y %T %Z")'
 fi
 
@@ -1312,32 +1352,24 @@ then echo "$SN: err  -- at least one job required" >&2 ;exit 1
 else ((OPTVERBOSE>1)) && echo "$SN: jobs -- $JOBSMAX" >&2
 fi
 	
-#error signal temp file
-TMPERR="/tmp/$$.errsignal.txt"
-
 #traps
 trap cleanf EXIT
 
 #call option func
 #-,. print block hash and height
 if ((OPTDOT+OPTCOMMA))
-then
-	gethashheightf "$@"
+then gethashheightf "$@"
 #-b blockchain information
 elif (( OPTCHAIN ))
-then
-	blockchainf
+then blockchainf
 #-mm mempool
 elif (( OPTMEMPOOL ))
-then
-	mempoolf "$@"
+then mempoolf "$@"
 #-d  block height by date string
 elif (( OPTDATE ))
-then
-	heightatf "$@"
+then heightatf "$@"
 #default function
-else
-	mainf "$@"
+else mainf "$@"
 fi
 RET+=( $? )
 

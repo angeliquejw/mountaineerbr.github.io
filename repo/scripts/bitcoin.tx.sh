@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.6  jun/2021  by mountaineerbr
+# v0.8.12  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq
 
@@ -22,6 +22,12 @@ JOBSDEF=3   #hard defaults
 #in reality however there are many locks inside the product that means you 
 #won't see much performance benefit with a value above 2.
 
+#semaphore sleep time
+SEMAPHORESLEEP=0.1
+
+#set calculation scale (mainf fun)
+SCL=8
+
 #white paper
 #out file
 WPOUTFILE=bitcoinWP.pdf
@@ -35,10 +41,9 @@ TZ="${TZ:-UTC0}"
 export TZ
 
 #temporary directory path
+#$TMPDIR has higher precedence
 #try to keep temp files in shared memory (ramdisc)
-#TMPDIR="/tmp"  #user custom
 TMPDIR1=/dev/shm
-TMPDIR2=/tmp
 
 #make sure locale is set correctly
 #LC_NUMERIC=C
@@ -58,30 +63,46 @@ HELP="NAME
 
 
 SYNOPSIS
-	$SN  [-aklosuvyy] [-jNUM] [-bBLOCK_HASH|HEIGHT] TRANSACTION_HASH..
-	$SN  [-aklosuvyy] [-jNUM] \"TRANSACTION_HASH [BLOCK_HASH|HEIGHT]\"..
+	$SN  [-afklouvyy] [-jNUM] [-bBLOCK_HASH|HEIGHT] TRANSACTION_HASH..
+	$SN  [-afklouvyy] [-jNUM] \"TRANSACTION_HASH [BLOCK_HASH|HEIGHT]\"..
 	$SN  -hVww
 
 
 DESCRIPTION
 	Given a TRANSACTION_HASH, the script will make an RPC call to
-	bitcoin-cli and parse the returning json data. When parsing is
-	complete, transactions are concatenated as per input order to a
-	single file at ${CACHEDIR/$HOME/\~} and printed to stdout.
+	bitcoin-cli and parse the returning JSON data. Parsed transact-
+	ions are concatenated as per input order to a single file at
+	${CACHEDIR/$HOME/\~} and printed to stdout.
 
 	Transaction ids/hashes may be sent through stdin or set as posi-
 	tional parameters to the script.
 
-	An argument or a line from stdin may have two words separated by
+	An argument or line from stdin may have two words separated by
 	a blank space: the first one is the TRANSACTION_HASH and the
 	second word must be BLOCK_HASH or HEIGHT of that transaction.
 	Setting a BLOCK_HASH or HEIGHT is required if bitcoin-daemon is
 	not set with txindex=1 option.
-	
-	Set option -s to parse transaction json obtained from bitcoin-cli
-	sent via stdin. The script will try to detect json data automat-
-	ically.
 
+	Option -f prints only general transaction information and does
+	not retrieve vins and vouts but is very fast. Pass multiple times
+	to dump more data.
+
+
+	General Options
+	Option -c CONFIGFILE sets the configuration file path (bitcoin.conf)
+	if that is in a custom location other than defaults, see also
+	section ENVIRONMENT.
+	
+	Option -l sets local time instead of UTC time.
+
+	Option -u prints time in human-readable format RFC 5322 instead
+	of the defaults ISO 8601.
+
+	Option -v enables verbose, set -vv to print more feedback for
+	some functions.
+
+
+	Job Control
 	Set option -o to print to stdout while processing; beware trans-
 	actions may not be printed in the input order; this option dis-
 	ables writing results to cache at ${CACHEDIR/$HOME/\~} .
@@ -91,24 +112,12 @@ DESCRIPTION
 	an integer or \`auto'. Environment variable \$JOBSMAX is read,
 	defaults=${JOBSDEF} .
 
-	Beware of mixed job outputs with optoin -o if more than one trans-
-	action id and -jNUM is greater than 1! In order to prevent mixed
-	outputs from asynchronous jobs, use -oj1 .
+	Beware that, with the exception of the defaults functions, and
+	maybe option -o, all other functions may print asynchronously
+	and mix output. To avoid that, set -j1 .
 
-	Option -l sets local time instead of UTC time.
 
-	Option -u prints time in human-readable format RFC 5322 instead
-	of the defaults ISO 8601.
-
-	Option -v enables verbose, set -vv to print more feedback for
-	some functions.
-
-	Option -w will regenerate bitcoin white paper. Two methods are
-	available, either from the transaction itself (fast, -w) or from
-	the UTXO set (slow, -ww). An output PDF file will be created at
-	\$PWD, defaults=$WPOUTFILE. See section SEE ALSO for more
-	information.
-
+	Other Functions
 	Option -y will convert plain hex dump from a transaction to ASCII
 	text. The output will be filtered to print sequences that are at
 	least 20 characters long, unless that returns empty, in which case
@@ -117,13 +126,25 @@ DESCRIPTION
 	-yy prints all raw byte sequences, see example (4).
 
 
+	Extra Functions
+	Option -w will regenerate bitcoin white paper. Two methods are
+	available, either from the transaction itself (fast, -w) or from
+	the UTXO set (slow, -ww). An output PDF file will be created at
+	\$PWD, defaults=$WPOUTFILE. See section SEE ALSO for more
+	information.
+
+	If -b is set with a BLOCK_HASH or BLOCK_HEIGHT, no positional
+	argument is set and stdin is free, parse all transactions from
+	that block, see also option -f; e.g. \`$SN -ff -b100000\`.
+
+
 ENVIRONMENT VARIABLES
 	BITCOINCONF
 		Path to bitcoin.conf or equivalent file with configs
 		such as RPC user and password, is overwritten by script
 		option -c, defaults=\"\$HOME/.bitcoin/bitcoin.conf\".
-	TMPDIR  Sets user custom temporary directory, defaults to
-		$TMPDIR1 or $TMPDIR2 .
+	TMPDIR  Sets user custom temporary directory, if unset defaults
+		to $TMPDIR1 or /tmp .
 
 	TZ 	Sets timezone, defaults to UTC0 (GMT).
 
@@ -188,7 +209,7 @@ USAGE EXAMPLES
 	$ echo 'a8bb9571a0667d63eaaaa36f9de87675f0d430e13c916248ded1d13093a77561 638200' | $SN
 
 
-	2) Process transaction json from bitcoin daemon:
+	2) Process transaction JSON from bitcoin daemon:
 
 	$ TRANSACTION_HASH=a8bb9571a0667d63eaaaa36f9de87675f0d430e13c916248ded1d13093a77561
 
@@ -218,35 +239,46 @@ USAGE EXAMPLES
 	$ bitcoin-cli getblock \$(bitcoin-cli getblockhash 0) 2 | $SN
 
 
+	6) Parse all transactions from best block; note that bitcoin.blk.sh
+	   is a companion suite script from the same author:
+
+	$ bitcoin.blk.sh -g | $SN -ff    #fast, less tx info
+	
+	$ bitcoin.blk.sh -ii | $SN       #slow, detailed tx info 
+
+
 OPTIONS
+	Extra Functions
+	-w 	Regenerate bitcoin whitepaper, may set twice; outfile=$WPOUTFILE.
+
 	Miscellaneous
-	-a  Do not try to compress addresses (print assembly).
+	-e 	Debugging.
+	-h 	Print this help page.
+	-V 	Print script version.
+	-v 	Verbose, may set multiple times.
+
+	General
+	-a 	Do not try to compress addresses (print assembly).
 	-b BLOCK_HASH
-	    Set block hash containing transactions.
-	-c CONFIGFILE
-	    Path to bitcoin.conf or equivalent configuration file,
-	    defaults=\"\$HOME/.bitcoin/bitcoin.conf\".
-	-e  Print raw data when possible, debugging.
-	-h  Print this help page.
-	-s  Set stdin input is raw transaction json.
-	-V  Print script version.
-	-v  Enables verbose feedback, may set multiple times.
+	   	Set block hash containing transactions.
+	-c 	CONFIGFILE
+		Path to bitcoin.conf or equivalent configuration file,
+		defaults=\"\$HOME/.bitcoin/bitcoin.conf\".
 
 	Job control
-	-j NUM 	Maximum number of simultaneous jobs, defaults=${JOBSDEF} .
+	-j NUM	Maximum number of simultaneous jobs, defaults=${JOBSDEF} .
 
 	Output and format control
-	-l  Sets local time instead of UTC time.
-	-o  Send to stdout while processing, inhibits creation of
-	    results file at ${CACHEDIR/$HOME/\~} .
-	-u  Print time in RFC5322 instead of ISO8601.
+	-l 	Sets local time instead of UTC time.
+	-o 	Send to stdout while processing, inhibits creation of
+		results file at ${CACHEDIR/$HOME/\~} .
+	-u 	Print time in RFC5322 instead of ISO8601.
 
 	Functions
-	-w  Regenerate bitcoin whitepaper, may set twice; outfile=$WPOUTFILE.
-	-y  Decode transaction hex to ASCII, decrease minimum length
-	    of sequences to print until match is found, otherwise
-	    print all bytes.
-	-yy Same as -y but prints all bytes, same as -Y."
+	-f 	General transaction information only (fast), set multiple
+		times to dump more data.
+	-y 	Decode transaction hex to ASCII (auto select string legth).
+	-yy, -Y	Same as -y but prints all bytes."
 
 
 #!#bitcoin.sh snapshot with custom modifications
@@ -384,7 +416,7 @@ whitepaperf()
 errsigf()
 {
 	local sig="${1:-1}"
-	{ echo "$sig" >>"$TMPERR" ;} 2>/dev/null
+	echo "$sig" >>"$TMPERR"
 }
 
 #is transaction hash?
@@ -468,26 +500,25 @@ hexasciif()
 #json parsing func
 mainf()
 {
-	local catvin catvout header index tmp10 tmp10sum tmp11 tmp11sum
+	local catvin catvout header index tmp10 tmp10sum tmp11 tmp11sum TMP
 	typeset -a vinsum voutsum catvin catvout
+	TMP="$1"
 
-	#debug? print raw data
-	if (( DEBUGOPT ))
-	then
-		cat "$TMP"
-		echo ">>>file -- $TMP"
-		return 0
-	fi
-	
 	#one transaction json at a time!
 
-	#vins
-	echo -e "\n--------\nInput and output vectors\n"
-	echo "Vins"
+	#debug? print raw data
+	#if (( DEBUGOPT ))
+	#then
+	#	cat "$TMP"
+	#	echo ">>>file -- $TMP"
+	#	return 0
+	#fi
 
-	index=0
+	#vins
+	echo -e "\n--------\nInput and output vectors\nVins"
+
 	#temp file for sum of vins
-	tmp10sum="$TMP.vin.sum"
+	index=0  tmp10sum="$TMP.vin.sum"
 	#loop through indexes
 	while
 		header="$( jq -re --arg index "$index" '.vin[($index|tonumber)] // empty |
@@ -496,8 +527,7 @@ mainf()
 			"  VoutNum: \(.vout // empty)"' "$TMP" 2>/dev/null )"
 	do
 		#temp file for vin
-		tmp10="$TMP.$index.vin"
-		catvin+=( "$tmp10" )
+		tmp10="$TMP.$index.vin"  catvin+=( "$tmp10" )
 
 		#manage jobs
 		jobsemaphoref
@@ -528,17 +558,15 @@ mainf()
 	#vouts
 	echo -e "\nVouts"
 	
-	index=0
 	#temp file for sum of vouts
-	tmp11sum="$TMP.vout.sum"
+	index=0  tmp11sum="$TMP.vout.sum"
 	#loop through indexes
 	while
 		header="$( jq -re --arg index "$index" '.vout[($index|tonumber)] // empty |
 			"  Number_: \(.n )\tValue__: \(.value )"' "$TMP" 2>/dev/null )"
 	do
 		#temp file for vout
-		tmp11="$TMP.$index.vout"
-		catvout+=( "$tmp11" )
+		tmp11="$TMP.$index.vout"  catvout+=( "$tmp11" )
 
 		#manage jobs
 		jobsemaphoref
@@ -552,8 +580,7 @@ mainf()
 			#get addrs
 			if ! voutf
 			then
-				echo '    skipping address..'
-				#set err signal
+				echo '    skip..'
 				errsigf 1
 			fi
 			echo
@@ -577,44 +604,41 @@ mainf()
 	{
 
 	#general info
-	jq -r '"",
-		"Transaction information",
-		"",
+	echo
+	jq -r '"Transaction information",
 		"Tx_Id___: \(.txid)",
 		"Hash____: \(.hash // empty)",
 		"Blk_Hash: \(.blockhash // empty)",
-		"Time____: \(.time // empty)\t \(.time | '"$HH"' )",
-		"Blk_Time: \(.blocktime // empty)\t \(.blocktime | '"$HH"' )",
+		"InActCha: \( if .in_active_chain == true then "True" else empty end)",
+		"Time____: \(.time // empty)\t \((.time // empty) | '"$HH"' )",
+		"Blk_Time: \(.blocktime // empty)\t \((.blocktime // empty) | '"$HH"' )",
 		"LockTime: \(.locktime)",
 		"Version_: \(.version)",
 		"Confirma: \(.confirmations // empty)",
 		"Weight__: \(.weight) WU",
 		"VirtSize: \(.vsize) vB",
 		"Size____: \(.size // empty) B"' "$TMP"
+		
+		#"Hex_____: \(.hex // empty)",
 	
-	#set calculation scale
-	scl=8
 	#sum vouts
 	#load values from file
-	voutsum=( $(<"$tmp11sum") )
-	#change "e" to "*10^"
-	voutsum=( "${voutsum[@]//e/*10^}" )
+	#change "e" to "*10^", may use GLOBIGNORE=\* and sed
+	voutsum=( $(<"$tmp11sum") )  voutsum=( "${voutsum[@]//e/*10^}" )
 	#calc sums
-	out="$( bc <<<"scale=$scl ;( ${voutsum[@]/%/+} 0 ) /1" )"
+	out="$( bc <<<"scale=$SCL ;( ${voutsum[@]/%/+} 0 ) /1" )"
 
 	#sum vins
 	#load values from file
 	vinsum=( $(<"$tmp10sum") )
 	if [[ "${vinsum[*]}" = *coinbase* ]]
 	then
-		in=coinbase
-		fee=0
+		in=coinbase  fee=0
 	else
 		#change e to *10^
 		vinsum=( "${vinsum[@]//e/*10^}" )
 		#calc sums
-		in="$( bc <<<"scale=$scl ;( ${vinsum[@]/%/+} 0 ) /1" )"
-		fee="$( bc <<<"scale=$scl ;( $in-$out ) /1" )"
+		in="$( bc <<<"scale=$SCL ;( ${vinsum[@]/%/+} 0 ) /1" )"  fee="$( bc <<<"scale=$SCL ;( $in-$out ) /1" )"
 	fi
 
 	#format results
@@ -624,9 +648,8 @@ mainf()
 	done
 	
 	#is coinbase?
-	[[ "$in" != *coinbase* ]] && in="$(printf '%+*.*f\n' "$cc" "$scl" "$in")"
-	out="$( printf '%+*.*f\n' "$cc" "$scl" "$out" )"
-	fee="$( printf '%+*.*f\n' "$cc" "$scl" "$fee" )"
+	[[ "$in" != *coinbase* ]] && in="$(printf '%+*.*f\n' "$cc" "$SCL" "$in")"
+	out="$( printf '%+*.*f\n' "$cc" "$SCL" "$out" )"  fee="$( printf '%+*.*f\n' "$cc" "$SCL" "$fee" )"
 	#calc transaction fee per vByte and total fee
 	feerates=( 
 		$(jq -r "((${fee//[.+-]/} / .size  )|if . < 1000 and . > 0.01 then tostring|.[0:5] else . end),
@@ -642,12 +665,10 @@ mainf()
 	#https://bitcointalk.org/index.php?topic=5251213.0
 	#https://btc.network/estimate
 
-	cat<<-!
-	Vin__Sum: ${in:-?}
-	Vout_Sum: ${out:-?}
-	Tx___Fee: ${fee:-?}
-	FeeRates: ${feerates[0]:-?} sat/B  ${feerates[1]:-?} sat/vB  ${feerates[2]:-?} sat/WU
-	!
+	echo "Vin__Sum: ${in:-?}
+Vout_Sum: ${out:-?}
+Tx___Fee: ${fee:-?}
+FeeRates: ${feerates[0]:-?} sat/B  ${feerates[1]:-?} sat/vB  ${feerates[2]:-?} sat/WU"
 
 	#remove buffer files
 	rm -- "$tmp10sum" "$tmp11sum" "${catvout[@]}" "${catvin[@]}"
@@ -656,10 +677,95 @@ mainf()
 
 	unset vinsum voutsum in out fee feerates c cc
 }
+#faster method (process less info)
+mainfastf()
+{
+	#print simple feedback
+	(( OPTVERBOSE )) &&
+		printf "${CLR}tx: %*d/%*d  \r" "$K" "$((COUNTER+1))"  "$K" "$L" >&2
+
+	#vins and vouts and general info
+	if ((OPTFAST>1))
+	then
+		#dumps more data
+		jq -r --arg optf "$OPTFAST" '"",
+			"--------",
+			"Input and output vectors",
+			"",
+			"Vins",
+			(
+					.vin[] // empty |
+					(
+							"  TxIndex_: \(.txid // "coinbase")",
+							"  Sequence: \(.sequence)\tVoutNum_: \(.vout // empty)",
+							(
+								.scriptSig |
+									"  ScSigTyp: \( .type? // empty )",
+									"  ScSigAsm: \( if ($optf | tonumber) > 2 then (.asm? // empty) else empty end)",
+									""
+							),
+							""
+					)
+			),
+			"Vouts",
+			(
+					(
+					.vout[] |
+						"  Number__: \(.n )\tValue__: \(.value )",
+						(
+						.scriptPubKey |
+							"  PKeyType: \( .type? // "?" )\tReqSigs_: \( .reqSigs // "?" )",
+							"  PKeyAddr: \( .addresses? | .[]? // empty )",
+							"  PKeyAsm_: \( if ($optf | tonumber) > 2 then (.asm? // empty) else empty end )",
+							""
+						)
+					)
+			),
+			"Transaction information",
+			"Hex_____: \(if ($optf | tonumber) > 2 then (.hex // empty) else empty end)",
+			"Tx_Id___: \(.txid)",
+			"Hash____: \(.hash // empty)",
+			"Blk_Hash: \(.blockhash // empty)",
+			"InActCha: \( if .in_active_chain == true then "True" else empty end)",
+			"Time____: \(.time // empty)\t \((.time // empty) | '"$HH"' )",
+			"Blk_Time: \(.blocktime // empty)\t \((.blocktime // empty)| '"$HH"' )",
+			"LockTime: \(.locktime)",
+			"Version_: \(.version)",
+			"Confirma: \(.confirmations // empty)",
+			"Weight__: \(.weight) WU",
+			"VirtSize: \(.vsize) vB",
+			"Size____: \(.size // empty) B",
+			"Vout_Sum: \([.vout[]|.value] | add)"' "$@"
+
+	else
+		#dumps only basic info
+		jq -r '"",
+			"--------",
+			"Transaction information",
+			"Tx_Id___: \(.txid)",
+			"Hash____: \(.hash // empty)",
+			"Blk_Hash: \(.blockhash // empty)",
+			"InActCha: \( if .in_active_chain == true then "True" else empty end)",
+			"Time____: \(.time // empty)\t \((.time // empty) | '"$HH"' )",
+			"Blk_Time: \(.blocktime // empty)\t \((.blocktime // empty)| '"$HH"' )",
+			"LockTime: \(.locktime)",
+			"Version_: \(.version)",
+			"Confirma: \(.confirmations // empty)",
+			"Weight__: \(.weight) WU",
+			"VirtSize: \(.vsize) vB",
+			"Size____: \(.size // empty) B",
+			"Vout_Sum: \([.vout[]|.value] | add)"' "$@"
+			
+			#"Hex_____: \(.hex // empty)",
+	fi
+
+}
 
 #parse engine
 parsef()
 {
+	#set to concatenate results
+	CONCAT=1
 	#processed transaction temp file
 	TMP4="${TMPD}/${COUNTER}.tx"
 	#raw transaction (json) temp file
@@ -677,8 +783,8 @@ parsef()
 	
 	#processing pipeline (to bg)
 	{
-		#is json option -s set?
-		if ((OPTS)) || {
+		#is tx json already? Else, get tx json
+		if ((JSON)) || {
 			#consolidate $BLK_HASH (if set)
 			BLK_HASH="${BLK_HASH_LOOP:-${BLK_HASH}}"
 			
@@ -695,17 +801,15 @@ parsef()
 				then
 					#print error msg
 					echo ">>>error: block hash -- $BLK_HASH" >&2
-					#set err signal
 					errsigf 1
 					exit 1
 				fi
 			fi
-			#check that $TXID id a transaction hash
+			#check that $TXID is a transaction hash
 			if [[ ! "$TXID" =~ ^[a-fA-F0-9]{64}$ ]]  #is $TXID a tx hash?
 			then
 				#print error msg
 				echo ">>>error: transaction id -- $TXID" >&2
-				#set err signal
 				errsigf 1
 				exit 1
 			fi
@@ -715,13 +819,13 @@ parsef()
 		}
 		then
 			#debug? print raw data
-			if (( DEBUGOPT ))
-			then
-				cat "$TMP3"
-				exit 0
-			fi
+			#if (( DEBUGOPT ))
+			#then
+			#	cat -- "$TMP3"
+			#	exit 0
+			#fi
 	
-			TMP="$TMP3" mainf > "$TMP4"
+			mainf "$TMP3" > "$TMP4"
 
 			#write to stdout while processing?
 			if (( OPTOUT ))
@@ -733,17 +837,56 @@ parsef()
 		else
 			#print error
 			echo ">>>error: transaction id -- $TXID" >&2
-			#set err signal
 			errsigf
 		fi
 		
-		#try to clean up on the fly
-		rm -- "$TMP3"
+		#clean up on the fly
+		rm -- "$TMP3"  2>/dev/null
 	} &
 }
 #note: use bitcoin.tx.sh with option '-bBLOCK_HASH' 
 #if bitcoind option txindex is not set
 #jq slurp tip:https://stackoverflow.com/questions/41216894/jq-create-empty-array-and-add-objects-to-it
+parsefastf()
+{
+	#manage jobs
+	jobsemaphoref
+	
+	#processing pipeline (to bg)
+	{
+		#consolidate $BLK_HASH (if set)
+		BLK_HASH="${BLK_HASH_LOOP:-${BLK_HASH}}"
+		
+		#do some basic checking
+		#is $BLK_HASH set?
+		if [[ -n "${BLK_HASH// }" ]]
+		then
+			#is "block hash" set as "block height"?
+			if [[ "$BLK_HASH" =~ ^[0-9]{,7}$ ]]
+			then
+				BLK_HASH="$( bwrapper getblockhash "$BLK_HASH" )" || { errsigf $?; exit 1;}
+			#is it really NOT "block hash"?
+			elif [[ ! "$BLK_HASH" =~ ^[0]{8}[a-fA-F0-9]{56}$ ]]
+			then
+				#print error msg
+				echo ">>>error: block hash -- $BLK_HASH" >&2
+				errsigf 1
+				exit 1
+			fi
+		fi
+		#check that $TXID is a transaction hash
+		if [[ ! "$TXID" =~ ^[a-fA-F0-9]{64}$ ]]  #is $TXID a tx hash?
+		then
+			#print error msg
+			echo ">>>error: transaction id -- $TXID" >&2
+			errsigf 1
+			exit 1
+		fi
+
+		#get raw transaction json
+		bwrapper getrawtransaction "$TXID" true $BLK_HASH | mainfastf
+	} &
+}
 
 #break asm and remove some script strings - helper func
 #it would be useful to have a script code library with byte translations
@@ -789,26 +932,18 @@ selasmf()
 #old code, tested a lot, avoid changing it, cannot retest all fallbacks again
 voutf()
 {
-	local ADDR ASM TYPE pubKeyAddr pubKeyAsm pubKeyType scriptSigAsm scriptSigType
+	local ADDR ASM TYPE pubKeyAddr pubKeyAsm pubKeyType
 
 	#set variables for address processing
 	#that is risky to set them all at once, but faster
 	#the following shell arrays or variables will be set:
-	#$pubKeyAddr, $pubKeyAsm, $pubKeyType, $scriptSigAsm and $scriptSigType
+	#$pubKeyAddr, $pubKeyAsm and $pubKeyType
 	eval "$( 
-		jq -r --arg index "$index" '(
-			.vout[( $index | tonumber)] |
+		jq -r --arg index "$index" '.vout[( $index | tonumber)].scriptPubKey |
 			(
-				.scriptPubKey |
-					"pubKeyAddr=( \( .addresses? | .[]? // empty ) )",
-					"pubKeyAsm=( \( .asm? // empty ) )",
-					"pubKeyType=\"\( .type? // empty )\""
-			),
-			(
-				.scriptSig |
-					"scriptSigAsm=( \( .asm? // empty ) )",
-					"scriptSigType=\"\( .type? // empty )\""
-			)
+				"pubKeyAddr=( \( .addresses? | .[]? // empty ) )",
+				"pubKeyAsm=( \( .asm? // empty ) )",
+				"pubKeyType=\"\( .type? // empty )\""
 			)' "$TMP"
 	)"
 
@@ -828,7 +963,7 @@ voutf()
 
 		#if nulldata
 		#or if option -a (don't try to compress address) is set, print raw
-		if [[ "$TYPE" = nulldata ]] || (( OPTADDR ))
+		if [[ "$TYPE" = nulldata || "$OPTADDR" -gt 0 ]]
 		then
 		#2#
 			echo "    ${ASM[-1]}"
@@ -843,34 +978,6 @@ voutf()
 			echo "    $( hexToAddress "$( pack "${ASM[-1]}" | hash160 )" 00 )"
 		fi
 	
-	#others
-	elif ASM=( $( asmbf "${scriptSigAsm[@]}" ) )
-		(( ${#ASM[@]} ))
-	then
-		#5#
-		TYPE="$scriptSigType"
-		echo "    type: $TYPE"
-
-		#if nulldata
-		#or if option -a (don't try to compress address) is set, print raw
-		if [[ "$TYPE" = nulldata ]] || (( OPTADDR ))
-		then
-			#6#
-			echo "    ${ASM[-1]}"
-		#if string is hashed
-		elif [[ "$TYPE" = *hash* ]]
-		then
-			#7#
-			echo "    $( hexToAddress "${ASM[-1]}" 00 )"
-		elif [[ "${ASM[0]}" = 0 ]] || [[ "${ASM[0]}" = 0014* ]] || [[ "${ASM[0]}" = 0020* ]]
-		then
-			#8#
-			echo "    $( hexToAddress "$( pack "${ASM[-1]}" | hash160 )" 05 )"
-		else
-			#9#
-			echo "    $( hexToAddress "$( pack "${ASM[-1]}" | hash160 )" 00 )"
-		fi
-
 	else
 		#10#
 		#exit with error signal
@@ -915,7 +1022,7 @@ vinf()
 	#get previous transaction
 	elif bwrapper getrawtransaction "${txid[0]}" true >"$TMP2"
 	then
-		jq -r  --arg index "${txid[-1]}" '.vout[( $index | tonumber)] // empty | "  Number_: \(.n )\tValue__: \(.value )"' "$TMP2"
+		jq -r --arg index "${txid[-1]}" '.vout[( $index | tonumber)] // empty | "  Number_: \(.n )\tValue__: \(.value )"' "$TMP2"
 		TMP="$TMP2" index="${txid[-1]}" voutf
 	else
 		#backup func
@@ -927,8 +1034,7 @@ vinf()
 	ret+=( $? )
 	
 	#save result for sum later if no error exit code
-	if
-		retsum="$(( ${ret[@]/%/+} 0 ))"
+	if retsum="$(( ${ret[@]/%/+} 0 ))"
 		(( retsum == 0 ))
 	then
 		if [[ "${vinsum[0]}" = coinbase ]]
@@ -938,7 +1044,7 @@ vinf()
 			jq -r  --arg index "${txid[-1]}" '.vout[( $index | tonumber)] // "0" | .value' "$TMP2"
 
 			#clean up on the fly
-			rm -- "$TMP2"
+			rm -- "$TMP2"  2>/dev/null
 		fi
 	fi >>"$tmp10sum"
 
@@ -1016,7 +1122,7 @@ jobsemaphoref()
 	local JOBS 
 	while JOBS=( $( jobs -p ) )
 		(( ${#JOBS[@]} > JOBSMAX ))
-	do sleep 0.1
+	do sleep $SEMAPHORESLEEP
 	done
 }
 #semaphore: { (1/.1)*3 = max 30 calls/sec }
@@ -1033,7 +1139,7 @@ cleanf() {
 	then
 		#tasks
 		#concatenate result?
-		(( CONCAT == 0 )) || concatf || RET+=( $? )
+		((CONCAT == 0)) || concatf || RET+=( $? )
 
 		#check cache disk usage
 		max=150000000  #150MB
@@ -1070,27 +1176,21 @@ cleanf() {
 concatf()
 {
 	#return here if option -o or -e is set
-	(( OPTOUT )) && return 0
-	(( DEBUGOPT )) && return 0
+	((OPTOUT + DEBUGOPT)) && return 0
 	
 	#concatenate buffer files in the correct order
 	#get a unique name
-	while
-		RESULTFNAME="txs-$(date +%Y-%m-%dT%T)-${L}.txt"
-		RESULT="$CACHEDIR/$RESULTFNAME"
-		[[ -f "$RESULT" ]]
-	do sleep 0.6
+	while RESULT="$CACHEDIR/txs-$(date +%Y-%m-%dT%T)-${L}.txt"
+		[[ -e "$RESULT" ]]
+	do sleep 1
 	done
 	#reserve the results file asap
 	: >"$RESULT"
 
 	#concatenate results in order
-	if (( ${#TXFILES[@]} == 0 ))
-	then
-		#no transaction files were created
-		true
-	elif cat -- "${TXFILES[@]}" > "$RESULT" &&
-		[[ -s "$RESULT" ]]
+	if (( ${#TXFILES[@]} )) \
+		&& cat -- "${TXFILES[@]}" >"$RESULT" \
+		&& [[ -s "$RESULT" ]]
 	then
 		#write final result to stdout (feedback)?
 		#only if option -o is not set!
@@ -1098,8 +1198,8 @@ concatf()
 	
 		printf '>>>final transaction parsing -- %s\n' "$RESULT" >&2
 	else
-		[[ -e "$RESULT" ]] && rm -- "$RESULT"
-		printf '%s: err  -- could not concatenate transaction files\n' "$SN" >&2
+		##printf '%s: err  -- could not concatenate transaction files\n' "$SN" >&2
+		rm -- "$RESULT"  2>/dev/null
 		return 1
 	fi
 }
@@ -1120,7 +1220,7 @@ trapf()
 #start
 
 #parse script options
-while getopts ab:c:ehj:losuvVwyY opt
+while getopts ab:c:efhj:louvVwyY opt
 do
 	case $opt in
 		a)
@@ -1128,7 +1228,7 @@ do
 			OPTADDR=1
 			;;
 		b)
-			#get a block hash
+			#get txs from a block hash or height
 			BLK_HASH="$OPTARG"
 			;;
 		c)
@@ -1138,6 +1238,10 @@ do
 		e)
 			#debug? print raw data
 			DEBUGOPT=1
+			;;
+		f)
+			#fast tx processing (less info)
+			((++OPTFAST))
 			;;
 		h)
 			#help page
@@ -1158,10 +1262,6 @@ do
 		o)
 			#send to stdout only
 			OPTOUT=1
-			;;
-		s)
-			#set stdin is json data (user explict)
-			OPTS=1
 			;;
 		u)
 			#human-readable time formats
@@ -1201,6 +1301,9 @@ done
 shift $(( OPTIND - 1 ))
 unset opt
 
+#typeset vars
+typeset -a RET TXFILES
+
 #consolidate user-set max jobs
 JOBSMAX="${JOBSMAX:-$JOBSDEF}"
 #check minimum jobs
@@ -1218,11 +1321,6 @@ do
 done
 unset PKG
 
-#grondilu's bitcoin-bash-tools requirement
-#if (( BASH_VERSINFO[0] < 4 ))
-#then echo "$SN: this script requires bash version 4 or above" >&2 ;exit 1
-#fi
-
 #set alternative bitcoin.conf path?
 if [[ -e "$BITCOINCONF" ]]
 then
@@ -1234,15 +1332,13 @@ else
 	bwrapper() { bitcoin-cli "$@" ;}
 fi
 
-#error signal temp file
-TMPERR="$TMPD/errsignal.txt"
 
-#$RET is an array with exit codes
-typeset -a RET TXFILES
-
-
-#call (some) opt functions
-if ((OPTW))
+#call some opt functions
+#fast processing txs (less info)?
+if ((OPTFAST))
+then parsef() { parsefastf "$@" ;}
+#retrieve bitcoin whitepaper from blockchain?
+elif ((OPTW))
 then whitepaperf ;exit
 fi
 
@@ -1250,20 +1346,15 @@ fi
 trap cleanf EXIT
 trap trapf TERM INT HUP
 
-#set temp dir
-for D in "$TMPDIR" "$TMPDIR1" "$TMPDIR2" /tmp
+#choose and create temp dir
+#eg. /dev/shm/bitcoin.tx.sh.[PROCID].[RANDOM]
+for dir in "${TMPDIR:-$TMPDIR1}" "$TMPDIR1" /tmp
 do
-	#remove ending /
-	D="${D%\/}"
-
-	#create temp dir
-	#eg. /dev/shm/bitcoin.tx.sh.[PROCID].[RANDOM]
-	if [[ -d "$D" ]] && TMPD="$( mktemp -d "$D/${SN:-bitcoin.tx}.$$.XXXXXXXX" )"
-	then break
-	else continue
-	fi
+	[[ -d "$dir" ]] \
+		&& TMPD="$(mktemp -d "${dir%/}/${SN:-bitcoin.tx}.$$.XXXXXXXX")" \
+		&& break
 done
-unset D
+unset dir
 
 #check if var was set correctly
 if [[ ! -d "$TMPD" ]] && TMPD="$( ! mktemp -d )"
@@ -1271,10 +1362,13 @@ then
 	echo "$SN: err  -- no temporary directory available" >&2
 	echo "$SN: err  -- check script help page and source code settings" >&2
 	exit 1
+#feedback?
+elif ((OPTVERBOSE>1))
+then echo ">>>temporary directory -- $TMPD" >&2
 fi
 
-#feedback?
-((OPTVERBOSE>1)) && echo ">>>temporary directory -- $TMPD" >&2
+#error signal temp file
+TMPERR="$TMPD/errsig.txt"
 
 #local time?
 #human-readable time formats
@@ -1303,199 +1397,181 @@ then
 	fi
 fi
 
+#(experimental)
+#all txs from one block; tx hashes from block to stdin
+#if -b , no pos args and stdin is free
+if [[ -n "$BLK_HASH" && "$#" -eq 0 && -t 0 ]]
+then exec 0< <(bwrapper getblock "$BLK_HASH" 1 | jq -r '.tx[]') || { RET+=($?) ;exit 1 ;}
+fi
 
 #functions and loops
-#process arguments
 #if there are positional args
 if (( $# ))
 then
 	#get number of arguments
-	L="$#"
 	#"number" length for printing feedback
-	K="${#L}"
+	L="$#"  K="${#L}"
 
 	#loop through arguments
 	for ARG in "$@"
 	do
-		read TXID BLK_HASH_LOOP BAD <<<"$ARG"
+		read TXID BLK_HASH_LOOP OTHER <<<"$ARG"
 		TXID="${TXID// }"
 		[[ -n "$TXID" ]] || continue
 
-		#select option
+		#-y transaction hex to ascii
 		if (( OPTASCII ))
-		then
-			#-y transaction hex to ascii
-			hexasciif
-		else
-			#parse tx info
-			#set to concatenate results
-			CONCAT=1
-
-			#parse tx
-			parsef
+		then hexasciif
+		#parse tx info
+		else parsef
 		fi
-		#get exit code
 		RET+=( $? )
+		#get exit code
 
 		#counter
 		(( ++COUNTER ))
 	done
-#stdin
-#if no arg given and stdin is not free
+
+#stdin not free and no arg
 elif [[ ! -t 0 ]]
 then
-	#if -s is not set
-	if ((OPTS==0))
-	then
-		#read until first newline
-		#line must not be empty
-		while read TXID BLK_HASH_LOOP BAD
-			TXID="${TXID// }" ;[[ -z "$TXID" ]]
-		do continue
-		done
-	fi
+	#read until first newline
+	#line must not be empty
+	while read TXID BLK_HASH_LOOP OTHER || [[ -n "$TXID" ]]
+	do [[ -n "${TXID// }" ]] && break
+	done
 			
-	#if -s is not set
-	#check stdin is not empty
-	if ((OPTS==0)) && [[ -z "$TXID" ]]
-	then
-		unset CONCAT
-		echo "$SN: err  -- stdin appears empty or is not json" >&2
-		exit 1
-	fi
-
 	#select funtions
 	#deal with stdin input types
-	case "${TXID}${OPTS+OPTSSET}" in
+	case "${TXID// }" in
 
-	#json data or -s json option
-	*[{}]*|*OPTSSET)
-		#set temp filename for stdin buffer
-		TMPSTDIN="${TMPD}/data.$$.json"
-			
-		#set to concatenate results
-		CONCAT=1
-		;;&
-
-		#json detect automatically
-		*[{}]*)
+		#json data, auto detect
+		*[][{}]*)
+			JSON=1
+			#set temp filename for stdin buffer
+			TMPSTDIN="${TMPD}/data.$$.json"
+				
 			#copy first line to our custom stdin buffer
-			echo "${TXID} ${BLK_HASH_LOOP} ${BAD}" >"$TMPSTDIN"	
-			;&
-
-		#-s is set explicitly
-		*OPTSSET)
-			OPTS=1
-			unset TXID BLK_HASH_LOOP
-
+			echo "${TXID} ${BLK_HASH_LOOP} ${OTHER}" >"$TMPSTDIN"
+			unset TXID BLK_HASH_LOOP OTHER
+	
 			#copy remaining stdin
-			echo "$(</dev/stdin)" >>"$TMPSTDIN"
-
-			#test if stdin is json
+			cat >>"$TMPSTDIN"
+	
+			#test if stdin is json really
 			if ! jq empty "$TMPSTDIN"
 			then
-				unset CONCAT
+				unset JSON
 				echo "$SN: err  -- stdin does not seem to be json data" >&2
 				exit 1
-			#is there a tx arrau .tx[] (from `getrawblock HASH 2`) ? 
-			elif jq -er '.tx[]' "$TMPSTDIN" &>/dev/null
+			#is there a tx array .tx[] (from `getrawblock HASH 2`) ? 
+			elif jq -e '.tx[]' "$TMPSTDIN" &>/dev/null
 			then
 				TXAR=tx  #for jq cmd later
+			#is there an array .[] ?
+			elif jq -e '.[0]' "$TMPSTDIN" &>/dev/null
+			then
+				TXAR=
 			else
 				#may be unarrayed tx data, let's try and slurp it
 				TXAR=    #for jq cmd later
 				TMP5="$TMPSTDIN.txarray.json"
-
+	
 				jq -esr . "$TMPSTDIN" >"$TMP5" || exit 
 				TMPSTDIN="$TMP5"
 			fi
 			unset TMP5
 			
-			#ids in array
-			TXIDARRAY=( $(jq -r ".${TXAR}[]|.txid? // empty" "$TMPSTDIN" ) )
-			#get number of txs in array
-			L="${#TXIDARRAY[@]}"
-			#"number" length for printing feedback
-			K="${#L}"
-			
-			## loop through tx ids
-			for ((COUNTER=0 ;COUNTER<=$((${#TXIDARRAY[@]} - 1)) ;COUNTER++))
-			do
-				#processed transaction temp file
-				TMP4="${TMPD}/${COUNTER}.tx"
-				#raw transaction (json) temp file
-				TMP3="$TMP4.json"
-				#!#must be the same as in other functions
-
+			#fast processing? only general info
+			if ((OPTFAST))
+			then
 				#get transaction by json array index
-				if jq -er ".${TXAR}[${COUNTER}] // empty" "$TMPSTDIN" >"$TMP3" &&
-					[[ -s "$TMP3" ]]
-				then
-					#select option
-					if (( OPTASCII ))
+				jq -er ".${TXAR}[${COUNTER}] // empty" "$TMPSTDIN" | mainfastf
+			else
+				#ids in array
+				TXIDARRAY=( $(jq -r ".${TXAR}[]|.txid? // empty" "$TMPSTDIN" ) )
+				#get number of txs in array
+				L="${#TXIDARRAY[@]}"
+				#"number" length for printing feedback
+				K="${#L}"
+				
+				## loop through tx ids
+				for ((COUNTER=0 ;COUNTER<=$((${#TXIDARRAY[@]} - 1)) ;COUNTER++))
+				do
+					#processed transaction temp file
+					TMP4="${TMPD}/${COUNTER}.tx"
+					#raw transaction (json) temp file
+					TMP3="$TMP4.json"
+					#!#must be the same as in other functions
+	
+					#get transaction by json array index
+					if jq -er ".${TXAR}[${COUNTER}] // empty" "$TMPSTDIN" >"$TMP3" &&
+						[[ -s "$TMP3" ]]
 					then
 						#-y transaction hex to ascii
-						hexasciif
-					else
+						if (( OPTASCII ))
+						then hexasciif
 						#parse tx info
-						#set to concatenate results
-						CONCAT=1
-
-						#parse tx
-						parsef
+						else parsef
+						fi
 					fi
-				fi
-				RET+=( $? )
-			done
-		;;
-	#transaction hashes
-	*)
-		#tx counter
-		COUNTER=0
-
-		#first $TXID was already set before
-		while
-			[[ -n "$TXID" ]] || read TXID BLK_HASH_LOOP BAD
-			TXID="${TXID// }"
-			[[ -n "$TXID" ]]
-		do
-			#input from stdin
-			#cannot know the number of lines in advance
-			L="$((COUNTER+1))"
-			#"number" length for printing feedback
-			((${#L}<3)) && K=3 || K="${#L}"
-			
-			#select option
-			if (( OPTASCII ))
-			then
-				#-y transaction hex to ascii
-				hexasciif
-			else
-				#parse tx info
-
-				#set to concatenate results
-				CONCAT=1
-
-				#parse tx
-				parsef
+					RET+=( $? )
+				done
 			fi
-			#get exit code
-			RET+=( $? )
+			;;
 
-			#counter
-			(( ++COUNTER ))
+		#transaction hashes [:xdigit:], hopefully
+		*[A-Fa-f0-9]*)
+			#tx counter
+			COUNTER=0
 
-			#make sure to unset $TXID
-			unset TXID
-		done
-		;;
+			#first $TXID was already set before
+			while
+				[[ -n "$TXID" ]] || read TXID BLK_HASH_LOOP OTHER
+				TXID="${TXID// }"
+				[[ -n "$TXID" ]]
+			do
+				#input from stdin
+				#cannot know the number of lines in advance
+				L="$((COUNTER+1))"
+				#"number" length for printing feedback
+				((${#L}<3)) && K=3 || K="${#L}"
+				
+				#-y transaction hex to ascii
+				if (( OPTASCII ))
+				then hexasciif
+				#parse tx info
+				else parsef
+				fi
+				#get exit code
+				RET+=( $? )
+
+				#counter
+				(( ++COUNTER ))
+
+				#make sure to unset $TXID
+				unset TXID
+			done
+			;;
+
+		#empty
+		'')
+			echo "$SN: err  -- stdin empty" >&2
+			RET+=(1)
+			;;
+
+		#invalid
+		*)
+			echo "$SN: err  -- invalid data" >&2
+			RET+=(1)
+			;;
+
 	esac
 else
-	unset CONCAT
 	
 	#requires argument
 	echo "$SN: err  -- transaction id or json required" >&2
-	exit 1
+	RET+=(1)
 fi
 
 #wait for
