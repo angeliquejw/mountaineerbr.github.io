@@ -2850,7 +2850,7 @@ clr()
 #{ tput clear ;}  #removes scrollback buffer
 
 #loss/gain reciprocal or symetrical ratio
-#usage: loss [+-]NUM[%]
+#usage: loss [+-]NUM[%] [SCALE]
 #usage: NUM is an integer and if negative reads as gain
 loss()
 {
@@ -2859,7 +2859,7 @@ loss()
 
 	#check for invalid notations
 	if [[ "$u" = *[a-zA-Z]* || "$u" != *[0-9]* || ! "${u/[,.-]*}" =~ ^.?.?$ ]]
-	then echo -e 'err\nusage: loss [+-]NUM[%]' >&2 ;return 1 
+	then echo -e 'err\nusage: loss [+-]NUM[%] [SCALE]' >&2 ;return 1 
 	fi
 
 	#use zshell maths or bash bc?
@@ -2869,8 +2869,8 @@ loss()
 	fi
 
 	if [[ "$u" = -* ]]
-	then printf "%4s: %7.${2:-4}f %%\n" gain ${u#-} loss ${g#-}
-	else printf "%4s: %7.${2:-4}f %%\n" loss $u gain $g
+	then printf "%4s: %6.${2:-4}f %%\n" gain ${u#-} loss ${g#-}
+	else printf "%4s: %6.${2:-4}f %%\n" loss $u gain $g
 	fi
 }
 #fausto botelho: https://www.youtube.com/watch?v=yY7d6gOIynU
