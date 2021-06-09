@@ -1,7 +1,7 @@
 #!/bin/bash
-# v0.8.19  jun/2021  by mountaineerbr
+# v0.8.20  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
-# requires bitcoin-cli and jq
+# requires bitcoin-cli and jq 1.6+
 
 #script name
 SN="${0##*/}"
@@ -179,8 +179,8 @@ WARRANTY
 	Grondilu's bitcoin-bash-tools functions are embedded in this
 	script, see <https://github.com/grondilu/bitcoin-bash-tools>.
 	
-	Packages bitcoin-cli v0.21+, jq, openssl, xxd, sha256sum and
-	bash v4+ are required.
+	Packages bitcoin-cli v0.21+, jq 1.6+, openssl, xxd, sha256sum
+	and bash v4+ are required.
 
 	The script \`bitcoin.tx.sh\`  will deliver better summary data
 	than <blockchain.com> or <blockchair>. This script can return
@@ -686,11 +686,11 @@ mainfastf()
 					.vin[] // empty |
 					(
 							"  TxIndex_: \(.txid // "coinbase")",
-							"  Sequence: \(.sequence)\tVoutNum_: \(.vout // empty)",
+							"  Sequence: \(.sequence)\tVoutNum_: \(.vout // "")",
 							(
 								.scriptSig |
-									"  ScSigTyp: \( .type? // empty )",
-									"  ScSigAsm: \( if ($optf | tonumber) > 2 then (.asm? // empty) else empty end)",
+									"  ScSigTyp: \(.type // empty)",
+									"  ScSigAsm: \( if ($optf | tonumber) > 2 then (.asm // empty) else empty end)",
 									""
 							),
 							""
@@ -703,9 +703,9 @@ mainfastf()
 						"  Number__: \(.n )\tValue__: \(.value )",
 						(
 						.scriptPubKey |
-							"  PKeyType: \( .type? // "?" )\tReqSigs_: \( .reqSigs // "?" )",
-							"  PKeyAddr: \( .addresses? | .[]? // empty )",
-							"  PKeyAsm_: \( if ($optf | tonumber) > 2 then (.asm? // empty) else empty end )",
+							"  PKeyType: \(.type // empty)\(.reqSigs | if . then "\tReqSigs_: \(.)" else "" end)",
+							"  PKeyAddr: \(.addresses? | .[]? // empty)",
+							"  PKeyAsm_: \( if ($optf | tonumber) > 2 then (.asm // empty) else empty end )",
 							""
 						)
 					)

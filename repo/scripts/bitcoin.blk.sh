@@ -1,6 +1,7 @@
 #!/bin/bash
-# v0.8.3  jun/2021  by mountaineerbr
+# v0.8.4  jun/2021  by mountaineerbr
 # bitcoin block information and functions
+# requires bitcoin-cli and jq 1.6+
 
 #script name
 SN="${0##*/}"
@@ -57,7 +58,7 @@ DESCRIPTION
 	By defaults, print header block information of BLOCK_HASH or
 	BLOCK_HEIGHT. If option -i is set, prints more block information
 	and stats. If option -ii is set, prints only transaction hashes
-	from blocks. If option -g is set, prints json of all transactions
+	from blocks. If option -g is set, prints JSON of all transactions
 	from blocks.
 
 	Multiple block hashes or height numbers are allowed. If empty,
@@ -169,7 +170,7 @@ WARRANTY
 	Licensed under the gnu general public license 3 or better and
 	is distributed without support or bug corrections.
 
-	Bitcoin-cli v0.21+, jq, xxd, GNU date v5.3+ and bash are required.
+	Bitcoin-cli v0.21+, jq 1.6+, xxd, GNU date v5.3+ and bash are required.
 	
 	If you found this programme interesting, please consider
 	sending me a nickle!  =)
