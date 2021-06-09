@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.18  jun/2021  by mountaineerbr
+# v0.8.19  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq
 
@@ -86,8 +86,8 @@ DESCRIPTION
 	Option -f prints only general transaction information and does
 	not retrieve vins and vouts but is very fast. Pass multiple times
 	to dump more data. If used with multiple jobs, transaction output
-	order may differ from input; this option does not save a copy of
-	output.
+	order may differ from input; note that this option does not save
+	a copy of output.
 
 
 	General Options
@@ -1139,8 +1139,8 @@ cleanf() {
 #concatenate result files in the input order
 concatf()
 {
-	#return here if option -o or -e is set
-	((OPTOUT + DEBUGOPT)) && return 0
+	#return here if option -e, -f or -o is set
+	((DEBUGOPT + OPTFAST + OPTOUT)) && return 0
 	
 	#concatenate buffer files in the correct order
 	#get a unique name
