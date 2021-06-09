@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.13  jun/2021  by mountaineerbr
+# v0.8.14  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq
 
@@ -85,7 +85,9 @@ DESCRIPTION
 
 	Option -f prints only general transaction information and does
 	not retrieve vins and vouts but is very fast. Pass multiple times
-	to dump more data.
+	to dump more data. If used with multiple jobs, transaction output
+	order may differ from input; this option does not save a copy of
+	output.
 
 
 	General Options
@@ -234,9 +236,11 @@ USAGE EXAMPLES
 	$ strings -n 20 blk00003.dat  #decode the whole block file
 
 
-	5) Get the genesis block coinbase transaction:
+	5) Get the genesis block coinbase transaction and parse it:
 
 	$ bitcoin-cli getblock \$(bitcoin-cli getblockhash 0) 2 | $SN
+
+	$ bitcoin.blk.sh -ii 0 | $SN
 
 
 	6) Parse all transactions from best block; note that bitcoin.blk.sh
@@ -604,22 +608,7 @@ mainf()
 	{
 
 	#general info
-	echo
-	jq -r '"Transaction information",
-		"Tx_Id___: \(.txid)",
-		"Hash____: \(.hash // empty)",
-		"Blk_Hash: \(.blockhash // empty)",
-		"InActCha: \( if .in_active_chain == true then "True" else empty end)",
-		"Time____: \(.time // empty)\t \((.time // empty) | '"$HH"' )",
-		"Blk_Time: \(.blocktime // empty)\t \((.blocktime // empty) | '"$HH"' )",
-		"LockTime: \(.locktime)",
-		"Version_: \(.version)",
-		"Confirma: \(.confirmations // empty)",
-		"Weight__: \(.weight) WU",
-		"VirtSize: \(.vsize) vB",
-		"Size____: \(.size // empty) B"' "$TMP"
-		
-		#"Hex_____: \(.hex // empty)",
+	jq -r --arg optf 0 "\"\",$JQTXINFO" "$@" "$TMP"
 	
 	#sum vouts
 	#load values from file
@@ -721,42 +710,14 @@ mainfastf()
 						)
 					)
 			),
-			"Transaction information",
-			"Hex_____: \(if ($optf | tonumber) > 2 then (.hex // empty) else empty end)",
-			"Tx_Id___: \(.txid)",
-			"Hash____: \(.hash // empty)",
-			"Blk_Hash: \(.blockhash // empty)",
-			"InActCha: \( if .in_active_chain == true then "True" else empty end)",
-			"Time____: \(.time // empty)\t \((.time // empty) | '"$HH"' )",
-			"Blk_Time: \(.blocktime // empty)\t \((.blocktime // empty)| '"$HH"' )",
-			"LockTime: \(.locktime)",
-			"Version_: \(.version)",
-			"Confirma: \(.confirmations // empty)",
-			"Weight__: \(.weight) WU",
-			"VirtSize: \(.vsize) vB",
-			"Size____: \(.size // empty) B",
-			"Vout_Sum: \([.vout[]|.value] | add)"' "$@"
+			'"$JQTXINFO" "$@"
 
 	else
 		#dumps only basic info
-		jq -r '"",
+		jq -r --arg optf 0 '"",
 			"--------",
-			"Transaction information",
-			"Tx_Id___: \(.txid)",
-			"Hash____: \(.hash // empty)",
-			"Blk_Hash: \(.blockhash // empty)",
-			"InActCha: \( if .in_active_chain == true then "True" else empty end)",
-			"Time____: \(.time // empty)\t \((.time // empty) | '"$HH"' )",
-			"Blk_Time: \(.blocktime // empty)\t \((.blocktime // empty)| '"$HH"' )",
-			"LockTime: \(.locktime)",
-			"Version_: \(.version)",
-			"Confirma: \(.confirmations // empty)",
-			"Weight__: \(.weight) WU",
-			"VirtSize: \(.vsize) vB",
-			"Size____: \(.size // empty) B",
-			"Vout_Sum: \([.vout[]|.value] | add)"' "$@"
-			
-			#"Hex_____: \(.hex // empty)",
+			'"$JQTXINFO" "$@"
+
 	fi
 
 }
@@ -1377,6 +1338,23 @@ if [[ "${TZ^^}" = +(UTC0|UTC-0|UTC|GMT) ]]
 then HH='strftime("%Y-%m-%dT%H:%M:%SZ")' ;((OPTHUMAN)) && HH='strftime("%a, %d %b %Y %T +00")'
 else HH='strflocaltime("%Y-%m-%dT%H:%M:%S%Z")' ;((OPTHUMAN)) && HH='strflocaltime("%a, %d %b %Y %T %Z")'
 fi
+
+#jq script block for parsing txs
+JQTXINFO='"Transaction information",
+			"Hex_____: \(if ($optf | tonumber) > 2 then (.hex // empty) else empty end)",
+			"Tx_Id___: \(.txid)",
+			"Hash____: \(.hash // empty)",
+			"Blk_Hash: \(.blockhash // empty)",
+			"InActCha: \( if .in_active_chain == true then "True" else empty end)",
+			"Time____: \(.time // empty)\t \((.time // empty) | '"$HH"' )",
+			"Blk_Time: \(.blocktime // empty)\t \((.blocktime // empty)| '"$HH"' )",
+			"LockTime: \(.locktime)",
+			"Version_: \(.version)",
+			"Confirma: \(.confirmations // empty)",
+			"Weight__: \(.weight) WU",
+			"VirtSize: \(.vsize) vB",
+			"Size____: \(.size // empty) B",
+			"Vout_Sum: \([.vout[]|.value] | add)"'
 
 #do some basic checking
 #at this point, did user set option -b $BLK_HASH ?
