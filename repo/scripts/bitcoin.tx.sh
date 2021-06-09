@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.21  jun/2021  by mountaineerbr
+# v0.8.22  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -683,31 +683,29 @@ mainfastf()
 			"",
 			"Vins",
 			(
-					.vin[] // empty |
+				.vin[] // empty |
+				(
+					"  TxIndex_: \(.txid // "coinbase")",
+					"  Sequence: \(.sequence)\tVoutNum: \(.vout // "")",
 					(
-							"  TxIndex_: \(.txid // "coinbase")",
-							"  Sequence: \(.sequence)\tVoutNum: \(.vout // "")",
-							(
-								.scriptSig |
-									"  ScSigTyp: \(.type // empty)",
-									"  ScSigAsm: \( if ($optf | tonumber) > 2 then (.asm // empty) else empty end)",
-									""
-							),
+						.scriptSig |
+							"  ScSigTyp: \(.type // empty)",
+							"  ScSigAsm: \( if ($optf | tonumber) > 2 then (.asm // empty) else empty end)",
 							""
-					)
+					),
+					""
+				)
 			),
 			"Vouts",
 			(
+				.vout[] |
+					"  Number__: \(.n )\tValue__: \(.value )",
 					(
-					.vout[] |
-						"  Number__: \(.n )\tValue__: \(.value )",
-						(
-						.scriptPubKey |
-							"  PKeyType: \(.type // empty)\(if .reqSigs then "\tReqSigs: \(.reqSigs)" else "" end)",
-							"  PKeyAddr: \(.addresses? | .[]? // empty)",
-							"  PKeyAsm_: \( if ($optf | tonumber) > 2 then (.asm // empty) else empty end )",
-							""
-						)
+					.scriptPubKey |
+						"  PKeyType: \(.type // empty)\(if .reqSigs then "\tReqSigs: \(.reqSigs)" else "" end)",
+						"  PKeyAddr: \(.addresses? | .[]? // empty)",
+						"  PKeyAsm_: \( if ($optf | tonumber) > 2 then (.asm // empty) else empty end )",
+						""
 					)
 			),
 			'"$JQTXINFO" "$@"
