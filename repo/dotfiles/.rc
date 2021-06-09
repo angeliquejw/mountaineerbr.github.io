@@ -531,9 +531,10 @@ alias cal='cal -s'
 vf()
 {
 	local recfile="$HOME/.config/vifm/vifmcd.txt"
-	command vifm --choose-dir "$recfile" "$@"
+	VIFMSET=1 command vifm --choose-dir "$recfile" "$@"
 	echo -e "\aPWD: $PWD"
 }
+((VIFMSET)) && echo -e \\aYou are within VIFM! >&2
 
 #cd to last visited dir in Vifm
 vfcd()
@@ -2858,7 +2859,7 @@ loss()
 
 	#check for invalid notations
 	if [[ "$u" = *[a-zA-Z]* || "$u" != *[0-9]* || ! "${u/[,.-]*}" =~ ^.?.?$ ]]
-	then echo -n 'err\nusage: loss [+-]NUM[%]' >&2 ;return 1 
+	then echo -e 'err\nusage: loss [+-]NUM[%]' >&2 ;return 1 
 	fi
 
 	#use zshell maths or bash bc?
@@ -2868,8 +2869,8 @@ loss()
 	fi
 
 	if [[ "$u" = -* ]]
-	then printf '%4s: %7.4f %%\n' gain ${u#-} loss ${g#-}
-	else printf '%4s: %7.4f %%\n' loss $u gain $g
+	then printf "%4s: %7.${2:-4}f %%\n" gain ${u#-} loss ${g#-}
+	else printf "%4s: %7.${2:-4}f %%\n" loss $u gain $g
 	fi
 }
 #fausto botelho: https://www.youtube.com/watch?v=yY7d6gOIynU
