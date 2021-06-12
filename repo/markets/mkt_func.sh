@@ -70,9 +70,8 @@ tesouro()
 #ibge inflação brasileira IPCA - Variação mensal
 ipcab()
 {
-	#run in subshell
-	(
-	[[ -z "$*" ]] && printf 'uso: ipcab  ANO/MES  #ANO/MES >= 1980/01\n\n' >&2
+	local val tval tvalp line data 
+	(($#)) ||  printf 'uso: ipcab  ANO/MES  #ANO/MES >= 1980/01\n\n' >&2
 
 	#testar input do usuário, ano maior que 1980
 	set -- "$(tr -d '/.-' <<<"$*")"
@@ -108,7 +107,6 @@ ipcab()
 		#make table
 		column -ets' ' -NMes,Ano,Var%Mes,Acu%Total,Fator -OAno,Mes,Var%Mes,Acu%Total,Fator -RVar%Mes,Acu%Total,Fator
 
-	)
 }
 #calculadora: https://www3.bcb.gov.br/CALCIDADAO/publico/corrigirPorIndice.do?method=corrigirPorIndice
 
@@ -117,8 +115,7 @@ ipcab()
 #uso: %s [ANO]  #ANO>=1980 e calcula de jan/ANO a DEZ/ANO_ATUAL-1 
 ipcab2()
 {
-	#subshell
-	(
+	local data year yearend line val tval tvalp
 	#print usage if user did not supply any argument
 	[[ -z "$*" ]] && printf 'uso: ipcab2 ANO  #ANO >= 1980\n\n' >&2
 
@@ -159,7 +156,6 @@ ipcab2()
 	done <<< "$( eval printf 'dezembro\ %s\\n' \{$year..$yearend\} )" |
 		#make table
 		column -ets' ' -NAno,Mes,Ac%Ano,Acu%Total,Fator -RAc%Ano,Acu%Total,Fator 
-	)
 }
 #orig:199512,199612,199712,199812,199912,200012,200112,200212,200312,200412,200512,200612,200712,200812,200912,201012,201112,201212,201312,201412,201512,201612,201712,201812,201912,202012,202112,202212,202312,202412,202512,202612,202712,202812,202912,203012,202001
 #https://www.ibge.gov.br/estatisticas/economicas/precos-e-custos/9256-indice-nacional-de-precos-ao-consumidor-amplo.html?t=series-historicas&utm_source=landing&utm_medium=explica&utm_campaign=inflacao#plano-real-mes
