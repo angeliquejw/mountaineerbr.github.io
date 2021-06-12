@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.22  jun/2021  by mountaineerbr
+# v0.8.23  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -114,9 +114,9 @@ DESCRIPTION
 	an integer or \`auto'. Environment variable \$JOBSMAX is read,
 	defaults=${JOBSDEF} .
 
-	Beware that, with the exception of the defaults functions, and
-	maybe option -o, all other functions may print asynchronously
-	and mix output. To avoid that, set -j1 .
+	Beware that, with the exception of the defaults functions, all
+	other functions may print asynchronously and mix output. To avoid
+	that, set -j1 .
 
 
 	Other Functions
@@ -162,14 +162,17 @@ SEE ALSO
 
 
 	blockchain-parser -- Ragestack's blockchain binary data parser
-	Our bash script is slower than his parser in Python for various
-	reasons, however these scripts print different information about
-	transactions
 	<https://github.com/ragestack/blockchain-parser>
 
 	Bitcoin whitepaper in the blockchain
 	<https://bitcoinhackers.org/@jb55/105595146491662406>
 	<https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi/35970#35970>
+
+
+	Q. Whats the difference between \`txid' and \`hash'?
+	A. when tx is segwit, calculation of \`hash' does not include
+	witness data, whereas the \`txid' does.
+	<https://bitcoin.stackexchange.com/questions/77699/whats-the-difference-between-txid-and-hash-getrawtransaction-bitcoind>
 
 
 WARRANTY
@@ -182,16 +185,8 @@ WARRANTY
 	Packages bitcoin-cli v0.21+, jq 1.6+, openssl, xxd, sha256sum
 	and bash v4+ are required.
 
-	The script \`bitcoin.tx.sh\`  will deliver better summary data
-	than <blockchain.com> or <blockchair>. This script can return
-	addresses from segwit and multisig transactions. The average
-	time for parsing transactions until block height 667803 is about
-	2 seconds with my i7, however that depends on the number of vins
-	and vouts of each transaction. Parsing a few thousand trans-
-	actions seems quite feasible for personal use.
-
-	If you found this programme interesting, please consider
-	sending me a nickle!  =)
+	If you found this programme interesting or useful, please
+	consider sending me a nickle!  =)
   
 		bc1qlxm5dfjl58whg6tvtszg5pfna9mn2cr2nulnjr
 
