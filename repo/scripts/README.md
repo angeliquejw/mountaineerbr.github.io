@@ -19,9 +19,9 @@ __grep.sh__ |  Grep files with shell built-ins
 __inmet.sh__ | Download satellite images from Brazilian Instituto Nacional de Meteorologia
 __ipmet.sh__ | Download radar images from Brazilian Instituto de Pesquisas Meteorológicas (UNESP)
 __skel.sh__ | My skel script and tips
-__ug.sh__ | Light version of `urlgrep.sh', almost as a proof-of-concept but more generous.
+__ug.sh__ | Light version of `urlgrep.sh`, almost as a proof-of-concept but more generous.
 __urlgrep.sh__ | Grep full-text content from a URL list; useful for searching web history and bookmarks
-__wc.sh__ |  print line, word and character count for files with shell built-ins
+__wc.sh__ |  Print line, word and character count for files with shell built-ins
 
 ---
 
@@ -45,15 +45,9 @@ These wrapper scripts require `bash`, `bitcoin-cli` and `jq`.
 Some scripts have got [grondilu's bitcoin-bash-tools](https://github.com/grondilu/bitcoin-bash-tools)
 functions embedded.
 
-The script `bitcoin.tx.sh`  will deliver better summary data than
-&lt;blockchain.com&gt; or &lt;blockchair&gt;. This script can return
-addresses from segwit and multisig transactions. Time to parse transactions
-will increase with transaction number. Most full blocks take between 11
-and 22 minutes to have all their transactions parsed, however
-transaction parsing really depends on the number of
-vins and vouts. Parsing a few thousand transactions
-seems quite feasible for personal use.
-
+Transaction parsing time really depends on the number of
+vins and vouts. Parsing a few hendred or thousand transactions
+seems quite feasible for personal use. `bitcoin.tx.sh` has got option -f, which is fast and delivers basic transaction info.
 
 SCRIPT NAME | DESCRIPTION
 :-------------|:-----------

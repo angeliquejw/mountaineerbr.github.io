@@ -76,7 +76,7 @@ h1 { text-transform: uppercase; }
 	├── [1.8K]&nbsp;&nbsp;<a class="EXEC" href="./inmet.sh">inmet.sh</a>*<br>
 	├── [1.9K]&nbsp;&nbsp;<a class="EXEC" href="./ipmet.sh">ipmet.sh</a>*<br>
 	├── [&nbsp;34K]&nbsp;&nbsp;<a class="txt" href="./LICENSE.txt">LICENSE.txt</a><br>
-	├── [3.8K]&nbsp;&nbsp;<a class="txt2" href="./README.md">README.md</a><br>
+	├── [3.5K]&nbsp;&nbsp;<a class="txt2" href="./README.md">README.md</a><br>
 	├── [2.7K]&nbsp;&nbsp;<a class="EXEC" href="./skel.sh">skel.sh</a>*<br>
 	├── [2.6K]&nbsp;&nbsp;<a class="EXEC" href="./ug.sh">ug.sh</a>*<br>
 	├── [&nbsp;22K]&nbsp;&nbsp;<a class="EXEC" href="./urlgrep.sh">urlgrep.sh</a>*<br>
@@ -158,7 +158,7 @@ h1 { text-transform: uppercase; }
 </tr>
 <tr>
 <td style="text-align:left;"><strong>ug.sh</strong> </td>
-<td style="text-align:left;"> Light version of `urlgrep.sh', almost as a proof-of-concept but more generous.</td>
+<td style="text-align:left;"> Light version of <code>urlgrep.sh</code>, almost as a proof-of-concept but more generous.</td>
 </tr>
 <tr>
 <td style="text-align:left;"><strong>urlgrep.sh</strong> </td>
@@ -166,7 +166,7 @@ h1 { text-transform: uppercase; }
 </tr>
 <tr>
 <td style="text-align:left;"><strong>wc.sh</strong> </td>
-<td style="text-align:left;">  print line, word and character count for files with shell built-ins</td>
+<td style="text-align:left;">  Print line, word and character count for files with shell built-ins</td>
 </tr>
 </tbody>
 </table>
@@ -194,14 +194,9 @@ to start with.</p>
 Some scripts have got <a href="https://github.com/grondilu/bitcoin-bash-tools">grondilu&rsquo;s bitcoin-bash-tools</a>
 functions embedded.</p>
 
-<p>The script <code>bitcoin.tx.sh</code>  will deliver better summary data than
-&lt;blockchain.com&gt; or &lt;blockchair&gt;. This script can return
-addresses from segwit and multisig transactions. Time to parse transactions
-will increase with transaction number. Most full blocks take between 11
-and 22 minutes to have all their transactions parsed, however
-transaction parsing really depends on the number of
-vins and vouts. Parsing a few thousand transactions
-seems quite feasible for personal use.</p>
+<p>Transaction parsing time really depends on the number of
+vins and vouts. Parsing a few hendred or thousand transactions
+seems quite feasible for personal use. <code>bitcoin.tx.sh</code> has got option -f, which is fast and delivers basic transaction info.</p>
 
 <table>
 <thead>
