@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.31  jun/2021  by mountaineerbr
+# v0.8.32  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -169,7 +169,7 @@ SEE ALSO
 	<https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi/35970#35970>
 
 
-	Q. Whats the difference between \`txid' and \`hash'?
+	Q. What's the difference between \`txid' and \`hash'?
 	A. when tx is segwit, calculation of \`hash' does not include
 	witness data, whereas the \`txid' does.
 	<https://bitcoin.stackexchange.com/questions/77699/whats-the-difference-between-txid-and-hash-getrawtransaction-bitcoind>
@@ -275,7 +275,7 @@ OPTIONS
 	Functions
 	-f 	General transaction information only (fast), set multiple
 		times to dump more data.
-	-y 	Decode transaction hex to ASCII (auto select string legth).
+	-y 	Decode transaction hex to ASCII (auto select string length).
 	-yy, -Y	Same as -y but prints all bytes."
 
 
