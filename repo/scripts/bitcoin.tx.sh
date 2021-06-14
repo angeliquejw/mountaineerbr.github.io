@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.25  jun/2021  by mountaineerbr
+# v0.8.26  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -1115,14 +1115,7 @@ cleanf() {
 	[[ -e "$TMPERR" ]] && RET+=( $(<"$TMPERR") )
 
 	#remove temp data?
-	if [[ -d "$TMPD" ]]
-	then
-		#remove with feedback?
-		if (( OPTVERBOSE > 1 ))
-		then rm -rfv "$TMPD"
-		else rm -rf "$TMPD"
-		fi
-	fi
+	[[ -d "$TMPD" ]] && rm -rf "$TMPD"
 
 	#verbose feedback
 	((OPTVERBOSE)) && 
