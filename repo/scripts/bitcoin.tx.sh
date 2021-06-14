@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.23  jun/2021  by mountaineerbr
+# v0.8.25  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -424,18 +424,21 @@ errsigf()
 #tx hex to ascii
 hexasciif()
 {
-	local ascii data hex iscoinb num  #BLOCK_HASH_LOOP 
+	local ascii hex iscoinb num data  #BLOCK_HASH_LOOP 
 
 	if 
 		#read file $TMP3 or get json from bitcoin-cli
 		{ [[ -e "$TMP3" ]] && data="$(<"$TMP3")" ;} ||
 			data="$( bwrapper getrawtransaction "$TXID" true ${BLOCK_HASH_LOOP:-${BLK_HASH}} )"
+
 		hex="$( jq -er '.hex // empty' <<<"$data" )" &&
 		[[ -n "$hex" ]]
 	then
 		#verbose?
-		if (( OPTVERBOSE ))
+		if (( OPTVERBOSE > 1))
 		then
+			#clear last feedback line in stderr
+			printf "$CLR" >&2
 			#is coinbase tx?
 			iscoinb="$( jq -r '.vin[0] | if .coinbase then "(coinbase transaction)\\n" else empty end' <<<"$data" )"
 			echo -ne "--------\n${iscoinb}TXID: ${TXID}\nHEX_: $hex\nASCI: "
@@ -1461,11 +1464,18 @@ then
 			fi
 			unset TMP5
 			
-			#fast processing? only general info
+			#-f fast processing (only general tx info)?
 			if ((OPTFAST))
 			then
-				#get transaction by json array index
-				jq -er ".${TXAR}[${COUNTER}] // empty" "$TMPSTDIN" | mainfastf
+				jq -er ".${TXAR}[] // empty" "$TMPSTDIN" | mainfastf
+				RET+=( $? )
+			#-y transaction hex to ascii
+			elif (( OPTASCII ))
+			then
+				TMP3="${TMPD}/${RANDOM}.tx"
+				jq -er ".${TXAR}[] // empty" "$TMPSTDIN" >"$TMP3" \
+				&& hexasciif
+				RET+=( $? )
 			else
 				#ids in array
 				TXIDARRAY=( $(jq -r ".${TXAR}[]|.txid // empty" "$TMPSTDIN" ) )
@@ -1487,14 +1497,10 @@ then
 					if jq -er ".${TXAR}[${COUNTER}] // empty" "$TMPSTDIN" >"$TMP3" &&
 						[[ -s "$TMP3" ]]
 					then
-						#-y transaction hex to ascii
-						if (( OPTASCII ))
-						then hexasciif
 						#parse tx info
-						else parsef
-						fi
+						parsef
+						RET+=( $? )
 					fi
-					RET+=( $? )
 				done
 			fi
 			;;

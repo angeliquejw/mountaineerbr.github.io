@@ -71,7 +71,7 @@ tesouro()
 ipcab()
 {
 	local val tval tvalp line data 
-	(($#)) ||  printf 'uso: ipcab  ANO/MES  #ANO/MES >= 1980/01\n\n' >&2
+	(($#)) || printf 'uso: ipcab  ANO/MES  #ANO/MES >= 1980/01\n\n' >&2
 
 	#testar input do usuário, ano maior que 1980
 	set -- "$(tr -d '/.-' <<<"$*")"
@@ -117,7 +117,7 @@ ipcab2()
 {
 	local data year yearend line val tval tvalp
 	#print usage if user did not supply any argument
-	[[ -z "$*" ]] && printf 'uso: ipcab2 ANO  #ANO >= 1980\n\n' >&2
+	(($#)) || printf 'uso: ipcab2 ANO  #ANO >= 1980\n\n' >&2
 
 	#testar input do usuário, ano maior que 1980
 	if [[ "$1" =~ ^[0-9]{4}$ ]] &&
