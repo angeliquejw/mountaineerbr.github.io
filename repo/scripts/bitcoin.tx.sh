@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.30  jun/2021  by mountaineerbr
+# v0.8.31  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -428,9 +428,10 @@ hexasciif()
 	if 
 		#read file $TMP3 or get json from bitcoin-cli
 		if [[ -e "$TMP3" ]]
-		then hex="$(jq -er '.hex // empty' "$TMP3")"
-		else hex="$(bwrapper getrawtransaction "$TXID" true ${BLOCK_HASH_LOOP:-${BLK_HASH}} | jq -er '.hex // empty')"
+		then hex="$(jq -r '.hex // empty' "$TMP3")"
+		else hex="$(bwrapper getrawtransaction "$TXID" true ${BLOCK_HASH_LOOP:-${BLK_HASH}} | jq -r '.hex // empty')"
 		fi
+		[[ -n "$hex" ]]
 	then
 		#verbose?
 		#clear last feedback line in stderr
