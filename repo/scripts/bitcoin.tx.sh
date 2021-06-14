@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.26  jun/2021  by mountaineerbr
+# v0.8.27  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -424,28 +424,25 @@ errsigf()
 #tx hex to ascii
 hexasciif()
 {
-	local ascii hex iscoinb num data  #BLOCK_HASH_LOOP 
+	local ascii hex num  #BLOCK_HASH_LOOP 
 
 	if 
 		#read file $TMP3 or get json from bitcoin-cli
-		{ [[ -e "$TMP3" ]] && data="$(<"$TMP3")" ;} ||
-			data="$( bwrapper getrawtransaction "$TXID" true ${BLOCK_HASH_LOOP:-${BLK_HASH}} )"
-
-		hex="$( jq -er '.hex // empty' <<<"$data" )" &&
-		[[ -n "$hex" ]]
+		if [[ -e "$TMP3" ]]
+		then hex="$(jq -er '.hex // empty' "$TMP3")"
+		else hex="$(bwrapper getrawtransaction "$TXID" true ${BLOCK_HASH_LOOP:-${BLK_HASH}} | jq -er '.hex // empty')"
+		fi
 	then
 		#verbose?
-		if (( OPTVERBOSE > 1))
+		#clear last feedback line in stderr
+		((OPTVERBOSE)) && printf "$CLR" >&2
+		if ((OPTVERBOSE > 1))
 		then
-			#clear last feedback line in stderr
-			printf "$CLR" >&2
-			#is coinbase tx?
-			iscoinb="$( jq -r '.vin[0] | if .coinbase then "(coinbase transaction)\\n" else empty end' <<<"$data" )"
-			echo -ne "--------\n${iscoinb}TXID: ${TXID}\nHEX_: $hex\nASCI: "
-		#debug? print raw data
-		elif (( DEBUGOPT ))
+			#<<<"$txdata" jq -r '.vin[0] | if .coinbase then "(coinbase transaction)\\n" else empty end'
+			echo -ne "--------\nTXID: ${TXID:-(json)}\nHEX_: $hex\nASCI: "
+		#debug? print hex data
+		elif ((DEBUGOPT))
 		then
-			echo "$data"
 			echo "$hex"
 			return
 		fi
@@ -481,8 +478,8 @@ hexasciif()
 		fi
 
 		#print simple feedback
-		(( OPTVERBOSE )) &&
-			printf "${CLR}tx: %*d/%*d  \r" "$K" "$((COUNTER+1))" "$K" "$L" >&2
+		((OPTVERBOSE)) &&
+			printf "tx: %*d/%*d  \r" "$K" "$((COUNTER+1))" "$K" "$L" >&2
 	else
 		return 1
 	fi
@@ -1457,17 +1454,17 @@ then
 			fi
 			unset TMP5
 			
-			#-f fast processing (only general tx info)?
-			if ((OPTFAST))
-			then
-				jq -er ".${TXAR}[] // empty" "$TMPSTDIN" | mainfastf
-				RET+=( $? )
 			#-y transaction hex to ascii
-			elif (( OPTASCII ))
+			if (( OPTASCII ))
 			then
 				TMP3="${TMPD}/${RANDOM}.tx"
 				jq -er ".${TXAR}[] // empty" "$TMPSTDIN" >"$TMP3" \
 				&& hexasciif
+				RET+=( $? )
+			#-f fast processing (only general tx info)?
+			elif ((OPTFAST))
+			then
+				jq -er ".${TXAR}[] // empty" "$TMPSTDIN" | mainfastf
 				RET+=( $? )
 			else
 				#ids in array
