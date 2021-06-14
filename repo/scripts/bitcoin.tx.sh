@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.27  jun/2021  by mountaineerbr
+# v0.8.29  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -251,7 +251,6 @@ OPTIONS
 	-w 	Regenerate bitcoin whitepaper, may set twice; outfile=$WPOUTFILE.
 
 	Miscellaneous
-	-e 	Debugging.
 	-h 	Print this help page.
 	-V 	Print script version.
 	-v 	Verbose, may set multiple times.
@@ -439,12 +438,7 @@ hexasciif()
 		if ((OPTVERBOSE > 1))
 		then
 			#<<<"$txdata" jq -r '.vin[0] | if .coinbase then "(coinbase transaction)\\n" else empty end'
-			echo -ne "--------\nTXID: ${TXID:-(json)}\nHEX_: $hex\nASCI: "
-		#debug? print hex data
-		elif ((DEBUGOPT))
-		then
-			echo "$hex"
-			return
+			echo -ne "--------\nTXID: ${TXID:-${COUNTER:-(json)}}\nHEX_: $hex\nASCI: "
 		fi
 
 		#print ascii text
@@ -504,14 +498,6 @@ mainf()
 	TMP="$1"
 
 	#one transaction json at a time!
-
-	#debug? print raw data
-	#if (( DEBUGOPT ))
-	#then
-	#	cat "$TMP"
-	#	echo ">>>file -- $TMP"
-	#	return 0
-	#fi
 
 	#vins
 	echo -e "\n--------\nInput and output vectors\nVins"
@@ -772,12 +758,6 @@ parsef()
 			bwrapper getrawtransaction "$TXID" true $BLK_HASH >"$TMP3"
 		}
 		then
-			#debug? print raw data
-			#if (( DEBUGOPT ))
-			#then
-			#	cat -- "$TMP3"
-			#	exit 0
-			#fi
 	
 			mainf "$TMP3" > "$TMP4"
 
@@ -1125,8 +1105,8 @@ cleanf() {
 #concatenate result files in the input order
 concatf()
 {
-	#return here if option -e, -f or -o is set
-	((DEBUGOPT + OPTFAST + OPTOUT)) && return 0
+	#return here if option -f or -o is set
+	((OPTFAST + OPTOUT)) && return 0
 	
 	#concatenate buffer files in the correct order
 	#get a unique name
@@ -1170,7 +1150,7 @@ trapf()
 #start
 
 #parse script options
-while getopts ab:c:efhj:louvVwyY opt
+while getopts ab:c:fhj:louvVwyY opt
 do
 	case $opt in
 		a)
@@ -1184,10 +1164,6 @@ do
 		c)
 			#bitcoin.conf filepath
 			BITCOINCONF="$OPTARG"
-			;;
-		e)
-			#debug? print raw data
-			DEBUGOPT=1
 			;;
 		f)
 			#fast tx processing (less info)
@@ -1484,13 +1460,12 @@ then
 					#!#must be the same as in other functions
 	
 					#get transaction by json array index
-					if jq -er ".${TXAR}[${COUNTER}] // empty" "$TMPSTDIN" >"$TMP3" &&
-						[[ -s "$TMP3" ]]
+					if jq -er ".${TXAR}[${COUNTER}] // empty" "$TMPSTDIN" >"$TMP3"  #&& [[ -s "$TMP3" ]]
 					then
 						#parse tx info
 						parsef
-						RET+=( $? )
 					fi
+					RET+=( $? )
 				done
 			fi
 			;;
