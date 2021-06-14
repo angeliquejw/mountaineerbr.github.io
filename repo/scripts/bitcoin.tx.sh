@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.29  jun/2021  by mountaineerbr
+# v0.8.30  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -1348,7 +1348,11 @@ if [[ -n "$BLK_HASH" && "$#" -eq 0 && -t 0 ]]
 then
 	if ((OPTFAST))
 	then bwrapper getblock "$BLK_HASH" 2 | jq -r '.tx[]' | mainfastf ; RET+=($?) ;exit 1
-	else exec 0< <(bwrapper getblock "$BLK_HASH" 1 | jq -r '.tx[]') || { RET+=($?) ;exit 1 ;}
+	else
+		if ((OPTASCII))
+		then exec 0< <(bwrapper getblock "$BLK_HASH" 2) || { RET+=($?) ;exit 1 ;}
+		else exec 0< <(bwrapper getblock "$BLK_HASH" 1 | jq -r '.tx[]') || { RET+=($?) ;exit 1 ;}
+		fi
 	fi
 fi
 
