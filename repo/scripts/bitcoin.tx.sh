@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.32  jun/2021  by mountaineerbr
+# v0.8.33  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -1517,7 +1517,7 @@ then
 
 		#invalid
 		*)
-			echo "$SN: err  -- invalid data" >&2
+			echo "$SN: err  -- invalid input" >&2
 			RET+=(1)
 			;;
 
