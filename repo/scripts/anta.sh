@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.16.19  may/2021  by mountaineerbr
+# v0.17.2  jun/2021  by mountaineerbr
 
 #padrões
 
@@ -33,7 +33,7 @@ UPURL=https://raw.githubusercontent.com/mountaineerbr/scripts/master/anta.sh
 DREGEX='[0-3][0-9]\.[0-1][0-9]\.[1-2][0-9].*[0-2][0-9]:[0-5][0-9]'
 
 #assuntos/categorias
-SUBLIST=(brasil cultura economia eleicoes2020 entretenimento especial esportes mundo opiniao sociedade reuniao-de-pauta videos tudo-sobre tv opiniao despertador)
+SUBLIST=(brasil cultura economia eleicoes2020 entretenimento especial esportes mundo opiniao sociedade reuniao-de-pauta videos tudo-sobre tv opiniao despertador sem-categoria)
 #tag
 
 #Ref tapir art: http://www.ascii-art.de/ascii/t/tapir.txt
@@ -520,7 +520,7 @@ fulltf() {
 			-e '<div class="gravata' \
 			| grep -aFv 'class="timer-icon' \
 			|sed -E -e 's/^#breadcrumbs.*}\s?//' \
-			-e 's/.*<div class="gravata.*/[&]\n\n/'
+			-e 's/.*<div class="gravata.*/[&]\n<layout>\n/'
 	)"
 	grav="$( <<<"$PAGE" grep -cF '<div class="gravata' )"
 
@@ -552,7 +552,8 @@ fulltf() {
 			    -e 's/<.*id="linkcopy".*>//g' \
 			    -e '/>Notícias relacionadas:/d' \
 			    -e 's|<a|[*][&|g ;s|</a|]&|g' \
-			    -e 's|\[\*\]\[\s*\]\s*||g'
+			    -e 's|\[\*\]\[\s*\]\s*||g' \
+				-e 's/<\/li>/&\n/g'
 	)"
 	#https://stackoverflow.com/questions/5315464/email-formatting-basics-links-in-plain-text-emails
 	
@@ -568,9 +569,10 @@ fulltf() {
 	#remove html tags, more processing of article
 	art="$( 
 		sedhtmlf <<<"$art" |
-		sed -e '/^\s*var.*"script/d' \
+		sed -Ee '/^\s*var.*"script/d' \
 		     -e 's/setTimeout.*//' \
-		     -e 's/function().*//'
+		     -e 's/function\(\).*//' \
+			 -e '/^\s*(Rua Iguatemi, 192 -|®202[0-9] - O Antagonista)/,/^\s*CNPJ 25.163.879\/0001-13/ d'
 	)"
 
 	#contar parágrafos
@@ -599,6 +601,12 @@ fulltf() {
 #article index number?
 #https://www.oantagonista.com/brasil/399950/
 #https://www.oantagonista.com/brasil/bolsonarista-preso-ontem-e-apontado-como-financiador-de-acampamentos/
+#try not to break html processing at
+#www.oantagonista.com/brasil/como-votou-cada-deputado-no-destaque-da-facada-em-paulo-guedes/
+#https://www.oantagonista.com/frases-da-semana/as-frases-da-semana-em-que-o-ministro-interino-da-saude-rezou/
+#https://www.oantagonista.com/podcast/podcast-viva-la-muerte/
+#https://www.oantagonista.com/brasil/o-stf-esta-disposto-a-ajudar-davi-alcolumbre/
+#https://www.oantagonista.com/brasil/renan-calheiros-anuncia-lista-de-14-investigados-pela-cpi/
 
 # Puxar links das páginas iniciais
 # e puxar artigos completos
