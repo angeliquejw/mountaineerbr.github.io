@@ -331,6 +331,7 @@ pdftricks
 picard
 picom
 pigz
+pixz
 primus	#NVIDIA
 primus_vk	#NVIDIA
 pstotext
