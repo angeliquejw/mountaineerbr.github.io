@@ -3272,7 +3272,8 @@ plot3()
 percentagef()
 {
 	#subshell
-	local n line last perline 
+	local line last perline rate scl n
+	scl=4  #scale
 	while read line
 	do
 		[[ "$line" = *[a-zA-Z]* || -z "${line// }" ]] && continue
@@ -3282,13 +3283,13 @@ percentagef()
 		if ((ZSH_VERSION))
 		then
 			#zsh
-			typeset -F 4 rate line last
+			typeset -F $scl rate line last
 			((rate = ( ( line / last ) * 100) - 100))
 		else
 			#bash bc
-			rate="$( bc -l <<<"scale=4; ( ( $line / $last ) * 100) - 100" )"
+			rate="$(bc -l <<<"scale=$scl; ( ( $line / $last ) * 100) - 100")"
 		fi
-		printf '%f\n' "$rate"
+		printf '%.*f\n' $scl $rate
 		#printf '%s\t%s\t+%s\t%.2f%%\n' "$n" "$line" "$perline" "$rate"
 		last="$line"
 	done  #| column -ets$'\t' -NN,LINE,+INC,INC%
