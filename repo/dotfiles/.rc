@@ -3273,27 +3273,27 @@ percentagef()
 {
 	#subshell
 	local line last perline rate scl n
-	scl=4  #scale
+	scl="${1:-4}"  #scale
 	while read line
 	do
 		[[ "$line" = *[a-zA-Z]* || -z "${line// }" ]] && continue
 		[[ -z "$last" ]] && last="$line"
-		#(( perline = line - last ))
+		#((perline = line - last))
 		((++n))
 		if ((ZSH_VERSION))
 		then
 			#zsh
 			typeset -F $scl rate line last
-			((rate = ( ( line / last ) * 100) - 100))
+			((rate = ( ( line / last ) - 1) * 100))
 		else
 			#bash bc
-			rate="$(bc -l <<<"scale=$scl; ( ( $line / $last ) * 100) - 100")"
+			rate="$(bc -l <<<"scale=$scl; ( ( $line / $last ) - 1) * 100")"
 		fi
-		printf '%.*f\n' $scl $rate
-		#printf '%s\t%s\t+%s\t%.2f%%\n' "$n" "$line" "$perline" "$rate"
+		printf '%.*f%%\n' $scl $rate
+		#printf '%d\t%s\t+%.*f\t%.*f%%\n' $n "$line" $scl $perline $scl $rate
 		last="$line"
-	done  #| column -ets$'\t' -NN,LINE,+INC,INC%
-	#cols: N,LINE,+INC,INC%%
+	done  #| column -ets$'\t' -NN,LINE,INC,INC%
+	#cols: N,LINE,INC,INC%%
 }
 
 #world population
