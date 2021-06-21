@@ -12,6 +12,7 @@
 
 #set a prompt theme for different host (requires grml zshrc)
 [[ "$HOST" = manjaro ]] && zstyle ':prompt:grml:*:items:user' pre '%F{green}'
+#get grmlzsh copy
 grmlzshrc() { curl https://raw.githubusercontent.com/grml/grml-etc-core/master/etc/zsh/zshrc ;}
 
 #set dircolors
