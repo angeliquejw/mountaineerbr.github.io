@@ -1886,44 +1886,47 @@ cep4()
 #usage:  gene KF600613 NC_005147 JX869059 ..
 gene()
 {
-	local gencode
-	for gencode in "$@"
-	do curl --compressed "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?report=fasta&id=$gencode"
+	local gencode ret
+	for gencode
+	do
+		curl --compressed -sL "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?report=fasta&id=$gencode"
+		ret=$((ret+$?))  #sum exit codes
 	done
+	return $ret
 }
 #https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?tool=portal&save=file&log$=seqview&db=nuccore,protein&report=fasta&id=143811370&conwithfeat=on&show-cdd=on&showgi=1
 
 #download from genbank
 #nucleotide or protein
+#file is created at $PWD
 #usage:  gened KF600613 NC_005147 JX869059 ..
 #see also package `datasets`: https://www.ncbi.nlm.nih.gov/datasets/docs/command-line-start/
 gened()
 {
-	local gencode tmpfile errtmpfile filename
+	local gencode tmpfile filename ret
 	for gencode in "$@"
 	do
 		tmpfile="${gencode}.fst.tmp"
-		errtmpfile="err_$tmpfile"
 
-		#download data to tmp, skip one on curl error
-		gene "$gencode" > "$tmpfile" || continue
-
-		#check for error (i.e. a very short file)
-		if (( $( wc -l < "$tmpfile" ) < 3 ))
+		#download and check for data validity
+		if gene "$gencode" >"$tmpfile" && grep -qF '>' "$tmpfile"
 		then
-			mv -f "$tmpfile" "$errtmpfile"
-			cat "$errtmpfile" >&2
-			
-			printf 'Err: id: %s  file: %s\n' "$gencode" "$errtmpfile" >&2
-			#rm "$errtmpfile"
-			continue
-		#if file seems OK, rename it to something more meaningful
+			#rename it to something more meaningful
+			filename="$(head -1 -- "$tmpfile" | tr -d '>\r' | tr '|/*,><}{&#@% ' '_')"
+			filename="${filename:0:28}".fst  #limit filename length, add extension
+			mv -f -- "$tmpfile" "$filename"  #rename file
+			ls -- "$filename" >&2            #print file path
 		else
-			filename="$(head -1 "$tmpfile" | cut -c-28 | tr -d '>' | tr '|/*,><}{ ' '_').fst"
-			mv -f "$tmpfile" "$filename"
-			ls "$filename" >&2
+			#error
+			ret=$((ret+1))
+			cat -- "$tmpfile" >&2
+			#echo "err: id -- $gencode" >&2
+
+			#rm -- "$tmpfile"
+			mv -f -- "$tmpfile" err_"$tmpfile"
 		fi
 	done
+	return $ret
 }
 
 
@@ -3605,11 +3608,23 @@ border()
 #sum all numbers in column 1
 SUM()
 {
-	perl -M'List::Util qw(sum max min)' -MPOSIX -0777 -a -ne 'printf "%-7s : %'".${1:-2}"'f\n"x6, "Sum", sum(@F), "Min", min(@F), "Max", max(@F), "Average", sum(@F)/@F,  "Median", sum( (sort {$a<=>$b} @F)[ int( $#F/2 ), ceil( $#F/2 ) ] )/2, "Values", scalar(@F);'
-	#awk '{sum += $1 } END { print sum }'
+	perl -M'List::Util qw(sum max min)' -MPOSIX -0777 -a \
+	-ne 'printf "%-7s : %'".${1:-4}"'f\n"x6, "Sum", sum(@F), "Min", min(@F), "Max", max(@F), "Average", sum(@F)/@F,  "Median", sum( (sort {$a<=>$b} @F)[ int( $#F/2 ), ceil( $#F/2 ) ] )/2, "Values", scalar(@F);'
 }
+SUM2()  {
+	datamash --header-out -R "${1:-4}" \
+	sum 1 min 1 max 1 mean 1 q1 1 median 1 mad 1 madraw 1 q3 1 iqr 1 \
+	sstdev 1 pstdev 1 jarque 1 sskew 1 pskew 1 svar 1 pvar 1 \
+	range 1 count 1 \
+	| datamash transpose \
+	| perl -pe 's/\([^)]*\)//g'
+}
+#{ Rscript -e 'summary(as.numeric(read.table(file("stdin"))[,1]))' ;}
 #{ paste -sd+ | bc ;}
+#{ awk '{sum += $1 } END { print sum }' ;}
 #https://unix.stackexchange.com/questions/13731/is-there-a-way-to-get-the-min-max-median-and-average-of-a-list-of-numbers-in
+#https://www.gnu.org/software/datamash/examples/
+#https://www.programmersought.com/article/92546043400/
 
 #sum same elements of the same column of different lines
 #{ datamash -t, sum 1-"$cols" ;}  #-t sets separator
@@ -4039,8 +4054,9 @@ checkports() { sudo ss -tulpn | sed -nE '/LISTEN/ s/.*:([0-9]+)\s*.*/\1/ p' ;}
 
 #How to fill free memory? (testing)
 #{ </dev/zero head -c 2000m | tail ;}
-#{ yes 0000000000000000 | head -c 2G | tail ;}
 #https://unix.stackexchange.com/questions/99334/how-to-fill-90-of-the-free-memory/254976#254976?newreg=a01b8116518e4ba2a9b6786d3d6cd1ef
+
+#{ yes 0000000000000000 | head -c 2G >data.txt ;}
 #https://www.reddit.com/r/unix/comments/6gxduc/how_is_gnu_yes_so_fast/
 
 #How to remove one line from a file using Perl?

@@ -737,8 +737,8 @@ inoremap <C-End> G
 
 " INDEX OF Fn KEYS
 "	<F1>	Recent files
-"	<F2>	Toggle Line Numbers
-"	<F3>
+"	<F2>	Toggle line numbers
+"	<F3> 	Add timestamp
 "	<F4>
 "	<F5>
 "	<F6>	Auto-Scroll
@@ -768,6 +768,12 @@ noremap <F2> :set number! number?<CR>
 "Note: Or nnoremap <F2> :set nonumber!<CR>
 "The last cmd will report state "number" or "nonumer"
 "https://stackoverflow.com/questions/762515/vim-remap-key-to-toggle-line-numbering
+
+"Add Timestamp
+"How to insert the result of a command into the text in vim?
+nmap <F3> "=strftime('%c')<C-M>p
+imap <F3> <C-R>=strftime('%c')<C-M>
+"https://unix.stackexchange.com/questions/8101/how-to-insert-the-result-of-a-command-into-the-text-in-vim
 
 
 " Auto-scrolling (Default: 3800m = 3.8 seconds)
@@ -902,7 +908,9 @@ nnoremap <Leader>dust :,$s/${\([^@*\[\]}%#^/,:]\+\)}\\|${\([*@0-9]\+\)}/$\1\2/gc
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <BS> <C-W><C-H>
+"remapping <C-H> under TMUX does not work, use <BS>
+"See: https://github.com/ranger/ranger/issues/559
 
 
 " WINDOW RESIZING
@@ -1164,11 +1172,11 @@ let g:rbpt_loadcmd_toggle = 0
 "
 "Note: only enable compatible setting for a given language
 "Note: ex: html documents highlight is incompatible with LoadChevrons
-"au VimEnter * RainbowParenthesesToggle
+au VimEnter * RainbowParenthesesToggle
 "au VimEnter * RainbowParenthesesToggleAll
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 "au Syntax * RainbowParenthesesLoadChevrons
 
 
@@ -1206,7 +1214,7 @@ let g:rbpt_loadcmd_toggle = 0
 "note that the trailing , still needs to be entered, so the new
 "keymap would be <c-z>,.
 "
-"tip: use ',' as the trigger key
+"tip: use , as the trigger key
 let g:user_emmet_leader_key=','
 "https://medium.com/vim-drops/be-a-html-ninja-with-emmet-for-vim-feee15447ef1
 
