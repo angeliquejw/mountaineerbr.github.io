@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.5  jun/2021  by mountaineerbr
+# v0.8.6  jun/2021  by mountaineerbr
 # bitcoin block information and functions
 # requires bitcoin-cli and jq 1.6+
 
@@ -615,6 +615,7 @@ blockchainf()
 		"Blocks__: \(.blocks)",
 		"Difficul: \(.difficulty)",
 		"HashRate: \(.networkhashps) H/s\t \(.networkhashps/1000000000000000000 | tostring | .[0:6]) EH/s",
+		"BlockETA: \(((.difficulty * pow(2; 32)) / .networkhashps)/60 | tostring | .[0:6])min",
 		"PooledTx: \(.pooledtx) txs",
 		"Warnings: \(if .warnings == "" then empty else .warnings end)"'
 	ret+=( $? )
@@ -631,6 +632,8 @@ blockchainf()
 		"UnbroadC: \(if .unbroadcastcount == 0 then empty else .unbroadcastcount end)",
 		"Tx_Count: \(.size) txs"'
 	ret+=( $? )
+	#the eternal question (block eta)
+	#https://en.bitcoin.it/wiki/Difficulty
 
 	#fork names
 	if [[ -n "${forknames[*]}" ]]

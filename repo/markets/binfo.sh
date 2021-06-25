@@ -1,6 +1,6 @@
 #!/bin/bash
 # binfo.sh -- bitcoin blockchain explorer for bash
-# v0.9.18  apr/2021  by mountaineerbr
+# v0.9.19  jun/2021  by mountaineerbr
 
 #defaults
 
@@ -343,7 +343,7 @@ blkinfof() {
 		"HxRate_: \(.hash_rate) GH/s",
 		"         \(.hash_rate/1000000000) EH/s",
 		"Diff___: \(.difficulty)",
-		"Diff/HR: \(.difficulty/(.hash_rate*1000000000))",
+		"BlkETA_: \((.difficulty*4294967296/(.hash_rate*1000000000))/60 | tostring | .[0:6]) min",
 		"TtMined: \(.totalbc/100000000) BTC",
 		"",
 		"Rolling 24H Ticker",
@@ -410,7 +410,7 @@ chairblkinfof() {
 			"HxRate_: \(.hashrate_24h) H/s",
 			"         \(.hashrate_24h|tonumber/1000000000000000000) EH/s",
 			"Diff___: \(.difficulty)",
-			"Diff/HR: \(.difficulty/(.hashrate_24h|tonumber))",
+			"BlkETA_: \((.difficulty*4294967296/(.hashrate_24h|tonumber))/60 | tostring | .[0:6]) min",
 			"TxCount: \(.transactions)",
 			"OutTxs_: \(.outputs)",
 			"Supply_: \(.circulation) sat",
