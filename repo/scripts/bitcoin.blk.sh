@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.6  jun/2021  by mountaineerbr
+# v0.8.7  jun/2021  by mountaineerbr
 # bitcoin block information and functions
 # requires bitcoin-cli and jq 1.6+
 
@@ -504,55 +504,12 @@ ishashf()
 #mempool, network information
 blockchainf()
 {
-	local chain_info forknames key mining_info mempool_info
+	local chain_info forknames
 
 	#rpc info
-	#print simple feedback to stderr?
 	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting RPC info.." >&2
-	rpc_info="$(bwrapper getrpcinfo)" || return
-
-	#network info
-	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting Network info.." >&2
-	net_info="$(bwrapper getnetworkinfo)" || return
-
-	#net totals
-	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting Net Totals info.." >&2
-	nettotals_info="$(bwrapper getnettotals)" || return
-
-	#get mining stats
-	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting Mining info.." >&2
-	mining_info="$(bwrapper getmininginfo)" || return
-
-	#get mempool data
-	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting Mempool info.." >&2
-	mempool_info="$(bwrapper getmempoolinfo)" || return
-
-	#blockchain info
-	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting Blockchain info.." >&2
-	chain_info="$(bwrapper getblockchaininfo)" || return
-	#fork information
-	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting Fork info.." >&2
-	forknames=( $(jq -r '.softforks // empty | keys_unsorted[]' <<< "$chain_info" 2>/dev/null) )
-
-	#sanity newline
-	((OPTVERBOSE)) && printf "%s\n" "" >&2
-
-	#debug? print raw data
-	if (( DEBUGOPT ))
-	then
-		echo "$rpc_info"
-		echo "$nettotals_info"
-		echo "$net_info"
-		echo "$mining_info"
-		echo "$mempool_info"
-		echo "$chain_info"
-		return 0
-	fi
-
-	#ignore error messages?
-	{
-
-	<<< "$rpc_info" jq -r '"",
+	bwrapper getrpcinfo \
+		| jq -r '"",
 		"--------",
 		"RPC-call information",
 		"Commands:",
@@ -560,7 +517,10 @@ blockchainf()
 		"Logpath_: \(.logpath)"'
 	ret+=( $? )
 
-	<<< "$net_info" jq -r '"",
+	#network info
+	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting Network info.." >&2
+	bwrapper getnetworkinfo \
+		| jq -r '"",
 		"--------",
 		"Network information",
 		"Version_: \(.version)",
@@ -591,7 +551,10 @@ blockchainf()
 	#bitcoin-cli -netinfo
 	#ret+=( $? )
 
-	<<< "$nettotals_info" jq -r '"",
+	#net totals
+	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting Net Totals info.." >&2
+	bwrapper getnettotals \
+		| jq -r '"",
 		"--------",
 		"Net totals information",
 		"TotBRecv: \(.totalbytesrecv) B\t \(if (.totalbytesrecv/1000000) < 2000 then "\(.totalbytesrecv/1000000) MB" else "\(.totalbytesrecv/1000000000) GB" end)",
@@ -608,7 +571,10 @@ blockchainf()
 		)'
 	ret+=( $? )
 
-	<<< "$mining_info" jq -r '"",
+	#get mining stats
+	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting Mining info.." >&2
+	bwrapper getmininginfo \
+		| jq -r '"",
 		"--------",
 		"Mining information",
 		"Chain___: \(.chain)",
@@ -620,7 +586,10 @@ blockchainf()
 		"Warnings: \(if .warnings == "" then empty else .warnings end)"'
 	ret+=( $? )
 
-	<<< "$mempool_info" jq -r '"",
+	#get mempool data
+	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting Mempool info.." >&2
+	bwrapper getmempoolinfo \
+		| jq -r '"",
 		"--------",
 		"Mempool information",
 		"Loaded__: \(.loaded)",
@@ -635,8 +604,14 @@ blockchainf()
 	#the eternal question (block eta)
 	#https://en.bitcoin.it/wiki/Difficulty
 
-	#fork names
-	if [[ -n "${forknames[*]}" ]]
+	#blockchain and fork information
+	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting Blockchain info.." >&2
+	((OPTVERBOSE)) && printf "\r${CLR}%s " "Getting Fork info.." >&2
+	chain_info="$(bwrapper getblockchaininfo)"
+	ret+=( $? )
+
+	if forknames=( $(jq -r '.softforks // empty | keys_unsorted[]' <<<"$chain_info" 2>/dev/null) )\
+		&& [[ -n "${forknames[*]}" ]]
 	then
 		echo -e "\n--------\nBlockchain forks"
 		for key in "${forknames[@]}"
@@ -645,6 +620,7 @@ blockchainf()
 				"    Name: \($key)\t Type: \(.type)\t Active: \(.active)\t Height: \(.height)"'
 		done
 	fi
+
 	#general info
 	<<< "$chain_info" jq -r '"--------",
 		"Blockchain status",
@@ -660,9 +636,6 @@ blockchainf()
   		"ChainWrk: \(.chainwork)",
   		"Difficul: \(.difficulty)",
   		"MedianTi: \(.mediantime // empty)\t \((.mediantime // empty) | '"$HH"' )"'
-	ret+=( $? )
-
-	}  #2>/dev/null
 
 	#sum exit codes
 	return $(( ${ret[@]/%/+} 0 ))
