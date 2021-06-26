@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.19.2  jun/2021  by mountaineerbr
+# v0.19.3  jun/2021  by mountaineerbr
 
 #defaults
 #colours (interactive only, comment out to disable)
@@ -45,8 +45,8 @@ HELP="NAME
 
 
 SYNOPSIS
-	$SN [-jNUM] [-kt] -- [GREP-OPTION..] PATTERN [URLFILE]
-	$SN [-jNUM] [-kt] -- [GREP-OPTION..] -e PATTERNS ... [URLFILE]
+	$SN [-jNUM] [-kt] -- [GREP-OPTION...] PATTERN [URLFILE...]
+	$SN [-jNUM] [-kt] -- [GREP-OPTION...] -e PATTERNS ... [URLFILE...]
 	$SN [-hv]
 
 
@@ -333,7 +333,7 @@ USAGE EXAMPLES
 	      tion by setting the environment temporarily by prefixing
 	      the script command with parameter assignments:
 	
-		$ TOCONNECT=20  RETRIES=4  $SN  -f  URLFILE.txt  PATTERN
+		$ TOCONNECT=20  RETRIES=4  $SN  PATTERN  URLFILE.txt
 
 
 GREP OPTIONS
