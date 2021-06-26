@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.19.4  jun/2021  by mountaineerbr
+# v0.19.6  jun/2021  by mountaineerbr
 
 #defaults
 #colours (interactive only, comment out to disable)
@@ -408,17 +408,18 @@ curlgrepf()
 	"${YOURAPP[@]}" "$TMPFILE" "$LINK"
 	curlexit="$?"
 
+	typeset -l ext  #lowercase $ext array
+
 	#check to see if there is curl/wget error
 	case "$curlexit" in
 		0)
-			#good exit code
 			#minimally check for file type
 			#try to provide a useful name for the file
 
 			#if ext is recognised, rename temp file accordingly
 			#decode url and see if you find an extension
-			if nametry="$( urldecode "${LINK##*/}" )"
-				ext=( $( tr A-Z a-z <<<"${nametry##*.}" ) )
+			if nametry="$(urldecode "${LINK##*/}")"
+				ext=("${nametry##*.}")
 				[[ "${ext[0]}" =~ ^($BINEXTS)$ ]]
 			then
 				isbin=1
@@ -429,30 +430,27 @@ curlgrepf()
 					mv -- "$TMPFILE" "$tmpchange"
 					TMPFILE="$tmpchange"
 				fi
+
 			elif
 				#try to get extension with `file'
-				ext=( $( file -b "$TMPFILE" 2>/dev/null | tr A-Z a-z ) )
+				ext=( $(file -b "$TMPFILE" 2>/dev/null) )
 				[[ "${ext[0]}" =~ ^($BINEXTS)$ ]]
 			then
 				isbin=1
-				if tmpchange="${TMPFILE%.html}.${ext[0]}"
+				if tmpchange="${TMPFILE%.[Hh][Tt][Mm][Ll]}.${ext[0]}"
 					[[ "$tmpchange" != "$TMPFILE" ]]
 				then
 					mv -- "$TMPFILE" "$tmpchange"
 					TMPFILE="$tmpchange"
 				fi
+
 			fi
 			
 			#skip binary files if --text opt is not set
 			if ((isbin && BINASTEXT))
-			then
-				printaddf "${nametry:-${ext[0]}}" "$LINK" 2
-				echo >&2
-				return
-			fi
-
+			then printaddf "${nametry:-${ext[0]}}" "$LINK" 2 ;echo >&2
 			#filter HTML and print any match to stdout (with web address)
-			if htmlfilter "$TMPFILE" | grep $COLOUROPT "$@" && printaddf "$LINK"
+			elif htmlfilter "$TMPFILE" | grep $COLOUROPT "$@" && printaddf "$LINK"
 			then htmlfilter "$TMPFILE" | grep --color=never "$@" && printaddf "$LINK" >"$TMPFILE2"
 			fi
 			;;
@@ -481,17 +479,13 @@ htmlfilter()
 
 #print website address (subshell)
 printaddf()
-(
-	addr="$1"  name="$2"  sig="${@: -1}"
-
-	#is stdout free?
-	[[ -t 1 ]] || unset ENDC COLOUR1 COLOUR2 COLOUR3 COLOUR4 COLOUR5 COLOUROPT
-
+{
+	local addr="$1"  name="$2"  sig="${@: -1}"
 	if [[ "$sig" = 2 ]]
 	then printf "${COLOUR5}>>>skipping ${COLOUR4}%s${ENDC}${COLOUR5} from %s${ENDC}\n" "$name" "$addr" >&2
 	else printf "${COLOUR2}>>>%s${ENDC}  \n${SEP}" "$addr"
 	fi
-)
+}
 
 #status bar
 statusbarf()
@@ -518,23 +512,20 @@ exitf()
 }
 
 cleanf() {
+	local exitcode files REPLY
+
 	#disable trap
 	trap \  EXIT
-
-	local exitcode files REPLY
-	typeset -a files
-
-	shopt -s nullglob
 
 	cd "$TMPD" || exit 1
 
 	#get all result files
 	IFS=$'\t\n'
-	files=( $( printf '%s\n' *.grep | sort -n ) )
+	files=( $(printf '%s\n' *.grep | sort -n) )
 	IFS=$' \t\n'
 
 	#is there any files matching result glob?
-	if ((${#files[@]}))
+	if [[ -e "${files[0]}" ]]
 	then
 		exitcode=0
 		
@@ -584,7 +575,7 @@ fi
 
 #if stdout is not free or colour option is set
 if [[ ! -t 1 || " $* " =~ \ --colou?r=never\  ]]
-then unset COLOUR1 COLOUR2 COLOUR3 ENDC COLOUROPT
+then unset COLOUROPT COLOUR1 COLOUR2 COLOUR3 COLOUR5 COLOUR5 ENDC
 fi
 
 #treat binary files as text?
