@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.19.6  jun/2021  by mountaineerbr
+# v0.19.7  jun/2021  by mountaineerbr
 
 #defaults
 #colours (interactive only, comment out to disable)
@@ -448,10 +448,10 @@ curlgrepf()
 			
 			#skip binary files if --text opt is not set
 			if ((isbin && BINASTEXT))
-			then printaddf "${nametry:-${ext[0]}}" "$LINK" 2 ;echo >&2
-			#filter HTML and print any match to stdout (with web address)
+			then printaddf "${nametry:-${ext[0]}}" "$LINK" skip ;echo >&2
+			#print any match to stdout with address and to results file
 			elif htmlfilter "$TMPFILE" | grep $COLOUROPT "$@" && printaddf "$LINK"
-			then htmlfilter "$TMPFILE" | grep --color=never "$@" && printaddf "$LINK" >"$TMPFILE2"
+			then { htmlfilter "$TMPFILE" | grep --color=never "$@" && printaddf "$LINK" nocolour ;} >"$TMPFILE2"
 			fi
 			;;
 		130)
@@ -479,13 +479,18 @@ htmlfilter()
 
 #print website address (subshell)
 printaddf()
-{
-	local addr="$1"  name="$2"  sig="${@: -1}"
-	if [[ "$sig" = 2 ]]
+(
+	addr="$1"  name="$2"  sig="$3"
+
+	#if stdout is not free or colour option is set
+	[[ "$sig" = nocolour ]] &&
+		unset COLOUROPT COLOUR1 COLOUR2 COLOUR3 COLOUR5 COLOUR5 ENDC
+
+	if [[ "$sig" = skip ]]
 	then printf "${COLOUR5}>>>skipping ${COLOUR4}%s${ENDC}${COLOUR5} from %s${ENDC}\n" "$name" "$addr" >&2
-	else printf "${COLOUR2}>>>%s${ENDC}  \n${SEP}" "$addr"
+	else printf "${COLOUR2}>>>%s${ENDC}\n${SEP}" "$addr"
 	fi
-}
+)
 
 #status bar
 statusbarf()
