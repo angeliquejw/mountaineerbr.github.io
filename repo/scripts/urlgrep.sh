@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.18.3  jun/2021  by mountaineerbr
+# v0.18.4  jun/2021  by mountaineerbr
 
 #defaults
 #colours (interactive only, comment out to disable)
@@ -467,7 +467,7 @@ curlgrepf()
 	esac
 
 	#-k keep temp file?
-	((OPTKEEP == 0)) && [[ -f "$TMPFILE" ]] && rm -- "$TMPFILE"
+	((OPTKEEP == 0)) && [[ -e "$TMPFILE" ]] && rm -- "$TMPFILE"
 
 	#this function is called from a subshell
 	exit "${curlexit:-0}"
@@ -550,7 +550,7 @@ cleanf() {
 		#get a unique name
 		while RESULTFNAME="results-$(date +%Y-%m-%dT%T).txt"
 			RESULT="$CACHEDIR/$RESULTFNAME"
-			[[ -f "$RESULT" ]]
+			[[ -e "$RESULT" ]]
 		do sleep 0.6
 		done
 		#reserve the results file asap
@@ -650,7 +650,7 @@ fi
 [[ "$1" = -- || "$1" = - ]] && shift
 
 #is last positional argument a file?
-if (($#)) && [[ -f "${@: -1}" ]]
+if (($#)) && [[ -e "${@: -1}" ]]
 then URLFILE="${@: -1}" ;set -- "${@:1:$(($# - 1))}"
 elif [[ ! -t 0 ]]
 then URLFILE=/dev/stdin
