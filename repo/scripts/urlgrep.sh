@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.19.9  jun/2021  by mountaineerbr
+# v0.19.11  jun/2021  by mountaineerbr
 
 #defaults
 #colours (interactive only, comment out to disable)
@@ -447,8 +447,11 @@ curlgrepf()
 			fi
 			
 			#skip binary files if --text opt is not set
-			if ((isbin && BINASTEXT))
-			then printaddf "${nametry:-${ext[0]}}" "$LINK" skip ;echo >&2
+			#if ((isbin && BINASTEXT==0))
+			#then printaddf "$LINK" "${nametry:-${ext[0]}}" skip ;echo >&2
+			#try binary files?
+			if ((isbin && BINASTEXT)) && grep $COLOUROPT "$@" "$TMPFILE" && printaddf "$LINK"
+			then { grep --color=never "$@" "$TMPFILE" && printaddf "$LINK" nocolour ;} >"$TMPFILE2"
 			#print any match to stdout with address and to results file
 			elif htmlfilter "$TMPFILE" | grep $COLOUROPT "$@" && printaddf "$LINK"
 			then { htmlfilter "$TMPFILE" | grep --color=never "$@" && printaddf "$LINK" nocolour ;} >"$TMPFILE2"
@@ -637,7 +640,7 @@ JOBSMAX="${JOBSMAX:-$JOBSDEF}"
 if [[ "$#" -gt 0 && -e "${@: -1}" ]]
 then
 	#get all url files; total link count (lines)
-	while [[ "$#" -gt 0 && -e "${@: -1}" ]]
+	while [[ -e "${@: -1}" && ! -d "${@: -1}" ]]
 	do 
 		URLFILE+=("${@: -1}")
 		((T = T + $(wc -l <"${@: -1}")))
