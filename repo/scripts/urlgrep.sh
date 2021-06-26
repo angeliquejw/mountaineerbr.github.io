@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.19.3  jun/2021  by mountaineerbr
+# v0.19.4  jun/2021  by mountaineerbr
 
 #defaults
 #colours (interactive only, comment out to disable)
@@ -331,9 +331,10 @@ USAGE EXAMPLES
 
 	( 5 ) Set timeout and retries of curl/wget for one-shot execu-
 	      tion by setting the environment temporarily by prefixing
-	      the script command with parameter assignments:
+	      the script command with parameter assignments and get
+		  PATTERNS from a file (grep -f option):
 	
-		$ TOCONNECT=20  RETRIES=4  $SN  PATTERN  URLFILE.txt
+		$ TOCONNECT=20  RETRIES=4  $SN  -f PATTERN_FILE.txt
 
 
 GREP OPTIONS
