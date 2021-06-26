@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.18.4  jun/2021  by mountaineerbr
+# v0.19  jun/2021  by mountaineerbr
 
 #defaults
 #colours (interactive only, comment out to disable)
@@ -45,8 +45,8 @@ HELP="NAME
 
 
 SYNOPSIS
-	$SN [-jNUM] [-akt] -- [GREP-OPTION..] PATTERN [URLFILE]
-	$SN [-jNUM] [-akt] -- [GREP-OPTION..] -e PATTERNS ... [URLFILE]
+	$SN [-jNUM] [-kt] -- [GREP-OPTION..] PATTERN [URLFILE]
+	$SN [-jNUM] [-kt] -- [GREP-OPTION..] -e PATTERNS ... [URLFILE]
 	$SN [-hv]
 
 
@@ -72,7 +72,7 @@ DESCRIPTION
 	set \$BROWSER to cat.
 
 	To run grep on pdf, tar and other compressed files downloaded
-	through links, set option -a or --text.
+	through links, set grep option -a or --text.
 
 	On exit or abortion, the script will concatenate and write results
 	to a file at ${CACHEDIR/$HOME/\~} .
@@ -350,7 +350,6 @@ GREP OPTIONS
 				
 
 RESERVED OPTIONS
-	-a	Process a binary file as if it were text.
 	-h 	Show this help.
 	-j NUM	Maximum number of background jobs, defaults=${JOBSDEF} .
 	-k 	Keep buffer files, defaults=${TMPD} .
@@ -358,7 +357,7 @@ RESERVED OPTIONS
 	-v 	Print script version."
 #HELP (old)
 #	Some useful grep options are summarised below.
-#
+# 		-a Process a binary file as if it were text.
 #		-A NUM 	Lines after match.
 #		-B NUM 	Lines before match.
 #		-C NUM 	Context lines.
@@ -496,7 +495,7 @@ printaddf()
 #status bar
 statusbarf()
 {
-	printf "${COLOUR1}%04d/%04d${ENDC}\r" "$N" "$T"
+	printf "${COLOUR1}%04d/%04d${ENDC}\r" "$N" "${T:-0000}"
 }
 
 #exit function
@@ -585,22 +584,15 @@ then unset COLOUR1 COLOUR2 COLOUR3 ENDC COLOUROPT
 fi
 
 #treat binary files as text?
-if [[ " $* " =~ \ --text\  
-	|| " $* " =~ \ --binary-files=text\  
-	|| " $* " =~ \ -a\  ]]
-then BINASTEXT=2
+if [[ \ "$*"\  =~ \ (--text|--binary-files=text|-[a-zA-Z]*a)\  ]]
+then BINASTEXT=1
 fi
 #--text or --binary-files=text process a binary file as text
 
 #parse options
-while 
-	getopts :ahj:ktv- opt
+while getopts :hj:ktv- opt
 do
 	case $opt in
-		a) 
-			#treat binary file as text
-			BINASTEXT=1
-			;;
 		h) 
 			#help
 			echo "$HELP"
@@ -624,52 +616,43 @@ do
 			exit
 			;;
 		-)
-			#grep -- long opts
-			OPTOTHER=1
+			#grep --long-opts
 			break
 			;;
 		?) 
-			#grep -- other opts
-			OPTOTHER=2
+			#grep -other opts
+			((OPTIND=OPTIND -1))
 			break
 			;;
 	esac
 done
+#and shift arg positions
+shift $((OPTIND  -1))
 
 #consolidate $JOBSMAX
 JOBSMAX="${JOBSMAX:-$JOBSDEF}"
 
-#set shell options
-#and shift arg positions
-if ((OPTOTHER == 2))
-then shift $((OPTIND - 2))
-else shift $((OPTIND  - 1))
-fi
-
-#shift if $1 is '--' (bash-like) or '-' (zsh-like)
-[[ "$1" = -- || "$1" = - ]] && shift
-
 #is last positional argument a file?
-if (($#)) && [[ -e "${@: -1}" ]]
-then URLFILE="${@: -1}" ;set -- "${@:1:$(($# - 1))}"
-elif [[ ! -t 0 ]]
-then URLFILE=/dev/stdin
-elif [[ ! -f "$URLFILE" ]]
-then echo "$SN: err  -- list of URLS is required" >&2 ;exit 1
+if [[ "$#" -gt 0 && -e "${@: -1}" ]]
+then
+	#get all url files; total link count (lines)
+	while [[ "$#" -gt 0 && -e "${@: -1}" ]]
+	do 
+		URLFILE+=("${@: -1}")
+		((T = T + $(wc -l <"${@: -1}")))
+		set -- "${@:1:$(($# - 1))}"
+	done
+	#concatenate to stdin
+	exec 0< <(cat -- "${URLFILE[@]}")
+elif [[ -t 0 ]]
+then 
+	echo "$SN: err  -- list of URLS is required" >&2
+	exit 1
 fi
-
-#binary as text? add --text flag to user args
-(( BINASTEXT == 1 )) && set -- --text "$@"
 
 #test if grep args are valid
-if
-	#grep err msg?
-	ERRMSG="$(grep "$@" <<<' ' 2>&1)"
-	#exit code
-	GREPEXIT="$?"
-	
-	#is there is error message?
-	[[ -n "$ERRMSG" ]] && (( GREPEXIT > 1 ))
+if ERRMSG="$(grep "$@" <<<' ' 2>&1)"  GREPEXIT="$?"
+	[[ -n "$ERRMSG" ]] && ((GREPEXIT > 1))
 then
 	#print error message (remove some lines from error message)
 	grep -v -e '--help' <<<"$ERRMSG" >&2 
@@ -694,7 +677,7 @@ then
 elif command -v wget &>/dev/null
 then
 	#consolidate opts
-	[[ -n "$RETRIES" ]]   && OPTS=(  --tries="$RETRIES" )  #-t
+	[[ -n "$RETRIES" ]]   && OPTS=(  --tries="$RETRIES" )
 	[[ -n "$TOCONNECT" ]] && OPTS+=( --connect-timeout="$TOCONNECT" )
 	[[ -n "$TOMAX" ]]     && OPTS+=( --timeout="$TOMAX" )
 	
@@ -732,11 +715,11 @@ case "$BROWSER" in
 	*) 	 FILTERCMD=(sed '/</{ :loop ;s/<[^<]*>//g ;/</{ N ;b loop } }');;  #defaults
 	*) 	 FILTERCMD=(sed 's/<[^>]*>//g');;  #less robust sed filter
 esac
-#lynx makes grep throws warnings that file contains binary
+#lynx with grep throw warnings that file contains binary data
 
 #give a chance to check final settings
 cat >&2 <<!
->urls__: $URLFILE
+>urls__: ${URLFILE[*]}
 >jobs__: $JOBSMAX
 >dl_app: ${YOURAPP[0]}
 >filter: ${FILTERCMD[0]}
@@ -753,49 +736,37 @@ trap cleanf EXIT
 TMPD="$(mktemp -d "$TMPD" || mktemp -d)" || exit
 #temp file for job control
 TMPJOBS="$TMPD/00.$SN.$$.jobs"
-#links/stdin temp file
-TMPLINKS="$TMPD/00.$SN.$$.links"
-
-#copy stdin or links file
-#remove carriage returns
-tr -d '\r' <"$URLFILE" >"$TMPLINKS"
-
-#count links (lines)
-T="$( wc -l <"$TMPLINKS" )"
-
-#exec buffer to loop
-exec 0< "$TMPLINKS"
 
 #asynchronous search loop
 while read -r LINK
 do
-	#counter
+	#link counter
 	((++N))
+	
 	#skips
 	if [[ -z "${LINK// /}"
 		|| "$LINK" =~ ^($IGNORE):
 		|| \ "${LINKCACHE[*]}"\  = *\ "$LINK"\ * ]]
 	then continue
 	fi
-	#cache address
-	LINKCACHE+=("$LINK")
 
-	#get a useful filename
+	#semaphore, job control
+	while JOBS=( $( jobs -p ) )
+		((${#JOBS[@]} > JOBSMAX))
+	do sleep 0.1
+	done
+
+	#remove carriage return; cache address
+	LINK="${LINK//$'\r'}"
+	LINKCACHE+=("$LINK")
+	#useful filename
 	NAME="$(sed 's/[^/]*\/\/\([^@]*@\)\?\([^:/]*\).*/\2/' <<<"$LINK")"
-	#temp file
+	#temp files
 	TMPFILE="$TMPD/$N.$NAME.html"
 	TMPFILE2="$TMPD/$N.$NAME.grep"
 
 	#feedback (to stderr)
 	statusbarf >&2
-
-	#job control -- bash and zshell
-	#print one job per line to temp file
-	while JOBS=( $( jobs -p ) )
-		((${#JOBS[@]} > JOBSMAX))
-	do sleep 0.1
-	done
-	#semaphore
 
 	#launch new jobs (subprocesses)
 	curlgrepf "$@" &
