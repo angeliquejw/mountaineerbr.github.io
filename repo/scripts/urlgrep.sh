@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.19.1  jun/2021  by mountaineerbr
+# v0.19.2  jun/2021  by mountaineerbr
 
 #defaults
 #colours (interactive only, comment out to disable)
@@ -722,7 +722,7 @@ esac
 
 #give a chance to check final settings
 cat >&2 <<!
->urls__: ${URLFILE[*]}
+>urls__: ${URLFILE[*]:-stdin}
 >jobs__: $JOBSMAX
 >dl_app: ${YOURAPP[0]}
 >filter: ${FILTERCMD[0]}
