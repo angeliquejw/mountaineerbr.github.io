@@ -240,8 +240,22 @@ alias hf='w3m -dump -T text/html'
 #{ lynx -force_html -stdin -dump -nolist ;}
 #{ elinks -dump ;}
 alias hf2="sed 's/<[^>]*>//g'"
-alias hf3="sed '/</{ :loop ;s/<[^<]*>//g ;/</{ N ;b loop } }"
+alias hf3="sed '/</{ :loop ;s/<[^<]*>//g ;/</{ N ;b loop } }'"
 #https://www.thegeekstuff.com/2009/12/unix-sed-tutorial-6-examples-for-sed-branching-operation/
+
+
+#Remove the data between pattern ” ” in a whole file
+#{ sed ':loop ;$!{ N ;/\n$/!b loop } ;s/\"[^\"]*\"//g' ;}
+
+#If a line ends with a backslash append the next line to it.
+alias unbackslash="sed ':loop ;/\\$/N ;s/\\\n */ / ;t loop'"
+
+#Commify a numeric strings
+alias commify="sed ':loop ;s/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/; t loop'"
+
+#Replace every leading space of a line with ‘+’
+#{ sed 's/^ */&\n/ ;:loop ;s/^\n//;s/ \n/\n+/ ;t loop' ;}
+
 
 #curly brackets filter
 #{ sed ':again;N;b again; s/{[^}]*}//g' ;}
@@ -269,8 +283,6 @@ sedlinks()
 #get all paths of a json
 jqpath()
 {
-	#jq -rc 'path(..)|[.[]|tostring]|join("/")' "$@"
-	#jq -r '[path(..)|map(if type=="number" then "[]" else tostring end)|join(".")|split(".[]")|join("[]")]|unique|map("."+.)|.[]' "$@"
 	 jq -r 'def path2text($value):
 		  def tos: if type == "number" then . else tojson end;
 		  reduce .[] as $segment ("";  .
@@ -281,6 +293,12 @@ jqpath()
 		paths(scalars) as $p
 		  | getpath($p) as $v
 		  | $p | path2text($v)' "$@"
+}
+jqpath2()
+{
+	jq -rc 'path(..)|[.[]|tostring]|join("/")' "$@"
+	#jq -r '[path(..)|map(if type=="number" then "[]" else tostring end)|join(".")|split(".[]")|join("[]")]|unique|map("."+.)|.[]' "$@"
+
 }
 #https://github.com/stedolan/jq/issues/243
 
@@ -1143,8 +1161,7 @@ z()
 #zshell mailing list
 zz()
 {
-	cat ~/arq/docs/zShellDocs/zshUsersMailingList/zshUserMailingListConcat.txt ||
-		\curl --compressed 'https://raw.githubusercontent.com/mountaineerbr/largeFiles/master/zshUserMailingListConcat.txt'
+	cat ~/arq/docs/zShellDocs/zshUsersMailingList/zshUserMailingListConcat.txt
 }
 
 #check which library files a binary points to
@@ -2041,7 +2058,6 @@ unichar()
 #
 urlencode()
 {
-    # urlencode <string>
     local i length="${#1}"
     #busybox: for i in $(seq 0 $((length-1))); do
     for (( i = 0; i < length; i++ )); do
@@ -2054,8 +2070,6 @@ urlencode()
 }
 urldecode()
 {
-    # urldecode <string>
-
     local url_encoded="${1//+/ }"
     printf '%b' "${url_encoded//\%/\\x}"
 }
@@ -2126,8 +2140,7 @@ wf3()
 	for arg in "$@"
 	do [[ "$arg" = *[a-zA-Z]* ]] && location="$location $arg"  n=$((n+1)) || break
 	done
-	if [[ -n "$location" ]] &&
-		location="$( _wf3helperf "${location% }" )"
+	if [[ -n "$location" ]] && location="$( _wf3helperf "${location% }" )"
 	then
 		shift -- $n
 		set -- "$location" "${@:1}"
@@ -3329,18 +3342,6 @@ warea()
 		tee >( grep '^\s*#' | cut $cutcols >&2 ) |
 		sed -n '/List of countries/,/^\[INS/p' | sed '$d' | tac | cut $cutcols
 }
-#curl 'https://raw.githubusercontent.com/mountaineerbr/extra/master/worldCountryArea.txt'
-
-warea2()
-{
-	curl -s 'https://raw.githubusercontent.com/mountaineerbr/extra/master/worldCountryAreaWiki2.txt' 
-}
-
-warea3()
-{
-	curl -s 'https://raw.githubusercontent.com/mountaineerbr/extra/master/worldCountryAreaWiki.txt' |
-		tee >( grep -C1 '^Rank' >&2 )
-}
 
 
 #ibge -- ids de localidades
@@ -3698,8 +3699,6 @@ SUM2()  {
 #binary to visible text
 #https://unix.stackexchange.com/questions/98948/ascii-to-binary-and-binary-to-ascii-conversion-tools
 #0100000101000010 <=> AB
-#{ perl -lpe '$_=unpack"B*"' ;}
-#{ perl -lpe '$_=pack"B*",$_' ;}
 bintext()
 {
 	perl -lpe '$_=unpack"B*"' <<<"$*"
@@ -4110,7 +4109,13 @@ taproot()
 }
 #https://taproot.watch/
 
+#list aur packages
+alias aurl='curl https://aur.archlinux.org/packages.gz'
+#see also package aurutils, man aur-pkglist
+#https://wiki.archlinux.org/title/Arch_User_Repository#How_can_I_obtain_a_list_of_all_AUR_packages?
 
-
+#How do I find out if any of my installed packages disappeared from AUR?
+#The simplest way is to check the HTTP status of the package's AUR page:
+alias aurmiss='comm -23 <(pacman -Qqm | sort) <(curl https://aur.archlinux.org/packages.gz | sort)'
 
 # vi:filetype=sh

@@ -1,28 +1,20 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.18.2  jun/2021  by mountaineerbr
+# v0.18.3  jun/2021  by mountaineerbr
 
 #defaults
-#colours (comment out to disable)
-#use grep colour? (only interactively)
+#colours (interactive only, comment out to disable)
 COLOUROPT='--color=always'
-
-#loading bar
-COLOUR1='\e[1;34;47m' 		#white bg, blue fg
-#match addresses
-COLOUR2='\e[1;37;44m' 		#blue bg, white fg
-#error
-COLOUR3='\e[1;37;41m' 		#red bg, white fg
-#warning
-COLOUR4='\e[1;33;44m' 		#blue bg, yellow fg 
-#warning
-COLOUR5='\e[1;32;44m'  		#blue bg, green fg
-#end colour code
-ENDC='\e[00m' 			#end color code
+COLOUR1='\e[1;34;47m' 		#loading bar (white, blue)
+COLOUR2='\e[1;37;44m' 		#match addresses (blue, white)
+COLOUR3='\e[1;37;41m' 		#error (red, white)
+COLOUR4='\e[1;33;44m' 		#warning (blue, yellow)
+COLOUR5='\e[1;32;44m' 		#warning (blue, green)
+ENDC='\e[00m' 				#end color code
 
 #webpage result separator/delimiter
-#SEP='====\n'
 SEP='\n'
+#SEP='====\n'
 
 #defaults maximum number
 #of background jobs
@@ -36,17 +28,16 @@ SN="${0##*/}"
 CACHEDIR="$HOME/.cache/${SN%.*}"
 
 #temporary directory
+#eg. /tmp/urlgre.sh.XXXXXX
 TMPD="/tmp/$SN.$$.XXXXXXXX"
 
-#user agent
-#chrome on windows 10
+#user agent (chrome, windows 10)
 UAG='user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
 
 #some binary extensions
 BINEXTS='bz2|gz|gzip|rar|tbz2|tgz|txz|zip|Z|7z|deb|tar|pdf|exe|png|jpg|jpeg|bmp|tiff|gif|xpm|pnm|wav|mp3|flac|m4a|wma|ape|ac3|og[agx]|spx|opus|avi|mp4|wmv|dat|3gp|ogv|mkv|mpg|mpeg|vob|fl[icv]|m2v|mov|webm|ts|mts|m4v|r[am]|qt|divx|as[fx]'
 #ignore empty strings from stdin or urls starting with the following:
-IGNORE='file|telnet|gopher|mailto|about|wais'
-#https|http|ftp
+IGNORE='file|telnet|gopher|mailto|about|wais'  #https|http|ftp
 #http://www.subspacefield.org/~travis/urlgrep.pl
 
 HELP="NAME
@@ -64,16 +55,8 @@ SYNOPSIS
 
 
 DESCRIPTION
-	The script will read a URL list from stdin or file with one URL
-	per line.
-
-	When a match is found, result is dumped to the screen as soon as
-	possible. Due to the asynchronous nature of the processes, output
-	to screen from different jobs may interleave.
-
-	To run grep on pdf, tar and other compressed files set option -a
-	or --text (treat binary data as text). GNU grep and lynx may throw
-	a warning when it goes through binary files.
+	Read a URL list from stdin or file (one URL per line), filter
+	HTML content and perform grep.
 
 	It is important to make a distinction between script-reserved
 	and grep options. Script-reserved options must be set before any
@@ -88,6 +71,9 @@ DESCRIPTION
 	to remove HTML tags. To disable html filters, use option -t or
 	set \$BROWSER to cat.
 
+	To run grep on pdf, tar and other compressed files downloaded
+	through links, set option -a or --text.
+
 	On exit or abortion, the script will concatenate and write results
 	to a file at ${CACHEDIR/$HOME/\~} .
 
@@ -99,8 +85,9 @@ DESCRIPTION
 	nously. Each job will download data from a URL and grep text 
 	independently. As such, internet may jam and system slow down
 	depending on your contracted internet bandwidth and CPU power.
-	You should try and adjust the maximum number of background jobs
-	with option -jNUM, in which NUM is an integer, defaults=${JOBSDEF} .
+	
+	Adjust the maximum number of background jobs with option -jNUM,
+	in which NUM is an integer, defaults=${JOBSDEF} .
 
 	The script checks minimally for url structure validity. Empty
 	strings or strings with only blanks will be skipped. URLs starting
@@ -120,33 +107,26 @@ ENVIRONMENT
 	It is possible to configure some options of curl and wget by set-
 	ting some environment variables.
 
-	The number of retries upon a temporary error, connection timeout
-	and the maximum time for the whole operation can be adjusted set-
-	ting variables \$RETRIES, \$TOCONNECT and \$TOMAX, respectively,
-	to appropriate integer values and exporting them before running
-	the script. Alternatively, set script environment by prefixing
-	the script command with parameter assignments, see usage example(4).
+	Set environment variables by exporting them. Alternatively, set
+	script environment by prefixing the script command with parameter
+	assignments, see usage example(4).
 
-	\$JOBSMAX
-			Controls the maximum number of background jobs,
+	\$JOBSMAX 	Controls the maximum number of background jobs,
 			that is the equivalent of option '-jNUM'.
 
-	\$RETRIES
-			Sets a number of retries if a transient error is
+	\$RETRIES 	Sets a number of retries if a transient error is
 			returned when curl or wget tries to perform a
 			transfer. Note that curl and wget differ in their
 			default values (curl no retries, wget three retries).
 
-	\$TOCONNECT
-			Limits the connection phase only, so if connection
+	\$TOCONNECT 	Limits the connection phase only, so if connection
 			occurs within the given period it will continue,
 			while \$TOMAX sets maximum time in seconds that
 			the whole operation is allowed to take. This is
 			useful for preventing your batch jobs from hanging
 			for hours due to slow networks or links going down.
 	
-	\$BROSWER
-			Sets the browser to process HTML; if none set,
+	\$BROSWER 	Sets the browser to process HTML; if none set,
 			the script will set a browser automatically.
 
 
@@ -273,17 +253,14 @@ function()
 
 
 SEE ALSO
-	I wrote \`ug.sh' which is the \`light version' of this current
-	script. May be easier to understand, although that is less robust
-	and does not keep buffer files at all:
+	\`ug.sh' is a \`proof of concept' of this present script, but
+	more generous.
 	<https://github.com/mountaineerbr/scripts/blob/master/ug.sh>
 
-	Simple urlgrep from nriitala:
+	Simple urlgrep from nriitala (deprecated):
 	<https://gist.github.com/nriitala/6110899>
 
-	Perl URLgrep, a simple perl web crawler that gives you the
-	ability to perform a grep search on all links of any webpage
-	using regular expressions:
+	Perl URLgrep (deprecated):
 	<https://github.com/roinfogath/urlgrep>
 	<https://code.google.com/archive/p/urlgrep/>
 
@@ -370,27 +347,6 @@ GREP OPTIONS
 	of grep.
 
 	By defaults, matches will be colorised unless stdout is redirected.
-	Some useful grep options are summarised below.
-
-		-A NUM 	Lines after match.
-		-B NUM 	Lines before match.
-		-C NUM 	Context lines.
-		-e PATTERN
-			Target matches PATTERN. This opt can be
-			used multiple times.
-		-E 	Interpret PATTERNS as extended regex.
-		-F 	Interpret PATTERNS as fixed strings,
-			not as regular expressions.
-		-i 	Case is insensitive.
-		--color=never
-			Do not colorise matches.
-		-q 	Prints only the website URL on match.
-
-
-	To print matches with the preceding and a maximum of ten following
-	characters, try:
-
-		-E  -o  -e  '.{0,10}PATTERN.{0,10}'
 				
 
 RESERVED OPTIONS
@@ -400,13 +356,35 @@ RESERVED OPTIONS
 	-k 	Keep buffer files, defaults=${TMPD} .
 	-t 	Do not use the HTML filters.
 	-v 	Print script version."
+#HELP (old)
+#	Some useful grep options are summarised below.
+#
+#		-A NUM 	Lines after match.
+#		-B NUM 	Lines before match.
+#		-C NUM 	Context lines.
+#		-e PATTERN
+#			Target matches PATTERN. This opt can be
+#			used multiple times.
+#		-E 	Interpret PATTERNS as extended regex.
+#		-F 	Interpret PATTERNS as fixed strings,
+#			not as regular expressions.
+#		-i 	Case is insensitive.
+#		--color=never
+#			Do not colorise matches.
+#		-q 	Prints only the website URL on match.
+#
+#
+#	To print matches with the preceding and a maximum of ten following
+#	characters, try:
+#
+#		-E  -o  -e  '.{0,10}PATTERN.{0,10}'
 
 
 #functions
-
-urlencode() {
-    # urlencode <string>
+urlencode()
+{
     local i length="${#1}"
+    #busybox: for i in $(seq 0 $((length-1))); do
     for (( i = 0; i < length; i++ )); do
         local c="${1:$i:1}"
         case $c in
@@ -415,10 +393,8 @@ urlencode() {
         esac
     done
 }
-
-urldecode() {
-    # urldecode <string>
-
+urldecode()
+{
     local url_encoded="${1//+/ }"
     printf '%b' "${url_encoded//\%/\\x}"
 }
@@ -440,20 +416,17 @@ curlgrepf()
 			#try to provide a useful name for the file
 
 			#if ext is recognised, rename temp file accordingly
-			if
-				#decode url and see if you find an extension
-				nametry="$( urldecode "${LINK##*/}" )"
+			#decode url and see if you find an extension
+			if nametry="$( urldecode "${LINK##*/}" )"
 				ext=( $( tr A-Z a-z <<<"${nametry##*.}" ) )
 				[[ "${ext[0]}" =~ ^($BINEXTS)$ ]]
 			then
 				isbin=1
-				
+				#change filename if not the same
 				if tmpchange="${TMPFILE%/*}/$nametry"
 					[[ "$tmpchange" != "$TMPFILE" ]]
 				then
-					#change filename
 					mv -- "$TMPFILE" "$tmpchange"
-
 					TMPFILE="$tmpchange"
 				fi
 			elif
@@ -462,20 +435,16 @@ curlgrepf()
 				[[ "${ext[0]}" =~ ^($BINEXTS)$ ]]
 			then
 				isbin=1
-
 				if tmpchange="${TMPFILE%.html}.${ext[0]}"
 					[[ "$tmpchange" != "$TMPFILE" ]]
 				then
-					#change filename
 					mv -- "$TMPFILE" "$tmpchange"
-					
 					TMPFILE="$tmpchange"
 				fi
-
 			fi
 			
 			#skip binary files if --text opt is not set
-			if (( isbin )) && (( BINASTEXT ))
+			if ((isbin && BINASTEXT))
 			then
 				printaddf "${nametry:-${ext[0]}}" "$LINK" 2
 				echo >&2
@@ -484,10 +453,7 @@ curlgrepf()
 
 			#filter HTML and print any match to stdout (with web address)
 			if htmlfilter "$TMPFILE" | grep $COLOUROPT "$@" && printaddf "$LINK"
-			then
-				{
-					htmlfilter "$TMPFILE" | grep --color=never "$@" && printaddf "$LINK"
-				} >"$TMPFILE2"
+			then htmlfilter "$TMPFILE" | grep --color=never "$@" && printaddf "$LINK" >"$TMPFILE2"
 			fi
 			;;
 		130)
@@ -501,7 +467,7 @@ curlgrepf()
 	esac
 
 	#-k keep temp file?
-	(( OPTKEEP == 0 )) && [[ -f "$TMPFILE" ]] && rm -- "$TMPFILE"
+	((OPTKEEP == 0)) && [[ -f "$TMPFILE" ]] && rm -- "$TMPFILE"
 
 	#this function is called from a subshell
 	exit "${curlexit:-0}"
@@ -513,26 +479,23 @@ htmlfilter()
 	"${FILTERCMD[@]}" "$1"
 }
 
-#print website address
+#print website address (subshell)
 printaddf()
-{
-	local addr="$1"  name="$2"
-	(
-		#is stdout free?
-		[[ -t 1 ]] || unset ENDC COLOUR1 COLOUR2 COLOUR3 COLOUR4 COLOUR5 COLOUROPT
+(
+	addr="$1"  name="$2"  sig="${@: -1}"
 
-		if [[ "${@: -1}" = 2 ]]
-		then
-			#warning: print `skipping..'
-			printf "${COLOUR5}>>>skipping ${COLOUR4}%s${ENDC}${COLOUR5} from %s${ENDC}\n" "$name" "$addr" >&2
-		else
-			printf "${COLOUR2}>>>%s${ENDC}  \n${SEP}" "$addr"
-		fi
-	)
-}
+	#is stdout free?
+	[[ -t 1 ]] || unset ENDC COLOUR1 COLOUR2 COLOUR3 COLOUR4 COLOUR5 COLOUROPT
+
+	if [[ "$sig" = 2 ]]
+	then printf "${COLOUR5}>>>skipping ${COLOUR4}%s${ENDC}${COLOUR5} from %s${ENDC}\n" "$name" "$addr" >&2
+	else printf "${COLOUR2}>>>%s${ENDC}  \n${SEP}" "$addr"
+	fi
+)
 
 #status bar
-statusbarf() {
+statusbarf()
+{
 	printf "${COLOUR1}%04d/%04d${ENDC}\r" "$N" "$T"
 }
 
@@ -555,22 +518,20 @@ cleanf() {
 	#disable trap
 	trap \  EXIT
 
-	local exitcode files
+	local exitcode files REPLY
 	typeset -a files
 
 	shopt -s nullglob
 
 	cd "$TMPD" || exit 1
 
-	#get all positive result files
-	#bash#mapfile -t files <<<"$( printf '%s\n' *.grep | sort -n )"
-	while read && [[ -n "${REPLY// }" ]]
-	do
-		files+=( "$REPLY" )
-	done <<<"$( printf '%s\n' *.grep | sort -n )"
+	#get all result files
+	IFS=$'\t\n'
+	files=( $( printf '%s\n' *.grep | sort -n ) )
+	IFS=$' \t\n'
 
 	#is there any files matching result glob?
-	if (( ${#files[@]} ))
+	if ((${#files[@]}))
 	then
 		exitcode=0
 		
@@ -578,24 +539,19 @@ cleanf() {
 		echo ">>>matches -- ${#files[@]}" >&2
 
 		#check for user cache dir
-		if [[ ! -d "$CACHEDIR" ]]
+		#if that does not exist, create
+		if [[ ! -d "$CACHEDIR" ]] && ! mkdir -pv "$CACHEDIR"
 		then
-			#if that does not exist, create
-			if ! mkdir -pv "$CACHEDIR"
-			then
-				echo "$SN: could not create cache directory -- $CACHEDIR" >&2
-				return 1
-			fi
+			echo "$SN: could not create cache directory -- $CACHEDIR" >&2
+			return 1
 		fi
 		
 		#concatenate buffer files in the correct order
 		#get a unique name
-		while
-			RESULTFNAME="results-$(date +%Y-%m-%dT%T).txt"
+		while RESULTFNAME="results-$(date +%Y-%m-%dT%T).txt"
 			RESULT="$CACHEDIR/$RESULTFNAME"
 			[[ -f "$RESULT" ]]
-		do
-			sleep 0.6
+		do sleep 0.6
 		done
 		#reserve the results file asap
 		: >"$RESULT"
@@ -607,10 +563,8 @@ cleanf() {
 
 	#keep temporary files?
 	if (( OPTKEEP ))
-	then
-		[[ -d "$TMPD" ]] && echo ">>>temporary files at $TMPD" >&2
-	else
-		[[ -d "$TMPD" ]] && rm -rf -- "$TMPD"
+	then [[ -d "$TMPD" ]] && echo ">>>temporary files at $TMPD" >&2
+	else [[ -d "$TMPD" ]] && rm -rf -- "$TMPD"
 	fi
 
 	exit "${exitcode:-1}"
@@ -621,25 +575,20 @@ cleanf() {
 
 #pre-parse opts
 #check if there is any positional argument
-if [[ -z "$*" ]]
-then
-	echo "$SN: err  -- run with -h for help" >&2
-	exit 1
+if (($#==0))
+then echo "$SN: err  -- run with -h for help" >&2 ;exit 1
 fi
 
 #if stdout is not free or colour option is set
-if [[ ! -t 1 ]] ||
-	[[ " $* " =~ \ --colou?r=never\  ]]
-then
-	unset COLOUR1 COLOUR2 COLOUR3 ENDC COLOUROPT
+if [[ ! -t 1 || " $* " =~ \ --colou?r=never\  ]]
+then unset COLOUR1 COLOUR2 COLOUR3 ENDC COLOUROPT
 fi
 
 #treat binary files as text?
-if [[ " $* " =~ \ --text\  ]] ||
-	[[ " $* " =~ \ --binary-files=text\  ]] ||
-	[[ " $* " =~ \ -a\  ]]
-then
-	BINASTEXT=2
+if [[ " $* " =~ \ --text\  
+	|| " $* " =~ \ --binary-files=text\  
+	|| " $* " =~ \ -a\  ]]
+then BINASTEXT=2
 fi
 #--text or --binary-files=text process a binary file as text
 
@@ -692,28 +641,21 @@ JOBSMAX="${JOBSMAX:-$JOBSDEF}"
 
 #set shell options
 #and shift arg positions
-if (( OPTOTHER == 2 ))
-then
-	shift $(( OPTIND - 2 ))
-else
-	shift $(( OPTIND  - 1 ))
+if ((OPTOTHER == 2))
+then shift $((OPTIND - 2))
+else shift $((OPTIND  - 1))
 fi
 
 #shift if $1 is '--' (bash-like) or '-' (zsh-like)
 [[ "$1" = -- || "$1" = - ]] && shift
 
 #is last positional argument a file?
-if (( $# )) && [[ -f "${@: -1}" ]]
-then
-	URLFILE="${@: -1}"
-	set -- "${@:1:$(( $# - 1 ))}"
+if (($#)) && [[ -f "${@: -1}" ]]
+then URLFILE="${@: -1}" ;set -- "${@:1:$(($# - 1))}"
 elif [[ ! -t 0 ]]
-then
-	URLFILE=/dev/stdin
+then URLFILE=/dev/stdin
 elif [[ ! -f "$URLFILE" ]]
-then
-	echo "$SN: err  -- list of URLS is required" >&2
-	exit 1
+then echo "$SN: err  -- list of URLS is required" >&2 ;exit 1
 fi
 
 #binary as text? add --text flag to user args
@@ -722,7 +664,7 @@ fi
 #test if grep args are valid
 if
 	#grep err msg?
-	ERRMSG="$( grep "$@" <<<' ' 2>&1 )"
+	ERRMSG="$(grep "$@" <<<' ' 2>&1)"
 	#exit code
 	GREPEXIT="$?"
 	
@@ -730,8 +672,7 @@ if
 	[[ -n "$ERRMSG" ]] && (( GREPEXIT > 1 ))
 then
 	#print error message (remove some lines from error message)
-	grep -v -- --help <<< "$ERRMSG" >&2 
-
+	grep -v -e '--help' <<<"$ERRMSG" >&2 
  	echo "$SN: err  -- check script help page with -h" >&2
 	exit "$GREPEXIT"
 fi
@@ -746,7 +687,6 @@ then
 	[[ -n "$TOMAX" ]]     && OPTS+=( --max-time "$TOMAX" )
 
 	YOURAPP=( curl -sL -b emptycookie --insecure --compressed ${OPTS[@]} --header "$UAG" --output )
-
 	#--insecure , don't check https certificate
 	#by defaults, curl does not follow redirects, does not use the cookie engine,
 	#performs no retries and connect-timeout is 5 minutes
@@ -759,7 +699,6 @@ then
 	[[ -n "$TOMAX" ]]     && OPTS+=( --timeout="$TOMAX" )
 	
 	YOURAPP=( wget -q --no-check-certificate ${OPTS[@]} --header="$UAG" -e robots=off -O )
-	
 	#by defaults, wget follows redirects, uses cookie engine, 
 	#retries 20 times and --read-timeout is 900 seconds
 else
@@ -773,17 +712,13 @@ unset OPTS
 if [[ ! "$BROWSER" =~ ^(cat|elinks|links|lynx|w3m|sed) ]]
 then
 	if command -v links
-	then
-		BROWSER=links
+	then BROWSER=links
 	elif command -v lynx
-	then
-		BROWSER=lynx
+	then BROWSER=lynx
 	elif command -v w3m
-	then
-		BROWSER=w3m
+	then BROWSER=w3m
 	elif command -v elinks
-	then
-		BROWSER=elinks
+	then BROWSER=elinks
 	fi &>/dev/null
 fi
 
@@ -794,7 +729,8 @@ case "$BROWSER" in
 	links*)  FILTERCMD=(links -force-html -dump);;
 	lynx*) 	 FILTERCMD=(lynx -force_html -dump -nolist);;
 	w3m*) 	 FILTERCMD=(w3m -dump -T text/html);;
-	*) 	 FILTERCMD=(sed 's/<[^>]*>//g');;  #defaults
+	*) 	 FILTERCMD=(sed '/</{ :loop ;s/<[^<]*>//g ;/</{ N ;b loop } }');;  #defaults
+	*) 	 FILTERCMD=(sed 's/<[^>]*>//g');;  #less robust sed filter
 esac
 #lynx makes grep throws warnings that file contains binary
 
@@ -802,10 +738,10 @@ esac
 cat >&2 <<!
 >urls__: $URLFILE
 >jobs__: $JOBSMAX
->filter: ${FILTERCMD[*]}
->${YOURAPP[*]} -
+>dl_app: ${YOURAPP[0]}
+>filter: ${FILTERCMD[0]}
 >grep $*
-$( printf "$SEP" )
+$(printf "$SEP")
 
 !
 
@@ -814,7 +750,7 @@ trap exitf INT HUP TERM
 trap cleanf EXIT
 
 #make temporary directory
-TMPD="$( mktemp -d "$TMPD" || mktemp -d )" || exit 1
+TMPD="$(mktemp -d "$TMPD" || mktemp -d)" || exit
 #temp file for job control
 TMPJOBS="$TMPD/00.$SN.$$.jobs"
 #links/stdin temp file
@@ -827,27 +763,25 @@ tr -d '\r' <"$URLFILE" >"$TMPLINKS"
 #count links (lines)
 T="$( wc -l <"$TMPLINKS" )"
 
+#exec buffer to loop
+exec 0< "$TMPLINKS"
 
 #asynchronous search loop
 while read -r LINK
 do
 	#counter
-	(( ++N ))
-
+	((++N))
 	#skips
-	if
-		[[ -z "${LINK// /}" ]] ||
-		[[ "${LINK// /}" =~ ^($IGNORE): ]] ||
-		[[ \ "${LINKCACHE[*]}"\  = \ "$LINK"\  ]]
-	then
-		continue
+	if [[ -z "${LINK// /}"
+		|| "$LINK" =~ ^($IGNORE):
+		|| \ "${LINKCACHE[*]}"\  = *\ "$LINK"\ * ]]
+	then continue
 	fi
 	#cache address
-	LINKCACHE+=( "$LINK" )
+	LINKCACHE+=("$LINK")
 
 	#get a useful filename
-	NAME="$( sed 's/[^/]*\/\/\([^@]*@\)\?\([^:/]*\).*/\2/' <<<"$LINK" )"
-
+	NAME="$(sed 's/[^/]*\/\/\([^@]*@\)\?\([^:/]*\).*/\2/' <<<"$LINK")"
 	#temp file
 	TMPFILE="$TMPD/$N.$NAME.html"
 	TMPFILE2="$TMPD/$N.$NAME.grep"
@@ -857,18 +791,15 @@ do
 
 	#job control -- bash and zshell
 	#print one job per line to temp file
-	while
-		JOBS=( $( jobs -p ) )
-		(( ${#JOBS[@]} > JOBSMAX ))
-	do
-		sleep 0.1
+	while JOBS=( $( jobs -p ) )
+		((${#JOBS[@]} > JOBSMAX))
+	do sleep 0.1
 	done
-	#semaphore: { (1/.1)*4 = max 40 calls/sec }
+	#semaphore
 
 	#launch new jobs (subprocesses)
 	curlgrepf "$@" &
-	
-done <"$TMPLINKS"
+done
 
 #wait for all jobs to complete
 wait

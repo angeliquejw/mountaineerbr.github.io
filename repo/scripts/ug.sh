@@ -1,6 +1,6 @@
 #!/bin/bash
 # ug.sh -- grep full-text urls
-# v0.1.3  feb/2021  by mountaineerbr
+# v0.1.4  jun/2021  by mountaineerbr
 
 # This is the light version of urlgrep.sh.
 # 1. Choose your preferred application to download pages and a markup filter
@@ -55,6 +55,7 @@ yourapp() { wget -q -O- --no-check-certificate --header="$UAG" -e robots=off "${
 filter() { w3m -dump -T text/html ;}
 #filter() { lynx -force_html -dump -nolist ;} 	#lynx makes grep throws warnings about binary data
 #filter() { sed 's/<[^>]*>//g' ;} 		#defaults
+#filter() { sed '/</{ :loop ;s/<[^<]*>//g ;/</{ N ;b loop } }' ;}  #rm multiline tags, too
 #filter() { cat ;} 				#turn off filter
 
 
