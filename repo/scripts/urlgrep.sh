@@ -480,7 +480,7 @@ htmlfilter()
 #print website address (subshell)
 printaddf()
 {
-	addr="$1"  name="$2"  sig="${@: -1}"
+	local addr="$1"  name="$2"  sig="${@: -1}"
 
 	#skip (binary)?
 	if [[ "$sig" = skip ]]
