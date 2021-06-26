@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.19.8  jun/2021  by mountaineerbr
+# v0.19.9  jun/2021  by mountaineerbr
 
 #defaults
 #colours (interactive only, comment out to disable)
@@ -479,18 +479,19 @@ htmlfilter()
 
 #print website address (subshell)
 printaddf()
-(
+{
 	addr="$1"  name="$2"  sig="${@: -1}"
 
-	#if stdout is not free or colour option is set
-	[[ "$sig" = nocolour ]] &&
-		unset COLOUROPT COLOUR1 COLOUR2 COLOUR3 COLOUR5 COLOUR5 ENDC
-
+	#skip (binary)?
 	if [[ "$sig" = skip ]]
 	then printf "${COLOUR5}>>>skipping ${COLOUR4}%s${ENDC}${COLOUR5} from %s${ENDC}\n" "$name" "$addr" >&2
+	#no colour (for results file)?
+	elif [[ "$sig" = nocolour ]]
+	then printf ">>>%s\n${SEP}" "$addr"
+	#coloured
 	else printf "${COLOUR2}>>>%s${ENDC}\n${SEP}" "$addr"
 	fi
-)
+}
 
 #status bar
 statusbarf()
