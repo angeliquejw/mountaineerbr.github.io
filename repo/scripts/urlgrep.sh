@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.19  jun/2021  by mountaineerbr
+# v0.19.1  jun/2021  by mountaineerbr
 
 #defaults
 #colours (interactive only, comment out to disable)
@@ -495,7 +495,10 @@ printaddf()
 #status bar
 statusbarf()
 {
-	printf "${COLOUR1}%04d/%04d${ENDC}\r" "$N" "${T:-0000}"
+	if ((T))
+	then printf "${COLOUR1}%04d/%04d${ENDC}\r" $N $T
+	else printf "${COLOUR1}%04d${ENDC}\r" $N
+	fi
 }
 
 #exit function
@@ -757,8 +760,7 @@ do
 	done
 
 	#remove carriage return; cache address
-	LINK="${LINK//$'\r'}"
-	LINKCACHE+=("$LINK")
+	LINK="${LINK//$'\r'}"  LINKCACHE+=("$LINK")
 	#useful filename
 	NAME="$(sed 's/[^/]*\/\/\([^@]*@\)\?\([^:/]*\).*/\2/' <<<"$LINK")"
 	#temp files
