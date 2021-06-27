@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.19.11  jun/2021  by mountaineerbr
+# v0.19.12  jun/2021  by mountaineerbr
 
 #defaults
 #colours (interactive only, comment out to disable)
@@ -594,7 +594,9 @@ fi
 #--text or --binary-files=text process a binary file as text
 
 #parse options
-while getopts :hj:ktv- opt
+while
+	LASTOPTIND=$OPTIND
+	getopts :hj:ktv- opt
 do
 	case $opt in
 		h) 
@@ -623,15 +625,15 @@ do
 			#grep --long-opts
 			break
 			;;
-		?) 
+		\?) 
 			#grep -other opts
-			((OPTIND=OPTIND -1))
+			((LASTOPTIND < OPTIND)) && ((OPTIND = OPTIND -1))
 			break
 			;;
 	esac
 done
 #and shift arg positions
-shift $((OPTIND  -1))
+shift $((OPTIND -1))
 
 #consolidate $JOBSMAX
 JOBSMAX="${JOBSMAX:-$JOBSDEF}"
