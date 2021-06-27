@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.7  jun/2021  by mountaineerbr
+# v0.8.8  jun/2021  by mountaineerbr
 # bitcoin block information and functions
 # requires bitcoin-cli and jq 1.6+
 
@@ -351,7 +351,7 @@ cleanf() {
 	fi
 	#verbose feedback
 	(( OPTVERBOSE )) && 
-		printf '>>>took %s seconds  (%s min)\n' "$SECONDS" "$(( SECONDS / 60 ))" >&2
+		printf '\n>>>took %s seconds  (%s min)\n' "$SECONDS" "$(( SECONDS / 60 ))" >&2
 	
 	#sum exit codes from other funcs
 	exit $(( ${RET[@]/%/+} 0 ))

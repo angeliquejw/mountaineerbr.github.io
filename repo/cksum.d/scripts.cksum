@@ -2,9 +2,9 @@
 3230425096 26478 scripts/anta.sh
 316668081 329702 scripts/bcalc_ext.bc
 3546067067 26333 scripts/bcalc.sh
-2840634037 34851 scripts/bitcoin.blk.sh
-3153572479 25571 scripts/bitcoin.hx.sh
-411306772 38663 scripts/bitcoin.tx.sh
+2963328722 34853 scripts/bitcoin.blk.sh
+3667971410 25568 scripts/bitcoin.hx.sh
+2198141831 38665 scripts/bitcoin.tx.sh
 4026601335 6730 scripts/blockchair.btcoutputs.sh
 671873616 3960 scripts/cep.sh
 3780126040 2269 scripts/conkykiller.sh

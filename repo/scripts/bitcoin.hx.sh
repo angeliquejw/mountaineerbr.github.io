@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.6.27  apr/2021  by castaway
+# v0.6.28  jun/2021  by castaway
 # create base-58 address types from public key
 # create WIF from private keys
 
@@ -586,7 +586,7 @@ base58f()
 		fi
 		
 		#process output
-		output=$(echo -n "$bytestr" | xxd -p -r)  2>/dev/null
+		{ output=$(<<<"$bytestr" xxd -p -r) ;} 2>/dev/null
 		#print option
 		if ((OPTVERBOSE))
 		then
