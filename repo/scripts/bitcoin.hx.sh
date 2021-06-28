@@ -1,7 +1,8 @@
 #!/bin/bash
-# v0.6.28  jun/2021  by castaway
+# v0.6.30  jun/2021  by castaway
 # create base-58 address types from public key
 # create WIF from private keys
+# requires Bash v4+
 
 #defaults
 #user-side, set $VER
@@ -325,14 +326,9 @@ pack() {
     xxd -r -p
 }
 
-#custom, use -c instead of `tr`'ing newlines
 unpack() {
-    #xxd -p | tr -d '\n'
-    xxd -p -c 100000000
+    xxd -p | tr -d '\n'
 }
-#xxd -p | tr -d '\n'
-#custom, may use -c instead of `tr`'ing newlines
-#xxd -p -c 100000000
 
 declare -a base58=(
       1 2 3 4 5 6 7 8 9
@@ -341,9 +337,9 @@ declare -a base58=(
 )
 unset dcr; for i in {0..57}; do dcr+="${i}s${base58[i]}"; done
 
+#S2 S2 S2
 #newest function for decoding base58 specific values
 #https://github.com/grondilu/bitcoin-bash-tools/issues/19
-#S2 S2 S2
 decodeBase58() {
   echo -n "$1" | sed -e's/^\(1*\).*/\1/' -e's/1/00/g' | tr -d '\n'
   echo "$1" |
@@ -353,7 +349,7 @@ decodeBase58() {
     echo "[256 ~r d0<x]dsxx +f"
   } | dc |
   while read n
-  do printf "%02x" "$n"
+  do printf "%02X" "$n"
   done
 }
 
@@ -414,35 +410,26 @@ revf()
 	input="$1"
 
 	#validate base58 input string
+	#segwit bech32 character set will throw errors
 	if [[ "$input" = *[^${B58}]* ]]
-	then
-		#segwit bech32 character set will throw errors
-		echo "err: invalid base58 public key -- ${input:0:20}" >&2
-		return 1
-	else
-		#get addr type
-		type="$( ispubkeyf "$input" || isprivkeyf "$input" || echo string )"
+	then echo "err: invalid base58 public key -- ${input:0:20}" >&2 ;return 1
+	#get addr type
+	else type="$( ispubkeyf "$input" || isprivkeyf "$input" || echo string )"
 	fi
 
 	#decode base58
 	hx160="$( decodeBase58 "$input" )"
-
 	#remove byte number and checksum
 	hx160="$( sed -E 's/^.?.(.{40}).{8}$/\1/' <<< "$hx160" )"
 
 	#print result
 	if (( OPTVERBOSE ))
 	then
-		#verbose
-		cat <<-!
-		--------
-		TYPE___: $type
-		INPUT__: $input
-		HASH160: $hx160
-		!
-	else
-		#simple
-		echo "$hx160"
+		echo "--------
+TYPE___: $type
+INPUT__: $input
+HASH160: $hx160"
+	else echo "$hx160"
 	fi
 }
 
@@ -548,21 +535,16 @@ base58f()
 		#print option
 		if ((OPTVERBOSE))
 		then
-			#verbose
-			cat <<-!
-			--------
-			TYPE___: $type
-			INPUT__: $input
-			HEXDUMP: $bytestr
-			BASE58_: $output
-			!
+			echo "--------
+TYPE___: $type
+INPUT__: $input
+HEXDUMP: $bytestr
+BASE58_: $output"
 
 			#print verbose warnings
 			((${#VERB[@]})) && printf '%s\n' "${VERB[@]}" >&2
-		else
-			#bas58 result
-			#must print new line
-			echo "$output"
+		#base58 result
+		else echo "$output"
 		fi
 	else
 		#-y decode base58
@@ -591,13 +573,11 @@ base58f()
 		if ((OPTVERBOSE))
 		then
 			#verbose
-			cat <<-!
-			--------
-			TYPE___: $type
-			INPUT__: $input
-			HEXDUMP: $bytestr
-			TEXTOUT: $output
-			!
+			echo "--------
+TYPE___: $type
+INPUT__: $input
+HEXDUMP: $bytestr
+TEXTOUT: $output"
 
 			#print verbose warnings
 			((${#VERB[@]})) && printf '%s\n' "${VERB[@]}"
@@ -623,12 +603,10 @@ addrf()
 	input="$1"
 
 	#make hash160 of input?
+	#make hash160
 	if ((OPTHASH==0))
-	then
-		#make hash160
-		hx160="$( pack "$input" | hash160 )"
-	else
-		hx160="$input"
+	then hx160="$( pack "$input" | hash160 )"
+	else hx160="$input"
 	fi
 
 	#generate address
@@ -637,16 +615,12 @@ addrf()
 	#verbose
 	if (( OPTVERBOSE ))
 	then
-		#verbose
-		cat <<-!
-		---------
-		INPUT___: $input
-		HASH160_: $hx160
-		VER_BYTE: $VER
-		PUB_ADDR: $addr
-		!
-	else
-		echo "$addr"
+		echo "---------
+INPUT___: $input
+HASH160_: $hx160
+VER_BYTE: $VER
+PUB_ADDR: $addr"
+	else echo "$addr"
 	fi
 
 	[[ -n "$addr" ]] || return 1
@@ -659,16 +633,15 @@ gendsha256f()
 	local input sha256
 
 	#is input binary hex, a file or string?
+	#input is byte hex
 	if ((OPTBYTE))
 	then
-		#input is byte hex
 		type='byte hex'
 		input="$( pack "$1" )"
+	#input a filename? read file
 	elif [[ -e "$1" ]]
 	then
-		#input a filename?
 		type=file
-		#read file
 		input="$( pack "$(<"$1")" )"
 	else
 		type=string
@@ -685,16 +658,11 @@ gendsha256f()
 	#print result
 	if (( OPTVERBOSE ))
 	then
-		#verbose
-		cat <<-!
-		--------
-		TYPE___: $type
-		INPUT__: $input
-		DSHA256: ${sha256[-1]}
-		!
-	else
-		#simple 
-		echo "${sha256[-1]}"
+		echo "--------
+TYPE___: $type
+INPUT__: $input
+DSHA256: ${sha256[-1]}"
+	else echo "${sha256[-1]}"
 	fi
 }
 #may also use: `echo -n myfirstSHA | sha256sum | xxd -r -p | sha256sum`
@@ -709,16 +677,15 @@ genhash160f()
 	local dump input hx160
 
 	#is input binary hex, a file or string?
+	#input is byte hex
 	if ((OPTBYTE))
 	then
-		#input is byte hex
 		type='byte hex'
 		input="$1"
+	#input a filename? read file
 	elif [[ -e "$1" ]]
 	then
-		#input a filename?
 		type=file
-		#read file
 		input="$1"
 		dump="$( echo -n "$(<"$input")" | unpack )"
 	else
@@ -733,17 +700,12 @@ genhash160f()
 	#print result
 	if (( OPTVERBOSE ))
 	then
-		#verbose
-		cat <<-!
-		--------
-		TYPE___: $type
-		INPUT__: $input
-		HEXDUMP: ${dump:-$input}
-		HASH160: $hx160
-		!
-	else
-		#simple 
-		echo "$hx160"
+		echo "--------
+TYPE___: $type
+INPUT__: $input
+HEXDUMP: ${dump:-$input}
+HASH160: $hx160"
+	else echo "$hx160"
 	fi
 }
 
@@ -762,11 +724,8 @@ checkf()
 
 	#print validation result
 	if ((ret==0))
-	then
-		echo "Validation pass -- $input"
-	else
-		echo "Validation fail -- $input" >&2
-		return 1
+	then echo "Validation pass -- $input"
+	else echo "Validation fail -- $input" >&2 ;return 1
 	fi
 
 	return 0
@@ -821,19 +780,15 @@ privkeyf()
 	#verbose
 	if (( OPTVERBOSE ))
 	then
-		#verbose
-		cat <<-!
-		--------
-		TYPE____: $type
-		INPUT___: $input
-		SHA256__: ${sha256[-1]}
-		COMPRESS: $( ((OPTP==2)) && echo true || echo false )
-		VER_BYTE: $VER
-		CHECKSUM: $cksum
-		PRIVADDR: $addr
-		!
-	else
-		echo "$addr"
+		echo "--------
+TYPE____: $type
+INPUT___: $input
+SHA256__: ${sha256[-1]}
+COMPRESS: $( ((OPTP==2)) && echo true || echo false )
+VER_BYTE: $VER
+CHECKSUM: $cksum
+PRIVADDR: $addr"
+	else echo "$addr"
 	fi
 
 	[[ -n "$addr" ]] || return 1
@@ -852,9 +807,7 @@ wifkeyf()
 
 	#check private key prefix
 	if [[ "$input" != [59KLc]* ]]
-	then
-		echo "err: WIF not recognised -- $input" >&2
-		return 1
+	then echo "err: WIF not recognised -- $input" >&2 ;return 1
 	fi
 	
 	#Convert it to a string using Base58Check encoding
@@ -873,16 +826,12 @@ wifkeyf()
 	#verbose
 	if (( OPTVERBOSE ))
 	then
-		#verbose
-		cat <<-!
-		--------
-		WIF_____: $input
-		COMPRESS: $( ((OPTW==2)) && echo true || echo false )
-		PRIV_KEY: $pkey
-		!
-	else
-		#print private key
-		echo "$pkey"
+		echo "--------
+WIF_____: $input
+COMPRESS: $( ((OPTW==2)) && echo true || echo false )
+PRIV_KEY: $pkey"
+	#print private key
+	else echo "$pkey"
 	fi
 
 	[[ -n "$pkey" ]] || exit 1
@@ -897,17 +846,13 @@ wcheckf()
 
 	#check private key prefix
 	if [[ "$input" != [59KLc]* ]]
-	then
-		echo "err: WIF not recognised -- $input" >&2
-		return 1
+	then echo "err: WIF not recognised -- $input" >&2 ;return 1
 	fi
 	
 	#Convert it to a string using Base58Check encoding
 	a="$( decodeBase58 "$input" )"
-
 	#Drop the last 4 checksum bytes from the byte string
 	b="${a%????????}"
-	
 	#Drop first byte from the string
 	c="${a/$b}"
 
@@ -939,16 +884,13 @@ wcheckf()
 	#verbose
 	if (( OPTVERBOSE ))
 	then
-		#verbose
-		cat <<-!
-		--------
-		WIF key checksum check
-		INPUT____: $input
-		2NDSHA256: $c
-		CHECKSUM_: $cksum
-		CKVERBYTE: $d
-		VER_BYTE_: $VER
-		!
+		echo "--------
+WIF key checksum check
+INPUT____: $input
+2NDSHA256: $c
+CHECKSUM_: $cksum
+CKVERBYTE: $d
+VER_BYTE_: $VER"
 	fi
 
 	#print validation result
@@ -956,11 +898,8 @@ wcheckf()
 	#If they are the same, and the byte string from point 2 starts
 	#with 0x80 (0xef for testnet addresses), then there is no error
 	if [[ "$cksum" == "$c" ]]
-	then
-		echo "Validation pass -- $1"
-	else
-		echo "Validation fail -- $1" >&2
-		return 1
+	then echo "Validation pass -- $1"
+	else echo "Validation fail -- $1" >&2 ;return 1
 	fi
 
 	return 0
@@ -974,19 +913,13 @@ ispubkeyf()
 
 	#is legacy (P2PKH)?
 	if [[ "$input" =~ ^[1][a-km-zA-HJ-NP-Z1-9]{25,34}$ ]]
-	then
-		echo 'Legacy (P2PKH)'
-		return 0
+	then echo 'Legacy (P2PKH)' ;return 0
 	#is Segwit (P2SH)?
 	elif [[ "$input" =~ ^[3][a-km-zA-HJ-NP-Z1-9]{25,34}$ ]]
-	then
-		echo 'Segwit (P2SH)'
-		return 0
+	then echo 'Segwit (P2SH)' ;return 0
 	#is native segwit (bech32)?
 	elif [[ "$input" =~ ^bc(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})$ ]]
-	then
-		echo 'Native segwit (bech32)'
-		return 0
+	then echo 'Native segwit (bech32)' ;return 0
 	fi
 
 	return 1
@@ -996,9 +929,7 @@ ispubkeyf()
 isprivkeyf()
 {
 	if [[ "$input" =~ ^[5KL][1-9A-HJ-NP-Za-km-z]{50,51}$ ]]
-	then
-		echo 'Private address'
-		return 0
+	then echo 'Private address' ;return 0
 	fi
 
 	return 1
@@ -1023,7 +954,7 @@ do
 			OPTHASH160=1
 			;;
 		a)
-			#don't make hash160 of input
+			#dont make hash160 of input
 			OPTHASH=1
 			;;
 		b)
@@ -1095,72 +1026,50 @@ unset c
 for PKG in openssl xxd
 do
 	if ! command -v "$PKG" &>/dev/null
-	then
-		echo "$SN: err  -- $PKG is required" >&2
-		exit 1
+	then echo "$SN: err  -- $PKG is required" >&2 ;exit 1
 	fi
 done
 unset PKG
 
 #check bash version
-if (( BASH_VERSINFO[0] < 4 ))
-then
-    echo "$SN: err  -- bash version 4 or above required" >&2
-    exit 1
-fi
+#if (( BASH_VERSINFO[0] < 4 ))
+#then echo "$SN: err  -- bash version 4 or above required" >&2 ;exit 1
+#fi
 
 #set option function
+#-1 get hash160 from public address
 if (( OPTREV ))
-then
-	#-1 get hash160 from public address
-	mainf() { revf "$1" ;}
+then mainf() { revf "$1" ;}
+#-yY encode decode base58
 elif (( ASCIIOPT ))
-then
-	#-yY encode decode base58
-	mainf() { base58f "$1" ;}
+then mainf() { base58f "$1" ;}
+#-c check public key (address) checksum
 elif (( OPTC ))
-then
-	#-c check public key (address) checksum
-	mainf() { checkf "$@" ;}
+then mainf() { checkf "$@" ;}
+#-p create private key from seed
 elif (( OPTP ))
-then
-	#-p create private key from seed
-	mainf() { privkeyf "$@" ;}
+then mainf() { privkeyf "$@" ;}
+#-2 generate double sha256 sum
 elif (( OPTDSHA ))
-then
-	#-2 generate double sha256 sum
-	mainf() { gendsha256f "$1" ;}
+then mainf() { gendsha256f "$1" ;}
+#-6 generate hash160
 elif (( OPTHASH160 ))
-then
-	#-6 generate hash160
-	mainf() { genhash160f "$1" ;}
+then mainf() { genhash160f "$1" ;}
+#-w WIF to privy key
 elif (( OPTW ))
-then
-	#-w WIF to privy key
-	mainf() { wifkeyf "$@" ;}
+then mainf() { wifkeyf "$@" ;}
+#-x check wif key checksum
 elif (( OPTX ))
-then
-	#-x check wif key checksum
-	mainf() { wcheckf "$@" ;}
-else
-	#default option
-	#convert hex to public address
-	mainf()
-	{
-		addrf "$1"
-	}
+then mainf() { wcheckf "$@" ;}
+#default option, convert hex to public address
+else mainf() { addrf "$1" ;}
 fi
 
 #check $VER and incompatible options
-if [[ "$VER" = *[a-zA-Z]* ]] ||
-	(( ${#VER} > 2 ))
-then
-	echo "warning: user-set byte version -- $VER" >&2
-elif (( VEROPT )) &&
-	(( OPTREV || OPTDSHA || OPTHASH160 ))
-then
-	echo "$SN: err  -- incompatible options" >&2
-	exit 1
+if [[ "$VER" = *[a-zA-Z]* ]] || (( ${#VER} > 2 ))
+then echo "warning: user-set byte version -- $VER" >&2
+elif (( VEROPT && (OPTREV || OPTDSHA || OPTHASH160) ))
+then echo "$SN: err  -- incompatible options" >&2 ;exit 1
 fi
 
 #consolidate version byte option

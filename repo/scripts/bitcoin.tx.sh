@@ -1,18 +1,22 @@
 #!/bin/bash
-# v0.8.34  jun/2021  by mountaineerbr
+# v0.8.35  jun/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
 #script name
 SN="${0##*/}"
 
+#set simple verbose
+#feedback to stderr
+OPTVERBOSE=0
+
 #cache dir for results copy
 #eg. ~/.cache/bitcoin.tx
 CACHEDIR="$HOME/.cache/bitcoin.tx"
 
-#set simple verbose
-#feedback to stderr
-OPTVERBOSE=0
+#check user cache disk usage
+#(prints warning when exceeded)
+MAXCACHESIZE=150000000  #150MB
 
 #maximum jobs (subprocesses)
 JOBSDEF=3   #hard defaults
@@ -318,10 +322,8 @@ pack() {
     xxd -r -p
 }
 
-#custom, use -c instead of `tr`'ing newlines
 unpack() {
-    #xxd -p | tr -d '\n'
-    xxd -p -c 100000000
+    xxd -p | tr -d '\n'
 }
 
 declare -a base58=(
@@ -340,7 +342,7 @@ decodeBase58() {
     echo "[256 ~r d0<x]dsxx +f"
   } | dc |
   while read n
-  do printf "%02x" "$n"
+  do printf "%02X" "$n"
   done
 }
 
@@ -391,8 +393,6 @@ whitepaperf()
 		| tr -d '\n' \
 		| cut -c 17-368600 \
 		| xxd -r -p >"$WPOUTFILE"
-		
-		((OPTVERBOSE)) && echo >&2
 
 	#From blockchain transaction (defaults, fast)
 	else
@@ -405,6 +405,7 @@ whitepaperf()
 		| xxd -p -r >"$WPOUTFILE"
 	fi
 
+	((OPTVERBOSE)) && echo >&2
 	echo "$SN: file generated -- $WPOUTFILE" >&2
 }
 #https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi/35970#35970
@@ -445,11 +446,11 @@ hexasciif()
 		#print ascii text
 		if ((OPTASCII>1))
 		then
-			echo -n "$hex" | xxd -r -p 
+			<<<"$hex" xxd -r -p 
 		else
 			#if strings result is not empty
 			#decode hex to ascii (ignore null byte warning)
-			{ ascii="$(echo -n "$hex" | xxd -r -p)"  ;} 2>/dev/null
+			{ ascii="$(<<<"$hex" xxd -r -p)"  ;} 2>/dev/null
 			for ((num=20 ;num>=0 ;--num))
 			do
 				((num)) || break
@@ -468,7 +469,7 @@ hexasciif()
 				echo "$strs"
 			else
 				#otherwise print the raw ascii
-				echo -n "$hex" | xxd -r -p 
+				<<<"$hex" xxd -r -p 
 			fi
 		fi
 
@@ -1080,9 +1081,9 @@ cleanf() {
 		((CONCAT == 0)) || concatf || RET+=( $? )
 
 		#check cache disk usage
-		max=150000000  #150MB
+		MAXCACHESIZE=150000000  #150MB
 		cachesize=( $(du -bs "$CACHEDIR") )
-		if (( cachesize[0] > max ))
+		if (( cachesize[0] > MAXCACHESIZE ))
 		then echo -e "$SN: warning -- user cache is $((cachesize[0] /1000000)) MB\n$SN: check -- ${cachesize[1]}" >&2
 		fi
 	else

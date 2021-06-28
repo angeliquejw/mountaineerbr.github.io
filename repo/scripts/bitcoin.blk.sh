@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.8  jun/2021  by mountaineerbr
+# v0.8.11  jun/2021  by mountaineerbr
 # bitcoin block information and functions
 # requires bitcoin-cli and jq 1.6+
 
@@ -454,10 +454,10 @@ deccoinbf()
 	#print ascii text
 	if ((OPTASCII>1))
 	then
-		echo -n "$txhex" | xxd -p -r
+		<<<"$txhex" xxd -p -r
 	else
 		#decode hex to ascii (ignore null byte warning)
-		{ ascii="$(echo -n "$txhex" | xxd -p -r)" ;} 2>/dev/null
+		{ ascii="$(<<<"$txhex" xxd -p -r)" ;} 2>/dev/null
 
 		for ((num=STRMIN ;num>=0 ;--num))
 		do
@@ -477,7 +477,7 @@ deccoinbf()
 			echo "$strs"
 		else
 			#otherwise print the raw ascii
-			echo -n "$txhex" | xxd -p -r
+			<<<"$txhex" xxd -p -r
 		fi
 	fi
 	ret+=( $? )
@@ -644,25 +644,25 @@ blockchainf()
 #general block information and block transactions
 defaultf()
 {
-	local blk_stat ret
+	local blk_stat ret jqblock jqblockb jqblockC jqblockD
 	typeset -a ret
 
 	#print transaction hashes
 	if ((OPTI > 1))
 	then 
-		((OPTI == 3)) && echo -e "\n============\nTransactions"
-		jq -r '.tx[]' <<<"$BLK"
-		((OPTI == 3)) && echo "--------"
-		((OPTI>=1000 || OPTI==2)) && return
-	else
-		echo -e "\n============"
+		((OPTI > 2)) && jqblockC='"","============","Block transactions",' jqblockD=',"--------"'
+		<<<"$BLK" jq -r "$jqblockC"'.tx[]'"$jqblockD"
+		((OPTI > 999 || OPTI == 2)) && return
+	elif ((OPTI == 1))
+	then jqblockB='"","============",'
+	else jqblock='"","============",'
 	fi
 
 	#stats opt -- is target other block than genesis block?
 	if [[ "$OPTI" = [31] && "$BLK_HASH" != "$GENBLK_HASH" ]]
 	then
 		blk_stat="$( bwrapper getblockstats \""$BLK_HASH"\" )"
-		<<<"$blk_stat" jq -r '"Block status",
+		<<<"$blk_stat" jq -r "$jqblockB"'"Block status",
 			"Height__: \(.height)",
 			"Avg_Fee_: \(.avgfee) sat/KB \t \(.avgfee/1000) sat/B",
 			"Med_Fee_: \(.medianfee) sat/KB\t \(.medianfee/1000) sat/B",
@@ -701,7 +701,7 @@ defaultf()
 	fi
 
 	#print block information
-	<<<"$BLK" jq -r '"Block information",
+	<<<"$BLK" jq -r "$jqblock"'"Block information",
 		"Hash____: \(.hash)",
 		"MrklRoot: \(.merkleroot)",
 		"PrevBlkH: \(.previousblockhash)",
@@ -1063,9 +1063,7 @@ mempoolf()
 
 		#debug? print raw data
 		if (( DEBUGOPT ))
-		then
-			echo "$mempool_raw"
-			return 0
+		then echo "$mempool_raw" ;return 0
 		fi
 
 		#process only certain tx or print all of them
@@ -1133,8 +1131,14 @@ mempoolf()
 		printf ">%*d/vB: %5d\n" "${#maxfee}" "$maxfee" "$((wc-tt))"
 		} | pr -T$cols -w$width
 
-		echo -e "\nStatistics (sat/vB)"
-		<<<"$mempool_raw" jq -s -r '"Minimum: \(min)","Maximum: \(max)","Average: \(add/length)","Median_: \(sort|if length%2==1 then.[length/2|floor]else[.[length/2-1,length/2]]|add/2 end)","TxTotal: \(length)"'
+		<<<"$mempool_raw" jq -s -r '
+			"",
+			"Statistics (sat/vB)",
+			"Minimum: \(min)",
+			"Maximum: \(max)",
+			"Average: \(add/length)",
+			"Median_: \(sort|if length%2==1 then.[length/2|floor]else[.[length/2-1,length/2]]|add/2 end)",
+			"TxTotal: \(length)"'
 		#jq -s '{minimum:min,maximum:max,average:(add/length),median:(sort|if length%2==1 then.[length/2|floor]else[.[length/2-1,length/2]]|add/2 end)}'
 		#perl -M'List::Util qw(sum max min)' -MPOSIX -0777 -a -ne 'printf "%-7s : %.2f\n"x4, "Min", min(@F), "Max", max(@F), "Average", sum(@F)/@F,  "Median", sum( (sort {$a<=>$b} @F)[ int( $#F/2 ), ceil( $#F/2 ) ] )/2;'
 		#https://unix.stackexchange.com/questions/13731/is-there-a-way-to-get-the-min-max-median-and-average-of-a-list-of-numbers-in
