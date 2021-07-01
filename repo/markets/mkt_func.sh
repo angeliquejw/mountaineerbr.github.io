@@ -7,10 +7,6 @@
 #make sure locale is set correctly
 #export LC_NUMERIC=C
 
-#request compressed response from server
-#alias curl='curl --compressed'
-#alias wget="wget --header='Accept-Encoding: gzip'" # .. |gzip -dc
-
 #lista de ações da bovespa b3
 blist()
 {
@@ -189,33 +185,6 @@ ipca2()
 }
 #https://www.usinflationcalculator.com
 
-
-#richard heart's hex rate in usd
-hex() {
-	local DATA HEXETH ETHUSD
-
-	#header, date
-	date
-
-	DATA="$(curl -s "https://api.exchange.bitcoin.com/api/2/public/ticker")"
-	HEXETH="$(jq -r '.[]|select(.symbol == "HEXETH")|.last' <<<"$DATA")"
-	ETHUSD="$(jq -r '.[]|select(.symbol == "ETHUSD")|.last' <<<"$DATA")"
-	
-	echo "Bitcoin.com Ticker"
- 	column -et -s' ' <<-!
-		$( jq -r '.[]|select(.symbol == "HEXETH")' <<< "$DATA" | tr -d '",}{' | sed 's/^\s\s*//g' | tac )
-		!
-	echo "HEXETH:       $HEXETH"
-	echo "ETHUSD:       $ETHUSD"
-	echo
-	echo 'HEX/USD:'
-
-	bc <<< "scale=16; ( $HEXETH*$ETHUSD ) / 1" | xargs printf 'Bitcoin.com:  %.10f\n'
-	
-	command -v cgk.sh &>/dev/null && cgk.sh hex usd | xargs printf 'CoinGecko__:  %.10f\n'
-	command -v cmc.sh &>/dev/null && cmc.sh hex usd | xargs printf 'CoinMktCap_:  %.10f\n'
-}
-
 #stats from <xe.com>
 #30 and 60-day hig, low and avg
 #{ curl -sL 'https://www.xe.com/api/stats.php?fromCurrency=GBP&toCurrency=USD';}
@@ -357,8 +326,7 @@ gfin()
 		column -et -s'$' -NSYMBOL,NAME,DIRECTION,CHANGE,CHANGE%,VALUE,UPDATE,LASTCLOSE,EXCHANGE -TNAME,UPDATE -HDIRECTION,EXCHANGE -OSYMBOL,VALUE,NAME,DIRECTION,CHANGE,CHANGE%,LASTCLOSE,UPDATE,EXCHANGE
 
 }
-#for jspb: .. | sed 's/<[^>]*>//g' | grep -E "\"*[[:digit:]]+.[[:digit:]]+\"" | grep -oP '"\K[^"]+' | grep -Ev -e '^,$' -e 'newwindow' -e 'search' -e '[[:digit:]]+]' -e '^]$' -e 'null' -e '/m/' -e '/g/' | sed -e 's/,.,/\n/g' -e 's/,$//g' -e 's/^,//g' -e 's/\\u0026/\&/g'  #| grep --color=never -i -e "$1" -A6 -B3
-#<<quotes are not sourced from all markets and may be delayed by up to 20 minutes.
+#quotes are not sourced from all markets and may be delayed by up to 20 minutes.
 #information is provided 'as is' and solely for informational purposes, not for
 #trading purposes or advice.>>
 #get a personalised list by visiting <https://www.google.com/finance>,
@@ -369,9 +337,7 @@ gfin()
 
 #yahoo finance hack -- long ticker
 yfin()
-{
-	#subshell
-	(
+(
 	#parse some opts
 	if [[ "$1" = -h ]]
 	then
@@ -489,8 +455,7 @@ yfin()
 		"Open___: \(.regularMarketOpen)",
 		"Price__: \(.regularMarketPrice)"
 		' <<<"$YJSON" | grep -Fv 'null' | cat -s
-	)
-}
+)
 #currency
 #language
 #triggerable
@@ -506,9 +471,7 @@ yfin()
 #yahoo finance hack -- data from chart api
 #usage: yfin2 [-jh] 'symbol' [range] [granularity]
 yfin2()
-{
-	#subshell
-	(
+(
 	#parse some opts
 	if [[ "$1" = -h ]]
 	then
@@ -597,8 +560,7 @@ yfin2()
 			#"PriceHnt: \(.priceHint//empty)"
 		)
 		' <<< "$YJSON"
-	)
-}
+)
 
 
 #yahoo finance symbol list
