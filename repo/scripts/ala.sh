@@ -1,6 +1,6 @@
 #!/bin/bash
 # ala.sh -- arch linux archive explorer, search and download
-# v0.14.13  may/2021  by castaway
+# v0.14.14  jul/2021  by castaway
 
 #defaults
 #script name
@@ -418,8 +418,7 @@ yourappf()
 #consolidate path
 consolidatepf()
 {
-	local p i
-	p="$1"
+	local p="$1"  i=
 
 	#remove extra blank spaces
 	for i in 1 2 3
@@ -429,7 +428,11 @@ consolidatepf()
 		p="${p//  / }" 		#remove extra spaces
 	done
 
-	#replace spaces with /
+	#re-add a first double slash if url contains any of the following
+	[[ "$p" =~ (https|http|ftp|file|telnet|gopher|mailto|about|wais): ]] \
+		&& p="${p/\//\/\/}"
+
+	#replace spaces with slash
 	p="${p// /\/}"
 
 	echo "$p"
