@@ -85,6 +85,7 @@ discount
 easytag
 ebook-tools
 expac
+exiv2
 feh
 ffmpeg
 ffnvcodec-headers  #NVIDIA
@@ -179,6 +180,7 @@ pulseaudio-equalizer
 python
 python2
 qrencode
+r
 rsync
 screen
 sound-theme-freedesktop
@@ -277,6 +279,7 @@ dateutils
 diffstat
 dina-font
 dmenu
+dos2unix
 dzen2
 edbrowse
 electrum
@@ -323,6 +326,7 @@ pacman-contrib
 pacutils
 parallel
 pastebinit
+pax
 pdfarranger
 pdfgrep
 pdfmixtool
@@ -422,6 +426,7 @@ arc-gtk-theme
 arc-icon-theme
 ascii-patrol
 asciisec
+aurutils
 bash-docs
 bsdmainutils
 cdm-git
