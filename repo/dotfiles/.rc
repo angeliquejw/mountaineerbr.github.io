@@ -15,6 +15,14 @@
 #get grmlzsh copy
 grmlzshrc() { curl https://raw.githubusercontent.com/grml/grml-etc-core/master/etc/zsh/zshrc ;}
 
+#sources
+for f in \
+	~/.apikeys \
+	~/bin/markets/mkt_func.sh
+do [[ -r "$f" ]] && . "$f"
+done
+unset f
+
 #set dircolors
 if type dircolors >/dev/null
 then
@@ -128,19 +136,16 @@ sanitize()
 gtar()
 {
 	local target="$1".tar.gpg
+	#decrypt (sigle file)
 	if [[ "$1" = *.gpg* ]]
-	then
-		#decrypt
-		gpgtar -d "$1"
-		#gpg -d "$1" | tar x
-	else
-		#encrypt
-		#gpgtar -eco "$target" "$@"
-		tar c --format pax -- "$@" | gpg -c -o "$target"
+	then gpg -d "$1" | tar x
+	#encrypt (multiple files)
+	else tar c --format pax -- "$@" | gpg -c -o "$target"
 	fi
 }
-#preferably, use gnu/gnutar/pax formats
+#preferably, use gnu/gnutar or pax/posix formats
 #(The pax format causes extended headers to be extracted as files by a few implementations)
+#also see: `gpgtar' -- { gpgtar -eco "$target" "$1" ;gpgtar -d "$1" ;}
 #https://www.baeldung.com/linux/encrypting-decrypting-directory
 #https://www.gnu.org/software/tar/manual/html_node/Standard.html
 #https://www.gnu.org/software/tar/manual/html_node/gnu.html#SEC145
@@ -157,7 +162,7 @@ alias fontlist='fc-list | col | sort | less'
 #alias cp="cp -i" # confirm before overwriting something
 alias df='df -h'  # human-readable sizes
 #alias free='free -m' # show sizes in MB
-alias np='nano -w PKGBUILD'
+#alias np='nano -w PKGBUILD'
 
 #safeguards for common operations
 #removing files: set -I to interactively ask once
@@ -202,7 +207,7 @@ alias ll='ls++ --potsf'
 #alias ls='ls -F'
 alias pl="printf '%s\n'"
 
-alias j='jobs -l'
+#alias j='jobs -l'
 #alias pu=pushd
 #alias po=popd
 
@@ -261,8 +266,6 @@ UAG2='user-agent: Mozilla/5.0 Gecko'
 
 #ask for compressed data
 alias curl='curl --compressed'
-
-#follow redirects, use the cookie engine and send a user agent header
 alias curlu='curl --compressed -sLb non-existing --header "$UAG"'
 
 #html filter
@@ -448,10 +451,7 @@ out()
 }
 
 #startx
-alias x=startx
-
-#gnu screen multiplexer
-alias sc=screen
+#alias x=startx
 
 #kill detached screen sessions
 sdk()
@@ -557,8 +557,6 @@ alias e=vim
 #open last vim file
 #register nought "'0" jumps back to where you exited last
 alias vimlast='vim -c "normal '"'"'0"'
-alias lastvim='vimlast'
-alias vl='vimlast'
 
 #cd to vim backup
 alias vbak='cd ~/.vim/bak'
@@ -1124,10 +1122,6 @@ setxv()
 	set -xv ;"$@" ;set +xv
 }
 
-#set combined sound sinks for my laptop
-#alias sas='~/bin/sas.sh'
-#alias sase='~/bin/sas.sh && exit'
-
 #advanced bash scripting guide
 #http://tldp.org/LDP/abs/html/
 
@@ -1251,6 +1245,15 @@ puc()
 	| awk -F ' ' '{print $5}' \
 	| sort | uniq -c | sort -nr
 }
+
+#list aur packages
+alias aurl='curl https://aur.archlinux.org/packages.gz'
+#see also package aurutils, man aur-pkglist
+#https://wiki.archlinux.org/title/Arch_User_Repository#How_can_I_obtain_a_list_of_all_AUR_packages?
+
+#How do I find out if any of my installed packages disappeared from AUR?
+#The simplest way is to check the HTTP status of the package's AUR page:
+alias aurmiss='comm -23 <(pacman -Qqm | sort) <(curl https://aur.archlinux.org/packages.gz | sort)'
 
 #get a mirrorlist (arch linux)
 mlist()
@@ -2793,33 +2796,6 @@ clr()
 }
 #{ tput clear ;}  #removes scrollback buffer
 
-#loss/gain reciprocal or symetrical ratio
-#usage: loss [+-]NUM[%] [SCALE]
-#usage: NUM is an integer and if negative reads as gain
-loss()
-{
-	local u g
-	u=${1%\%} u="${u#+}"
-
-	#check for invalid notations
-	if [[ "$u" = *[a-zA-Z]* || "$u" != *[0-9]* || ! "${u/[,.-]*}" =~ ^.?.?$ ]]
-	then echo -e 'err\nusage: loss [+-]NUM[%] [SCALE]' >&2 ;return 1
-	fi
-
-	#use zshell maths or bash bc?
-	if ((ZSH_VERSION))
-	then float u ;g=$(( ( (1 / (1 - (u / 100) ) ) - 1) * 100))
-	else g=$( bc <<<"scale=16; ( (1 / (1 - ($u / 100) ) ) - 1) * 100" )
-	fi
-
-	if [[ "$u" = -* ]]
-	then printf "%4s: %6.${2:-4}f %%\n" gain ${u#-} loss ${g#-}
-	else printf "%4s: %6.${2:-4}f %%\n" loss $u gain $g
-	fi
-}
-#fausto botelho: https://www.youtube.com/watch?v=yY7d6gOIynU
-#formula: 100/(100-loss)
-
 # Hex to Decimal Conversion Helper functions
 h2d()
 {
@@ -3124,17 +3100,6 @@ alias et='vim ~/bin/test.sh'
 alias t='~/bin/test.sh'
 
 #script aliases
-alias openx='~/bin/markets/openx.sh'
-alias clay='~/bin/markets/clay.sh'
-alias myc='~/bin/markets/myc.sh'
-alias erates='~/bin/markets/erates.sh'
-alias binfo='~/bin/markets/binfo.sh'
-alias bitstamp='~/bin/markets/bitstamp.sh'
-alias binance='~/bin/markets/binance.sh'
-alias cgk='~/bin/markets/cgk.sh'
-alias cmc='~/bin/markets/cmc.sh'
-alias m='~/bin/markets/metais.sh'
-alias p='~/bin/markets/parmetal.sh'
 alias anta='~/bin/anta.sh'
 
 #imgur
@@ -3164,8 +3129,14 @@ alias espeakngbr='espeakng -v pt-br'
 #open with *mplayer or vlc
 
 ####################
-###market aliases###
+###markets###
 ####################
+
+alias binfo='~/bin/markets/binfo.sh'
+alias bitstamp='~/bin/markets/bitstamp.sh'
+alias binance='~/bin/markets/binance.sh'
+alias cgk='~/bin/markets/cgk.sh'
+alias cmc='~/bin/markets/cmc.sh'
 
 #mop - stocks the hacker way
 mop()
@@ -3186,14 +3157,34 @@ novadr()
 	done
 }
 
-#sources
-for f in \
-	~/.apikeys \
-	~/bin/markets/mkt_func.sh \
-	~/bin/corona_func.sh
-do [[ -r "$f" ]] && . "$f"
-done
-unset f
+#loss/gain reciprocal or symetrical ratio
+#usage: loss [+-]NUM[%] [SCALE]
+#usage: NUM is an integer and if negative reads as gain
+loss()
+{
+	local u g
+	u=${1%\%} u="${u#+}"
+
+	#check for invalid notations
+	if [[ "$u" = *[a-zA-Z]* || "$u" != *[0-9]* || ! "${u/[,.-]*}" =~ ^.?.?$ ]]
+	then echo -e 'err\nusage: loss [+-]NUM[%] [SCALE]' >&2 ;return 1
+	fi
+
+	#use zshell maths or bash bc?
+	if ((ZSH_VERSION))
+	then float u ;g=$(( ( (1 / (1 - (u / 100) ) ) - 1) * 100))
+	else g=$( bc <<<"scale=16; ( (1 / (1 - ($u / 100) ) ) - 1) * 100" )
+	fi
+
+	if [[ "$u" = -* ]]
+	then printf "%4s: %6.${2:-4}f %%\n" gain ${u#-} loss ${g#-}
+	else printf "%4s: %6.${2:-4}f %%\n" loss $u gain $g
+	fi
+}
+#fausto botelho: https://www.youtube.com/watch?v=yY7d6gOIynU
+#formula: 100/(100-loss)
+
+
 
 #misc
 
@@ -4041,14 +4032,5 @@ taproot()
 	print \\nyes__: $b[1]\\nno___: $((b[2]-b[1]))\\ntotal: $b[2]\\nleft_: $((2016 - b[2]))\\nperct: $((${b[1]}.0 / ${b[2]}))\\n
 }
 #https://taproot.watch/
-
-#list aur packages
-alias aurl='curl https://aur.archlinux.org/packages.gz'
-#see also package aurutils, man aur-pkglist
-#https://wiki.archlinux.org/title/Arch_User_Repository#How_can_I_obtain_a_list_of_all_AUR_packages?
-
-#How do I find out if any of my installed packages disappeared from AUR?
-#The simplest way is to check the HTTP status of the package's AUR page:
-alias aurmiss='comm -23 <(pacman -Qqm | sort) <(curl https://aur.archlinux.org/packages.gz | sort)'
 
 # vi:filetype=sh

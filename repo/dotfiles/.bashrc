@@ -1,12 +1,12 @@
 #
 # ~/.bashrc
 # 2021  by mountaineerbr
-                           #                 ###     
-                    #                        # ##    
-#####  #  # ## #### ##  #  # ####  #   #  ## ###  ## 
-# # # # # #  # #  # #   ## # #  # ### ### #  #  # #  
-# # # # # #  # #  # #  # # # #  # #   #   #  #  # #  
-# # #  #   ### # ## ##  ## # # ##  ##  ## #  ###  #  
+                           #                 ###
+                    #                        # ##
+#####  #  # ## #### ##  #  # ####  #   #  ## ###  ##
+# # # # # #  # #  # #   ## # #  # ### ### #  #  # #
+# # # # # #  # #  # #  # # # #  # #   #   #  #  # #
+# # #  #   ### # ## ##  ## # # ##  ##  ## #  ###  #
 
 # This file is sourced by all *interactive* bash shells on startup,
 # including some apparently interactive shells such as scp and rcp
@@ -32,11 +32,9 @@
 
 #set ps1
 if (( EUID == 0 ))
-then
-	PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
-else
-	#this is the PS1 control for the normal user
-	PS1='\[\033[01;32m\][\[\033[01;33m\]\w\[\033[01;32m\]]\$\[\033[00m\] '
+then PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
+#this is the PS1 control for the normal user
+else PS1='\[\033[01;32m\][\[\033[01;33m\]\w\[\033[01;32m\]]\$\[\033[00m\] '
 fi
 #https://misc.flogisoft.com/bash/tip_colors_and_formatting
 #https://www.reddit.com/r/linux/comments/94nh4w/what_is_your_ps1/
@@ -53,7 +51,7 @@ HISTFILESIZE=10000
 #history duplicate controls
 #history erases duplicates
 HISTCONTROL=erasedups:ignoredups
-#HISTCONTROL is a colon-separated list of values 
+#HISTCONTROL is a colon-separated list of values
 
 #history ignore cmds
 HISTIGNORE=bash:q:exit:x:su:sdh:sdr:shutdown
@@ -61,7 +59,7 @@ HISTIGNORE=bash:q:exit:x:su:sdh:sdr:shutdown
 #history date format
 #HISTTIMEFORMAT="[%F %T]: "
 HISTTIMEFORMAT="$( echo -e "\033[0;32m[%F %T]:\033[0m " )"
-#end colour code: \033[0m 
+#end colour code: \033[0m
 #https://gist.github.com/avelino/3188137
 
 #history appending & relaoding the 'history list'
@@ -73,7 +71,7 @@ PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 #if the variable $PROMPT_COMMAND has already been set:
 #PROMPT_COMMAND="$PROMPT_COMMAND; cmd1; cmd2"
 #if set, the value is executed as a command prior to issuing each primary prompt
-#https://unix.stackexchange.com/questions/18212/bash-history-ignoredups-and-erasedups-setting-conflict-with-common-history 
+#https://unix.stackexchange.com/questions/18212/bash-history-ignoredups-and-erasedups-setting-conflict-with-common-history
 #https://www.shellhacks.com/tune-command-line-history-bash/
 #http://web.archive.org/web/20090815205011/http://www.cuberick.com/2008/11/update-bash-history-in-realtime.html
 #help history
@@ -101,14 +99,14 @@ shopt -s globstar  #nocaseglob
 #in interactive shell job control is active; disbale with 'set +m'
 #if set, and job control is not active, the shell runs the last command of a pipeline not executed in the background in the current shell environment.
 
-#history appending instead of overwriting  
+#history appending instead of overwriting
 #shopt -s histappend
 #same as if i'history -a' is set in COMMAND_PROMPT
 
 #history verificatioin before exec
 # 	Results of history substitution are not immediately
 #	passed to the shell parser (histverify)
-shopt -s histreedit cmdhist 
+shopt -s histreedit cmdhist
 #history cmd edition
 # 	User is given the opportunity to re-edit a
 #	failed history substitution (histreedit)
@@ -135,7 +133,7 @@ shopt -s autocd
 #bash won't get SIGWINCH if another process is in the foreground.
 #enable checkwinsize so that bash will check the terminal size when it regains control.
 #http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
-shopt -s checkwinsize 
+shopt -s checkwinsize
 
 #alias expansion
 #shopt -s expand_aliases
@@ -154,18 +152,15 @@ shopt -s checkwinsize
 #comand-not-found hook from pkgfile
 for f in \
 	~/.rc \
-	/usr/share/doc/pkgfile/command-not-found.bash \
-	~/bin/bitcoin.sh
-do
-	[[ -r "$f" ]] && . "$f"
+	/usr/share/doc/pkgfile/command-not-found.bash
+do [[ -r "$f" ]] && . "$f"
 done
 unset f
 
 #bash-completion
 f=/usr/share/bash-completion/bash_completion
 if [[ -n "$PS1" ]] && [[ -f "$f" ]]
-then
-	. "$f"
+then . "$f"
 fi
 unset f
 
@@ -173,7 +168,7 @@ unset f
 eval "$( thefuck --alias )"
 
 #https://github.com/scop/bash-completion
-#complete Cmd Names (-c and subsequent cmds) 
+#complete Cmd Names (-c and subsequent cmds)
 #complete file names ( -f )
 #complete -cf sudo
 #this complete built-in may interfere with bash-completions
@@ -202,15 +197,13 @@ alias d='dirs -v'
 #custom ls
 l()
 {
-	ls -hF --group-directories-first "${@}" |
-		cut -c1-22 |
-		column -c 80
+	ls -hF --group-directories-first "${@}" \
+		| cut -c1-22 | column -c 80
 }
 la()
 {
-	ls -ahF --group-directories-first "${@}" |
-		cut -c1-22 |
-		column -c 80
+	ls -ahF --group-directories-first "${@}" \
+		| cut -c1-22 | column -c 80
 }
 alias ll="ls++ --potsf"
 #https://unix.stackexchange.com/questions/112335/can-i-truncate-long-file-names-in-ls-listing/112341#112341
@@ -218,17 +211,12 @@ alias ll="ls++ --potsf"
 #cd and ls dir
 cl()
 {
-	local dir
-	dir="$*"
-	
+	local dir="$*"
 	# if no dir given, go home
-	if (( $# < 1 ))
-	then
-		dir="$HOME"
-	fi
-	builtin cd "$dir" &&
-		# use your preferred ls command
-		ls -F --color=auto
+	(($# < 1)) && dir="$HOME"
+
+	# use your preferred ls command
+	builtin cd "$dir" && ls -F --color=auto
 }
 #https://opensource.com/article/19/7/bash-aliases
 
@@ -238,26 +226,23 @@ alias bye=exit
 # Enable aliases to be sudo’ed
 #alias sudo='sudo '
 
-# "repeat" command.  Like:
-#
-#	repeat 10 echo foo
+#"repeat" command.  Like:
+#  repeat 10 echo foo
 repeat()
-{ 
-	local count i
-	count="$1"
+{
+	local i=  count="$1"
 	shift
 	for i in $(seq 1 "$count")
-	do
-        	eval "$@"
-    	done
+	do eval "$@"
+	done
 }
 
 # Subfunction needed by `repeat'.
 #seq ()
-#{ 
+#{
 # 	local lower upper output;
 # 	lower=$1 upper=$2;
-# 	
+#
 # 	if [ $lower -ge $upper ]; then return; fi
 # 	while [ $lower -le $upper ];
 # 	do

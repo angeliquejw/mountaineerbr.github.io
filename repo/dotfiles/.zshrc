@@ -1,11 +1,11 @@
 #
 # ~/.zshrc
 # 2021  by mountaineerbr
-#               __  ___                  
+#               __  ___
 # _______ ____ / /_/ _ |_    _____ ___ __
 #/ __/ _ `(_-</ __/ __ | |/|/ / _ `/ // /
-#\__/\_,_/___/\__/_/ |_|__,__/\_,_/\_, / 
-#                                 /___/  
+#\__/\_,_/___/\__/_/ |_|__,__/\_,_/\_, /
+#                                 /___/
 
 #tmux
 #this enables one command to be run when tmux exits.
@@ -43,7 +43,7 @@ grmlzsh()
 	local last="$(curl -s http://deb.grml.org/pool/main/g/grml-etc-core/ |
 		sed -e 's/</ </g; s/<[^>]*>//g' -ne '/tar.gz/p' |
 		sort -V | awk 'END {print $1}')"
-	
+
 	curl "http://deb.grml.org/pool/main/g/grml-etc-core/$last" |
 		tar --extract --wildcards -Ozf - '*/etc/zsh/zshrc'
 }
@@ -105,7 +105,7 @@ HISTSIZE=10000
 SAVEHIST=1000000
 
 #load zcalc
-autoload -Uz zcalc 
+autoload -Uz zcalc
 
 #load zargs
 autoload -U zargs
@@ -312,7 +312,7 @@ most_useless_use_of_zsh()
                 ((pnew=p*p-q*q+a, q=2*p*q+b, p=pnew))
             done
             ((colour=(i/4)%8))
-            echo -n "\\e[4${colour}m " 
+            echo -n "\\e[4${colour}m "
         done
         echo
     done
