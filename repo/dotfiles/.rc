@@ -15,7 +15,7 @@
 #get grmlzsh copy
 grmlzshrc() { curl https://raw.githubusercontent.com/grml/grml-etc-core/master/etc/zsh/zshrc ;}
 
-#sources
+#start sources
 for f in \
 	~/.apikeys \
 	~/bin/markets/mkt_func.sh
@@ -309,7 +309,7 @@ tablef()
 
 sedlinks()
 {
-	sed -nE "s|.*href=['\"]([^'\"]+)['\"].*|\1| gp"
+	sed 's|a>|\n|g' | sed -nE "s|.*href=['\"]([^'\"]+)['\"].*|\1| p"
 }
 
 #jq filters
