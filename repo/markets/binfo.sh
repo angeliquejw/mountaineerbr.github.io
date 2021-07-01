@@ -1,6 +1,6 @@
 #!/bin/bash
 # binfo.sh -- bitcoin blockchain explorer for bash
-# v0.9.19  jun/2021  by mountaineerbr
+# v0.9.20  jun/2021  by mountaineerbr
 
 #defaults
 
@@ -361,9 +361,9 @@ blkinfof() {
 		"TotFees: \(.total_fees_btc/100000000) BTC",
 		"",
 		"FeeVol% (TotFees/Revenue):",
-		"  \(((.total_fees_btc/100000000)/.miners_revenue_btc)*100) %",
+		"  \(((.total_fees_btc/100000000)/.miners_revenue_btc)*100 | tostring | .[0:5]) %",
 		"RevenueVol% (Revenue/EstVol):",
-		"  \((.miners_revenue_btc/(.estimated_btc_sent/100000000))*100) %",
+		"  \((.miners_revenue_btc/(.estimated_btc_sent/100000000))*100 | tostring | .[0:5]) %",
 		"",
 		"Market",
 		"Price__: \(.market_price_usd) USD",
@@ -372,7 +372,7 @@ blkinfof() {
 		"Next Retarget",
 		"@Height: \(.nextretarget)",
 		"Blocks_: -\(.nextretarget-.n_blocks_total)",
-		"Days___: -\( (.nextretarget-.n_blocks_total)*.minutes_between_blocks/(60*24))"' <<< "$CHAINJSON"
+		"Days___: -\((.nextretarget-.n_blocks_total)*.minutes_between_blocks/(60*24)| tostring | .[0:4])"' <<< "$CHAINJSON"
 
 	#some more stats
 	printf '\nMempool (unconfirmed txs)\n'
@@ -455,9 +455,9 @@ chairblkinfof() {
 			"Next Retarget",
 			"Date___: \(.next_retarget_time_estimate)UTC",
 			"EstDiff: \(.next_difficulty_estimate)",
-			"VarDiff: \(((.next_difficulty_estimate-.difficulty)/.difficulty)*100) %",
+			"VarDiff: \(((.next_difficulty_estimate-.difficulty)/.difficulty)*100| tostring | .[0:6]) %",
 			if .countdowns[0].event != null then "\nOther Events/Countdowns" else empty end,
-			(.countdowns[]|"Event__: \(.event//empty)","TimLeft: \(.time_left/86400) days")
+			(.countdowns[]|"Event__: \(.event//empty)","TimLeft: \(.time_left/86400| tostring | .[0:5]) days")
 		)' <<< "$CHAINJSON"
 }
 

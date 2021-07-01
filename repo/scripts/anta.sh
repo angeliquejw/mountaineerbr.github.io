@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.17.3  jun/2021  by mountaineerbr
+# v0.17.5  jun/2021  by mountaineerbr
 
 #padrões
 
@@ -271,7 +271,7 @@ AGENTS=('User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Tr
 #https://ascii.cl/htmlcodes.htm
 sedhtmlf() {
 	sed 	-e 's/<br[ \/]*>/&\n/g' \
-		-e 's/<[^>]*>//g ; s/\r//g ; s/\xc2\xa0/ /g ; s/&nbsp;/ /g ; s/&mdash;/--/g' \
+		-e 's/\r//g ; s/\xc2\xa0/ /g ; s/&nbsp;/ /g ; s/&mdash;/--/g' \
 		-e 's/&#32;/ /g ; s/&#33;/\!/g ; s/&#34;/\"/g ; s/&#35;/\#/g ; s/&#36;/$/g' \
 		-e 's/&#37;/%/g ; s/&#38;/\&/g' -e "s/&#39;/'/g" -e 's/&#40;/(/g ; s/&#41;/)/g' \
 		-e 's/&#42;/*/g ; s/&#43;/+/g ; s/&#44;/,/g ; s/&#45;/-/g ; s/&#46;/./g' \
@@ -285,15 +285,15 @@ sedhtmlf() {
 		-e 's/&#8220;/“/g ; s/&#8221;/”/g ; s/&#8222;/„/g ; s/&#8224;/†/g ; s/&#8225;/‡/g' \
 		-e 's/&#8226;/•/g ; s/&#8230;/…/g ; s/&#8240;/‰/g ; s/&#8364;/€/g ; s/&#8482;/™/g' \
 		-e 's/&#215;/x/g ; s/&#8243;/"/g ;s/\ \ */ /g ; s/\t\t*/\t/g' \
-		-e 's/^[\t\ ]*//g' -e 's/Leia mais:.*//' -e 's/^\s*LEIA AQUI.*//'
+		-e 's/^[\t\ ]*//g' -e 's/Leia mais:.*//' -e 's/^\s*LEIA AQUI.*//' \
+		-e '/</{ :loop ;s/<[^<]*>//g ;/</{ N ;b loop } }'
 }
 
 #get post (article) links
 getlinksf()
 {
-	grep -a -e 'id="post_[0-9]' \
-	| sed 's|a>|&\n|g' \
-	| sed -nE "s|.*href=['\"]([^'\"#]+)['\"!?&*.,; ].*(title\|h2).*|\1| p" \
+	sed -n "/id=['\"]post_[0-9]/ s|a>|&\n| gp" \
+	| sed -nE "/(title|h2)/ s|.*href=['\"]([^'\"#]+)['\"\t\s\ ].*|\1| p" \
 	| nl | sort -k2 | uniq -f 1 \
 	| sort -n | cut -f2
 }
@@ -646,10 +646,16 @@ linksf() {
 			#crawl each link
 			while read COMP
 			do
+				
+				if [[ "$COMP" = *'"'* ]]
+				then echo "internal err: getlinksf() -- $COMP" >&2 ;continue
 				#avoid duplicate articles links
-				[[ "${LINKSBUFFER[*]}" = *"$COMP"* ]] && continue
-				LINKSBUFFER+=( "$COMP" )
+				elif [[ "${LINKSBUFFER[*]}" = *"$COMP"* ]]
+				then continue
+				else LINKSBUFFER+=( "$COMP" )
+				fi
 
+				#get full article page
 				fulltf || { ret+=(1) ;continue ;}
 
 				#dont flood the server

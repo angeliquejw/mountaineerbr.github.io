@@ -3,10 +3,10 @@
 # shell functions
 # 2021  by mountaineerbr
 # https://github.com/mountaineerbr/dotfiles
-#                        __       _                  ___     
+#                        __       _                  ___
 #  __ _  ___  __ _____  / /____ _(_)__  ___ ___ ____/ _ )____
 # /  ' \/ _ \/ // / _ \/ __/ _ `/ / _ \/ -_) -_) __/ _  / __/
-#/_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /____/_/   
+#/_/_/_/\___/\_,_/_//_/\__/\_,_/_/_//_/\__/\__/_/ /____/_/
 
 # sourced by ~/.bashrc and ~/.zshrc
 
@@ -60,6 +60,12 @@ man()
 #https://misc.flogisoft.com/bash/tip_colors_and_formatting#colors2
 #https://bbs.archlinux.org/viewtopic.php?id=181414
 
+#the xhost program is used to add and delete host names or user names to
+#the list allowed to make connections to the X server. In the case of hosts,
+#this provides a rudimentary form of privacy control and security.
+xhost +local:root >/dev/null 2>&1
+#also check ~/.Xauthority
+
 # Color definitions (taken from Color Bash Prompt HowTo).
 # Some colors might look different of some terminals.
 # For example, I see 'Bold Red' as 'orange' on my screen,
@@ -82,12 +88,6 @@ ENDC=$NC
 #\\e[0;0;0m \\e[m'
 #\e \E \033
 #http://tldp.org/LDP/abs/html/sample-bashrc.html
-
-#the xhost program is used to add and delete host names or user names to
-#the list allowed to make connections to the X server. In the case of hosts,
-#this provides a rudimentary form of privacy control and security.
-xhost +local:root >/dev/null 2>&1
-#also check ~/.Xauthority
 
 #ex - archive extractor
 #usage: ex <file>
@@ -118,23 +118,34 @@ extract()
 }
 #also check 'unp' script
 
-# Creates an archive (*.tar.gz) from given directory.
-maketar()
-{
-	tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"
-}
-
-# Create a ZIP archive of a file or folder.
-makezip()
-{
-	zip -r "${1%%/}.zip" "$1"
-}
-
 # Make your directories and files access rights sane.
 sanitize()
 {
 	chmod -R u=rwX,g=rX,o= "$@"
 }
+
+#(un)archive and gpg file/dir
+gtar()
+{
+	local target="$1".tar.gpg
+	if [[ "$1" = *.gpg* ]]
+	then
+		#decrypt
+		gpgtar -d "$1"
+		#gpg -d "$1" | tar x
+	else
+		#encrypt
+		#gpgtar -eco "$target" "$@"
+		tar c --format pax -- "$@" | gpg -c -o "$target"
+	fi
+}
+#preferably, use gnu/gnutar/pax formats
+#(The pax format causes extended headers to be extracted as files by a few implementations)
+#https://www.baeldung.com/linux/encrypting-decrypting-directory
+#https://www.gnu.org/software/tar/manual/html_node/Standard.html
+#https://www.gnu.org/software/tar/manual/html_node/gnu.html#SEC145
+#https://mgorny.pl/articles/portability-of-tar-features.html
+#https://serverfault.com/questions/250511/which-tar-file-format-should-i-use
 
 #bigger font for terminal
 alias bigger='echo "setfont iso02-12x22" ;setfont iso02-12x2'
@@ -177,6 +188,34 @@ alias fgrep='fgrep --colour=auto'
 alias igrep='grep -i'
 #'agrep' for approximate search from the 'tre' pkg
 
+#ls, du, df output with commas
+#export BLOCK_SIZE="'1"
+
+#(grml's config has ls aliases)
+#l() { ls -hF --group-directories-first "$@" | cut -c1-22 | column -c 80 ;}
+#la() { ls -ahF --group-directories-first "$@" | cut -c1-22 | column -c 80 ;}
+alias ll='ls++ --potsf'
+#https://unix.stackexchange.com/questions/112335/can-i-truncate-long-file-names-in-ls-listing/112341#112341
+
+#alias l='ls -l'
+#alias ll='ls -l'
+#alias ls='ls -F'
+alias pl="printf '%s\n'"
+
+alias j='jobs -l'
+#alias pu=pushd
+#alias po=popd
+
+#print all /bin files
+lsb()
+{
+	if (($#))
+	then ls /bin | grep "$@"
+	else ls /bin
+	fi
+}
+
+
 #parent pid of given process
 ppid()
 {
@@ -217,18 +256,11 @@ alias ag='/usr/bin/ag --nofollow --hidden --smart-case'
 #usage: curl/wget --header "$UAG"
 #chrome on windows 10
 UAG='user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
-#firefox on windows 10
-UAG2='User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0'
-#chrome on linux
-UAG3='user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'
-#firefox on linux
-UAG4='User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0'
 #simple
-UAG5='user-agent: Mozilla/5.0 Gecko'
+UAG2='user-agent: Mozilla/5.0 Gecko'
 
 #ask for compressed data
 alias curl='curl --compressed'
-#alias wget="wget --header='Accept-Encoding: gzip'" # .. |gzip -dc
 
 #follow redirects, use the cookie engine and send a user agent header
 alias curlu='curl --compressed -sLb non-existing --header "$UAG"'
@@ -239,8 +271,8 @@ alias htmlfilter=hf
 alias hf='w3m -dump -T text/html'
 #{ lynx -force_html -stdin -dump -nolist ;}
 #{ elinks -dump ;}
-alias hf2="sed 's/<[^>]*>//g'"
-alias hf3="sed '/</{ :loop ;s/<[^<]*>//g ;/</{ N ;b loop } }'"
+alias hf2="sed '/</{ :loop ;s/<[^<]*>//g ;/</{ N ;b loop } }'"
+alias hf3="sed 's/<[^>]*>//g'"
 #https://www.thegeekstuff.com/2009/12/unix-sed-tutorial-6-examples-for-sed-branching-operation/
 
 
@@ -274,10 +306,8 @@ tablef()
 
 sedlinks()
 {
-	sed 's|>|&\n|g' | sed -nE "s|.*href=['\"]([^'\"]+)['\"].*|\1| p"
-	#sed -n 's/.*url="\([^"]*\)".*/\1/p'
+	sed -nE "s|.*href=['\"]([^'\"]+)['\"].*|\1| gp"
 }
-#sed -r 's/.*"(http.*)".*/\1/g'
 
 #jq filters
 #get all paths of a json
@@ -289,7 +319,7 @@ jqpath()
 		    + ($segment
 		       | if type == "string" then "." + . else "[\(.)]" end))
 		  + " = \($value | tos)";
-		
+
 		paths(scalars) as $p
 		  | getpath($p) as $v
 		  | $p | path2text($v)' "$@"
@@ -326,21 +356,15 @@ cssb()
 }
 #https://prefetch.net/blog/2017/12/02/formatting-css-from-the-linux-command-line/
 
-#try to beautify compact-styled css
-#only works in some specific cases
-#{ sed 's/[{};,]/&\n/g' | sed -E 's/([^\s])\{/\1 {/ ; s/:([^\s])/: \1/ ; s/^[^,}{]+$/\t&/' ;}
-
 #dump page with chromium/chrome
-chromedump()
+cdump()
 {
 	google-chrome-stable --headless --dump-dom "${@:?webpage address required}"
 }
-cdump()
+cdump2()
 {
 	chromium --headless --dump-dom "${@:?webpage address required}"
 }
-#--headless --disable-gpu --repl
-#on M$windows: --disable-gpu
 #https://developers.google.com/web/updates/2017/04/headless-chrome
 
 #headless chrome and chromium flags
@@ -356,48 +380,18 @@ cdump()
 #https://developer.mozilla.org/en-US/docs/Mozilla/Command_Line_Options
 #also see: wkhtmltopdf
 
-#feh automatically scale image to fit window 
+#feh automatically scale image to fit window
 alias feh='feh --scale-down --auto-zoom'
 #newsboat
 alias nb=newsboat
 alias nbrc='vim ~/.newsboat/urls'
 
 
-#commas in ls, du, df output
-#export BLOCK_SIZE="'1"
-
 #shell history
 h()
 {
 	[[ -n "$ZSH_VERSION" ]] && set -- "${1:-0}"
 	history "$@"
-}
-
-#custom ls
-#(grml's config has ls aliases)
-#l() { ls -hF --group-directories-first "$@" | cut -c1-22 | column -c 80 ;}
-#la() { ls -ahF --group-directories-first "$@" | cut -c1-22 | column -c 80 ;}
-alias ll='ls++ --potsf'
-#https://unix.stackexchange.com/questions/112335/can-i-truncate-long-file-names-in-ls-listing/112341#112341
-
-#alias l='ls -l'
-#alias ll='ls -l'
-#alias ls='ls -F'
-alias pl="printf '%s\n'"
-
-alias j='jobs -l'
-#alias pu=pushd
-#alias po=popd
-
-#print all /bin files
-lsb()
-{ 
-	if [[ -n "$*" ]]
-	then
-		ls /bin | grep "$@"
-	else
-		ls /bin
-	fi
 }
 
 #edit grub config
@@ -407,7 +401,7 @@ gconf()
 	echo "don't forget to update GRUB!" >&2
 }
 #grub update hook
-alias upgrub='sudo grub-mkconfig -o /boot/grub/grub.cfg' 
+alias upgrub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 #visudo
 alias visudo='sudo /usr/bin/visudo'
@@ -583,7 +577,7 @@ vswap()
 #vim pager
 les()
 {
-	vim -c 'runtime! macros/less.vim' "${@:--}"
+	vim -c 'runtime! macros/less.vim' "$@"
 }
 alias vless=les
 #https://github.com/isaacs/.vim/blob/master/macros/less.sh
@@ -700,7 +694,7 @@ gcom()
 
 #git push
 gpush()
-{ 
+{
 	git push origin "${1:-master}"
 }
 
@@ -790,7 +784,7 @@ thumblr()
 #
 
 #reset/refresh cloned repo
-gres() 
+gres()
 {
 	git fetch --all &&
 	git reset --hard "${1:-origin/master}"
@@ -856,7 +850,7 @@ grmob()
 #usage:  gd [USER] [REPO] [SUBREPO/PATH/]FILE
 #usage:  gd  grml  grml-etc-core  etc/zsh/zshrc
 #one positional parameter is read as FILE or a subrepo path to a FILE;
-#two args are read as REPO and FILE;  
+#two args are read as REPO and FILE;
 #three arguments give the full address to a git USER, REPO and FILE location.
 #must set def git user and repo
 gd()
@@ -887,17 +881,17 @@ gd()
 		echo -e '\a\ngd.func: copy sent to stderr' >&2
 	fi
 
-	#print url address	
+	#print url address
 	echo "$url" >&2
 }
 #"https://github.com/$1/$2/blob/master/${3}?raw=true"
 
 #check local hash sums of same-named local files
 #usage:  gk  [USER] [REPO] [SUBREPO/PATH/]FILE
-#usage:  gk  mountaineerbr dotfiles .bashrc 
+#usage:  gk  mountaineerbr dotfiles .bashrc
 #requires 'gd' function
 gk()
-{ 
+{
 	#check arg number
 	(( $# )) || return 1
 
@@ -908,7 +902,7 @@ gk()
 
 	#get filename from user input
 	file="${3:-${2:-$1}}"  file="${file%/}"  file=${file##*/}
-	
+
 	#use func gd() to download file from repo
 	gd "$@" |
 		if [[ -e "$file" ]]
@@ -933,7 +927,7 @@ gc()
 	[[ -n "$*" ]] || return
 
 	set -- "${@#/}" ;set -- "${@%/}"
-	((${#@} == 1)) && set -- '' "$1" 
+	((${#@} == 1)) && set -- '' "$1"
 	git clone "https://github.com/${1:-$defuser}/$2"
 
 	cd "$2" || return
@@ -962,8 +956,7 @@ alias ::Q=q
 
 #for compatibility between my shell configs
 if ! declare -f qq &>/dev/null
-then
-	qq() { q ;}
+then qq() { q ;}
 fi
 
 #start conkies
@@ -1128,9 +1121,7 @@ cx()
 #debug shell function
 setxv()
 {
-	set -xv
-	"$@"
-	set +xv
+	set -xv ;"$@" ;set +xv
 }
 
 #set combined sound sinks for my laptop
@@ -1146,8 +1137,7 @@ z()
 	#if file descriptor 1 is closed, do not print line numbers
 	[[ -t 1 ]] && local numopt='-n'
 
-	cat $numopt ~/arq/docs/zShellDocs/zshGuide/plainTxt/zShellGuideAll.man ||
-		curl 'https://raw.githubusercontent.com/mountaineerbr/extra/master/zShellDocs/zshGuide/plainTxt/zShellGuideAll.man'
+	cat $numopt ~/arq/docs/zShellDocs/zshGuide/plainTxt/zShellGuideAll.man
 }
 #also check the mailing list!
 #https://www.zsh.org/mla/users/
@@ -1155,8 +1145,6 @@ z()
 #http://zsh.sourceforge.net/Doc
 #latest Z-Shell pdf doc:
 #/usr/share/doc/zsh/zsh.pdf
-#html to txt: for i in *.html; do w3m $i > ./plainTxt/${i/.html}.txt; done
-#or try: sed -e 's/<[^>]*>//g' -e 's/&agrave;/à/g' -e 's/&amp;/\&/g' -e 's/&gt;/>/g' -e 's/&lt;/</g' -e 's/&nbsp;/ /g' -e 's/&ouml;/ö/g' -e 's/&pound;/£/g' -e 's/&uuml;/ü/g'
 
 #zshell mailing list
 zz()
@@ -1228,19 +1216,17 @@ paci()
 {
 	#check for arg
 	[[ -z "$*" ]] && return
-	
 	{
-		printf "[online mirror]\n"
+		echo "[online mirror]"
 		pacman -Si "$@"
-		printf "[local cache]\n"
+		echo "[local cache]"
 		pacman -Qi "$@"
-	} 2>/dev/null | 
- 		cat -n | sort -k2 | uniq -f 1 | sort -n | cut -f2
+	} | cat -n | sort -k2 | uniq -f 1 | sort -n | cut -f2
 		#perl -ne 'print unless $seen{$_}++'
 		#awk '!seen[$0]++'  ##seen is merely a var
  		#nl | sort -k2 -u | sort -n | cut -f2
 		#zshell: print -l "${(fu)$( <infile.txt )}"
-}
+} 2>/dev/null
 
 alias unseen="perl -ne 'print unless \$seen{\$_}++'"
 
@@ -1248,34 +1234,29 @@ alias unseen="perl -ne 'print unless \$seen{\$_}++'"
 pls()
 {
 	[[ -n "$1" ]] || return
-	
-	#remove error messages
-	{
-		printf '%s\n' /var/lib/pacman/local/"$1"*
+	printf '%s\n' /var/lib/pacman/local/"$1"*
 
-		tac /var/lib/pacman/local/"$1"[0-9-]*/files ||
-			tac /var/lib/pacman/local/"$1"*/files ||
-			pacman -Ql "$1" ||
-			{ pacman -F "$1" ;ls /bin/*"$1"* ;}
-	} 2>/dev/null
-}
+	tac /var/lib/pacman/local/"$1"[0-9-]*/files \
+	|| tac /var/lib/pacman/local/"$1"*/files \
+	|| pacman -Ql "$1" \
+	|| { pacman -F "$1" ;ls /bin/*"$1"* ;}
+} 2>/dev/null
 
 #pkg update count
 puc()
 {
 	printf "Package Update Counts\n"
 
-	grep upgraded /var/log/pacman.log |
-		awk -F ' ' '{print $5}' |
-		sort | uniq -c | sort -nr
+	grep upgraded /var/log/pacman.log \
+	| awk -F ' ' '{print $5}' \
+	| sort | uniq -c | sort -nr
 }
 
 #get a mirrorlist (arch linux)
 mlist()
 {
 	if (( ${#1} != 2 ))
-	then
-		curl https://www.archlinux.org/mirrorlist/all/
+	then curl https://www.archlinux.org/mirrorlist/all/
 	else
 		set -- $( tr '[:lower:]' '[:upper:]' <<< "$1" )
 		curl "https://www.archlinux.org/mirrorlist/?country=$1&protocol=http&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on"
@@ -1286,17 +1267,15 @@ mlist()
 #usage: mstatus [PATTERN|json]
 #PATTERN may be a country, e.g. Brazil
 mstatus()
-{ 
+{
+	#get json?
 	if [[ "$1" = json ]]
-	then
-		#get json
-		curl https://www.archlinux.org/mirrors/status/json/
+	then curl https://www.archlinux.org/mirrors/status/json/
 	else
 		w3m -dump https://www.archlinux.org/mirrors/status/ |
 			if [[ -z "$1" ]]
 			then cat
-			else grep --no-group-separator -Ei -e "$1" \
-				-e '^\s*(Successfully Syncing Mirrors|Out of Sync Mirrors|Mirror Syncing Error Log|Completion μ Delay|Mirror URL|\(s\)\s*\(s\)|hours|Last\s*Occurrences).*'
+			else grep --no-group-separator -Ei -e "$1" -e '^\s*(Successfully Syncing Mirrors|Out of Sync Mirrors|Mirror Syncing Error Log|Completion μ Delay|Mirror URL|\(s\)\s*\(s\)|hours|Last\s*Occurrences).*'
 			fi
 	fi
 }
@@ -1319,7 +1298,6 @@ mping()
 			printf '%s\t%s\n----\n' "$p" "$REPLY"
 		done | sort -Vru
 }
-#zsh: 2>/dev/stderr >&1 >&2
 
 #yay -- aur
 #search in oficial repos and aur
@@ -1397,8 +1375,8 @@ debian2()
 		for r in main contrib non-free
 		do
 			printf '%s in %s\n' "$v" "$r" | tr a-z A-Z >&2
-			curl -Ls "http://ftp.br.debian.org/debian/dists/${v}/${r}/source/Sources.xz" |
-				unxz | grep Package:
+			curl -Ls "http://ftp.br.debian.org/debian/dists/${v}/${r}/source/Sources.xz" \
+				| unxz | grep Package:
 		done
 	done
 }
@@ -1441,8 +1419,8 @@ ubuntu()
 		for r in main multiverse restricted universe
 		do
 			echo "$v $vv in $r" | tr a-z A-Z >&2
-			curl -Ls "http://archive.ubuntu.com/ubuntu/dists/${v}/${r}/source/Sources.gz" |
-				gzip -dc | grep -F Package:
+			curl -Ls "http://archive.ubuntu.com/ubuntu/dists/${v}/${r}/source/Sources.gz" \
+				| gzip -dc | grep -F Package:
 		done
 	done
 }
@@ -1450,12 +1428,12 @@ ubuntu()
 #ubuntu -- search a package in ubuntu repos
 ubuntu2()
 {
-	curl -sL "http://packages.ubuntu.com/${1:?pkg name required}" | sed -e 's/<[^>]*>//g'  -Ee 's/^(\s|\t)+//g' | 
-		sed -n '/You have searched for/,/This page is also/p' |
-		sed -E ':a; N; $!ba; :b; s/([^\n])\n\n([^\n])/\1\n\2/g; tb' |
-		sed -e ':a;N;s/\n\(.\)/ \1/;ta' |
-		sed -e '/^\s*$/d' -e 's/^\s*//g' -e 's/^Package\s/\n&/g' | cat <(echo) - |
-		tac -rs '^$'
+	curl -sL "http://packages.ubuntu.com/${1:?pkg name required}" | sed -e 's/<[^>]*>//g'  -Ee 's/^(\s|\t)+//g' \
+		| sed -n '/You have searched for/,/This page is also/p' \
+		| sed -E ':a; N; $!ba; :b; s/([^\n])\n\n([^\n])/\1\n\2/g; tb' \
+		| sed -e ':a;N;s/\n\(.\)/ \1/;ta' \
+		| sed -e '/^\s*$/d' -e 's/^\s*//g' -e 's/^Package\s/\n&/g' \
+		| cat <(echo) - | tac -rs '^$'
 }
 #w3m "http://packages.ubuntu.com/$1" -dump | sed -n '/^Package/,$p' | tac
 
@@ -1464,9 +1442,9 @@ freebsd()
 {
 	echo 'List of all ports' >&2
 
-	curl -sL 'http://www.cz.freebsd.org/ports/master-index.html' |
-		sed -n '/<p>/,$p' | sed -e 's/<[^>]*>//g' |
-		grep -oe '^[[:alnum:]].*' -e 'Last modified.*'
+	curl -sL 'http://www.cz.freebsd.org/ports/master-index.html' \
+		| sed -n '/<p>/,$p' | sed -e 's/<[^>]*>//g' \
+		| grep -oe '^[[:alnum:]].*' -e 'Last modified.*'
 }
 ##mirrors
 #https://www.freebsd.org/doc/handbook/mirrors-ftp.html
@@ -1485,9 +1463,7 @@ freebsd2()
 #gentoo pkg list from mirror
 gentoo()
 {
-	echo 'List of all packages' >&2
-	echo 'Downloading..' >&2
-
+	echo -e 'List of all packages\nDownloading..' >&2
 	curl -Ls 'https://mirrors.evowise.com/gentoo/distfiles/' | sed 's/<[^>]*>//g'
 }
 #https://mirrors.lug.mtu.edu/gentoo/distfiles/
@@ -1495,40 +1471,38 @@ gentoo()
 #gentoo pkg list from search engine
 gentoo2()
 {
-	curl -Ls --compressed "https://packages.gentoo.org/packages/search?q=${1:?pkg name required}" |
-		sed -e 's/<[^>]*>//g' -e 's/^\s*//g' |
-		sed -n '/^Results/,/^Next/p' | cat -s
+	curl -Ls --compressed "https://packages.gentoo.org/packages/search?q=${1:?pkg name required}" \
+		| sed -e 's/<[^>]*>//g' -e 's/^\s*//g' \
+		| sed -n '/^Results/,/^Next/p' | cat -s
 }
 
 #linux mint
 mint()
 {
 	echo 'List of all packages' >&2
-	curl --compressed -Lo - http://mirrors.evowise.com/linuxmint/packages/db/packages.db |  #about 78MB
-		tr -cd '\11\12\15\40-\176'  #remove binary chars
+	curl --compressed -Lo - http://mirrors.evowise.com/linuxmint/packages/db/packages.db \
+		| tr -cd '\11\12\15\40-\176'  #remove binary chars
 }
 #https://www.linuxmint.com/mirrors.php
 
 mint2()
 {
-	w3m -dump "http://packages.linuxmint.com/search.php?release=any&section=any&keyword=${1:?pkg name required}" | 
-		tac
+	w3m -dump "http://packages.linuxmint.com/search.php?release=any&section=any&keyword=${1:?pkg name required}" \
+		| tac
 }
 
 #fedora
 fedora()
 {
 	local ver index
-
 	echo 'List of (almost) all packages' >&2
 	for ver in 33
 	do
 		for index in {a..z} {0..9}
 		do
-			curl --compressed -sL "http://fedora.c3sl.ufpr.br/linux/releases/$ver/Everything/aarch64/os/Packages/$index" |
-				sed -e 's/</\t&/g; s/<[^>]*>//g' -e 's/^[\s\t]*//; s/\t\+/\t/g; s/&nbsp;//' | cat -s
+			curl --compressed -sL "http://fedora.c3sl.ufpr.br/linux/releases/$ver/Everything/aarch64/os/Packages/$index" \
+				| sed -e 's/</\t&/g; s/<[^>]*>//g' -e 's/^[\s\t]*//; s/\t\+/\t/g; s/&nbsp;//' | cat -s
 		done
-		
 		echo "Packages above from Fedora $ver repos" >&2
 	done
 }
@@ -1536,9 +1510,8 @@ fedora()
 
 fedora2()
 {
-	curl -Ls "https://apps.fedoraproject.org/packages/fcomm_connector/xapian/query/search_packages/%7B%22filters%22:%7B%22search%22:%22${1:?pkg name required}%22%7D,%22rows_per_page%22:100,%22start_row%22:0%7D" |
-		jq -r '.rows[].name' | tac
-
+	curl -Ls "https://apps.fedoraproject.org/packages/fcomm_connector/xapian/query/search_packages/%7B%22filters%22:%7B%22search%22:%22${1:?pkg name required}%22%7D,%22rows_per_page%22:100,%22start_row%22:0%7D" \
+		| jq -r '.rows[].name' | tac
 	echo 'Top results'
 }
 
@@ -1559,7 +1532,7 @@ alldist()
 #usage: freeopt 'grep'  #beware grep option -NUM exists!
 freeopt()
 {
-		sort <(man "$1" |& grep -oE -e '-[0-9],\s?' | tr -d ', -') <(printf '%s\n' {0..9}) | uniq -u
+	sort <(man "$1" |& grep -oE -e '-[0-9],\s?' | tr -d ', -') <(printf '%s\n' {0..9}) | uniq -u
 	sort <(man "$1" |& grep -oE -e '-[a-z],?\s' | tr -d ', -') <(printf '%s\n' {a..z}) | uniq -u
 	sort <(man "$1" |& grep -oE -e '-[A-Z],?\s' | tr -d ', -') <(printf '%s\n' {A..Z}) | uniq -u
 }
@@ -1579,16 +1552,12 @@ cloudflare()
 #usage: hy '^dog'
 hy()
 {
-	local dic tcol expression
+	local dic diclist tcol expression
 	expression="$*"
-
 	#local copy
 	dic="$HOME/arq/docs/MobyHyphenatorII/mhyph.txt"
-	#http://www.gutenberg.org/files/3204/files/mhyph.txt
-
 	#process raw dictionary
 	diclist="$(paste "$dic" <(tr '¥' '-' <"$dic") | tr -dc '[:print:]\n\s\t' | sed 's/--/-/g')"
-
 	#set columns for interactive pretty print
 	[[ -t 1 ]] && tcol='-TWORD,HYPHENED'
 
@@ -1599,28 +1568,29 @@ hy()
 		grep -iE "$expression" <<<"$diclist"
 	} | column -et -s$'\t' -NWORD,HYPHENED $tcol
 }
+#http://www.gutenberg.org/files/3204/files/mhyph.txt
 #also: http://www.gutenberg.org/ebooks/3204
 #https://raw.githubusercontent.com/mountaineerbr/dotfiles/master/mhyphMobyHyphenatorII.txt
 
 #from the internet
 hy2()
 {
-	curl -s "http://www.syllablecount.com/syllables/$1" |
-		sed 's/<[^>]*>//g' | sed -n '/^\s*Divide/ s/^.*:\s//p'
+	curl -s "http://www.syllablecount.com/syllables/$1" \
+		| sed 's/<[^>]*>//g' | sed -n '/^\s*Divide/ s/^.*:\s//p'
 }
 
 hy3()
 {
-	w3m "https://www.howmanysyllables.com/words/$1" |
-		sed -n '/^\s*Divide/ s/^.*:\s*//p'
+	w3m "https://www.howmanysyllables.com/words/$1" \
+		| sed -n '/^\s*Divide/ s/^.*:\s*//p'
 }
 
 #hyphenation with python2
 #does not check for orthography
-#the liang algorithm does not provide all possible hyphenation points. 
+#the liang algorithm does not provide all possible hyphenation points.
 #it merely tries to provide some of them, without providing any wrong ones.
 #so the set of breaks from hyphenate.py will be a subset of the full set
-#of break points. 
+#of break points.
 hy4()
 {
 	python2 ~/bin/more/hyphenate.py "$1"
@@ -1633,25 +1603,24 @@ hy4()
 #installed from oficial repos mythes-en
 th()
 {
-	sed -n "/^${1:-.*}|/,/^[a-z.]/ p" /usr/share/mythes/th_en_US_v2.dat |
-		sed -Ee 's/^([a-z.].*)\|([0-9]+)/\1  \[\2\]/' \
-		-e 's/^\(([^\)]+)\)\|(.*)/>>\1 -- \2/ ; s/\|/, /g' |
-		sed \$d
+	sed -n "/^${1:-.*}|/,/^[a-z.]/ p" /usr/share/mythes/th_en_US_v2.dat \
+		| sed -Ee 's/^([a-z.].*)\|([0-9]+)/\1  \[\2\]/' -e 's/^\(([^\)]+)\)\|(.*)/>>\1 -- \2/ ; s/\|/, /g' \
+		| sed \$d
 }
 
 #online sources
 th2()
 {
-	w3m "https://www.lexico.com/synonym/$1" |
- 		sed -En '/^(Home)/,/^\[/p' |
-		sed -E '/^Home/,/^(See|No exact)/d' |
-		sed -E '/^Word of the day/,$d' |
-		sed '$d; s/^\s*//' | cat -s | sed \$d
+	w3m "https://www.lexico.com/synonym/$1" \
+		| sed -En '/^(Home)/,/^\[/p' \
+		| sed -E '/^Home/,/^(See|No exact)/d' \
+		| sed -E '/^Word of the day/,$d' \
+		| sed '$d; s/^\s*//' | cat -s | sed \$d
 }
 th3()
 {
-	w3m "https://www.thesaurus.com/browse/$1" |
-		sed -n "/^\[/,/^Roget's/p" | tac
+	w3m "https://www.thesaurus.com/browse/$1" \
+		| sed -n "/^\[/,/^Roget's/p" | tac
 }
 
 #dicionário de sinônimos
@@ -1660,19 +1629,15 @@ sin()
 {
 	local dic
 	dic="$HOME/arq/docs/dicionarioSinonimos_th_pt_BR.dat"
-	
+
 	if [[ -f "$dic" ]]
-	then
-		cat "$dic"
+	then cat "$dic"
 	else
-		curl -Lo- "https://downloads.sourceforge.net/project/aoo-extensions/\
-6212/0/dicsin-br.oxt?r=extensions.openoffice.org&ts=$( date +%s )&use_mirror=ufpr" |
-			bsdtar -xf - -O "*th_pt_BR.dat"
-	fi |  #pipe para processamento..
-		sed -n "/^${1:-.*}|/,/^\s*$/ p" | 
-		sed -Ee 's/^([a-z.].*)\|([0-9]+)/\1  \[\2\]/' \
-		-e 's/^\(([^\)]+)\)(.*)/>>\1 -- \2/; s/\|/, /g' |
-		sed \$d
+		curl -Lo- "https://downloads.sourceforge.net/project/aoo-extensions/6212/0/dicsin-br.oxt?r=extensions.openoffice.org&ts=$( date +%s )&use_mirror=ufpr" \
+			| bsdtar -xf - -O "*th_pt_BR.dat"
+	fi | sed -n "/^${1:-.*}|/,/^\s*$/ p" \
+		| sed -Ee 's/^([a-z.].*)\|([0-9]+)/\1  \[\2\]/' -e 's/^\(([^\)]+)\)(.*)/>>\1 -- \2/; s/\|/, /g' \
+		| sed \$d
 }
 #extensão do OpenOffice
 #https://extensions.openoffice.org/en/node/6213
@@ -1729,21 +1694,17 @@ convertsecs()
 #units - list units from default file
 unitsl()
 {
-	cat "$( units -U )"
+	cat "$(units -U)"
 }
 
 #utc time
 utc()
-{
-	#subshell
-	(
+(
 	TZ=UTC date -d@"$(curl -sL 'https://api.binance.com/api/v3/time' | grep -oE '[0-9]{10}')" &
-
 	curl -sL 'http://worldtimeapi.org/api/timezone/Etc/GMT.txt' | awk -F': ' '/utc_datetime: /{print $2}'
-
 	wait
-	)
-}
+)
+
 #http://technostuff.blogspot.com/2008/10/some-useful-socat-commands.html
 
 #New York EST ET time
@@ -1757,52 +1718,44 @@ est()
 
 #city names
 tz()
-{ 
-	curl -sL 'https://www.zeitverschiebung.net/en/all-time-zones.html' |
-	sed -e 's/<strong>/\n&/g' -e 's/Time Difference<\/h4>.*//g' -e 's/<[^>]*>//g' |
-	sed -Ee 's/\s\s*/ /g' -e 's/\s*$//g' -e '/(\{\s*var|analytics)/ d'
+{
+	curl -sL 'https://www.zeitverschiebung.net/en/all-time-zones.html' \
+		| sed -e 's/<strong>/\n&/g' -e 's/Time Difference<\/h4>.*//g' -e 's/<[^>]*>//g' \
+		| sed -Ee 's/\s\s*/ /g' -e 's/\s*$//g' -e '/(\{\s*var|analytics)/ d'
 }
 
 #city names
 tz2()
-{ 
-	curl -sL 'https://www.timeanddate.com/worldclock/full.html' |
-		sed -n '/Around the World/p' |
-		sed -Ee 's/([0-9])(<\/td>)/\1\n\2/g'  -e 's/<\/a>/  &/g' -e 's/<[^>]*>//g'
+{
+	curl -sL 'https://www.timeanddate.com/worldclock/full.html' \
+		| sed -n '/Around the World/p' \
+		| sed -Ee 's/([0-9])(<\/td>)/\1\n\2/g'  -e 's/<\/a>/  &/g' -e 's/<[^>]*>//g'
 }
-#sed -e 1d -e '$d' | column -ts$'\t' -NCAPITAL,TIME -TCAPITAL
 
 #city names
 tz3()
-{ 
-	curl -sL "https://www.worldtimeserver.com/worldclock.aspx" |
-		grep -A1 '?city=[^"]' | grep -v '^--' | 
-		sed -e 's/<[^>]*>//g' -e 's/\r//g' | sed -e 'N;s/\n/ /' -e 's/^\s*//'
-}
-
-#time zone abbreviations – worldwide list
-tz4()
 {
-	curl -s 'https://raw.githubusercontent.com/mountaineerbr/extra/master/timezones.txt'
+	curl -sL "https://www.worldtimeserver.com/worldclock.aspx" \
+		| grep -A1 '?city=[^"]' | grep -v '^--' \
+		| sed -e 's/<[^>]*>//g' -e 's/\r//g' | sed -e 'N;s/\n/ /' -e 's/^\s*//'
 }
-#https://www.timeanddate.com/time/zones/
 
 #wikipedia timezone abbreviations
-tz5() 
-{ 
-	curl -sL "https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations" | 
-		grep -A1 '</a></td>' | grep -v '^--' | 
-		sed -e 's/<[^>]*>//g' | sed -e 'N;s/\n/  /'
+tz4()
+{
+	curl -sL "https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations" \
+		| grep -A1 '</a></td>' | grep -v '^--' \
+		| sed -e 's/<[^>]*>//g' | sed -e 'N;s/\n/  /'
 }
 
 #systemd tzs
-tz6()
+tz5()
 {
 	timedatectl list-timezones | cat
 }
 
 #system tzs
-tz7()
+tz6()
 {
 	ls /usr/share/zoneinfo*/*
 }
@@ -1810,12 +1763,12 @@ tz7()
 #all timezone functions
 #use with grep
 tza()
-{
-	(
-	tz & tz2 & tz3 & tz4 & tz5 & tz6 & tz7
+(
+	tz & tz2 & tz3 & tz4 & tz5 & tz6
 	wait
-	)
-}
+)
+
+#also: https://www.timeanddate.com/time/zones/
 
 #geonames.org provides a data dump (by country) of all known cities and their Olson timezone.
 #Hands down the best way to do it. download.geonames.org/export/dump
@@ -1908,7 +1861,7 @@ gene()
 	for gencode
 	do
 		curl --compressed -sL "https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?report=fasta&id=$gencode"
-		ret=$((ret+$?))  #sum exit codes
+		ret=$((ret+$?))
 	done
 	return $ret
 }
@@ -2004,21 +1957,21 @@ GCUSER="$HOME/.config/google-chrome/Default/History"
 TEMPFILE="$HOME/Downloads/urls.sqlite"
 
 #firefox -- all urls (history, etc)
-faurls() { 
+faurls() {
 	/bin/cp "$FFUSER" "$TEMPFILE" <<< y || return
 	sqlite3 "$TEMPFILE" <<< 'select url from moz_places where 1;'
 	/bin/rm "$TEMPFILE"
 }
 
 #firefox -- bookmarks
-fburls() { 
+fburls() {
 	/bin/cp "$FFUSER" "$TEMPFILE" <<< y || return
 	sqlite3 "$TEMPFILE" <<< 'select url from moz_bookmarks, moz_places where moz_places.id=moz_bookmarks.fk;'
 	/bin/rm "$TEMPFILE"
 }
 
 #chrome -- all urls (history, etc)
-caurls() { 
+caurls() {
 	/bin/cp "$GCUSER" "$TEMPFILE" <<< y || return
 	sqlite3 "$TEMPFILE" <<< 'select url from urls where 1;'
 	/bin/rm "$TEMPFILE"
@@ -2097,7 +2050,7 @@ gsitemap()
 #{
 #    type nvs; sudo optirun nvidia-settings -c :8 &
 #}
-#{ 
+#{
 #    type pff; primusrun firefox &
 #}
 #{ optirun -b none nvidia-settings -c :8 ;}
@@ -2108,10 +2061,7 @@ gsitemap()
 
 #weather forecast
 #requires the script 'ansiweather'
-wf()
-{
-	ansiweather -l "$*"
-}
+alias wf='ansiweather -l'
 
 #google weather forecast
 wf2()
@@ -2130,26 +2080,24 @@ wf2()
 
 #Meteorologisk institutt Norway (2.0 api)
 #usage: wf3 [CITY NAME|[LAT] [LON]] [METERS_FROM_SEA_LEVEL]
-#usage: wf3 -23.5506507 -46.6333824 
+#usage: wf3 -23.5506507 -46.6333824
 wf3()
 {
 	local arg data location meters n
 	[[ -z "${*// }" ]] && set -- São Paulo
-	
-	#use location name function if 
+
+	#use location name function if
 	for arg in "$@"
 	do [[ "$arg" = *[a-zA-Z]* ]] && location="$location $arg"  n=$((n+1)) || break
 	done
 	if [[ -n "$location" ]] && location="$( _wf3helperf "${location% }" )"
-	then
-		shift -- $n
-		set -- "$location" "${@:1}"
+	then shift -- $n ;set -- "$location" "${@:1}"
 	fi
 
 	#set parameters, split at commas
 	set -- $(tr , \  <<<"$*")
 	[[ "$3" =~ ^[0-9]+$ ]] && meters="&altitude=$3"
-	
+
 	echo >&2
 	#get data
 	data="$(curl --compressed -L -X GET --header 'Accept: application/json' "https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=$1&lon=$2${meters}")"
@@ -2185,15 +2133,12 @@ sunrise()
 {
 	local arg lat lon date days height offset location n
 
-	#use location name function if 
+	#use location name function if
 	for arg in "$@"
 	do [[ "$arg" != *[0-9]* ]] && location="$location $arg"  n=$((n+1)) || break
 	done
-	if [[ -n "$location" ]] &&
-		location="$( _wf3helperf "${location% }" )"
-	then
-		shift -- $n
-		set -- "$location" "${@:1}"
+	if [[ -n "$location" ]] && location="$( _wf3helperf "${location% }" )"
+	then shift -- $n ;set -- "$location" "${@:1}"
 	fi
 
 	#set parameters
@@ -2204,8 +2149,8 @@ sunrise()
 	[[ -n "$5" ]] && height="&height=$5"
 	offset="${6:-$( date +%Z:00 )}"
 
-	curl -L "https://api.met.no/weatherapi/sunrise/2.0/.json?lat=$lat&lon=$lon&date=$date$days$height&offset=$offset" |
-		jq
+	curl -L "https://api.met.no/weatherapi/sunrise/2.0/.json?lat=$lat&lon=$lon&date=$date$days$height&offset=$offset" \
+		| jq
 }
 
 #weather forecast (previsão do tempo)
@@ -2552,7 +2497,7 @@ joke()
 {
 	local NAME LASTN NAMEF
 	#NAME=John; LASTN=Doe; NAMEF="?firstName=${NAME}&lastName=${LASTN}"
-	
+
 	if [[ "$*" = *id* ]]
 	then set -- ${@//id/} ;curl -s "http://api.icndb.com/jokes/$*$NAMEF"
 	else curl -s "http://api.icndb.com/jokes/random/$1$NAMEF"
@@ -2622,7 +2567,7 @@ pages2txt()
 #simple download
 #usage:  yt ["dest_dir"] [urls..]
 yt()
-{ 
+{
 	#test if last arg is a directory
 	[[ -d "${@: -1}" ]] && set -- "${@: -1}" "${@:1:${#@}-1}"
 	[[ -d "$1" ]] || set -- "$HOME/Downloads/" "$@"
@@ -2717,7 +2662,7 @@ alias c='noglob bcalc.sh'
 #Doing Floating-point Arithmetic in Bash
 #A noteworthy but unconventional way to do floating-point arithmetic
 #in native bash is to combine Arithmetic Expansion with printf
-#using the scientific notation. 
+#using the scientific notation.
 #In order to get the floating number using printf you
 #printf %.<precision>f "$((10**<multiplier> * <expression>))e-<multiplier>
 #printf %.3f "$((10**3 * 2/3))e-3"
@@ -2838,7 +2783,7 @@ rmaccent()
 
 #translte special chars (ex: "\xe7") to utf-8
 #{ iconv -f iso-8859-1 -t utf-8 ;}
-#remove accents and 
+#remove accents and
 #{ iconv -f utf-8 -t ascii//translit ;}
 
 #remove printed text from screen
@@ -2858,7 +2803,7 @@ loss()
 
 	#check for invalid notations
 	if [[ "$u" = *[a-zA-Z]* || "$u" != *[0-9]* || ! "${u/[,.-]*}" =~ ^.?.?$ ]]
-	then echo -e 'err\nusage: loss [+-]NUM[%] [SCALE]' >&2 ;return 1 
+	then echo -e 'err\nusage: loss [+-]NUM[%] [SCALE]' >&2 ;return 1
 	fi
 
 	#use zshell maths or bash bc?
@@ -2950,7 +2895,7 @@ gqr()
 	local size type string
 	size=250x250 type=qr
 	string="$*"  #"${*// /%20}"
-	
+
 	wget -O "$type".png "https://chart.googleapis.com/chart?chs=${size}&cht=${type}&chl=${string}"
 }
 
@@ -3061,7 +3006,7 @@ xtfs()
 	then echo -e "\e]50;-xos4-terminus-medium-r-*--${1}-*-*-*-*-*-*-*\a"
 	else echo -e "\e]50;${1}\a"
 	fi
-	
+
 	xlsfonts | grep xos4 | grep medium
 }
 #also 'resize -s' for xterm
@@ -3174,15 +3119,9 @@ bbon()
 #https://github.com/Bumblebee-Project/bbswitch
 
 #edit test script
-et()
-{
-	vim ~/bin/test.sh
-}
+alias et='vim ~/bin/test.sh'
 #run test script
-t()
-{
-	~/bin/test.sh "$@"
-}
+alias t='~/bin/test.sh'
 
 #script aliases
 alias openx='~/bin/markets/openx.sh'
@@ -3198,15 +3137,8 @@ alias m='~/bin/markets/metais.sh'
 alias p='~/bin/markets/parmetal.sh'
 alias anta='~/bin/anta.sh'
 
-#oantagonista news
-a()
-{
-	anta.sh -f"${1:-1}" | less
-}
-
 #imgur
 alias imgur=imgur.sh
-
 
 #spell
 #note: prefer aspell to hunspell (both are OK)
@@ -3246,7 +3178,7 @@ alias cointop='cointop --hide-chart'
 #alias T=tradingview.sh
 #novadax roll
 novadr()
-{ 
+{
 	while true
 	do
 		novad.sh -2 | xargs -n1 printf '\n%.2f'
@@ -3259,8 +3191,7 @@ for f in \
 	~/.apikeys \
 	~/bin/markets/mkt_func.sh \
 	~/bin/corona_func.sh
-do
-	[[ -r "$f" ]] && . "$f"
+do [[ -r "$f" ]] && . "$f"
 done
 unset f
 
@@ -3315,7 +3246,7 @@ percentagef()
 wpop()
 {
 	[[ -n "$1" ]] && local country="$1-population/"
-	
+
 	if [[ "$1" = world ]] || [[ "$1" = all ]]
 	then
 		curl -s 'https://www.worldometers.info/geography/countries-of-the-world/' |
@@ -3328,7 +3259,7 @@ wpop()
 			sed -Ee 's/([A-Za-z])\s+([A-Za-z])/\1\2/' |
 			awk -F' ' '$4 > 50 { print $2" "$4}'
 	fi
-	
+
 	echo "${1:-world historical}" >&2
 }
 #https://www.worldometers.info/world-population/
@@ -3337,10 +3268,10 @@ wpop()
 warea()
 {
 	local cutcols=-c1-25,35-
-	
-	w3m -dump -cols 100 'https://www.worldometers.info/geography/largest-countries-in-the-world/' |
-		tee >( grep '^\s*#' | cut $cutcols >&2 ) |
-		sed -n '/List of countries/,/^\[INS/p' | sed '$d' | tac | cut $cutcols
+
+	w3m -dump -cols 100 'https://www.worldometers.info/geography/largest-countries-in-the-world/' \
+		| tee >( grep '^\s*#' | cut $cutcols >&2 ) \
+		| sed -n '/List of countries/,/^\[INS/p' | sed '$d' | tac | cut $cutcols
 }
 
 
@@ -3352,9 +3283,9 @@ localidade()
 
 	args="$( tr A-Z a-z <<< "$*" )"
 	data="$(curl --compressed 'https://servicodados.ibge.gov.br/api/v1/localidades/distritos')"
-	
-	jq -er '.. | select( .nome? | ascii_downcase == "'$args'")' <<<"$data" ||
-		jq -r . <<<"$data"
+
+	jq -er '.. | select( .nome? | ascii_downcase == "'$args'")' <<<"$data" \
+		|| jq -r . <<<"$data"
 }
 #https://servicodados.ibge.gov.br/api/docs/localidades
 
@@ -3379,13 +3310,14 @@ nomef()
 	then
 		json="$( curl -s 'https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking' )"
 		jq -r '.[]|"Localidade: \(.localidade)"' <<<"$json"
-		jq -r '.[]|.res[]|"\(.nome)\t\(.frequencia)\t\(.ranking)"' <<<"$json" | column -et -NNOME,FREQ,RNK
+		jq -r '.[]|.res[]|"\(.nome)\t\(.frequencia)\t\(.ranking)"' <<<"$json" \
+			| column -et -NNOME,FREQ,RNK
 	else
 		set -- "$( tr A-Z a-z <<< "$1" )"
 		json="$(curl -s "https://servicodados.ibge.gov.br/api/v2/censos/nomes/$1")"
 		jq -r '.[]|"Local: \(.localidade)","Nome_: \(.nome)"' <<<"$json"
-		jq -r '.[].res[]|"\(.periodo)\t\(.frequencia)"' <<<"$json" |
-			tr -d '][' | tr ',' '-' | column -et -NPERIODO,FREQ
+		jq -r '.[].res[]|"\(.periodo)\t\(.frequencia)"' <<<"$json" \
+			| tr -d '][' | tr ',' '-' | column -et -NPERIODO,FREQ
 	fi
 }
 #https://servicodados.ibge.gov.br/api/docs/censos/nomes?versao=2
@@ -3464,7 +3396,7 @@ mandelbrot3()
 #{ cat -etv <<< "$IFS" ;}
 
 # copy with progress using rsync
-#rsync --progress -ah 
+#rsync --progress -ah
 
 # detect double words (eg. "hello my   my friend")
 # Arguments: $1 -> the file(s) to be checked
@@ -3659,7 +3591,7 @@ SUM2()  {
 #is a positive decimal integer.
 #tac may not be in osx
 
-#IPC#Different ways to print the next few lines after pattern match 
+#IPC#Different ways to print the next few lines after pattern match
 #https://www.theunixschool.com/2012/05/different-ways-to-print-next-few-lines.html?m=1
 
 #print last fiel
@@ -3680,7 +3612,7 @@ SUM2()  {
 #https://opensource.com/article/19/10/remove-duplicate-lines-files-awk
 
 #case #1: that would remove more than two (3 or more) consecutive blank lines,
-#and replace them with just two blank lines. though it would be nice if it 
+#and replace them with just two blank lines. though it would be nice if it
 #also could be tweaked to remove more than one line (2 or more) and/or replace
 #multiple blank lines with just one blank line.
 #
@@ -3705,7 +3637,7 @@ bintext()
 	perl -lpe '$_=pack"B*",$_' <<<"$*"
 }
 
-#case #2: that would remove a single blank line between two lines of text, 
+#case #2: that would remove a single blank line between two lines of text,
 #but leave multiple blank lines as is (though removing one of the blank lines
 #would also be acceptable).
 #join single-spaced lines
@@ -3732,13 +3664,13 @@ bintext()
 #containing the number of fields in a line. in awk, things are true if they're
 #not 0 or empty string "". hence, the second part (where nf is decremented) only
 #happens if nf is not 0.
-#the second part (either nf-=1 nf-- or --nf) is just subtracting one from the 
+#the second part (either nf-=1 nf-- or --nf) is just subtracting one from the
 #nf variable. this prevent the last field from being printed, because when you
-#change a field (removing the last field in this case), awk re-construct $0, 
+#change a field (removing the last field in this case), awk re-construct $0,
 #concatenate all fields separated by space by default. $0 didn't contain the
 #last field anymore.
-#the final part is 1. it's not magical, it's just used as a expression means 
-#true. if an awk expression evaluates to true without any associated action, 
+#the final part is 1. it's not magical, it's just used as a expression means
+#true. if an awk expression evaluates to true without any associated action,
 #awk default action is print $0.
 #https://unix.stackexchange.com/questions/234432/how-to-delete-the-last-column-of-a-file-in-linux
 
@@ -3752,7 +3684,7 @@ bintext()
 #ultra compress
 7zultra()
 {
-	 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on "${1}.7z" "${@:?file required}" 
+	 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on "${1}.7z" "${@:?file required}"
 
 }
 
@@ -3785,7 +3717,7 @@ bintext()
 #{ perl -p -i -e 's/SOME_NAME/Kris/gi' ./*.txt ;}
 #http://perlpie.com/
 #> What is the advantage of [perl -pi -e 's///'] over sed?
-#PCRE and /e flag. 
+#PCRE and /e flag.
 
 #use perl instead of sed
 #sed '/delete this line/ d' || perl -ne 'print unless /delete this line/'
@@ -3802,7 +3734,7 @@ bintext()
 #string=${string/
 #/ /}
 #array: ${string[@]/%/X}
- 
+
 #all array elements but the last
 #"${@:1:${#@}-1}"
 #${a[@]::${#a[@]}-1}
@@ -3823,7 +3755,7 @@ bintext()
 #od -vAn -N4 -tu4 < /dev/urandom  #unsigned decimal 4 bytes random numbers
 #od -vAn -N1 -td1 < /dev/urandom #1 byte signed decimal integer
 #A program reading from /dev/random blocks until the value in
-#/proc/sys/kernel/random/entropy_avail becomes larger 
+#/proc/sys/kernel/random/entropy_avail becomes larger
 #than /proc/sys/kernel/random/read_wakeup_threshold.
 #reading from /dev/random consumes entropy at the rate of 8 bits per byte.
 
@@ -3852,8 +3784,8 @@ bintext()
 #emmets tutorial
 emmets()
 {
-	curl https://raw.githubusercontent.com/mattn/emmet-vim/master/TUTORIAL |
-		vim - +set\ ft=html +set\ bt=nofile
+	curl https://raw.githubusercontent.com/mattn/emmet-vim/master/TUTORIAL \
+		| vim - +set\ ft=html +set\ bt=nofile
 }
 
 
@@ -3879,7 +3811,7 @@ alias pacr="sudo /usr/bin/pacman -Rns"		# '[r]emove'		- uninstall one or more pa
 alias paclo="/usr/bin/pacman -Qdt"		# '[l]ist [o]rphans'	- list all packages which are orphaned
 #alias pacc="sudo /usr/bin/pacman -Scc"		# '[c]lean cache'	- delete all not currently installed package files
 alias paclf="/usr/bin/pacman -Ql"		# '[l]ist [f]iles'	- list all files installed by a given package
-alias pacexpl="sudo /usr/bin/pacman -D --asexp"	# 'mark as [expl]icit'	- mark one or more packages as explicitly installed 
+alias pacexpl="sudo /usr/bin/pacman -D --asexp"	# 'mark as [expl]icit'	- mark one or more packages as explicitly installed
 alias pacimpl="sudo /usr/bin/pacman -D --asdep"	# 'mark as [impl]icit'	- mark one or more packages as non explicitly installed
 # '[r]emove [o]rphans' - recursively remove ALL orphaned packages
 #alias pacro="/usr/bin/pacman -Qtdq > /dev/null && sudo /usr/bin/pacman -Rns \$(/usr/bin/pacman -Qtdq | sed -e ':a;N;$!ba;s/\n/ /g')"
@@ -3891,7 +3823,7 @@ alias pacimpl="sudo /usr/bin/pacman -D --asdep"	# 'mark as [impl]icit'	- mark on
 #until eof then output the total to stdout.
 add()
 {
-	awk '{s+=$1} END {printf "%.'${1:-2}'f\n", s}' 
+	awk '{s+=$1} END {printf "%.'${1:-2}'f\n", s}'
 }
 #echo $(( $( tr '\n' +  < /dev/stdin) 0 ))
 #https://stackoverflow.com/questions/450799/shell-command-to-sum-integers-one-per-line
@@ -3901,9 +3833,9 @@ alias gsu='pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY DBUS_SESSION_BUS_A
 #https://dev.to/logix2/another-gksu-alternative-for-ubuntu-xorg-2356
 
 #centralise text
-#colunas=$(tput cols) 
+#colunas=$(tput cols)
 #texto='Hello, world!'
-#printf "%*s\n" $(((${#texto} + $colunas) / 2)) "$texto" 
+#printf "%*s\n" $(((${#texto} + $colunas) / 2)) "$texto"
 #https://www.vivaolinux.com.br/topico/Shell-Script/Como-centralizar-texto-do-script
 
 #its job is to highlight plain whitespaces and
@@ -3965,8 +3897,8 @@ spacevis()
 #bash matrix
 shmatrix()
 {
-	tr -c "[:xdigit:]" " " < /dev/urandom | dd cbs=$COLUMNS conv=unblock |
-	GREP_COLOR="1;32" grep --color "[^ ]"
+	tr -c "[:xdigit:]" " " < /dev/urandom | dd cbs=$COLUMNS conv=unblock \
+		| GREP_COLOR="1;32" grep --color "[^ ]"
 }
 #https://www.pixelbeat.org/docs/terminal_colours/
 
@@ -3977,7 +3909,8 @@ shmatrix()
 #usage: `h' (hour) and `m' (min)
 #e.g.:  tmr 1m+22s
 #e.g.:  tmr (1m*5)+22s
-tmr() { (
+tmr()
+(
 	SECONDS=0 max=${1:-999999}
 	max=${max//d/*86400} max=${max//h/*3600}
 	max=${max//m/*60} max=${max//s} max=$((max)) || exit
@@ -3985,7 +3918,7 @@ tmr() { (
 	while ((SECONDS<max))
 	do t=$SECONDS ;printf '\r%*d' 0 $t ;sleep 1
 	done ;printf '\a\n%dh ~ %dm ~ %ds\n' $((t/3600)) $((t/60)) $t
-) ;}
+)
 
 #get relatove date (now -1 hour)
 #sqlite3 /dev/null <<<'SELECT strftime("%m/%d/%Y-%H:%M:%S", "now", "-1 hour")'
@@ -4034,7 +3967,7 @@ trim()
 	# remove leading whitespace characters
 	var="${var#"${var%%[![:space:]]*}"}"
 	# remove trailing whitespace characters
-	var="${var%"${var##*[![:space:]]}"}"   
+	var="${var%"${var##*[![:space:]]}"}"
 	printf '%s' "$var"
 }
 #compatible with all posix shells
@@ -4045,8 +3978,8 @@ trim()
 #{ python -m SimpleHTTPServer 8000 ;}
 #Python 3
 #{ python3 -m http.server 8000 --directory /tmp/ ;}
-router() { python3 -m http.server ${1:-8000} ;}
-router2() { php -S localhost:${1:-8000} ;}
+hserv()  { python3 -m http.server ${1:-8000} ;}
+hserv2() { php -S localhost:${1:-8000} ;}
 checkports() { sudo ss -tulpn | sed -nE '/LISTEN/ s/.*:([0-9]+)\s*.*/\1/ p' ;}
 
 #Perl - Insert lines after a match is found in a file

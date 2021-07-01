@@ -1,6 +1,6 @@
 #!/bin/bash
-# ala.sh -- arch linux archive explorer (search and download)
-# v0.14.12  may/2021  by castaway
+# ala.sh -- arch linux archive explorer, search and download
+# v0.14.13  may/2021  by castaway
 
 #defaults
 #script name
@@ -79,7 +79,7 @@ SN="${0##*/}"
 
 # Help
 HELP="NAME
-	$SN -- Arch Linux Archive Explorer for Bash
+	$SN -- Arch Linux Archive Explorer
 
 
 SYNOPSIS
@@ -95,8 +95,8 @@ SYNOPSIS
 	$SN  -hov
 
 	
-	The Arch Linux Archives (aka ALA) stores official repositor
-	y snapshots, iso images and bootstrap tarballs accross time.
+	The Arch Linux Archives (aka ALA) stores official repository
+	snapshots, iso images and bootstrap tarballs accross time.
 	You can use it to downgrade one package to a previous version
 	or to find a previous version of an ISO image.
 

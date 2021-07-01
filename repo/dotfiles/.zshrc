@@ -13,7 +13,7 @@
 #exit signal file (may hold a command).
 __TMUXSIG="/tmp/tmux.exit.$EUID"
 #start tmux
-if [[ -z "$TMUX" ]] && (( EUID ))
+if [[ -z "$TMUX$VIFMSET" ]] && (( EUID ))
 then
 	command tmux
 

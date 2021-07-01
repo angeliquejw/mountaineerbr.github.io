@@ -212,8 +212,8 @@ mark e ~/www/bionota.github.io
 mark k ~/.config/conky/confs
 mark m ~/bin/markets
 mark M /media
-mark q ~/www/mountaineerbr.github.io
-mark Q ~/www/mountaineerbr.github.io/blog
+"mark q ~/www/mountaineerbr.github.io
+"mark Q ~/www/mountaineerbr.github.io/blog
 mark s ~/bin
 mark t /tmp
 mark T ~/tmp
