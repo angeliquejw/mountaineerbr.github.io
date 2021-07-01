@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.17.5  jun/2021  by mountaineerbr
+# v0.17.6  jun/2021  by mountaineerbr
 
 #padrões
 
@@ -292,7 +292,7 @@ sedhtmlf() {
 #get post (article) links
 getlinksf()
 {
-	sed -n "/id=['\"]post_[0-9]/ s|a>|&\n| gp" \
+	sed -n "/id=['\"]post_[0-9]/ s|<a |\n&| gp" \
 	| sed -nE "/(title|h2)/ s|.*href=['\"]([^'\"#]+)['\"\t\s\ ].*|\1| p" \
 	| nl | sort -k2 | uniq -f 1 \
 	| sort -n | cut -f2
@@ -646,12 +646,13 @@ linksf() {
 			#crawl each link
 			while read COMP
 			do
-				
-				if [[ "$COMP" = *'"'* ]]
-				then echo "internal err: getlinksf() -- $COMP" >&2 ;continue
+				#check some link validity
+				if [[ "$COMP" = *[\"\'{}]* ]]
+				then echo "internal err: getlinksf() -- ${COMP:0:60}" >&2 ;continue
 				#avoid duplicate articles links
 				elif [[ "${LINKSBUFFER[*]}" = *"$COMP"* ]]
 				then continue
+				#add to links buffer
 				else LINKSBUFFER+=( "$COMP" )
 				fi
 
@@ -842,8 +843,7 @@ fi
 
 		#loop forever
 		#then set to always get first page
-		XAGAIN=780
-		AGAIN="$XAGAIN"
+		XAGAIN=780  AGAIN="$XAGAIN"
 		[[ "$PAGINAS" = 0 ]] || PAGINAS=1
 		while :
 		do
@@ -860,7 +860,7 @@ fi
 			done
 
 			#grand retry timer
-			((AGAIN>=1800)) && AGAIN="$XAGAIN"
+			((AGAIN > 980)) && AGAIN="$XAGAIN"
 			AGAIN="$((AGAIN+180))"
 
 			#grand retry

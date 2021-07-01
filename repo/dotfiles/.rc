@@ -1665,7 +1665,7 @@ sin()
 #ISO 8601: strftime({"%Y-%m-%dT%H:%M:%SZ"}, var.time);
 
 #my script ddate.sh
-alias D='ddate.sh'
+alias d='ddate.sh'
 
 # Calculate the difference in whole days between two dates, ignoring timezone changes
 datedifference()
