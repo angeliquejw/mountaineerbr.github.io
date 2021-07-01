@@ -309,8 +309,9 @@ tablef()
 
 sedlinks()
 {
-	sed 's|a>|\n|g' | sed -nE "s|.*href=['\"]([^'\"]+)['\"].*|\1| p"
+	sed 's|<a |\n&|g' | sed -nE "/<a / s|.*href=['\"]([^'\"]+)['\"].*|\1| p"
 }
+#https://stackoverflow.com/questions/1881237/easiest-way-to-extract-the-urls-from-an-html-page-using-sed-or-awk-only
 
 #jq filters
 #get all paths of a json
