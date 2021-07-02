@@ -142,6 +142,7 @@ gar()
 	else tar c --format pax -- "$@" | gpg -ci -o "${1%/}".tar.gpg
 	fi
 }
+#cli password dialog: gpg --pinentry-mode loopback
 #preferably, use gnu/gnutar or pax/posix formats
 #(pax format causes extended headers to be extracted as files by a few implementations)
 #https://www.baeldung.com/linux/encrypting-decrypting-directory
@@ -153,6 +154,13 @@ gar()
 #script making use of tar (gpg-zip) to Windows; may be slower than
 #standard tar on Linux platforms)
 #https://lists.gnupg.org/pipermail/gnupg-users/
+
+#forget gpg session passwords
+gpgreload()
+{
+	gpg-connect-agent reloadagent /bye
+}
+#https://askubuntu.com/questions/349238/how-can-i-clear-my-cached-gpg-password
 
 #bigger font for terminal
 alias bigger='echo "setfont iso02-12x22" ;setfont iso02-12x2'
@@ -2889,10 +2897,11 @@ alias bit=bitcoin-cli
 #electrum cli
 alias el=electrum
 
-
 #load a wallet
 #{ electrum daemon walletname ;}
 
+#tail bitcoind log
+alias btct='tail -f /media/primary/blockchain/debug.log'
 
 #andreas antonopoulos' mastering bitcoin
 #https://github.com/bitcoinbook/bitcoinbook
@@ -4023,8 +4032,5 @@ reducepdf() {
 #Note that lower CRF values correspond to higher bitrates, and hence produce higher quality videos.
 #{ ffmpeg -i Intro_do_Canal.mp4 -vf "scale=iw/1.8:ih/1.8" Intro_do_Canal_small.mp4 ;}
 #https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg
-
-#tail bitcoind log
-alias btct='tail -f /media/primary/blockchain/debug.log'
 
 # vi:filetype=sh
