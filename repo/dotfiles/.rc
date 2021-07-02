@@ -145,12 +145,14 @@ gtar()
 }
 #preferably, use gnu/gnutar or pax/posix formats
 #(The pax format causes extended headers to be extracted as files by a few implementations)
-#also see: `gpgtar' -- { gpgtar -eco "$target" "$1" ;gpgtar -d "$1" ;}
 #https://www.baeldung.com/linux/encrypting-decrypting-directory
 #https://www.gnu.org/software/tar/manual/html_node/Standard.html
 #https://www.gnu.org/software/tar/manual/html_node/gnu.html#SEC145
 #https://mgorny.pl/articles/portability-of-tar-features.html
 #https://serverfault.com/questions/250511/which-tar-file-format-should-i-use
+#also see: `gpgtar' (mainly written due the problems of porting a shell
+#script making use of tar (gpg-zip) to Windows; may be slower than
+#standard tar on Linux platforms)
 
 #bigger font for terminal
 alias bigger='echo "setfont iso02-12x22" ;setfont iso02-12x2'
