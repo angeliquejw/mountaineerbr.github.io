@@ -4027,13 +4027,4 @@ reducepdf() {
 #tail bitcoind log
 alias btct='tail -f /media/primary/blockchain/debug.log'
 
-#check taproot signal window
-taproot()
-{
-	local b
-	b=( $(blk -vjauto -- {${1:-685440}..$(blk -.)} | grep -e Vers_Hex  | tee >(wc -l) | grep -c '4$') )
-	print \\nyes__: $b[1]\\nno___: $((b[2]-b[1]))\\ntotal: $b[2]\\nleft_: $((2016 - b[2]))\\nperct: $((${b[1]}.0 / ${b[2]}))\\n
-}
-#https://taproot.watch/
-
 # vi:filetype=sh
