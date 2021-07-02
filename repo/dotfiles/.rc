@@ -133,18 +133,17 @@ sanitize()
 }
 
 #(un)archive and gpg file/dir
-gtar()
+gar()
 {
-	local target="$1".tar.gpg
 	#decrypt (sigle file)
 	if [[ "$1" = *.gpg* ]]
-	then gpg -d "$1" | tar x
+	then gpg -d -- "$1" | tar x
 	#encrypt (multiple files)
-	else tar c --format pax -- "$@" | gpg -c -o "$target"
+	else tar c --format pax -- "$@" | gpg -c -o "$1".tar.gpg
 	fi
 }
 #preferably, use gnu/gnutar or pax/posix formats
-#(The pax format causes extended headers to be extracted as files by a few implementations)
+#(pax format causes extended headers to be extracted as files by a few implementations)
 #https://www.baeldung.com/linux/encrypting-decrypting-directory
 #https://www.gnu.org/software/tar/manual/html_node/Standard.html
 #https://www.gnu.org/software/tar/manual/html_node/gnu.html#SEC145
