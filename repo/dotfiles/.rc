@@ -139,7 +139,7 @@ gar()
 	if [[ "$1" = *.gpg* ]]
 	then gpg -d -- "$1" | tar xk
 	#encrypt (multiple files)
-	else tar c --format pax -- "$@" | gpg -ci -o "$1".tar.gpg
+	else tar c --format pax -- "$@" | gpg -ci -o "${1%/}".tar.gpg
 	fi
 }
 #preferably, use gnu/gnutar or pax/posix formats
