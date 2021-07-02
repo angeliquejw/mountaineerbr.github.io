@@ -137,9 +137,9 @@ gar()
 {
 	#decrypt (sigle file)
 	if [[ "$1" = *.gpg* ]]
-	then gpg -d -- "$1" | tar x
+	then gpg -d -- "$1" | tar xk
 	#encrypt (multiple files)
-	else tar c --format pax -- "$@" | gpg -c -o "$1".tar.gpg
+	else tar c --format pax -- "$@" | gpg -ci -o "$1".tar.gpg
 	fi
 }
 #preferably, use gnu/gnutar or pax/posix formats
@@ -152,6 +152,7 @@ gar()
 #also see: `gpgtar' (mainly written due the problems of porting a shell
 #script making use of tar (gpg-zip) to Windows; may be slower than
 #standard tar on Linux platforms)
+#https://lists.gnupg.org/pipermail/gnupg-users/
 
 #bigger font for terminal
 alias bigger='echo "setfont iso02-12x22" ;setfont iso02-12x2'
