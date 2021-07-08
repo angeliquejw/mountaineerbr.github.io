@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.6.30  jun/2021  by castaway
+# v0.7  jul/2021  by castaway
 # create base-58 address types from public key
 # create WIF from private keys
 # requires Bash v4+
@@ -41,12 +41,12 @@ HELP="$SN - create base-58 address types from public key
 
 
 DESCRIPTION
+	$SN [-1e] STRING..
 	$SN [-ace] [-vNUM] [STRING|HASH160]..
 	$SN [-ep] [-vNUM] [STRING|FILE]..
 	$SN [-eppwwx] [-vNUM] STRING..
-	$SN [-1e] STRING..
 	$SN [-26be] [STRING|FILE|HEX]..
-	$SN [-beyYt] [STRING|FILE|HEX]..
+	$SN [-beyY] [STRING|FILE|HEX]..
 	$SN -h
 
 
@@ -62,9 +62,9 @@ DESCRIPTION
 	positional argument separately. Other options will read input
 	as literal STRINGS.
 
-	Final newline literals in input strings are removed before further
-	processing. However, some functions require that output end with
-	a newline, so that may be added automatically.
+	Option -Y is sensitive for ending newline bytes from stdin input
+	and when reading FILES. Positional argument STRINGS are processed
+	without newline bytes.
 
 	Only legacy addresses (P2PKH) are supported (addresses starting
 	with 1). Segwit addresses (P2SH, starting with 3) may not be
@@ -105,11 +105,11 @@ DESCRIPTION
 
 	Decode and encode BASE58
 
-	Encoding works well with text files.
+	Encoding works reasonably well with text files.
 
-	Option -Y encodes STRING or FILE to BASE58; text may be UTF-8,
-	optionally set -t to transliterate UTF-8 characters to ASCII
-	(requires package iconv); set -b if input is BYTE HEX.
+	Option -Y encodes STRING or FILE to BASE58. Note that ending
+	newline bytes are now detected. Text may be UTF-8 or ASCII.
+	Set -b if input is BYTE HEX.
 	
 	Option -y decodes BASE58 encoded STRING or FILE to text; may set
 	option -b to print BYTE HEX instead of text.
@@ -182,9 +182,6 @@ BUGS
 WARRANTY
 	Packages GNU dc (GNU coreutils), openssl, xxd and bash 4+ are
 	required.
-
-	Package iconv is required to transliterate UTF-8 to ASCII text
-	with option -t (optional).
 
 	Licensed under the gnu general public license 3 or better and is
 	distributed without support or bug corrections. Grondilu's bit-
@@ -264,7 +261,6 @@ OPTIONS
 	Decode and encode BASE58
 	-b 	Flag input STRING is BYTE HEX instead of text (with -26y),
 		or print output as BYTE HEX (with -Y).
-	-t 	Transliterate non-ASCII characters to ASCII (with -Y).
 	-y	Decode BASE58-encoded STRING or FILE to text (see -b).
 	-Y	Encode STRING or text FILE to BASE58 (see also -bt).
 
@@ -481,14 +477,21 @@ HASH160: $hx160"
 #-Yy encode decode base58
 base58f()
 {
-	local bytestr input type output VERB
-	typeset -a VERB
+	local bytestr input input_filename type output REPLY
 
 	input="$1"
 
-	#load file if input is a filename
-	#ignore warning of no newline
-	[[ -e "$input" ]] && input="$(<"$input")"
+	#if that is a file
+	if [[ -e "$input" ]]
+	then
+		input_filename="$input"
+		#load file
+		input="$(<"$input_filename")"
+		#check whether there are newline bytes. It wont detect newline bytes
+		#if file is a Process Substitution of the form <(...) because
+		#lseek is not available to reread file
+		tail -c1 "$input_filename" | read && NONL= || NONL=1
+	fi
 
 	#decode or encode?
 	if ((ASCIIOPT==1))
@@ -506,29 +509,14 @@ base58f()
 			#output byte string
 			output="$( echo -n "$bytestr" | unpack)"
 		else
-			#check if text is ascii
-			if [[ "$input" = *[^${ASCIISET}]* ]]
-			then
-				VERB+=('warning -- string contains non-ascii characters')
-
-				#check availability of iconv
-				if ((OPTCONV))
-				then
-					VERB+=('warning -- utf-8 to ascii transliterated')
-
-					#utf8 to ascii (transliteration of diacritics)
-					input="$(iconv -f utf-8 -t ascii//translit <<<"$input")" || exit
-				fi
-			fi
-
-			bytestr="$( echo -n "$input" | unpack )"
+			bytestr="$( echo ${NONL+-n} "$input" | unpack )"
 			type=text
 
 			#convert hex to base58; get error msg
 			output="$( yencodeBase58f "$bytestr" 2>&1 )"
 			
 			#empty newline is the same as : "true" for dc
-			#so check output for err msg
+			#so check output for err msg (this code needs rechecking..)
 			[[ "$output" = dc:* ]] && output=B 
 		fi
 
@@ -537,15 +525,21 @@ base58f()
 		then
 			echo "--------
 TYPE___: $type
-INPUT__: $input
+INPUT__: $input${NONL+(no newline)}
 HEXDUMP: $bytestr
 BASE58_: $output"
 
-			#print verbose warnings
-			((${#VERB[@]})) && printf '%s\n' "${VERB[@]}" >&2
+			#check if text is ascii
+			[[ "$input" = *[^${ASCIISET}]* ]] &&
+				echo "warning -- input contains non-ascii characters" >&2
+			##transliterate diacritics with iconv (utf8 to ascii)
+			#input="$(iconv -f utf-8 -t ascii//translit <<<"$input")" || exit
+
 		#base58 result
-		else echo "$output"
+		else
+			echo "$output"
 		fi
+		
 	else
 		#-y decode base58
 
@@ -568,7 +562,6 @@ BASE58_: $output"
 		fi
 		
 		#process output
-		{ output=$(<<<"$bytestr" xxd -p -r) ;} 2>/dev/null
 		#print option
 		if ((OPTVERBOSE))
 		then
@@ -577,18 +570,15 @@ BASE58_: $output"
 TYPE___: $type
 INPUT__: $input
 HEXDUMP: $bytestr
-TEXTOUT: $output"
+TEXTOUT: $(<<<"$bytestr" xxd -p -r)"  2>/dev/null
 
-			#print verbose warnings
-			((${#VERB[@]})) && printf '%s\n' "${VERB[@]}"
 		else
-			#convert hex to text
-			#must print new line
-			echo "$output"
+			#convert hex to text directly
+			<<<"$bytestr" xxd -p -r
 		fi
 	fi
 
-	#cannot get exit code from dc anyways
+	#dc does not exit with useful code for this anyways
 	return 0
 }
 #https://medium.com/concerning-pharo/understanding-base58-encoding-23e673e37ff6
@@ -937,7 +927,7 @@ isprivkeyf()
 
 
 #parse opts
-while getopts 126abcehv:ptxwyY c
+while getopts 126abcehv:pxwyY c
 do
 	case $c in
 		1)
@@ -990,10 +980,6 @@ do
 			#make a privy key from seed
 			((OPTP++))
 			VERDEF="$VERPRIDEF"
-			;;
-		t)
-			#transliterate utf-8 to ascii, with -Y only
-			OPTCONV=1
 			;;
 		x)
 			#check wif key checksum
@@ -1082,6 +1068,7 @@ VER="${VER#0x}"
 #is there any postional argument?
 if (( $# ))
 then
+	NONL=1  #no newline bytes for positional argument strings
 	for ARG in "$@"
 	do mainf "$ARG"
 	done
@@ -1090,7 +1077,7 @@ elif [[ ! -t 0 ]]
 then
 	#dont mangle lines at \\EOL
 	#test for non-empty string terminated with null
-	while IFS=  read -r || [[ -n "$REPLY" ]]
+	while IFS=  read -r || { [[ -n "$REPLY" ]] && NONL=1 ;}
 	do mainf "$REPLY"
 	done
 else
