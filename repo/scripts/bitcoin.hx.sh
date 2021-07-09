@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7  jul/2021  by castaway
+# v0.7.1  jul/2021  by castaway
 # create base-58 address types from public key
 # create WIF from private keys
 # requires Bash v4+
@@ -62,9 +62,9 @@ DESCRIPTION
 	positional argument separately. Other options will read input
 	as literal STRINGS.
 
-	Option -Y is sensitive for ending newline bytes from stdin input
-	and when reading FILES. Positional argument STRINGS are processed
-	without newline bytes.
+	Option -26Y are sensitive for ending newline bytes from stdin
+	input and when reading FILES. Positional argument STRINGS are
+	processed without newline bytes.
 
 	Only legacy addresses (P2PKH) are supported (addresses starting
 	with 1). Segwit addresses (P2SH, starting with 3) may not be
@@ -107,9 +107,8 @@ DESCRIPTION
 
 	Encoding works reasonably well with text files.
 
-	Option -Y encodes STRING or FILE to BASE58. Note that ending
-	newline bytes are now detected. Text may be UTF-8 or ASCII.
-	Set -b if input is BYTE HEX.
+	Option -Y encodes STRING or FILE to BASE58. Text may be UTF-8
+	or ASCII. Set -b if input is BYTE HEX.
 	
 	Option -y decodes BASE58 encoded STRING or FILE to text; may set
 	option -b to print BYTE HEX instead of text.
@@ -321,6 +320,11 @@ pack() {
     echo -n "$1" |
     xxd -r -p
 }
+#custom pack (for some funcs)
+cpackf() {
+    echo "$@" |
+    xxd -r -p
+}
 
 unpack() {
     xxd -p | tr -d '\n'
@@ -358,7 +362,7 @@ encodeBase58() {
 }
 #custom (for option -Y)
 #use echo to send large strings to dc
-yencodeBase58f() {
+cencodeBase58f() {
     local n
     echo -n "$1" | sed -e's/^\(\(00\)*\).*/\1/' -e's/00/1/g' | tr -d '\n'
     echo "16i ${1^^} [3A ~r d0<x]dsxx +f" | dc |
@@ -402,7 +406,6 @@ hexToAddress() {
 revf()
 {
 	local hx160 input
-
 	input="$1"
 
 	#validate base58 input string
@@ -425,7 +428,8 @@ revf()
 TYPE___: $type
 INPUT__: $input
 HASH160: $hx160"
-	else echo "$hx160"
+	else
+		echo "$hx160"
 	fi
 }
 
@@ -433,9 +437,7 @@ HASH160: $hx160"
 #func()
 #{
 #	local b char input
-#	
 #	input="$1"
-#
 #	while read -n1 char
 #	do
 #		case "$char" in
@@ -459,26 +461,29 @@ HASH160: $hx160"
 #			t) b=51;;  u) b=52;;  v) b=53;;
 #			w) b=54;;  x) b=55;;  y) b=56;;
 #			z) b=57;;
-#			*)
-#				b=
-#				echo "err: cannot convert base58 to hex -- \"$char\"" >&2
+#			*) b=  ;
+# 				echo "err: illegal base58 char -- \"$char\"" >&2
 #				return 1
 #				;;
 #		esac
-#
 #		echo -n "$b"
 #	done <<<"$input"
-#
-#	#add new line
 #	echo
 #}
 #https://tools.ietf.org/id/draft-msporny-base58-01.html
+
+#check whether there are newline bytes. It wont detect newline bytes
+#if file is a Process Substitution of the form <(...) because
+#lseek is not available to reread file
+nlf()
+{
+	tail -c1 -- "$1" | read && unset NONL || NONL=1
+}
 
 #-Yy encode decode base58
 base58f()
 {
 	local bytestr input input_filename type output REPLY
-
 	input="$1"
 
 	#if that is a file
@@ -487,10 +492,8 @@ base58f()
 		input_filename="$input"
 		#load file
 		input="$(<"$input_filename")"
-		#check whether there are newline bytes. It wont detect newline bytes
-		#if file is a Process Substitution of the form <(...) because
-		#lseek is not available to reread file
-		tail -c1 "$input_filename" | read && NONL= || NONL=1
+		#check whether there are newline bytes
+		nlf "$input_filename"
 	fi
 
 	#decode or encode?
@@ -513,7 +516,7 @@ base58f()
 			type=text
 
 			#convert hex to base58; get error msg
-			output="$( yencodeBase58f "$bytestr" 2>&1 )"
+			output="$( cencodeBase58f "$bytestr" 2>&1 )"
 			
 			#empty newline is the same as : "true" for dc
 			#so check output for err msg (this code needs rechecking..)
@@ -531,7 +534,7 @@ BASE58_: $output"
 
 			#check if text is ascii
 			[[ "$input" = *[^${ASCIISET}]* ]] &&
-				echo "warning -- input contains non-ascii characters" >&2
+				echo "info -- input contains non-ascii characters" >&2
 			##transliterate diacritics with iconv (utf8 to ascii)
 			#input="$(iconv -f utf-8 -t ascii//translit <<<"$input")" || exit
 
@@ -589,7 +592,6 @@ TEXTOUT: $(<<<"$bytestr" xxd -p -r)"  2>/dev/null
 addrf()
 {
 	local addr hx160 input
-
 	input="$1"
 
 	#make hash160 of input?
@@ -610,7 +612,8 @@ INPUT___: $input
 HASH160_: $hx160
 VER_BYTE: $VER
 PUB_ADDR: $addr"
-	else echo "$addr"
+	else
+		echo "$addr"
 	fi
 
 	[[ -n "$addr" ]] || return 1
@@ -620,7 +623,7 @@ PUB_ADDR: $addr"
 #main func
 gendsha256f()
 {
-	local input sha256
+	local input sha256 REPLY
 
 	#is input binary hex, a file or string?
 	#input is byte hex
@@ -632,14 +635,16 @@ gendsha256f()
 	elif [[ -e "$1" ]]
 	then
 		type=file
-		input="$( pack "$(<"$1")" )"
+		input="$(<"$1")"
+		#check whether there are newline bytes
+		nlf "$1"
 	else
 		type=string
 		input="$1"
 	fi 2>/dev/null
 
 	sha256=( $(
-		echo -n "$input" |
+		echo ${NONL+-n} "$input" |
 			openssl dgst -sha256 -binary |
 			openssl dgst -sha256
 	) )
@@ -650,9 +655,10 @@ gendsha256f()
 	then
 		echo "--------
 TYPE___: $type
-INPUT__: $input
+INPUT__: $input${NONL+(no newline)}
 DSHA256: ${sha256[-1]}"
-	else echo "${sha256[-1]}"
+	else
+		echo "${sha256[-1]}"
 	fi
 }
 #may also use: `echo -n myfirstSHA | sha256sum | xxd -r -p | sha256sum`
@@ -664,7 +670,7 @@ DSHA256: ${sha256[-1]}"
 #main func
 genhash160f()
 {
-	local dump input hx160
+	local dump input hx160 REPLY
 
 	#is input binary hex, a file or string?
 	#input is byte hex
@@ -677,11 +683,13 @@ genhash160f()
 	then
 		type=file
 		input="$1"
-		dump="$( echo -n "$(<"$input")" | unpack )"
+		dump="$( echo ${NONL+-n} "$(<"$input")" | unpack )"
+		#check whether there are newline bytes
+		nlf "$1"
 	else
 		type=string
 		input="$1"
-		dump="$( echo -n "$input" | unpack )"
+		dump="$( echo ${NONL+-n} "$input" | unpack )"
 	fi 2>/dev/null
 
 	#make hash160
@@ -692,10 +700,11 @@ genhash160f()
 	then
 		echo "--------
 TYPE___: $type
-INPUT__: $input
+INPUT__: $input${NONL+(no newline)}
 HEXDUMP: ${dump:-$input}
 HASH160: $hx160"
-	else echo "$hx160"
+	else
+		echo "$hx160"
 	fi
 }
 
@@ -703,11 +712,9 @@ HASH160: $hx160"
 checkf()
 {
 	local input ret
-	
 	input="$1"
 
-	checkBitcoinAddress "$input"
-	ret="$?"
+	checkBitcoinAddress "$input" ;ret="$?"
 
 	#verbose
 	((OPTVERBOSE)) && echo 'Public key checksum check'
@@ -725,7 +732,6 @@ checkf()
 privkeyf()
 {
 	local addr input sha256 step hx cksum
-
 	input="$1"
 	
 	#is input SHA256SUM ?
@@ -792,7 +798,6 @@ PRIVADDR: $addr"
 wifkeyf()
 {
 	local input pkey
-	
 	input="$1"
 
 	#check private key prefix
@@ -831,7 +836,6 @@ PRIV_KEY: $pkey"
 wcheckf()
 {
 	local a b c d cksum hx input
-
 	input="$1"
 
 	#check private key prefix
@@ -888,7 +892,7 @@ VER_BYTE_: $VER"
 	#If they are the same, and the byte string from point 2 starts
 	#with 0x80 (0xef for testnet addresses), then there is no error
 	if [[ "$cksum" == "$c" ]]
-	then echo "Validation pass -- $1"
+	then echo "Validation pass -- $1" >&2
 	else echo "Validation fail -- $1" >&2 ;return 1
 	fi
 
