@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.7.1  jul/2021  by castaway
+# v0.7.2  jul/2021  by castaway
 # create base-58 address types from public key
 # create WIF from private keys
 # requires Bash v4+
@@ -477,6 +477,7 @@ HASH160: $hx160"
 #lseek is not available to reread file
 nlf()
 {
+	local REPLY
 	tail -c1 -- "$1" | read && unset NONL || NONL=1
 }
 
@@ -623,7 +624,7 @@ PUB_ADDR: $addr"
 #main func
 gendsha256f()
 {
-	local input sha256 REPLY
+	local input sha256
 
 	#is input binary hex, a file or string?
 	#input is byte hex
@@ -670,7 +671,7 @@ DSHA256: ${sha256[-1]}"
 #main func
 genhash160f()
 {
-	local dump input hx160 REPLY
+	local dump input hx160
 
 	#is input binary hex, a file or string?
 	#input is byte hex
