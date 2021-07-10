@@ -1,7 +1,7 @@
 #!/bin/bash
-# v0.7.2  jul/2021  by castaway
-# create base-58 address types from public key
-# create WIF from private keys
+# v0.8.1  jul/2021  by castaway
+# create base-58 address types from public key,
+# create WIF from private keys and more
 # requires Bash v4+
 
 #defaults
@@ -17,54 +17,46 @@ VERCOMP=01
 SN="${0##*/}"
 
 #make sure locale is set correctly
-export LC_NUMERIC=C
-#export LC_NUMERIC=en_US.UTF-8
+export LC_NUMERIC=C  LANG=C
+#export LC_NUMERIC=en_US.UTF-8  LANG=en_US.UTF-8
 
-#base58 character set
-B58='1-9A-HJ-NP-Za-km-z'
-#bech32 character set, including uppercase
-B32='AC-HJ-NP-Zac-hj-np-z02-9'
+#base58 character set [1-9A-HJ-NP-Za-km-z]
+B58='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+#bech32 character set [AC-HJ-NP-Zac-hj-np-z02-9]
 
-#ASCII chars
+#ASCII character set [\x00-\x7F]
 #literal newline and blank space
-ASCIISET="
-
- !\"#$%&'()*+,./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_\`abcdefghijklmnopqrstuvwxyz{|}~-"
-ASCIISET='\x00-\x7F'
-
-#todo
-#really check prefixes in wif checksum check?
+ASCIISET="${IFS}!\"#$%&'()*+,./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_\`abcdefghijklmnopqrstuvwxyz{|}~-"
 
 #help
-HELP="$SN - create base-58 address types from public key
-		and WIF from private keys
+HELP="$SN - create base-58 address types from public key,
+		WIF from private keys and more
 
 
 DESCRIPTION
 	$SN [-1e] STRING..
 	$SN [-ace] [-vNUM] [STRING|HASH160]..
-	$SN [-ep] [-vNUM] [STRING|FILE]..
-	$SN [-eppwwx] [-vNUM] STRING..
+	$SN [-epp] [-vNUM] [STRING|FILE]..
+	$SN [-ewwx] [-vNUM] STRING..
 	$SN [-26be] [STRING|FILE|HEX]..
 	$SN [-beyY] [STRING|FILE|HEX]..
 	$SN -h
 
 
-	Create public and private addresses from HEX STRINGS. If no
-	option is given, defaults to converting HEX STRING to public
-	address
+	Create public and private addresses from HEX STRINGS (keys). If
+	no option is given, defaults to converting HEX STRING (public
+	key) to public address.
 
-	Set multiple STRINGS as positional parameters or send them via
-	stdin (pipe) one per line.
+	Set multiple STRINGS as positional parameters or pipe one of
+	them via stdin. Each FILE is processed wholly.
 
-	If STRING is a filename and any option -26pyY is set, it reads
-	the entire file, otherwise process each line from stdin or
-	positional argument separately. Other options will read input
-	as literal STRINGS.
+	If STRING is a filename and any option -26ppyY is set, file or
+	stdin is read wholly. Remaining options process each line from
+	stdin separately.
 
-	Option -26Y are sensitive for ending newline bytes from stdin
-	input and when reading FILES. Positional argument STRINGS are
-	processed without newline bytes.
+	Options -26ppY are sensitive for ending newline bytes. Beware
+	that Bash trucates input at null bytes. If input has null bytes,
+	read it as FILE.
 
 	Only legacy addresses (P2PKH) are supported (addresses starting
 	with 1). Segwit addresses (P2SH, starting with 3) may not be
@@ -76,28 +68,20 @@ DESCRIPTION
 	too.
 
 
-	WARNING: SCRIPT IS EXPERIMENTAL
-
-
 	Public keys (defaults)
 
-	Option -1 prints HASH160 of public address, this converts a
-	bitcoin address to the HASH160 format used internally by bitcoin
-	(decodes BASE58 address and removes version byte).
-
-	Option -a skips making HASH160 of STRING when creating a base-58
+	Option -a skips making HASH160 of STRING when creating a base58
 	address from it.
-
-	Option -c check checksum of public keys.
 
 
 	Private keys
 
-	Option -p generates a wallet import format address from a private
-	key (seed); private key may be SHA256 of an image file, audio
-	file, text, etc. The SHA256 sum will be set as private key.
+	Option -p generates a Wallet Import Format (WIF) address from a
+	private key (seed); private key may be an image file, audio file,
+	text, etc or its SHA256 sum directly. The SHA256 sum will be set
+	as private key.
 
-	Option -x check checksum of Wallet Import Format (WIF) key.
+	Option -x check checksum of WIF key.
 
 	Option -w convert WIF to private key. Pass twice to set compres-
 	sion flag.
@@ -105,10 +89,10 @@ DESCRIPTION
 
 	Decode and encode BASE58
 
-	Encoding works reasonably well with text files.
-
 	Option -Y encodes STRING or FILE to BASE58. Text may be UTF-8
-	or ASCII. Set -b if input is BYTE HEX.
+	or ASCII, may work with random input. Set -b if input is BYTE HEX.
+	Beware this option (and others) is sensitive to ending newlines
+	bytes.
 	
 	Option -y decodes BASE58 encoded STRING or FILE to text; may set
 	option -b to print BYTE HEX instead of text.
@@ -116,19 +100,28 @@ DESCRIPTION
 
 	Miscellaneous
 
-	Option -2 generates the double SHA256 sum of STRING, FILE or
-	BYTE HEX; if input is BYTE HEX, set -b.
-	
-	Option -6 generates HASH160 from STRING, FILE or BYTE HEX, that
-	is the RIPEMD160 of SHA256 sum of input; see also option -b.
+	Option -1 prints HASH160 of public and private base58 addresses.
+	This converts a bitcoin address to the HASH160 format used inter-
+	nally by bitcoin (decodes BASE58 address and removes version byte).
 
-	Option -b sets input is BYTE HEX instead of text (with -26y) or
+	Option -2 generates the double SHA256 sum of STRING, FILE or
+	BYTE HEX. Set -b if input is BYTE HEX.
+	
+	Option -6 generates HASH160 from STRING, FILE or BYTE HEX (the
+	RIPEMD160 of SHA256 sum of input), see also option -b.
+
+	Option -b flags input as BYTE HEX instead of text (with -26y) or
 	prints output as BYTE HEX (with -Y).
 
-	Option -e for some verbose and option -h for this help page.
+	Option -c check checksum of public and private base58 keys (addresses).
+
+	Option -e for verbose and option -h for this help page.
 
 	Option -vNUM sets version byte, in which NUM is a byte version
-	number such as 00, 05, ef and others.
+	number such as 00, 05 and ef.
+
+
+	WARNING: SCRIPT IS EXPERIMENTAL
 
 
 ENVIRONMENT
@@ -176,6 +169,9 @@ SEE ALSO
 BUGS
 	Be aware this script is for studying purposes so there is no
 	guarantee this is working properly. DYOR and check output.
+
+	Options -26ppY will truncate input at null bytes. That is a
+	Bash limitation. Set input as FILE to circunvent this.
 
 
 WARRANTY
@@ -245,10 +241,7 @@ USAGE EXAMPLES
 OPTIONS
 	Public keys (defaults)
 	Generate public address from HEX
-	-1 	Print HASH160 from public address (decode BASE58 and
-		remove version byte).
 	-a 	Avoid making HASH160 from input (set input as HASH160).
-	-c 	Check public address checksum.
 
 	Private keys
 	-p	Generate Wallet import Format (WIF) key from private key.
@@ -261,30 +254,23 @@ OPTIONS
 	-b 	Flag input STRING is BYTE HEX instead of text (with -26y),
 		or print output as BYTE HEX (with -Y).
 	-y	Decode BASE58-encoded STRING or FILE to text (see -b).
-	-Y	Encode STRING or text FILE to BASE58 (see also -bt).
+	-Y	Encode STRING or text FILE to BASE58 (see -bt).
 
 	Misc
+	-1 	Print HASH160 of public or private base58 address.
 	-2 	Generate double SHA256 sum from STRING, FILE or BYTE HEX
-		(see also -b).
-	-6 	Generate double HASH160 from STRING, FILE or BYTE HEX
-		(see also -b).
-	-e 	Verbose mode.
-	-h 	Print this help page.
+		(see -b).
+	-6 	Generate HASH160 from any STRING, FILE or BYTE HEX (see -b).
+	-c 	Check public or private base58 address checksum.
+	-e 	Verbose.
+	-h 	This help page.
 	-v NUM 	Set version byte, defaults=${VERDEF} (public keys)
 		and defaults=${VERPRIDEF} (private keys)."
-
-
-#even more refs
-#generate bech32 addresses in zsh
-#i am _not_ sure his scripts are right though
-#https://blog.iuliancostan.com/post/2020-02-10-bitcoin-bech32-segwit-address/
 
 
 #functions
 
 #!#bitcoin.sh snapshot with custom modifications
-#!#commit: 95860e1567e2def6f95fb77212ea53015016ab6a
-#!#date: 24/jan/2021
 #
 # Various bash bitcoin tools
 #
@@ -320,14 +306,18 @@ pack() {
     echo -n "$1" |
     xxd -r -p
 }
-#custom pack (for some funcs)
+#custom
 cpackf() {
     echo "$@" |
     xxd -r -p
 }
 
+#unpack() {
+#    xxd -p | tr -d '\n'
+#}
+#custom
 unpack() {
-    xxd -p | tr -d '\n'
+    xxd -p "$@" | tr -d '\n'
 }
 
 declare -a base58=(
@@ -398,40 +388,13 @@ hexToAddress() {
     echo
 }
 
+#more refs
+#generate bech32 addresses in zsh
+#_not_ sure his scripts are right though!
+#https://blog.iuliancostan.com/post/2020-02-10-bitcoin-bech32-segwit-address/
+
 
 #script original funcs
-
-#-1 get hash160 from public address
-#reverse direction
-revf()
-{
-	local hx160 input
-	input="$1"
-
-	#validate base58 input string
-	#segwit bech32 character set will throw errors
-	if [[ "$input" = *[^${B58}]* ]]
-	then echo "err: invalid base58 public key -- ${input:0:20}" >&2 ;return 1
-	#get addr type
-	else type="$( ispubkeyf "$input" || isprivkeyf "$input" || echo string )"
-	fi
-
-	#decode base58
-	hx160="$( decodeBase58 "$input" )"
-	#remove byte number and checksum
-	hx160="$( sed -E 's/^.?.(.{40}).{8}$/\1/' <<< "$hx160" )"
-
-	#print result
-	if (( OPTVERBOSE ))
-	then
-		echo "--------
-TYPE___: $type
-INPUT__: $input
-HASH160: $hx160"
-	else
-		echo "$hx160"
-	fi
-}
 
 #Base58 Mapping Table
 #func()
@@ -475,50 +438,199 @@ HASH160: $hx160"
 #check whether there are newline bytes. It wont detect newline bytes
 #if file is a Process Substitution of the form <(...) because
 #lseek is not available to reread file
-nlf()
+#nlcheckf()
+#{
+#	tail -c1 -- "$1" | read && unset NONL || NONL=1
+#}
+
+#-1 get hash160 from public or private address
+#reverse direction
+revf()
 {
-	local REPLY
-	tail -c1 -- "$1" | read && unset NONL || NONL=1
+	local hx160 input input_filename type
+	input="$1"
+
+	#is input a filename?
+	if [[ -e "$input" ]]
+	then
+		input_filename="$input"
+		input="$(<"$input_filename")"
+	fi 2>/dev/null
+	#validate base58 input string
+	#segwit bech32 character set will throw errors
+	#get addr type
+	if isbase58f "$input"
+	then type="$(ispubkeyf "$input" || isprivkeyf "$input" || echo base58 string)"
+	else return 1
+	fi
+
+	#decode base58
+	hx160="$(decodeBase58 "$input")"
+	#remove byte number and checksum
+	hx160="$(sed -E 's/^.?.(.{40}).{8}$/\1/' <<<"$hx160")"
+
+	#print result
+	if (( OPTVERBOSE ))
+	then
+		echo "--------
+TYPE___: $type
+INPUT__: ${input_filename:-$input}
+HASH160: $hx160"
+	else
+		echo "$hx160"
+	fi
 }
+
+#-2 generate double sha256 sum
+#main func
+sha256df()
+{
+	local input input_filename sha256d type
+	typeset -au sha256d  #array, uppercase
+	type=string
+	input="$1"
+
+	#if input is a file
+	if [[ -e "$input" ]]
+	then
+		type=file
+		input_filename="$input"
+
+		#is input byte hex?
+		if ((OPTBYTE))
+		then
+			type=hex
+			#pack input and then double-sha256
+			sha256d=( $(
+				xxd -r -p "$input_filename" |
+					openssl dgst -sha256 -binary |
+					openssl dgst -sha256
+			) )
+		else
+			sha256d=( $(
+				openssl dgst -sha256 -binary "$input_filename" |
+				openssl dgst -sha256
+			) )
+		fi
+
+	#hex from stdin and pos args
+	else
+		#is input byte hex?
+		if ((OPTBYTE))
+		then
+			type=hex
+			input="$(pack "$input")"
+		fi 2>/dev/null
+
+		sha256d=( $(
+			echo ${NONL+-n} "$input" |
+				openssl dgst -sha256 -binary |
+				openssl dgst -sha256
+		) )
+	fi
+
+	#print result
+	if ((OPTVERBOSE))
+	then
+		echo "--------
+TYPE___: $type
+INPUT__: ${input_filename:-$input}
+DSHA256: ${sha256d[-1]}"
+	else
+		echo "${sha256d[-1]}"
+	fi
+}
+#test: http://www.herongyang.com/Bitcoin/Block-Data-Calculate-Double-SHA256-with-Python.html
+#test: https://github.com/dominictarr/sha256d
+#test: https://btcleak.com/2020/06/10/double-sha256-in-bash-and-python/
+#also: `echo -n myfirstSHA | sha256sum | xxd -r -p | sha256sum`
+#https://bitcoin.stackexchange.com/questions/5671/how-do-you-perform-double-sha-256-encoding
+#https://en.bitcoin.it/wiki/Protocol_documentation#Hashes
+#https://btcleak.com/2020/06/10/double-sha256-in-bash-and-python/
+
+#-6 generate hash160
+#main func
+genhash160f()
+{
+	local dump input input_filename hx160 type
+	type=string
+	input="$1"
+
+	#if input is a file
+	if [[ -e "$input" ]]
+	then
+		type=file
+		input_filename="$input"
+
+		#is input is byte hex?
+		if ((OPTBYTE))
+		then type=hex input="$(<"$input_filename")"
+		else dump="$(unpack "$input_filename")"
+		fi
+	else
+		#is input binary hex or text string?
+		if ((OPTBYTE))
+		then type=hex
+		else dump="$(echo ${NONL+-n} "$input" | unpack)"
+		fi
+	fi 2>/dev/null
+
+	#make hash160
+	hx160="$(pack "${dump:-$input}" | hash160)"
+
+	#print result
+	if (( OPTVERBOSE ))
+	then
+		echo "--------
+TYPE___: $type
+INPUT__: ${input_filename:-$input}
+HEXDUMP: ${dump:-$input}
+HASH160: $hx160"
+	else
+		echo "$hx160"
+	fi
+}
+#test: https://learnmeabitcoin.com/technical/public-key-hash
+#test: https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses
 
 #-Yy encode decode base58
 base58f()
 {
-	local bytestr input input_filename type output REPLY
+	local bytestr input input_filename type output
+	type=string
 	input="$1"
 
-	#if that is a file
+	#if input is a file
 	if [[ -e "$input" ]]
 	then
+		type=file
 		input_filename="$input"
-		#load file
-		input="$(<"$input_filename")"
-		#check whether there are newline bytes
-		nlf "$input_filename"
+		if ((OPTBYTE || ENCODEOPT==2))
+		then input="$(<"$input_filename")" #hex or base58 decoding
+		else bytestr="$(unpack "$input_filename")" #base58 encoding
+		fi 2>/dev/null
 	fi
 
 	#decode or encode?
-	if ((ASCIIOPT==1))
+	if ((ENCODEOPT==1))
 	then
 		#-Y encode base58
 
 		#is input byte hex?
 		if ((OPTBYTE))
 		then
+			type=hex
 			#-b input is byte hex
 			#drop 0x from start of string
-			bytestr="${input#0x}"
-			type=hex
+			bytestr="${input#0[Xx]}"
 
 			#output byte string
-			output="$( echo -n "$bytestr" | unpack)"
+			output="$(echo -n "$bytestr" | unpack)"
 		else
-			bytestr="$( echo ${NONL+-n} "$input" | unpack )"
-			type=text
+			[[ -z "$bytestr" ]] && bytestr="$(echo ${NONL+-n} "$input" | unpack)"
 
 			#convert hex to base58; get error msg
-			output="$( cencodeBase58f "$bytestr" 2>&1 )"
-			
+			output="$(cencodeBase58f "$bytestr" 2>&1)"
 			#empty newline is the same as : "true" for dc
 			#so check output for err msg (this code needs rechecking..)
 			[[ "$output" = dc:* ]] && output=B 
@@ -529,18 +641,16 @@ base58f()
 		then
 			echo "--------
 TYPE___: $type
-INPUT__: $input${NONL+(no newline)}
+INPUT__: ${input_filename:-$input}
 HEXDUMP: $bytestr
 BASE58_: $output"
 
 			#check if text is ascii
-			[[ "$input" = *[^${ASCIISET}]* ]] &&
-				echo "info -- input contains non-ascii characters" >&2
-			##transliterate diacritics with iconv (utf8 to ascii)
-			#input="$(iconv -f utf-8 -t ascii//translit <<<"$input")" || exit
-
-		#base58 result
+			[[ "$input" = *[^"$ASCIISET"]* ]] && echo "info -- input contains non-ascii characters" >&2
+			##transliterate diacritics with iconv (utf8 to ascii):
+			#{ iconv -f utf-8 -t ascii//translit <<<"$input" ;}
 		else
+			#plain base58 result
 			echo "$output"
 		fi
 		
@@ -550,19 +660,17 @@ BASE58_: $output"
 		#-b output byte hex?
 		if ((OPTBYTE))
 		then
+			type=hex
 			#input is byte hex
 			#drop 0x from start of string
-			bytestr="${input#0x}"
-			type=hex
+			bytestr="${input#0[Xx]}"
 		#validate base58 input string
-		elif [[ "$input" = *[^${B58}]* ]]
+		elif isbase58f "$input"
 		then
-			echo "err: invalid base58 string -- ${input:0:20}" >&2
-			return 1
+			#convert base58 to hex
+			bytestr="$(decodeBase58 "$input")"
 		else
-			#convert hex to text
-			bytestr="$( decodeBase58 "$input" )"
-			type=text
+			return 1
 		fi
 		
 		#process output
@@ -572,13 +680,13 @@ BASE58_: $output"
 			#verbose
 			echo "--------
 TYPE___: $type
-INPUT__: $input
+INPUT__: ${input_filename:-$input}
 HEXDUMP: $bytestr
-TEXTOUT: $(<<<"$bytestr" xxd -p -r)"  2>/dev/null
+TEXTOUT: $(xxd -p -r <<<"$bytestr")"  2>/dev/null
 
 		else
 			#convert hex to text directly
-			<<<"$bytestr" xxd -p -r
+			xxd -p -r <<<"$bytestr"
 		fi
 	fi
 
@@ -620,96 +728,7 @@ PUB_ADDR: $addr"
 	[[ -n "$addr" ]] || return 1
 }
 
-#-2 generate double sha256 sum
-#main func
-gendsha256f()
-{
-	local input sha256
-
-	#is input binary hex, a file or string?
-	#input is byte hex
-	if ((OPTBYTE))
-	then
-		type='byte hex'
-		input="$( pack "$1" )"
-	#input a filename? read file
-	elif [[ -e "$1" ]]
-	then
-		type=file
-		input="$(<"$1")"
-		#check whether there are newline bytes
-		nlf "$1"
-	else
-		type=string
-		input="$1"
-	fi 2>/dev/null
-
-	sha256=( $(
-		echo ${NONL+-n} "$input" |
-			openssl dgst -sha256 -binary |
-			openssl dgst -sha256
-	) )
-	sha256=( "${sha256[@]^^}" )
-
-	#print result
-	if (( OPTVERBOSE ))
-	then
-		echo "--------
-TYPE___: $type
-INPUT__: $input${NONL+(no newline)}
-DSHA256: ${sha256[-1]}"
-	else
-		echo "${sha256[-1]}"
-	fi
-}
-#may also use: `echo -n myfirstSHA | sha256sum | xxd -r -p | sha256sum`
-#https://bitcoin.stackexchange.com/questions/5671/how-do-you-perform-double-sha-256-encoding
-#https://en.bitcoin.it/wiki/Protocol_documentation#Hashes
-#https://btcleak.com/2020/06/10/double-sha256-in-bash-and-python/
-
-#-6 generate hash160
-#main func
-genhash160f()
-{
-	local dump input hx160
-
-	#is input binary hex, a file or string?
-	#input is byte hex
-	if ((OPTBYTE))
-	then
-		type='byte hex'
-		input="$1"
-	#input a filename? read file
-	elif [[ -e "$1" ]]
-	then
-		type=file
-		input="$1"
-		dump="$( echo ${NONL+-n} "$(<"$input")" | unpack )"
-		#check whether there are newline bytes
-		nlf "$1"
-	else
-		type=string
-		input="$1"
-		dump="$( echo ${NONL+-n} "$input" | unpack )"
-	fi 2>/dev/null
-
-	#make hash160
-	hx160="$( pack "${dump:-$input}" | hash160 )"
-
-	#print result
-	if (( OPTVERBOSE ))
-	then
-		echo "--------
-TYPE___: $type
-INPUT__: $input${NONL+(no newline)}
-HEXDUMP: ${dump:-$input}
-HASH160: $hx160"
-	else
-		echo "$hx160"
-	fi
-}
-
-#-c check public key (address) checksum
+#-c check public and private keys (addresses) checksum
 checkf()
 {
 	local input ret
@@ -722,7 +741,7 @@ checkf()
 
 	#print validation result
 	if ((ret==0))
-	then echo "Validation pass -- $input"
+	then echo "Validation pass -- $input" >&2
 	else echo "Validation fail -- $input" >&2 ;return 1
 	fi
 
@@ -732,29 +751,27 @@ checkf()
 #-p generate a private address
 privkeyf()
 {
-	local addr input sha256 step hx cksum
+	local addr input input_filename sha256 step hx cksum type
+	typeset -au sha256  #array, uppercase
+	type=string
 	input="$1"
 	
-	#is input SHA256SUM ?
-	if [[ "$input" =~ ^[A-Fa-f0-9]{64}$ ]]
+	#if input is a file
+	if [[ -e "$input" ]]
 	then
-		type=sha256
-		#use SHA256SUM as is
-		sha256=( "$input" )
-	#is input a filename?
-	elif [[ -e "$input" ]]
-	then
-		type=filename
-		#read file without the last newline
-		sha256=( $( echo -n "$(<"$input")" | openssl dgst -sha256 ) ) 
+		type=file
+		input_filename="$input"
+
+		if issha256sumf "$input"
+		then type=sha256 sha256=( $(<"$input_filename") )
+		else sha256=( $(openssl dgst -sha256 "$input_filename") ) 
+		fi
 	else
-		type=string
-		#echo string without last newline
-		sha256=( $( echo -n "$input" | openssl dgst -sha256 ) ) 
+		if issha256sumf "$input"
+		then type=sha256 sha256=( $input )
+		else sha256=( $(echo ${NONL+-n} "$input" | openssl dgst -sha256) ) 
+		fi
 	fi
-	
-	#uppercase
-	sha256=( "${sha256[@]^^}" )
 
 	#is compressed?
 	(( OPTP == 2 )) || unset VERCOMP
@@ -769,27 +786,29 @@ privkeyf()
 	)"
 	
 	#get the checksum
-	cksum="$( head -c8 <<<"$hx" )"
+	cksum="$(head -c8 <<<"$hx")"
 
 	#generate address
-	addr="$( encodeBase58 "$step$cksum" )"
+	addr="$(encodeBase58 "$step$cksum")"
 
 	#verbose
 	if (( OPTVERBOSE ))
 	then
 		echo "--------
 TYPE____: $type
-INPUT___: $input
+INPUT___: ${input_filename:-$input}
 SHA256__: ${sha256[-1]}
 COMPRESS: $( ((OPTP==2)) && echo true || echo false )
 VER_BYTE: $VER
 CHECKSUM: $cksum
 PRIVADDR: $addr"
-	else echo "$addr"
+	else
+		echo "$addr"
 	fi
 
 	[[ -n "$addr" ]] || return 1
 }
+#test: 
 #https://en.bitcoin.it/wiki/Wallet_import_format
 #https://gist.github.com/t4sk/ac6f2d607c96156ca15f577290716fcc
 #http://gobittest.appspot.com/PrivateKey
@@ -807,7 +826,11 @@ wifkeyf()
 	fi
 	
 	#Convert it to a string using Base58Check encoding
-	pkey="$( decodeBase58 "$input" )"
+	#validate base58 input string
+	if isbase58f "$input"
+	then pkey="$( decodeBase58 "$input" )"
+	else return 1
+	fi
 
 	#Drop the last 4 checksum bytes from the byte string
 	pkey="${pkey%????????}"
@@ -826,14 +849,16 @@ wifkeyf()
 WIF_____: $input
 COMPRESS: $( ((OPTW==2)) && echo true || echo false )
 PRIV_KEY: $pkey"
-	#print private key
-	else echo "$pkey"
+	else
+		#print private key with newline
+		echo "$pkey"
 	fi
 
 	[[ -n "$pkey" ]] || exit 1
 }
 
 #-x check wif key checksum
+#todo: really check valid prefixes in wif checksum check?
 wcheckf()
 {
 	local a b c d cksum hx input
@@ -845,7 +870,11 @@ wcheckf()
 	fi
 	
 	#Convert it to a string using Base58Check encoding
-	a="$( decodeBase58 "$input" )"
+	#validate base58 input string
+	if [[ "$input" =~ [^"$B58$IFS"] ]]
+	then echo "err: illegal base58 char -- ${BASH_REMATCH[0]}" >&2 ;return 1
+	else a="$( decodeBase58 "$input" )"
+	fi
 	#Drop the last 4 checksum bytes from the byte string
 	b="${a%????????}"
 	#Drop first byte from the string
@@ -855,7 +884,7 @@ wcheckf()
 	#does it start with 0x$VER (defaults=0x80) byte?
 	d="$( cut -c1,2 <<<"$a" )"
 	#if [[ "$d" != "$VER" ]]
-	#then
+	#then 
 	#	echo "err: version byte from key does not start with 0x$VER -- $1" >&2
 	#	return 1
 	#fi
@@ -930,6 +959,23 @@ isprivkeyf()
 	return 1
 }
 
+#is input base58?
+isbase58f()
+{
+	if [[ "$1" =~ [^"$B58$IFS"] ]]
+	then
+		echo "err: illegal base58 char -- ${BASH_REMATCH[0]}" >&2
+		return 1
+	fi
+
+	return 0
+}
+
+#is input SHA256SUM ?
+issha256sumf()
+{
+	[[ "$1" =~ ^\ *[A-Fa-f0-9]{64}\ *$ ]]
+}
 
 #parse opts
 while getopts 126abcehv:pxwyY c
@@ -967,19 +1013,16 @@ do
 		h)
 			#print script version
 			while read
-			do
-				[[ "$REPLY" = \#\ v[0-9]* ]] && break
-			done < "$0"
-			echo "$REPLY"
-
-			#print help
-			echo "$HELP"
+			do [[ "$REPLY" = \#\ v[0-9]* ]] && break
+			done <"$0"
+			echo "$REPLY" #print script version
+			echo "$HELP"  #print help page
 			exit 0
 			;;
 		v)
 			#byte version
 			VER="${OPTARG:-${VERDEF}}"
-			VEROPT=1
+			#VEROPT=1
 			;;
 		p)
 			#make a privy key from seed
@@ -997,11 +1040,11 @@ do
 			;;
 		y)
 			#decode base58
-			ASCIIOPT=2
+			ENCODEOPT=2
 			;;
 		Y)
 			#encode base58
-			ASCIIOPT=1
+			ENCODEOPT=1
 			;;
 		?)
 			#illegal opt
@@ -1027,12 +1070,30 @@ unset PKG
 #then echo "$SN: err  -- bash version 4 or above required" >&2 ;exit 1
 #fi
 
+#check $VER
+if [[ "$VER" = *[a-zA-Z]* ]] || (( ${#VER} > 2 ))
+then echo "warning: user-set byte version -- $VER" >&2
+fi
+#check for incompatible options?
+#((VEROPT && OPTREV+OPTDSHA+OPTHASH160)) && { echo "$SN: err  -- incompatible options" >&2 ;exit 1 ;}
+
+#consolidate version byte option
+VER="${VER:-$VERDEF}"
+#drop 0x from start of string
+VER="${VER#0[Xx]}"
+
 #set option function
 #-1 get hash160 from public address
 if (( OPTREV ))
 then mainf() { revf "$1" ;}
+#-2 generate double sha256 sum
+elif (( OPTDSHA ))
+then mainf() { sha256df "$1" ;}
+#-6 generate hash160 from any string or file
+elif (( OPTHASH160 ))
+then mainf() { genhash160f "$1" ;}
 #-yY encode decode base58
-elif (( ASCIIOPT ))
+elif (( ENCODEOPT ))
 then mainf() { base58f "$1" ;}
 #-c check public key (address) checksum
 elif (( OPTC ))
@@ -1040,12 +1101,6 @@ then mainf() { checkf "$@" ;}
 #-p create private key from seed
 elif (( OPTP ))
 then mainf() { privkeyf "$@" ;}
-#-2 generate double sha256 sum
-elif (( OPTDSHA ))
-then mainf() { gendsha256f "$1" ;}
-#-6 generate hash160
-elif (( OPTHASH160 ))
-then mainf() { genhash160f "$1" ;}
 #-w WIF to privy key
 elif (( OPTW ))
 then mainf() { wifkeyf "$@" ;}
@@ -1056,35 +1111,28 @@ then mainf() { wcheckf "$@" ;}
 else mainf() { addrf "$1" ;}
 fi
 
-#check $VER and incompatible options
-if [[ "$VER" = *[a-zA-Z]* ]] || (( ${#VER} > 2 ))
-then echo "warning: user-set byte version -- $VER" >&2
-elif (( VEROPT && (OPTREV || OPTDSHA || OPTHASH160) ))
-then echo "$SN: err  -- incompatible options" >&2 ;exit 1
-fi
-
-#consolidate version byte option
-VER="${VER:-$VERDEF}"
-#drop 0x from start of string
-VER="${VER#0x}"
-
-#default function
 #loop through strings
 #is there any postional argument?
 if (( $# ))
 then
-	NONL=1  #no newline bytes for positional argument strings
+	NONL=1
 	for ARG in "$@"
-	do mainf "$ARG"
+	do [[ -z "$ARG" ]] || mainf "$ARG"
 	done
 #is stdin taken?
 elif [[ ! -t 0 ]]
 then
-	#dont mangle lines at \\EOL
-	#test for non-empty string terminated with null
-	while IFS=  read -r || { [[ -n "$REPLY" ]] && NONL=1 ;}
-	do mainf "$REPLY"
-	done
+	if ((OPTX+OPTW))
+	then
+		while IFS=  read -r || { [[ -n "$REPLY" ]] && NONL=1 ;}
+		do [[ -z "$REPLY" ]] || mainf "$REPLY"
+		done
+	else
+		NONL=1
+		while IFS=  read -d '' -r || [[ -n "$REPLY" ]]
+		do [[ -z "$REPLY" ]] || mainf "$REPLY"
+		done
+	fi
 else
 	#fail
 	echo "$SN: user input required" >&2

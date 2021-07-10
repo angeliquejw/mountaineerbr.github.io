@@ -1,4 +1,4 @@
-3568215555 7800 dotfiles/.bashrc
+1326196827 7800 dotfiles/.bashrc
 535482059 2695 dotfiles/.cdmrc
 422401544 4357 dotfiles/.dir_colors
 2410049491 26 dotfiles/.gitattributes
@@ -15,11 +15,11 @@
 3825887311 10421 dotfiles/.nanorc
 569270430 11836 dotfiles/.nanorc_PORTUGUES
 1447373044 7661 dotfiles/.profile
-2718219245 111403 dotfiles/.rc
+2759692884 112277 dotfiles/.rc
 4051183497 1620 dotfiles/README.md
 2461603420 2922 dotfiles/.screenrc
 61693290 4501 dotfiles/.tmux.conf
-2337744425 38651 dotfiles/.vimrc
+2016184424 38710 dotfiles/.vimrc
 2345475779 949 dotfiles/.vimrc_manpager
 3323049999 6288 dotfiles/.xbindkeysrc
 3406132362 1660 dotfiles/.xinitrc
@@ -27,6 +27,6 @@
 1324702177 27136 dotfiles/.Xresources
 4134632826 934 dotfiles/.xserverrc
 917351820 662 dotfiles/.zshenv
-2118417805 20401 dotfiles/.zshrc
+3481432744 20390 dotfiles/.zshrc
 3275105833 4077 dotfiles/.zshrc_fromAlad
 1852282111 125945 dotfiles/.zshrc_from_GRML.old

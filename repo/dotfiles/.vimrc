@@ -135,10 +135,6 @@ endfunc
 "colorscheme?
 "set t_ti= t_te=
 "colorsbox-faff
-"Note: AnsiEsc plug-in has the same effect as RAW CONTROL CHARS in Less
-"Plug-in from: http://www.drchip.org/astronaut/vim/index.html#ANSIESC
-"https://www.vim.org/scripts/script.php?script_id=302
-"Explanation at https://stackoverflow.com/questions/6821033/vim-how-to-run-a-command-immediately-when-starting-vim
 
 " Size at start
 "set columns=80
@@ -1135,6 +1131,18 @@ hi Search guibg=peru guifg=wheat
 "hi Search cterm=NONE ctermfg=grey ctermbg=blue
 "hi Search cterm=NONE ctermfg=darkgrey
 
+"PLUGINS
+"
+"pathogen
+execute pathogen#infect()
+
+
+"AnsiEsc
+"Note: AnsiEsc plug-in has the same effect as RAW CONTROL CHARS in Less
+"Plug-in from: http://www.drchip.org/astronaut/vim/index.html#ANSIESC
+"https://www.vim.org/scripts/script.php?script_id=302
+"Explanation at https://stackoverflow.com/questions/6821033/vim-how-to-run-a-command-immediately-when-starting-vim
+
 
 "Parentheses highlight plugins
 "Naveen Chandra: 2002 UnMtchBracket https://www.vim.org/scripts/script.php?script_id=350
@@ -1144,8 +1152,7 @@ hi Search guibg=peru guifg=wheat
 "Junegunn: 2014 https://github.com/junegunn/rainbow_parentheses.vim
 "https://junegunn.kr/2014/11/rainbow-parentheses
 "Luochen1990: 2019 https://github.com/luochen1990/rainbow
-
-
+"
 "kien rainbow parentheses
 "installed from aur
 let g:rbpt_colorpairs = [

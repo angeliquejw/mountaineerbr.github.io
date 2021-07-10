@@ -156,7 +156,7 @@ gar()
 #https://lists.gnupg.org/pipermail/gnupg-users/
 
 #forget gpg session passwords
-gpgreload()
+gpgrel()
 {
 	gpg-connect-agent reloadagent /bye
 }
@@ -1216,6 +1216,13 @@ alias pacdate='expac --timefmt="%F %T" "%l %n" | sort -n'
 #check packages of a base group
 #pacman -Sgq gnome
 
+#Listing changed config files
+#If you want to backup your system configuration files you could copy all
+#files in /etc/, but usually you are only interested in the files that you
+#have changed. Modified backup files can be viewed with the following command: 
+#{ pacman -Qii | awk '/^MODIFIED/ {print $2}' ;}
+#https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks
+
 #pkg info
 paci()
 {
@@ -1308,7 +1315,7 @@ mping()
 		sort -u | tee >( echo "servs: $(wc -l)" ) |
 		while read
 		do
-			p="$( ping -c 1 "$REPLY" | grep -o --color=always 'time=.*' | tee >(read x ;echo -e "$x\t$REPLY" >&2) )"
+			p=$( ping -c 1 "$REPLY" | grep -o --color=always 'time=.*' | tee >(read x ;echo -e "$x\t$REPLY" >&2) )
 			printf '%s\t%s\n----\n' "$p" "$REPLY"
 		done | sort -Vru
 }
@@ -1571,15 +1578,15 @@ hy()
 	#local copy
 	dic="$HOME/arq/docs/MobyHyphenatorII/mhyph.txt"
 	#process raw dictionary
-	diclist="$(paste "$dic" <(tr '¥' '-' <"$dic") | tr -dc '[:print:]\n\s\t' | sed 's/--/-/g')"
+	diclist=$(paste "$dic" <(tr '¥' '-' <"$dic") | tr -dc '[:print:]\n\s\t' | sed 's/--/-/g')
 	#set columns for interactive pretty print
 	[[ -t 1 ]] && tcol='-TWORD,HYPHENED'
 
 	#grep and format table
 	{
-		grep -iE "^$expression"$'\t' <<<"$diclist" ||
-		grep -iE "^$expression" <<<"$diclist" ||
-		grep -iE "$expression" <<<"$diclist"
+		grep -iE "^$expression"$'\t' <<<"$diclist" \
+			|| grep -iE "^$expression" <<<"$diclist" \
+			|| grep -iE "$expression" <<<"$diclist"
 	} | column -et -s$'\t' -NWORD,HYPHENED $tcol
 }
 #http://www.gutenberg.org/files/3204/files/mhyph.txt
@@ -1826,7 +1833,7 @@ zpass()
 #https://leahneukirchen.org/dotfiles/.zshrc
 
 #ASCII chars
-#ascii="$(for ((i=32;i<127;i++)) ;do printf "\\$(printf %03o "$i")"; done)"
+#ascii=$(for ((i=32;i<127;i++)) ;do printf "\\$(printf %03o "$i")"; done)
 #ascii="\ \!\"#\$%\&\'\(\)\*+\,./0123456789:\;\<=\>\?@ABCDEFGHIJKLMNOPQRSTUVWXYZ\[\]\^_\`abcdefghijklmnopqrstuvwxyz\{\|\}~\\-"
 
 #cep dos correios
@@ -1897,7 +1904,7 @@ gened()
 		if gene "$gencode" >"$tmpfile" && grep -qF '>' "$tmpfile"
 		then
 			#rename it to something more meaningful
-			filename="$(head -1 -- "$tmpfile" | tr -d '>\r' | tr '|/*,><}{&#@% ' '_')"
+			filename=$(head -1 -- "$tmpfile" | tr -d '>\r' | tr '|/*,><}{&#@% ' '_')
 			filename="${filename:0:28}".fst  #limit filename length, add extension
 			mv -f -- "$tmpfile" "$filename"  #rename file
 			ls -- "$filename" >&2            #print file path
@@ -2104,7 +2111,7 @@ wf3()
 	for arg in "$@"
 	do [[ "$arg" = *[a-zA-Z]* ]] && location="$location $arg"  n=$((n+1)) || break
 	done
-	if [[ -n "$location" ]] && location="$( _wf3helperf "${location% }" )"
+	if [[ -n "$location" ]] && location=$( _wf3helperf "${location% }" )
 	then shift -- $n ;set -- "$location" "${@:1}"
 	fi
 
@@ -2114,7 +2121,7 @@ wf3()
 
 	echo >&2
 	#get data
-	data="$(curl --compressed -L -X GET --header 'Accept: application/json' "https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=$1&lon=$2${meters}")"
+	data=$(curl --compressed -L -X GET --header 'Accept: application/json' "https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=$1&lon=$2${meters}")
 
 	#print
 	jq '.properties.meta' <<< "$data" >&2
@@ -2135,7 +2142,7 @@ _wf3helperf()
 {
 	local query data
 	query="${*// /%20}"
-	data="$(curl -sL "https://api.opencagedata.com/geocode/v1/json?q=${query}&key=641c51bed8ab490184632ad8526e29ad&no_annotations=1&language=en")"
+	data=$(curl -sL "https://api.opencagedata.com/geocode/v1/json?q=${query}&key=641c51bed8ab490184632ad8526e29ad&no_annotations=1&language=en")
 
 	jq -r '.results[0].formatted //empty' <<<"$data" >&2 2>/dev/null
 	jq -er '.results[0].geometry[]' <<<"$data" 2>/dev/null
@@ -2151,14 +2158,14 @@ sunrise()
 	for arg in "$@"
 	do [[ "$arg" != *[0-9]* ]] && location="$location $arg"  n=$((n+1)) || break
 	done
-	if [[ -n "$location" ]] && location="$( _wf3helperf "${location% }" )"
+	if [[ -n "$location" ]] && location=$( _wf3helperf "${location% }" )
 	then shift -- $n ;set -- "$location" "${@:1}"
 	fi
 
 	#set parameters
 	set -- $(tr , \  <<<"$*")
 	lat="$1" lon="$2"
-	date="$( date -d${3:-now} +%Y-%m-%d )"
+	date=$( date -d${3:-now} +%Y-%m-%d )
 	[[ -n "$4" ]] && days="&days=$4"
 	[[ -n "$5" ]] && height="&height=$5"
 	offset="${6:-$( date +%Z:00 )}"
@@ -2188,8 +2195,8 @@ gps()
 {
 	[[ -z "$1" ]] && set -- sao paulo
 
-	local query="$( sed 's/\s/%20/g' <<< "$*" )"
-	local data="$( curl -sL "https://api.opencagedata.com/geocode/v1/json?q=${query}&key=641c51bed8ab490184632ad8526e29ad&no_annotations=1&language=en" )"
+	local query=$( sed 's/\s/%20/g' <<< "$*" )
+	local data=$( curl -sL "https://api.opencagedata.com/geocode/v1/json?q=${query}&key=641c51bed8ab490184632ad8526e29ad&no_annotations=1&language=en" )
 
 	jq -r '.results[0]|.formatted,(.geometry|"\(.lat) \(.lng)")' <<< "$data"
 }
@@ -2291,7 +2298,7 @@ passkeys()
 #current wifi connection
 passkey()
 {
-	local ssid="$( iw dev | awk '/ssid/ {print $2}' )"
+	local ssid=$( iw dev | awk '/ssid/ {print $2}' )
 	[[ -z "$ssid" ]] && return 1
 
 	su root -c "awk '/^(id|psk)=/' /etc/NetworkManager/system-connections/${ssid}.nmconnection"
@@ -2376,7 +2383,8 @@ htmlentities()
 #https://webtips.dan.info/char.html
 
 #emoji, a little hard on the terminal buffer
-alias emojientities='htmlentities 129510 8986'
+alias emoji='curl https://www.unicode.org/Public/emoji/14.0/emoji-test.txt'
+alias emoji2='htmlentities 129510 8986'
 
 # Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
 # (useful when executing time-consuming commands)
@@ -3159,15 +3167,6 @@ alias cointop='cointop --hide-chart'
 #wallet and trading monitors
 #alias W=walletmonitor.sh
 #alias T=tradingview.sh
-#novadax roll
-novadr()
-{
-	while true
-	do
-		novad.sh -2 | xargs -n1 printf '\n%.2f'
-		sleep ${1:-5}
-	done
-}
 
 #loss/gain reciprocal or symetrical ratio
 #usage: loss [+-]NUM[%] [SCALE]
@@ -3234,7 +3233,7 @@ percentagef()
 			((rate = ( ( line / last ) - 1) * 100))
 		else
 			#bash bc
-			rate="$(bc -l <<<"scale=$scl; ( ( $line / $last ) - 1) * 100")"
+			rate=$(bc -l <<<"scale=$scl; ( ( $line / $last ) - 1) * 100")
 		fi
 		printf '%.*f%%\n' $scl $rate
 		#printf '%d\t%s\t+%.*f\t%.*f%%\n' $n "$line" $scl $perline $scl $rate
@@ -3284,8 +3283,8 @@ localidade()
 {
 	local args data
 
-	args="$( tr A-Z a-z <<< "$*" )"
-	data="$(curl --compressed 'https://servicodados.ibge.gov.br/api/v1/localidades/distritos')"
+	args=$( tr A-Z a-z <<< "$*" )
+	data=$(curl --compressed 'https://servicodados.ibge.gov.br/api/v1/localidades/distritos')
 
 	jq -er '.. | select( .nome? | ascii_downcase == "'$args'")' <<<"$data" \
 		|| jq -r . <<<"$data"
@@ -3311,13 +3310,13 @@ nomef()
 	local json
 	if [[ -z "$1" ]]
 	then
-		json="$( curl -s 'https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking' )"
+		json=$( curl -s 'https://servicodados.ibge.gov.br/api/v2/censos/nomes/ranking' )
 		jq -r '.[]|"Localidade: \(.localidade)"' <<<"$json"
 		jq -r '.[]|.res[]|"\(.nome)\t\(.frequencia)\t\(.ranking)"' <<<"$json" \
 			| column -et -NNOME,FREQ,RNK
 	else
 		set -- "$( tr A-Z a-z <<< "$1" )"
-		json="$(curl -s "https://servicodados.ibge.gov.br/api/v2/censos/nomes/$1")"
+		json=$(curl -s "https://servicodados.ibge.gov.br/api/v2/censos/nomes/$1")
 		jq -r '.[]|"Local: \(.localidade)","Nome_: \(.nome)"' <<<"$json"
 		jq -r '.[].res[]|"\(.periodo)\t\(.frequencia)"' <<<"$json" \
 			| tr -d '][' | tr ',' '-' | column -et -NPERIODO,FREQ
@@ -3461,16 +3460,11 @@ border()
 #https://www.vivaolinux.com.br/topico/Shell-Script/Texto-com-bordas-usando-Shell-Script
 
 #make it snow!
-#clear;while :;do echo $LINES $COLUMNS $(($RANDOM%$COLUMNS));sleep 0.1;done|gawk '{a[$3]=0;for(x in a) {o=a[x];a[x]=a[x]+1;printf "\033[%s;%sH ",o,x;printf "\033[%s;%sH*\033[0;0H",a[x],x ;}}'
-
-#make it rain!
-#clear;while :;do echo $LINES $COLUMNS $(($RANDOM%$COLUMNS));sleep 0.1;done|gawk '{a[$3]=0;for(x in a) {o=a[x];a[x]=a[x]+1;printf "\033[%s;%sH ",o,x;printf "\033[%s;%sH.\033[0;0H",a[x],x ;}}'
-
-#make it rain fast!
-#clear;while :;do echo $LINES $COLUMNS $(($RANDOM%$COLUMNS));sleep 0.0;done|gawk '{a[$3]=0;for(x in a) {o=a[x];a[x]=a[x]+1;printf "\033[%s;%sH ",o,x;printf "\033[%s;%sH.\033[0;0H",a[x],x ;}}'
-
-#make it rain money!
-#clear;while :;do echo $LINES $COLUMNS $(($RANDOM%$COLUMNS));sleep 0.1;done|gawk '{a[$3]=0;for(x in a) {o=a[x];a[x]=a[x]+1;printf "\033[%s;%sH ",o,x;printf "\033[%s;%sH$\033[0;0H",a[x],x ;}}'
+#usage: snow [CHAR] [SLEEPTIME]
+#make it rain!        ->  snow .
+#make it rain fast!   ->  snow . 0
+#make it rain money!  ->  snow '$'
+snow() { clear;while :;do echo $LINES $COLUMNS $(($RANDOM%$COLUMNS));sleep ${2:-0.1};done|gawk '{a[$3]=0;for(x in a) {o=a[x];a[x]=a[x]+1;printf "\033[%s;%sH ",o,x;printf "\033[%s;%sH'"${1:-*}"'\033[0;0H",a[x],x ;}}' ;}
 #https://www.youtube.com/watch?v=0HsE4RRhLQ0
 
 #alias emoji_shrug='echo -n "¯\_(ツ)_/¯" | xclip -selection clipboard'
@@ -4032,5 +4026,43 @@ reducepdf() {
 #Note that lower CRF values correspond to higher bitrates, and hence produce higher quality videos.
 #{ ffmpeg -i Intro_do_Canal.mp4 -vf "scale=iw/1.8:ih/1.8" Intro_do_Canal_small.mp4 ;}
 #https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg
+
+
+#price monitor
+#price must be an integer
+pmon()
+{
+	local REPLY sec sign tgt mail
+	sign=${1//[^><]} tgt=${1//[><+-]} tgt=${tgt%.*}
+	binance -s ${@:2} | while read ;do
+		if [[ "$REPLY" =~ ^\ *[0-9,.]+\ *$ ]] && ((${REPLY%[,.]*} ${sign:->} ${tgt:?err: price target required}))
+		then
+			(mplayer -really-quiet /usr/share/sounds/Smooth/stereo/dialog-warning.oga &>/dev/null &)
+			((mail)) || (mail "price target! ${@:2} ${REPLY%[,.]*} ${sign:->} $tgt" &)
+			echo -e "\aprice target! ${@:2} ${REPLY%[,.]*} ${sign:->} $tgt @ $(date -Isec)"
+			sec=$SECONDS  mail=1  
+			while ((SECONDS < sec+5)) && read ;do : ;done
+		fi
+	done
+}
+
+#libinput
+#{ xinput-list ;}
+#{ xinput set-prop 13 322 0.2 ;}
+#{ xinput set-prop 13 341 0 ;}
+
+
+#send quick mail
+mail()
+{
+	(($#)) || return
+	mutt -s "$(tr \\n \ <<<"$*"|cut -c-50)" ${TO:-jamilbio20@gmail.com} <<<"$*"
+}
+
+#xfce4 numlock keyboard
+#{ xfconf-query -c keyboards -lv | grep -i numlock ;}
+#{ xfconf-query -c keyboards -p /Default/Numlock -t bool -s true --create ;}
+#https://forum.xfce.org/viewtopic.php?id=13109
+
 
 # vi:filetype=sh

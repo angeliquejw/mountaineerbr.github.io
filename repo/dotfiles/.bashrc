@@ -58,7 +58,7 @@ HISTIGNORE=bash:q:exit:x:su:sdh:sdr:shutdown
 
 #history date format
 #HISTTIMEFORMAT="[%F %T]: "
-HISTTIMEFORMAT="$( echo -e "\033[0;32m[%F %T]:\033[0m " )"
+HISTTIMEFORMAT=$( echo -e "\033[0;32m[%F %T]:\033[0m " )
 #end colour code: \033[0m
 #https://gist.github.com/avelino/3188137
 
@@ -275,5 +275,5 @@ export ZZDIR="$HOME/bin/more/funcoeszz/zz"    # pasta zz/
 #source "$ZZPATH"
 
 #ligar funcoezz
-alias ZZ='source "'$ZZPATH'"'
+alias ZZ='source "'"$ZZPATH"'"'
 

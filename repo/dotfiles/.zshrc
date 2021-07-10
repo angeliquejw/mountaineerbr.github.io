@@ -32,7 +32,6 @@ qq()
 	#create signal file
 	[[ -n "$TMUX" ]] && echo exit >"$__TMUXSIG"
 	echo '[bye..]' >&2
-	sleep 0.5
 	exit
 }
 
