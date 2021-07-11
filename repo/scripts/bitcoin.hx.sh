@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.3  jul/2021  by castaway
+# v0.8.5  jul/2021  by castaway
 # create base-58 address types from public key,
 # create WIF from private keys and more
 # requires Bash v4+
@@ -36,7 +36,7 @@ HELP="$SN - create base-58 address types from public key,
 DESCRIPTION
 	$SN [-1e] STRING..
 	$SN [-ace] [-vNUM] [STRING|HASH160]..
-	$SN [-epp] [-vNUM] [STRING|FILE]..
+	$SN [-eppPP] [-vNUM] [STRING|FILE]..
 	$SN [-ewwx] [-vNUM] STRING..
 	$SN [-26be] [STRING|FILE|HEX]..
 	$SN [-beyY] [STRING|FILE|HEX]..
@@ -80,8 +80,9 @@ DESCRIPTION
 	private key. Private key must be a SHA256 sum. If a text string
 	or a filename is used instead, the SH256 sum will calculated and
 	used as private key. This can be used as brain wallet generator.
-	Set -pp to generate the compressed private address. Set option
-	-e to generate and print the public address from the private one.
+	Set -pp to generate the compressed private address. Alternatively,
+	set -P or -PP to also generate and print the public address from
+	the private one.
 
 
 	Option -x check checksum of WIF key.
@@ -247,9 +248,10 @@ OPTIONS
 	-a 	Avoid making HASH160 from input (set input as HASH160).
 
 	Private keys
-	-p	Generate Wallet import Format (WIF) key from private key;
-		set -e to generate the public address from it.
-	-pp 	Generate compressed WIF from private key (see -e).
+	-P 	Same as -p and also generates the public address.
+	-PP 	Same as -p and also generates the public address.
+	-p	Generate Wallet import Format (WIF) key from private key.
+	-pp 	Generate compressed WIF from private key.
 	-x 	Check Wallet Import Format checksum.
 	-w	Generate private key from WIF.
 	-ww	Generate private key from compressed WIF.
@@ -888,9 +890,22 @@ privkeyf()
 	#generate address
 	addr="$(encodeBase58 "$step$cksum")"
 
+	#generate public address from private one
+	if ((OPTPP))
+	then
+		echo "
+--------
+TYPE____: $type
+${OPTVERBOSE:+INPUT___: ${input_filename:-$input}}
+SHA256__: ${sha256[-1]}
+COMPRESS: $( ((OPTP==2)) && echo true || echo false )
+VER_BYTE: $VER
+CHECKSUM: $cksum
+PRIVADDR: $addr
+$(newBitcoinKey "$addr")"
+	#generate only the private address
 	#verbose
-	#-e also generates the public address from the private one
-	if (( OPTVERBOSE ))
+	elif (( OPTVERBOSE ))
 	then
 		echo "
 --------
@@ -900,8 +915,7 @@ SHA256__: ${sha256[-1]}
 COMPRESS: $( ((OPTP==2)) && echo true || echo false )
 VER_BYTE: $VER
 CHECKSUM: $cksum
-PRIVADDR: $addr
-$(newBitcoinKey "$addr")"
+PRIVADDR: $addr"
 	else
 		echo "$addr"
 	fi
@@ -1076,7 +1090,7 @@ issha256sumf()
 }
 
 #parse opts
-while getopts 126abcehv:pxwyY c
+while getopts 126abcehv:pPxwyY c
 do
 	case $c in
 		1)
@@ -1125,6 +1139,12 @@ do
 		p)
 			#make a privy key from sha256
 			((OPTP++))
+			VERDEF="$VERPRIDEF"
+			;;
+		P)
+			#make a privy key from sha256 and its public address
+			((OPTP++))
+			OPTPP=1
 			VERDEF="$VERPRIDEF"
 			;;
 		x)
