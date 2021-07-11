@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.2  jul/2021  by castaway
+# v0.8.3  jul/2021  by castaway
 # create base-58 address types from public key,
 # create WIF from private keys and more
 # requires Bash v4+
@@ -77,9 +77,12 @@ DESCRIPTION
 	Private keys
 
 	Option -p generates a Wallet Import Format (WIF) address from a
-	private key (seed); private key may be an image file, audio file,
-	text, etc or its SHA256 sum directly. The SHA256 sum will be set
-	as private key.
+	private key. Private key must be a SHA256 sum. If a text string
+	or a filename is used instead, the SH256 sum will calculated and
+	used as private key. This can be used as brain wallet generator.
+	Set -pp to generate the compressed private address. Set option
+	-e to generate and print the public address from the private one.
+
 
 	Option -x check checksum of WIF key.
 
@@ -244,8 +247,9 @@ OPTIONS
 	-a 	Avoid making HASH160 from input (set input as HASH160).
 
 	Private keys
-	-p	Generate Wallet import Format (WIF) key from private key.
-	-pp 	Generate compressed WIF from private key.
+	-p	Generate Wallet import Format (WIF) key from private key;
+		set -e to generate the public address from it.
+	-pp 	Generate compressed WIF from private key (see -e).
 	-x 	Check Wallet Import Format checksum.
 	-w	Generate private key from WIF.
 	-ww	Generate private key from compressed WIF.
@@ -312,10 +316,8 @@ cpackf() {
     xxd -r -p
 }
 
-#unpack() {
-#    xxd -p | tr -d '\n'
-#}
 #custom
+#added array `$@' to `xxd' cmd
 unpack() {
     xxd -p "$@" | tr -d '\n'
 }
@@ -326,6 +328,20 @@ declare -a base58=(
     a b c d e f g h i j k   m n o p q r s t u v w x y z
 )
 unset dcr; for i in {0..57}; do dcr+="${i}s${base58[i]}"; done
+declare ec_dc='
+I16i7sb0sa[[_1*lm1-*lm%q]Std0>tlm%Lts#]s%[Smddl%x-lm/rl%xLms#]s~
+483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8
+79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798
+2 100^d14551231950B75FC4402DA1732FC9BEBF-so1000003D1-ddspsm*+sGi
+[_1*l%x]s_[+l%x]s+[*l%x]s*[-l%x]s-[l%xsclmsd1su0sv0sr1st[q]SQ[lc
+0=Qldlcl~xlcsdscsqlrlqlu*-ltlqlv*-lulvstsrsvsulXx]dSXxLXs#LQs#lr
+l%x]sI[lpSm[+q]S0d0=0lpl~xsydsxd*3*lal+x2ly*lIx*l%xdsld*2lx*l-xd
+lxrl-xlll*xlyl-xrlp*+Lms#L0s#]sD[lpSm[+q]S0[2;AlDxq]Sdd0=0rd0=0d
+2:Alp~1:A0:Ad2:Blp~1:B0:B2;A2;B=d[0q]Sx2;A0;B1;Bl_xrlm*+=x0;A0;B
+l-xlIxdsi1;A1;Bl-xl*xdsld*0;Al-x0;Bl-xd0;Arl-xlll*x1;Al-xrlp*+L0
+s#Lds#Lxs#Lms#]sA[rs.0r[rl.lAxr]SP[q]sQ[d0!<Qd2%1=P2/l.lDxs.lLx]
+dSLxs#LPs#LQs#]sM[lpd1+4/r|]sR
+';
 
 #S2 S2 S2
 #newest function for decoding base58 specific values
@@ -343,7 +359,6 @@ decodeBase58() {
   done
 }
 
-#original
 encodeBase58() {
     local n
     echo -n "$1" | sed -e's/^\(\(00\)*\).*/\1/' -e's/00/1/g' | tr -d '\n'
@@ -351,7 +366,7 @@ encodeBase58() {
     while read -r n; do echo -n "${base58[n]}"; done
 }
 #custom (for option -Y)
-#use echo to send large strings to dc
+#use `echo' to send large strings to dc
 cencodeBase58f() {
     local n
     echo -n "$1" | sed -e's/^\(\(00\)*\).*/\1/' -e's/00/1/g' | tr -d '\n'
@@ -365,6 +380,20 @@ checksum() {
     openssl dgst -sha256 -binary |
     unpack |
     head -c 8
+}
+
+toEthereumAddressWithChecksum() {
+    local addrLower=$(sed -r -e 's/[[:upper:]]/\l&/g' <<< "$1")
+    local addrHash=$(echo -n "$addrLower" | openssl dgst -sha3-256 -binary | xxd -p -c32)
+    local addrChecksum=""
+    local i c x
+    for i in {0..39}; do
+        c=${addrLower:i:1}
+        x=${addrHash:i:1}
+        [[ $c =~ [a-f] ]] && [[ $x =~ [89a-f] ]] && c=${c^^}
+        addrChecksum+=$c
+    done
+    echo -n $addrChecksum
 }
 
 checkBitcoinAddress() {
@@ -388,7 +417,75 @@ hexToAddress() {
     echo
 }
 
-#more refs
+#custom
+#changed `cat' to `echo', removed right-side space
+newBitcoinKey() {
+    if [[ "$1" =~ ^[5KL] ]] && checkBitcoinAddress "$1"
+    then
+        local decoded="$(decodeBase58 "$1")"
+        if [[ "$decoded" =~ ^80([0-9A-F]{64})(01)?[0-9A-F]{8}$ ]]
+        then $FUNCNAME "0x${BASH_REMATCH[1]}"
+        fi
+    elif [[ "$1" =~ ^[0-9]+$ ]]
+    then $FUNCNAME "0x$(dc -e "16o$1p")"
+    elif [[ "${1^^}" =~ ^0X([0-9A-F]{1,})$ ]]
+    then
+        local exponent="${BASH_REMATCH[1]}"
+        local full_wif="$(hexToAddress "$exponent" 80 64)"
+        local comp_wif="$(hexToAddress "${exponent}01" 80 66)"
+        dc -e "$ec_dc lG I16i${exponent^^}ri lMx 16olm~ n[ ]nn" |
+        {
+            read y x
+            X="$(printf "%64s" $x | sed 's/ /0/g')"
+            Y="$(printf "%64s" $y | sed 's/ /0/g')"
+            [[ "$y" =~ [02468ACE]$ ]] && y_parity="02" || y_parity="03"
+            full_pubkey="04${X}${Y}"
+            comp_pubkey="${y_parity}${X}"
+            full_p2pkh_addr="$(hexToAddress "$(pack "$full_pubkey" | hash160)")"
+            comp_p2pkh_addr="$(hexToAddress "$(pack "$comp_pubkey" | hash160)")"
+            full_p2sh_addr="$(hexToAddress "$(pack "41${full_pubkey}AC" | hash160)" 05)"
+            comp_p2sh_addr="$(hexToAddress "$(pack "21${comp_pubkey}AC" | hash160)" 05)"
+            # Note: Witness uses only compressed public key
+            comp_p2wpkh_addr="$(hexToAddress "$(pack "0014$(pack "$comp_pubkey" | hash160)" | hash160)" 05)"
+            full_multisig_1_of_1_addr="$(hexToAddress "$(pack "5141${full_pubkey}51AE" | hash160)" 05)"
+            comp_multisig_1_of_1_addr="$(hexToAddress "$(pack "5121${comp_pubkey}51AE" | hash160)" 05)"
+            qtum_addr="$(hexToAddress "$(pack "${comp_pubkey}" | hash160)" 3a)"
+            ethereum_addr="$(pack "$X$Y" | openssl dgst -sha3-256 -binary | unpack | tail -c 40)"
+            tron_addr="$(hexToAddress "$ethereum_addr" 41)"
+			echo "---
+secret exponent:          0x$exponent
+public key:
+    X:                    $X
+    Y:                    $Y
+
+compressed addresses:
+    WIF:                  $comp_wif
+    Bitcoin (P2PKH):      $comp_p2pkh_addr
+    Bitcoin (P2SH [PKH]): $comp_p2sh_addr
+    Bitcoin (P2WPKH):     $comp_p2wpkh_addr
+    Bitcoin (1-of-1):     $comp_multisig_1_of_1_addr
+ ---- other networks ----
+    Qtum:                 $qtum_addr
+
+uncompressed addresses:
+    WIF:                  $full_wif
+    Bitcoin (P2PKH):      $full_p2pkh_addr
+    Bitcoin (P2SH [PKH]): $full_p2sh_addr
+    Bitcoin (1-of-1):     $full_multisig_1_of_1_addr
+ ---- other networks ----
+    Ethereum:             0x$(toEthereumAddressWithChecksum $ethereum_addr)
+    Tron:                 $tron_addr"
+           
+        }
+    elif test -z "$1"
+    then $FUNCNAME "0x$(openssl rand -rand <(date +%s%N; ps -ef) -hex 32 2>&-)"
+    else
+        echo unknown key format "$1" >&2
+        return 2
+    fi
+}
+
+#some refs
 #generate bech32 addresses in zsh
 #_not_ sure his scripts are right though!
 #https://blog.iuliancostan.com/post/2020-02-10-bitcoin-bech32-segwit-address/
@@ -487,7 +584,7 @@ sha256df()
 {
 	local input input_filename sha256d type
 	typeset -au sha256d  #array, uppercase
-	type=string
+	type='text string'
 	input="$1"
 
 	#if input is a file
@@ -553,7 +650,7 @@ DSHA256: ${sha256d[-1]}"
 genhash160f()
 {
 	local dump input input_filename hx160 type
-	type=string
+	type='text string'
 	input="$1"
 
 	#if input is a file
@@ -597,7 +694,7 @@ HASH160: $hx160"
 base58f()
 {
 	local bytestr input input_filename type output
-	type=string
+	type='text string'
 	input="$1"
 
 	#if input is a file
@@ -753,7 +850,7 @@ privkeyf()
 {
 	local addr input input_filename sha256 step hx cksum type
 	typeset -au sha256  #array, uppercase
-	type=string
+	type='text string'
 	input="$1"
 	
 	#if input is a file
@@ -792,16 +889,19 @@ privkeyf()
 	addr="$(encodeBase58 "$step$cksum")"
 
 	#verbose
+	#-e also generates the public address from the private one
 	if (( OPTVERBOSE ))
 	then
-		echo "--------
+		echo "
+--------
 TYPE____: $type
 INPUT___: ${input_filename:-$input}
 SHA256__: ${sha256[-1]}
 COMPRESS: $( ((OPTP==2)) && echo true || echo false )
 VER_BYTE: $VER
 CHECKSUM: $cksum
-PRIVADDR: $addr"
+PRIVADDR: $addr
+$(newBitcoinKey "$addr")"
 	else
 		echo "$addr"
 	fi
@@ -871,9 +971,9 @@ wcheckf()
 	
 	#Convert it to a string using Base58Check encoding
 	#validate base58 input string
-	if [[ "$input" =~ [^"$B58$IFS"] ]]
-	then echo "err: illegal base58 char -- ${BASH_REMATCH[0]}" >&2 ;return 1
-	else a="$( decodeBase58 "$input" )"
+	if isbase58f "$input"
+	then a="$( decodeBase58 "$input" )"
+	else return 1
 	fi
 	#Drop the last 4 checksum bytes from the byte string
 	b="${a%????????}"
@@ -963,9 +1063,7 @@ isprivkeyf()
 isbase58f()
 {
 	if [[ "$1" =~ [^"$B58$IFS"] ]]
-	then
-		echo "err: illegal base58 char -- ${BASH_REMATCH[0]}" >&2
-		return 1
+	then echo "err: illegal base58 char -- ${BASH_REMATCH[0]}" >&2 ;return 1
 	fi
 
 	return 0
@@ -1025,7 +1123,7 @@ do
 			#VEROPT=1
 			;;
 		p)
-			#make a privy key from seed
+			#make a privy key from sha256
 			((OPTP++))
 			VERDEF="$VERPRIDEF"
 			;;
@@ -1084,28 +1182,28 @@ VER="${VER#0[Xx]}"
 
 #set option function
 #-1 get hash160 from public address
-if (( OPTREV ))
+if ((OPTREV))
 then mainf() { revf "$1" ;}
 #-2 generate double sha256 sum
-elif (( OPTDSHA ))
+elif ((OPTDSHA))
 then mainf() { sha256df "$1" ;}
 #-6 generate hash160 from any string or file
-elif (( OPTHASH160 ))
+elif ((OPTHASH160))
 then mainf() { genhash160f "$1" ;}
 #-yY encode decode base58
-elif (( ENCODEOPT ))
+elif ((ENCODEOPT))
 then mainf() { base58f "$1" ;}
 #-c check public key (address) checksum
-elif (( OPTC ))
+elif ((OPTC))
 then mainf() { checkf "$@" ;}
-#-p create private key from seed
-elif (( OPTP ))
+#-p create private key from sha256 sum
+elif ((OPTP))
 then mainf() { privkeyf "$@" ;}
 #-w WIF to privy key
-elif (( OPTW ))
+elif ((OPTW))
 then mainf() { wifkeyf "$@" ;}
 #-x check wif key checksum
-elif (( OPTX ))
+elif ((OPTX))
 then mainf() { wcheckf "$@" ;}
 #default option, convert hex to public address
 else mainf() { addrf "$1" ;}
