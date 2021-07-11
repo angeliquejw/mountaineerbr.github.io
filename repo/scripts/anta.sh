@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.17.6  jun/2021  by mountaineerbr
+# v0.17.8  jul/2021  by mountaineerbr
 
 #padrões
 
@@ -648,7 +648,7 @@ linksf() {
 			do
 				#check some link validity
 				if [[ "$COMP" = *[\"\'{}]* ]]
-				then echo "internal err: getlinksf() -- ${COMP:0:60}" >&2 ;continue
+				then echo "internal err: getlinksf() -- ${COMP:0:220}" >&2 ;continue
 				#avoid duplicate articles links
 				elif [[ "${LINKSBUFFER[*]}" = *"$COMP"* ]]
 				then continue
