@@ -249,7 +249,7 @@ OPTIONS
 
 	Private keys
 	-P 	Same as -p and also generates the public address.
-	-PP 	Same as -p and also generates the public address.
+	-PP 	Same as -pp and also generates the public address.
 	-p	Generate Wallet import Format (WIF) key from private key.
 	-pp 	Generate compressed WIF from private key.
 	-x 	Check Wallet Import Format checksum.
