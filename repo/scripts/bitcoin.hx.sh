@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.1  jul/2021  by castaway
+# v0.8.2  jul/2021  by castaway
 # create base-58 address types from public key,
 # create WIF from private keys and more
 # requires Bash v4+
@@ -523,7 +523,7 @@ sha256df()
 		fi 2>/dev/null
 
 		sha256d=( $(
-			echo ${NONL+-n} "$input" |
+			echo ${NONL:+-n} "$input" |
 				openssl dgst -sha256 -binary |
 				openssl dgst -sha256
 		) )
@@ -571,7 +571,7 @@ genhash160f()
 		#is input binary hex or text string?
 		if ((OPTBYTE))
 		then type=hex
-		else dump="$(echo ${NONL+-n} "$input" | unpack)"
+		else dump="$(echo ${NONL:+-n} "$input" | unpack)"
 		fi
 	fi 2>/dev/null
 
@@ -627,7 +627,7 @@ base58f()
 			#output byte string
 			output="$(echo -n "$bytestr" | unpack)"
 		else
-			[[ -z "$bytestr" ]] && bytestr="$(echo ${NONL+-n} "$input" | unpack)"
+			[[ -z "$bytestr" ]] && bytestr="$(echo ${NONL:+-n} "$input" | unpack)"
 
 			#convert hex to base58; get error msg
 			output="$(cencodeBase58f "$bytestr" 2>&1)"
@@ -769,7 +769,7 @@ privkeyf()
 	else
 		if issha256sumf "$input"
 		then type=sha256 sha256=( $input )
-		else sha256=( $(echo ${NONL+-n} "$input" | openssl dgst -sha256) ) 
+		else sha256=( $(echo ${NONL:+-n} "$input" | openssl dgst -sha256) ) 
 		fi
 	fi
 
