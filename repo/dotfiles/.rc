@@ -21,7 +21,7 @@ for f in \
 	~/bin/markets/mkt_func.sh
 do [[ -r "$f" ]] && . "$f"
 done
-unset f
+unset f 
 
 #set dircolors
 if type dircolors >/dev/null
