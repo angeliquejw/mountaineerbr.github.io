@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.6  jul/2021  by castaway
+# v0.8.7  jul/2021  by castaway
 # create base-58 address types from public key,
 # create WIF from private keys and more
 # requires Bash v4+
@@ -28,6 +28,11 @@ B58='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 #literal newline and blank space
 ASCIISET="${IFS}!\"#$%&'()*+,./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_\`abcdefghijklmnopqrstuvwxyz{|}~-"
 
+#Common address prefix values
+VERBYTES=(00 05 80 80 0488B21E 0488ADE4 6F C4 EF EF 043587CF 04358394)
+#https://en.bitcoin.it/wiki/List_of_address_prefixes
+#https://www.oreilly.com/library/view/mastering-bitcoin/9781491902639/ch04.html
+
 #help
 HELP="$SN - create base-58 address types from public key,
 		WIF from private keys and more
@@ -50,11 +55,11 @@ DESCRIPTION
 	Set multiple STRINGS as positional parameters or pipe one of
 	them via stdin. Each FILE is processed wholly.
 
-	If STRING is a filename and any option -26ppyY is set, file or
+	If STRING is a filename and any option -26ppPPyY is set, file or
 	stdin is read wholly. Remaining options process each line from
 	stdin separately.
 
-	Options -26ppY are sensitive for ending newline bytes. Beware
+	Options -26ppPPY are sensitive for ending newline bytes. Beware
 	that Bash trucates input at null bytes. If input has null bytes,
 	read it as FILE.
 
@@ -84,11 +89,9 @@ DESCRIPTION
 	set -P or -PP to also generate and print the public address from
 	the private one.
 
-
 	Option -x check checksum of WIF key.
 
-	Option -w convert WIF to private key. Pass twice to set compres-
-	sion flag.
+	Option -w convert uncompressed or compressed WIF to private key.
 
 
 	Decode and encode BASE58
@@ -134,8 +137,9 @@ ENVIRONMENT
 
 
 SEE ALSO
-	List of address prefixes
+	Address prefixes
 	<https://en.bitcoin.it/wiki/List_of_address_prefixes>
+	<https://www.oreilly.com/library/view/mastering-bitcoin/9781491902639/ch04.html>
 
 	For basic information on making addresses
 	<https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses>
@@ -174,8 +178,9 @@ BUGS
 	Be aware this script is for studying purposes so there is no
 	guarantee this is working properly. DYOR and check output.
 
-	Options -26ppY will truncate input at null bytes. That is a
-	Bash limitation. Set input as FILE to circunvent this.
+	Options -26ppPPY will truncate input at null bytes because Bash
+	cannot have strings containing null-bytes. Set input as FILE
+	to circunvent that.
 
 
 WARRANTY
@@ -253,8 +258,7 @@ OPTIONS
 	-P 	Same as -p and also generates the public address.
 	-PP 	Same as -pp and also generates the public address.
 	-x 	Check Wallet Import Format checksum.
-	-w	Generate private key from WIF.
-	-ww	Generate private key from compressed WIF.
+	-w	Generate private key from (un)compresssed WIF.
 	
 	Decode and encode BASE58
 	-b 	Flag input STRING is BYTE HEX instead of text (with -26y),
@@ -551,16 +555,13 @@ revf()
 
 	#is input a filename?
 	if [[ -e "$input" ]]
-	then
-		input_filename="$input"
-		input="$(<"$input_filename")"
+	then input_filename="$input" input="$(<"$input_filename")"
 	fi 2>/dev/null
+
 	#validate base58 input string
-	#segwit bech32 character set will throw errors
 	#get addr type
-	if isbase58f "$input"
-	then type="$(ispubkeyf "$input" || isprivkeyf "$input" || echo base58 string)"
-	else return 1
+	if ! type="$(ispubkeyf "$input" || iswiff "$input" || isbase58f "$input")"
+	then echo "err: invalid input -- $input" >&2 ;return 1
 	fi
 
 	#decode base58
@@ -764,7 +765,7 @@ BASE58_: $output"
 			#drop 0x from start of string
 			bytestr="${input#0[Xx]}"
 		#validate base58 input string
-		elif isbase58f "$input"
+		elif isbase58f "$input" >/dev/null
 		then
 			#convert base58 to hex
 			bytestr="$(decodeBase58 "$input")"
@@ -930,19 +931,14 @@ PRIVADDR: $addr"
 #-w generate private key from wif
 wifkeyf()
 {
-	local input pkey
+	local input pkey compressflag type
 	input="$1"
 
-	#check private key prefix
-	if [[ "$input" != [59KLc]* ]]
-	then echo "err: WIF not recognised -- $input" >&2 ;return 1
-	fi
-	
+	#Validate base58 input string
 	#Convert it to a string using Base58Check encoding
-	#validate base58 input string
-	if isbase58f "$input"
-	then pkey="$( decodeBase58 "$input" )"
-	else return 1
+	if type="$(iswiff "$input")"
+	then pkey="$(decodeBase58 "$input")" ;[[ "$type" = [Cc]ompressed* ]] && compressflag=1
+	else echo "err: invalid/unknown WIF format -- $input" >&2 ;return 1
 	fi
 
 	#Drop the last 4 checksum bytes from the byte string
@@ -953,14 +949,14 @@ wifkeyf()
 
 	#Also drop the last byte (it should be 0x01)
 	#if it corresponded to a compressed public key
-	((OPTW==1)) || pkey="${pkey%??}"
+	((compressflag)) && pkey="${pkey%??}"
 
 	#verbose
 	if (( OPTVERBOSE ))
 	then
 		echo "--------
 WIF_____: $input
-COMPRESS: $( ((OPTW==2)) && echo true || echo false )
+TYPE____: $type
 PRIV_KEY: $pkey"
 	else
 		#print private key with newline
@@ -969,25 +965,22 @@ PRIV_KEY: $pkey"
 
 	[[ -n "$pkey" ]] || exit 1
 }
+#testnet: https://bitcoin.stackexchange.com/questions/69315/how-are-compressed-pubkeys-generated
 
 #-x check wif key checksum
 #todo: really check valid prefixes in wif checksum check?
 wcheckf()
 {
-	local a b c d cksum hx input
+	local a b c d cksum hx input type
 	input="$1"
 
-	#check private key prefix
-	if [[ "$input" != [59KLc]* ]]
-	then echo "err: WIF not recognised -- $input" >&2 ;return 1
-	fi
-	
+	#Validate base58 input string
 	#Convert it to a string using Base58Check encoding
-	#validate base58 input string
-	if isbase58f "$input"
-	then a="$( decodeBase58 "$input" )"
-	else return 1
+	if type="$(iswiff "$input")"
+	then a="$(decodeBase58 "$input")"
+	else echo "err: invalid/unknown WIF format -- $input" >&2 ;return 1
 	fi
+
 	#Drop the last 4 checksum bytes from the byte string
 	b="${a%????????}"
 	#Drop first byte from the string
@@ -1024,6 +1017,7 @@ wcheckf()
 		echo "--------
 WIF key checksum check
 INPUT____: $input
+TYPE_____: $type
 2NDSHA256: $c
 CHECKSUM_: $cksum
 CKVERBYTE: $d
@@ -1042,41 +1036,44 @@ VER_BYTE_: $VER"
 	return 0
 }
 
-##is public address?
+#is public address?
 ispubkeyf()
 {
-	local input
-	input="$1"
-
 	#is legacy (P2PKH)?
-	if [[ "$input" =~ ^[1][a-km-zA-HJ-NP-Z1-9]{25,34}$ ]]
+	if [[ "$1" =~ ^[1][a-km-zA-HJ-NP-Z1-9]{25,34}$ ]]
 	then echo 'Legacy (P2PKH)' ;return 0
 	#is Segwit (P2SH)?
-	elif [[ "$input" =~ ^[3][a-km-zA-HJ-NP-Z1-9]{25,34}$ ]]
+	elif [[ "$1" =~ ^[3][a-km-zA-HJ-NP-Z1-9]{25,34}$ ]]
 	then echo 'Segwit (P2SH)' ;return 0
 	#is native segwit (bech32)?
-	elif [[ "$input" =~ ^bc(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})$ ]]
+	elif [[ "$1" =~ ^bc(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})$ ]]
 	then echo 'Native segwit (bech32)' ;return 0
 	fi
 
 	return 1
 }
 
-##is private key?
-isprivkeyf()
+#is WIF?
+iswiff()
 {
-	if [[ "$input" =~ ^[5KL][1-9A-HJ-NP-Za-km-z]{50,51}$ ]]
-	then echo 'Private address' ;return 0
+	#is uncompressed?
+	if [[ "$1" =~ ^[59][1-9A-HJ-NP-Za-km-z]{50,51}$ ]]
+	then echo 'Uncompressed WIF' ;return 0
+	#is compressed?
+	elif [[ "$1" =~ ^[KLc][1-9A-HJ-NP-Za-km-z]{50,51}$ ]]
+	then echo 'Compressed WIF' ;return 0
 	fi
 
 	return 1
 }
+#https://en.bitcoin.it/wiki/List_of_address_prefixes
 
 #is input base58?
 isbase58f()
 {
 	if [[ "$1" =~ [^"$B58$IFS"] ]]
 	then echo "err: illegal base58 char -- ${BASH_REMATCH[0]}" >&2 ;return 1
+	else echo 'Base58 string'
 	fi
 
 	return 0
@@ -1088,8 +1085,9 @@ issha256sumf()
 	[[ "$1" =~ ^\ *[A-Fa-f0-9]{64}\ *$ ]]
 }
 
+
 #parse opts
-while getopts 126abcehv:pPxwyY c
+while getopts 126abcehv:V:pPxwyY c
 do
 	case $c in
 		1)
@@ -1130,10 +1128,9 @@ do
 			echo "$HELP"  #print help page
 			exit 0
 			;;
-		v)
+		v|V)
 			#byte version
 			VER="${OPTARG:-${VERDEF}}"
-			#VEROPT=1
 			;;
 		p|P)
 			#-p make privy key from sha256
@@ -1168,6 +1165,10 @@ done
 shift $(( OPTIND - 1 ))
 unset c
 
+#check bash version
+#if (( BASH_VERSINFO[0] < 4 ))
+#then echo "$SN: err  -- bash version 4 or above required" >&2 ;exit 1
+#fi
 
 #required packages
 for PKG in openssl xxd
@@ -1178,24 +1179,17 @@ do
 done
 unset PKG
 
-#check bash version
-#if (( BASH_VERSINFO[0] < 4 ))
-#then echo "$SN: err  -- bash version 4 or above required" >&2 ;exit 1
-#fi
-
-#check $VER
-if [[ "$VER" = *[a-zA-Z]* ]] || (( ${#VER} > 2 ))
-then echo "warning: user-set byte version -- $VER" >&2
-fi
-#check for incompatible options?
-#((VEROPT && OPTREV+OPTDSHA+OPTHASH160)) && { echo "$SN: err  -- incompatible options" >&2 ;exit 1 ;}
-
 #consolidate version byte option
 VER="${VER:-$VERDEF}"
 #drop 0x from start of string
 VER="${VER#0[Xx]}"
 
-#set option function
+#check version byte input, warn if unknown
+if [[ ! \ "${VERBYTES[*]}"\  = *\ "${VER^^}"\ * ]]
+then echo "warning: user-set byte version -- $VER" >&2
+fi
+
+#declare main() as per option
 #-1 get hash160 from public address
 if ((OPTREV))
 then mainf() { revf "$1" ;}

@@ -21,7 +21,7 @@ for f in \
 	~/bin/markets/mkt_func.sh
 do [[ -r "$f" ]] && . "$f"
 done
-unset f 
+unset f
 
 #set dircolors
 if type dircolors >/dev/null
@@ -2927,15 +2927,16 @@ btchist()
 #cryptocurrency greps
 
 #btc1 and btc2 combined
-alias btcgrep="grep -Ee '\b[13][a-km-zA-HJ-NP-Z1-9]{25,34}\b' -e '\bbc(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})\b'"
+alias btcgrep='\b(bc(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|[13][a-km-zA-HJ-NP-Z1-9]{25,35})\b'
+#https://stackoverflow.com/questions/21683680/regex-to-match-bitcoin-addresses
 
 #legacy addresses only
 alias btcgrep1="grep -E '\b[13][a-km-zA-HJ-NP-Z1-9]{25,34}\b'"
 #http://mokagio.github.io/tech-journal/2014/11/21/regex-bitcoin.html
+#https://ihateregex.io/expr/bitcoin-address/
 
 #bech32 v1 and v0 addresses
 alias btcgrep2="grep -E '\bbc(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})\b'"
-#https://stackoverflow.com/questions/21683680/regex-to-match-bitcoin-addresses
 
 #bech32 addresses only
 alias btcgrep3="grep -E '\bbc1[ac-hj-np-zAC-HJ-NP-Z02-9]{11,71}\b'"
@@ -2943,10 +2944,16 @@ alias btcgrep3="grep -E '\bbc1[ac-hj-np-zAC-HJ-NP-Z02-9]{11,71}\b'"
 #both legacy and bech32
 alias btcgrep4="grep -E '\b([13][a-km-zA-HJ-NP-Z1-9]{25,34}|bc1[ac-hj-np-zAC-HJ-NP-Z02-9]{11,71})\b'"
 #http://mokagio.github.io/tech-journal/2014/11/21/regex-bitcoin.html
-#bc1[qpzry9x8gf2tvdw0s3jn54khce6mua7l]{6,87}
+#https://bitcointalk.org/index.php?topic=1262694.0
 
-#private keys
-alias btcgrep5="grep -E '\b[5KL][1-9A-HJ-NP-Za-km-z]{50,51}\b'"
+#testnet public addresses
+alias btcgrep4a="grep -E '\b(tb(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|[mn2][a-km-zA-HJ-NP-Z1-9]{25,39})\b'"
+#https://stackoverflow.com/questions/21683680/regex-to-match-bitcoin-addresses
+#https://stackoverflow.com/questions/21683680/regex-to-match-bitcoin-addresses/50391800#50391800
+
+
+#private keys (mainet and testnet)
+alias btcgrep5="grep -E '\b[59KLc][1-9A-HJ-NP-Za-km-z]{50,51}\b'"
 #word boundary: '\b'
 #https://bitcoin.stackexchange.com/questions/56737/how-can-i-find-a-bitcoin-private-key-that-i-saved-in-a-text-file
 
