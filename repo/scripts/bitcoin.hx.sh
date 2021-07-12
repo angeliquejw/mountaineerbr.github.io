@@ -248,10 +248,10 @@ OPTIONS
 	-a 	Avoid making HASH160 from input (set input as HASH160).
 
 	Private keys
-	-P 	Same as -p and also generates the public address.
-	-PP 	Same as -pp and also generates the public address.
 	-p	Generate Wallet import Format (WIF) key from private key.
 	-pp 	Generate compressed WIF from private key.
+	-P 	Same as -p and also generates the public address.
+	-PP 	Same as -pp and also generates the public address.
 	-x 	Check Wallet Import Format checksum.
 	-w	Generate private key from WIF.
 	-ww	Generate private key from compressed WIF.
