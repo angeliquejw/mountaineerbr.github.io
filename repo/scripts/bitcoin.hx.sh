@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.5  jul/2021  by castaway
+# v0.8.6  jul/2021  by castaway
 # create base-58 address types from public key,
 # create WIF from private keys and more
 # requires Bash v4+
@@ -895,8 +895,7 @@ privkeyf()
 	then
 		echo "
 --------
-TYPE____: $type
-${OPTVERBOSE:+INPUT___: ${input_filename:-$input}}
+TYPE____: $type${OPTVERBOSE:+$'\n'INPUT___: ${input_filename:-$input}}
 SHA256__: ${sha256[-1]}
 COMPRESS: $( ((OPTP==2)) && echo true || echo false )
 VER_BYTE: $VER
@@ -1136,15 +1135,11 @@ do
 			VER="${OPTARG:-${VERDEF}}"
 			#VEROPT=1
 			;;
-		p)
-			#make a privy key from sha256
+		p|P)
+			#-p make privy key from sha256
 			((OPTP++))
-			VERDEF="$VERPRIDEF"
-			;;
-		P)
-			#make a privy key from sha256 and its public address
-			((OPTP++))
-			OPTPP=1
+			#-P also make its public address?
+			[[ "$c" = P ]] && OPTPP=1
 			VERDEF="$VERPRIDEF"
 			;;
 		x)
