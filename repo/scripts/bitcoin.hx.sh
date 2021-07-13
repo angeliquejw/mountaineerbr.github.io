@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.7  jul/2021  by castaway
+# v0.8.8  jul/2021  by castaway
 # create base-58 address types from public key,
 # create WIF from private keys and more
 # requires Bash v4+
@@ -968,7 +968,6 @@ PRIV_KEY: $pkey"
 #testnet: https://bitcoin.stackexchange.com/questions/69315/how-are-compressed-pubkeys-generated
 
 #-x check wif key checksum
-#todo: really check valid prefixes in wif checksum check?
 wcheckf()
 {
 	local a b c d cksum hx input type
@@ -1021,7 +1020,7 @@ TYPE_____: $type
 2NDSHA256: $c
 CHECKSUM_: $cksum
 CKVERBYTE: $d
-VER_BYTE_: $VER"
+VER_BYTE_: $VER${VERUNKNOWN:+ (unknown version)}"
 	fi
 
 	#print validation result
@@ -1186,7 +1185,7 @@ VER="${VER#0[Xx]}"
 
 #check version byte input, warn if unknown
 if [[ ! \ "${VERBYTES[*]}"\  = *\ "${VER^^}"\ * ]]
-then echo "warning: user-set byte version -- $VER" >&2
+then echo "warning: user-set byte version -- $VER" >&2 ;VERUNKNOWN=1
 fi
 
 #declare main() as per option
