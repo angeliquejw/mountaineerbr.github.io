@@ -2582,35 +2582,32 @@ pages2txt()
 #~/.config/youtube-dl
 
 #youtube-dl
-#default dest_dir :  ~/Downloads
-#default urls file:  ~/Downloads/yt.txt
-
 #THE FOLLOWING youtube-dl FUNCTIONS ARE DEPENDENT ON EACH OTHER
 #simple download
-#usage:  yt ["dest_dir"] [urls..]
+#usage:  yt  [urls..]
 yt()
 {
-	#test if last arg is a directory
-	[[ -d "${@: -1}" ]] && set -- "${@: -1}" "${@:1:${#@}-1}"
-	[[ -d "$1" ]] || set -- "$HOME/Downloads/" "$@"
-
-	youtube-dl --restrict-filenames -o "${1%/}/%(title)s-%(id)s.%(ext)s" "${@:2}"
+	youtube-dl --restrict-filenames -o "%(title)s-%(id)s.%(ext)s" "$@"
 }
-#dl audio and convert to mp3
-yta()
+#dl audio and convert to mp3 (MUSIC)
+ytm()
 {
-	#test if last arg is a directory
-	[[ -d "${@: -1}" ]] && set -- "${@: -1}" "${@:1:${#@}-1}"
-	[[ -d "$1" ]] || set -- "$HOME/Downloads/" "$@"
-
 	echo '[ dl audio and convert to mp3 ]' >&2
 
 	youtube-dl -k -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 \
 		--restrict-filenames --metadata-from-title '(?P<artist>.+?)-(?P<title>.+)' \
-       		--embed-thumbnail --add-metadata -o "${1%/}/%(title)s.%(ext)s" "${@:2}"
+       		--embed-thumbnail --add-metadata -o "%(title)s.%(ext)s" "$@"
+}
+#dl general audio only stream (GENERAL AUDIO)
+yta()
+{
+	echo '[ dl audio only ]' >&2
+
+	youtube-dl -k -f bestaudio --restrict-filenames --embed-thumbnail \
+		--add-metadata -o "%(title)s.%(ext)s" "$@"
 }
 #dl audio and video of best quality
-#usage:  ytb ["dest_dir"] [urls..]
+#usage:  ytb  [urls..]
 ytb()
 {
 	echo '[ dl best quality audio and video ]' >&2
@@ -2625,32 +2622,21 @@ ytc()
 
 	yt -f 18 "$@"
 }
-#dl from url list text file  (try medium quality)
-ytt()
-{
-	#test if last arg is a file
-	[[ -f "$1" ]] && set -- "$2" "$1"
-	[[ -f "$2" ]] || set -- "$1" "$HOME/Downloads/yt.txt"
-
-	ytc --batch-file "$2" "$1" &&
-		mv "$2" "${2}.done.$RANDOM"
-}
-#dl audio and convert to mp3 from a url list text file
-#usage:  ytt ["dest_dir"] [url_file]
-ytta()
-{
-	#test if last arg is a file
-	[[ -f "$1" ]] && set -- "$2" "$1"
-	[[ -f "$2" ]] || set -- "$1" "$HOME/Downloads/yt.txt"
-
-	yta --batch-file "$2" "$1" &&
-		mv "$2" "${2}.done.$RANDOM"
-}
 
 #https://github.com/xeronull/dotfiles/blob/master/.bashrc
 # search and play youtube audio with preferred player
 # how to use --- yt search_term_here
 yts() { youtube-dl -q -f bestaudio --max-downloads 1 --no-playlist --default-search ${2:-ytsearch} "$1" -o - | mpv -vo null /dev/fd/3 3<&0 </dev/tty; }
+
+#general shell loop
+#usage: <file loop [cmd]
+loop()
+{
+	local REPLY
+	while read
+	do "$@" "$REPLY"
+	done
+}
 
 
 ##shell globbing

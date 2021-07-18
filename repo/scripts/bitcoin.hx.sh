@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.8  jul/2021  by castaway
+# v0.8.9  jul/2021  by castaway
 # create base-58 address types from public key,
 # create WIF from private keys and more
 # requires Bash v4+
@@ -41,7 +41,7 @@ HELP="$SN - create base-58 address types from public key,
 DESCRIPTION
 	$SN [-1e] STRING..
 	$SN [-ace] [-vNUM] [STRING|HASH160]..
-	$SN [-eppPP] [-vNUM] [STRING|FILE]..
+	$SN [-beppP] [-vNUM] [STRING|FILE]..
 	$SN [-ewwx] [-vNUM] STRING..
 	$SN [-26be] [STRING|FILE|HEX]..
 	$SN [-beyY] [STRING|FILE|HEX]..
@@ -55,11 +55,11 @@ DESCRIPTION
 	Set multiple STRINGS as positional parameters or pipe one of
 	them via stdin. Each FILE is processed wholly.
 
-	If STRING is a filename and any option -26ppPPyY is set, file or
+	If STRING is a filename and any option -26ppPyY is set, file or
 	stdin is read wholly. Remaining options process each line from
 	stdin separately.
 
-	Options -26ppPPY are sensitive for ending newline bytes. Beware
+	Options -26ppPY are sensitive for ending newline bytes. Beware
 	that Bash trucates input at null bytes. If input has null bytes,
 	read it as FILE.
 
@@ -86,15 +86,15 @@ DESCRIPTION
 	or a filename is used instead, the SH256 sum will calculated and
 	used as private key. This can be used as brain wallet generator.
 	Set -pp to generate the compressed private address. Alternatively,
-	set -P or -PP to also generate and print the public address from
-	the private one.
+	set -P to also generate the public address from it. If input is
+	BYTE HEX, set option -b.
 
 	Option -x check checksum of WIF key.
 
 	Option -w convert uncompressed or compressed WIF to private key.
 
 
-	Decode and encode BASE58
+	Decode and encode BASE58 input
 
 	Option -Y encodes STRING or FILE to BASE58. Text may be UTF-8
 	or ASCII, may work with random input. Set -b if input is BYTE HEX.
@@ -117,8 +117,8 @@ DESCRIPTION
 	Option -6 generates HASH160 from STRING, FILE or BYTE HEX (the
 	RIPEMD160 of SHA256 sum of input), see also option -b.
 
-	Option -b flags input as BYTE HEX instead of text (with -26y) or
-	prints output as BYTE HEX (with -Y).
+	Option -b flags input as BYTE HEX instead of text (with -26yppP)
+	or prints output as BYTE HEX (with -Y).
 
 	Option -c check checksum of public and private base58 keys (addresses).
 
@@ -178,7 +178,7 @@ BUGS
 	Be aware this script is for studying purposes so there is no
 	guarantee this is working properly. DYOR and check output.
 
-	Options -26ppPPY will truncate input at null bytes because Bash
+	Options -26ppPY will truncate input at null bytes because Bash
 	cannot have strings containing null-bytes. Set input as FILE
 	to circunvent that.
 
@@ -253,15 +253,14 @@ OPTIONS
 	-a 	Avoid making HASH160 from input (set input as HASH160).
 
 	Private keys
-	-p	Generate Wallet import Format (WIF) key from private key.
-	-pp 	Generate compressed WIF from private key.
-	-P 	Same as -p and also generates the public address.
-	-PP 	Same as -pp and also generates the public address.
+	-p	Generate Wallet import Format (WIF) key from private key (see -b).
+	-pp 	Generate compressed WIF from private key (see -b).
+	-P 	Same as -pp and also generate the public address.
 	-x 	Check Wallet Import Format checksum.
 	-w	Generate private key from (un)compresssed WIF.
 	
 	Decode and encode BASE58
-	-b 	Flag input STRING is BYTE HEX instead of text (with -26y),
+	-b 	Flag input STRING is BYTE HEX instead of text (with -26yppP),
 		or print output as BYTE HEX (with -Y).
 	-y	Decode BASE58-encoded STRING or FILE to text (see -b).
 	-Y	Encode STRING or text FILE to BASE58 (see -bt).
@@ -851,7 +850,7 @@ checkf()
 #-p generate a private address
 privkeyf()
 {
-	local addr input input_filename sha256 step hx cksum type
+	local addr input input_filename pinput sha256 step hx cksum type iscompressed pubkey
 	typeset -au sha256  #array, uppercase
 	type='text string'
 	input="$1"
@@ -862,19 +861,24 @@ privkeyf()
 		type=file
 		input_filename="$input"
 
-		if issha256sumf "$input"
+		if ((OPTBYTE))
+		then type=hex sha256=( $(xxd -p -r "$input_filename" | openssl dgst -sha256) )
+		elif issha256sumf "$input"
 		then type=sha256 sha256=( $(<"$input_filename") )
 		else sha256=( $(openssl dgst -sha256 "$input_filename") ) 
 		fi
 	else
-		if issha256sumf "$input"
+		if ((OPTBYTE))
+		then type=hex sha256=( $(echo ${NONL:+-n} "$input" | xxd -p -r | openssl dgst -sha256) )
+		elif issha256sumf "$input"
 		then type=sha256 sha256=( $input )
 		else sha256=( $(echo ${NONL:+-n} "$input" | openssl dgst -sha256) ) 
 		fi
 	fi
 
 	#is compressed?
-	(( OPTP == 2 )) || unset VERCOMP
+	iscompressed=true
+	((OPTP == 2)) || unset VERCOMP iscompressed
 
 	step="$VER${sha256[-1]}$VERCOMP"
 
@@ -891,42 +895,35 @@ privkeyf()
 	#generate address
 	addr="$(encodeBase58 "$step$cksum")"
 
-	#generate public address from private one
-	if ((OPTPP))
+	#verbose or -P?
+	if ((OPTVERBOSE+OPTPP))
 	then
-		echo "
---------
-TYPE____: $type${OPTVERBOSE:+$'\n'INPUT___: ${input_filename:-$input}}
-SHA256__: ${sha256[-1]}
-COMPRESS: $( ((OPTP==2)) && echo true || echo false )
-VER_BYTE: $VER
-CHECKSUM: $cksum
-PRIVADDR: $addr
-$(newBitcoinKey "$addr")"
-	#generate only the private address
-	#verbose
-	elif (( OPTVERBOSE ))
-	then
+		#is input too long to print?
+		((${#input} > 300 && OPTVERBOSE < 2)) && pinput="${input:0:299} [...]"
+		#-P generate public address?
+		((OPTPP)) && pubkey=$'\n'"$(newBitcoinKey "$addr")"
+
+		#print output at once
 		echo "
 --------
 TYPE____: $type
-INPUT___: ${input_filename:-$input}
+INPUT___: ${input_filename:-${pinput:-$input}}
 SHA256__: ${sha256[-1]}
-COMPRESS: $( ((OPTP==2)) && echo true || echo false )
+COMPRESS: ${iscompressed:-false}
 VER_BYTE: $VER
 CHECKSUM: $cksum
-PRIVADDR: $addr"
+PRIVADDR: $addr$pubkey"
 	else
 		echo "$addr"
 	fi
 
 	[[ -n "$addr" ]] || return 1
 }
-#test: 
 #https://en.bitcoin.it/wiki/Wallet_import_format
 #https://gist.github.com/t4sk/ac6f2d607c96156ca15f577290716fcc
 #http://gobittest.appspot.com/PrivateKey
 #https://bitcoin.stackexchange.com/questions/8247/how-can-i-convert-a-sha256-hash-into-a-bitcoin-base58-private-key
+#https://royalforkblog.github.io/2014/08/11/graphical-address-generator
 
 #-w generate private key from wif
 wifkeyf()
@@ -1116,7 +1113,7 @@ do
 			;;
 		e)
 			#verbose
-			OPTVERBOSE=1
+			((OPTVERBOSE++))
 			;;
 		h)
 			#print script version
@@ -1131,11 +1128,14 @@ do
 			#byte version
 			VER="${OPTARG:-${VERDEF}}"
 			;;
-		p|P)
+		p)
 			#-p make privy key from sha256
 			((OPTP++))
-			#-P also make its public address?
-			[[ "$c" = P ]] && OPTPP=1
+			VERDEF="$VERPRIDEF"
+			;;
+		P)
+			#-P also make its public addresses?
+			OPTP=2 OPTPP=1
 			VERDEF="$VERPRIDEF"
 			;;
 		x)
