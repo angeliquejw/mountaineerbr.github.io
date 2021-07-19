@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.37  jul/2021  by mountaineerbr
+# v0.8.38  jul/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -132,7 +132,7 @@ DESCRIPTION
 	nought is reached, the raw byte output will be printed. Setting
 	-yy prints all raw byte sequences, see example (4).
 
-	Option -s checks if all TXID VOUTS are unspent, otherwise exits
+	Option -s checks if TXID VOUTS are all unspent, otherwise exits
 	with one error per TXID. To check only one VOUT number of TXIDS,
 	set -S VOUT instead, in which VOUT is a positive integer. Printed
 	fields: Txid, Vout_n, Check, [Value], [Coinbase] and [Addresses].
@@ -285,7 +285,7 @@ OPTIONS
 	Functions
 	-f 	General transaction information only (fast), set multiple
 		times to dump more data.
-	-s 	Check if all TXID VOUTS are unspent.
+	-s 	Check if TXID VOUTS are all unspent.
 	-S VOUT
 		Same as -s, but check only a specific VOUT number.
 	-y 	Decode transaction hex to ASCII (auto select string length).
@@ -1077,8 +1077,6 @@ jobsemaphoref()
 #bitcoin-cli rpc call: 88-160 calls/sec
 
 #check if tx is unspent
-#USAGE: bitcoin.tx.sh -s "txid [blk]"
-#USAGE: bitcoin.tx.sh -S [vout_index] "txid [blk]"
 checkspentf()
 {
 	local TMP index info addr ret
