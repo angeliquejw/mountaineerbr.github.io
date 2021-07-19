@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.40  jul/2021  by mountaineerbr
+# v0.8.41  jul/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -133,9 +133,10 @@ DESCRIPTION
 	-yy prints all raw byte sequences, see example (4).
 
 	Option -s checks if TXID VOUTS are all unspent, otherwise exits
-	with one error per TXID. To check only one VOUT number of TXIDS,
-	set -S VOUT instead, in which VOUT is a positive integer. Printed
-	fields: Txid, Vout_n, Check, [Value], [Coinbase] and [Addresses].
+	with one error per TXID. To check only certain VOUT numbers, set
+	-S[VOUT] as many times as required, in which VOUT is a positive
+	integer. Printed fields: Txid, Vout_n, Check, [Value], [Coinbase]
+	and [Addresses].
 
 
 	Extra Functions
@@ -286,7 +287,7 @@ OPTIONS
 	-f 	General transaction information only (fast), set multiple
 		times to dump more data.
 	-s 	Check if TXID VOUTS are all unspent.
-	-S VOUT Same as -s, but check only a specific VOUT number.
+	-S VOUT Same as -s but checks specific VOUTs, may set multiple times.
 	-y 	Decode transaction hex to ASCII (auto select string length).
 	-yy, -Y	Same as -y but prints all bytes."
 
@@ -1085,9 +1086,9 @@ checkspentf()
 	if bwrapper getrawtransaction $TXID 1 ${BLOCK_HASH_LOOP:-${BLK_HASH}} >"$TMP"
 	then
 		#check vouts
-		for index in ${OPTSPENTVOUT:-$(jq -r '.vout[].n' "$TMP")}
+		for index in ${OPTSPENTVOUT[@]:-$(jq -r '.vout[].n' "$TMP")}
 		do
-			info=( $(bwrapper gettxout $TXID $index | jq -r '.value //empty,if .coinbase == true then "coinbase" else empty end') )
+			info=( $(bwrapper gettxout $TXID $index true | jq -r '.value //empty,if .coinbase == true then "coinbase" else empty end') )
 			addr=( $(voutf "$TMP") )
 			if [[ -n "${info[*]}" ]]
 			then echo "$TXID $index unspent ${info[*]} ${addr[@]:1}"
@@ -1234,9 +1235,9 @@ do
 			;;
 		S)
 			#check if transaction is spent or not
-			#get vout number
+			#specific vouts
 			OPTSPENT=1
-			OPTSPENTVOUT="$OPTARG"
+			OPTSPENTVOUT+=( $OPTARG )
 			;;
 		u)
 			#human-readable time formats
