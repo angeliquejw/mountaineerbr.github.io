@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.35  jun/2021  by mountaineerbr
+# v0.8.37  jul/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -67,8 +67,9 @@ HELP="NAME
 
 
 SYNOPSIS
-	$SN  [-afklouvyy] [-jNUM] [-bBLOCK_HASH|HEIGHT] TRANSACTION_HASH..
-	$SN  [-afklouvyy] [-jNUM] \"TRANSACTION_HASH [BLOCK_HASH|HEIGHT]\"..
+	$SN  [-afklouvyy] [-j[NUM]] [-bBLOCK_HASH|HEIGHT] TRANSACTION_HASH..
+	$SN  [-afklouvyy] [-j[NUM]] \"TRANSACTION_HASH [BLOCK_HASH|HEIGHT]\"..
+	$SN  [-s|-S[VOUT]] [-j[NUM]] \"TRANSACTION_HASH [BLOCK_HASH|HEIGHT]\"..
 	$SN  -hVww
 
 
@@ -130,6 +131,11 @@ DESCRIPTION
 	there is decrement of one character until a match is found. If
 	nought is reached, the raw byte output will be printed. Setting
 	-yy prints all raw byte sequences, see example (4).
+
+	Option -s checks if all TXID VOUTS are unspent, otherwise exits
+	with one error per TXID. To check only one VOUT number of TXIDS,
+	set -S VOUT instead, in which VOUT is a positive integer. Printed
+	fields: Txid, Vout_n, Check, [Value], [Coinbase] and [Addresses].
 
 
 	Extra Functions
@@ -279,6 +285,9 @@ OPTIONS
 	Functions
 	-f 	General transaction information only (fast), set multiple
 		times to dump more data.
+	-s 	Check if all TXID VOUTS are unspent.
+	-S VOUT
+		Same as -s, but check only a specific VOUT number.
 	-y 	Decode transaction hex to ASCII (auto select string length).
 	-yy, -Y	Same as -y but prints all bytes."
 
@@ -1067,6 +1076,30 @@ jobsemaphoref()
 #semaphore: { (1/.1)*3 = max 30 calls/sec }
 #bitcoin-cli rpc call: 88-160 calls/sec
 
+#check if tx is unspent
+#USAGE: bitcoin.tx.sh -s "txid [blk]"
+#USAGE: bitcoin.tx.sh -S [vout_index] "txid [blk]"
+checkspentf()
+{
+	local TMP index info addr ret
+	TMP="${TMPD}/${TXID}.tx"
+
+	bwrapper getrawtransaction $TXID 1 ${BLOCK_HASH_LOOP:-${BLK_HASH}} >"$TMP"
+
+	for index in ${OPTSPENTVOUT:-$(jq -r '.vout[].n' "$TMP")}
+	do
+		info=( $(bwrapper gettxout $TXID $index | jq -r '.value //empty,if .coinbase == true then "coinbase" else empty end') )
+		addr=( $(voutf "$TMP") )
+		if [[ -n "${info[*]}" ]]
+		then echo "$TXID $index unspent ${info[*]} ${addr[@]:1}"
+		else echo "$TXID $index spent ${addr[@]:1}" ;ret=1
+		fi
+	done
+
+	#return error if ANY vout is SPENT
+	return ${ret:-0}
+}
+
 #clean temp files
 cleanf() {
 	#disable trap
@@ -1152,7 +1185,7 @@ trapf()
 #start
 
 #parse script options
-while getopts ab:c:fhj:louvVwyY opt
+while getopts ab:c:fhj:losS:uvVwyY opt
 do
 	case $opt in
 		a)
@@ -1190,6 +1223,16 @@ do
 		o)
 			#send to stdout only
 			OPTOUT=1
+			;;
+		s)
+			#check if transaction is spent or not
+			OPTSPENT=1
+			;;
+		S)
+			#check if transaction is spent or not
+			#get vout number
+			OPTSPENT=1
+			OPTSPENTVOUT="$OPTARG"
 			;;
 		u)
 			#human-readable time formats
@@ -1376,6 +1419,9 @@ then
 		#-y transaction hex to ascii
 		if (( OPTASCII ))
 		then hexasciif
+		#-u check if transaction is unspent
+		elif (( OPTSPENT ))
+		then checkspentf
 		#parse tx info
 		else parsef
 		fi
@@ -1439,7 +1485,7 @@ then
 			#-y transaction hex to ascii
 			if (( OPTASCII ))
 			then
-				TMP3="${TMPD}/${RANDOM}.tx"
+				TMP3="${TMPD}/${RANDOM}${RANDOM}.tx"
 				jq -er ".${TXAR}[] // empty" "$TMPSTDIN" >"$TMP3" \
 				&& hexasciif
 				RET+=( $? )
@@ -1496,6 +1542,9 @@ then
 				#-y transaction hex to ascii
 				if (( OPTASCII ))
 				then hexasciif
+				#-u check if transaction is unspent
+				elif (( OPTSPENT ))
+				then checkspentf
 				#parse tx info
 				else parsef
 				fi
