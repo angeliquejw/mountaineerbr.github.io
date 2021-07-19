@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.39  jul/2021  by mountaineerbr
+# v0.8.40  jul/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -1082,20 +1082,21 @@ checkspentf()
 	TMP="${TMPD}/${TXID}.tx"
 
 	#get tx data
-	if ! bwrapper getrawtransaction $TXID 1 ${BLOCK_HASH_LOOP:-${BLK_HASH}} >"$TMP"
-	then echo "$TXID invalid" >&2 ;ret=1
+	if bwrapper getrawtransaction $TXID 1 ${BLOCK_HASH_LOOP:-${BLK_HASH}} >"$TMP"
+	then
+		#check vouts
+		for index in ${OPTSPENTVOUT:-$(jq -r '.vout[].n' "$TMP")}
+		do
+			info=( $(bwrapper gettxout $TXID $index | jq -r '.value //empty,if .coinbase == true then "coinbase" else empty end') )
+			addr=( $(voutf "$TMP") )
+			if [[ -n "${info[*]}" ]]
+			then echo "$TXID $index unspent ${info[*]} ${addr[@]:1}"
+			else echo "$TXID $index spent ${addr[@]:1}" ;ret=1
+			fi
+		done
+	else
+		echo "$TXID invalid" >&2 ;ret=1
 	fi
-
-	#check vouts
-	for index in ${OPTSPENTVOUT:-$(jq -r '.vout[].n' "$TMP")}
-	do
-		info=( $(bwrapper gettxout $TXID $index | jq -r '.value //empty,if .coinbase == true then "coinbase" else empty end') )
-		addr=( $(voutf "$TMP") )
-		if [[ -n "${info[*]}" ]]
-		then echo "$TXID $index unspent ${info[*]} ${addr[@]:1}"
-		else echo "$TXID $index spent ${addr[@]:1}" ;ret=1
-		fi
-	done
 
 	#return error if ANY vout is SPENT
 	return ${ret:-0}
