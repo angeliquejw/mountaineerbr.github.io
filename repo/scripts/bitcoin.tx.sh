@@ -1083,7 +1083,7 @@ checkspentf()
 
 	#get tx data
 	if ! bwrapper getrawtransaction $TXID 1 ${BLOCK_HASH_LOOP:-${BLK_HASH}} >"$TMP"
-	then echo "$TXID invalid" ;ret=1
+	then echo "$TXID invalid" >&2 ;ret=1
 	fi
 
 	#check vouts
