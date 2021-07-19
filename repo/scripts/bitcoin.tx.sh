@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.38  jul/2021  by mountaineerbr
+# v0.8.39  jul/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -1081,8 +1081,12 @@ checkspentf()
 	local TMP index info addr ret
 	TMP="${TMPD}/${TXID}.tx"
 
-	bwrapper getrawtransaction $TXID 1 ${BLOCK_HASH_LOOP:-${BLK_HASH}} >"$TMP"
+	#get tx data
+	if ! bwrapper getrawtransaction $TXID 1 ${BLOCK_HASH_LOOP:-${BLK_HASH}} >"$TMP"
+	then echo "$TXID invalid" ;ret=1
+	fi
 
+	#check vouts
 	for index in ${OPTSPENTVOUT:-$(jq -r '.vout[].n' "$TMP")}
 	do
 		info=( $(bwrapper gettxout $TXID $index | jq -r '.value //empty,if .coinbase == true then "coinbase" else empty end') )
@@ -1096,6 +1100,8 @@ checkspentf()
 	#return error if ANY vout is SPENT
 	return ${ret:-0}
 }
+#retrieving the tx data itself is not necessary and slows the fun a little.
+#alternatively, check only vout[0] of each tx..
 
 #clean temp files
 cleanf() {
