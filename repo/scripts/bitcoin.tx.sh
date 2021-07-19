@@ -286,8 +286,7 @@ OPTIONS
 	-f 	General transaction information only (fast), set multiple
 		times to dump more data.
 	-s 	Check if TXID VOUTS are all unspent.
-	-S VOUT
-		Same as -s, but check only a specific VOUT number.
+	-S VOUT Same as -s, but check only a specific VOUT number.
 	-y 	Decode transaction hex to ASCII (auto select string length).
 	-yy, -Y	Same as -y but prints all bytes."
 
