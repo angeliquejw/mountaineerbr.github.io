@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # skel.sh  --  script skeleton and tips
-# v0.2.4  jul/2021  by mountaineerbr
+# v0.2.5  jul/2021  by mountaineerbr
 # https://github.com/mountaineerbr
 #               __  ___                  
 # _______ ____ / /_/ _ |_    _____ ___ __
@@ -82,19 +82,6 @@ OPTIONS
 
 #functions
 
-#main
-mainf()
-{
-	#dump data?
-	if (( OPTDEBUG ))
-	then
-		echo "$DATA"
-		exit 0
-	fi
-
-	true
-}
-
 
 #parse options
 while getopts :0123456789dhj:v c
@@ -139,8 +126,10 @@ fi
 
 
 exit
-##DEAD CODE
 
+
+
+##semaphores
 ##job controls (not optimal)
 
 #ksh
@@ -151,23 +140,6 @@ exit
 
 #zsh
 #while (( ${#jobstates[@]} > JOBMAX )) ;do sleep 1 ;done
-
-#zsh/bash
-#while
-# 	jobs -l > "$TMP"
-#	JOBS="$(while read ;do ((++lines)) ;done < "$TMP" ;echo ${lines:-0} )"
-#	(( JOBS > JOBMAX ))
-#do
-
-#zsh/bash
-#while
-#	(( ZSH_VERSION )) && JOBS="${#jobstates[@]}"
-#	[[ -n "$BASH_VERSION" ]] && P=( $( jobs -p ) ) && JOBS="${#P[@]}"
-#	[[ -n "$KSH_VERSION" ]] && JOBS=
-# 	(( JOBS > JOBMAX ))
-#do
-#	sleep 0.1
-#done
 
 
 #launch $JOBMAX jobs and wait for all of them to finish
