@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.9  jul/2021  by castaway
+# v0.8.10  jul/2021  by castaway
 # create base-58 address types from public key,
 # create WIF from private keys and more
 # requires Bash v4+
@@ -720,8 +720,8 @@ base58f()
 		then
 			type=hex
 			#-b input is byte hex
-			#drop 0x from start of string
-			bytestr="${input#0[Xx]}"
+			#?drop 0x from start of string -- no need as unpack() can recognise it
+			bytestr="$input"
 
 			#output byte string
 			output="$(echo -n "$bytestr" | unpack)"
@@ -762,7 +762,7 @@ BASE58_: $output"
 			type=hex
 			#input is byte hex
 			#drop 0x from start of string
-			bytestr="${input#0[Xx]}"
+			bytestr="$input"
 		#validate base58 input string
 		elif isbase58f "$input" >/dev/null
 		then
@@ -863,7 +863,7 @@ privkeyf()
 
 		if ((OPTBYTE))
 		then type=hex sha256=( $(xxd -p -r "$input_filename" | openssl dgst -sha256) )
-		elif issha256sumf "$input"
+		elif issha256sumf "$(head -c 100 "$input_filename")"
 		then type=sha256 sha256=( $(<"$input_filename") )
 		else sha256=( $(openssl dgst -sha256 "$input_filename") ) 
 		fi
