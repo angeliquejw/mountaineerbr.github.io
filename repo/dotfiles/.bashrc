@@ -1,12 +1,16 @@
 #
 # ~/.bashrc
 # 2021  by mountaineerbr
-                           #                 ###
-                    #                        # ##
-#####  #  # ## #### ##  #  # ####  #   #  ## ###  ##
-# # # # # #  # #  # #   ## # #  # ### ### #  #  # #
-# # # # # #  # #  # #  # # # #  # #   #   #  #  # #
-# # #  #   ### # ## ##  ## # # ##  ##  ## #  ###  #
+#                         _        _                      ___      
+# ._ _ _  ___  _ _ ._ _ _| |_ ___ <_>._ _  ___  ___  _ _ | . > _ _ 
+# | ' ' |/ . \| | || ' | | | <_> || || ' |/ ._>/ ._>| '_>| . \| '_>
+# |_|_|_|\___/`___||_|_| |_| <___||_||_|_|\___.\___.|_|  |___/|_|  
+#
+#                  _    ___                  
+#  ___  ___  ___ _| |_ | . | _ _ _  ___  _ _ 
+# / | '<_> |<_-<  | |  |   || | | |<_> || | |'
+# \_|_.<___|/__/  |_|  |_|_||__/_/ <___|`_. |
+#                                       <___''
 
 # This file is sourced by all *interactive* bash shells on startup,
 # including some apparently interactive shells such as scp and rcp
@@ -235,6 +239,16 @@ repeat()
 	for i in $(seq 1 "$count")
 	do eval "$@"
 	done
+}
+
+
+##bash semaphore
+#usage: semaphore [maximum_jobs] [sleep_time]
+#example: while true ;do semaphore ; (cmd ;cmd) & done
+semaphore()
+{
+	local jobs
+	while jobs=( $(jobs -p) ) ;((${#jobs[@]} > ${1:-4})) ;do sleep ${2:-1} ;done
 }
 
 # Subfunction needed by `repeat'.

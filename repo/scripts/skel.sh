@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # skel.sh  --  script skeleton and tips
-# v0.2.5  jul/2021  by mountaineerbr
+# v0.2.9  jul/2021  by mountaineerbr
 # https://github.com/mountaineerbr
 #               __  ___                  
 # _______ ____ / /_/ _ |_    _____ ___ __
@@ -26,24 +26,24 @@ SCRIPT_PATH="$0"
 
 #help page
 HELP="NAME
-	$SN - desc
+	$SN - Short Description
 
 
 SYNOPSIS
 	$SN [-dhv]
 
-	
+	Text.
 
 DESCRIPTION
-
+	More text.
 
 
 ENVIRONMENT
-
+	JOBMAX 	Maximum number of background jobs.
 
 
 SEE ALSO
-
+	Refs.
 
 
 WARRANTY
@@ -67,7 +67,7 @@ BUGS
 
 
 USAGE EXAMPLES
-	(1) 	??
+	(1) 	Function example.
 		
 		$ $SN -c
 
@@ -78,9 +78,11 @@ OPTIONS
 	-v 	Script version."
 
 
-
-
 #functions
+main()
+{
+	:
+}
 
 
 #parse options
@@ -117,7 +119,7 @@ unset pkg
 #call opt functions
 if (( OPTX ))
 then
-	#
+	#fun
 	optxf "$@"
 else
 	#main function
@@ -130,19 +132,24 @@ exit
 
 
 ##semaphores
-##job controls (not optimal)
-
-#ksh
-#check special shell variable $JOBMAX
-
-#bash
-#while JOBS=( $( jobs -p ) ) ;(( ${#JOBS[@]} > JOBMAX )) ;do sleep 1 ;done
-
-#zsh
-#while (( ${#jobstates[@]} > JOBMAX )) ;do sleep 1 ;done
-
+##job controls
 
 #launch $JOBMAX jobs and wait for all of them to finish
-#ksh-like (ksh has a builtin $JOBMAX)
-#(( COUNTER % JOBMAX )) || wait
+#ksh-like (ksh has a built-in batch mechanism, check $JOBMAX)
+#((COUNTER % JOBMAX)) || wait
+
+
+#not ideal semaphores
+#below, the sleep time must be tweaked according to the processing
+#requirements of the job and machine processor speed. if badly set,
+#sleep time may actually throttle processing!
+
+#bash semaphore
+#usage: semaphore [maximum_jobs] [sleep_time]
+#example: while true ;do semaphore ; (cmd ;cmd) & done
+#while jobs=( $(jobs -p) ) ;((${#jobs[@]} > JOBMAX)) ;do sleep 1 ;done
+
+#zsh semaphore
+#while ((${#jobstates[@]} > JOBMAX)) ;do sleep 1 ;done
+
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.11  jun/2021  by mountaineerbr
+# v0.8.15  jul/2021  by mountaineerbr
 # bitcoin block information and functions
 # requires bitcoin-cli and jq 1.6+
 
@@ -93,8 +93,9 @@ DESCRIPTION
 	must be an integer or \`auto'; increasing NUM may only return modest
 	speed gains; defaults jobs=$JOBSDEF .
 
-	Beware that functions may print asynchronously and mix output. To
-	avoid that, set -j1 .
+	Beware that asynchronous jobs may lose the print lock momentarily
+	for another job and output may get mixed. To avoid that, try setting
+	-j1 .
 
 
 	Find Block at Date
@@ -497,7 +498,7 @@ ishashf()
 	hx="$1"
 
 	#grep -qEx '[0]{8}[a-fA-F0-9]{56}' <<<"$hx"
-	[[ "$hx" =~ ^0{8}[a-fA-F0-9]{56}$ ]]
+	[[ "$hx" =~ ^[0]{8}[a-fA-F0-9]{56}$ ]]
 }
 
 #blockchain general information
@@ -906,9 +907,9 @@ bestblkfun()
 #block information, transaction hashes or decode coinbase hex
 mainf()
 {
-	local TOTAL JOBS N
+	local TOTAL N
 	local arg bestblk blocks ret
-	typeset -a blocks bestblk ret JOBS
+	typeset -a blocks bestblk ret
 
 	#total number of arguments
 	TOTAL="$#"
@@ -954,10 +955,8 @@ mainf()
 		do
 			#counter
 			((++N))
-
-			#job control
-			while JOBS=( $( jobs -p ) ) ;((${#JOBS[@]} > JOBSMAX))
-			do sleep 0.1 ;done
+			#job control (batch)
+			((N % JOBSMAX)) || wait
 
 			{ mainenginef || errsigf $? ;} &
 		done
@@ -980,8 +979,7 @@ mainenginef()
 	#is block hash or height?
 	if ishashf "$arg"
 	then
-		BLK_HASH="$arg"
-		BLK_HEIGHT=
+		BLK_HASH="$arg" BLK_HEIGHT=
 	else
 		if ! BLK_HASH="$( bwrapper getblockhash "$arg" )"
 		then
@@ -1018,18 +1016,15 @@ mainenginef()
 	fi
 	
 	#call opt functions
+	#-t generate timestamp list
 	if (( OPTTIMESTAMP ))
-	then
-		#-t generate timestamp list
-		timestamplistf
+	then timestamplistf
+	#decode coinbase HEX
 	elif (( OPTASCII ))
-	then
-		#decode coinbase HEX
-		deccoinbf
-	else
-		#default option
-		#general block information and block transactions
-		defaultf
+	then deccoinbf
+	#default option
+	#general block information and block transactions
+	else defaultf
 	fi
 	#record exit codes
 	ret+=( $? )

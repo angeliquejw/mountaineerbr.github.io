@@ -243,6 +243,13 @@ wrap()
 }
 #https://leahneukirchen.org/dotfiles/.zshrc
 
+#zsh semaphore
+#usage: semaphore [maximum_jobs] [sleep_time]
+#example: while true ;do semaphore ; (cmd ;cmd) & done
+semaphore()
+{
+	while ((${#jobstates[@]} > ${1:-4})) ;do sleep ${2:-1} ;done
+}
 
 #sources
 

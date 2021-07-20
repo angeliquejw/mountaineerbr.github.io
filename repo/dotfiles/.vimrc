@@ -18,7 +18,7 @@ let g:is_bash = 1
 "if you notice highlighting errors while scrolling backwards which are fixed
 "when one redraws with ctrl-l, try setting the "sh_minlines" internal variable
 "to a larger number. The default value is 200.
-let sh_minlines = 500
+let sh_minlines = 800
 
 " Allow backspacing over everything in insert mode.
 "set backspace=indent,eol,start

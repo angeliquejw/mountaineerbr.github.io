@@ -1,6 +1,6 @@
 #!/bin/bash
 # urlgrep.sh -- grep full-text urls
-# v0.19.12  jun/2021  by mountaineerbr
+# v0.19.13  jul/2021  by mountaineerbr
 
 #defaults
 #colours (interactive only, comment out to disable)
@@ -111,22 +111,27 @@ ENVIRONMENT
 	script environment by prefixing the script command with parameter
 	assignments, see usage example(4).
 
-	\$JOBSMAX 	Controls the maximum number of background jobs,
+	\$JOBSMAX
+			Controls the maximum number of background jobs,
 			that is the equivalent of option '-jNUM'.
 
-	\$RETRIES 	Sets a number of retries if a transient error is
+	\$RETRIES
+			Sets a number of retries if a transient error is
 			returned when curl or wget tries to perform a
 			transfer. Note that curl and wget differ in their
 			default values (curl no retries, wget three retries).
 
-	\$TOCONNECT 	Limits the connection phase only, so if connection
-			occurs within the given period it will continue,
-			while \$TOMAX sets maximum time in seconds that
-			the whole operation is allowed to take. This is
-			useful for preventing your batch jobs from hanging
-			for hours due to slow networks or links going down.
+	\$TOCONNECT
+	\$TOMAX
+			Setting \$TOCONNECT limits the connection phase only,
+			so if connection occurs within the given period it will
+			continue, while \$TOMAX sets maximum time in seconds that
+			the whole operation is allowed to take. These are useful
+			for preventing your batch jobs from hanging for hours due
+			to slow networks or links going down.
 	
-	\$BROSWER 	Sets the browser to process HTML; if none set,
+	\$BROSWER
+			Sets the browser to process HTML; if none set,
 			the script will set a browser automatically.
 
 
@@ -727,8 +732,8 @@ esac
 cat >&2 <<!
 >urls__: ${URLFILE[*]:-stdin}
 >jobs__: $JOBSMAX
->dl_app: ${YOURAPP[0]}
->filter: ${FILTERCMD[0]}
+>dl_app: ${YOURAPP[*]}
+>filter: ${FILTERCMD[*]}
 >grep $*
 $(printf "$SEP")
 
@@ -757,8 +762,7 @@ do
 	fi
 
 	#semaphore, job control
-	while JOBS=( $( jobs -p ) )
-		((${#JOBS[@]} > JOBSMAX))
+	while JOBS=( $( jobs -p ) ) ;((${#JOBS[@]} > JOBSMAX))
 	do sleep 0.1
 	done
 

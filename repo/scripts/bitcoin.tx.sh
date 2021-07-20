@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.41  jul/2021  by mountaineerbr
+# v0.9  jul/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -19,15 +19,17 @@ CACHEDIR="$HOME/.cache/bitcoin.tx"
 MAXCACHESIZE=150000000  #150MB
 
 #maximum jobs (subprocesses)
-JOBSDEF=3   #hard defaults
+JOBSDEF=4
 #this depends mainly on the number of threads to service rpc calls of
-#bitcoin daemo (rpcthreads=<n> ,defaults: 4)
-#is the number of independent api requests that can be processed in parallel.
+#bitcoin daemon config sets (rpcthreads=<n> ,defaults: 4)
+#as the number of independent api requests that can be processed in parallel.
 #in reality however there are many locks inside the product that means you 
-#won't see much performance benefit with a value above 2.
+#won't see much performance benefit with a value above your processor number.
 
-#semaphore sleep time
-SEMAPHORESLEEP=0.1
+#semaphore sleep time (i5)
+#!#this is highly dependent on your machine processor!
+#!#may tune to improve speed a little
+SEMAPHORESLEEP=0.11
 
 #set calculation scale (mainf fun)
 SCL=8
@@ -117,11 +119,11 @@ DESCRIPTION
 	Set option -jNUM in which NUM is an integer and sets the maximum
 	number of simultaneous background jobs, in which case NUM must be
 	an integer or \`auto'. Environment variable \$JOBSMAX is read,
-	defaults=${JOBSDEF} .
+	defaults=${JOBSDEF} . Only with the defaults and -f functions.
 
-	Beware that, with the exception of the defaults functions, all
-	other functions may print asynchronously and mix output. To avoid
-	that, set -j1 .
+	Beware that when -o is set with the defaults function or -f is set,
+	asynchronous jobs may lose the print lock momentarily for another
+	job and output may get mixed. To avoid that, try setting -j1 .
 
 
 	Other Functions
@@ -135,8 +137,8 @@ DESCRIPTION
 	Option -s checks if TXID VOUTS are all unspent, otherwise exits
 	with one error per TXID. To check only certain VOUT numbers, set
 	-S[VOUT] as many times as required, in which VOUT is a positive
-	integer. Printed fields: Txid, Vout_n, Check, [Value], [Coinbase]
-	and [Addresses].
+	integer, check example (7). Printed fields: Txid, Vout_n, Check,
+	[Value], [Coinbase] and [Addresses].
 
 
 	Extra Functions
@@ -255,6 +257,13 @@ USAGE EXAMPLES
 	$ bitcoin.blk.sh -g | $SN -ff    #fast, less tx info
 	
 	$ bitcoin.blk.sh -ii | $SN       #slow, detailed tx info 
+
+
+	7) Check for unspent transaction outputs from a block:
+
+	$ bitcoin.blk.sh -ii | head | $SN -s           #check all tx vouts
+
+	$ bitcoin.blk.sh -ii | head | $SN -S\"0 1\"    #check only vouts 1 and 2
 
 
 OPTIONS
@@ -519,8 +528,7 @@ mainf()
 	while
 		header="$( jq -re --arg index "$index" '.vin[($index|tonumber)] // empty |
 			"  TxIndex: \(.txid // empty)",
-			"  Sequenc: \(.sequence)",
-			"  VoutNum: \(.vout // empty)"' "$TMP" 2>/dev/null )"
+			"  Sequenc: \(.sequence)\( if .vout then "\tVoutNum: \(.vout)" else "" end)"' "$TMP" 2>/dev/null )"
 	do
 		#temp file for vin
 		tmp10="$TMP.$index.vin"  catvin+=( "$tmp10" )
@@ -532,12 +540,9 @@ mainf()
 		{
 			#get addrs
 			#also sets $tmp10sum
-			echo -e "$header\n  Addresses"
+			echo "$header"
 			if ! vinf "$TMP"
-			then
-				echo '    skipping address..'
-				#set err signal
-				errsigf 1
+			then echo '  skipping addresses..' ;errsigf 1
 			fi 2>/dev/null
 			echo
 		
@@ -572,13 +577,11 @@ mainf()
 			#avoid shell errors being printed
 			{
 
-			echo -e "$header\n  Addresses"
+			echo "$header"
 			#get addrs
 			if ! voutf "$TMP"
-			then
-				echo '    skip..'
-				errsigf 1
-			fi
+			then echo '    skipping addresses..' ;errsigf 1
+			fi 2>/dev/null
 			echo
 		
 			#save for sum later
@@ -678,7 +681,7 @@ mainfastf()
 				.vin[] // empty |
 				(
 					"  TxIndex_: \(.txid // "coinbase")",
-					"  Sequence: \(.sequence)\tVoutNum: \(.vout // "")",
+					"  Sequence: \(.sequence)\tVoutNum: \(.vout // "??")",
 					(
 						.scriptSig |
 							"  ScSigTyp: \(.type // empty)",
@@ -877,7 +880,7 @@ selasmf()
 #old code, tested a lot, avoid changing it, cannot retest all fallbacks again
 voutf()
 {
-	local ADDR ASM TYPE pubKeyAddr pubKeyAsm pubKeyType TMP
+	local ADDR ASM TYPE TMP pubKeyAddr pubKeyAsm pubKeyType isunspent 
 	TMP="$1"
 
 	#set variables for address processing
@@ -893,19 +896,22 @@ voutf()
 			)' "$TMP"
 	)"
 
+	#is spent?
+	isunspent="$(unspentcheckvoutf)"
+
 	#try to hash uncompressed addresses
 	if (( ${#pubKeyAddr[@]} ))
 	then
 		#1#
 		TYPE="$pubKeyType"
-		echo   "    type: $TYPE"
+		echo "  Type___: ${TYPE}""${isunspent}"
 		printf '    %s\n' "${pubKeyAddr[@]}"
 
 	elif ASM=( $( asmbf "${pubKeyAsm[@]}" ) )
 		(( ${#ASM[@]} ))
 	then
 		TYPE="$pubKeyType"
-		echo "    type: $TYPE"
+		echo "  Type___: ${TYPE}""${isunspent}"
 
 		#if nulldata
 		#or if option -a (don't try to compress address) is set, print raw
@@ -1067,17 +1073,16 @@ vinbakf()
 #this is not optimal but works
 jobsemaphoref()
 {
-	local JOBS 
-	while JOBS=( $( jobs -p ) )
-		(( ${#JOBS[@]} > JOBSMAX ))
+	local jobs
+	while jobs=( $(jobs -p) )
+		((${#jobs[@]} > JOBSMAX))
 	do sleep $SEMAPHORESLEEP
 	done
 }
-#semaphore: { (1/.1)*3 = max 30 calls/sec }
 #bitcoin-cli rpc call: 88-160 calls/sec
 
-#check if tx is unspent
-checkspentf()
+#check if tx vouts are unspent
+unspentcheckf()
 {
 	local TMP index info addr ret
 	TMP="${TMPD}/${TXID}.tx"
@@ -1086,10 +1091,10 @@ checkspentf()
 	if bwrapper getrawtransaction $TXID 1 ${BLOCK_HASH_LOOP:-${BLK_HASH}} >"$TMP"
 	then
 		#check vouts
-		for index in ${OPTSPENTVOUT[@]:-$(jq -r '.vout[].n' "$TMP")}
+		for index in ${OPTUNSPENTVOUT[@]:-$(jq -r '.vout[].n' "$TMP")}
 		do
-			info=( $(bwrapper gettxout $TXID $index true | jq -r '.value //empty,if .coinbase == true then "coinbase" else empty end') )
 			addr=( $(voutf "$TMP") )
+			info=( $(bwrapper gettxout $TXID $index true | jq -r '.value //empty,if .coinbase == true then "coinbase" else empty end') )
 			if [[ -n "${info[*]}" ]]
 			then echo "$TXID $index unspent ${info[*]} ${addr[@]:1}"
 			else echo "$TXID $index spent ${addr[@]:1}" ;ret=1
@@ -1102,8 +1107,22 @@ checkspentf()
 	#return error if ANY vout is SPENT
 	return ${ret:-0}
 }
-#retrieving the tx data itself is not necessary and slows the fun a little.
-#alternatively, check only vout[0] of each tx..
+
+#check if tx vouts are unspent for voutf()
+unspentcheckvoutf()
+{
+	local info ret
+
+	#check vouts
+	info=( $(bwrapper gettxout $TXID $index true | jq -r '.value') )
+	if [[ -n "${info[*]}" ]]
+	then echo -e "\tUnspent: ${info[0]}"
+	else false ;ret=1
+	fi
+
+	#return error if ANY vout is SPENT
+	return ${ret:-0}
+}
 
 #clean temp files
 cleanf() {
@@ -1231,13 +1250,13 @@ do
 			;;
 		s)
 			#check if transaction is spent or not
-			OPTSPENT=1
+			OPTUNSPENT=1
 			;;
 		S)
 			#check if transaction is spent or not
 			#specific vouts
-			OPTSPENT=1
-			OPTSPENTVOUT+=( $OPTARG )
+			OPTUNSPENT=1
+			OPTUNSPENTVOUT+=( $OPTARG )
 			;;
 		u)
 			#human-readable time formats
@@ -1282,7 +1301,7 @@ typeset -a RET TXFILES
 
 #consolidate user-set max jobs
 JOBSMAX="${JOBSMAX:-$JOBSDEF}"
-#check minimum jobs
+#check minimum jobs (only for some funcs)
 if ((JOBSMAX < 1))
 then echo "$SN: err  -- at least one job required" >&2 ;exit 1
 else ((OPTVERBOSE>1)) && echo "$SN: jobs -- $JOBSMAX" >&2
@@ -1391,9 +1410,9 @@ then
 	fi
 fi
 
-#(experimental)
-#all txs from one block; tx hashes from block to stdin
-#if -b , no pos args and stdin is free
+#(EXPERIMENTAL)
+#get all txs from one block; send tx hashes to stdin
+#only if -bBLOCK_HASH is set, no positional args and stdin is free
 if [[ -n "$BLK_HASH" && "$#" -eq 0 && -t 0 ]]
 then
 	if ((OPTFAST))
@@ -1425,8 +1444,8 @@ then
 		if (( OPTASCII ))
 		then hexasciif
 		#-u check if transaction is unspent
-		elif (( OPTSPENT ))
-		then checkspentf
+		elif (( OPTUNSPENT ))
+		then unspentcheckf
 		#parse tx info
 		else parsef
 		fi
@@ -1548,8 +1567,8 @@ then
 				if (( OPTASCII ))
 				then hexasciif
 				#-u check if transaction is unspent
-				elif (( OPTSPENT ))
-				then checkspentf
+				elif (( OPTUNSPENT ))
+				then unspentcheckf
 				#parse tx info
 				else parsef
 				fi

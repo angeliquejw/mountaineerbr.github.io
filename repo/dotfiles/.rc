@@ -142,6 +142,7 @@ gar()
 	else tar c --format pax -- "$@" | gpg -ci -o "${1%/}".tar.gpg
 	fi
 }
+
 #cli password dialog: gpg --pinentry-mode loopback
 #preferably, use gnu/gnutar or pax/posix formats
 #(pax format causes extended headers to be extracted as files by a few implementations)

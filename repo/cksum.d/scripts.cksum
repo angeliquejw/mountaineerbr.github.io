@@ -2,9 +2,9 @@
 4008414677 26720 scripts/anta.sh
 316668081 329702 scripts/bcalc_ext.bc
 3546067067 26333 scripts/bcalc.sh
-3359588702 34984 scripts/bitcoin.blk.sh
+3598072635 34972 scripts/bitcoin.blk.sh
 2762673262 31932 scripts/bitcoin.hx.sh
-3937096948 40326 scripts/bitcoin.tx.sh
+1513494417 41027 scripts/bitcoin.tx.sh
 4026601335 6730 scripts/blockchair.btcoutputs.sh
 671873616 3960 scripts/cep.sh
 3780126040 2269 scripts/conkykiller.sh
@@ -14,12 +14,12 @@
 2106267865 9452 scripts/faster_sh.txt
 3023162980 2432 scripts/firefox.sh
 2254888649 23084 scripts/grep.sh
-1362369996 1856 scripts/inmet.sh
+162511170 1751 scripts/inmet.sh
 2294414358 1995 scripts/ipmet.sh
 2501997530 35149 scripts/LICENSE.txt
 703249111 3617 scripts/README.md
-3010896954 2389 scripts/skel.sh
+1824219749 2781 scripts/skel.sh
 1040959646 2766 scripts/ug.sh
-1155999273 21050 scripts/urlgrep.sh
+4177387854 21088 scripts/urlgrep.sh
 3945528312 9581 scripts/wc.sh
 2538982636 23824 scripts/zzz.bitcoin.parsedTxs.blk638200.txt

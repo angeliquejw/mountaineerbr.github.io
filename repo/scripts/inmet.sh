@@ -1,9 +1,9 @@
-#!/bin/zsh
+#!/bin/bash
 # download satellite images from
 # Brazilian National Institute of Meteorology
 # <https://satelite.inmet.gov.br/>
-# by mountaineerbr  dec/2020
-# requires ksh/zsh/bash, curl and jq
+# by mountaineerbr  jul/2021
+# requires curl and jq
 # usage: $  inmet.sh  2020-12-15
 
 
@@ -40,8 +40,7 @@ cleanf()
 	wait
 	[[ -d "$TMPD" ]] && rm -rf "$TMPD"
 
-	echo
-	echo "results at -- $RESULTDIR"
+	echo -e "\nresults at -- $RESULTDIR"
 	exit 0
 }
 
@@ -55,7 +54,6 @@ trap cleanf INT HUP EXIT
 for url in "${URLS[@]}"
 do
 	((m++))
-
 	data="$TMPD/data.$m.json"
 	
 	echo
@@ -88,13 +86,9 @@ do
 
 		echo -ne "url: $m/${#URLS[@]}  file: $n/${#IDS[@]}  \r"
 
-		#job control
-		while
-			(( ZSH_VERSION )) && JOBS="${#jobstates[@]}"
-			[[ -n "$BASH_VERSION" ]] && P=( $( jobs -p ) ) && JOBS="${#P[@]}"
-			(( JOBS > JOBMAX ))
-		do
-			sleep 0.04
+		#job control (bash)
+		while jobs=( $(jobs -p) ) ;((${#jobs[@]} > JOBMAX))
+		do sleep 0.04
 		done
 	done
 
