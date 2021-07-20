@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.15  jul/2021  by mountaineerbr
+# v0.8.16  jul/2021  by mountaineerbr
 # bitcoin block information and functions
 # requires bitcoin-cli and jq 1.6+
 
@@ -348,8 +348,9 @@ cleanf() {
 	if [[ -e "$TMPERR" ]]
 	then
 		RET+=( $(<"$TMPERR") )
-		rm -- "$TMPERR"  2>/dev/null
-	fi
+		rm -- "$TMPERR"
+	fi 2>/dev/null
+
 	#verbose feedback
 	(( OPTVERBOSE )) && 
 		printf '\n>>>took %s seconds  (%s min)\n' "$SECONDS" "$(( SECONDS / 60 ))" >&2
