@@ -12,8 +12,8 @@
 
 ## SEE ALSO
 
-You may also want to check my
-[GitHub repo](https://github.com/mountaineerbr?tab=repositories).
-
+<p>You may also want to check my
+<a href="https://github.com/mountaineerbr?tab=repositories">GitHub repo</a>.<br>
+<span class="alert">I will not be updating these repos anytime soon..</span></p>
 
 

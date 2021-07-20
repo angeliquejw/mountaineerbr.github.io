@@ -121,6 +121,14 @@ treef()
 	.txt2  { color: teal;}
 	.pdf  { color: white;  background-color: blue;}
 	.hidden  { background-color: azure;}
+
+	.alert
+	{
+		display: inline-block;
+		border: 0.31em outset red;
+		background-color: lightblue;
+		text-align: center;
+	}
 	'
 	#notes
 	notes='<p>To download all files from a directory, try:
