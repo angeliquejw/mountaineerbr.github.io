@@ -2917,6 +2917,7 @@ btchist()
 alias btcgrep="grep -E '\b([Bb][Cc](0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59}|[AC-HJ-NP-Z02-9]{39}|[AC-HJ-NP-Z02-9]{59})|1[ac-hj-np-z02-9]{8,87}|1[AC-HJ-NP-Z02-9]{8,87})|[13][a-km-zA-HJ-NP-Z1-9]{25,34})\b'"
 #https://stackoverflow.com/questions/21683680/regex-to-match-bitcoin-addresses
 #https://bitcointalk.org/index.php?topic=5348947.msg57447220#msg57447220
+#https://en.bitcoin.it/wiki/Invoice_address
 
 #legacy addresses only
 alias btcgrep1="grep -E '\b[13][a-km-zA-HJ-NP-Z1-9]{25,34}\b'"
