@@ -155,6 +155,7 @@ SEE ALSO
 	<https://gist.github.com/t4sk/ac6f2d607c96156ca15f577290716fcc>
 	<http://gobittest.appspot.com/PrivateKey>
 	<https://royalforkblog.github.io/2014/08/11/graphical-address-generator>
+	<https://github.com/kennethhutw/BitcoinBrainwallet>
 
 	BASE58 conversion specs and examples
 	<https://tools.ietf.org/id/draft-msporny-base58-01.html>
@@ -924,6 +925,7 @@ PRIVADDR: $addr$pubkey"
 #http://gobittest.appspot.com/PrivateKey
 #https://bitcoin.stackexchange.com/questions/8247/how-can-i-convert-a-sha256-hash-into-a-bitcoin-base58-private-key
 #https://royalforkblog.github.io/2014/08/11/graphical-address-generator
+#https://github.com/kennethhutw/BitcoinBrainwallet
 
 #-w generate private key from wif
 wifkeyf()
