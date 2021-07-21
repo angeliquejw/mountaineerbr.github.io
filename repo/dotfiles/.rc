@@ -4050,7 +4050,7 @@ pmon()
 mail()
 {
 	(($#)) || return
-	mutt -s "$(tr \\n \ <<<"$*"|cut -c-50)" ${TO:-jamilbio20@gmail.com} <<<"$*"
+	mutt -s "$(tr \\n \ <<<"$*"|cut -c-50)" ${TO:-xxx@gmail.com} <<<"$*"
 }
 
 #xfce4 numlock keyboard
