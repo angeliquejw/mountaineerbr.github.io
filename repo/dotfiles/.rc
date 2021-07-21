@@ -2914,7 +2914,7 @@ btchist()
 #cryptocurrency greps
 
 #btc1 and btc2 combined
-alias btcgrep='\b(bc(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|[13][a-km-zA-HJ-NP-Z1-9]{25,35})\b'
+alias btcgrep="grep -E '\b(bc(0([ac-hj-np-z02-9]{39}|[ac-hj-np-z02-9]{59})|1[ac-hj-np-z02-9]{8,87})|[13][a-km-zA-HJ-NP-Z1-9]{25,35})\b'"
 #https://stackoverflow.com/questions/21683680/regex-to-match-bitcoin-addresses
 
 #legacy addresses only
@@ -4050,7 +4050,7 @@ pmon()
 mail()
 {
 	(($#)) || return
-	mutt -s "$(tr \\n \ <<<"$*"|cut -c-50)" ${TO:-xxx@gmail.com} <<<"$*"
+	mutt -s "$(tr \\n \ <<<"$*"|cut -c-50)" ${TO:-jamilbio20@gmail.com} <<<"$*"
 }
 
 #xfce4 numlock keyboard
