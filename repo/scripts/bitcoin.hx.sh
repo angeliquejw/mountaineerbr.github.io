@@ -140,6 +140,7 @@ SEE ALSO
 	Address prefixes
 	<https://en.bitcoin.it/wiki/List_of_address_prefixes>
 	<https://www.oreilly.com/library/view/mastering-bitcoin/9781491902639/ch04.html>
+	<https://en.bitcoin.it/wiki/Invoice_address>
 
 	For basic information on making addresses
 	<https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses>
