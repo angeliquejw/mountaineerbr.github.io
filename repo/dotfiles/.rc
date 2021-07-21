@@ -2961,7 +2961,7 @@ alias ethgrep="grep -E '\b(0x)?[0-9a-fA-F]{40}\b'"
 #https://ethereum.stackexchange.com/questions/1374/how-can-i-check-if-an-ethereum-address-is-valid
 
 #ethereum transaction hash
-alias ethgrep2="grep -E '\b(0x)?([A-Fa-f0-9]{64})\b'"  #parentheses are not necessary
+alias ethgrep2="grep -E '\b(0x)?([A-Fa-f0-9]{64})\b'"
 #https://ethereum.stackexchange.com/questions/34285/what-is-the-regex-to-validate-an-ethereum-transaction-hash/34286
 
 
