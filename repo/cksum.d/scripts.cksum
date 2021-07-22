@@ -3,7 +3,7 @@
 316668081 329702 scripts/bcalc_ext.bc
 3546067067 26333 scripts/bcalc.sh
 4937472 34972 scripts/bitcoin.blk.sh
-2275500999 31801 scripts/bitcoin.hx.sh
+4114510565 31797 scripts/bitcoin.hx.sh
 1513494417 41027 scripts/bitcoin.tx.sh
 4026601335 6730 scripts/blockchair.btcoutputs.sh
 671873616 3960 scripts/cep.sh

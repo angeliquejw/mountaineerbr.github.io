@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.8.14  jul/2021  by castaway
+# v0.8.15  jul/2021  by castaway
 # create base58 address types from public key,
 # create WIF from private keys and more
 # requires Bash v4+
@@ -241,7 +241,7 @@ USAGE EXAMPLES
 		$ $SN -Y file.txt
 
 
-	7) Decode binary HEX to text:
+	7) Decode byte HEX to text:
 
 		$ $SN -yb 0x48656c6c6f20576f726c6421
 	
@@ -664,7 +664,7 @@ genhash160f()
 		else dump="$(unpack "$input_filename")"
 		fi
 	else
-		#is input binary hex or text string?
+		#is input byte hex or text string?
 		if ishexf "$input"
 		then type=hex
 		else dump="$(echo ${NONL:+-n} "$input" | unpack)"
