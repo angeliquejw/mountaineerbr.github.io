@@ -1,6 +1,6 @@
 #!/bin/bash
-# v0.8.10  jul/2021  by castaway
-# create base-58 address types from public key,
+# v0.8.14  jul/2021  by castaway
+# create base58 address types from public key,
 # create WIF from private keys and more
 # requires Bash v4+
 
@@ -34,7 +34,7 @@ VERBYTES=(00 05 80 80 0488B21E 0488ADE4 6F C4 EF EF 043587CF 04358394)
 #https://www.oreilly.com/library/view/mastering-bitcoin/9781491902639/ch04.html
 
 #help
-HELP="$SN - create base-58 address types from public key,
+HELP="$SN - create base58 address types from public key,
 		WIF from private keys and more
 
 
@@ -48,8 +48,11 @@ DESCRIPTION
 	$SN -h
 
 
-	Create public and private addresses from HEX STRINGS (keys). If
-	no option is given, defaults to converting HEX STRING (public
+	Create public and private addresses from HEX STRINGS (keys),
+	checks checksum of WIF, convert private key to WIF, decode base58
+	to text and more.
+
+	If no option is given, defaults to converting HEX STRING (public
 	key) to public address.
 
 	Set multiple STRINGS as positional parameters or pipe one of
@@ -68,9 +71,8 @@ DESCRIPTION
 	checked with option -c. Native segwit (bech32, starting with bc1)
 	addresses will throw errors.
 
-	This script warps around \`\`some'' functions from Grondilu's
-	bitcoin-bash-tools. The script has got some original functions,
-	too.
+	This script warps around Grondilu's bitcoin-bash-tools functions.
+	The script has got original functions, too.
 
 
 	Public keys (defaults)
@@ -89,21 +91,19 @@ DESCRIPTION
 	set -P to also generate the public address from it. If input is
 	BYTE HEX, set option -b.
 
-	Option -x check checksum of WIF key.
+	Option -x checks checksum of WIF key.
 
 	Option -w convert uncompressed or compressed WIF to private key.
 
 
 	Decode and encode BASE58 input
 
-	Option -Y encodes STRING or FILE to BASE58. Text may be UTF-8
-	or ASCII, may work with random input. Set -b if input is BYTE HEX.
-	Beware this option (and others) is sensitive to ending newlines
-	bytes.
-	
-	Option -y decodes BASE58 encoded STRING or FILE to text; may set
-	option -b to print BYTE HEX instead of text.
+	Option -y decodes BASE58 encoded STRING or FILE to text.
 
+	Option -Y encodes STRING or FILE to BASE58. Text may be UTF-8
+	or ASCII. Set option -b if \`input' is BYTE HEX. Beware this
+	option and others are sensitive to ending newlines bytes.
+	
 
 	Miscellaneous
 
@@ -117,10 +117,10 @@ DESCRIPTION
 	Option -6 generates HASH160 from STRING, FILE or BYTE HEX (the
 	RIPEMD160 of SHA256 sum of input), see also option -b.
 
-	Option -b flags input as BYTE HEX instead of text (with -26yppP)
-	or prints output as BYTE HEX (with -Y).
+	Option -b flags input as BYTE HEX explicitly with -26ppPY. This
+	option is set automatically if input starts with 0x.
 
-	Option -c check checksum of public and private base58 keys (addresses).
+	Option -c checks checksum of public and private base58 keys (addresses).
 
 	Option -e for verbose and option -h for this help page.
 
@@ -147,6 +147,7 @@ SEE ALSO
 
 	Graphical address generator
 	<https://royalforkblog.github.io/2014/08/11/graphical-address-generator/>
+	<https://github.com/kennethhutw/BitcoinBrainwallet>
 
 	BIP39 tool
 	<https://github.com/iancoleman/bip39>
@@ -155,8 +156,6 @@ SEE ALSO
 	<https://en.bitcoin.it/wiki/Wallet_import_format>
 	<https://gist.github.com/t4sk/ac6f2d607c96156ca15f577290716fcc>
 	<http://gobittest.appspot.com/PrivateKey>
-	<https://royalforkblog.github.io/2014/08/11/graphical-address-generator>
-	<https://github.com/kennethhutw/BitcoinBrainwallet>
 
 	BASE58 conversion specs and examples
 	<https://tools.ietf.org/id/draft-msporny-base58-01.html>
@@ -180,7 +179,7 @@ BUGS
 	Be aware this script is for studying purposes so there is no
 	guarantee this is working properly. DYOR and check output.
 
-	Options -26ppPY will truncate input at null bytes because Bash
+	Options -26ppPyY will truncate input at null bytes because Bash
 	cannot have strings containing null-bytes. Set input as FILE
 	to circunvent that.
 
@@ -255,23 +254,21 @@ OPTIONS
 	-a 	Avoid making HASH160 from input (set input as HASH160).
 
 	Private keys
-	-p	Generate Wallet import Format (WIF) key from private key (see -b).
-	-pp 	Generate compressed WIF from private key (see -b).
+	-p	Generate Wallet import Format (WIF) key from private key.
+	-pp 	Generate compressed WIF from private key.
 	-P 	Same as -pp and also generate the public address.
-	-x 	Check Wallet Import Format checksum.
+	-x 	Check WIF checksum.
 	-w	Generate private key from (un)compresssed WIF.
 	
 	Decode and encode BASE58
-	-b 	Flag input STRING is BYTE HEX instead of text (with -26yppP),
-		or print output as BYTE HEX (with -Y).
-	-y	Decode BASE58-encoded STRING or FILE to text (see -b).
-	-Y	Encode STRING or text FILE to BASE58 (see -bt).
+	-b 	Flag input STRING is BYTE HEX explicitly (with -26ppPY),
+	-y	Decode BASE58-encoded STRING or FILE to text.
+	-Y	Encode STRING, text FILE or HEX to BASE58 (see -t).
 
 	Misc
 	-1 	Print HASH160 of public or private base58 address.
-	-2 	Generate double SHA256 sum from STRING, FILE or BYTE HEX
-		(see -b).
-	-6 	Generate HASH160 from any STRING, FILE or BYTE HEX (see -b).
+	-2 	Generate double SHA256 sum from STRING, FILE or BYTE HEX.
+	-6 	Generate HASH160 from any STRING, FILE or BYTE HEX.
 	-c 	Check public or private base58 address checksum.
 	-e 	Verbose.
 	-h 	This help page.
@@ -323,7 +320,7 @@ cpackf() {
     xxd -r -p
 }
 
-#custom
+#customised
 #added array `$@' to `xxd' cmd
 unpack() {
     xxd -p "$@" | tr -d '\n'
@@ -424,7 +421,7 @@ hexToAddress() {
     echo
 }
 
-#custom
+#customised
 #changed `cat' to `echo', removed right-side space
 newBitcoinKey() {
     if [[ "$1" =~ ^[5KL] ]] && checkBitcoinAddress "$1"
@@ -557,9 +554,9 @@ revf()
 	#is input a filename?
 	if [[ -e "$input" ]]
 	then input_filename="$input" input="$(<"$input_filename")"
-	fi 2>/dev/null
+	fi
 
-	#validate base58 input string
+	#check base58 input string
 	#get addr type
 	if ! type="$(ispubkeyf "$input" || iswiff "$input" || isbase58f "$input")"
 	then echo "err: invalid input -- $input" >&2 ;return 1
@@ -598,7 +595,7 @@ sha256df()
 		input_filename="$input"
 
 		#is input byte hex?
-		if ((OPTBYTE))
+		if ishexf "$input"
 		then
 			type=hex
 			#pack input and then double-sha256
@@ -617,11 +614,9 @@ sha256df()
 	#hex from stdin and pos args
 	else
 		#is input byte hex?
-		if ((OPTBYTE))
-		then
-			type=hex
-			input="$(pack "$input")"
-		fi 2>/dev/null
+		if ishexf "$input"
+		then type=hex input="$(pack "$input")"
+		fi
 
 		sha256d=( $(
 			echo ${NONL:+-n} "$input" |
@@ -664,17 +659,17 @@ genhash160f()
 		input_filename="$input"
 
 		#is input is byte hex?
-		if ((OPTBYTE))
+		if ishexf "$input"
 		then type=hex input="$(<"$input_filename")"
 		else dump="$(unpack "$input_filename")"
 		fi
 	else
 		#is input binary hex or text string?
-		if ((OPTBYTE))
+		if ishexf "$input"
 		then type=hex
 		else dump="$(echo ${NONL:+-n} "$input" | unpack)"
 		fi
-	fi 2>/dev/null
+	fi
 
 	#make hash160
 	hx160="$(pack "${dump:-$input}" | hash160)"
@@ -698,44 +693,32 @@ HASH160: $hx160"
 base58f()
 {
 	local bytestr input input_filename type output
-	type='text string'
-	input="$1"
+	type='text string' input="$1"
 
-	#if input is a file
-	if [[ -e "$input" ]]
+	#encode or decode?
+	if ((ENCODEOPT==2))
 	then
-		type=file
-		input_filename="$input"
-		if ((OPTBYTE || ENCODEOPT==2))
-		then input="$(<"$input_filename")" #hex or base58 decoding
-		else bytestr="$(unpack "$input_filename")" #base58 encoding
-		fi 2>/dev/null
-	fi
-
-	#decode or encode?
-	if ((ENCODEOPT==1))
-	then
-		#-Y encode base58
-
-		#is input byte hex?
-		if ((OPTBYTE))
+		#-Y encode to base58
+		#is ``input'' a filename
+		if [[ -e "$input" ]]
 		then
-			type=hex
-			#-b input is byte hex
-			#?drop 0x from start of string -- no need as unpack() can recognise it
-			bytestr="$input"
-
-			#output byte string
-			output="$(echo -n "$bytestr" | unpack)"
-		else
-			[[ -z "$bytestr" ]] && bytestr="$(echo ${NONL:+-n} "$input" | unpack)"
-
-			#convert hex to base58; get error msg
-			output="$(cencodeBase58f "$bytestr" 2>&1)"
-			#empty newline is the same as : "true" for dc
-			#so check output for err msg (this code needs rechecking..)
-			[[ "$output" = dc:* ]] && output=B 
+			type=file input_filename="$input"
+			#is ``file content'' byte hex?
+			if ishexf "$(head -n1 "$input_filename")"
+			then { type='hex file' bytestr="$(<"$input_filename")" ;} 2>/dev/null
+			else bytestr="$(unpack "$input_filename")"
+			fi
+		#is ``input'' byte hex?
+		elif ishexf "$input"
+		then type=hex bytestr="$input"
+		else bytestr="$(echo ${NONL:+-n} "$input" | unpack)"
 		fi
+
+		#convert hex to base58 (remove leading 0x); get error msg
+		output="$(cencodeBase58f "${bytestr#0[Xx]}" 2>&1)"
+		#empty newline is the same as : "true" for dc
+		#so check output for err msg (this code needs rechecking..)
+		[[ "$output" = dc:* ]] && output=B 
 
 		#print option
 		if ((OPTVERBOSE))
@@ -745,11 +728,10 @@ TYPE___: $type
 INPUT__: ${input_filename:-$input}
 HEXDUMP: $bytestr
 BASE58_: $output"
-
 			#check if text is ascii
-			[[ "$input" = *[^"$ASCIISET"]* ]] && echo "info -- input contains non-ascii characters" >&2
+			[[ "$input" = *[^"$ASCIISET"]* ]] && echo "info -- input may contain non-ascii chars" >&2
 			##transliterate diacritics with iconv (utf8 to ascii):
-			#{ iconv -f utf-8 -t ascii//translit <<<"$input" ;}
+			#{ iconv -f utf-8 -t ascii//translit ;}
 		else
 			#plain base58 result
 			echo "$output"
@@ -758,36 +740,25 @@ BASE58_: $output"
 	else
 		#-y decode base58
 
-		#-b output byte hex?
-		if ((OPTBYTE))
-		then
-			type=hex
-			#input is byte hex
-			#drop 0x from start of string
-			bytestr="$input"
-		#validate base58 input string
-		elif isbase58f "$input" >/dev/null
-		then
-			#convert base58 to hex
-			bytestr="$(decodeBase58 "$input")"
-		else
-			return 1
+		#is ``input'' a filename?
+		if [[ -e "$input" ]]
+		then type=file input_filename="$input" input="$(<"$input_filename")"
+		fi
+		#check base58 input string and convert base58 to hex
+		if isbase58f "$input" >/dev/null
+		then bytestr="$(decodeBase58 "${input#0[Xx]}")"
+		else return 1
 		fi
 		
-		#process output
-		#print option
+		#process output and print option
 		if ((OPTVERBOSE))
-		then
-			#verbose
-			echo "--------
+		then echo "--------
 TYPE___: $type
 INPUT__: ${input_filename:-$input}
 HEXDUMP: $bytestr
-TEXTOUT: $(xxd -p -r <<<"$bytestr")"  2>/dev/null
-
-		else
-			#convert hex to text directly
-			xxd -p -r <<<"$bytestr"
+TEXTOUT: $(xxd -p -r <<<"$bytestr")"
+		#convert hex to text directly
+		else xxd -p -r <<<"$bytestr"
 		fi
 	fi
 
@@ -863,14 +834,14 @@ privkeyf()
 		type=file
 		input_filename="$input"
 
-		if ((OPTBYTE))
+		if ishexf "$input"
 		then type=hex sha256=( $(xxd -p -r "$input_filename" | openssl dgst -sha256) )
 		elif issha256sumf "$(head -c 100 "$input_filename")"
 		then type=sha256 sha256=( $(<"$input_filename") )
 		else sha256=( $(openssl dgst -sha256 "$input_filename") ) 
 		fi
 	else
-		if ((OPTBYTE))
+		if ishexf "$input"
 		then type=hex sha256=( $(echo ${NONL:+-n} "$input" | xxd -p -r | openssl dgst -sha256) )
 		elif issha256sumf "$input"
 		then type=sha256 sha256=( $input )
@@ -934,7 +905,7 @@ wifkeyf()
 	local input pkey compressflag type
 	input="$1"
 
-	#Validate base58 input string
+	#check base58 input string
 	#Convert it to a string using Base58Check encoding
 	if type="$(iswiff "$input")"
 	then pkey="$(decodeBase58 "$input")" ;[[ "$type" = [Cc]ompressed* ]] && compressflag=1
@@ -973,7 +944,7 @@ wcheckf()
 	local a b c d cksum hx input type
 	input="$1"
 
-	#Validate base58 input string
+	#check base58 input string
 	#Convert it to a string using Base58Check encoding
 	if type="$(iswiff "$input")"
 	then a="$(decodeBase58 "$input")"
@@ -990,8 +961,7 @@ wcheckf()
 	d="$( cut -c1,2 <<<"$a" )"
 	#if [[ "$d" != "$VER" ]]
 	#then 
-	#	echo "err: version byte from key does not start with 0x$VER -- $1" >&2
-	#	return 1
+	#	echo "warning: version byte from key ($1) differs from user-set ($VER)" >&2
 	#fi
 	
 	#Convert string to byte string and
@@ -1020,7 +990,7 @@ TYPE_____: $type
 2NDSHA256: $c
 CHECKSUM_: $cksum
 CKVERBYTE: $d
-VER_BYTE_: $VER${VERUNKNOWN:+ (unknown version)}"
+VER_BYTE_: $VER"
 	fi
 
 	#print validation result
@@ -1035,7 +1005,7 @@ VER_BYTE_: $VER${VERUNKNOWN:+ (unknown version)}"
 	return 0
 }
 
-#is public address?
+#is public address? (pattern matching)
 ispubkeyf()
 {
 	#is legacy (P2PKH)?
@@ -1084,6 +1054,13 @@ issha256sumf()
 	[[ "$1" =~ ^\ *[A-Fa-f0-9]{64}\ *$ ]]
 }
 
+#is input byte hex?
+#simple check to see whether input string is hex
+ishexf()
+{
+	[[ "$OPTBYTE" > 0 || "$1" = *(\ )0[Xx]* ]]
+}
+
 
 #parse opts
 while getopts 126abcehv:V:pPxwyY c
@@ -1107,7 +1084,7 @@ do
 			OPTHASH=1
 			;;
 		b)
-			#set input/output is byte hex
+			#set input/output is byte hex manually
 			OPTBYTE=1
 			;;
 		c)
@@ -1152,11 +1129,11 @@ do
 			;;
 		y)
 			#decode base58
-			ENCODEOPT=2
+			ENCODEOPT=1
 			;;
 		Y)
 			#encode base58
-			ENCODEOPT=1
+			ENCODEOPT=2
 			;;
 		?)
 			#illegal opt
@@ -1182,13 +1159,12 @@ done
 unset PKG
 
 #consolidate version byte option
+#drop 0x from start of byte hex
 VER="${VER:-$VERDEF}"
-#drop 0x from start of string
 VER="${VER#0[Xx]}"
-
 #check version byte input, warn if unknown
 if [[ ! \ "${VERBYTES[*]}"\  = *\ "${VER^^}"\ * ]]
-then echo "warning: user-set byte version -- $VER" >&2 ;VERUNKNOWN=1
+then echo "warning: user-set byte version -- $VER" >&2
 fi
 
 #declare main() as per option
