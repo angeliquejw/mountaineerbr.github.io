@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.9  jul/2021  by mountaineerbr
+# v0.9.1  jul/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -554,7 +554,7 @@ mainf()
 		(( ++index ))
 	done
 	wait
-	cat -- "${catvin[@]}"
+	printf '%s\0' "${catvin[@]}" | xargs -0 cat 
 	
 	#vouts
 	echo -e "\nVouts"
@@ -597,7 +597,7 @@ mainf()
 		(( ++index ))
 	done
 	wait
-	cat -- "${catvout[@]}"
+	printf '%s\0' "${catvout[@]}" | xargs -0 cat 
 
 	#avoid shell errors being printed
 	{
@@ -1178,7 +1178,7 @@ concatf()
 
 	#concatenate results in order
 	if (( ${#TXFILES[@]} )) \
-		&& cat -- "${TXFILES[@]}" >"$RESULT" \
+		&& printf '%s\0' "${TXFILES[@]}" | xargs -0 cat >"$RESULT" \
 		&& [[ -s "$RESULT" ]]
 	then
 		#write final result to stdout (feedback)?
