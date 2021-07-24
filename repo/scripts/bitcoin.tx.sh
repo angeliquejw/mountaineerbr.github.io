@@ -1,5 +1,5 @@
 #!/bin/bash
-# v0.9.1  jul/2021  by mountaineerbr
+# v0.9.3  jul/2021  by mountaineerbr
 # parse transactions by hash or transaction json data
 # requires bitcoin-cli and jq 1.6+
 
@@ -554,7 +554,7 @@ mainf()
 		(( ++index ))
 	done
 	wait
-	printf '%s\0' "${catvin[@]}" | xargs -0 cat 
+	printf '%s\0' "${catvin[@]}" | xargs -0 -r cat
 	
 	#vouts
 	echo -e "\nVouts"
@@ -597,7 +597,7 @@ mainf()
 		(( ++index ))
 	done
 	wait
-	printf '%s\0' "${catvout[@]}" | xargs -0 cat 
+	printf '%s\0' "${catvout[@]}" | xargs -0 -r cat
 
 	#avoid shell errors being printed
 	{
@@ -1410,18 +1410,15 @@ then
 	fi
 fi
 
-#(EXPERIMENTAL)
-#get all txs from one block; send tx hashes to stdin
+#send all tx hashes to stdin from from one block
 #only if -bBLOCK_HASH is set, no positional args and stdin is free
 if [[ -n "$BLK_HASH" && "$#" -eq 0 && -t 0 ]]
 then
 	if ((OPTFAST))
 	then bwrapper getblock "$BLK_HASH" 2 | jq -r '.tx[]' | mainfastf ; RET+=($?) ;exit 1
-	else
-		if ((OPTASCII))
-		then exec 0< <(bwrapper getblock "$BLK_HASH" 2) || { RET+=($?) ;exit 1 ;}
-		else exec 0< <(bwrapper getblock "$BLK_HASH" 1 | jq -r '.tx[]') || { RET+=($?) ;exit 1 ;}
-		fi
+	elif ((OPTASCII))
+	then exec 0< <(bwrapper getblock "$BLK_HASH" 2) || { RET+=($?) ;exit 1 ;}
+	else exec 0< <(bwrapper getblock "$BLK_HASH" 1 | jq -r '.tx[]') || { RET+=($?) ;exit 1 ;}
 	fi
 fi
 
