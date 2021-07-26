@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/zsh
 # skel.sh  --  script skeleton and tips
-# v0.2.9  jul/2021  by mountaineerbr
+# v0.2.10  jul/2021  by mountaineerbr
 # https://github.com/mountaineerbr
 #               __  ___                  
 # _______ ____ / /_/ _ |_    _____ ___ __
@@ -86,20 +86,20 @@ main()
 
 
 #parse options
-while getopts :0123456789dhj:v c
+while getopts 0123456789dhj:v c
 do case $c in
 	[0-9]) SCL="${SCL}${c}" ;;
 	d) OPTDEBUG=1 ;;
 	h) echo "$HELP"; exit 0	;;
 	j) JOBMAX="$OPTARG" ;;
 	v) grep -m1 '^# v[0-9]' "$0" ;exit ;;
-#	\?) echo "$SN: illegal option -- $c" >&2 ;exit 1 ;;
+	\?) exit 1 ;;
    esac
 done
 shift $(( OPTIND - 1 ))
 unset c
 #to enable management of illegal options,
-#remove : from optstring
+#add : as the first character in optstring
 
 #required packages
 for pkg in ??
@@ -117,13 +117,11 @@ unset pkg
 #trap trapf SIGINT SIGTERM
 
 #call opt functions
+#fun x
 if (( OPTX ))
-then
-	#fun
-	optxf "$@"
-else
-	#main function
-	mainf "$@"
+then optxf "$@"
+#main function
+else mainf "$@"
 fi
 
 

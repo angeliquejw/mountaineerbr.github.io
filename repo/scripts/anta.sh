@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.17.8  jul/2021  by mountaineerbr
+# v0.17.9  jul/2021  by mountaineerbr
 
 #padrões
 
@@ -14,8 +14,6 @@ RETRIES=2
 TENTATIVAS=6
 #obs: tentativas total = (( RETRIES * TENTATIVAS ))
 
-#debug log file:
-LOGF=/tmp/anta.log
 #caminho do script para funão de update
 SCRIPT="${BASH_SOURCE[0]}"
 #não inunde o servidor
@@ -309,18 +307,16 @@ cerrf()
 	then
 		printf 'anta.sh: erro: página não encontrada -- %s\n' "$COMP" >&2
 		NOTFOUND=1
-		return 0
 	elif [[ -z "$PAGE" ]] || grep -aFiq -e 'has been limited' -e 'you were blocked' \
 		-e 'to restrict access' -e 'access denied' -e 'temporarily limited' \
 		-e 'you have been blocked' -e 'has been blocked' <<< "$PAGE" >&2
 	then
 		printf 'anta.sh: erro: acesso limitado ou página não encontrada -- %s\n' "$COMP" >&2
-		return 1
+		NOTFOUND=1
 	elif ! grep -aq '[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]' <<< "$PAGE" >&2
 	then
 		printf 'anta.sh: erro: não parece ser artigo de <oantagonista> -- %s\n' "$COMP" >&2
 		NOTFOUND=1
-		return 0
 	fi
 
 	return 0
@@ -424,12 +420,8 @@ anta() {
 			return 1
 		fi
 
-		if (( D ))  #debug
-		then
-			echo "$PAGE"
-			exit 0
 		#page not found?
-		elif ((NOTFOUND))
+		if ((NOTFOUND))
 		then
 			return 0
 		fi
@@ -495,7 +487,8 @@ fulltf() {
 	#ou outros domínios
 	if [[ "$COMP" = *moneytimes/* ]] || [[ "$COMP" = */portalig/* ]]
 	then
-		printf '\033[2K====        \n'
+		[[ -t 1 ]] && echo -e '\033[2K' >&2
+		echo -e '====        '
 		echo 'anta.sh: aviso: possível redireção a site de outro domínio'
 		echo "$COMP"
 		return 0
@@ -580,7 +573,8 @@ fulltf() {
 
 	{
 		#print header and add the number of paragraphs
-		printf '\033[2K====        \n'
+		[[ -t 1 ]] && echo -e '\033[2K' >&2
+		echo '====        '
 		#print article
 		sedhtmlf <<<"$cab" | sed "/^[0-9][0-9]\.[0-9][0-9]\./ s/$/ [\$\$ $par]\n/"
 
@@ -647,7 +641,7 @@ linksf() {
 			while read COMP
 			do
 				#check some link validity
-				if [[ "$COMP" = *[\"\'{}]* ]]
+				if [[ "$COMP" = *[\"\'\{\}\<\>\(\)\ ]* ]]
 				then echo "internal err: getlinksf() -- ${COMP:0:220}" >&2 ;continue
 				#avoid duplicate articles links
 				elif [[ "${LINKSBUFFER[*]}" = *"$COMP"* ]]

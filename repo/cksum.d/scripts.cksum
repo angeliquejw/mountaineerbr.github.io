@@ -1,5 +1,5 @@
 108011121 37953 scripts/ala.sh
-4008414677 26720 scripts/anta.sh
+2856849615 26677 scripts/anta.sh
 316668081 329702 scripts/bcalc_ext.bc
 3546067067 26333 scripts/bcalc.sh
 4937472 34972 scripts/bitcoin.blk.sh
@@ -18,7 +18,7 @@
 2294414358 1995 scripts/ipmet.sh
 2501997530 35149 scripts/LICENSE.txt
 703249111 3617 scripts/README.md
-1824219749 2781 scripts/skel.sh
+1064640784 2758 scripts/skel.sh
 1040959646 2766 scripts/ug.sh
 4177387854 21088 scripts/urlgrep.sh
 3945528312 9581 scripts/wc.sh

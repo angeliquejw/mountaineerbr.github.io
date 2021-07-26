@@ -2126,7 +2126,7 @@ wf3()
 
 	#print
 	jq '.properties.meta' <<< "$data" >&2
-	jq -r '.properties.timeseries[] | "\(.data.instant.details | "\(.air_temperature)ºC \(.relative_humidity)% \(.ultraviolet_index_clear_sky//"?")UV \(.wind_speed)m/s \(.wind_from_direction)º \(.cloud_area_fraction)% \(.cloud_area_fraction_high)% \(.cloud_area_fraction_medium)% \(.cloud_area_fraction_low)% \(.dew_point_temperature)ºC \(.fog_area_fraction | if . == null then "?" else . end)") \(.data.next_6_hours.details | "\(.air_temperature_max)ºC \(.air_temperature_max)ºC \(.precipitation_amount)mm") \(.time)"' <<< "$data" |
+	jq -r '.properties.timeseries[] | "\(.data.instant.details | "\(.air_temperature)ºC \(.relative_humidity)% \(.ultraviolet_index_clear_sky//"?")UV \(.wind_speed)m/s \(.wind_from_direction)º \(.cloud_area_fraction)% \(.cloud_area_fraction_high)% \(.cloud_area_fraction_medium)% \(.cloud_area_fraction_low)% \(.dew_point_temperature)ºC \(.fog_area_fraction | if . == null then "?" else . end)") \(.data.next_6_hours.details | "\(.air_temperature_max)ºC \(.air_temperature_min)ºC \(.precipitation_amount)mm") \(.time)"' <<< "$data" |
 		column -et -NTemp,RelHum,UV,WinSp,WinDir,ClArea,ClHigh,ClMed,ClLow,DewP,FogA,AirMax,AirMin,Rain,Date |
 		tac
 
@@ -2628,16 +2628,6 @@ ytc()
 # search and play youtube audio with preferred player
 # how to use --- yt search_term_here
 yts() { youtube-dl -q -f bestaudio --max-downloads 1 --no-playlist --default-search ${2:-ytsearch} "$1" -o - | mpv -vo null /dev/fd/3 3<&0 </dev/tty; }
-
-#general shell loop
-#usage: <file loop [cmd]
-loop()
-{
-	local REPLY
-	while read
-	do "$@" "$REPLY"
-	done
-}
 
 
 ##shell globbing
@@ -3971,7 +3961,8 @@ trim()
 #{ python -m SimpleHTTPServer 8000 ;}
 #Python 3
 #{ python3 -m http.server 8000 --directory /tmp/ ;}
-hserv()  { python3 -m http.server ${1:-8000} ;}
+hserv()  { python3 -m http.server ${1:-8000} ;}  #local network: --bind 0.0.0.0
+#https://stackoverflow.com/questions/4139170/bind-httserver-to-local-ipport-so-that-others-in-lan-can-see-it
 hserv2() { php -S localhost:${1:-8000} ;}
 checkports() { sudo ss -tulpn | sed -nE '/LISTEN/ s/.*:([0-9]+)\s*.*/\1/ p' ;}
 
