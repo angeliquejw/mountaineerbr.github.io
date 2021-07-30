@@ -1,6 +1,6 @@
 #!/bin/bash
 # anta.sh -- puxa artigos da homepage de <oantagonista.com>
-# v0.17.9  jul/2021  by mountaineerbr
+# v0.17.13  jul/2021  by mountaineerbr
 
 #padrões
 
@@ -19,9 +19,6 @@ SCRIPT="${BASH_SOURCE[0]}"
 #não inunde o servidor
 #espera entre chamadas (em segundos)
 FLOOD=0.4
-
-#cat output instead of less pager by defaults
-OPTL=( cat )
 
 #update url
 UPURL=https://raw.githubusercontent.com/mountaineerbr/scripts/master/anta.sh
@@ -268,8 +265,7 @@ AGENTS=('User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Tr
 # Filtro HTML e tradução de códigos
 #https://ascii.cl/htmlcodes.htm
 sedhtmlf() {
-	sed 	-e 's/<br[ \/]*>/&\n/g' \
-		-e 's/\r//g ; s/\xc2\xa0/ /g ; s/&nbsp;/ /g ; s/&mdash;/--/g' \
+	sed -e 's/<br[ \/]*>/&\n/g' -e 's/\r//g ; s/\xc2\xa0/ /g ; s/&nbsp;/ /g ; s/&mdash;/--/g' \
 		-e 's/&#32;/ /g ; s/&#33;/\!/g ; s/&#34;/\"/g ; s/&#35;/\#/g ; s/&#36;/$/g' \
 		-e 's/&#37;/%/g ; s/&#38;/\&/g' -e "s/&#39;/'/g" -e 's/&#40;/(/g ; s/&#41;/)/g' \
 		-e 's/&#42;/*/g ; s/&#43;/+/g ; s/&#44;/,/g ; s/&#45;/-/g ; s/&#46;/./g' \
@@ -282,22 +278,46 @@ sedhtmlf() {
 		-e 's/&#8211;/–/g ; s/&#8212;/—/g ; s/&#8216;/‘/g ; s/&#8217;/’/g ; s/&#8218;/‚/g' \
 		-e 's/&#8220;/“/g ; s/&#8221;/”/g ; s/&#8222;/„/g ; s/&#8224;/†/g ; s/&#8225;/‡/g' \
 		-e 's/&#8226;/•/g ; s/&#8230;/…/g ; s/&#8240;/‰/g ; s/&#8364;/€/g ; s/&#8482;/™/g' \
-		-e 's/&#215;/x/g ; s/&#8243;/"/g ;s/\ \ */ /g ; s/\t\t*/\t/g' \
-		-e 's/^[\t\ ]*//g' -e 's/Leia mais:.*//' -e 's/^\s*LEIA AQUI.*//' \
-		-e '/</{ :loop ;s/<[^<]*>//g ;/</{ N ;b loop } }'
+		-e 's/&#215;/x/g ; s/&#8243;/"/g ;s/\ \ */ /g ; s/\t\t*/\t/g' -e 's/^[\t\ ]*//g' \
+		-e 's/<\/\?script>/\n&\n/g' \
+		| sed -e '/^<script>/,/^<\/script>/ d' -e '/</{ :loop ;s/<[^<]*>//g ;/</{ N ;b loop } }' \
+		| sed -E -e '/^\s*var.*"script/d' \
+			-e '/^var.*_comscore/ d' \
+			-e 's/function\(\).*//' \
+			-e 's/setTimeout.*//' \
+			-e '/gtag\("event/ d' \
+			-e '/^window.*taboola/ d' \
+			-e 's/\.dot\{.*//' \
+			-e 's/^.live-html.*//' \
+			-e '/^Mais lidas\s*$/ d' \
+			-e 's/Leia mais:.*//' -e 's/^\s*LEIA AQUI.*//' \
+			-e '/^Voltar para página/ d' \
+			-e '/^Ir para página/ d' \
+			-e '/^\s*(COMPARTILHAR|SALVAR|LEIA AQUI|Ver mais)/ d' \
+			-e '/^\s*(Rua Iguatemi, 192 -|®20[12][0-9] - O Antagonista)/,/^\s*CNPJ 25.163.879\/0001-13/ d'
 }
 
-#get post (article) links
+#get antagonista links from initial page
 getlinksf()
 {
 	sed -n "/id=['\"]post_[0-9]/ s|<a |\n&| gp" \
-	| sed -nE "/(title|h2)/ s|.*href=['\"]([^'\"#]+)['\"\t\s\ ].*|\1| p" \
-	| nl | sort -k2 | uniq -f 1 \
-	| sort -n | cut -f2
+	| sed -nE "/(title=|<h2)/ s|.*href=['\"]([0-9a-zA-Z_.~\!*:;,@&=+/?#-]+)['\"\t ].*|\1| p" \
+	| grep -v -e 'www.oantagonista.com/assine' -e "[]\"' {}<>[]" \
+	| nl | sort -k2 | uniq -f 1 | sort -n | cut -f2
 }
-#-e "href=['\"]https://www.oantagonista.com/despertador/['\"]+['\"]" \
+#get links cited in full articles
+getlinksfullf()
+{
+	sed 's|a>|&\n|g' \
+		| sed -nE "s|.*href=['\"]([^'\"]+)['\"].*|\1| p" \
+		| sed -e "/twitter\.com\// s/\?[^\'\"]*//g" \
+		| grep -v -e 'www.oantagonista.com/assine' \
+		| nl | sort -k2 | uniq -f 1 | sort -n | cut -f2
+}
 
 # Check for errors
+#the server does not send consistent error messages, so that is why this
+#function is almost useless..
 cerrf()
 {
 	NOTFOUND=
@@ -305,14 +325,14 @@ cerrf()
 		     -e 'Page not found' -e 'p.gina n.o encontrada' \
 		     -e 'Error processing request' <<< "$PAGE" >&2
 	then
-		printf 'anta.sh: erro: página não encontrada -- %s\n' "$COMP" >&2
 		NOTFOUND=1
+		printf 'anta.sh: erro: página não encontrada -- %s\n' "$COMP" >&2
 	elif [[ -z "$PAGE" ]] || grep -aFiq -e 'has been limited' -e 'you were blocked' \
 		-e 'to restrict access' -e 'access denied' -e 'temporarily limited' \
 		-e 'you have been blocked' -e 'has been blocked' <<< "$PAGE" >&2
 	then
 		printf 'anta.sh: erro: acesso limitado ou página não encontrada -- %s\n' "$COMP" >&2
-		NOTFOUND=1
+		return 1
 	elif ! grep -aq '[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]' <<< "$PAGE" >&2
 	then
 		printf 'anta.sh: erro: não parece ser artigo de <oantagonista> -- %s\n' "$COMP" >&2
@@ -418,12 +438,9 @@ anta() {
 		if ! puxarpgsf; then
 			printf '\nanta.sh: erro -- acesso limitado  [%s]\n' "$SECONDS" 1>&2
 			return 1
-		fi
-
 		#page not found?
-		if ((NOTFOUND))
-		then
-			return 0
+		elif ((NOTFOUND))
+		then return 0
 		fi
 
 		#imprime a página e processa
@@ -439,28 +456,17 @@ anta() {
 		then :
 		#process posts
 		else
-			#cópia de links
-			LINKS2="$( getlinksf <<<"$PAGE" )"
-
 			#print links
-			tac <<< "$LINKS2"
+			getlinksf <<<"$PAGE" | tac
 			echo '==='
 
 			#process 
-			sed 's/[^pagm]>/&\n/g ;s/<\/article[^>]*>/&\n===/g' <<<"$POSTS" \
+			<<<"$POSTS" sed -e 's/[^pagm]>/&\n/g ;s/<\/article[^>]*>/&\n===/g' \
+				-e '/id="noa_carregarmais/,$ d' \
 				| sedhtmlf \
-				| sed -E \
-					-e '/^\s*(COMPARTILHAR|SALVAR|LEIA AQUI|Ver mais)/ d' \
-					-e '/gtag\("event/ d' \
-					-e '/^window.*taboola/ d' \
-					-e 's/\.dot\{.*//' \
-					-e 's/^.live-html.*//' \
-					-e '/^Mais lidas\s*$/ d' \
-					-e '/^var.*_comscore/ d' \
-					-e '/^Voltar para página/ d' \
-					-e '/^Ir para página/ d' \
 				| tac -r -s'^===' \
 				| awk NF
+				#-e '/id="noa_carregarmais/,/id="collect/ d'
 		fi
 		OLDPOSTS="$POSTS"
 		
@@ -498,11 +504,12 @@ fulltf() {
 		then
 			printf '\nanta.sh: erro: acesso limitado -- %s  [%s]\n' "$COMP" "$SECONDS" >&2
 			return 1
+		#page not found?
+		elif ((NOTFOUND))
+		then return 0
 		fi
 	fi
 
-	#page not found?
-	((NOTFOUND)) && return 0
 
 	#cabeçalho
 	cab="$( 
@@ -544,6 +551,7 @@ fulltf() {
 			    -e '/^Acesse nossa página no/d' \
 			    -e 's/<.*id="linkcopy".*>//g' \
 			    -e '/>Notícias relacionadas:/d' \
+				-e 's/class="fraseleiamais.*/>/' \
 			    -e 's|<a|[*][&|g ;s|</a|]&|g' \
 			    -e 's|\[\*\]\[\s*\]\s*||g' \
 				-e 's/<\/li>/&\n/g ;s/<\/[ou]l>/&\n<layout>\n/g'
@@ -551,21 +559,11 @@ fulltf() {
 	#https://stackoverflow.com/questions/5315464/email-formatting-basics-links-in-plain-text-emails
 	
 	#get link references
-	hrefs=( $(
-		sed 's|a>|&\n|g' <<<"$art" \
-			| sed -nE "s|.*href=['\"]([^'\"]+)['\"].*|\1| p" \
-			| nl | sort -k2 | uniq -f 1 \
-			| sort -n | cut -f2 \
-			| sed -e "/twitter\.com\// s/\?[^\'\"]*//g"
-	) )
+	hrefs=( $(getlinksfullf <<<"$art") )
 	
 	#remove html tags, more processing of article
-	art="$( 
-		sedhtmlf <<<"$art" |
-		sed -Ee '/^\s*var.*"script/d' \
-		     -e 's/setTimeout.*//' \
-		     -e 's/function\(\).*//' \
-			 -e '/^\s*(Rua Iguatemi, 192 -|®202[0-9] - O Antagonista)/,/^\s*CNPJ 25.163.879\/0001-13/ d'
+	art="$(
+		sedhtmlf <<<"$art"
 	)"
 
 	#contar parágrafos
@@ -640,11 +638,8 @@ linksf() {
 			#crawl each link
 			while read COMP
 			do
-				#check some link validity
-				if [[ "$COMP" = *[\"\'\{\}\<\>\(\)\ ]* ]]
-				then echo "internal err: getlinksf() -- ${COMP:0:220}" >&2 ;continue
 				#avoid duplicate articles links
-				elif [[ "${LINKSBUFFER[*]}" = *"$COMP"* ]]
+				if [[ "${LINKSBUFFER[*]}" = *"$COMP"* ]]
 				then continue
 				#add to links buffer
 				else LINKSBUFFER+=( "$COMP" )
@@ -672,120 +667,8 @@ linksf() {
 	return $(( ${ret[@]/%/+} 0 ))
 }
 
-## Parse options
-while getopts :afwhlp:rs:uv0123456789 opt
-do
-	case $opt in
-		[0-9])
-			# Páginas para Puxar
-			PAGINAS="${PAGINAS}${opt}"
-			;;
-		a)
-			#use alternative servers
-			OPTALT=1
-			;;
-		f|w)
-			# Textos completos (Full text)
-			FULLOPT=1
-			;;
-		h)
-			# Show Help
-			HELPOPT=1
-			;;
-		l)
-			#use the Less pager
-			OPTL=( less )
-			;;
-		p)
-			# Páginas para Puxar
-			PAGINAS="$OPTARG"
-			;;
-		r)
-			# Anta Rolante
-			ROLLOPT=1
-			;;
-		s)
-			#tempo entre reacessos
-			TEMPO=($OPTARG)
-			;;
-		u)
-			# Checar update ou realizar o update
-			((++UPOPT))
-			;;
-		v)
-			# Version of Script
-			grep -Fm1 '# v' "${BASH_SOURCE[0]}"
-			exit 0
-			;;
-		\?)
-			# Invalid opt
-			echo "anta.sh: erro: opção inválida -- -$OPTARG" >&2
-			exit 1
-			;;
-	esac
-done
-shift $((OPTIND -1))
-typeset -a RET
-export RET
-
-#chamar algumas opções
-#ajuda
-if ((HELPOPT))
-then echo "$HELP" | "${OPTL[@]}" ;exit 0
-fi
-
-#set variables
-typeset -a RET
-
-# Test if cURL and Wget are available
-if command -v curl &>/dev/null
-then YOURAPP=("curl --compressed -s --retry $RETRIES --max-time $TOUT -L -b non-existing -H")
-fi
-if command -v wget &>/dev/null
-then YOURAPP+=("wget -t$RETRIES -T$TOUT -qO- --header")
-fi
-if ((${#YOURAPP[@]}==0))
-then echo 'anta.sh: erro: curl e/ou wget é necessário' >&2 ;exit 1
-fi
-
-#-a use alternative servers, too?
-if (( OPTALT ))
-then SERVERS=( "${SERVERS[@]}" "${ALTSERVERS[@]}" )
-#opção de checagem ou realização da atualização do script
-elif ((UPOPT))
-then updatef ;exit
-fi
-
-#lista de assuntos/categorias
-[[ "${1//\/}" = podcast ]] && set -- videos "${@:2}"
-if [[ \ "${SUBLIST[*]}"\  = *\ "${1//\/}"\ * ]]
-then
-	echo 'anta.sh: assunto detectado' >&2
-	SUBJECT=/"${1//\/}" ;shift
-elif [[ "$1" = *(/)tag/?* ]]
-then
-	echo 'anta.sh: tag/assunto detectado' >&2
-	SUBJECT=/"${1#/}"  SUBJECT="${SUBJECT%/}" ;shift
-elif [[ "$1" = *(/)tag*(/) ]]
-then
-	echo "anta.sh: tag/ requer um ASSUNTO" >&2
-	exit 1
-fi
-
-#setar variáveis das próximas opções
-#usar opção -f se especificar uma URL
-if [[ "$*" = */* ]]; then
-	echo 'anta.sh: link detectado' >&2
-	FULLOPT=1
-	unset ROLLOPT
-#pegar só uma página por número
-elif [[ "$*" = +([0-9\ ]) ]]; then
-	echo 'anta.sh: índice detectado' >&2
-	ONLYONE=1
-	#unset ROLLOPT
-fi
-
 ## Puxar funções das opções
+selectf()
 {
 	#opção padrão
 	#se tiver args posicionais (índices de páginas inciais)
@@ -862,8 +745,130 @@ fi
 			sleep "$AGAIN"
 		done
 	fi
-#use Less pager or Cat ouput?
-} | "${OPTL[@]}"
+}
+
+
+## Parse options
+while getopts :afwhlp:rs:uv0123456789 opt
+do
+	case $opt in
+		[0-9])
+			# Páginas para Puxar
+			PAGINAS="${PAGINAS}${opt}"
+			;;
+		a)
+			#use alternative servers
+			OPTALT=1
+			;;
+		f|w)
+			# Textos completos (Full text)
+			FULLOPT=1
+			;;
+		h)
+			# Show Help
+			HELPOPT=1
+			;;
+		l)
+			#use the Less pager
+			OPTL=1
+			;;
+		p)
+			# Páginas para Puxar
+			PAGINAS="$OPTARG"
+			;;
+		r)
+			# Anta Rolante
+			ROLLOPT=1
+			;;
+		s)
+			#tempo entre reacessos
+			TEMPO=($OPTARG)
+			;;
+		u)
+			# Checar update ou realizar o update
+			((++UPOPT))
+			;;
+		v)
+			# Version of Script
+			grep -Fm1 '# v' "${BASH_SOURCE[0]}"
+			exit 0
+			;;
+		\?)
+			# Invalid opt
+			echo "anta.sh: erro: opção inválida -- -$OPTARG" >&2
+			exit 1
+			;;
+	esac
+done
+shift $((OPTIND -1))
+typeset -a RET
+export RET
+
+#chamar algumas opções
+#ajuda (com e sem pager)
+if ((HELPOPT && OPTL))
+then echo "$HELP" | less ;exit 0
+elif ((HELPOPT))
+then echo "$HELP" ;exit 0
+fi
+
+#set variables
+typeset -a RET
+
+# Test if cURL and Wget are available
+if command -v curl &>/dev/null
+then YOURAPP=("curl --compressed -s --retry $RETRIES --max-time $TOUT -L -b non-existing -H")
+fi
+if command -v wget &>/dev/null
+then YOURAPP+=("wget -t$RETRIES -T$TOUT -qO- --header")
+fi
+if ((${#YOURAPP[@]}==0))
+then echo 'anta.sh: erro: curl e/ou wget é necessário' >&2 ;exit 1
+fi
+
+#-a use alternative servers, too?
+if (( OPTALT ))
+then SERVERS=( "${SERVERS[@]}" "${ALTSERVERS[@]}" )
+#opção de checagem ou realização da atualização do script
+elif ((UPOPT))
+then updatef ;exit
+fi
+
+#lista de assuntos/categorias
+[[ "${1//\/}" = podcast ]] && set -- videos "${@:2}"
+if [[ \ "${SUBLIST[*]}"\  = *\ "${1//\/}"\ * ]]
+then
+	echo 'anta.sh: assunto detectado' >&2
+	SUBJECT=/"${1//\/}" ;shift
+elif [[ "$1" = *(/)tag/?* ]]
+then
+	echo 'anta.sh: tag/assunto detectado' >&2
+	SUBJECT=/"${1#/}"  SUBJECT="${SUBJECT%/}" ;shift
+elif [[ "$1" = *(/)tag*(/) ]]
+then
+	echo "anta.sh: tag/ requer um ASSUNTO" >&2
+	exit 1
+fi
+
+#setar variáveis das próximas opções
+#usar opção -f se especificar uma URL
+if [[ "$*" = */* ]]; then
+	echo 'anta.sh: link detectado' >&2
+	FULLOPT=1
+	unset ROLLOPT
+#pegar só uma página por número
+elif [[ "$*" = +([0-9\ ]) ]]; then
+	echo 'anta.sh: índice detectado' >&2
+	ONLYONE=1
+	#unset ROLLOPT
+fi
+
+#selecionar opção
+#usar pager?
+if ((OPTL))
+then selectf "$@" | less
+else selectf "$@"
+fi
 
 exit $(( ${RET[@]/%/+} 0 ))
 
